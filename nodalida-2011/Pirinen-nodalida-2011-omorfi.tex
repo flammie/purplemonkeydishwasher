@@ -1,0 +1,310 @@
+\documentclass[11pt]{article}
+\usepackage{eacl2009}
+\usepackage{times}
+\usepackage{url}
+\usepackage{latexsym}
+\usepackage{xltxtra}
+
+%\setlength\titlebox{6.5cm}    % You can expand the title box if you
+% really have to
+
+\title{Modularisation of Finnish Finite-State Language Description---Towards
+Wide Collaboration in Open Source Development of Morphological Analyser}
+
+%\author{Tommi A Pirinen\\
+%  University of Helsinki\\
+%  Helsinki, Finland\\
+%  {\tt tommi.pirinen@helsinki.fi}
+%}
+
+%\date{\today}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+In this paper we present an open source implementation for Finnish
+morphological parser. We shortly evaluate it against contemporary criticism
+towards monolithic and unmaintainable finite-state language description.  We
+use it to demonstrate way of writing finite-state language description that is
+used for varying set of projects, that typically need morphological analyser,
+such as POS tagging, morphological analysis, hyphenation, spell checking and
+correction, rule-based machine translation and syntactic analysis.  The
+language description is done using available open source methods for building
+finite-state descriptions coupled with autotools-style build system, which is
+de facto standard in open source projects.
+\end{abstract}
+
+\section{Introduction}
+
+Writing maintainable language descriptions for finite-state systems has
+traditionally been a laborious task. Even though finite-state technology has
+been de facto standard for writing computational language descriptions for more
+than two decades now~\cite{beesley/2003}, it has some recognised flaws and
+problems both caused by shortcomings of actual implementations and
+background technology~\cite{wintner/2008}. Commonly language description is
+performed by a single linguist or language technologist. The descriptions
+typically wind up being complex enough that modifying them requires a great
+amount of studying and understanding before one is able to do the smallest of
+modifications to the system. In the current times that all proper, healthy,
+scientific projects should be open source and globally developed, this poses a
+challenge for such project's internal structure. Another source of problem in
+such collaboration is that background of contributors for language description
+varies from computer scientists to linguists~\cite{maxwell/2008} to
+computer-savvy native language speakers, all of whom should be able to
+contribute to the project.  The solutions we propose for this is to embrace
+proper modularisation in language descriptions to allow multiple specific
+entry points to contributors.
+
+In this paper we describe a new implementation of the Finnish language
+description called omorfi\footnote{http://home.gna.org/omorfi}, made to support
+large variety of NLP applications and different audiences.  While the
+background theory for implementing finite-state description of Finnish was laid
+out already in \newcite{koskenniemi/1983}, and morphophonological system
+doesn't have significant changes, the actual system was rewritten from the
+scratch. The rewriting was originally done by single linguist as usual, in a
+master's thesis project~\cite{pirinen/2008}, but afterwards it has been
+extended as full-fledged open source project and used in various contexts. This
+extended development has made necessary to create a better modularised
+framework to allow people of different level of knowledge and familiarity with
+finite-state technology and Finnish to contribute on their prospective parts of
+the description without causing problems for other applications of the
+finite-state analysers.
+
+The projects that have used and use omorfi as language description include
+spell checking and correction~\cite{pirinen/2010/lrec}, lemmatizing for IR
+applications (e.g.~\newcite{kurola/2010}), named entity recognition, rule-based
+machine translation (e.g. Finnish---Northern
+Sámi\footnote{\url{http://apertium.svn.sourceforge.net/viewvc/apertium/incubator/apertium-sme-fin/}})
+and syntactic disambiguation and analysis. The demands for even the basic
+morphology with all these different applications are very different with
+regards to productivity; lexical coverage and accuracy as well as depth of
+tagging, so it has became obvious that no one lexical automaton will work for
+everyone.  For this reason the modularisation has to provide easily
+configurable options and modifiability for all end-points.
+
+The modularisation of omorfi was based primarily on technological development,
+which is the reason why it still maintains some traditional finite-state
+morphology distinctions, such as strict separation off morphological
+combinatorics (i.e. lexc code) and morphophonological phenomena (i.e.
+twolc code). The same is similarly true for new code base, such as one for
+training weighted finite-state models; weighting was split to its one
+module.
+
+One of the key points in modular structure here is that we ensure that modifying
+will not typically break already working parts, so contributors adding new words
+or moving hyphens will not cause problems in other parts of description
+as much as possible.
+
+\section{Modularisation of Finite-State Language Description}
+\label{sec:modules}
+
+The modularisation scheme we ended up with in finite-state description of
+Finnish has grown organically around rather standard description of
+finite-state morphology not significantly different from the work of
+\newcite{koskenniemi/1983}. The further developments of modularisation more or
+less have followed from development of finite-state technology along years
+from initial implementation of omorfi at publication of \newcite{pirinen/2008}
+to its current open source community developed version.
+
+In figure~\ref{fig:modules} we give a hierarchical list of abstract
+modules implemented in omorfi at the time of writing. As mentioned, the
+classical modules of morphotactic combinatorics (i.e. Xerox compatible lexc
+language description) and morphophonology (i.e. Xerox compatible twolc
+description) is still present. The morphotactic combinatorics has already been
+split to sub modules for two reasons. First is primarily practical fact
+that code base for morphotactic combinatorics for words of Finnish is huge.
+Second and perhaps the more important distinction is the fact that central
+and integral part of the life force of morphophonological description of
+the all languages is to keep up with constant influx of new lexical items
+to the language; neologisms, proper nouns and other coinages.  From further
+new modules, orthographical variations was implemented to create detached
+support for certain obvious variations of Finnish written data, e.g. the
+typewriter and SF7-ASCII era digraphs like sh and zh in stead of š and ž
+respectively. The hyphenation and syllabification of Finnish language is also
+one obvious service for morphological dictionary to provide; for Finnish the
+compound boundaries cannot typically be discriminated without a
+dictionary~\cite{linden/2009/nodalida}.  One of the features that has become
+rather obvious along years for morphological parsers is the fact that all
+computational linguistic applications must require their own very special
+version of morphological analysis, so in omorfi we've chosen to avoid lock-ins
+for any specific type of \emph{tag sets} or morphological analyses so to say,
+and instead go for one version of analysis to contain certain superset of all
+needed forms and implement finite-state descriptions (i.e. simple rewriting
+rules) to provide all of the different analysis styles. The statistical models
+is one of recent developments of finite-state technology, and there's a lot
+to offer for language models here so the whole family of weighted finite-state
+training and models is also implemented in omorfi as a separate module here,
+which for most intents and purposes does work independently of any other part
+of the language description.
+
+\begin{figure}[h]
+\begin{centering}
+\caption{Hierarchy of modules in modern finite-state implementation Finnish languege
+\label{fig:modules}}
+\end{centering}
+\begin{scriptsize}
+\begin{itemize}
+\item morphotactics \begin{itemize}
+    \item lexical data
+    \item stem morphophonology
+    \item inflection, derivation and compounding
+    \item lexical-syntactic data
+\end{itemize}
+\item morphophonology
+\item analysis models
+\item orthographical variations
+\item hyphenation and syllabification
+\item error models
+\item statistical models
+\item lexicographic filtering
+\end{itemize}
+\end{scriptsize}
+\end{figure}
+
+\section{Implementation}
+\label{sec:implementation}
+
+Here we briefly discuss implementation of modules, mainly to discuss
+about practices that help the cooperation. Naturally full discussion of the
+modules is found in the documentation of the
+system\footnote{\url{http://home.gna.org/omorfi/}}. The system
+implementation is harnessing the autotools framework and unix style tools of
+HFST to incrementally build the finite-state automata using finite-state
+algebra, such as composition to extend them, originally noted even in
+\newcite{beesley/2003}. The crucial thing for this modular approach is that it
+can be applied incrementally, each module can be replaced or disabled entirely
+at needs of end application, and with autotools framework all this
+can be performed by simple command-line switch to \verb|./configure|.
+
+\subsection{Lexical Data---Lexicon and Features of Lexical Items}
+
+The initial part of morphotactics deals with lexicographical data. This is
+the part where most modification and cooperation can be used, the lexical items
+in language change all the time in introduction of new word forms, and the
+expertise needed to extend the lexicon does not require significant expertise
+beyond understanding of the language. For this case we provide different entry
+formats for new lexical data; csv, XML and so on. The minimal data to enter for
+new word form is morphological part of speech, defined in Finnish grammar
+as distinction between verb, nominal or non-inflecting particle, additionally a
+paradigm classification is typically needed for working inflection and
+derivation. While this is facilitated as much as possible, it is still seen as
+problematic by part of contributors, so further research for easy lexicon
+management is still required.
+
+The other practical example as to why easy modification of lexical data is
+crucial is that for example for rule-based machine translation---in our case
+apertium---it is useful to establish mapping between lexical units of source
+language and target language. For this reason easy access to lexical units
+is required for developers of rule-based machine translation units.
+
+Another extension scheme needed is for projects working syntactic parsers based
+on morphological language description---an example in Finnish
+cases is yet another forthcoming constraint grammar\cite{karlsson/1990} based
+analyser. In this case extensions can be also based on purely lexical data,
+such as argument structures and ordering for verbs and adpositions. The method
+to implement this is currently at preprocessing phase, however it could be
+arguably a separate phase, since lexical data can be trivially composed
+afterwards.
+
+\subsection{Traditional Morphotactics and Phonology---The Lexc and Twolc Model}
+
+The various lexical data sources are joined back to traditional lexc format,
+which is combined with word stem variation definitions and inflectional data to
+produce lexical automaton. This is compose-intersected with morphophonology
+descriptions to produce the analyser already; as these parts rarely need
+changes beyond bug-fixes and are unlikely to benefit from open source
+cooperation beyond initial linguist work, they are still in same form as
+traditional finite-state morphology by \newcite{beesley/2003}, even if it was
+deemed monolithic and fragile for such collaboration.
+
+\subsection{Analysis Formats and Sets}
+
+Another thing that is quickly obvious for interoperability is that all projects
+using morphological analyser, for whatever purpose, require their own analysis
+format. Instead of converging to standard we have temporarily solved this by
+making our analyser to contain superset of required features at all times, and
+providing rules to rewrite the tagsets. The rulesets can be compiled to
+finite-state networks and composed like usual. Typical rules are of course
+relatively simple contextless rewriting, for example the annotation for
+singular nominative is \verb|+sg+nom|, \verb| SG NOM| or \verb|<sg><nom>|, for
+different applications, so a simple composition of \verb|NUM=SG:+sg| rule and
+\verb|CASE=NOM:nom| is enough for providing the singular nominatives to that
+analysis style.  Ideally of course this would be solved by using more suitable
+abstract data type for the annotations than character string
+\cite{wintner/2008}, ideally derived from standardized set of features, such as
+ISOCat as is also suggested by \cite{maxwell/2008}.
+
+
+\subsection{Orthographical variations}
+
+When dealing with data from various sources, such as old literature or
+\emph{spoken} standard language found in instant messaging and perhaps
+transcribed spoken corpora, there are certain variations on spelling rules to
+take care of. These has also been implemented as independent rule set compiled
+to composable finite-state automaton. Incidentally both mapping of typewriter
+digraphs sh and zh to š and ž correspondingly and omission of final component
+of i-final diphthong of spoken language are both definable as rule working on
+morphological analyser as an independent unit.
+
+\subsection{Hyphenation and syllabification}
+
+Hyphenation is in practice also one of the applications of the language, It has
+been defined as a rule set over half-build morphological analyser, since it can
+neatly abuse build-time information of the analyser. such as word and morpheme
+boundaries. The syllables could also conversely be used by other parts of the
+description if needed, e.g. the morphophonological alteration a:e depends more
+on syllable count than traditional stem paradigms classes of Finnish
+
+\subsection{Error models}
+
+Error model is a crucial part of spell-checking system, for the correction
+task. This is implemented as finite-state filter that can be 
+applied with on-the-fly composition \cite{pirinen/2010/cla} to perform the
+error correction for spell checking, or for example error-tolerant analysis.
+
+\subsection{Statistical models}
+
+Statistical models provide for disambiguating language models and spell-checking
+tasks for example. The statistical models used are simple finite-state automata
+or training sets combinable to the language description by use of 
+composition~\cite{linden/2009/nodalida,linden/2009/fsmnlp}. 
+
+\subsection{Filtering the Analyser}
+
+The models needed for different task may need widely different dictionaries and
+allowed word-forms, and not always the statistical models are sufficient to
+discriminate between good word forms. So we also provide filter rule sets, to
+limit features, such as derivation and compounding, and lexical units, such as
+archaic or dialectal words. For example for the spell-checker's error detection
+lexicon or information retrieval task compounding and derivation can be largely
+allowed, whereas in the spelling correction the suggestions should be relatively
+conservative for plausible but non-existing compounds and derivations.
+
+\section{Discussion and Future Work}
+
+In this article we have showed that finite-state description can be implemented
+in modularised manner enabling wide cooperation in the open source context for
+people with varying background. Especially
+
+Furthermore we have demonstrated the ease of
+proper abstraction in finite-state language description using easily available
+open source tools while still providing open source community with the de facto
+standard build system of autotoolset for wide distribution, packaging and
+deployment.
+
+What we did not address here is the easy way of coupling up-to-date
+documentation with our modularised language description. The next step to
+research is to see into integrating the notion of literate programming in this
+framework. This topic has already been widely researched by
+\newcite{maxwell/2008}, specifically in case of finite-state language
+descriptions.
+
+%\section*{Acknowledgements}
+
+% We thank the HFST research group and our colleagues for fruitful discussions.
+
+\bibliographystyle{acl}
+\bibliography{nodalida2011}
+
+
+\end{document}

@@ -1,0 +1,33 @@
+Multichar_Symbols
+
++noun +1 +a +d +h +m +AV+ +AV- +AVA +AVD +AVH +AVM +all +gen +ptv +sg ~A ~K ~P 
+
+LEXICON Root
+	kotus_1/stub	;
+
+LEXICON kotus_1/stub
+akku+noun+1+a:ak~Ku+AVA	kotus_1/stemfiller	;
+alku+noun+1+d:al~Ku+AVD	kotus_1/stemfiller	;
+kumpu+noun+1+h:kum~Pu+AVH	kotus_1/stemfiller	;
+kyky+noun+1+m:ky~Ky+AVM	kotus_1/stemfiller	;
+
+LEXICON kotus_1/stemfiller
+0	NounStem/Singular	;
+0	NounAllomorph/PartitiveA	;
+
+
+LEXICON NounAllomorph/PartitiveA
++sg+ptv:~A+AV+	End	;
+
+LEXICON NounStem/Singular
++sg+gen:n+AV-	End	;
++sg+all:l+AV-le	End	;
+:n+AV-			Compounding	;
+
+LEXICON Compounding
+	Root	;
+
+LEXICON End
+	#	;
+
+

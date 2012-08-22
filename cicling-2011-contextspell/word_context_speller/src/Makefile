@@ -1,0 +1,11 @@
+CXX_FLAGS=-Werror -Wall -Wextra -O3
+
+all:compile_english_context_speller compile_finnish_context_speller word_context_speller
+
+install:compile_english_context_speller compile_finnish_context_speller word_context_speller
+	cp compile_english_context_speller compile_finnish_context_speller word_context_speller measure_accuracy.pl ../bin
+	chmod u+x ../bin/measure_accuracy.pl
+
+compile_english_context_speller:compile_english_context_speller.cc WordContextSpeller.cc WordContextModel.cc SmoothedWordContextModels.cc WeightMap.cc
+compile_finnish_context_speller:compile_finnish_context_speller.cc WordContextSpeller.cc WordContextModel.cc SmoothedWordContextModels.cc WeightMap.cc
+word_context_speller:word_context_speller.cc WordContextSpeller.cc WordContextModel.cc SmoothedWordContextModels.cc WeightMap.cc SuggestionsInContext.cc

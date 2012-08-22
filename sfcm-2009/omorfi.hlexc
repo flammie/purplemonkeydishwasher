@@ -1,0 +1,181 @@
+Multichar_Symbols
++noun +verb +adjv +adve +pron
++1 +2 +3 +4 +5 +6 +7 +8 +9 +10
++11 +12 +13 +14 +15 +16 +17 +18 +19 +20
++21 +22 +23 +24 +25 +26 +27 +28 +29 +30
++31 +32 +33 +34 +35 +36 +37 +38 +39 +40
++41 +42 +43 +44 +45 +46 +47 +48 +49 +50
++51 +52 +53 +54 +55 +56 +57 +58 +59 +60
++61 +62 +63 +64 +65 +66 +67 +68 +69 +70
++71 +72 +73 +74 +75 +76 +77 +78
++99 +101
++a +b +c +d +e +f +g +h +i +j +k +l +m +n +o +p +t
++AV+ +AV-
++AVA +AVB +AVC +AVD +AVE +AVF +AVG +AVH +AVI +AVJ +AVK +AVL +AVM +AVN +AVO +AVP
++AVS +AVT
++AVX +AVY
++nom +ptv +acc +gen +ine +ela +ill +ade +abl +all +ess +ins +abe +tra +cmt
++sg +pl
++sg1 +sg2 +sg3 +pl1 +pl2 +pl3
++cmv
++pres +past
++indv +cond +potn +impv
++pe4 +neg
++act +pss
++infa +infe +infma +infmaisilla
++pcpnut +pcpva +pcpva +pcpneg
++pos +cmp +sup
++pos +sep +lat +prl +sti
++clit
++wb
++present +comparative +possessive
++PLT +SGT
++Dminen +Dst +Dja +Dinen +Dlainen +Dtar +Dllinen +Dton +Dtse +Doi
+^IE ^UO ^YÖ ^Ix
+~A ~O ~U ~K ~P ~T ~G ~B ~D ~N ~V
+^A ^E ^I ^O ^U ^Y ^Ä ^Ö
+^ETU ^TAKA
+##
+
+LEXICON Root
+##	kotus_sanalista	;
+
+LEXICON kotus_sanalista
+	kotus_1/stub	;
+	kotus_2/stub	;
+	kotus_3/stub	;
+	kotus_4/stub	;
+	kotus_5/stub	;
+	kotus_6/stub	;
+	kotus_7/stub	;
+	kotus_8/stub	;
+	kotus_9/stub	;
+	kotus_10/stub	 ;
+	kotus_11/stub	 ;
+	kotus_12/stub	 ;
+	kotus_13/stub	 ;
+	kotus_14/stub	 ;
+	kotus_15/stub	 ;
+	kotus_16/stub	 ;
+	kotus_17/stub	 ;
+	kotus_18/stub	 ;
+	kotus_19/stub	 ;
+	kotus_20/stub	 ;
+	kotus_21/stub	 ;
+	kotus_22/stub	 ;
+	kotus_23/stub	 ;
+	kotus_24/stub	 ;
+	kotus_25/stub	 ;
+	kotus_26/stub	 ;
+	kotus_27/stub	 ;
+	kotus_28/stub	 ;
+	kotus_29/stub	 ;
+	kotus_30/stub	 ;
+	kotus_31/stub	 ;
+	kotus_32/stub	 ;
+	kotus_33/stub	 ;
+	kotus_34/stub	 ;
+	kotus_35/stub	 ;
+	kotus_36/stub	 ;
+	kotus_37/stub	 ;
+	kotus_38/stub	 ;
+	kotus_39/stub	 ;
+	kotus_40/stub	 ;
+	kotus_41/stub	 ;
+	kotus_42/stub	 ;
+	kotus_43/stub	 ;
+	kotus_44/stub	 ;
+	kotus_45/stub	 ;
+	kotus_46/stub	 ;
+	kotus_47/stub	 ;
+	kotus_48/stub	 ;
+	kotus_49/stub	 ;
+	kotus_50/stub	 ;
+	kotus_51/stub	 ;
+	kotus_52/stub	 ;
+	kotus_53/stub	 ;
+	kotus_54/stub	 ;
+	kotus_55/stub	 ;
+	kotus_56/stub	 ;
+	kotus_57/stub	 ;
+	kotus_58/stub	 ;
+	kotus_59/stub	 ;
+	kotus_60/stub	 ;
+	kotus_61/stub	 ;
+	kotus_62/stub	 ;
+	kotus_63/stub	 ;
+	kotus_64/stub	 ;
+	kotus_65/stub	 ;
+	kotus_66/stub	 ;
+	kotus_67/stub	 ;
+	kotus_68/stub	 ;
+	kotus_69/stub	 ;
+	kotus_70/stub	 ;
+	kotus_71/stub	 ;
+	kotus_72/stub	 ;
+	kotus_73/stub	 ;
+	kotus_74/stub	 ;
+	kotus_75/stub	 ;
+	kotus_76/stub	 ;
+	kotus_77/stub	 ;
+	kotus_78/stub	 ;
+	kotus_99/stub	;
+	kotus_101/stub	;
+	exceptions	;
+
+LEXICON Compounding
+%#	Nominal	;
+
+LEXICON Nominal
+	kotus_1/stub	;
+	kotus_2/stub	;
+	kotus_3/stub	;
+	kotus_4/stub	;
+	kotus_5/stub	;
+	kotus_6/stub	;
+	kotus_7/stub	;
+	kotus_8/stub	;
+	kotus_9/stub	;
+	kotus_10/stub	 ;
+	kotus_11/stub	 ;
+	kotus_12/stub	 ;
+	kotus_13/stub	 ;
+	kotus_14/stub	 ;
+	kotus_15/stub	 ;
+	kotus_16/stub	 ;
+	kotus_17/stub	 ;
+	kotus_18/stub	 ;
+	kotus_19/stub	 ;
+	kotus_20/stub	 ;
+	kotus_21/stub	 ;
+	kotus_22/stub	 ;
+	kotus_23/stub	 ;
+	kotus_24/stub	 ;
+	kotus_25/stub	 ;
+	kotus_26/stub	 ;
+	kotus_27/stub	 ;
+	kotus_28/stub	 ;
+	kotus_29/stub	 ;
+	kotus_30/stub	 ;
+	kotus_31/stub	 ;
+	kotus_32/stub	 ;
+	kotus_33/stub	 ;
+	kotus_34/stub	 ;
+	kotus_35/stub	 ;
+	kotus_36/stub	 ;
+	kotus_37/stub	 ;
+	kotus_38/stub	 ;
+	kotus_39/stub	 ;
+	kotus_40/stub	 ;
+	kotus_41/stub	 ;
+	kotus_42/stub	 ;
+	kotus_43/stub	 ;
+	kotus_44/stub	 ;
+	kotus_45/stub	 ;
+	kotus_46/stub	 ;
+	kotus_47/stub	 ;
+	kotus_48/stub	 ;
+	kotus_49/stub	 ;
+
+LEXICON Ennd
+##	#	;

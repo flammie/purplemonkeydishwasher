@@ -1,0 +1,132 @@
+\documentclass[utf8]{beamer}
+
+\usepackage{beamerthemesplit}
+\usepackage[finnish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc} 
+\usepackage{times}
+
+\usetheme{default}
+
+\begin{document}
+
+\title[Weighted Finnish Compounds with HFST-LexC]{Weighted Finite-State Morphological Analysis of Finnish Compounding with
+\textsc{HFST-LexC}}
+\author[Tommi Pirinen]{Tommi Pirinen, Krister Lindén\\ \texttt{tommi.pirinen@helsinki.fi}}
+\date{2009-XX-XX}
+\institute[University of Helsinki]{University of Helsinki\\ Department of General Linguistics}
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Finnish Compounding Analysis}
+\begin{itemize}
+\item Finnish nominal compounding allows arbitrary noun chains with final noun
+inflected and other nouns in genitive or nominative form.
+E.g. \emph{isä} (father), \emph{isänisä} (grandfather), \emph{isänisänisä}
+(great grandfather) and so forth.
+\item In lexicons, certain compounds can be lexicalized, i.e. treated as mainly non-compound unit. E.g. \emph{talonmies} (janitor) $\sim$
+\emph{talon\#mies} (man of the house)
+\item Productive compounding and lexicalization of compounds results in segmentational ambiguity, such as:
+\begin{itemize}
+\item \emph{paikassa} (in the place), \emph{pai\#kassa} (pie cash register)
+\item \emph{isän\#isä} (grandfather), \emph{isä\#nisä} (father udder)
+\item \emph{avaruus\#lentotukikohta} (space \# flight base), \emph{avaruuslento\#tukikohta} (space flight \# base)
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Disambiguation criteria}
+\begin{itemize}
+\item Most likely reading is the one with simplest structure
+\begin{itemize}
+\item We use number of word boundaries as metric of structural complexity
+\item e.g. prefer \emph{paikassa} over \emph{pai\#kassa}
+\end{itemize}
+\item Most likely reading has most common words
+\begin{itemize}
+\item We use frequency of word forms in corpus as commonness of words in compound
+\item e.g. usually prefer \emph{isän\#isä} over \emph{isä\#nisä}
+\item e.g. preference between \emph{avaruuslento\#tukikohta} and 
+\emph{avaruus\#lentotukikohta} may vary depending on corpora
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Learning Corpus Frequencies from Word Forms}
+\begin{itemize}
+\item<1-> Assume corpus size of $CS$ entries, including:
+\begin{tabular}{l|r|l|r|l|r|}
+talo & 1149 & talon & \alert<1>{1673} & talotta & 0 \\
+mies & \alert<1>{6250} & miehen & 2998 & miehettä & \alert<1>{0} \\
+\multicolumn{3}{l|}{talonmies} & \multicolumn{3}{r}{\alert<1>{68}} \\
+\end{tabular}
+\item<1-> We use probabilities of word tokens in corpora
+to give weight to compound parts (converted with $-log()$ for tropical semiring):
+\begin{itemize}
+\item talonmies = $-log(\frac{\alert<1>{69}}{CS})$ {\uncover<2->{$ + 0$}}
+\item talon\#mies = $-log(\frac{\alert<1>{1674}}{CS}) + -log(\frac{\alert<1>{6251}}{CS})$ {\uncover<2->{$ + \alert<2>{-log(\frac{1}{CS+1})}$}}
+\item talon\#miehettä = $-log(\frac{\alert<1>{1674}}{CS}) + -log(\frac{\alert<1>{1}}{CS})$ {\uncover<2->{$ + \alert<2>{-log(\frac{1}{CS+1})}$}}
+
+\end{itemize}
+\item<2-> To account the structural penalty we add weight equal to (or greater than)
+\alert<2>{$-log(\frac{1}{CS+1})$} per word boundary.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Weighting Finnish Compounding in Lexc Lexicon Formalism}
+\begin{tiny}
+\begin{tabular}{l l l l}
+LEXICON & \alert<1>{CompoundNonFinal} & &  \\
+talo & \alert<1>{Compound} & "house, {\uncover<3->{\alert<3>{weight: -log(f('talo')/CS)}}}" & ; \\
+talon & Compound & "house's, {\uncover<3->{\alert<3>{weight: -log(f('talon')/CS)}}}" & ; \\
+& & & \\
+LEXICON & \alert<1>{Compound} & & \\
+\# & \alert<1>{CompoundNonFinal} & {\uncover<2->{\alert<2>{"weight: -log(1/(CS+1))"}}} & ; \\
+\# & \alert<1>{CompoundFinal} & {\uncover<2->{\alert<2>{"weight: -log(1/(CS+1))"}}} & ; \\
+& & & \\
+LEXICON & \alert<1>{CompoundFinal} & & \\
+talo+sg+nom:talo & \alert<1>{\#} & "house, {\uncover<4->{\alert<4>{weight: -log(f('talo+sg+nom')/CS)}}}" & ; \\
+talo+sg+gen:talon & \# & "house's, {\uncover<4->{\alert<4>{weight: -log(f('talo+sg+gen')/CS)}}}" & ; \\
+talo+sg+ill:taloon & \# & "in to the house, {\uncover<4->{\alert<4>{weight: -log(f('talo+sg+ill')/CS)}}}" & ; \\ 
+\end{tabular}
+\end{tiny}
+\begin{itemize}
+\item<1-> Any amount of compound initial forms, then word boundary, and final form with analyses
+\item<2-> Assign maximum weight at word boundaries
+\item<3-> Calculate surface form frequency weights for initial elements
+\item<4-> Calculate analysis form weights for final elements
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Results}
+\begin{itemize}
+\item Comparing against results of another automatic disambiguating analyzer (i.e. not a gold standard)
+\item Using only structural penalty for boundaries gives 99.96 \% precision and recall
+\item Adding corpus probability penalties for compound parts or only corpus weights we found
+virtually no disagreements with reference corpus, i.e. achieved 100 \% precision
+and recall
+\item Discarding the structural penalty and retaining only the corpus penalty the result stays at 100 \% precision and recall
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Related research}
+\begin{itemize}
+\item Similar research from other languages and methods:
+\begin{itemize}
+\item Anne Schiller (2005) \emph{German compound analysis with \emph{wfsc}}
+\item Fred Karlsson (1998) \emph{Swetwol: A comprensive morphological analyzer for Swedish}
+\item Jonas Sjörbergh and Viggo Kann (2004) \emph{Finding the correct interperatioon of Swedish compounds a statistical approach}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\end{document}

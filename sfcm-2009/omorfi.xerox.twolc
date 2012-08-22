@@ -1,0 +1,148 @@
+
+Alphabet
+
+A C D E F G H I J K  L M N O P Q R S T U V W X Y Z Å Ä Ö È
+a b c d e f g h i j k l m n o p q r s t u v w x y š ž Š Ž
+	z å ä ö ':0 
+	á à â é è ê î ô û í ï ó ò ú ù	
+	%4 %-:%- ’ %'   ‐ 
+	a:e ä:e
+	%~T:t %~P:p %~K:k
+	%~K:’ %~K:v %~K:0 %~K:g %~K:j 
+	%~T:l %~T:r %~T:n %~T:0 %~T:d 
+	%~P:m %~P:0 %~P:v
+	%~A:a %~A:ä %~O:o %~O:ö %~U:u %~U:y 
+	%~V:0 %~V:a %~V:e %~V:i %~V:o %~V:u %~V:y %~V:ä %~V:ö
+	%~N:l %~N:r %~N:s %~N:n
+
+	%+62:0 %+63:0 %+64:0 %+65:0 %+73:0 n:0
+	%+present:0 %+possessive:0 %+comparative:0
+	%+AV%+:0 %+AV%-:0
+	%^A:0 %^O:0 %^U:0 %^Ä:0 %^Ö:0 %^E:0 %^I:0 %^Y:0 %^TAKA:0 %^ETU:0 #:0
+	%^Ä:0 %^Ö:0 ##:0 %^TAKA:0 %^YÖ:0 %^UO:0
+	%+AVA:0 %+AVB:0 %+AVC:0 %+AVD:0 %+AVE:0 %+AVF:0 %+AVG:0 %+AVH:0 %+AVI:0 
+	%+AVJ:0 %+AVK:0 %+AVL %+AVM:0 %+AVN:0 %+AVO:0 %+AVP:0 %+AVT:0
+	%+AVX:0 %+AVY:0 
+	%^IE:0 %^Ix:0 %+PLT:0  %  ;
+
+
+Sets
+
+Soinnutettu = A O U a o u Ä Ö Y ä ö y %^A %^O %^U %^Ä %^Ö %^Y %^ETU %^TAKA # ;
+BackHarmony = A O U a o u %^A %^O %^U %^TAKA ;
+FrontHarmony = Ä Ö Y ä ö y %^Ä %^Ö %^Y %^ETU ;
+Vowels = a e i o u y å ä ö á à â é è ê î ô û í ï ó ò ú ù A E I O U Y Ä Ö È ;
+BasicVowels = a e i o u y å ä ö ;
+GhostVowels = %^A %^E %^I %^O %^U %^Y %^Ä %^Ö ;
+
+FrontGhostVowels   = %^Y %^Ä %^Ö ;
+FrontVowels        =   y   ä   ö ;
+
+VowelHarmonyMP            = %~A   e   i %~O %~U ;
+NonFrontGhostVowels       = %^A %^E %^I %^O %^U ;
+NonFrontVowels            =   a   e   i   o   u ; 
+NonFrontAccentAcuteVowels =   á   é   í   ó   ú ;
+NonFrontAccentGraveVowels =   à   è   ï   ò   ù ;
+
+WordChars = a b c d e f g h i j k l m n o p q r s š t u v w x y z ž å ä ö 
+            A C D E F G H I J K L M N O P Q R S Š T U V W X Y Z Ž Å Ä Ö 
+            á à â é è ê î ô û È %4 ‐ %- ’ %' %  # ## ;
+
+GradeMarks = %+AV%+ %+AV%- ;
+Grades = %+AVA %+AVB %+AVC %+AVD %+AVE %+AVF %+AVG %+AVH %+AVI %+AVJ %+AVK %+AVL
+		 %+AVM %+AVN %+AVO %+AVP %+AVT ;
+Gradations = %+AV%+ %+AV%- # ## 
+			%+AVA %+AVB %+AVC %+AVD %+AVE %+AVF %+AVG %+AVH %+AVI %+AVJ
+			%+AVK %+AVL
+			%+AVM %+AVN %+AVO %+AVP %+AVT ;
+NoVowelLengtheningClasses = %+62 %+63 %+64 %+65 %+73 ;
+
+Definitions
+
+Soinnuttamaton = ? - [ Soinnutettu:? | #: | ##: ] ;
+ConsonantCluster = [ ? - [ Vowels | GhostVowels: | NoVowelLengtheningClasses: | VowelHarmonyMP: | #: | ##: ] ]* ;
+BackRealizations = [ %~A:a | %~O:o | %~U:u ] ;
+
+Rules
+
+"Possessive n deletion"
+n:0 <=> _ %+possessive: ;
+
+"Geminate Gradation"
+ %~P:0 <=>  _ [ \Gradations:0 ]* %+AVB: [ \Gradations:0 ]* %+AV%-: ;
+
+"K:0 gradation"
+%~K:0 <=> _ [ \Gradations:0 ]* [ %+AVD:0 | %+AVA:0 ] [ \Gradations:0 ]* %+AV%-: ;
+
+"K:’ special cases"
+%~K:’ <=> :Vx _ :Vx [ \Gradations:0 ]* %+AVD:0 [ \Gradations:0 ]* %+AV%-:0 ; 
+	where Vx in BasicVowels ;
+
+"T:0 gradation"
+%~T:0 <=> _ [ \Gradations:0 ]* [ %+AVC:0 | %+AVT:0 ] [ \Gradations:0 ]* %+AV%-:0 ;
+
+"Weakening gradation others"
+Cs:Cw <=> _ [ \Gradations:0 ]* Cm: [ \Gradations:0 ]* %+AV%-: ;
+	where Cs in (   %~K   %~K   %~K   %~P   %~P   %~T   %~T   %~T   %~T ) Cw in (     g     j     v     v     m     d     l     n     r ) Cm in ( %+AVG %+AVL %+AVM %+AVE %+AVH %+AVF %+AVI %+AVJ %+AVK ) matched ;
+
+"Vowel Harmony"
+
+!! $vowelharmony1$ = ({<~A>}:{a} ^-> ($backharmony$ $soinnuttamaton$* __) )
+!! $vowelharmony2$ = ({<~A>}:{ä} ^-> ($frontharmony$ $soinnuttamaton$* __) )
+!! $vowelharmony3$ = ({<~A>}:{ä} ^-> (<wb>$soinnuttamaton$* __) )
+!! $vowelharmony4$ = ({<~O>}:{o} ^-> ($backharmony$ $soinnuttamaton$* __) )
+!! $vowelharmony5$ = ({<~O>}:{ö} ^-> ($frontharmony$ $soinnuttamaton$* __) )
+!! $vowelharmony6$ = ({<~O>}:{ö} ^-> (<wb>$soinnuttamaton$* __) )
+!! $vowelharmony7$ = ({<~U>}:{u} ^-> ($backharmony$ $soinnuttamaton$* __) )
+!! $vowelharmony8$ = ({<~U>}:{y} ^-> ($frontharmony$ $soinnuttamaton$* __) )
+!! $vowelharmony9$ = ({<~U>}:{y} ^-> (<wb>$soinnuttamaton$* __) )
+
+Vh:V <=> BackHarmony: Soinnuttamaton* _ ; where Vh in ( %~A %~O %~U )
+                                               V  in ( a o u ) ;
+
+"Vowel Lengthening ~V:0"
+
+!! $vowellengthening0d$ = {<~V>}:{<>} ^-> ([<62><63><64><65>][^<wb>]*<pres>.*__)
+!! $vowellengthening0e$ = {<~V>}:{<>} ^-> (<73>[^<wb>]*<pres>.*__)
+
+%~V:0 <=> [ %+62: | %+63: | %+64: | %+65: ] ConsonantCluster %+present: _ ;
+          %+73: ConsonantCluster %+present: _ ;
+
+"Vowel Lengthening ~V:FrontVowels"
+
+!! $vowellengthening6$ = {<~V>}:{y} ^-> ([y<^Y>] [^#vowels##ghostvowels#]* __)
+!! $vowellengthening7$ = {<~V>}:{ä} ^-> ([ä<^AE>] [^#vowels##ghostvowels#]* __)
+!! $vowellengthening8$ = {<~V>}:{ö} ^-> ([ö<^OE>] [^#vowels##ghostvowels#]* __)
+
+%~V:Vf <=> Vf Vg: ConsonantCluster _ ; where Vf in FrontVowels
+                                             Vg in FrontGhostVowels matched ;
+
+"Vowel Lengthening ~V:NonFrontVowels"
+
+!! $vowellengthening1$ = {<~V>}:{a} ^-> ([áàa<^A>] [^#vowels##ghostvowels#]* __)
+!! $vowellengthening2$ = {<~V>}:{e} ^-> ([éèe<^E>] [^#vowels##ghostvowels#]* __)
+!! $vowellengthening3$ = {<~V>}:{i} ^-> ([íïi<^I>] [^#vowels##ghostvowels#]* __)
+!! $vowellengthening4$ = {<~V>}:{o} ^-> ([óòo<^O>] [^#vowels##ghostvowels#]* __)
+!! $vowellengthening5$ = {<~V>}:{u} ^-> ([úùu<^U>] [^#vowels##ghostvowels#]* __)
+!! $vowellengthening6$ = {<~V>}:{y} ^-> ([y<^Y>] [^#vowels##ghostvowels#]* __)
+!! $vowellengthening7$ = {<~V>}:{ä} ^-> ([ä<^AE>] [^#vowels##ghostvowels#]* __)
+!! $vowellengthening8$ = {<~V>}:{ö} ^-> ([ö<^OE>] [^#vowels##ghostvowels#]* __)
+
+%~V:Vnf <=> [ Va | Vgr | Vnf | Vg: | Vh:Vnf ] ConsonantCluster  _ ; where Vnf in NonFrontVowels Va  in NonFrontAccentAcuteVowels Vgr in NonFrontAccentGraveVowels Vg  in NonFrontGhostVowels Vh  in VowelHarmonyMP matched ; 
+
+"N-assimilation"
+
+!!$n-assimilation1$ = {<~N>}:{l} ^-> (l [^#WordChars#]*__)
+!!$n-assimilation2$ = {<~N>}:{r} ^-> (r [^#WordChars#]* __)
+!!$n-assimilation3$ = {<~N>}:{s} ^-> (s [^#WordChars#]* __)
+!!$n-assimilation0$ = \
+!!	({<~N>}:{n} ^-> ([^rsl#gradations##ohitetmodes#]\
+!!		[#gradations##ohitetmodes#]* __) )
+
+%~N:Ns <=> Ns [ \?:WordChars ]* _ ; where Ns in ( l r s ) ;
+
+"Comparative stem vowel variation A:e"
+
+AÄ:e => _ [ \WordChars ]* %+comparative: ; where AÄ in ( a ä ) ;
+
+

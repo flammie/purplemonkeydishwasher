@@ -1,0 +1,391 @@
+\documentclass[t,12pt]{beamer}
+\usepackage{helvet}
+\usepackage{times}
+\usepackage{courier}
+
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{url}
+\usepackage{textpos}
+\usepackage{xspace}
+\usepackage{array}
+
+\graphicspath{{./fig/}}
+
+% theme options: hy/ml/hum, rovio/sinetti, hiit
+% default: hy,rovio
+
+%\usetheme[hy]{HY}
+%\usetheme[hy,sinetti]{HY}
+\usetheme[hum,rovio]{HY}
+%\usetheme[ml,rovio]{HY}
+%\usetheme[ml,rovio,hiit]{HY}
+
+
+\title{Building Real-World Finite-State Spell-Checkers With HFST\\
+\scriptsize{in FSMNLP 2012 at Donostia}}
+%[Tut: HFST Spellers]
+\author{Tommi A Pirinen \scriptsize \guilsinglleft{}tommi.pirinen@helsinki.fi\guilsinglright{}}
+\institute{University of Helsinki\\Department of Modern Languages}
+\date{\today}
+
+\begin{document}
+
+\selectlanguage{english}
+
+\HyTitle
+%\maketitle
+
+\begin{frame}
+    \frametitle{Outline}
+    \tableofcontents
+\end{frame}
+
+
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Outline}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\section{Introduction}
+
+\begin{frame}
+    \frametitle{Finite-State Spell-Checking}
+    
+    \begin{itemize}
+        \item A simple task: go through all words in text to see if they
+            belong to language LL, if not, modify them with relation
+            EE to fit into language LL
+        \item In Finite-State world language model LL is any (weighted) single
+            tape finite-state automaton recognising the words of the
+            language
+        \item The error model EE is any (weighted) two-tape automaton, that
+            describes spelling errors, i.e. mapping from misspelt word into
+            the correct one
+        \item In this tutorial we build simple WFST language model and piece
+            together error model from different error types stored in FSTs
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{(Weighted) finite-state spell-checking graphically}
+    From this misspelled word as automaton:\\
+    \includegraphics[height=0.6in]{cta}\\
+    Applying this very specific error (correction) model:\\
+\includegraphics[height=0.6in]{cta2cat}\\
+    We can compose or intersect with a word in this dictionary:\\
+\includegraphics[height=0.6in]{catses}\\
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{With HFST Tools (but mostly generic FST algebra)}
+    
+    \begin{itemize}
+        \item The tools we use to build the automata are from HFST project
+            \url{http://hfst.sf.net}
+        \item but most what I show here is finite-state algebra, which your
+            favorite fst tools should support as well
+        \item The chain of libraries to get HFST automata spellers to any
+            desktop application is HFST 
+            ospell$\rightarrow$voikko$\rightarrow$enchant (with few
+            exceptional application not supporting this).
+            \url{https://kitwiki.csc.fi/twiki/bin/view/KitWiki/HfstUseAsSpellChecker}
+    \end{itemize}
+\end{frame}
+
+\section{Language Models}
+
+\begin{frame}
+    \frametitle{Easy baseline for language model---a word-list}
+    \begin{itemize}
+        \item The most basic language model for checking if word is correctly
+            written is a word-form list: \texttt{abacus, \ldots, zygotes}, 
+            right?
+        \item Fast way to build such word-list now: grab an online text
+            collection and separate it to a words
+        \item Doing it like this, we also get: probabilities!
+            $P(w) = \frac{c(w)}{CS}$
+        \item In the end we'd probably mangle the probabilities into
+            tropical logprobs that our wfst's use by default, say:
+            $-\log P(w)$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Compiling corpus into a spell-checker with HFST}
+    \begin{itemize}
+        \item A simple single command-line (no line breaks):
+            \texttt{tr -d '[:punct:]' < demo-corpus.txt |
+            tr -s '[:space:]' '\textbackslash n' |
+            sort | uniq -c |
+            awk -f tropicalize-uniq-c.awk --assign=CS=20 |
+            hfst-txt2fst -f openfst -o demo-lm.hfst}
+        \item In order: clean punctuation, tokenize, sort, count, log probs and
+            compile
+        \item Let's try; you may grab corpus from
+            \url{}, or Wikipedia dump,  write one on the fly if you want to
+            test it now
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{A language model as a FST}
+    Resulting language model should look like this:
+    \includegraphics[height=2.0in]{demo-lm}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Other language models}
+    \begin{itemize}
+        \item A word-form list is only good for very basic demoing for mostly
+            isolating languages
+        \item Since any given finite-state dictionary is usable, we can 
+            use---and have used---e.g.:\begin{itemize}
+                \item Xerox style morphologies (lexc, twolc, xfst)
+                    compiled with foma or hfst tools
+                \item apertium dictionaries
+                \item hunspell dictionaries---with a very kludgey collection
+                    of conversion scripts
+            \end{itemize}
+        \item from a morphological analyser you may want to project off the
+            analysis tape, we currently won't use it
+        \item weighting language models afterwards from corpora is simple, cf.
+            for example my past publications for HFST scripts of that
+    \end{itemize}
+\end{frame}
+
+\section{Error Models}
+
+\begin{frame}
+   \frametitle{Building error models from scratch}
+   \begin{itemize}
+       \item Error models are two-tape automata that map misspelled word-forms
+           into a correctly spelled one
+       \item Basic error types / corrections covered here: typing errors 
+           (Levenshtein--Damerau), phonemic/orthographic competence errors,
+           common confusables word-forms
+       \item Other relatively easy corrections not covered here: phonemic
+           folding, errors in context\ldots
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+   \frametitle{Building error models from scratch}
+   \begin{itemize}
+       \item Since types of errors that can appear are very different, we
+           build now separate automata components for each, and then
+           connect them together
+       \item Here is a good time to look back at the dictionary to see what
+           the weights are and scale error weights accordingly using
+           the Stetson-Harrison algorithm
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Basic component 1: Run of correctly spelled characters}
+    We assume most misspelled words will have most of the letters correct,
+    to account these parts we need the identity automaton:\\
+    \texttt{echo '?*' | hfst-regexp2fst -o anystar.hfst}\\
+    \includegraphics[height=2.5in]{anystar}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Basic component 2: Typing error}
+    A single typing error, as in popular Levenshtein measure, is
+    a) removal, b) addition or c) change of a character, using fixed alphabet
+    for example with a and b, and let's say this error is less unlikely than
+    any other for all combinations ( = 10):\\
+    \texttt{echo 'a:0::10 | 0:a::10 | a:b::10 | b:0::10 | 0:b::10 | b:a::10' | hfst-regexp2fst -o edit1.hfst}\\
+    \includegraphics[height=1.6in]{edit1-ab10}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Excursion 1: Swap in Levenshtein-Damerau measure}
+    The fourth type of error in edit distance algorithm, transposition or
+    swapping adjacent characters, is useful, but makes the automaton a bit messy
+    and tedious to write (which is why we have few scripts to generate them).
+    This is the additional component, that must be added \emph{per each pair of
+    characters in alphabet}:\\
+    \texttt{echo 'a:b::10 (b:a) | b:a::10 (a:b) | hfst-regexp2fst}\\
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Edit distance automata}
+    \begin{itemize}
+        \item Combining the correctly written parts and a single edit gets us
+            a nice baseline error model: 
+            \texttt{hfst-concatenate anystar.hfst edit1.hfst | 
+            hfst-concatenate - anystar.hfst -o errm1.hfst}
+        \item Since it's just an automaton, all regular tricks of FST algebra
+            just work, particularly:
+            \texttt{hfst-repeat -f 1 -t 7 -i errm1.hfst -o errm7.hfst}
+        \item (A script to automate writing of the combinations of swaps:
+            \texttt{python editdist.py -d 1 -S -a demo.hfst |
+            hfst-txt2fst -o edit1.hfst})
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Edit distance automaton graphically}
+    \includegraphics[height=3in]{errm-ed1}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Common orthography-based competence errors}
+    English orthography sometimes leads to errors that are not
+    easily solvable by basic edit distance, so we can extend the
+    edit distance errors by set of commonly confused substrings (N.B.
+    input to strings2fst expects TAB between strings and weight 5 i.e.
+    bit more likely than before):\\
+    \texttt{hfst-strings2fst -j -o en-orth.hfst\\
+    of:ough	5\\
+    ier:eir	5}\\
+    \includegraphics[height=0.8in]{en-orth}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Edit Distance Plus Orthographic Errors}
+    \begin{itemize}
+        \item Combine orthographic errors with edit1 error before making the
+            full-word covering error-model:
+            \texttt{hfst-disjunct edit1.hfst en-orth.hfst -o edit1+en-orth.hfst}
+        \item And rest as before: 
+            \texttt{hfst-concatenate anystar.hfst edit1+en-orth.hfst | 
+            hfst-concatenate - anystar.hfst -o errm.edit1+en-orth.hfst}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Confusion set of words}
+    Very simple, yet very important piece of error model, common word-specific
+    mistakes, of course compiled from a list of mistakes:\\
+    \texttt{hfst-strings2fst -j -o en-confusables.hfst\\
+    teh:the	2.5\\
+    mispelled:misspelt	2.5\\
+    conscienchous:conscientious	2.5}\\
+    \includegraphics[height=0.5in]{en-confusables}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Finally: hacking all these together}
+    \begin{itemize}
+        \item adding one more component to the mixture; the full-word errors
+            can be just disjuncted to any existing full error model:
+            \texttt{hfst-disjunct en-confusables errm.edit1+en-orth.hfst
+            -o errm.everything.hfst}
+        \item should your language happen to use productive compounding you may
+            wish to \texttt{hfst-repeat -f 1} the full-word errors before
+            disjuncting
+    \end{itemize}
+    (The resulting automaton is too much for graphviz already)
+\end{frame}
+
+\section{Misc. practicalities}
+
+\begin{frame}
+    \frametitle{Getting it used in real-world applications}
+    \begin{itemize}
+        \item With help of few libraries it's relatively easy to get these
+            automata to any typical desktop application
+        \item libvoikko was originally for Finnish spell-checking based
+            on malaga (lag) grammars, and it still requires that format of
+            metadata present. The installation location is also inherited from
+            here
+        \item HFST ospell file format 
+            was specced openly on mailing list with few FST people---result:
+            XML-based metadata in zip archive with very specific filenaming
+            conventions.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Metadata}
+    \begin{itemize}
+        \item Two parts of metadata: \texttt{voikko-fi\_FI.pro} file saying
+            language code and few other details in MIME-headerish format
+            (line-based, key: value)
+        \item XML metadata about automatons, how to lay out dictionaries and
+            error models, also lot of UI metadata like names and descriptions
+        \item The most meaningful setting in these files is the language code,
+            it must match the locale settings and the name of the locale
+            in program settings where applicable
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{voikko-fi\_FI.pro}
+    \begin{verbatim}
+info: Voikko-Dictionary-Format: 2
+info: Language-Code: fi_FI
+info: Language-Variant: hfst
+info: Description: Finnish HFST dictionary
+info: Morphology-Backend: hfst
+info: Speller-Backend: hfst
+info: Suggestion-Backend: hfst
+info: Hyphenator-Backend: hfst
+    \end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+    \begin{verbatim}
+<hfstspeller dtdversion="1.0" hfstversion="3">
+  <info>
+    <locale>fi</locale>
+    ...
+  </info>
+  <acceptor type="general" id="acceptor.default.hfst">
+    ...
+  </acceptor>
+  <errmodel>
+    ...
+  </errmodel>
+</hfstspeller>
+\end{verbatim}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Zipping and Installation Location}
+    \begin{itemize}
+        \item The dictionary or language model needs to be stored in
+            \texttt{acceptor.default.hfst} (configurable) in special format:\\
+            \texttt{hfst-fst2fst -f olw -i demo-lm.hfst -o acceptor.default.hfst}
+        \item The error models are \texttt{errmodel.default.hfst} and likewise
+            in special format:
+            \texttt{hfst-fst2fst -f olw -i errm.everythin.hfst -o errmodel.default.hfst}
+        \item The XML metadata goes into index.xml, then zip it to 
+            \texttt{speller.zhfst} like so: \\
+            \texttt{zip -9 speller.zhfst acceptor.default.hfst errmodel.default.hfst index.xml}
+        \item Now copy this and the \texttt{voikko-fi\_FI.pro} into 
+            \texttt{\$HOME/.voikko/2/mor-hfst-ll} or 
+            \texttt{\$prefix/share/voikko/2/mor-hfst-ll} and the language should just
+            work in voikko-enabled software:\\
+            \texttt{mkdir -p \$HOME/.voikko/2/mor-hfst-ll\\
+            cp speller.zhfst voikko-fi\_FI.pro \$HOME/.voikko/2/mor-hfst-ll}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{URLs and references}
+    \begin{itemize}
+        \item \url{http://hfst.sf.net}
+        \item \url{https://kitwiki.csc.fi/twiki/bin/view/KitWiki/HfstUseAsSpellChecker}
+        \item \url{http://hfst.svn.sourceforge.net/viewvc/hfst/trunk/articles/fsmnlp-2012-spellers/}
+        \item \url{http://www.helsinki.fi/~tapirine/publications/}
+        \item \url{http://divvun.no/future/proofing/lexfile-spec.html}
+        \item \url{tommi.pirinen@helsinki.fi}
+    \end{itemize}
+\end{frame}
+
+\end{document}
+% vim: set spell:

@@ -1,0 +1,156 @@
+\documentclass[officiallayout]{unihelcompling}
+
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+
+\usepackage{ifpdf}
+\usepackage{url}
+\usepackage{hyperref}
+
+\setmainfont{Times}
+
+\ifpdf
+\pdfinfo{
+    /Author (Tommi Pirinen)
+    /Title (Finite-State Methods to Spell-Checking)
+    /CreationDate (D:20121212123456)
+    /Subject (Finite-State Spell-Checking)
+    /Keywords (Finite-State;Spell-Checking)
+}
+\fi
+
+\title{Finite-State Methods to Spell-Checking\footnote{Rough draft}}
+\author{Tommi A Pirinen}
+
+\authorcontact{\url{tommi.pirinen@helsinki.fi}\par
+  \url{http://www.helsinki.fi/\%7etapirine}}
+\pubtime{Oddmonth}{2012}
+\reportno{0}
+\isbnpaperback{000-00-0000-0}
+\isbnpdf{000-00-0000-0}
+\issn{0000-0000}
+\printhouse{Unigrafia?}
+\pubpages{000} % --- remember to update this!
+\supervisorlist{Kimmo Koskenniemi, University of Helsinki, Finland;
+Krister Lindén, University of Helsinki, Finland}
+\preexaminera{Kekke Roos, Unseen University, United Kingdom}
+\preexaminerb{I.D.K. Kurt, University of Turku, Finland}
+\opponent{Advocatus Diaboli, University of Amsterdam, The Netherlands}
+\custos{Homer Simpson, University of Springfield, The U.S.A.}
+\generalterms{thesis, example, another example, still more examples,
+  more and more examples}
+\additionalkeywords{example, an example phrase with many words}
+\crcshort{A.0, C.0.0}
+\crclong{
+\item[A.0] Example Category
+\item[C.0.0] Another Example
+}
+\permissionnotice{
+  To be presented in \ldots{} text of a long permission notice. Text of
+  a long permission notice. Text of a long permission notice. Text of
+  a long permission notice. Text of a long permission notice. Text of
+  a long permission notice.
+}
+
+
+
+\date{\today}
+
+\begin{document}
+
+\frontmatter
+
+\maketitle
+
+\begin{abstract}
+    The finite-state technologies are one thing.
+
+    Spell-checking is another thing.
+\end{abstract}
+
+\tableofcontents
+
+\mainmatter
+
+\chapter*{Preface}
+
+\begin{itemize}
+    \item Practical requirement for Finite-State Spell-Checkers
+    \item Non-thanks
+\end{itemize}
+
+\chapter{Introduction}
+
+\begin{itemize}
+    \item what's spell-checking about
+    \item Languages and stuff
+    \item Spell-checking
+    \item Finite-state technology
+    \item Layout of the book: compiling models for finite-state spell-checker,
+        features of contemporary spell-checking, efficiency and precision of
+        these models
+\end{itemize}
+
+\section{Spell-Checking}
+
+\begin{itemize}
+    \item split of task into error-detection and correction
+    \item history, from SPELL to hunspell
+\end{itemize}
+
+\subsection{Error-detection and language models}
+
+\begin{itemize}
+    \item Word-lists to complex morphologies
+    \item The nonword errors vs. real-world errors
+    \item The absolute dictionaries vs. probabilities of words
+    \item the limits of real-world error detection (scope out cop out)
+\end{itemize}
+
+
+\subsection{Error-correction and error models}
+
+\begin{itemize}
+    \item The concept of error modeling
+    \item The model of typing errors on keyboard
+    \item edit distance
+    \item other confusion sets
+    \item competence errors, phonemic errors
+\end{itemize}
+
+\subsection{Finite-state account of spell-checking}
+
+\begin{itemize}
+    \item short history of finite-state morphologies
+    \item weighted finite-state methods
+    \item training probabilistic dictionaries (see, this is where 1st articles
+        come in!)
+    \item the finite-state formulation of error models
+    \item the finite-state applications of language and error models
+\end{itemize}
+
+\chapter{Finite-state Automata in Spell-checking}
+
+\begin{itemize}
+    \item the statistical language model inducted from correctly spelled corpora
+    \item the compilation of current dictionaries and their finite-state fomrs
+    \item error-model from existing dictionaries
+    \item error-model from hunspell
+    \item error-modls from error corpora
+    \item finite-state models for context-aware spell-checking
+\end{itemize}
+
+\chapter{Efficiency of Finite-state Spell-checking}
+
+\begin{itemize}
+    \item the speed of finite-state spell-chekcing
+    \item the precision values of finite-state spell-checking
+\end{itemize}
+
+Here we cite* to generate references in the end. \cite{*}
+
+\bibliographystyle{unsrt}
+\bibliography{diss}
+
+\end{document}

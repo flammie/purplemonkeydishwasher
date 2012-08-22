@@ -1,0 +1,223 @@
+
+LEXICON NounStem/Nominative
++sg+nom:+AV+	Clitic/Optional	;
+:+AV+			Compounding	;
+
+LEXICON NounAllomorph/PartitiveA
++sg+ptv:~A+AV+	Possessive/Optional	;
+
+LEXICON NounAllomorph/IllativeHVN
++sg+ill:+AV+h~Vn	Possessive/Optional	;
+
+LEXICON NounAllomorph/PartitiveIA
++pl+ptv:i~A+AV+	Possessive/Optional	;
+
+LEXICON NounAllomorph/GenitiveIDEN
++pl+gen:i+AV-den	Possessive/Optional	;
++pl+gen:i+AV-den	Compounding	;
+
+LEXICON NounAllomorph/GenitiveIEN
++pl+gen:i+AV+en	Possessive/Optional	;
++pl+gen:i+AV+en	Compounding	;
+
+LEXICON NounAllomorph/IllativeIHIN
++pl+ill:i+AV+hin	Possessive/Optional	;
+
+LEXICON NounAllomorph/IllativeIIN
++pl+ill:iin+AV+	Possessive/Optional	;
+
+LEXICON NounAllomorph/GenitiveIN
++pl+gen:in+AV+	Possessive/Optional	;
++pl+gen:in+AV+	Compounding	;
+
+LEXICON NounAllomorph/IllativeISIIN
++pl+ill:i+AV+siin	Possessive/Optional	;
+
+LEXICON NounAllomorph/PartitiveITA
++pl+ptv:i+AV-t~A	Possessive/Optional	;
+
+LEXICON NounAllomorph/GenitiveITTEN
++pl+gen:it+AV-ten	Possessive/Optional	;
++pl+gen:it+AV-ten	Compounding	;
+
+LEXICON NounAllomorph/PartitiveJA
++pl+ptv:+AV+0+AVJj~A	Possessive/Optional	;
+
+LEXICON NounAllomorph/GenitiveJEN
++pl+gen:+AV+0+AVJjen	Possessive/Optional	;
++pl+gen:+AV+0+AVJjen	Compounding	;
+
+LEXICON NounAllomorph/IllativeSEEN
++sg+ill:seen	Possessive/Optional	;
+
+LEXICON NounAllomorph/PartitiveTA
++sg+ptv:+AV-t~A	Possessive/Optional	;
+
+LEXICON NounAllomorph/GenitiveTEN
++pl+gen:+AV-ten	Possessive/Optional	;
++pl+gen:+AV-ten	Compounding	;
+
+LEXICON NounAllomorph/IllativeVN
++sg+ill:+AV+~Vn	Possessive/Optional	;
+
+LEXICON Clitic/Optional
+	Clitic/Obligatory	;
+	Ennd	;
+
+LEXICON Clitic/Obligatory
++clit:h~An	Ennd	;
++clit:h~Ank~A~An	Ennd	;
++clit:h~Ankin	Ennd	;
++clit:h~Ank~O	Ennd	;
++clit:h~Anp~A	Ennd	;
++clit:k~A~An	Ennd	;
++clit:k~A~Anh~An	Ennd	;
++clit:k~A~Ankin	Ennd	;
++clit:k~A~Ank~O	Ennd	;
++clit:k~A~Anp~A	Ennd	;
++clit:kin	Ennd	;
++clit:kinh~An	Ennd	;
++clit:kink~A~An	Ennd	;
++clit:kink~O	Ennd	;
++clit:kinp~A	Ennd	;
++clit:k~O	Ennd	;
++clit:k~Oh~An	Ennd	;
++clit:k~Ok~A~An	Ennd	;
++clit:k~Okin	Ennd	;
++clit:k~Op~A	Ennd	;
++clit:k~Os	Ennd	;
++clit:p~A	Ennd	;
++clit:p~Ah~An	Ennd	;
++clit:p~Ak~A~An	Ennd	;
++clit:p~Akin	Ennd	;
++clit:p~Ak~O	Ennd	;
++clit:p~As	Ennd	;
+
+! Possessive/Optional implies Clitic/Optional
+LEXICON Possessive/Optional
+	Possessive/Obligatory	;
+	Clitic/Optional	;
+	Ennd	;
+
+LEXICON Possessive/Obligatory
++pl1:+possessivemme	Clitic/Optional	;
++pl2:+possessivenne	Clitic/Optional	;
++pl3:+possessivens~A	Clitic/Optional	;
++pl3:+possessive~An	Clitic/Optional	;
++sg1:+possessiveni	Clitic/Optional	;
++sg2:+possessivesi	Clitic/Optional	;
++sg3:+possessivens~A	Clitic/Optional	;
++sg3:+possessive~An	Clitic/Optional	;
+
+LEXICON NounStem/Plural
++pl+abe:it+AV-t~A	Possessive/Optional	;
++pl+abl:il+AV-t~A	Possessive/Optional	;
++pl+ade:il+AV-l~A	Possessive/Optional	;
++pl+all:il+AV-le	Possessive/Optional	;
++pl+ess:+AV+in~A	Possessive/Optional	;
++pl+cmt:i+AV+ne	Possessive/Optional	;
++pl+ela:is+AV-t~A	Possessive/Optional	;
++pl+ine:is+AV-s~A	Possessive/Optional	;
++pl+ins:in+AV-	Clitic/Optional	;
++pl+tra:ik+AV-se	Possessive/Obligatory	;
++pl+tra:ik+AV-si	Clitic/Optional	;
+
+LEXICON NounStem/Singular
++pl+acc:+AV-t	Clitic/Optional	;
++pl+acc:+AV+	Possessive/Obligatory	;
++pl+nom:+AV+	Possessive/Obligatory	;
++pl+nom:t+AV-	Clitic/Optional	;
++sg+abe:t+AV-t~A	Possessive/Optional	;
++sg+abl:l+AV-t~A	Possessive/Optional	;
++sg+acc:n+AV-	Clitic/Optional	;
++sg+acc:+AV+	Possessive/Obligatory	;
++sg+ade:l+AV-l~A	Possessive/Optional	;
++sg+all:l+AV-le	Possessive/Optional	;
++sg+ela:s+AV-t~A	Possessive/Optional	;
++sg+ess:+AV+n~A	Possessive/Optional	;
++sg+gen:n+AV-	Clitic/Optional	;
++sg+gen:+AV+	Possessive/Obligatory	;
++sg+ine:s+AV-s~A	Possessive/Optional	;
++sg+ins:n+AV-	Clitic/Optional	;
++sg+nom:+AV+	Possessive/Obligatory	;
++sg+tra:k+AV-se	Possessive/Obligatory	;
++sg+tra:k+AV-si	Clitic/Optional	;
+:n+AV-			Compounding	;
+:in+AV+			Compounding	;
+
+LEXICON VerbStem/EInfinitive
++act+infe+sg+ine:+AV+ess~A	Possessive/Optional	;
++act+infe+sg+ins:+AV+en	Clitic/Optional	;
+
+LEXICON VerbStem/Imperative
++act+impv+pl1:+AV+k~A~Amme	Clitic/Optional	;
++act+impv+pl2+clit:+AV+k~A~As	Clitic/Optional	;
++act+impv+pl2:+AV+k~A~A	Clitic/Optional	;
++act+impv+pl3:+AV+k~O~Ot	Clitic/Optional	;
++act+impv+sg3:+AV+k~O~On	Clitic/Optional	;
++impv+neg:+AV+k~O	Clitic/Optional	;
+
+LEXICON VerbStem/AInfinitive
++act+infa+sg+lat:+AV+~A		Clitic/Optional	;
++act+infa+sg+tra:+AV+~Akse	Possessive/Obligatory	;
+
+LEXICON VerbStem/Conditional
++act+cond+pl1:i+AV+simme	Clitic/Optional	;
++act+cond+pl2:i+AV+sitte	Clitic/Optional	;
++act+cond+pl3:i+AV+siv~At	Clitic/Optional	;
++act+cond+sg1:i+AV+sin	Clitic/Optional	;
++act+cond+sg2:i+AV+sit	Clitic/Optional	;
++act+cond+sg3:i+AV+si	Clitic/Optional	;
++cond+neg:i+AV+si	Clitic/Optional	;
+
+LEXICON VerbStem/Passive
++pss+cond+pe4:+AV-t~Aisiin	Clitic/Optional	;
++pss+cond+pe4+neg:+AV-t~Aisi	Clitic/Optional	;
++pss+impv+pe4+neg:+AV-t~Ak~O	Clitic/Optional	;
++pss+impv+pe4:+AV-t~Ak~O~On	Clitic/Optional	;
++pss+infe+sg+ine:+AV-t~Aess~A	Clitic/Optional	;
++pss+infe+sg+ins:+AV-t~Aen	Clitic/Optional	;
++pss+infma+sg+ins:+AV-t~Am~An	Clitic/Optional	;
++pss+potn+pe4:+AV-t~Aneen	Clitic/Optional	;
++pss+potn+pe4+neg:+AV-t~Ane	Clitic/Optional	;
++pss+indv+past+pe4:+AV-tiin	Clitic/Optional	;
+
+LEXICON VerbStem/Past
++act+indv+past+pl1:im+AV-me	Clitic/Optional	;
++act+indv+past+pl2:it+AV-te	Clitic/Optional	;
++act+indv+past+pl3:i+AV+v~At	Clitic/Optional	;
++act+indv+past+sg1:in+AV-	Clitic/Optional	;
++act+indv+past+sg2:it+AV-	Clitic/Optional	;
++act+indv+past+sg3:i+AV+	Clitic/Optional	;
+
+LEXICON VerbStem/Potential
++act+potn+pl1:+AV+~Nemme	Clitic/Optional	;
++act+potn+pl2:+AV+~Nette	Clitic/Optional	;
++act+potn+pl3:+AV+~Nev~At	Clitic/Optional	;
++act+potn+sg1:+AV+~Nen	Clitic/Optional	;
++act+potn+sg2:+AV+~Net	Clitic/Optional	;
++act+potn+sg3:+AV+~Nee	Clitic/Optional	;
++potn+neg:+AV+~Ne	Clitic/Optional	;
+
+LEXICON VerbStem/ParticiplePassive
++pss+indv+pres+pe4:~A~An+AV-+AVF+AV-	Clitic/Optional	;
++pss+indv+pres+pe4+neg:~A+AV-	Clitic/Optional	;
+
+LEXICON VerbStem/Present
++act+infmaisilla:+AV+m~Aisill~A	Possessive/Obligatory	;
++act+infma+sg+abe:+AV+m~Att~A	Possessive/Optional	;
++act+infma+sg+ade:+AV+m~All~A	Clitic/Optional	;
++act+infma+sg+ela:+AV+m~Ast~A	Clitic/Optional	;
++act+infma+sg+ill:+AV+m~A~An	Clitic/Optional	;
++act+infma+sg+ine:+AV+m~Ass~A	Clitic/Optional	;
++act+infma+sg+ins:+AV+m~An	Clitic/Optional	;
++act+impv+sg2+clit:+AV-s	Clitic/Optional	;
++act+impv+sg2:+AV-	Clitic/Optional	;
++act+indv+pres+pl1:+presentm+AV-me	Clitic/Optional	;
++act+indv+pres+pl2:+presentt+AV-te	Clitic/Optional	;
++act+indv+pres+pl3:+present+AV+v~At	Clitic/Optional	;
++act+indv+pres+sg1:+presentn+AV-	Clitic/Optional	;
++act+indv+pres+sg2:+presentt+AV-	Clitic/Optional	;
++act+indv+pres+sg3:+present~V+AV+	Clitic/Optional	;
++indv+pres+neg:+present+AV-	Clitic/Optional	;
+

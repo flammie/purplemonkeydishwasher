@@ -1,0 +1,137 @@
+\documentclass{beamer}
+
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+
+\usepackage{url}
+
+\usetheme{Madrid}
+
+\title[Compiling apertium monodix with HFST]{Compiling Apertium dictionaries with HFST}
+\subtitle{leveraging generalised compilation formulas to get more and better
+end applications with fewer language description}
+\author[Tommi A Pirinen]{Tommi A Pirinen, Francis Tyers\\
+\url{tommi.pirinen@helsinki.fi}}
+\institute[Helsinki]{University of Helsinki, Universitat d'Alacant}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}
+    \frametitle{Outline}
+    \tableofcontents
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}
+    \frametitle{Finite-state automata and HFST and apertium}
+    \begin{itemize}
+        \item Finite-state automata are one efficient way to encode 
+            dictionaries, morphological analysers etc.
+        \item HFST stands for Helsinki Finite-State \alert{Technology}---
+            consisting of a library working as a compatibility layer between
+            different open-source finite-state implementations, 
+				\begin{itemize}
+					\item SFST
+					\item OpenFST
+					\item Foma
+				\end{itemize}
+			\item	Also a set of finite-state tools built on top of the library, and set of end
+            products using the automata in real-world applications (sold
+            separately)
+        \item HFST is still a research project in a computational linguistics'
+            research group---not computer science or engineering
+        \item apertium is a machine-translation platform that uses finite-state
+            dictionaries
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Compiling apertium dictionaries with HFST---rationale}
+    \begin{itemize}
+        \item ``just an engineering exercise''
+        \item getting all language descriptions to compile natively in HFST (as
+            opposed to converting compiled automata)
+        \item using existing (and future) HFST algorithms to improve the
+            resulting automata
+        \item using bits of \emph{linguistic} information to get better
+            auxiliary automata for HFST end applications --- data that may not
+            be possible to induct from converted compiled automata
+        \item possibility to integrate more complex features in of finite-state
+            morphology in apertium dictionaries---morphophonetics, reduplication
+            etc. that may be supported by other HFST tools
+        \item this paper fits nicely in my PhD thesis under ``State of the art of
+            in language models''
+    \end{itemize}
+\end{frame}
+
+\section{Benefits of this work}
+
+\begin{frame}
+    \frametitle{Examples of immediate benefits to dictionary writers}
+    \begin{itemize}
+        \item A lot of current work in building NLP software involves management
+            of huge amounts of lexical data
+        \item ...like generating different language models in different
+            \emph{morphology} programming formalisms: apertium, hunspell,
+            xerox tools
+        \item getting native and uniform compilation formulas for all lets
+            you \alert{write dictionaries once} and use everywhere
+        \item or pick and mix tools and features from different formalisms
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Examples of additional applications that can be generated from
+    apertium dictionaries with this work}
+    \begin{itemize}
+        \item Spell-checkers! A basic spell-checker with generic edit distance
+            suggestion generator can be automatically generated---and used in
+            majority of current open-source software without any extra effort
+        \item Predictive text entry, for mobiles, such T9, XT9, possibly swype
+            and keyboard as well
+        \item Morphological analysers, lemmatisers, segmenters, tokenisers,
+            etc., obviously
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Examples of benefits that come for free---automatic optimisation}
+    \begin{itemize}
+        \item This is work-in-progress, but once done it can be used in all
+            dictionaries without modifications to sources
+        \item automatic flag diacritic induction
+        \item hyperminimisation
+        \item all this can be based on things like finding homomorphic
+            components from the finite-state automaton
+        \item the linguistic concepts present in source code but missing from
+            the compiled automaton should prove very useful here!
+    \end{itemize}
+\end{frame}
+
+\section{Conclusion}
+
+\begin{frame}
+    \frametitle{What now?}
+    \begin{itemize}
+        \item The reference material for the article is in our svn
+            \url{http://hfst.svn.sf.net/svnroot/hfst/trunk/lrec-2011-apertium},
+            includes compilation of spell-checkers for most apertium
+            dictionaries
+        \item what do we do to remove duplicate work, duplicate versions of
+            dictionaries, conversion scripts\ldots
+        \item more compilers? Conversion scripts? New programming languages?
+        \item I'll throw you this: I need more linguistic data and less
+            engineering in the language model implementations to compile
+            more applications from one source dictionary. Example: LR/RL concept
+            in apertium or asymmetric flags in Xerox FSM is engineering hack 
+            POV; had the description
+            called it \emph{substandard} or \emph{dialectal} word form it would
+            already be usable in all applications!
+    \end{itemize}
+\end{frame}
+
+\end{document}

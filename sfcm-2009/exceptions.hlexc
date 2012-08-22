@@ -1,0 +1,23 @@
+
+LEXICON exceptions
+olla+verb+67+act+indv+pres+sg3:on	Clitic/Optional	;
+olla+verb+67+act+indv+pres+pl3:ovat	Clitic/Optional	;
+olla+verb+67+act+potn+sg1:lienen	Clitic/Optional	;
+olla+verb+67+act+potn+sg2:lienet	Clitic/Optional	;
+olla+verb+67+act+potn+sg3:lienee	Clitic/Optional	;
+olla+verb+67+act+potn+pl1:lienemme	Clitic/Optional	;
+olla+verb+67+act+potn+pl2:lienette	Clitic/Optional	;
+olla+verb+67+act+potn+pl3:lienevät	Clitic/Optional	;
+olla+verb+67+act+potn+neg:liene	Clitic/Optional	;
+ei+verb+99+act+indv+pres+sg1:en	Clitic/Optional	;
+ei+verb+99+act+indv+pres+sg2:et	Clitic/Optional	;
+ei+verb+99+act+indv+pres+sg3:ei	Clitic/Optional	;
+ei+verb+99+act+indv+pres+pl1:emme	Clitic/Optional	;
+ei+verb+99+act+indv+pres+pl2:ette	Clitic/Optional	;
+ei+verb+99+act+indv+pres+pl3:eivät	Clitic/Optional	;
+ei+verb+99+act+impv+pres+sg2:älä	Clitic/Optional	;
+ei+verb+99+act+impv+pres+sg3:älköön	Clitic/Optional	;
+ei+verb+99+act+impv+pres+pl1:älkäämme	Clitic/Optional	;
+ei+verb+99+act+impv+pres+pl2:älkää	Clitic/Optional	;
+ei+verb+99+act+impv+pres+pl3:älkööt	Clitic/Optional	;
+vuosi+noun+27+sg+ess:vuonna	Possessive/Optional	;

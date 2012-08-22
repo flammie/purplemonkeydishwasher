@@ -1,0 +1,395 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{lrec2006}
+\usepackage{url}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage[small,bf]{caption}
+\usepackage{xltxtra}
+
+% lrec2006 seems borked so here's the margins again:
+\usepackage[margin=1.9cm,top=2.5cm]{geometry}
+
+%\setlength\titlebox{6.5cm}    % You can expand the title box if you
+% really have to
+
+\title{Compiling Apertium morphological dictionaries with HFST and using them
+in HFST applications}
+
+\name{Tommi A Pirinen, Francis M. Tyers}
+\address{University of Helsinki,
+ Universitat d'Alacant\\
+ FI-00014 University of Helsinki Finland,
+ E-03071 Alacant Spain \\
+\url{tommi.pirinen@helsinki.fi}, \url{ftyers@dlsi.ua.es}\\}
+
+\date{\today}
+
+\abstract{
+In this paper we aim to improve interoperability and re-usability of the
+morphological dictionaries of Apertium machine translation system by
+formulating a generic finite-state compilation formula that is implemented in
+HFST finite-state system to compile Apertium dictionaries into general purpose
+finite-state automata. We demonstrate the use of the resulting automaton in
+FST-based spell-checking system.\\
+\Keywords{finite-state, dictionary, spell-checking}
+}
+
+\begin{document}
+
+\maketitleabstract
+
+\section{Introduction}
+
+Finite-state automata are one of the most effective format for representing
+natural language morphologies in computational format. The finite-state
+automata, once compiled and optimised via process of minimisation are very
+effective for parsing running text. This format is also used when running
+morphological dictionaries in machine-translation system
+Apertium~\cite{Apertium/2011}\footnote{\url{http://www.apertium.org}}. In this
+paper we propose a generic compilation formula  to compile the
+dictionaries into weighted finite state automata for use with any FST 
+tool or application.  We implement this system using a free/libre
+open-source finite-state API
+HFST~\cite{hfst/2011}\footnote{\url{http://hfst.sf.net}}. HFST is a general
+purpose programming interface using a selection of freely-available
+finite-state libraries for the handling of finite-state automata.
+
+While Apertium uses the dictionaries and the finite-state automata for machine
+translation, HFST is used in multitude of other applications ranging from
+basic morphological analysis~\cite{hfst/2011}
+to end-user applications such as spell-checking~\cite{pirinen/2010/lrec} and
+predictive text-entry for mobile phones~\cite{silfverberg/2011/cla}. In this
+article we show how to generate automatically a spell-checker from an Apertium
+dictionary and evaluate roughly the usability of the automatically generated
+spell-checker.
+
+The rest of the article is laid out as follows: In section \ref{sec:methods}
+we describe the generic compilation formula for the HFST-based compilation of
+Apertium dictionaries and the formula for induction of spell-checkers error
+model from Apertium's dictionary. In section~\ref{sec:materials} we introduce
+the Apertium dictionary repository and the specific dictionaries we use to
+evaluate our systems. In section~\ref{sec:evaluation} we evaluate speed and
+memory usage of compilation and application of our formula against Apertium's
+own system and show that our system has roughly same coverage and explain
+the differences arise from.
+
+\section{Methods}
+\label{sec:methods}
+
+The compilation of Apertium dictionaries is relatively straight-forward. We
+assume here standard notations for finite-state algebra. The morphological
+combinatorics of Apertium dictionaries are defined in following terms: There is
+one set of root morphs (finite strings) and arbitrary number of named sets of
+affix morphs called {\tt pardef}s. Each set of affix morphs is associated with a
+name. Each morph can also be associated with a paradigm reference pointing to a
+named subset of affixes. As an example, a language of singular and plural of
+\emph{cat} and \emph{dog} in English would be described by root dictionary
+consisting of morphs \texttt{cat} and \texttt{dog}, both of which point on the
+right-hand side to pardef named \texttt{number}. The number affix morphs are
+defined then as set of two morphs, namely \texttt{s} for plural marker and
+empty string for singular marker.
+
+Each morph can be compiled into single-path finite-state automaton\footnote{the
+full formula allows any finite-state language as morph, compiled from regular
+expressions, the extension to this is trivial but for readability we present
+the formula for string morphs} containing the actual morph as string of UTF-8
+arcs $m$. The morphs in the root dictionary are extended from left or right
+sides by joiner markers iff they have a pardef definition there and each affix
+dictionary is extended on the left (for suffixes) or right (for prefixes) by
+the pardef name marker. In the example of \emph{cats, dogs} language this would
+mean finite state paths \texttt{c a t NUMBER}, \texttt{d o g NUMBER},
+\texttt{NUMBER s} and \texttt{NUMBER $\epsilon$}, where $\epsilon$ as usual
+marks zero-length string\footnote{In the current implementation we have used
+temporarily a special non-epsilon marker as this decreases the local
+indeterminism and thus compilation time}.  These sets of roots and affixes can
+be compiled into disjunction of such joiner delimited morphs.  Now, the
+morphotactics can be defined as related to joiners by any such path that
+contains joiners only as pairs of adjacent identical paradigm references, such
+as \texttt{c a t NUMBER NUMBER s} or \texttt{d o g NUMBER NUMBER $\epsilon$},
+but not \texttt{c a t NUMBER d o g NUMBER} or \texttt{NUMBER s NUMBER s}. The
+finite-state formula for this morphotactics is defined by
+
+\begin{equation}\label{formula:morphotax}
+ M_x = (\Sigma \cup \bigcup_{x \in p} x x)^{\star},
+\end{equation}
+
+where $p$ is set of pardef names and $\Sigma$ the set
+of symbols in morphs not including the set of pardef names.  Now the final
+dictionary is simply composition of these morphotactic rules over the repetion
+of affixes and roots:
+
+\begin{equation}\label{formula:lexical}
+(M_a \cup M_r)^{\star} \circ M_x,
+\end{equation}
+
+where $M_{a}$ is the disjunction of affixes with joiners, $M_{r}$ the
+disjunction of roots with joiners, and $M_x$ the morphotactics defined in
+formula~\ref{formula:morphotax}. This is a variation of morphology compilation
+formula presented in various HFST documentation, such as~\cite{hfst/2011}.
+
+\subsection{Implementation Details}
+
+There are lot of finer details we will not thoroughly cover in this article, as
+they are mainly engineering details. In this section we shortly summarise
+specific features of HFST-based FST compilation that result in meaningful
+differences in automaton structure or working. One of the main source of
+differences is that HFST automata are two-sided and compiled only ones from the
+source code whereas Apertium generates two different automata for analysis and
+generation. In these automata the structure may be different, since Apertium
+dictionaries have ways of marking morphs limited to generation or analysis
+only, so they will only be included in one of the automatons. Our approach to
+this is to use special symbols called flag-diacritics~\cite{beesley/2003} to
+limit the paths as analysis only or generation only on runtime, but still
+including all paths in the one transducer that gets compiled.
+
+Another main difference in processing comes from the special word-initial, 
+word-final and separate morphs that in Apertium are contained in separate
+automata altogether, but HFST tools do not support use of multiple automata
+for analysis, so these special morphs will be concatenated optionally to
+beginning or end of the word, or disjuncted to the final automata respectively.
+These special morphs include things like article \emph{l'} in French as bound
+form.
+
+\subsection{Creating a Spell-Checker Automatically}
+
+To create a finite-state spell-checker we need two automata, one for the
+language model, for which the dictionary compiled as described earlier will do,
+and one for the error model~\cite{pirinen/2010/lrec}. A classic baseline error
+model is based on the edit distance
+algorithm~\cite{levenshtein/1966,damerau/1964}, that defines typing errors of
+four types: pressing extra key (insertion), not pressing a key (deletion),
+pressing wrong key (change) and pressing two keys in wrong order (swap). There
+have been many finite-state formulations of this, we use the one defined
+in~\cite{schulz/2002,pirinen/2010/lrec}. The basic version of this where the
+typing errors of each sort have equal likelihood for each letters can be
+induced from the compiled language model, and this is what we use in this
+paper. The induction of this model is relatively straightforward; when
+compiling the automaton, save each unique UTF-8 codepoint found in the
+morphs\footnote{The description format of Apertium requires declaration of
+exemplar character set as well, but as this is only used in the tokenisation
+algorithm \cite{garrido-alenda02} , which is not going to be used, we induce
+the set from the morphs}. For each character generate the identities in start
+and end state to model correctly typed runs. For each of the error types the
+generate one arc from initial state to the end state modelling that error,
+except for swap which it requires one auxiliary state for each character pair.
+
+\section{Materials}
+\label{sec:materials}
+
+The Apertium project hosts a large number of morphological dictionaries for
+each of the languages translated. From these we have selected three
+dictionaries to be tested: Basque from Basque-Spanish pair as it is 
+released dictionary with the biggest on-disk size, Norwegian Nynorsk from the Norwegian pair as a language
+that has some additional morphological complexity, such as compounding, and
+Manx from  as a language that currently lacks spell-checking tools to
+demonstrate the plausibility of automatic conversion of Apertium dictionary
+into a spell-checker\footnote{We also provide a Makefile script to
+recreate results of this article for any language in Apertium's repository}.
+
+To evaluate the use of resulting morphological dictionaries and spell-checkers
+we use following Wikipedia database
+dumps\footnote{\url{http://download.wikipedia.org/}}:
+\texttt{euwiki-20120219-pages-articles.xml.bz2},
+\texttt{nnwiki-20120215-pages-articles.xml.bz2}, and
+\texttt{gvwiki-20120215-pages-articles.xml.bz2}. For the purpose of this
+article we performed very crude cleanup and preprocessing to Wikipedia data
+picking up the text elements of the article and discarding most of Wikipedia
+markup naïvely\footnote{For details see the script in
+\url{http://hfst.svn.sourceforge.net/viewvc/hfst/trunk/lrec-2011-apertium/}.}.
+
+\section{Test Setting and Evaluation}
+\label{sec:evaluation}
+
+%To verify that the compilation works correctly we need to confirm that the
+%resulting system can analyse and produce the same strings as original. For
+%this, we perform two tests: one analysing running text and one generating all
+%strings the dictionary contains (excepting cases that may produce
+%infinite amount, such as regular expression morphs), and analysing those. The
+%recall of our system is calculated as $\frac{\mathrm{correct}}{\mathrm{all}}$,
+%where correct results means giving same set of answers as Apertium.
+%The results of this test that shows how faithful the HFST recreation of the
+%automaton is are given in table~\ref{table:recall}. Looking at the strings
+%missing from HFST-version we can see following big classes of errors:
+%foo (~\% of all errors) and bar (~\% of all errors), these are caused by
+%features of underlying HFST system rather than the our finite-state formulation,
+%and we expect them to be fixed in future versions of HFST.
+%
+%\begin{table}[h]
+%\begin{center}
+%\begin{tabular}{|l|r|r|}
+%\hline
+%\bf Language & \bf Running text & \bf Word-form list \\
+%\hline
+%Basque       & & \\
+%Norwegian    & & \\
+%Manx         & & \\
+%\hline
+%\end{tabular}
+%\caption{Recall of HFST-based system against original
+%\label{table:recall}}
+%\end{center}
+%\end{table}
+
+To get one view on differences made by generic compilation formula instead of
+direct automata building used by Apertium we look at the created automata, this
+will also give us a rough idea of what its efficiency might be. In
+table~\ref{table:graph-size} we give the counts of nodes and edges, in that
+order, in the graphs compiled from the dictionaries. Note, that in case
+of Apertium it is the sum of all the separate automata states and edges that
+is counted. The small differences in sizes of graphs are mostly caused by
+the different handling of generation vs. analysis mode. The difference in sizes
+of automata on disk in is shown in table~\ref{table:size}.
+The size of HFST automata can be attributed to the clever compression
+algorithm used by HFST~\cite{silfverberg/2009/fsmnlp}.
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|r|r|r|}
+\hline
+\bf Lang. & \bf Apertium {\tt {\small LR}} & \bf Apertium {\tt {\small RL}} & \bf HFST \\
+\hline
+Basq.      & 30,114  & 34,005  & 34,824  \\
+             & 59,321  & 68,030  & 68,347  \\
+Norg. & 56,226  & 55,722  & 56,871  \\
+             & 138,217 & 132,475 & 139,259 \\
+Manx         & 13,055  & 12,955  & 12,920  \\
+             & 28,220  & 27,062  & 27,031  \\
+\hline
+\end{tabular}
+\caption{Size of HFST-based system against original (count of nodes first, then
+edges)
+\label{table:graph-size}}
+\end{center}
+\end{table}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|r|r|r|}
+\hline
+\bf Lang. & \bf Apertium {\tt {\small LR}} & \bf Apertium {\tt {\small RL}}  & \bf HFST \\
+\hline
+Basq.       & 252 KiB & 289 KiB & 1,7 MiB \\
+Norg. & 558 KiB & 535 KiB & 3,7 MiB \\
+Manx         & 108 KiB & 110 KiB & 709 KiB \\
+\hline
+\end{tabular}
+\caption{Size of HFST-based system against original (as B on disk)
+\label{table:size}}
+\end{center}
+\end{table}
+
+To test efficiency we measure times of running various tasks.  The times and
+memory usage have been measured using GNU \texttt{time} utility and
+\texttt{getrusage} system call's \texttt{ru\_utime} field, averaged over three
+test runs. The tests were performed on quad-core Intel Xeon E5450 @ 3.00~GHz
+with 64 GiB of RAM. 
+
+First we measure speed of analysing a full corpus with the result automaton.
+The speed is measured in the table~\ref{table:speed}, in
+seconds to precision that was available in our system. Curiously the results
+do not give direct advantage to either of the system but it seems to
+depend on the language which system is a better choice for corpus analysis.
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|r|r|}
+\hline
+\bf Language & \bf Apertium & \bf HFST \\
+\hline
+Basque       & 32.0 s& 18.4 s \\
+Norwegian    & 2.4 s & 5.5  s \\
+Manx         & 1.6 s & 2.2  s \\
+\hline
+\end{tabular}
+\caption{Speed of HFST-based system against original in corpus analysis
+ (as s in user time)
+\label{table:speed}}
+\end{center}
+\end{table}
+
+Similarly we measure the speed of current compilation process in 
+table~\ref{table:compile-speed}. In here there's an obvious advantage to
+manual building of the automaton (see \cite{rojas2005} for the precise algorithm
+used) over the finite-state algebra method, as is
+in line with earlier results for lexc building in~\cite{pirinen/2009/sfcm}.
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|r|r|}
+\hline
+\bf Language & \bf Apertium time & \bf HFST time \\
+\hline
+Basque       & 35.7 s & 160.0  s \\
+Norwegian    & 6.6 s  & 200.2 s \\
+Manx         & 0.8 s  & 11.2  s \\
+\hline
+\end{tabular}
+\caption{Speed of HFST-based system against original in compilation
+ (as seconds of user time)
+\label{table:compile-speed}}
+\end{center}
+\end{table}
+
+Finally we evaluate the usability of dictionaries meant for machine translation
+as spell-checkers by running the finite-state spell checkers we produced
+automatically through a large corpus and show the measure both speed and
+quality of the results. The errors were automatically generated to Wikipedia
+text's correct words using simple algorithm that may generate one Levenshtein
+error per each character position at probability of $\frac{1}{33}$.  This test
+shows only rudimentary results on the plausibility of using machine translation
+dictionary for spell-checking; for more thorough evaluation of efficiency of
+finite-state spell-checking see~\cite{hassan/2008}.
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|r|r|}
+\hline
+\bf Language & \bf Speed (words/sec) \\
+\hline
+Basque       &  7,900 \\
+Norwegian    &  9,200 \\
+Manx         &  4,700 \\
+\hline
+\end{tabular}
+\caption{Efficiency of spelling correction in artificial test setup, average 
+  over three runs.}
+\label{table:spelling}
+\end{center}
+\end{table}
+
+\section{Conclusions}
+\label{sec:conclusions}
+
+In this article we have shown a general formula to compile morphological
+dictionaries from machine-translation system Apertium in generic FST system of
+HFST and using the result in HFST-based application of spell-checking.
+
+\section{Future Work}
+\label{sec:future}
+
+In this article we showed a basic method to gain more inter-operability between
+generic FST system of HFST and a specialised morphological dictionary writing
+formalism of machine-translation system Apertium by implementing a generic
+compilation formula to compile the language descriptions. In future research
+we are leveraging this and other related formulas into automatic optimisation
+of the final automata using the information present in the language description
+to optimise instead of relying generic graph algorithms for the final minimised
+result automata.
+ 
+We demonstrated importing the compiled dictionary as a language model and
+inducing error model for real-world spell-checking applications. Further
+development in this direction should aim for interoperable formalisms, formats
+and mechanisms for language models and end applications of all relevant
+language technology tools.
+
+\section*{Acknowledgements}
+
+We thank the HFST and Apertium contributors for fruitful internet relayed chats,
+and the two anonymous reviewers for their helpful suggestions.
+
+\bibliographystyle{lrec2006}
+\bibliography{lrec2011}
+
+
+\end{document}
+% vim: set spell:

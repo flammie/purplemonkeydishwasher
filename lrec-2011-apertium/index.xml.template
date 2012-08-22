@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hfstspeller dtdversion="1.0" hfstversion="3">
+  <info>
+    <locale>@LL@</locale>
+    <title>Apertium based speller (@APERTIUM_NAME@)</title>
+    <description>
+        A speller converted automatically from apertium monodix file with
+        baseline error model.
+    </description>
+    <version vcsrev="@APERTIUM_REVISION@">@APERTIUM_VERSION@</version>
+    <date>@DATE@</date>
+    <producer>apertium contributors</producer>
+    <contact email="apertium-stuff@lists.sf.net" 
+        website=""/>
+  </info>
+  <acceptor type="general" id="acceptor.default.hfst">
+    <title>Apertium dictionary from file @APERTIUM_NAME@</title>
+    <description>
+        Apertium monodix compiled for HFST.
+    </description>
+  </acceptor>
+  <errmodel id="errmodel.default.hfst">
+    <title>Levenstein edit distance transducer</title>
+    <description>
+        Correction model for keyboard misstrokes, at most 2 per word.
+    </description>
+        <type type="default"/>
+        <model>errormodel.default.hfst</model>
+    </errmodel>
+</hfstspeller>

@@ -1,0 +1,182 @@
+\documentclass{llncs}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+
+\sloppy
+
+\begin{document}
+
+\title{Strategies and efficiency of morpheme sub-lexicon compilation with 
+HFST-lexc}
+
+\author{Krister Lind\'{e}n \and Tommi Pirinen}
+
+\institute{University Of Helsinki, Helsingin yliopisto 00000-FI, Finland}
+
+\maketitle
+
+\begin{abstract}
+This paper presents various algorithms and practices
+used for compilation of morpheme
+sublexicons to final morphological analyser transducer or \emph{lexical
+transducer}. The algorithms' performance is tested and compared against
+traditional lexical transducer building tools by Xerox and against
+morphology built with SFST toolkit.
+\end{abstract}
+
+\section{Introduction}
+
+A lexicon compiler is a program which reads set of morphemes and concatenative
+rules and creates a finite state transducer which maps legal combinations of
+morphemes. The baseline formula for combining described here was written to
+emulate ubiquitous lexc by Xerox, which has traditionally been used for same
+task. In Xerox lexc, the named lexicons are sets of strings and regular
+expressions, each associated with target lexicon. For example one might
+have lexicon named \texttt{nouns} with entries, such as \texttt{cat}
+and \texttt{dog}, both associated with target lexicon \texttt{number}.
+Number lexicon might contain two entries, defining empty string for
+singular \ldots
+
+The problem of compiling lexical transducer\cite{} from lexicons and
+entries consists at least three optimisation problems that are discussed
+in this paper. First is compiling simple string entries to finite state format,
+that is \emph{tokenisation} and \emph{compilation} problem. Second optimisation
+problem discussed is that of combining entries of single lexicon to a
+transducer, that is efficient \emph{union} entry transducers. Third problem
+is that of dealing with the combinations of lexicon entries and lexicons,
+i.e. \emph{morphotax} implementation. Fourth algorithm that is relevant to
+creation of lexical transducer, is problem of combining phonological rules
+with resulting transducer, it is dealt more in depth in papers \cite{}.
+
+\section{Compilation strategies and formulae}
+
+\ldots
+
+\subsection{Lexicon entry compilation}
+
+An entry in lexicon is represented in lexc formalism as line of code consisting
+of lexical data, a continuation class and semicolon. The problem of entry
+compilation in lexc format is segmentation of ambiguous strings, e.g. example
+\ldots This segmentation can efficiently be performed either by using
+transducer lookup with special tokenising transducer
+or segmenting from a string.
+
+\subsection{Lexicon building}
+
+Lexicon building concerns with creating a disjunction of the entries of the
+lexicon. Disjunction per se is quite straight forward process, so only
+optimisation strategies presented here are ordering of the disjunctions so
+that disjuncted parts are equal rather than disjuncting n entries to n+1th
+entry. More effective strategy is to build lexicon as prefix tree of the
+entries.
+
+\subsection{Lexicon combinatorics}
+
+Two strategies of combining finite state lexicons together against specified
+morphotactics can be thought of. A trivial approach would be to simply draw
+an epsilon arc from entry with continuation class of $X$ to the beginning of
+lexicon named $X$. Here we present alternative formula, that uses only 
+basic finite state algebra with lexicon transducers to achieve the same goal.
+
+
+\subsubsection{Combining lexicons using standard finite state transducer algebra.}
+
+Here we assume all standard finite state operations and definitions, that is operators
+$\cup$ for union, $\cap$ for intersection, $\circ$ for composition, $-$ for
+difference, and juxtaposition for concatenation, and symbols
+$\epsilon$ for zero-length string. We define
+$\Sigma, \Gamma, \Delta$ for subsets of symbol alphabet. For
+subsets of pair alphabet, $\Pi$ represents subset of
+product $\Sigma \times \Sigma$.
+Let $\Sigma = \{a, b, \ldots\}$ for set of symbols used
+in natural language.
+Let $\Gamma$ be set of auxiliary symbols used in formulae such that
+$\Gamma \cap \Sigma = \emptyset$. Further we define
+$\Gamma_{J^{2}_{x}} \subset \Gamma$ as \emph{joiners} we use to delimit
+lexicon entries and define finite state rules of morphotax. Single joiners
+referring to lexicon name or continuation class $X$ we write as $J_{x}$.
+Let $\Delta = \Sigma \cup \Gamma$ and further 
+$\Delta_x = \Delta - J_x$, that is, $\Delta$, with all auxiliary symbols
+referring to lexicon or continuation class $x$ are removed.
+
+Let us define a single entry of lexicon, that is, a line of code in
+lexc file. We refer this to as \emph{morpheme} per principle of making lexicons
+consist of morphologically motivated items:
+
+\begin{equation}
+M = \Sigma^{\star} \Gamma_{J^{2}}
+\end{equation}
+
+A morpheme, when building a lexicon for finite state combinatoric formula is
+an entry compiled to finite state form as defined in \ref{}, appended with
+joiner named after the continuation class of entry.
+
+A lexicon then is simply disjunction of morphemes $M$ prepended with joiner
+referring to lexicon name:
+
+\begin{equation}
+L = \Gamma_{J^{2}} \bigcup_{n = 0}^{k}(M_{n}), \mathrm{where} n = 
+\mathrm{number of morphemes}
+\end{equation}
+
+Then we can create legal combination of morphemes by composing over language
+allowing any string where joiners appear as pairs:
+
+\begin{equation}
+F_J^2 = (\bigcup_{J_x \in J^2}(\Sigma^{\star} J_{x} J_{x} \Sigma^{\star}))^{\star} 
+\end{equation}
+
+\emph{Note.} $\Sigma$ on both sides of joiners is not strictly necessary, of
+course.
+
+To also take into account special beginning and ending lexicons, let
+$J_{Root} \in J^{2}$ be starting lexicon, that can be part of the paired joiners
+and $J_{\#} \notin J^{2}$ be ending lexicon that may not be otherwise used as
+a joiner, we extend filter as:
+
+\begin{equation}
+F_J^{<,2,>} = J_{Root} \Sigma^{\star} F_J^2 \Sigma^{\star} J_{\#}
+\end{equation}
+
+The final lexicon can be created by simple composition:
+
+\begin{equation}
+L^{\star} \circ F_J^{<,2,>}
+\end{equation}
+
+\emph{Note.} Intersection may also be used, but this requires the obvious
+extension of defining $\Delta$ and $\Sigma$ over actual pairs.
+
+\subsection{Note about combining lexicons and rules}
+
+refernce to intersect compose article and to hfst-intersect compose article?
+
+\section{Performance tests and evaluations}
+
+For performance testing we present three different morphologies, which employ
+varying complexities on both morphotactic and phonologic levels. The
+French full form morphological lexicon is readily inflected list of all
+forms of all words, that is a single lexicon of 500000 entries\cite{morphalou}.
+Finnish lexicon
+is reformulation of morphology defined \cite{pirinen2008}, implemented using
+SFST \cite{schmidt2007}.
+For comparison also the compilation times of SFST version in same test
+environment are provided. Third is Northern S\'{a}mi morphology from \ldots.
+
+
+
+\section{Further research}
+
+(((
+These formulae make it possible to extend combinatorics over long distance
+dependencies using e.g. filter of flag diacritics\cite{} or e.g.
+directed balanced brackets over the filter as other auxiliary character,
+
+It may be not too complicated to extend morpheme combinatorics
+with cover filters for languages that use e.g. interdigitation morphotactics.
+)))
+
+\bibliographystyle{splncs}
+\bibliography{hfst-all}
+
+\end{document}

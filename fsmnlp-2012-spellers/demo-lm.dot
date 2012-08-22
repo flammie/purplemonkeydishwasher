@@ -1,0 +1,126 @@
+digraph A {
+rankdir = LR;
+node [shape=circle,style=filled] 0
+node [shape=circle,style=filled] 1
+node [shape=circle,style=filled] 2
+node [shape=circle,style=filled] 3
+node [shape=circle,style=filled] 4
+node [shape=circle,style=filled] 5
+node [shape=circle,style=filled] 6
+node [shape=circle,style=filled] 7
+node [shape=circle,style=filled] 8
+node [shape=circle,style=filled] 9
+node [shape=circle,style=filled] 10
+node [shape=circle,style=filled] 11
+node [shape=circle,style=filled] 12
+node [shape=circle,style=filled] 13
+node [shape=circle,style=filled] 14
+node [shape=circle,style=filled] 15
+node [shape=circle,style=filled] 16
+node [shape=circle,style=filled] 17
+node [shape=circle,style=filled] 18
+node [shape=circle,style=filled] 19
+node [shape=circle,style=filled] 20
+node [shape=circle,style=filled] 21
+node [shape=circle,style=filled] 22
+node [shape=circle,style=filled] 23
+node [shape=circle,style=filled] 24
+node [shape=circle,style=filled] 25
+node [shape=circle,style=filled] 26
+node [shape=circle,style=filled] 27
+node [shape=circle,style=filled] 28
+node [shape=circle,style=filled] 29
+node [shape=circle,style=filled] 30
+node [shape=circle,style=filled] 31
+node [shape=circle,style=filled] 32
+node [shape=circle,style=filled] 33
+node [shape=circle,style=filled] 34
+node [shape=circle,style=filled] 35
+node [shape=circle,style=filled] 36
+node [shape=circle,style=filled] 37
+node [shape=circle,style=filled] 38
+node [shape=circle,style=filled] 39
+node [shape=circle,style=filled] 40
+node [shape=circle,style=filled] 41
+node [shape=circle,style=filled] 42
+node [shape=circle,style=filled] 43
+node [shape=circle,style=filled] 44
+node [shape=circle,style=filled] 45
+node [shape=circle,style=filled] 46
+node [shape=circle,style=filled] 47
+node [shape=circle,style=filled] 48
+node [shape=circle,style=filled] 49
+node [shape=circle,style=filled] 50
+node [shape=circle,style=filled] 51
+node [shape=circle,style=filled] 52
+node [shape=circle,style=filled] 53
+node [shape=circle,style=filled] 54
+node [shape=doublecircle,style=filled] 55
+0 -> 52 [label="b "];
+0 -> 44 [label="a "];
+0 -> 40 [label="H "];
+0 -> 55 [label="A "];
+0 -> 37 [label="z "];
+0 -> 24 [label="r "];
+0 -> 21 [label="q "];
+0 -> 18 [label="p "];
+0 -> 17 [label="o "];
+0 -> 11 [label="m "];
+0 -> 1 [label="f "];
+1 -> 10 [label="o "];
+1 -> 2 [label="i "];
+2 -> 3 [label="n "];
+3 -> 4 [label="i "];
+4 -> 5 [label="t "];
+5 -> 6 [label="e "];
+6 -> 7 [label="s "];
+7 -> 8 [label="t "];
+8 -> 9 [label="a "];
+9 -> 16 [label="t "];
+10 -> 55 [label="o "];
+11 -> 12 [label="a "];
+12 -> 13 [label="c "];
+13 -> 14 [label="h "];
+14 -> 15 [label="i "];
+15 -> 16 [label="n "];
+16 -> 55 [label="e "];
+17 -> 55 [label="f "];
+18 -> 19 [label="i "];
+19 -> 20 [label="n "];
+20 -> 55 [label="t "];
+21 -> 22 [label="u "];
+22 -> 23 [label="u n "];
+23 -> 55 [label="x "];
+24 -> 25 [label="u "];
+25 -> 26 [label="m "];
+26 -> 27 [label="p "];
+27 -> 28 [label="l "];
+28 -> 29 [label="e "];
+29 -> 30 [label="s "];
+30 -> 31 [label="t "];
+31 -> 32 [label="i "];
+32 -> 33 [label="l "];
+33 -> 34 [label="t "];
+34 -> 35 [label="s "];
+35 -> 36 [label="k "];
+36 -> 51 [label="i "];
+37 -> 38 [label="z "];
+38 -> 39 [label="i "];
+39 -> 55 [label="p "];
+40 -> 41 [label="w "];
+41 -> 42 [label="e "];
+42 -> 43 [label="t "];
+43 -> 55 [label="h "];
+44 -> 45 [label="u "];
+45 -> 46 [label="t "];
+46 -> 47 [label="o "];
+47 -> 48 [label="m "];
+48 -> 49 [label="a "];
+49 -> 50 [label="t "];
+50 -> 51 [label="o "];
+51 -> 55 [label="n "];
+52 -> 53 [label="e "];
+52 -> 54 [label="a "];
+53 -> 54 [label="e "];
+54 -> 55 [label="r "];
+}

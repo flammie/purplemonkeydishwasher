@@ -1,0 +1,10 @@
+The HFST software are licenced under GNU GPLv3 licence.
+The OpenFST software are licenced under Apache Licence version 2.
+The Finnish Dictionary and Morphological analyser are licenced under GNU GPLv3 licence.
+The English word-list, and the Finnish and English corpora are composed of material using Wikipedia (various licences), Project Gutenberg (Public Domain/Copyright expired), and europarl data (public domain? <http://statmt.org/europarl/>).
+The Finnish POS N-gram binaries are restricted for research and evaluation, and
+cannot be used at all.
+The English POS N-gram data can be bought from LDC and is restricted commercial
+data <http://www.ldc.upenn.edu/Catalog/CatalogEntry.jsp?catalogId=LDC99T42>; most likely cannot be used freely.
+
+

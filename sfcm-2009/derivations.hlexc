@@ -1,0 +1,31 @@
+
+LEXICON NounStem/Nominative
++Dinen+noun:i	kotus_38/stemfiller	;
++Dlainen+noun:l~Ai	kotus_38/stemfiller	;
+
+LEXICON NounStem/Plural
++pl+Dtse+adve+prl:itse	Clitic/Optional	;
++sup:i+AV-	kotus_36/stemfiller	;
+
+LEXICON NounStem/Singular
++sg+Dtse+adve+prl:+AV-tse	Clitic/Optional	;
++cmp+noun:+comparativem+AV-~P+AVH	kotus_16/stemfiller	;
++Dllinen+noun:lli	kotus_38/stemfiller	;
++Dsti+adve+sti:s+AV-ti	Clitic/Optional	;
++Dtar+noun:+AV-t~T~Ar+AVC	kotus_32/stemfiller	;
++Dton+noun:+AV-t~O	kotus_34/stemfiller	;
+
+LEXICON VerbStem/Passive
++pss+pcpnut+noun:+AV-~T~U+AVY	kotus_1/stemfiller	;
++pss+pcpva+noun:+AV-t~Av	kotus_10/stemfiller	;
+
+LEXICON VerbStem/Potential
++act+pcpnut:+AV+~N	kotus_47/stemfiller	;
+
+LEXICON VerbStem/Present
++act+pcpma+noun:+AV+m	kotus_10/stemfiller	;
++act+pcpneg+noun:+AV+m~A~T~O+AVC	kotus_34/stemfiller	;
++act+pcpva+Dinen+noun:+AV+v~Ai	kotus_38/stemfiller	;
++act+pcpva+noun:+AV+v	kotus_10/stemfiller	;
++Dminen+noun:+AV+mi	kotus_38/stemfiller	;
++Dja+noun:j~A	kotus_12/stemfiller	;
