@@ -1,0 +1,784 @@
+# This is the American soundex as gotten from enwiki:
+# http://en.wikipedia.org/wiki/Soundex
+# The correct value can be found as follows:
+#   1. Retain the first letter of the name 
+#   2. Replace following letters like so::
+#      - drop all other occurrences of a, e, i, o, u, y, h, w, ?.
+#      - b, f, p, v => 1
+#      - c, g, j, k, q, s, x, z => 2
+#      - d, t => 3
+#      - l => 4
+#      - m, n => 5
+#      - r => 6
+#   3. Except following:
+#      - Two adjacent letters (in the original name) with the same number
+#        are coded as a single number;
+#      - also two letters with the same number separated by 'h' or 'w' 
+#        are coded as a single number,
+#      - whereas such letters separated by a vowel are coded twice.
+#      - This rule also applies to the first letter.
+#
+# Retain first letter whatever it is
+0	7	@_IDENTITY_SYMBOL_@	@_IDENTITY_SYMBOL_@
+0	7	a	A
+0	7	A	A
+0	7	e	E
+0	7	E	E
+0	7	i	I
+0	7	I	I
+0	7	o	O
+0	7	O	O
+0	7	u	U
+0	7	U	U
+0	7	y	Y
+0	7	Y	Y
+0	7	h	H
+0	7	H	H
+0	7	w	W
+0	7	W	W
+# initial bfpv looking to skip next bfpv
+0	1	b	B
+0	1	B	B
+0	1	f	F
+0	1	F	F
+0	1	p	P
+0	1	P	P
+0	1	v	V
+0	1	V	V
+# initial cgjkqsxz looking to skip next cgjkqsxz
+0	2	c	C
+0	2	C	C
+0	2	g	G
+0	2	G	G
+0	2	j	J
+0	2	J	J
+0	2	k	K
+0	2	K	K
+0	2	q	Q
+0	2	Q	Q
+0	2	s	S
+0	2	S	S
+0	2	x	X
+0	2	X	X
+0	2	z	Z
+0	2	Z	Z
+# initial dt looking to skip next dt
+0	3	d	D
+0	3	D	D
+0	3	t	T
+0	3	T	T
+# initial l looking to skip next l
+0	4	l	L
+0	4	L	L
+# initial mn looking to skip next mn
+0	5	m	M
+0	5	M	M
+0	5	n	N
+0	5	N	N
+# initial r looking to skip next r
+0	6	r	R
+0	6	R	R
+# first bfpv received: skip bfpv + hw
+1	1	b	@_EPSILON_SYMBOL_@
+1	1	f	@_EPSILON_SYMBOL_@
+1	1	p	@_EPSILON_SYMBOL_@
+1	1	v	@_EPSILON_SYMBOL_@
+1	1	h	@_EPSILON_SYMBOL_@
+1	1	w	@_EPSILON_SYMBOL_@
+#   skip vowels but afterwards allow bfpv (as if after init. vowel)
+1	7	a	@_EPSILON_SYMBOL_@
+1	7	e	@_EPSILON_SYMBOL_@
+1	7	i	@_EPSILON_SYMBOL_@
+1	7	o	@_EPSILON_SYMBOL_@
+1	7	u	@_EPSILON_SYMBOL_@
+1	7	y	@_EPSILON_SYMBOL_@
+1	7	@_UNKNOWN_SYMBOL_@	@_EPSILON_SYMBOL_@
+#   others numbered as usual (jump to second letter states)
+1	9	c	2
+1	9	g	2
+1	9	j	2
+1	9	k	2
+1	9	q	2
+1	9	s	2
+1	9	x	2
+1	9	z	2
+1	10	d	3
+1	10	t	3
+1	11	l	4
+1	12	m	5
+1	12	n	5
+1	13	r	6
+# not enough input, go zero
+1	23	@_EPSILON_SYMBOL_@	0
+# first cgjkqsxz received: skip cgjkqsxz + hw
+2	2	c	@_EPSILON_SYMBOL_@
+2	2	g	@_EPSILON_SYMBOL_@
+2	2	j	@_EPSILON_SYMBOL_@
+2	2	k	@_EPSILON_SYMBOL_@
+2	2	q	@_EPSILON_SYMBOL_@
+2	2	s	@_EPSILON_SYMBOL_@
+2	2	x	@_EPSILON_SYMBOL_@
+2	2	z	@_EPSILON_SYMBOL_@
+2	2	h	@_EPSILON_SYMBOL_@
+2	2	w	@_EPSILON_SYMBOL_@
+#   skip vowels but afterwards allow cgjkqsxz (as if after init. vowel)
+2	7	a	@_EPSILON_SYMBOL_@
+2	7	e	@_EPSILON_SYMBOL_@
+2	7	i	@_EPSILON_SYMBOL_@
+2	7	o	@_EPSILON_SYMBOL_@
+2	7	u	@_EPSILON_SYMBOL_@
+2	7	y	@_EPSILON_SYMBOL_@
+2	7	@_UNKNOWN_SYMBOL_@	@_EPSILON_SYMBOL_@
+#   others numbered as usual (jump to second letter states)
+2	8	b	1
+2	8	f	1
+2	8	p	1
+2	8	v	1
+2	10	d	3
+2	10	t	3
+2	11	l	4
+2	12	m	5
+2	12	n	5
+2	13	r	6
+# not enough input, go zero
+2	23	@_EPSILON_SYMBOL_@	0
+# first dt received, skip dt + hw
+3	3	d	@_EPSILON_SYMBOL_@
+3	3	t	@_EPSILON_SYMBOL_@
+3	3	h	@_EPSILON_SYMBOL_@
+3	3	w	@_EPSILON_SYMBOL_@
+#   skip vowels but afterwards allow dt (as if after init. vowel)
+3	7	a	@_EPSILON_SYMBOL_@
+3	7	e	@_EPSILON_SYMBOL_@
+3	7	i	@_EPSILON_SYMBOL_@
+3	7	o	@_EPSILON_SYMBOL_@
+3	7	u	@_EPSILON_SYMBOL_@
+3	7	y	@_EPSILON_SYMBOL_@
+3	7	@_UNKNOWN_SYMBOL_@	@_EPSILON_SYMBOL_@
+#   others numbered as usual (jump to second letter states)
+3	8	b	1
+3	8	f	1
+3	8	p	1
+3	8	v	1
+3	9	c	2
+3	9	g	2
+3	9	j	2
+3	9	k	2
+3	9	q	2
+3	9	s	2
+3	9	x	2
+3	9	z	2
+3	11	l	4
+3	12	m	5
+3	12	n	5
+3	13	r	6
+# not enough input, go zero
+3	23	@_EPSILON_SYMBOL_@	0
+# initial l received, skip l + hw
+4	4	l	@_EPSILON_SYMBOL_@
+4	4	h	@_EPSILON_SYMBOL_@
+4	4	w	@_EPSILON_SYMBOL_@
+#   skip vowels but afterwards allow dt (as if after init. vowel)
+4	7	a	@_EPSILON_SYMBOL_@
+4	7	e	@_EPSILON_SYMBOL_@
+4	7	i	@_EPSILON_SYMBOL_@
+4	7	o	@_EPSILON_SYMBOL_@
+4	7	u	@_EPSILON_SYMBOL_@
+4	7	y	@_EPSILON_SYMBOL_@
+4	7	@_UNKNOWN_SYMBOL_@	@_EPSILON_SYMBOL_@
+#   others numbered as usual (jump to second letter states)
+4	8	b	1
+4	8	f	1
+4	8	p	1
+4	8	v	1
+4	9	c	2
+4	9	g	2
+4	9	j	2
+4	9	k	2
+4	9	q	2
+4	9	s	2
+4	9	x	2
+4	9	z	2
+4	10	d	3
+4	10	t	3
+4	12	m	5
+4	12	n	5
+4	13	r	6
+# not enough input, go zero
+4	23	@_EPSILON_SYMBOL_@	0
+# initial mn received, skip mn + hw
+5	5	m	@_EPSILON_SYMBOL_@
+5	5	n	@_EPSILON_SYMBOL_@
+5	5	h	@_EPSILON_SYMBOL_@
+5	5	w	@_EPSILON_SYMBOL_@
+#   skip vowels but afterwards allow mn (as if after init. vowel)
+5	7	a	@_EPSILON_SYMBOL_@
+5	7	e	@_EPSILON_SYMBOL_@
+5	7	i	@_EPSILON_SYMBOL_@
+5	7	o	@_EPSILON_SYMBOL_@
+5	7	u	@_EPSILON_SYMBOL_@
+5	7	y	@_EPSILON_SYMBOL_@
+5	7	@_UNKNOWN_SYMBOL_@	@_EPSILON_SYMBOL_@
+#   others numbered as usual (jump to second letter states)
+5	8	b	1
+5	8	f	1
+5	8	p	1
+5	8	v	1
+5	9	c	2
+5	9	g	2
+5	9	j	2
+5	9	k	2
+5	9	q	2
+5	9	s	2
+5	9	x	2
+5	9	z	2
+5	10	d	3
+5	10	t	3
+5	11	l	4
+5	13	r	6
+# not enough input, go zero
+5	23	@_EPSILON_SYMBOL_@	0
+# initial r, skip r + hw
+6	6	r	@_EPSILON_SYMBOL_@
+6	6	h	@_EPSILON_SYMBOL_@
+6	6	w	@_EPSILON_SYMBOL_@
+#   skip vowels but afterwards allow r (as if after init. vowel)
+6	7	a	@_EPSILON_SYMBOL_@
+6	7	e	@_EPSILON_SYMBOL_@
+6	7	i	@_EPSILON_SYMBOL_@
+6	7	o	@_EPSILON_SYMBOL_@
+6	7	u	@_EPSILON_SYMBOL_@
+6	7	y	@_EPSILON_SYMBOL_@
+6	7	@_UNKNOWN_SYMBOL_@	@_EPSILON_SYMBOL_@
+#   others numbered as usual (jump to second letter states)
+6	8	b	1
+6	8	f	1
+6	8	p	1
+6	8	v	1
+6	9	c	2
+6	9	g	2
+6	9	j	2
+6	9	k	2
+6	9	q	2
+6	9	s	2
+6	9	x	2
+6	9	z	2
+6	10	d	3
+6	10	t	3
+6	11	l	4
+6	12	m	5
+6	12	n	5
+# not enough input, go zero
+6	23	@_EPSILON_SYMBOL_@	0
+# initial aeiouyhw or intervening vowel, skip aeiouyhw
+7	7	a	@_EPSILON_SYMBOL_@
+7	7	e	@_EPSILON_SYMBOL_@
+7	7	i	@_EPSILON_SYMBOL_@
+7	7	o	@_EPSILON_SYMBOL_@
+7	7	u	@_EPSILON_SYMBOL_@
+7	7	y	@_EPSILON_SYMBOL_@
+7	7	h	@_EPSILON_SYMBOL_@
+7	7	w	@_EPSILON_SYMBOL_@
+7	7	@_UNKNOWN_SYMBOL_@	@_EPSILON_SYMBOL_@
+#   others numbered as usual (jump to second letter states)
+7	8	b	1
+7	8	f	1
+7	8	p	1
+7	8	v	1
+7	9	c	2
+7	9	g	2
+7	9	j	2
+7	9	k	2
+7	9	q	2
+7	9	s	2
+7	9	x	2
+7	9	z	2
+7	10	d	3
+7	10	t	3
+7	11	l	4
+7	12	m	5
+7	12	n	5
+7	13	r	6
+# not enough input, go zero
+7	23	@_EPSILON_SYMBOL_@	0
+# second bfpv received: skip bfpv + hw
+8	8	b	@_EPSILON_SYMBOL_@
+8	8	f	@_EPSILON_SYMBOL_@
+8	8	p	@_EPSILON_SYMBOL_@
+8	8	v	@_EPSILON_SYMBOL_@
+8	8	h	@_EPSILON_SYMBOL_@
+8	8	w	@_EPSILON_SYMBOL_@
+#   skip vowels but afterwards allow bfpv (as if after init. vowel)
+8	14	a	@_EPSILON_SYMBOL_@
+8	14	e	@_EPSILON_SYMBOL_@
+8	14	i	@_EPSILON_SYMBOL_@
+8	14	o	@_EPSILON_SYMBOL_@
+8	14	u	@_EPSILON_SYMBOL_@
+8	14	y	@_EPSILON_SYMBOL_@
+8	14	@_UNKNOWN_SYMBOL_@	@_EPSILON_SYMBOL_@
+#   others numbered as usual (jump to second letter states)
+8	16	c	2
+8	16	g	2
+8	16	j	2
+8	16	k	2
+8	16	q	2
+8	16	s	2
+8	16	x	2
+8	16	z	2
+8	17	d	3
+8	17	t	3
+8	18	l	4
+8	19	m	5
+8	19	n	5
+8	20	r	6
+# not enough input, go zero
+8	24	@_EPSILON_SYMBOL_@	0
+# second cgjkqsxz received: skip cgjkqsxz + hw
+9	9	c	@_EPSILON_SYMBOL_@
+9	9	g	@_EPSILON_SYMBOL_@
+9	9	j	@_EPSILON_SYMBOL_@
+9	9	k	@_EPSILON_SYMBOL_@
+9	9	q	@_EPSILON_SYMBOL_@
+9	9	s	@_EPSILON_SYMBOL_@
+9	9	x	@_EPSILON_SYMBOL_@
+9	9	z	@_EPSILON_SYMBOL_@
+9	9	h	@_EPSILON_SYMBOL_@
+9	9	w	@_EPSILON_SYMBOL_@
+#   skip vowels but afterwards allow cgjkqsxz (as if after intervening vowel)
+9	14	a	@_EPSILON_SYMBOL_@
+9	14	e	@_EPSILON_SYMBOL_@
+9	14	i	@_EPSILON_SYMBOL_@
+9	14	o	@_EPSILON_SYMBOL_@
+9	14	u	@_EPSILON_SYMBOL_@
+9	14	y	@_EPSILON_SYMBOL_@
+9	14	@_UNKNOWN_SYMBOL_@	@_EPSILON_SYMBOL_@
+#   others numbered as usual (jump to second letter states)
+9	15	b	1
+9	15	f	1
+9	15	p	1
+9	15	v	1
+9	17	d	3
+9	17	t	3
+9	18	l	4
+9	19	m	5
+9	19	n	5
+9	20	r	6
+# not enough input, go zero
+9	24	@_EPSILON_SYMBOL_@	0
+# second dt received, skip dt + hw
+10	10	d	@_EPSILON_SYMBOL_@
+10	10	t	@_EPSILON_SYMBOL_@
+10	10	h	@_EPSILON_SYMBOL_@
+10	10	w	@_EPSILON_SYMBOL_@
+#   skip vowels but afterwards allow dt (as if after init. vowel)
+10	14	a	@_EPSILON_SYMBOL_@
+10	14	e	@_EPSILON_SYMBOL_@
+10	14	i	@_EPSILON_SYMBOL_@
+10	14	o	@_EPSILON_SYMBOL_@
+10	14	u	@_EPSILON_SYMBOL_@
+10	14	y	@_EPSILON_SYMBOL_@
+10	14	@_UNKNOWN_SYMBOL_@	@_EPSILON_SYMBOL_@
+#   others numbered as usual (jump to second letter states)
+10	15	b	1
+10	15	f	1
+10	15	p	1
+10	15	v	1
+10	16	c	2
+10	16	g	2
+10	16	j	2
+10	16	k	2
+10	16	q	2
+10	16	s	2
+10	16	x	2
+10	16	z	2
+10	18	l	4
+10	19	m	5
+10	19	n	5
+10	20	r	6
+# not enough input, go zero
+10	24	@_EPSILON_SYMBOL_@	0
+# initial l received, skip l + hw
+11	11	l	@_EPSILON_SYMBOL_@
+11	11	h	@_EPSILON_SYMBOL_@
+11	11	w	@_EPSILON_SYMBOL_@
+#   skip vowels but afterwards allow dt (as if after init. vowel)
+11	14	a	@_EPSILON_SYMBOL_@
+11	14	e	@_EPSILON_SYMBOL_@
+11	14	i	@_EPSILON_SYMBOL_@
+11	14	o	@_EPSILON_SYMBOL_@
+11	14	u	@_EPSILON_SYMBOL_@
+11	14	y	@_EPSILON_SYMBOL_@
+11	14	@_UNKNOWN_SYMBOL_@	@_EPSILON_SYMBOL_@
+#   others numbered as usual (jump to second letter states)
+11	15	b	1
+11	15	f	1
+11	15	p	1
+11	15	v	1
+11	16	c	2
+11	16	g	2
+11	16	j	2
+11	16	k	2
+11	16	q	2
+11	16	s	2
+11	16	x	2
+11	16	z	2
+11	17	d	3
+11	17	t	3
+11	19	m	5
+11	19	n	5
+11	20	r	6
+# not enough input, go zero
+11	24	@_EPSILON_SYMBOL_@	0
+# initial mn received, skip mn + hw
+12	12	m	@_EPSILON_SYMBOL_@
+12	12	n	@_EPSILON_SYMBOL_@
+12	12	h	@_EPSILON_SYMBOL_@
+12	12	w	@_EPSILON_SYMBOL_@
+#   skip vowels but afterwards allow mn (as if after init. vowel)
+12	14	a	@_EPSILON_SYMBOL_@
+12	14	e	@_EPSILON_SYMBOL_@
+12	14	i	@_EPSILON_SYMBOL_@
+12	14	o	@_EPSILON_SYMBOL_@
+12	14	u	@_EPSILON_SYMBOL_@
+12	14	y	@_EPSILON_SYMBOL_@
+12	14	@_UNKNOWN_SYMBOL_@	@_EPSILON_SYMBOL_@
+#   others numbered as usual (jump to second letter states)
+12	15	b	1
+12	15	f	1
+12	15	p	1
+12	15	v	1
+12	16	c	2
+12	16	g	2
+12	16	j	2
+12	16	k	2
+12	16	q	2
+12	16	s	2
+12	16	x	2
+12	16	z	2
+12	17	d	3
+12	17	t	3
+12	18	l	4
+12	20	r	6
+# not enough input, go zero
+12	24	@_EPSILON_SYMBOL_@	0
+# initial r, skip r + hw
+13	13	r	@_EPSILON_SYMBOL_@
+13	13	h	@_EPSILON_SYMBOL_@
+13	13	w	@_EPSILON_SYMBOL_@
+#   skip vowels but afterwards allow r (as if after init. vowel)
+13	14	a	@_EPSILON_SYMBOL_@
+13	14	e	@_EPSILON_SYMBOL_@
+13	14	i	@_EPSILON_SYMBOL_@
+13	14	o	@_EPSILON_SYMBOL_@
+13	14	u	@_EPSILON_SYMBOL_@
+13	14	y	@_EPSILON_SYMBOL_@
+13	14	@_UNKNOWN_SYMBOL_@	@_EPSILON_SYMBOL_@
+#   others numbered as usual (jump to second letter states)
+13	15	b	1
+13	15	f	1
+13	15	p	1
+13	15	v	1
+13	16	c	2
+13	16	g	2
+13	16	j	2
+13	16	k	2
+13	16	q	2
+13	16	s	2
+13	16	x	2
+13	16	z	2
+13	17	d	3
+13	17	t	3
+13	18	l	4
+13	19	m	5
+13	19	n	5
+# not enough input, go zero
+13	24	@_EPSILON_SYMBOL_@	0
+# secondary intervening vowel, skip aeiouyhw
+14	14	a	@_EPSILON_SYMBOL_@
+14	14	e	@_EPSILON_SYMBOL_@
+14	14	i	@_EPSILON_SYMBOL_@
+14	14	o	@_EPSILON_SYMBOL_@
+14	14	u	@_EPSILON_SYMBOL_@
+14	14	y	@_EPSILON_SYMBOL_@
+14	14	h	@_EPSILON_SYMBOL_@
+14	14	w	@_EPSILON_SYMBOL_@
+14	14	@_UNKNOWN_SYMBOL_@	@_EPSILON_SYMBOL_@
+#   others numbered as usual (jump to third letter states)
+14	15	b	1
+14	15	f	1
+14	15	p	1
+14	15	v	1
+14	16	c	2
+14	16	g	2
+14	16	j	2
+14	16	k	2
+14	16	q	2
+14	16	s	2
+14	16	x	2
+14	16	z	2
+14	17	d	3
+14	17	t	3
+14	18	l	4
+14	19	m	5
+14	19	n	5
+14	20	r	6
+# not enough input, go zero
+14	24	@_EPSILON_SYMBOL_@	0
+# third bfpv received: skip bfpv + hw
+15	15	b	@_EPSILON_SYMBOL_@
+15	15	f	@_EPSILON_SYMBOL_@
+15	15	p	@_EPSILON_SYMBOL_@
+15	15	v	@_EPSILON_SYMBOL_@
+15	15	h	@_EPSILON_SYMBOL_@
+15	15	w	@_EPSILON_SYMBOL_@
+#   skip vowels but afterwards allow bfpv (as if after init. vowel)
+15	21	a	@_EPSILON_SYMBOL_@
+15	21	e	@_EPSILON_SYMBOL_@
+15	21	i	@_EPSILON_SYMBOL_@
+15	21	o	@_EPSILON_SYMBOL_@
+15	21	u	@_EPSILON_SYMBOL_@
+15	21	y	@_EPSILON_SYMBOL_@
+15	21	@_UNKNOWN_SYMBOL_@	@_EPSILON_SYMBOL_@
+#   others numbered as usual (jump to final state)
+15	22	c	2
+15	22	g	2
+15	22	j	2
+15	22	k	2
+15	22	q	2
+15	22	s	2
+15	22	x	2
+15	22	z	2
+15	22	d	3
+15	22	t	3
+15	22	l	4
+15	22	m	5
+15	22	n	5
+15	22	r	6
+# not enough input, go zero
+15	25	@_EPSILON_SYMBOL_@	0
+# third cgjkqsxz received: skip cgjkqsxz + hw
+16	16	c	@_EPSILON_SYMBOL_@
+16	16	g	@_EPSILON_SYMBOL_@
+16	16	j	@_EPSILON_SYMBOL_@
+16	16	k	@_EPSILON_SYMBOL_@
+16	16	q	@_EPSILON_SYMBOL_@
+16	16	s	@_EPSILON_SYMBOL_@
+16	16	x	@_EPSILON_SYMBOL_@
+16	16	z	@_EPSILON_SYMBOL_@
+16	16	h	@_EPSILON_SYMBOL_@
+16	16	w	@_EPSILON_SYMBOL_@
+#   skip vowels but afterwards allow cgjkqsxz (as if after init. vowel)
+16	21	a	@_EPSILON_SYMBOL_@
+16	21	e	@_EPSILON_SYMBOL_@
+16	21	i	@_EPSILON_SYMBOL_@
+16	21	o	@_EPSILON_SYMBOL_@
+16	21	u	@_EPSILON_SYMBOL_@
+16	21	y	@_EPSILON_SYMBOL_@
+16	21	@_UNKNOWN_SYMBOL_@	@_EPSILON_SYMBOL_@
+#   others numbered as usual (jump to final state)
+16	22	b	1
+16	22	f	1
+16	22	p	1
+16	22	v	1
+16	22	d	3
+16	22	t	3
+16	22	l	4
+16	22	m	5
+16	22	n	5
+16	22	r	6
+# not enough input, go zero
+16	25	@_EPSILON_SYMBOL_@	0
+# second dt received, skip dt + hw
+17	17	d	@_EPSILON_SYMBOL_@
+17	17	t	@_EPSILON_SYMBOL_@
+17	17	h	@_EPSILON_SYMBOL_@
+17	17	w	@_EPSILON_SYMBOL_@
+#   skip vowels but afterwards allow dt (as if after init. vowel)
+17	21	a	@_EPSILON_SYMBOL_@
+17	21	e	@_EPSILON_SYMBOL_@
+17	21	i	@_EPSILON_SYMBOL_@
+17	21	o	@_EPSILON_SYMBOL_@
+17	21	u	@_EPSILON_SYMBOL_@
+17	21	y	@_EPSILON_SYMBOL_@
+17	21	@_UNKNOWN_SYMBOL_@	@_EPSILON_SYMBOL_@
+#   others numbered as usual (jump to final state)
+17	22	b	1
+17	22	f	1
+17	22	p	1
+17	22	v	1
+17	22	c	2
+17	22	g	2
+17	22	j	2
+17	22	k	2
+17	22	q	2
+17	22	s	2
+17	22	x	2
+17	22	z	2
+17	22	l	4
+17	22	m	5
+17	22	n	5
+17	22	r	6
+# not enough input, go zero
+17	25	@_EPSILON_SYMBOL_@	0
+# initial l received, skip l + hw
+18	18	l	@_EPSILON_SYMBOL_@
+18	18	h	@_EPSILON_SYMBOL_@
+18	18	w	@_EPSILON_SYMBOL_@
+#   skip vowels but afterwards allow dt (as if after init. vowel)
+18	21	a	@_EPSILON_SYMBOL_@
+18	21	e	@_EPSILON_SYMBOL_@
+18	21	i	@_EPSILON_SYMBOL_@
+18	21	o	@_EPSILON_SYMBOL_@
+18	21	u	@_EPSILON_SYMBOL_@
+18	21	y	@_EPSILON_SYMBOL_@
+18	21	@_UNKNOWN_SYMBOL_@	@_EPSILON_SYMBOL_@
+#   others numbered as usual (jump to second letter states)
+18	22	b	1
+18	22	f	1
+18	22	p	1
+18	22	v	1
+18	22	c	2
+18	22	g	2
+18	22	j	2
+18	22	k	2
+18	22	q	2
+18	22	s	2
+18	22	x	2
+18	22	z	2
+18	22	d	3
+18	22	t	3
+18	22	m	5
+18	22	n	5
+18	22	r	6
+# not enough input, go zero
+18	25	@_EPSILON_SYMBOL_@	0
+# initial mn received, skip mn + hw
+19	19	m	@_EPSILON_SYMBOL_@
+19	19	n	@_EPSILON_SYMBOL_@
+19	19	h	@_EPSILON_SYMBOL_@
+19	19	w	@_EPSILON_SYMBOL_@
+#   skip vowels but afterwards allow mn (as if after init. vowel)
+19	21	a	@_EPSILON_SYMBOL_@
+19	21	e	@_EPSILON_SYMBOL_@
+19	21	i	@_EPSILON_SYMBOL_@
+19	21	o	@_EPSILON_SYMBOL_@
+19	21	u	@_EPSILON_SYMBOL_@
+19	21	y	@_EPSILON_SYMBOL_@
+19	21	@_UNKNOWN_SYMBOL_@	@_EPSILON_SYMBOL_@
+#   others numbered as usual (jump to second letter states)
+19	22	b	1
+19	22	f	1
+19	22	p	1
+19	22	v	1
+19	22	c	2
+19	22	g	2
+19	22	j	2
+19	22	k	2
+19	22	q	2
+19	22	s	2
+19	22	x	2
+19	22	z	2
+19	22	d	3
+19	22	t	3
+19	22	l	4
+19	22	r	6
+# not enough input, go zero
+19	25	@_EPSILON_SYMBOL_@	0
+# initial r, skip r + hw
+20	20	r	@_EPSILON_SYMBOL_@
+20	20	h	@_EPSILON_SYMBOL_@
+20	20	w	@_EPSILON_SYMBOL_@
+#   skip vowels but afterwards allow r (as if after init. vowel)
+20	21	a	@_EPSILON_SYMBOL_@
+20	21	e	@_EPSILON_SYMBOL_@
+20	21	i	@_EPSILON_SYMBOL_@
+20	21	o	@_EPSILON_SYMBOL_@
+20	21	u	@_EPSILON_SYMBOL_@
+20	21	y	@_EPSILON_SYMBOL_@
+20	21	@_UNKNOWN_SYMBOL_@	@_EPSILON_SYMBOL_@
+#   others numbered as usual (jump to second letter states)
+20	22	b	1
+20	22	f	1
+20	22	p	1
+20	22	v	1
+20	22	c	2
+20	22	g	2
+20	22	j	2
+20	22	k	2
+20	22	q	2
+20	22	s	2
+20	22	x	2
+20	22	z	2
+20	22	d	3
+20	22	t	3
+20	22	l	4
+20	22	m	5
+20	22	n	5
+# not enough input, go zero
+20	25	@_EPSILON_SYMBOL_@	0
+# tertiary intervening vowel, skip aeiouyhw
+21	21	a	@_EPSILON_SYMBOL_@
+21	21	e	@_EPSILON_SYMBOL_@
+21	21	i	@_EPSILON_SYMBOL_@
+21	21	o	@_EPSILON_SYMBOL_@
+21	21	u	@_EPSILON_SYMBOL_@
+21	21	y	@_EPSILON_SYMBOL_@
+21	21	h	@_EPSILON_SYMBOL_@
+21	21	w	@_EPSILON_SYMBOL_@
+21	21	@_UNKNOWN_SYMBOL_@	@_EPSILON_SYMBOL_@
+#   others numbered as usual (jump to final state)
+21	22	b	1
+21	22	f	1
+21	22	p	1
+21	22	v	1
+21	22	c	2
+21	22	g	2
+21	22	j	2
+21	22	k	2
+21	22	q	2
+21	22	s	2
+21	22	x	2
+21	22	z	2
+21	22	d	3
+21	22	t	3
+21	22	l	4
+21	22	m	5
+21	22	n	5
+21	22	r	6
+# not enough input, go zero
+21	25	@_EPSILON_SYMBOL_@	0
+# Final state, eat everything
+22	22	a	@_EPSILON_SYMBOL_@
+22	22	b	@_EPSILON_SYMBOL_@
+22	22	c	@_EPSILON_SYMBOL_@
+22	22	d	@_EPSILON_SYMBOL_@
+22	22	e	@_EPSILON_SYMBOL_@
+22	22	f	@_EPSILON_SYMBOL_@
+22	22	g	@_EPSILON_SYMBOL_@
+22	22	h	@_EPSILON_SYMBOL_@
+22	22	i	@_EPSILON_SYMBOL_@
+22	22	j	@_EPSILON_SYMBOL_@
+22	22	k	@_EPSILON_SYMBOL_@
+22	22	l	@_EPSILON_SYMBOL_@
+22	22	m	@_EPSILON_SYMBOL_@
+22	22	n	@_EPSILON_SYMBOL_@
+22	22	o	@_EPSILON_SYMBOL_@
+22	22	p	@_EPSILON_SYMBOL_@
+22	22	q	@_EPSILON_SYMBOL_@
+22	22	r	@_EPSILON_SYMBOL_@
+22	22	s	@_EPSILON_SYMBOL_@
+22	22	t	@_EPSILON_SYMBOL_@
+22	22	u	@_EPSILON_SYMBOL_@
+22	22	v	@_EPSILON_SYMBOL_@
+22	22	w	@_EPSILON_SYMBOL_@
+22	22	x	@_EPSILON_SYMBOL_@
+22	22	y	@_EPSILON_SYMBOL_@
+22	22	z	@_EPSILON_SYMBOL_@
+22	22	@_UNKNOWN_SYMBOL_@	@_EPSILON_SYMBOL_@
+22
+# inject two more zeroes
+23	24	@_EPSILON_SYMBOL_@	0
+# inject one more zero
+24	25	@_EPSILON_SYMBOL_@	0
+# end zero path
+25

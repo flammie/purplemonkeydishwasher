@@ -1,0 +1,49 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[latin1]{inputenc} % or another input encoding, as needed
+\usepackage{fullpage}
+\usepackage{covington} % or another package for examples, as needed
+\usepackage{natbib}
+%\usepackage[T1]{fontenc} % or another encoding, as needed
+\pagestyle{empty}
+%\bibliographystyle{natbib.fullname} % can be downloaded from Tübingen
+\bibliographystyle{cslipubs-natbib} % can be downloaded from CSLI Publications
+
+\title{Title of the Article} % All words except prepositions, conjunctions and determiners capitalized
+
+\author{Firstname Lastname\\ % name
+ [0.5cm] University of Somewhere\\ % top level affiliation
+ Department of Something\\ % basic academic or research unit
+ \texttt{email@domain}}   % email
+
+\date{}
+
+\begin{document}
+\maketitle 
+\thispagestyle{empty}
+
+\begin{abstract}
+\noindent 
+The abstract should be between five and eight lines in length.
+It should provide a very concise summary of the research goal, data, method, and results.
+The page size is A4 with margins of about 2 cm.
+Pages should not be numbered, nor should there be headers or footers.
+The text should be set in a standard roman 12 pt serif font with justified lines, allowing hyphenation to achieve even spacing.
+\end{abstract}
+
+\section{Section Heading} % All words except prepositions, conjunctions and determiners capitalized
+
+Bibliographic references should use the author and year format \citep[section 12.3]{Mittelbach04}.  Bibliographic items in the References should contain full names, in the style of Computional Linguistics and CSLI Publications.  Style file \emph{cslipubs-natbib.bst} can be downloaded from CSLI Publications.
+
+Examples should be in italics and numbered with Arabic numbers in parentheses, as illustrated in example (\ref{ex:bjoerka}).
+Examples in languages other than English should contain glosses, preferably adhering to the Leipzig glossing rules when dealing with morphologically rich languages.
+
+\begin{example} \label{ex:bjoerka}
+\gll	Her går bjørk-a over 1200 meter, det er høyest i land-et.
+	here goes birch-the over 1200 meters, that is highest in country-the
+\glt	``Here birches grow over 1200 meters, that is the highest in the country."\glend
+\end{example}
+
+\noindent Figures should have a numbered caption below, while tables should have a numbered caption above.  Tables have thin borders on all sides and may have borders between cells as visually appropriate.
+
+\bibliography{kds}
+\end{document} 
