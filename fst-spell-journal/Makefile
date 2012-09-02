@@ -5,6 +5,10 @@ BIB=bibtex
 SCP=scp
 SCPHOST=ruuvi
 SCPDIR=public_html/tmp/
+WGET=wget
+BZ2CAT=bzcat
+CLEANWIKI=wikipedia-deform.sh
+
 PAPER_SOURCES=fst-spell-2012.tex
 PAPER_AUXES=fst-spell-2012.aux fst-spell-2012.bbl fst-spell-2012.log fst-spell-2012.blg
 PAPER_PDF=fst-spell-2012.pdf
@@ -45,6 +49,8 @@ DICT_SE_PROD=hfst/se/acceptor.gtseprod.hfst
 
 DICT_KL_NOPD=hfst/kl/acceptor.gtklnopd.hfst
 
+dictionaries:
+
 # error models
 ERRM_EN_1ALL=hfst/en/errmodel.ed1alls.hfst
 ERRM_EN_2UNW=hfst/en/errmodel.ed2unwe.hfst
@@ -66,9 +72,13 @@ ERRM_KL_2UNW=hfst/kl/errmodel.ed2unew.hfst
 ERRM_KL_2QWE=hfst/kl/errmodel.ed2qwer.hfst
 ERRM_KL_CORP=hfst/kl/errmodel.ed2corp.hfst
 
+errmodels:
+
 # corpora
 ENWIKI_DATE=20120802
 FIWIKI_DATE=20120827
+SEWIKI_DATE=20120825
+KLWIKI_DATE=20120902
 
 CORP_EN_NORV=corp/en/big.txt
 CORP_EN_WPLM=corp/en/wikipedia.txt
@@ -80,24 +90,29 @@ CORP_SE_WPLM=corp/se/wikipedia.txt
 CORP_KL_WPLM=corp/kl/wikipedia.txt
 
 corp/en/enwiki-pages-articles-train.xml:
-	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles1.xml-p000000010p000010000.bz2
-	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles2.xml-p000010002p000024999.bz2
-	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles3.xml-p000025001p000055000.bz2
-	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles4.xml-p000055002p000104998.bz2
-	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles5.xml-p000105002p000184999.bz2
-	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles6.xml-p000185003p000305000.bz2
-	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles7.xml-p000305002p000464996.bz2
-	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles8.xml-p000465001p000665000.bz2
+	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles1.xml-p000000010p000010000.bz2 -O enwiki-pages-articles1.xml.bz2
+	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles2.xml-p000010002p000024999.bz2 -O enwiki-pages-articles2.xml.bz2
+	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles3.xml-p000025001p000055000.bz2 -O enwiki-pages-articles3.xml.bz2
+	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles4.xml-p000055002p000104998.bz2 -O enwiki-pages-articles4.xml.bz2
+	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles5.xml-p000105002p000184999.bz2 -O enwiki-pages-articles5.xml.bz2
+	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles6.xml-p000185003p000305000.bz2 -O enwiki-pages-articles6.xml.bz2
+	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles7.xml-p000305002p000464996.bz2 -O enwiki-pages-articles7.xml.bz2
+	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles8.xml-p000465001p000665000.bz2 -O enwiki-pages-articles8.xml.bz2
+	$(BZ2CAT) enwiki-pages-articles[12345678].xml.bz2 > $@
 
-corp/en/enwiki-pages-articles-test.xml:
-	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles9.xml-p000665001p000925000.bz2
-	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles10.xml-p000925001p001325000.bz2
+enwiki-pages-articles9.xml.bz2: enwiki-pages-articles10.xml.bz2
+enwiki-pages-articles10.xml.bz2:
+	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles9.xml-p000665001p000925000.bz2 -O enwiki-pages-articles9.xml.bz2
+	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles10.xml-p000925001p001325000.bz2 -O enwiki-pages-articles10.xml.bz2
+
+corp/en/enwiki-pages-articles-test.xml: enwiki-pages-articles9.xml.bz2 enwiki-pages-articles10.xml.bz2
+	$(BZ2CAT) enwiki-pages-articles9.xml.bz2 enwiki-pages-articles10.xml.bz2 > $@
 
 corp/fi/fiwiki-pages-articles-$(FIWIKI_DATE).xml.bz2:
 	$(WGET) http://dumps.wikimedia.org/fiwiki/$(FIWIKI_DATE)/fiwiki-$(FIWIKI_DATE)-pages-articles.xml.bz2
 
-corp/fi/fiwiki-pages-articles.lines:
-	$(BZ2CAT)
+corp/fi/fiwiki-pages-articles.lines: fiwiki-pages-articles-$(FIWIKI_DATE).xml.bz2
+	$(BZ2CAT) $< | wc -l > $@
 
 corp/fi/fiwiki-pages-articles-train.xml: fiwiki-pages-articles-$(FIWIKI_DATE).xml.bz2 corp/fi/fiwiki-pages-articles.lines
 	$(BZ2CAT) $< | head -n `cat corp/fi/fiwiki-pages-articles.lines | sed -e 's/$/ * 0.8/' | bc | sed -e 's/[.,].*//'` > $@
@@ -105,7 +120,7 @@ corp/fi/fiwiki-pages-articles-train.xml: fiwiki-pages-articles-$(FIWIKI_DATE).xm
 corp/fi/fiwiki-pages-articles-test.xml: fiwiki-pages-articles-$(FIWIKI_DATE).xml.bz2 corp/fi/fiwiki-pages-articles.lines
 	$(BC2CAT) $< | tail -n +`cat corp/fi/fiwiki-pages-articles.lines | sed -e 's/$/ * 0.8/' | bc | sed -e 's/[.,].*//'` > $@
 
-corp/
+corpora:
 
 # corpus to analysers
 hfst/en/%.hfst: corp/en/%.tropical
