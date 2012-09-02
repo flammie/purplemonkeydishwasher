@@ -7,7 +7,9 @@ SCPHOST=ruuvi
 SCPDIR=public_html/tmp/
 WGET=wget
 BZ2CAT=bzcat
-CLEANWIKI=wikipedia-deform.sh
+SED=sed
+AWK=awk
+WIKICLEAN=./wikipedia-deform.sh
 
 PAPER_SOURCES=fst-spell-2012.tex
 PAPER_AUXES=fst-spell-2012.aux fst-spell-2012.bbl fst-spell-2012.log fst-spell-2012.blg
@@ -49,6 +51,8 @@ DICT_SE_PROD=hfst/se/acceptor.gtseprod.hfst
 
 DICT_KL_NOPD=hfst/kl/acceptor.gtklnopd.hfst
 
+$(DICT_EN_CORP): corp/en/wikipedia.txt
+
 dictionaries:
 
 # error models
@@ -82,12 +86,14 @@ KLWIKI_DATE=20120902
 
 CORP_EN_NORV=corp/en/big.txt
 CORP_EN_WPLM=corp/en/wikipedia.txt
-
 CORP_FI_WPLM=corp/fi/wikipedia.txt
-
 CORP_SE_WPLM=corp/se/wikipedia.txt
-
 CORP_KL_WPLM=corp/kl/wikipedia.txt
+
+corp/en/wikipedia.txt: corp/en/enwiki-pages-articles-train.xml
+	$(AWK) '/<text/,/<\/text/ {print}' < $<|\
+		$(SED) -e 's_</\?text[^>]*>__g' |\
+		$(WIKICLEAN) > $@
 
 corp/en/enwiki-pages-articles-train.xml:
 	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles1.xml-p000000010p000010000.bz2 -O enwiki-pages-articles1.xml.bz2
@@ -123,6 +129,11 @@ corp/fi/fiwiki-pages-articles-test.xml: fiwiki-pages-articles-$(FIWIKI_DATE).xml
 corpora:
 
 # corpus to analysers
+
+corp/en/wikipedia.tropical: corp/en/wikipedia.txt
+	tr -s '[:space:].-?!,;:/' '\n' < $< | sort | uniq -c |\
+		awk -f tropicalize-uniq-c.awk > $@
+
 hfst/en/%.hfst: corp/en/%.tropical
 	hfst-strings2fst -v -j $< |\
 		hfst-minimize -o $@
