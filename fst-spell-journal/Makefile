@@ -11,11 +11,17 @@ SED=sed
 AWK=awk
 WIKICLEAN=./wikipedia-deform.sh
 HFST_COMPOSE=hfst-compose
-HFST_REWEIGHT=hfst-reweight
-HFST_UNION=hfst-disjunct
-HFST_STRINGS2FST=hfst-strings2fst
-HFST_MINIMIZE=hfst-minimize
+HFST_CONCATENATE=hfst-concatenate
 HFST_FST2FST=hfst-fst2fst
+HFST_INVERT=hfst-invert
+HFST_MINIMIZE=hfst-minimize
+HFST_REGEXP2FST=hfst-regexp2fst
+HFST_REWEIGHT=hfst-reweight
+HFST_STRINGS2FST=hfst-strings2fst
+HFST_TXT2FST=hfst-txt2fst
+HFST_UNION=hfst-disjunct
+PYTHON2=python2
+EDITDIST=editdist.py
 
 PAPER_SOURCES=fst-spell-2012.tex
 PAPER_AUXES=fst-spell-2012.aux fst-spell-2012.bbl fst-spell-2012.log fst-spell-2012.blg
@@ -46,6 +52,8 @@ graphicx/%.pdf: dots/%.dot
 # language settings
 EN_ALPHABET=abcdefghijklmnopqrstuvwxzyABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\'’-
 FI_ALPHABET=abcdefghijklmnopqršstuwvxyzžåäöABCDEFGHIJKLMNOPQRSŠTUWVXYZŽÅÄÖ0123456789\'’-
+
+HUNSPELL_EN_AFF=en_US.aff
 
 # dictionaries
 DICT_EN_CORP=hfst/en/acceptor.corpuswg.hfst
@@ -89,18 +97,26 @@ $(DICT_FI_PROD): hfst/fi/dictionary.default.hfst hfst/fi/wikipedia.addone.hfst c
 dictionaries:
 
 # error models
+ERRM_EN_1UNW=hfst/en/errmodel.ed1unwe.hfst
 ERRM_EN_1ALL=hfst/en/errmodel.ed1alls.hfst
+ERRM_EN_1NOF=hfst/en/errmodel.ed1nofi.hfst
+ERRM_EN_1QWE=hfst/en/errmodel.ed1qwer.hfst
 ERRM_EN_2UNW=hfst/en/errmodel.ed2unwe.hfst
 ERRM_EN_2QWE=hfst/en/errmodel.ed2qwer.hfst
+ERRM_EN_2SEX=hfst/en/errmodel.ed2sndx.hfst
+ERRM_EN_2NOF=hfst/en/errmodel.ed2nofi.hfst
 ERRM_EN_CORP=hfst/en/errmodel.ed2corp.hfst
 ERRM_EN_2ALL=hfst/en/errmodel.ed2alls.hfst
 ERRM_EN_3ALL=hfst/en/errmodel.ed3alls.hfst
 ERRM_EN_4ALL=hfst/en/errmodel.ed4alls.hfst
 
+ERRM_FI_1UNW=hfst/fi/errmodel.ed1unwe.hfst
 ERRM_FI_2UNW=hfst/fi/errmodel.ed2unwe.hfst
 ERRM_FI_2QWE=hfst/fi/errmodel.ed2qwer.hfst
 ERRM_FI_CORP=hfst/fi/errmodel.ed2corp.hfst
+ERRM_FI_3UNW=hfst/fi/errmodel.ed3unwe.hfst
 
+ERRM_SE_1UNW=hfst/se/errmodel.ed1unwe.hfst
 ERRM_SE_2UNW=hfst/se/errmodel.ed2unwe.hfst
 ERRM_SE_2QWE=hfst/se/errmodel.ed2qwer.hfst
 ERRM_SE_CORP=hfst/se/errmodel.ed2corp.hfst
@@ -110,6 +126,45 @@ ERRM_KL_2QWE=hfst/kl/errmodel.ed2qwer.hfst
 ERRM_KL_CORP=hfst/kl/errmodel.ed2corp.hfst
 
 errmodels:
+
+$(ERRM_EN_1UNW): hfst/en/edit-1.hfst corp/en/wikipedia.unseenweight
+	$(HFST_REWEIGHT) -v $< -e -a "`cat corp/en/wikipedia.unseenweight`" |\
+		$(HFST_MINIMIZE) -v |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_EN_1NOF): hfst/en/edit-1-nonfirst.hfst corp/en/wikipedia.unseenweight
+	$(HFST_REWEIGHT) -v $< -e -a "`cat corp/en/wikipedia.unseenweight`" |\
+		$(HFST_MINIMIZE) -v |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_EN_1ALL): hfst/en/soundex-full.hfst hfst/en/hunspell-reps+context.hfst hfst/en/edit-1-qwerty-halved.hfst
+	$(HFST_REWEIGHT) -v hfst/en/edit-1-qwerty-halved.hfst -b "`cat corp/en/wikipedia.unseenweight`" |\
+		$(HFST_UNION) -v - hfst/en/soundex-full.hfst |\
+		$(HFST_UNION) -v - hfst/en/hunspell-reps+context.hfst |\
+		$(HFST_MINIMIZE) -v |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_EN_1QWE): hfst/en/edit-1-qwerty-halved.hfst corp/en/wikipedia.unseenweight
+	$(HFST_REWEIGHT) -v $< -b "`cat corp/en/wikipedia.unseenweight`" |\
+		$(HFST_MINIMIZE) -v |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+hfst/en/hunspell-reps+context.hfst: hfst/en/hunspell-reps.hfst
+	echo '?*' | $(HFST_REGEXP2FST) -v -o sigmastar.hfst
+	$(HFST_CONCATENATE) -v sigmastar.hfst $< |\
+		$(HFST_CONCATENATE) -v - sigmastar.hfst |\
+		$(HFST_MINIMIZE) -v -o $@
+
+hfst/en/soundex-full.hfst: hfst/en/soundex.hfst
+	$(HFST_INVERT) $< -o $<.inv -v
+	$(HFST_COMPOSE) -v -1 hfst/en/soundex.hfst -2 hfst/en/soundex.hfst.inv |\
+		$(HFST_MINIMIZE) -v -o $@
+
+hfst/en/%.hfst: manual/en/%.txt
+	$(HFST_TXT2FST) -v $< -o $@
+
+hfst/en/%.hfst: manual/en/%.strings
+	$(HFST_STRINGS2FST) -j $< -o $@
 
 # corpora
 ENWIKI_DATE=20120802
@@ -239,13 +294,13 @@ hfst/kl/%.hfst: corp/kl/%.tropical
 
 # the error models
 manual/en/edit-1.txt:
-	$(PYTHON2) editdist.py -a "$(EN_ALPHABET)"
+	$(PYTHON2) editdist.py -s --no-elim "$(EN_ALPHABET)" > $@
 
 manual/en/edit-1-nonfirst.txt:
-	$(PYTHON2) editdist.py -a "$(EN_ALPHABET)"
+	$(PYTHON2) editdist.py --no-string-initial-correction -s --no-elim "$(EN_ALPHABET)" > $@
 
 manual/en/edit-1-qwerty-halved.txt: manual/en/qwerty.tsv
-	$(PYTHON2) editdist.py -a "$(EN_ALPHABET)" -i manual/en/qwerty.tsv
+	$(PYTHON2) editdist.py -s --no-elim "$(EN_ALPHABET)" -i manual/en/qwerty.tsv > $@
 
 manual/en/hunspell-reps.strings:
 	grep '^REP' $(HUNSPELL_EN_AFF) |\
