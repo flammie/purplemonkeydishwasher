@@ -43,6 +43,10 @@ dots/%.dot: hfst/und/%.hfst
 graphicx/%.pdf: dots/%.dot
 	dot -Tpdf -o$@ $<
 
+# language settings
+EN_ALPHABET=abcdefghijklmnopqrstuvwxzyABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\'’-
+FI_ALPHABET=abcdefghijklmnopqršstuwvxyzžåäöABCDEFGHIJKLMNOPQRSŠTUWVXYZŽÅÄÖ0123456789\'’-
+
 # dictionaries
 DICT_EN_CORP=hfst/en/acceptor.corpuswg.hfst
 DICT_EN_NO1S=hfst/en/acceptor.corpnosg.hfst
@@ -72,14 +76,14 @@ $(DICT_EN_NORV): hfst/en/big.hfst
 $(DICT_FI_CORP): hfst/fi/wikipedia.hfst
 	cp -v $< $@
 
-$(DICT_FI_NOPD): hfst/fi/dictionary.filtered.hfst hfst/fi/wikipedia.addone.hfst
-	$(HFST_COMPOSE) -v hfst/fi/dictionary.filtered.hfst hfst/fi/wikipedia.addone.hfst -o hfst/fi/dictionary.wpweights.hfst
-	$(HFST_REWEIGHT) -v hfst/fi/dictionary.filtered.hfst -e -a `hfst/fi/wikipedia.addone.rest` -o hfst/fi/dictionary.addone-unseen.hfst
+$(DICT_FI_NOPD): hfst/fi/dictionary.filtered.hfst hfst/fi/wikipedia.addone.hfst corp/fi/wikipedia.addone.unseenweight
+	$(HFST_COMPOSE) -F -v hfst/fi/dictionary.filtered.hfst hfst/fi/wikipedia.addone.hfst -o hfst/fi/dictionary.wpweights.hfst
+	$(HFST_REWEIGHT) -v hfst/fi/dictionary.filtered.hfst -e -a `cat corp/fi/wikipedia.addone.unseenweight` -o hfst/fi/dictionary.addone-unseen.hfst
 	$(HFST_UNION) -v hfst/fi/dictionary.wpweights.hfst hfst/fi/dictionary.addone-unseen.hfst -o $@
 
-$(DICT_FI_PROD): hfst/fi/dictionary.filtered.hfst hfst/fi/wikipedia.addone.hfst
-	$(HFST_COMPOSE) -v hfst/fi/dictionary.filtered.hfst hfst/fi/wikipedia.addone.hfst -o hfst/fi/dictionary.wpweights.hfst
-	$(HFST_REWEIGHT) -v hfst/fi/dictionary.filtered.hfst -e -a `hfst/fi/wikipedia.addone.rest` -o hfst/fi/dictionary.addone-unseen.hfst
+$(DICT_FI_PROD): hfst/fi/dictionary.default.hfst hfst/fi/wikipedia.addone.hfst corp/fi/wikipedia.addone.unseenweight
+	$(HFST_COMPOSE) -F -v hfst/fi/dictionary.default.hfst hfst/fi/wikipedia.addone.hfst -o hfst/fi/dictionary.wpweights.hfst
+	$(HFST_REWEIGHT) -v hfst/fi/dictionary.default.hfst -e -a `cat corp/fi/wikipedia.addone.unseenweight` -o hfst/fi/dictionary.addone-unseen.hfst
 	$(HFST_UNION) -v hfst/fi/dictionary.wpweights.hfst hfst/fi/dictionary.addone-unseen.hfst -o $@
 
 dictionaries:
@@ -162,15 +166,24 @@ corp/fi/fiwiki-pages-articles-test.xml: corp/fi/fiwiki-pages-articles-$(FIWIKI_D
 
 corpora:
 
-# corpus to analysers
+# corpus to weighted word-form lists
 
 corp/en/%.sorted: corp/en/%.txt
 	tr -s '[:space:].?!,;:/' '\n' < $< |\
-		grep "^[abcdefghijklmnopqrstuvwxzyABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'-]*$$" |\
+		grep "^[$(EN_ALPHABET)]*$$" |\
 		sort > $@
 
 corp/en/%.uniqc: corp/en/%.sorted
 	uniq -c < $< > $@
+
+corp/en/%.unseenweight: corp/en/%.sorted
+	echo | $(AWK) "{print (-log(1 / (`wc -l < corp/en/$*.sorted` + 1)));}" > $@
+
+corp/en/%.addone.unseenweight: corp/en/%.sorted corp/en/%.uniqc
+	echo | $(AWK) "{print (-log(1 / (`wc -l < corp/en/$*.sorted` + `wc -l < corp/en/$*.uniqc`)));}" > $@
+
+corp/en/%.addhalf.unseenweight: corp/en/%.sorted corp/en/%.uniqc
+	echo | $(AWK) "{print (-log(0.5 / (`wc -l < corp/en/$*.sorted` + 0.5 * `wc -l < corp/en/$*.uniqc`)));}" > $@
 
 corp/en/%.tropical: corp/en/%.uniqc
 	$(AWK) -f tropicalize-uniq-c.awk --assign=CS=`wc -l < corp/en/$*.sorted` < $< > $@
@@ -183,11 +196,20 @@ corp/en/%.addhalf.tropical: corp/en/%.uniqc
 
 corp/fi/%.sorted: corp/fi/%.txt
 	tr -s '[:space:].-?!,;:/' '\n' < $< |\
-		grep "^[abcdefghijklmnopqršstuwvxyzžåäöABCDEFGHIJKLMNOPQRSŠTUWVXYZŽÅÄÖ0123456789'-]*$$" |\
+		grep "^[$(FI_ALPHABET)]*$$" |\
 		sort > $@
 
 corp/fi/%.uniqc: corp/fi/%.sorted
 	uniq -c < $< > $@
+
+corp/fi/%.unseenweight: corp/fi/%.sorted
+	echo | $(AWK) "{print (-log(1 / (`wc -l < corp/fi/$*.sorted` + 1)));}" > $@
+
+corp/fi/%.addone.unseenweight: corp/fi/%.sorted corp/fi/%.uniqc
+	echo | $(AWK) "{print (-log(1 / (`wc -l < corp/fi/$*.sorted` + `wc -l < corp/fi/$*.uniqc`)));}" > $@
+
+corp/fi/%.addhalf.unseenweight: corp/fi/%.sorted corp/fi/%.uniqc
+	echo | $(AWK) "{print (-log(0.5 / (`wc -l < corp/fi/$*.sorted` + 0.5 * `wc -l < corp/fi/$*.uniqc`)));}" > $@
 
 corp/fi/%.tropical: corp/fi/%.uniqc
 	$(AWK) -f tropicalize-uniq-c.awk --assign=CS=`wc -l < corp/fi/$*.sorted` < $< > $@
@@ -198,6 +220,7 @@ corp/fi/%.addone.tropical: corp/fi/%.uniqc
 corp/fi/%.addhalf.tropical: corp/fi/%.uniqc
 	$(AWK) -f tropicalize-uniq-c-add-smoothing.awk --assign=CS=`wc -l < corp/fi/$*.sorted` --assign=LS=`wc -l < corp/fi/$*.uniqc` --assign=ALPHA=0.5 < $< > $@
 
+# from weighted lists to automata
 hfst/en/%.hfst: corp/en/%.tropical
 	$(HFST_STRINGS2FST) -j $< |\
 		$(HFST_MINIMIZE) -v -o $@
@@ -213,4 +236,19 @@ hfst/se/%.hfst: corp/se/%.tropical
 hfst/kl/%.hfst: corp/kl/%.tropical
 	$(HFST_STRINGS2FST) -j $< |\
 		$(HFST_MINIMIZE) -v -o $@
+
+# the error models
+manual/en/edit-1.txt:
+	$(PYTHON2) editdist.py -a "$(EN_ALPHABET)"
+
+manual/en/edit-1-nonfirst.txt:
+	$(PYTHON2) editdist.py -a "$(EN_ALPHABET)"
+
+manual/en/edit-1-qwerty-halved.txt: manual/en/qwerty.tsv
+	$(PYTHON2) editdist.py -a "$(EN_ALPHABET)" -i manual/en/qwerty.tsv
+
+manual/en/hunspell-reps.strings:
+	grep '^REP' $(HUNSPELL_EN_AFF) |\
+		tail -n +2 |\
+		sed -e 's/REP[[:space:]]*//' -e 's/[[:space:]]\+/:/' > $@
 
