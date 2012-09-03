@@ -16,6 +16,7 @@ HFST_FST2FST=hfst-fst2fst
 HFST_INVERT=hfst-invert
 HFST_MINIMIZE=hfst-minimize
 HFST_REGEXP2FST=hfst-regexp2fst
+HFST_REPEAT=hfst-repeat
 HFST_REWEIGHT=hfst-reweight
 HFST_STRINGS2FST=hfst-strings2fst
 HFST_TXT2FST=hfst-txt2fst
@@ -109,6 +110,10 @@ ERRM_EN_CORP=hfst/en/errmodel.ed2corp.hfst
 ERRM_EN_2ALL=hfst/en/errmodel.ed2alls.hfst
 ERRM_EN_3ALL=hfst/en/errmodel.ed3alls.hfst
 ERRM_EN_4ALL=hfst/en/errmodel.ed4alls.hfst
+ERRM_EN_5ALL=hfst/en/errmodel.ed5alls.hfst
+ERRM_EN_6ALL=hfst/en/errmodel.ed6alls.hfst
+ERRM_EN_7ALL=hfst/en/errmodel.ed7alls.hfst
+ERRM_EN_8ALL=hfst/en/errmodel.ed8alls.hfst
 
 ERRM_FI_1UNW=hfst/fi/errmodel.ed1unwe.hfst
 ERRM_FI_2UNW=hfst/fi/errmodel.ed2unwe.hfst
@@ -127,9 +132,75 @@ ERRM_KL_CORP=hfst/kl/errmodel.ed2corp.hfst
 
 errmodels:
 
-$(ERRM_EN_1UNW): hfst/en/edit-1.hfst corp/en/wikipedia.unseenweight
+$(ERRM_EN_8ALL): hfst/en/soundex-full.hfst hfst/en/hunspell-reps+context.hfst hfst/en/edit-1-qwerty-halved.hfst
+	$(HFST_REWEIGHT) -v hfst/en/edit-1-qwerty-halved.hfst -b "`cat corp/en/wikipedia.unseenweight`" |\
+		$(HFST_REPEAT) -v -f 1 -t 8 |\
+		$(HFST_UNION) -v - hfst/en/soundex-full.hfst |\
+		$(HFST_UNION) -v - hfst/en/hunspell-reps+context.hfst |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_EN_7ALL): hfst/en/soundex-full.hfst hfst/en/hunspell-reps+context.hfst hfst/en/edit-1-qwerty-halved.hfst
+	$(HFST_REWEIGHT) -v hfst/en/edit-1-qwerty-halved.hfst -b "`cat corp/en/wikipedia.unseenweight`" |\
+		$(HFST_REPEAT) -v -f 1 -t 7 |\
+		$(HFST_UNION) -v - hfst/en/soundex-full.hfst |\
+		$(HFST_UNION) -v - hfst/en/hunspell-reps+context.hfst |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_EN_6ALL): hfst/en/soundex-full.hfst hfst/en/hunspell-reps+context.hfst hfst/en/edit-1-qwerty-halved.hfst
+	$(HFST_REWEIGHT) -v hfst/en/edit-1-qwerty-halved.hfst -b "`cat corp/en/wikipedia.unseenweight`" |\
+		$(HFST_REPEAT) -v -f 1 -t 6 |\
+		$(HFST_UNION) -v - hfst/en/soundex-full.hfst |\
+		$(HFST_UNION) -v - hfst/en/hunspell-reps+context.hfst |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_EN_5ALL): hfst/en/soundex-full.hfst hfst/en/hunspell-reps+context.hfst hfst/en/edit-1-qwerty-halved.hfst
+	$(HFST_REWEIGHT) -v hfst/en/edit-1-qwerty-halved.hfst -b "`cat corp/en/wikipedia.unseenweight`" |\
+		$(HFST_REPEAT) -v -f 1 -t 5 |\
+		$(HFST_UNION) -v - hfst/en/soundex-full.hfst |\
+		$(HFST_UNION) -v - hfst/en/hunspell-reps+context.hfst |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_EN_4ALL): hfst/en/soundex-full.hfst hfst/en/hunspell-reps+context.hfst hfst/en/edit-1-qwerty-halved.hfst
+	$(HFST_REWEIGHT) -v hfst/en/edit-1-qwerty-halved.hfst -b "`cat corp/en/wikipedia.unseenweight`" |\
+		$(HFST_REPEAT) -v -f 1 -t 4 |\
+		$(HFST_UNION) -v - hfst/en/soundex-full.hfst |\
+		$(HFST_UNION) -v - hfst/en/hunspell-reps+context.hfst |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_EN_3ALL): hfst/en/soundex-full.hfst hfst/en/hunspell-reps+context.hfst hfst/en/edit-1-qwerty-halved.hfst
+	$(HFST_REWEIGHT) -v hfst/en/edit-1-qwerty-halved.hfst -b "`cat corp/en/wikipedia.unseenweight`" |\
+		$(HFST_REPEAT) -v -f 1 -t 3 |\
+		$(HFST_UNION) -v - hfst/en/soundex-full.hfst |\
+		$(HFST_UNION) -v - hfst/en/hunspell-reps+context.hfst |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_EN_2SEX): hfst/en/edit-1.hfst hfst/en/soundex-full.hfst corp/en/wikipedia.unseenweight
+	$(HFST_REWEIGHT) -v hfst/en/edit-1.hfst -a "`cat corp/en/wikipedia.unseenweight`" |\
+		$(HFST_REPEAT) -f 1 -t 2 -v |\
+		$(HFST_UNION) -v - hfst/en/soundex-full.hfst |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_EN_2UNW): hfst/en/edit-1.hfst corp/en/wikipedia.unseenweight
 	$(HFST_REWEIGHT) -v $< -e -a "`cat corp/en/wikipedia.unseenweight`" |\
-		$(HFST_MINIMIZE) -v |\
+		$(HFST_REPEAT) -f 1 -t 2 -v |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_EN_2NOF): hfst/en/edit-1-nonfirst.hfst hfst/en/edit-1.hfst corp/en/wikipedia.unseenweight
+	$(HFST_REWEIGHT) -v $< -e -a "`cat corp/en/wikipedia.unseenweight`" > 1nof.hfst
+	$(HFST_REWEIGHT) -v hfst/en/edit-1.hfst -a "`cat corp/en/wikipedia.unseenweight`" |\
+		$(HFST_COMPOSE) -v - 1nof.hfst |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_EN_2ALL): hfst/en/soundex-full.hfst hfst/en/hunspell-reps+context.hfst hfst/en/edit-1-qwerty-halved.hfst
+	$(HFST_REWEIGHT) -v hfst/en/edit-1-qwerty-halved.hfst -b "`cat corp/en/wikipedia.unseenweight`" |\
+		$(HFST_REPEAT) -v -f 1 -t 2 |\
+		$(HFST_UNION) -v - hfst/en/soundex-full.hfst |\
+		$(HFST_UNION) -v - hfst/en/hunspell-reps+context.hfst |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_EN_2QWE): hfst/en/edit-1-qwerty-halved.hfst corp/en/wikipedia.unseenweight
+	$(HFST_REWEIGHT) -v $< -b "`cat corp/en/wikipedia.unseenweight`" |\
+		$(HFST_REPEAT) -v -f 1 -t 2 |\
 		$(HFST_FST2FST) -v -f olw -o $@
 
 $(ERRM_EN_1NOF): hfst/en/edit-1-nonfirst.hfst corp/en/wikipedia.unseenweight
