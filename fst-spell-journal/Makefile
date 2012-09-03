@@ -10,6 +10,12 @@ BZ2CAT=bzcat
 SED=sed
 AWK=awk
 WIKICLEAN=./wikipedia-deform.sh
+HFST_COMPOSE=hfst-compose
+HFST_REWEIGHT=hfst-reweight
+HFST_UNION=hfst-disjunct
+HFST_STRINGS2FST=hfst-strings2fst
+HFST_MINIMIZE=hfst-minimize
+HFST_FST2FST=hfst-fst2fst
 
 PAPER_SOURCES=fst-spell-2012.tex
 PAPER_AUXES=fst-spell-2012.aux fst-spell-2012.bbl fst-spell-2012.log fst-spell-2012.blg
@@ -40,10 +46,11 @@ graphicx/%.pdf: dots/%.dot
 # dictionaries
 DICT_EN_CORP=hfst/en/acceptor.corpuswg.hfst
 DICT_EN_NO1S=hfst/en/acceptor.corpnosg.hfst
+DICT_EN_NORV=hfst/en/acceptor.norvigxx.hfst
 
 DICT_FI_CORP=hfst/fi/acceptor.corpuswg.hfst
-DICT_FI_NOPD=hfst/fi/acceptor.gtklnopd.hfst
-DICT_FI_PROD=hfst/fi/acceptor.gtklprod.hfst
+DICT_FI_NOPD=hfst/fi/acceptor.gtfinopd.hfst
+DICT_FI_PROD=hfst/fi/acceptor.gtfiprod.hfst
 
 DICT_SE_CORP=hfst/se/acceptor.corpuswg.hfst
 DICT_SE_NOPD=hfst/se/acceptor.gtsenopd.hfst
@@ -51,7 +58,29 @@ DICT_SE_PROD=hfst/se/acceptor.gtseprod.hfst
 
 DICT_KL_NOPD=hfst/kl/acceptor.gtklnopd.hfst
 
-$(DICT_EN_CORP): corp/en/wikipedia.txt
+DICTIONARIES=$(DICT_EN_CORP) $(DICT_EN_NO1S) $(DICT_EN_NORV) \
+			 $(DICT_FI_CORP) $(DICT_FI_NOPD) $(DICT_FI_PROD) \
+			 $(DICT_SE_CORP) $(DICT_SE_NOPD) $(DICT_SE_PROD) \
+			 $(DICT_KL_NOPD)
+
+$(DICT_EN_CORP): hfst/en/wikipedia.hfst
+	cp -v $< $@
+
+$(DICT_EN_NORV): hfst/en/big.hfst
+	cp -v $< $@
+
+$(DICT_FI_CORP): hfst/fi/wikipedia.hfst
+	cp -v $< $@
+
+$(DICT_FI_NOPD): hfst/fi/dictionary.filtered.hfst hfst/fi/wikipedia.addone.hfst
+	$(HFST_COMPOSE) -v hfst/fi/dictionary.filtered.hfst hfst/fi/wikipedia.addone.hfst -o hfst/fi/dictionary.wpweights.hfst
+	$(HFST_REWEIGHT) -v hfst/fi/dictionary.filtered.hfst -e -a `hfst/fi/wikipedia.addone.rest` -o hfst/fi/dictionary.addone-unseen.hfst
+	$(HFST_UNION) -v hfst/fi/dictionary.wpweights.hfst hfst/fi/dictionary.addone-unseen.hfst -o $@
+
+$(DICT_FI_PROD): hfst/fi/dictionary.filtered.hfst hfst/fi/wikipedia.addone.hfst
+	$(HFST_COMPOSE) -v hfst/fi/dictionary.filtered.hfst hfst/fi/wikipedia.addone.hfst -o hfst/fi/dictionary.wpweights.hfst
+	$(HFST_REWEIGHT) -v hfst/fi/dictionary.filtered.hfst -e -a `hfst/fi/wikipedia.addone.rest` -o hfst/fi/dictionary.addone-unseen.hfst
+	$(HFST_UNION) -v hfst/fi/dictionary.wpweights.hfst hfst/fi/dictionary.addone-unseen.hfst -o $@
 
 dictionaries:
 
@@ -95,6 +124,11 @@ corp/en/wikipedia.txt: corp/en/enwiki-pages-articles-train.xml
 		$(SED) -e 's_</\?text[^>]*>__g' |\
 		$(WIKICLEAN) > $@
 
+corp/fi/wikipedia.txt: corp/fi/fiwiki-pages-articles-train.xml
+	$(AWK) '/<text/,/<\/text/ {print}' < $<|\
+		$(SED) -e 's_</\?text[^>]*>__g' |\
+		$(WIKICLEAN) > $@
+
 corp/en/enwiki-pages-articles-train.xml:
 	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles1.xml-p000000010p000010000.bz2 -O enwiki-pages-articles1.xml.bz2
 	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles2.xml-p000010002p000024999.bz2 -O enwiki-pages-articles2.xml.bz2
@@ -115,38 +149,68 @@ corp/en/enwiki-pages-articles-test.xml: enwiki-pages-articles9.xml.bz2 enwiki-pa
 	$(BZ2CAT) enwiki-pages-articles9.xml.bz2 enwiki-pages-articles10.xml.bz2 > $@
 
 corp/fi/fiwiki-pages-articles-$(FIWIKI_DATE).xml.bz2:
-	$(WGET) http://dumps.wikimedia.org/fiwiki/$(FIWIKI_DATE)/fiwiki-$(FIWIKI_DATE)-pages-articles.xml.bz2
+	$(WGET) http://dumps.wikimedia.org/fiwiki/$(FIWIKI_DATE)/fiwiki-$(FIWIKI_DATE)-pages-articles.xml.bz2 -O $@
 
-corp/fi/fiwiki-pages-articles.lines: fiwiki-pages-articles-$(FIWIKI_DATE).xml.bz2
+corp/fi/fiwiki-pages-articles.lines: corp/fi/fiwiki-pages-articles-$(FIWIKI_DATE).xml.bz2
 	$(BZ2CAT) $< | wc -l > $@
 
-corp/fi/fiwiki-pages-articles-train.xml: fiwiki-pages-articles-$(FIWIKI_DATE).xml.bz2 corp/fi/fiwiki-pages-articles.lines
-	$(BZ2CAT) $< | head -n `cat corp/fi/fiwiki-pages-articles.lines | sed -e 's/$/ * 0.8/' | bc | sed -e 's/[.,].*//'` > $@
+corp/fi/fiwiki-pages-articles-train.xml: corp/fi/fiwiki-pages-articles-$(FIWIKI_DATE).xml.bz2 corp/fi/fiwiki-pages-articles.lines
+	$(BZ2CAT) $< | head -n `cat corp/fi/fiwiki-pages-articles.lines | sed -e 's/$$/ * 0.8/' | bc | sed -e 's/[.,].*//'` > $@
 
-corp/fi/fiwiki-pages-articles-test.xml: fiwiki-pages-articles-$(FIWIKI_DATE).xml.bz2 corp/fi/fiwiki-pages-articles.lines
-	$(BC2CAT) $< | tail -n +`cat corp/fi/fiwiki-pages-articles.lines | sed -e 's/$/ * 0.8/' | bc | sed -e 's/[.,].*//'` > $@
+corp/fi/fiwiki-pages-articles-test.xml: corp/fi/fiwiki-pages-articles-$(FIWIKI_DATE).xml.bz2 corp/fi/fiwiki-pages-articles.lines
+	$(BC2CAT) $< | tail -n +`cat corp/fi/fiwiki-pages-articles.lines | sed -e 's/$$/ * 0.8/' | bc | sed -e 's/[.,].*//'` > $@
 
 corpora:
 
 # corpus to analysers
 
-corp/en/wikipedia.tropical: corp/en/wikipedia.txt
-	tr -s '[:space:].-?!,;:/' '\n' < $< | sort | uniq -c |\
-		awk -f tropicalize-uniq-c.awk > $@
+corp/en/%.sorted: corp/en/%.txt
+	tr -s '[:space:].?!,;:/' '\n' < $< |\
+		grep "^[abcdefghijklmnopqrstuvwxzyABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'-]*$$" |\
+		sort > $@
+
+corp/en/%.uniqc: corp/en/%.sorted
+	uniq -c < $< > $@
+
+corp/en/%.tropical: corp/en/%.uniqc
+	$(AWK) -f tropicalize-uniq-c.awk --assign=CS=`wc -l < corp/en/$*.sorted` < $< > $@
+
+corp/en/%.addone.tropical: corp/en/%.uniqc
+	$(AWK) -f tropicalize-uniq-c-add-smoothing.awk --assign=CS=`wc -l < corp/en/$*.sorted` --assign=LS=`wc -l < corp/en/$*.uniqc` --assign=ALPHA=1 < $< > $@
+
+corp/en/%.addhalf.tropical: corp/en/%.uniqc
+	$(AWK) -f tropicalize-uniq-c-add-smoothing.awk --assign=CS=`wc -l < corp/en/$*.sorted` --assign=LS=`wc -l < corp/en/$*.uniqc` --assign=ALPHA=0.5 < $< > $@
+
+corp/fi/%.sorted: corp/fi/%.txt
+	tr -s '[:space:].-?!,;:/' '\n' < $< |\
+		grep "^[abcdefghijklmnopqršstuwvxyzžåäöABCDEFGHIJKLMNOPQRSŠTUWVXYZŽÅÄÖ0123456789'-]*$$" |\
+		sort > $@
+
+corp/fi/%.uniqc: corp/fi/%.sorted
+	uniq -c < $< > $@
+
+corp/fi/%.tropical: corp/fi/%.uniqc
+	$(AWK) -f tropicalize-uniq-c.awk --assign=CS=`wc -l < corp/fi/$*.sorted` < $< > $@
+
+corp/fi/%.addone.tropical: corp/fi/%.uniqc
+	$(AWK) -f tropicalize-uniq-c-add-smoothing.awk --assign=CS=`wc -l < corp/fi/$*.sorted` --assign=LS=`wc -l < corp/fi/$*.uniqc` --assign=ALPHA=1 < $< > $@
+
+corp/fi/%.addhalf.tropical: corp/fi/%.uniqc
+	$(AWK) -f tropicalize-uniq-c-add-smoothing.awk --assign=CS=`wc -l < corp/fi/$*.sorted` --assign=LS=`wc -l < corp/fi/$*.uniqc` --assign=ALPHA=0.5 < $< > $@
 
 hfst/en/%.hfst: corp/en/%.tropical
-	hfst-strings2fst -v -j $< |\
-		hfst-minimize -o $@
+	$(HFST_STRINGS2FST) -j $< |\
+		$(HFST_MINIMIZE) -v -o $@
 
 hfst/fi/%.hfst: corp/fi/%.tropical
-	hfst-strings2fst -v -j $< |\
-		hfst-minimize -o $@
+	$(HFST_STRINGS2FST) -j $< |\
+		$(HFST_MINIMIZE) -v -o $@
 
 hfst/se/%.hfst: corp/se/%.tropical
-	hfst-strings2fst -v -j $< |\
-		hfst-minimize -o $@
+	$(HFST_STRINGS2FST)  -j $< |\
+		$(HFST_MINIMIZE) -v -o $@
 
 hfst/kl/%.hfst: corp/kl/%.tropical
-	hfst-strings2fst -v -j $< |\
-		hfst-minimize -o $@
+	$(HFST_STRINGS2FST) -j $< |\
+		$(HFST_MINIMIZE) -v -o $@
 
