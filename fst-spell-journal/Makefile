@@ -105,8 +105,6 @@ corp/fi/fiwiki-pages-articles-train.xml: fiwiki-pages-articles-$(FIWIKI_DATE).xm
 corp/fi/fiwiki-pages-articles-test.xml: fiwiki-pages-articles-$(FIWIKI_DATE).xml.bz2 corp/fi/fiwiki-pages-articles.lines
 	$(BC2CAT) $< | tail -n +`cat corp/fi/fiwiki-pages-articles.lines | sed -e 's/$/ * 0.8/' | bc | sed -e 's/[.,].*//'` > $@
 
-corp/
-
 # corpus to analysers
 hfst/en/%.hfst: corp/en/%.tropical
 	hfst-strings2fst -v -j $< |\
