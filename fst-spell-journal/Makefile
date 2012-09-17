@@ -21,6 +21,8 @@ HFST_REWEIGHT=hfst-reweight
 HFST_STRINGS2FST=hfst-strings2fst
 HFST_TXT2FST=hfst-txt2fst
 HFST_UNION=hfst-disjunct
+HFST_PROC=hfst-proc
+HFST_OSPELL=hfst-ospell-survey
 PYTHON2=python2
 EDITDIST=editdist.py
 
@@ -51,14 +53,24 @@ graphicx/%.pdf: dots/%.dot
 	dot -Tpdf -o$@ $<
 
 # language settings
-EN_ALPHABET=abcdefghijklmnopqrstuvwxzyABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\'’-
-FI_ALPHABET=abcdefghijklmnopqršstuwvxyzžåäöABCDEFGHIJKLMNOPQRSŠTUWVXYZŽÅÄÖ0123456789\'’-
+PROFILE_FOR_EXPR="1 2 3 4 5"
+
+TEST_CORPUS_HUGE=20000000
+TEST_CORPUS_LARGE=1000000
+TEST_CORPUS_TINY=10000
+
+EN_ALPHABET=abcdefghijklmnopqrstuvwxzyABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\'-
+FI_ALPHABET=abcdefghijklmnopqršstuwvxyzžåäöABCDEFGHIJKLMNOPQRSŠTUWVXYZŽÅÄÖ0123456789\'-
 
 HUNSPELL_EN_AFF=en_US.aff
+EN_TEST_CORPUS=corp/en/wikipedia-test.txt
 
-# dictionaries
+
+EN_TEST_WORDS_HUGE=corp/en/wikipedia-test.$(TEST_CORPUS_HUGE).sorted
+EN_TEST_WORDS_LARGE=corp/en/wikipedia-test.$(TEST_CORPUS_LARGE).sorted
+EN_TEST_WORDS_TINY=corp/en/wikipedia-test.$(TEST_CORPUS_TINY).sorted
+
 DICT_EN_CORP=hfst/en/acceptor.corpuswg.hfst
-DICT_EN_NO1S=hfst/en/acceptor.corpnosg.hfst
 DICT_EN_NORV=hfst/en/acceptor.norvigxx.hfst
 
 DICT_FI_CORP=hfst/fi/acceptor.corpuswg.hfst
@@ -76,28 +88,7 @@ DICTIONARIES=$(DICT_EN_CORP) $(DICT_EN_NO1S) $(DICT_EN_NORV) \
 			 $(DICT_SE_CORP) $(DICT_SE_NOPD) $(DICT_SE_PROD) \
 			 $(DICT_KL_NOPD)
 
-$(DICT_EN_CORP): hfst/en/wikipedia.hfst
-	cp -v $< $@
-
-$(DICT_EN_NORV): hfst/en/big.hfst
-	cp -v $< $@
-
-$(DICT_FI_CORP): hfst/fi/wikipedia.hfst
-	cp -v $< $@
-
-$(DICT_FI_NOPD): hfst/fi/dictionary.filtered.hfst hfst/fi/wikipedia.addone.hfst corp/fi/wikipedia.addone.unseenweight
-	$(HFST_COMPOSE) -F -v hfst/fi/dictionary.filtered.hfst hfst/fi/wikipedia.addone.hfst -o hfst/fi/dictionary.wpweights.hfst
-	$(HFST_REWEIGHT) -v hfst/fi/dictionary.filtered.hfst -e -a `cat corp/fi/wikipedia.addone.unseenweight` -o hfst/fi/dictionary.addone-unseen.hfst
-	$(HFST_UNION) -v hfst/fi/dictionary.wpweights.hfst hfst/fi/dictionary.addone-unseen.hfst -o $@
-
-$(DICT_FI_PROD): hfst/fi/dictionary.default.hfst hfst/fi/wikipedia.addone.hfst corp/fi/wikipedia.addone.unseenweight
-	$(HFST_COMPOSE) -F -v hfst/fi/dictionary.default.hfst hfst/fi/wikipedia.addone.hfst -o hfst/fi/dictionary.wpweights.hfst
-	$(HFST_REWEIGHT) -v hfst/fi/dictionary.default.hfst -e -a `cat corp/fi/wikipedia.addone.unseenweight` -o hfst/fi/dictionary.addone-unseen.hfst
-	$(HFST_UNION) -v hfst/fi/dictionary.wpweights.hfst hfst/fi/dictionary.addone-unseen.hfst -o $@
-
-dictionaries:
-
-# error models
+ERRM_EN_0UNW=hfst/en/errmodel.ed0unwe.hfst
 ERRM_EN_1UNW=hfst/en/errmodel.ed1unwe.hfst
 ERRM_EN_1ALL=hfst/en/errmodel.ed1alls.hfst
 ERRM_EN_1NOF=hfst/en/errmodel.ed1nofi.hfst
@@ -107,14 +98,21 @@ ERRM_EN_2QWE=hfst/en/errmodel.ed2qwer.hfst
 ERRM_EN_2SEX=hfst/en/errmodel.ed2sndx.hfst
 ERRM_EN_2NOF=hfst/en/errmodel.ed2nofi.hfst
 ERRM_EN_CORP=hfst/en/errmodel.ed2corp.hfst
-ERRM_EN_2ALL=hfst/en/errmodel.ed2alls.hfst
+ERRM_EN_3ALL=hfst/en/errmodel.ed2alls.hfst
+ERRM_EN_3UNW=hfst/en/errmodel.ed3unwe.hfst
 ERRM_EN_3ALL=hfst/en/errmodel.ed3alls.hfst
+ERRM_EN_4UNW=hfst/en/errmodel.ed4unwe.hfst
 ERRM_EN_4ALL=hfst/en/errmodel.ed4alls.hfst
+ERRM_EN_5UNW=hfst/en/errmodel.ed5unwe.hfst
 ERRM_EN_5ALL=hfst/en/errmodel.ed5alls.hfst
+ERRM_EN_6UNW=hfst/en/errmodel.ed6unwe.hfst
 ERRM_EN_6ALL=hfst/en/errmodel.ed6alls.hfst
+ERRM_EN_7UNW=hfst/en/errmodel.ed7unwe.hfst
 ERRM_EN_7ALL=hfst/en/errmodel.ed7alls.hfst
+ERRM_EN_8UNW=hfst/en/errmodel.ed8unwe.hfst
 ERRM_EN_8ALL=hfst/en/errmodel.ed8alls.hfst
 
+ERRM_FI_0UNW=hfst/fi/errmodel.ed0unew.hfst
 ERRM_FI_1UNW=hfst/fi/errmodel.ed1unwe.hfst
 ERRM_FI_2UNW=hfst/fi/errmodel.ed2unwe.hfst
 ERRM_FI_2QWE=hfst/fi/errmodel.ed2qwer.hfst
@@ -129,6 +127,88 @@ ERRM_SE_CORP=hfst/se/errmodel.ed2corp.hfst
 ERRM_KL_2UNW=hfst/kl/errmodel.ed2unew.hfst
 ERRM_KL_2QWE=hfst/kl/errmodel.ed2qwer.hfst
 ERRM_KL_CORP=hfst/kl/errmodel.ed2corp.hfst
+
+ENWIKI_DATE=20120802
+FIWIKI_DATE=20120827
+SEWIKI_DATE=20120825
+KLWIKI_DATE=20120902
+
+CORP_EN_NORV=corp/en/big.txt
+CORP_EN_WPLM=corp/en/wikipedia.txt
+CORP_FI_WPLM=corp/fi/wikipedia.txt
+CORP_SE_WPLM=corp/se/wikipedia.txt
+CORP_KL_WPLM=corp/kl/wikipedia.txt
+
+# The article table data
+
+# spelling results
+results/en/spells.dict-norvigxx.errm-ed5.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_5UNW)
+	$(HFST_OSPELL) -X results/en/stats.dict-norvigxx.errm-ed5.tsv -H results/en/hist.dict-norvigxx.errm-ed5.tsv $(ERRM_EN_5UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_TINY) > $@
+
+results/en/spells.dict-corpuswg.errm-ed5.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_CORP) $(ERRM_EN_5UNW)
+	$(HFST_OSPELL) -X results/en/stats.dict-corpuswg.errm-ed5.tsv -H results/en/hist.dict-corpuswg.errm-ed5.tsv $(ERRM_EN_5UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_TINY) > $@
+
+results/en/spells.dict-norvigxx.errm-ed4.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_4UNW)
+	$(HFST_OSPELL) -X results/en/stats.dict-norvigxx.errm-ed4.tsv -H results/en/hist.dict-norvigxx.errm-ed4.tsv $(ERRM_EN_4UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_TINY) > $@
+
+results/en/spells.dict-corpuswg.errm-ed4.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_CORP) $(ERRM_EN_4UNW)
+	$(HFST_OSPELL) -X results/en/stats.dict-corpuswg.errm-ed4.tsv -H results/en/hist.dict-corpuswg.errm-ed4.tsv $(ERRM_EN_4UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_TINY) > $@
+
+results/en/spells.dict-norvigxx.errm-ed3.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_3UNW)
+	$(HFST_OSPELL) -X results/en/stats.dict-norvigxx.errm-ed3.tsv -H results/en/hist.dict-norvigxx.errm-ed3.tsv $(ERRM_EN_3UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_TINY) > $@
+
+results/en/spells.dict-corpuswg.errm-ed3.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_CORP) $(ERRM_EN_3UNW)
+	$(HFST_OSPELL) -X results/en/stats.dict-corpuswg.errm-ed3.tsv -H results/en/hist.dict-corpuswg.errm-ed3.tsv $(ERRM_EN_3UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_TINY) > $@
+
+results/en/spells.dict-norvigxx.errm-ed2.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_2UNW)
+	$(HFST_OSPELL) -X results/en/stats.dict-norvigxx.errm-ed2.tsv -H results/en/hist.dict-norvigxx.errm-ed2.tsv $(ERRM_EN_2UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_LARGE) > $@
+
+results/en/spells.dict-corpuswg.errm-ed2.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_CORP) $(ERRM_EN_2UNW)
+	$(HFST_OSPELL) -X results/en/stats.dict-corpuswg.errm-ed2.tsv -H results/en/hist.dict-corpuswg.errm-ed2.tsv $(ERRM_EN_2UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_LARGE) > $@
+
+results/en/spells.dict-norvigxx.errm-ed1.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_1UNW)
+	$(HFST_OSPELL) -X results/en/stats.dict-norvigxx.errm-ed1.tsv -H results/en/hist.dict-norvigxx.errm-ed1.tsv $(ERRM_EN_1UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_LARGE) > $@
+
+results/en/spells.dict-corpuswg.errm-ed1.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_CORP) $(ERRM_EN_1UNW)
+	$(HFST_OSPELL) -X results/en/stats.dict-corpuswg.errm-ed1.tsv -H results/en/hist.dict-corpuswg.errm-ed1.tsv $(ERRM_EN_1UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_LARGE) > $@
+
+results/en/spells.dict-norvigxx.errm-ed0.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_0UNW)
+	$(HFST_OSPELL) -X results/en/stats.dict-norvigxx.errm-ed0.tsv -H results/en/hist.dict-norvigxx.errm-ed0.tsv $(ERRM_EN_0UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_LARGE) > $@
+
+results/en/spells.dict-corpuswg.errm-ed0.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_CORP) $(ERRM_EN_0UNW)
+	$(HFST_OSPELL) -X results/en/stats.dict-corpuswg.errm-ed0.tsv -H results/en/hist.dict-corpuswg.errm-ed0.tsv $(ERRM_EN_0UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_LARGE) > $@
+
+# profiling results
+results/en/profiles.dict-corpuswg.errm-ed0.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_CORP) $(ERRM_EN_0UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_0UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+
+# dictionaries
+
+$(DICT_EN_CORP): hfst/en/wikipedia.hfst
+	$(HFST_MINIMIZE) -v $< | $(HFST_FST2FST) -v -f olw -o $@
+
+$(DICT_EN_NORV): hfst/en/big.hfst
+	$(HFST_MINIMIZE) -v $< | $(HFST_FST2FST) -v -f olw -o $@
+
+$(DICT_FI_CORP): hfst/fi/wikipedia.hfst
+	$(HFST_MINIMIZE) -v $< | $(HFST_FST2FST) -v -f olw -o $@
+
+$(DICT_FI_NOPD): hfst/fi/dictionary.filtered.hfst hfst/fi/wikipedia.addone.hfst corp/fi/wikipedia.addone.unseenweight
+	$(HFST_COMPOSE) -F -v hfst/fi/dictionary.filtered.hfst hfst/fi/wikipedia.addone.hfst -o hfst/fi/dictionary.wpweights.hfst
+	$(HFST_REWEIGHT) -v hfst/fi/dictionary.filtered.hfst -e -a `cat corp/fi/wikipedia.addone.unseenweight` -o hfst/fi/dictionary.addone-unseen.hfst
+	$(HFST_UNION) -v hfst/fi/dictionary.wpweights.hfst hfst/fi/dictionary.addone-unseen.hfst -o $@
+
+$(DICT_FI_PROD): hfst/fi/dictionary.default.hfst hfst/fi/wikipedia.addone.hfst corp/fi/wikipedia.addone.unseenweight
+	$(HFST_COMPOSE) -F -v hfst/fi/dictionary.default.hfst hfst/fi/wikipedia.addone.hfst -o hfst/fi/dictionary.wpweights.hfst
+	$(HFST_REWEIGHT) -v hfst/fi/dictionary.default.hfst -e -a `cat corp/fi/wikipedia.addone.unseenweight` -o hfst/fi/dictionary.addone-unseen.hfst
+	$(HFST_UNION) -v hfst/fi/dictionary.wpweights.hfst hfst/fi/dictionary.addone-unseen.hfst -o $@
+
+dictionaries:
+
+# error models
 
 errmodels:
 
@@ -153,11 +233,21 @@ $(ERRM_EN_6ALL): hfst/en/soundex-full.hfst hfst/en/hunspell-reps+context.hfst hf
 		$(HFST_UNION) -v - hfst/en/hunspell-reps+context.hfst |\
 		$(HFST_FST2FST) -v -f olw -o $@
 
+$(ERRM_EN_5UNW): hfst/en/edit-1.hfst corp/en/wikipedia.unseenweight
+	$(HFST_REWEIGHT) -v $< -e -a "`cat corp/en/wikipedia.unseenweight`" |\
+		$(HFST_REPEAT) -f 1 -t 5 -v |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
 $(ERRM_EN_5ALL): hfst/en/soundex-full.hfst hfst/en/hunspell-reps+context.hfst hfst/en/edit-1-qwerty-halved.hfst
 	$(HFST_REWEIGHT) -v hfst/en/edit-1-qwerty-halved.hfst -b "`cat corp/en/wikipedia.unseenweight`" |\
 		$(HFST_REPEAT) -v -f 1 -t 5 |\
 		$(HFST_UNION) -v - hfst/en/soundex-full.hfst |\
 		$(HFST_UNION) -v - hfst/en/hunspell-reps+context.hfst |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_EN_4UNW): hfst/en/edit-1.hfst corp/en/wikipedia.unseenweight
+	$(HFST_REWEIGHT) -v $< -e -a "`cat corp/en/wikipedia.unseenweight`" |\
+		$(HFST_REPEAT) -f 1 -t 4 -v |\
 		$(HFST_FST2FST) -v -f olw -o $@
 
 $(ERRM_EN_4ALL): hfst/en/soundex-full.hfst hfst/en/hunspell-reps+context.hfst hfst/en/edit-1-qwerty-halved.hfst
@@ -172,6 +262,11 @@ $(ERRM_EN_3ALL): hfst/en/soundex-full.hfst hfst/en/hunspell-reps+context.hfst hf
 		$(HFST_REPEAT) -v -f 1 -t 3 |\
 		$(HFST_UNION) -v - hfst/en/soundex-full.hfst |\
 		$(HFST_UNION) -v - hfst/en/hunspell-reps+context.hfst |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_EN_3UNW): hfst/en/edit-1.hfst corp/en/wikipedia.unseenweight
+	$(HFST_REWEIGHT) -v $< -e -a "`cat corp/en/wikipedia.unseenweight`" |\
+		$(HFST_REPEAT) -f 1 -t 3 -v |\
 		$(HFST_FST2FST) -v -f olw -o $@
 
 $(ERRM_EN_2SEX): hfst/en/edit-1.hfst hfst/en/soundex-full.hfst corp/en/wikipedia.unseenweight
@@ -220,6 +315,14 @@ $(ERRM_EN_1QWE): hfst/en/edit-1-qwerty-halved.hfst corp/en/wikipedia.unseenweigh
 		$(HFST_MINIMIZE) -v |\
 		$(HFST_FST2FST) -v -f olw -o $@
 
+$(ERRM_EN_1UNW): hfst/en/edit-1.hfst
+	$(HFST_MINIMIZE) -v $< |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_EN_0UNW): hfst/en/edit-0.hfst
+	$(HFST_MINIMIZE) -v $< |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
 hfst/en/hunspell-reps+context.hfst: hfst/en/hunspell-reps.hfst
 	echo '?*' | $(HFST_REGEXP2FST) -v -o sigmastar.hfst
 	$(HFST_CONCATENATE) -v sigmastar.hfst $< |\
@@ -238,26 +341,26 @@ hfst/en/%.hfst: manual/en/%.strings
 	$(HFST_STRINGS2FST) -j $< -o $@
 
 # corpora
-ENWIKI_DATE=20120802
-FIWIKI_DATE=20120827
-SEWIKI_DATE=20120825
-KLWIKI_DATE=20120902
-
-CORP_EN_NORV=corp/en/big.txt
-CORP_EN_WPLM=corp/en/wikipedia.txt
-CORP_FI_WPLM=corp/fi/wikipedia.txt
-CORP_SE_WPLM=corp/se/wikipedia.txt
-CORP_KL_WPLM=corp/kl/wikipedia.txt
+corp/en/wikipedia-test.txt: corp/en/enwiki-pages-articles-test.xml
+	$(AWK) '/<text/,/<\/text/ {print}' < $<|\
+		$(SED) -e 's_</\?text[^>]*>__g' |\
+		$(WIKICLEAN) |\
+		iconv -f utf8 -t utf8//IGNORE > $@
 
 corp/en/wikipedia.txt: corp/en/enwiki-pages-articles-train.xml
 	$(AWK) '/<text/,/<\/text/ {print}' < $<|\
 		$(SED) -e 's_</\?text[^>]*>__g' |\
-		$(WIKICLEAN) > $@
+		$(WIKICLEAN) |\
+		iconv -f utf8 -t utf8//IGNORE > $@
 
 corp/fi/wikipedia.txt: corp/fi/fiwiki-pages-articles-train.xml
 	$(AWK) '/<text/,/<\/text/ {print}' < $<|\
 		$(SED) -e 's_</\?text[^>]*>__g' |\
-		$(WIKICLEAN) > $@
+		$(WIKICLEAN) |\
+		iconv -f utf8 -t utf8//IGNORE > $@
+
+corp/en/big.txt:
+	$(WGET) http://norvig.com/big.txt -O $@
 
 corp/en/enwiki-pages-articles-train.xml:
 	$(WGET) http://dumps.wikimedia.org/enwiki/$(ENWIKI_DATE)/enwiki-$(ENWIKI_DATE)-pages-articles1.xml-p000000010p000010000.bz2 -O enwiki-pages-articles1.xml.bz2
@@ -294,9 +397,32 @@ corpora:
 
 # corpus to weighted word-form lists
 
+
+corp/en/%.$(TEST_CORPUS_HUGE).sorted: corp/en/%.txt
+	tr -s '[:space:].?!,;:/' '\n' < $< |\
+		grep "^[$(EN_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' |\
+		head -n $(TEST_CORPUS_HUGE) |\
+		sort > $@
+
+corp/en/%.$(TEST_CORPUS_LARGE).sorted: corp/en/%.txt
+	tr -s '[:space:].?!,;:/' '\n' < $< |\
+		grep "^[$(EN_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' |\
+		head -n $(TEST_CORPUS_LARGE)|\
+		sort > $@
+
+corp/en/%.$(TEST_CORPUS_TINY).sorted: corp/en/%.txt
+	tr -s '[:space:].?!,;:/' '\n' < $< |\
+		grep "^[$(EN_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' |\
+		head -n $(TEST_CORPUS_TINY) |\
+		sort > $@
+
 corp/en/%.sorted: corp/en/%.txt
 	tr -s '[:space:].?!,;:/' '\n' < $< |\
 		grep "^[$(EN_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' |\
 		sort > $@
 
 corp/en/%.uniqc: corp/en/%.sorted
@@ -323,6 +449,7 @@ corp/en/%.addhalf.tropical: corp/en/%.uniqc
 corp/fi/%.sorted: corp/fi/%.txt
 	tr -s '[:space:].-?!,;:/' '\n' < $< |\
 		grep "^[$(FI_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' |\
 		sort > $@
 
 corp/fi/%.uniqc: corp/fi/%.sorted
@@ -364,17 +491,33 @@ hfst/kl/%.hfst: corp/kl/%.tropical
 		$(HFST_MINIMIZE) -v -o $@
 
 # the error models
+manual/en/edit-0.txt:
+	$(PYTHON2) editdist.py -d 0 -s --no-elim "$(EN_ALPHABET)" |\
+		fgrep -v "\\" > $@
+
 manual/en/edit-1.txt:
-	$(PYTHON2) editdist.py -s --no-elim "$(EN_ALPHABET)" > $@
+	$(PYTHON2) editdist.py -s --no-elim "$(EN_ALPHABET)" |\
+		fgrep -v "\\" > $@
 
 manual/en/edit-1-nonfirst.txt:
-	$(PYTHON2) editdist.py --no-string-initial-correction -s --no-elim "$(EN_ALPHABET)" > $@
+	$(PYTHON2) editdist.py --no-string-initial-correction -s --no-elim "$(EN_ALPHABET)" |\
+		fgrep -v "\\" > $@
 
 manual/en/edit-1-qwerty-halved.txt: manual/en/qwerty.tsv
-	$(PYTHON2) editdist.py -s --no-elim "$(EN_ALPHABET)" -i manual/en/qwerty.tsv > $@
+	$(PYTHON2) editdist.py -s --no-elim "$(EN_ALPHABET)" -i manual/en/qwerty.tsv |\
+		fgrep -v "\\" > $@
 
 manual/en/hunspell-reps.strings:
 	grep '^REP' $(HUNSPELL_EN_AFF) |\
 		tail -n +2 |\
 		sed -e 's/REP[[:space:]]*//' -e 's/[[:space:]]\+/:/' > $@
 
+# a bit of error corpus collecting
+corp/en/speling-candidates.tsv: corp/en/enwiki-pages-meta-history.xml.bz2
+	$(BZ2CAT) $< |\
+		$(AWK) -f dump-wiki-revisions-for-speling-wdiffs.awk --assign=CORPDIR=corp/en
+	chmod +x ./print-wdiffs.sh
+	./print-wdiffs.sh | grep '\[-.*+}' |\
+		sed -e 's/\[-//' -e 's/-] {+/	/' -e 's/+}//' > $@
+	chmod +x ./remove-junk.sh
+	./remove-junk.sh
