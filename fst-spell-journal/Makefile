@@ -69,6 +69,7 @@ EN_TEST_CORPUS=corp/en/wikipedia-test.txt
 EN_TEST_WORDS_HUGE=corp/en/wikipedia-test.$(TEST_CORPUS_HUGE).sorted
 EN_TEST_WORDS_LARGE=corp/en/wikipedia-test.$(TEST_CORPUS_LARGE).sorted
 EN_TEST_WORDS_TINY=corp/en/wikipedia-test.$(TEST_CORPUS_TINY).sorted
+EN_TEST_WORDS_REAL=corp/en/wikispells.tsv
 
 DICT_EN_CORP=hfst/en/acceptor.corpuswg.hfst
 DICT_EN_NORV=hfst/en/acceptor.norvigxx.hfst
@@ -140,45 +141,105 @@ CORP_SE_WPLM=corp/se/wikipedia.txt
 CORP_KL_WPLM=corp/kl/wikipedia.txt
 
 # The article table data
+RESULTS_EN_RUNNING=\
+				   results/en/rung.spells.dict-corpuswg.errm-ed0.tsv \
+				   results/en/rung.spells.dict-corpuswg.errm-ed1.tsv \
+				   results/en/rung.spells.dict-corpuswg.errm-ed2.tsv \
+				   results/en/rung.spells.dict-corpuswg.errm-ed3.tsv \
+				   results/en/rung.spells.dict-norvigxx.errm-ed0.tsv \
+				   results/en/rung.spells.dict-norvigxx.errm-ed1.tsv \
+				   results/en/rung.spells.dict-norvigxx.errm-ed2.tsv \
+				   results/en/rung.spells.dict-norvigxx.errm-ed3.tsv
+RESULTS_EN_REAL=\
+				   results/en/real.spells.dict-corpuswg.errm-ed0.tsv \
+				   results/en/real.spells.dict-corpuswg.errm-ed1.tsv \
+				   results/en/real.spells.dict-corpuswg.errm-ed2.tsv \
+				   results/en/real.spells.dict-corpuswg.errm-ed3.tsv \
+				   results/en/real.spells.dict-norvigxx.errm-ed0.tsv \
+				   results/en/real.spells.dict-norvigxx.errm-ed1.tsv \
+				   results/en/real.spells.dict-norvigxx.errm-ed2.tsv \
+				   results/en/real.spells.dict-norvigxx.errm-ed3.tsv
 
-# spelling results
-results/en/spells.dict-norvigxx.errm-ed5.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_5UNW)
-	$(HFST_OSPELL) -X results/en/stats.dict-norvigxx.errm-ed5.tsv -H results/en/hist.dict-norvigxx.errm-ed5.tsv $(ERRM_EN_5UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_TINY) > $@
+results-en: $(RESULTS_EN_RUNNING) $(RESULTS_EN_REAL)
 
-results/en/spells.dict-corpuswg.errm-ed5.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_CORP) $(ERRM_EN_5UNW)
-	$(HFST_OSPELL) -X results/en/stats.dict-corpuswg.errm-ed5.tsv -H results/en/hist.dict-corpuswg.errm-ed5.tsv $(ERRM_EN_5UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_TINY) > $@
+# spelling results for running
+results/en/rung.spells.dict-norvigxx.errm-ed5.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_5UNW)
+	$(HFST_OSPELL) -X results/en/rung.stats.dict-norvigxx.errm-ed5.tsv -H results/en/rung.hist.dict-norvigxx.errm-ed5.tsv $(ERRM_EN_5UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_TINY) > $@
 
-results/en/spells.dict-norvigxx.errm-ed4.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_4UNW)
-	$(HFST_OSPELL) -X results/en/stats.dict-norvigxx.errm-ed4.tsv -H results/en/hist.dict-norvigxx.errm-ed4.tsv $(ERRM_EN_4UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_TINY) > $@
+results/en/rung.spells.dict-corpuswg.errm-ed5.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_CORP) $(ERRM_EN_5UNW)
+	$(HFST_OSPELL) -X results/en/rung.stats.dict-corpuswg.errm-ed5.tsv -H results/en/rung.hist.dict-corpuswg.errm-ed5.tsv $(ERRM_EN_5UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_TINY) > $@
 
-results/en/spells.dict-corpuswg.errm-ed4.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_CORP) $(ERRM_EN_4UNW)
-	$(HFST_OSPELL) -X results/en/stats.dict-corpuswg.errm-ed4.tsv -H results/en/hist.dict-corpuswg.errm-ed4.tsv $(ERRM_EN_4UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_TINY) > $@
+results/en/rung.spells.dict-norvigxx.errm-ed4.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_4UNW)
+	$(HFST_OSPELL) -X results/en/rung.stats.dict-norvigxx.errm-ed4.tsv -H results/en/rung.hist.dict-norvigxx.errm-ed4.tsv $(ERRM_EN_4UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_TINY) > $@
 
-results/en/spells.dict-norvigxx.errm-ed3.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_3UNW)
-	$(HFST_OSPELL) -X results/en/stats.dict-norvigxx.errm-ed3.tsv -H results/en/hist.dict-norvigxx.errm-ed3.tsv $(ERRM_EN_3UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_TINY) > $@
+results/en/rung.spells.dict-corpuswg.errm-ed4.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_CORP) $(ERRM_EN_4UNW)
+	$(HFST_OSPELL) -X results/en/rung.stats.dict-corpuswg.errm-ed4.tsv -H results/en/rung.hist.dict-corpuswg.errm-ed4.tsv $(ERRM_EN_4UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_TINY) > $@
 
-results/en/spells.dict-corpuswg.errm-ed3.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_CORP) $(ERRM_EN_3UNW)
-	$(HFST_OSPELL) -X results/en/stats.dict-corpuswg.errm-ed3.tsv -H results/en/hist.dict-corpuswg.errm-ed3.tsv $(ERRM_EN_3UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_TINY) > $@
+results/en/rung.spells.dict-norvigxx.errm-ed3.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_3UNW)
+	$(HFST_OSPELL) -X results/en/rung.stats.dict-norvigxx.errm-ed3.tsv -H results/en/rung.hist.dict-norvigxx.errm-ed3.tsv $(ERRM_EN_3UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_TINY) > $@
 
-results/en/spells.dict-norvigxx.errm-ed2.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_2UNW)
-	$(HFST_OSPELL) -X results/en/stats.dict-norvigxx.errm-ed2.tsv -H results/en/hist.dict-norvigxx.errm-ed2.tsv $(ERRM_EN_2UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_LARGE) > $@
+results/en/rung.spells.dict-corpuswg.errm-ed3.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_CORP) $(ERRM_EN_3UNW)
+	$(HFST_OSPELL) -X results/en/rung.stats.dict-corpuswg.errm-ed3.tsv -H results/en/rung.hist.dict-corpuswg.errm-ed3.tsv $(ERRM_EN_3UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_TINY) > $@
 
-results/en/spells.dict-corpuswg.errm-ed2.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_CORP) $(ERRM_EN_2UNW)
-	$(HFST_OSPELL) -X results/en/stats.dict-corpuswg.errm-ed2.tsv -H results/en/hist.dict-corpuswg.errm-ed2.tsv $(ERRM_EN_2UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_LARGE) > $@
+results/en/rung.spells.dict-norvigxx.errm-ed2.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_2UNW)
+	$(HFST_OSPELL) -X results/en/rung.stats.dict-norvigxx.errm-ed2.tsv -H results/en/rung.hist.dict-norvigxx.errm-ed2.tsv $(ERRM_EN_2UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_LARGE) > $@
 
-results/en/spells.dict-norvigxx.errm-ed1.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_1UNW)
-	$(HFST_OSPELL) -X results/en/stats.dict-norvigxx.errm-ed1.tsv -H results/en/hist.dict-norvigxx.errm-ed1.tsv $(ERRM_EN_1UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_LARGE) > $@
+results/en/rung.spells.dict-corpuswg.errm-ed2.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_CORP) $(ERRM_EN_2UNW)
+	$(HFST_OSPELL) -X results/en/rung.stats.dict-corpuswg.errm-ed2.tsv -H results/en/rung.hist.dict-corpuswg.errm-ed2.tsv $(ERRM_EN_2UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_LARGE) > $@
 
-results/en/spells.dict-corpuswg.errm-ed1.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_CORP) $(ERRM_EN_1UNW)
-	$(HFST_OSPELL) -X results/en/stats.dict-corpuswg.errm-ed1.tsv -H results/en/hist.dict-corpuswg.errm-ed1.tsv $(ERRM_EN_1UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_LARGE) > $@
+results/en/rung.spells.dict-norvigxx.errm-ed1.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_1UNW)
+	$(HFST_OSPELL) -X results/en/rung.stats.dict-norvigxx.errm-ed1.tsv -H results/en/rung.hist.dict-norvigxx.errm-ed1.tsv $(ERRM_EN_1UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_LARGE) > $@
 
-results/en/spells.dict-norvigxx.errm-ed0.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_0UNW)
-	$(HFST_OSPELL) -X results/en/stats.dict-norvigxx.errm-ed0.tsv -H results/en/hist.dict-norvigxx.errm-ed0.tsv $(ERRM_EN_0UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_LARGE) > $@
+results/en/rung.spells.dict-corpuswg.errm-ed1.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_CORP) $(ERRM_EN_1UNW)
+	$(HFST_OSPELL) -X results/en/rung.stats.dict-corpuswg.errm-ed1.tsv -H results/en/rung.hist.dict-corpuswg.errm-ed1.tsv $(ERRM_EN_1UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_LARGE) > $@
 
-results/en/spells.dict-corpuswg.errm-ed0.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_CORP) $(ERRM_EN_0UNW)
-	$(HFST_OSPELL) -X results/en/stats.dict-corpuswg.errm-ed0.tsv -H results/en/hist.dict-corpuswg.errm-ed0.tsv $(ERRM_EN_0UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_LARGE) > $@
+results/en/rung.spells.dict-norvigxx.errm-ed0.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_0UNW)
+	$(HFST_OSPELL) -X results/en/rung.stats.dict-norvigxx.errm-ed0.tsv -H results/en/rung.hist.dict-norvigxx.errm-ed0.tsv $(ERRM_EN_0UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_LARGE) > $@
+
+results/en/rung.spells.dict-corpuswg.errm-ed0.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_CORP) $(ERRM_EN_0UNW)
+	$(HFST_OSPELL) -X results/en/rung.stats.dict-corpuswg.errm-ed0.tsv -H results/en/rung.hist.dict-corpuswg.errm-ed0.tsv $(ERRM_EN_0UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_LARGE) > $@
+
+# for reals
+
+results/en/real.spells.dict-norvigxx.errm-ed5.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_NORV) $(ERRM_EN_5UNW)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-norvigxx.errm-ed5.tsv -H results/en/real.hist.dict-norvigxx.errm-ed5.tsv $(ERRM_EN_5UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-corpuswg.errm-ed5.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_CORP) $(ERRM_EN_5UNW)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-corpuswg.errm-ed5.tsv -H results/en/real.hist.dict-corpuswg.errm-ed5.tsv $(ERRM_EN_5UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-norvigxx.errm-ed4.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_NORV) $(ERRM_EN_4UNW)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-norvigxx.errm-ed4.tsv -H results/en/real.hist.dict-norvigxx.errm-ed4.tsv $(ERRM_EN_4UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-corpuswg.errm-ed4.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_CORP) $(ERRM_EN_4UNW)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-corpuswg.errm-ed4.tsv -H results/en/real.hist.dict-corpuswg.errm-ed4.tsv $(ERRM_EN_4UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-norvigxx.errm-ed3.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_NORV) $(ERRM_EN_3UNW)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-norvigxx.errm-ed3.tsv -H results/en/real.hist.dict-norvigxx.errm-ed3.tsv $(ERRM_EN_3UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-corpuswg.errm-ed3.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_CORP) $(ERRM_EN_3UNW)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-corpuswg.errm-ed3.tsv -H results/en/real.hist.dict-corpuswg.errm-ed3.tsv $(ERRM_EN_3UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-norvigxx.errm-ed2.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_NORV) $(ERRM_EN_2UNW)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-norvigxx.errm-ed2.tsv -H results/en/real.hist.dict-norvigxx.errm-ed2.tsv $(ERRM_EN_2UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-corpuswg.errm-ed2.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_CORP) $(ERRM_EN_2UNW)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-corpuswg.errm-ed2.tsv -H results/en/real.hist.dict-corpuswg.errm-ed2.tsv $(ERRM_EN_2UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-norvigxx.errm-ed1.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_NORV) $(ERRM_EN_1UNW)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-norvigxx.errm-ed1.tsv -H results/en/real.hist.dict-norvigxx.errm-ed1.tsv $(ERRM_EN_1UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-corpuswg.errm-ed1.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_CORP) $(ERRM_EN_1UNW)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-corpuswg.errm-ed1.tsv -H results/en/real.hist.dict-corpuswg.errm-ed1.tsv $(ERRM_EN_1UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-norvigxx.errm-ed0.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_NORV) $(ERRM_EN_0UNW)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-norvigxx.errm-ed0.tsv -H results/en/real.hist.dict-norvigxx.errm-ed0.tsv $(ERRM_EN_0UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-corpuswg.errm-ed0.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_CORP) $(ERRM_EN_0UNW)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-corpuswg.errm-ed0.tsv -H results/en/real.hist.dict-corpuswg.errm-ed0.tsv $(ERRM_EN_0UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_REAL) > $@
+
 
 # profiling results
+
 results/en/profiles.dict-corpuswg.errm-ed0.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_CORP) $(ERRM_EN_0UNW)
 	for i in $(PROFILE_FOR_EXPR); do \
 		$(HFST_OSPELL) -P $@ $(ERRM_EN_0UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_LARGE) > /dev/null ;\
@@ -521,3 +582,22 @@ corp/en/speling-candidates.tsv: corp/en/enwiki-pages-meta-history.xml.bz2
 		sed -e 's/\[-//' -e 's/-] {+/	/' -e 's/+}//' > $@
 	chmod +x ./remove-junk.sh
 	./remove-junk.sh
+
+corp/fi/speling-candidates.tsv: corp/fi/fiwiki-pages-meta-history.xml.bz2
+	$(BZ2CAT) $< |\
+		$(AWK) -f dump-wiki-revisions-for-speling-wdiffs-fi.awk --assign=CORPDIR=corp/fi
+	chmod +x ./print-wdiffs.sh
+	./print-wdiffs.sh | grep '\[-.*+}' |\
+		sed -e 's/\[-//' -e 's/-] *{+/	/' -e 's/+}//' > $@
+	chmod +x ./remove-junk.sh
+	./remove-junk.sh
+
+corp/se/speling-candidates.tsv: corp/se/sewiki-pages-meta-history.xml.bz2
+	$(BZ2CAT) $< |\
+		$(AWK) -f dump-wiki-revisions-for-speling-wdiffs-se.awk --assign=CORPDIR=corp/se
+	chmod +x ./print-wdiffs.sh
+	./print-wdiffs.sh | grep '\[-.*+}' |\
+		sed -e 's/\[-//' -e 's/-] *{+/	/' -e 's/+}//' > $@
+	chmod +x ./remove-junk.sh
+	./remove-junk.sh
+
