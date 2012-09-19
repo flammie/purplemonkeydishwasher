@@ -101,6 +101,7 @@ ERRM_EN_2NOF=hfst/en/errmodel.ed2nofi.hfst
 ERRM_EN_CORP=hfst/en/errmodel.ed2corp.hfst
 ERRM_EN_3ALL=hfst/en/errmodel.ed2alls.hfst
 ERRM_EN_3UNW=hfst/en/errmodel.ed3unwe.hfst
+ERRM_EN_3NOF=hfst/en/errmodel.ed3nofi.hfst
 ERRM_EN_3ALL=hfst/en/errmodel.ed3alls.hfst
 ERRM_EN_4UNW=hfst/en/errmodel.ed4unwe.hfst
 ERRM_EN_4ALL=hfst/en/errmodel.ed4alls.hfst
@@ -158,7 +159,13 @@ RESULTS_EN_REAL=\
 				   results/en/real.spells.dict-norvigxx.errm-ed0.tsv \
 				   results/en/real.spells.dict-norvigxx.errm-ed1.tsv \
 				   results/en/real.spells.dict-norvigxx.errm-ed2.tsv \
-				   results/en/real.spells.dict-norvigxx.errm-ed3.tsv
+				   results/en/real.spells.dict-norvigxx.errm-ed3.tsv \
+				   results/en/real.spells.dict-corpuswg.errm-nf1.tsv \
+				   results/en/real.spells.dict-corpuswg.errm-nf2.tsv \
+				   results/en/real.spells.dict-corpuswg.errm-nf3.tsv \
+				   results/en/real.spells.dict-norvigxx.errm-nf1.tsv \
+				   results/en/real.spells.dict-norvigxx.errm-nf2.tsv \
+				   results/en/real.spells.dict-norvigxx.errm-nf3.tsv
 
 results-en: $(RESULTS_EN_RUNNING) $(RESULTS_EN_REAL)
 
@@ -236,6 +243,38 @@ results/en/real.spells.dict-norvigxx.errm-ed0.tsv: $(EN_TEST_WORDS_REAL) $(DICT_
 
 results/en/real.spells.dict-corpuswg.errm-ed0.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_CORP) $(ERRM_EN_0UNW)
 	$(HFST_OSPELL) -X results/en/real.stats.dict-corpuswg.errm-ed0.tsv -H results/en/real.hist.dict-corpuswg.errm-ed0.tsv $(ERRM_EN_0UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_REAL) > $@
+
+
+results/en/real.spells.dict-norvigxx.errm-nf5.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_NORV) $(ERRM_EN_5NOF)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-norvigxx.errm-nf5.tsv -H results/en/real.hist.dict-norvigxx.errm-nf5.tsv $(ERRM_EN_5NOF) $(DICT_EN_NORV) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-corpuswg.errm-nf5.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_CORP) $(ERRM_EN_5NOF)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-corpuswg.errm-nf5.tsv -H results/en/real.hist.dict-corpuswg.errm-nf5.tsv $(ERRM_EN_5NOF) $(DICT_EN_CORP) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-norvigxx.errm-nf4.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_NORV) $(ERRM_EN_4NOF)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-norvigxx.errm-nf4.tsv -H results/en/real.hist.dict-norvigxx.errm-nf4.tsv $(ERRM_EN_4NOF) $(DICT_EN_NORV) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-corpuswg.errm-nf4.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_CORP) $(ERRM_EN_4NOF)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-corpuswg.errm-nf4.tsv -H results/en/real.hist.dict-corpuswg.errm-nf4.tsv $(ERRM_EN_4NOF) $(DICT_EN_CORP) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-norvigxx.errm-nf3.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_NORV) $(ERRM_EN_3NOF)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-norvigxx.errm-nf3.tsv -H results/en/real.hist.dict-norvigxx.errm-nf3.tsv $(ERRM_EN_3NOF) $(DICT_EN_NORV) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-corpuswg.errm-nf3.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_CORP) $(ERRM_EN_3NOF)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-corpuswg.errm-nf3.tsv -H results/en/real.hist.dict-corpuswg.errm-nf3.tsv $(ERRM_EN_3NOF) $(DICT_EN_CORP) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-norvigxx.errm-nf2.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_NORV) $(ERRM_EN_2NOF)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-norvigxx.errm-nf2.tsv -H results/en/real.hist.dict-norvigxx.errm-nf2.tsv $(ERRM_EN_2NOF) $(DICT_EN_NORV) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-corpuswg.errm-nf2.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_CORP) $(ERRM_EN_2NOF)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-corpuswg.errm-nf2.tsv -H results/en/real.hist.dict-corpuswg.errm-nf2.tsv $(ERRM_EN_2NOF) $(DICT_EN_CORP) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-norvigxx.errm-nf1.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_NORV) $(ERRM_EN_1NOF)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-norvigxx.errm-nf1.tsv -H results/en/real.hist.dict-norvigxx.errm-nf1.tsv $(ERRM_EN_1NOF) $(DICT_EN_NORV) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-corpuswg.errm-nf1.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_CORP) $(ERRM_EN_1NOF)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-corpuswg.errm-nf1.tsv -H results/en/real.hist.dict-corpuswg.errm-nf1.tsv $(ERRM_EN_1NOF) $(DICT_EN_CORP) < $(EN_TEST_WORDS_REAL) > $@
+
 
 
 # profiling results
@@ -325,6 +364,12 @@ $(ERRM_EN_3ALL): hfst/en/soundex-full.hfst hfst/en/hunspell-reps+context.hfst hf
 		$(HFST_UNION) -v - hfst/en/hunspell-reps+context.hfst |\
 		$(HFST_FST2FST) -v -f olw -o $@
 
+$(ERRM_EN_3NOF): hfst/en/no-edits-1.hfst hfst/en/edit-1.hfst corp/en/wikipedia.unseenweight
+	$(HFST_REWEIGHT) -v hfst/en/edit-1.hfst -e -a "`cat corp/en/wikipedia.unseenweight`" |\
+		$(HFST_REPEAT) -f 1 -t 3 -v |\
+		$(HFST_CONCATENATE) -v hfst/en/no-edits-1.hfst - |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
 $(ERRM_EN_3UNW): hfst/en/edit-1.hfst corp/en/wikipedia.unseenweight
 	$(HFST_REWEIGHT) -v $< -e -a "`cat corp/en/wikipedia.unseenweight`" |\
 		$(HFST_REPEAT) -f 1 -t 3 -v |\
@@ -341,10 +386,10 @@ $(ERRM_EN_2UNW): hfst/en/edit-1.hfst corp/en/wikipedia.unseenweight
 		$(HFST_REPEAT) -f 1 -t 2 -v |\
 		$(HFST_FST2FST) -v -f olw -o $@
 
-$(ERRM_EN_2NOF): hfst/en/edit-1-nonfirst.hfst hfst/en/edit-1.hfst corp/en/wikipedia.unseenweight
-	$(HFST_REWEIGHT) -v $< -e -a "`cat corp/en/wikipedia.unseenweight`" > 1nof.hfst
-	$(HFST_REWEIGHT) -v hfst/en/edit-1.hfst -a "`cat corp/en/wikipedia.unseenweight`" |\
-		$(HFST_COMPOSE) -v - 1nof.hfst |\
+$(ERRM_EN_2NOF): hfst/en/no-edits-1.hfst hfst/en/edit-1.hfst corp/en/wikipedia.unseenweight
+	$(HFST_REWEIGHT) -v hfst/en/edit-1.hfst -e -a "`cat corp/en/wikipedia.unseenweight`" |\
+		$(HFST_REPEAT) -f 1 -t 2 -v |\
+		$(HFST_CONCATENATE) -v hfst/en/no-edits-1.hfst - |\
 		$(HFST_FST2FST) -v -f olw -o $@
 
 $(ERRM_EN_2ALL): hfst/en/soundex-full.hfst hfst/en/hunspell-reps+context.hfst hfst/en/edit-1-qwerty-halved.hfst
