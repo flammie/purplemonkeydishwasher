@@ -91,28 +91,23 @@ DICTIONARIES=$(DICT_EN_CORP) $(DICT_EN_NO1S) $(DICT_EN_NORV) \
 
 ERRM_EN_0UNW=hfst/en/errmodel.ed0unwe.hfst
 ERRM_EN_1UNW=hfst/en/errmodel.ed1unwe.hfst
-ERRM_EN_1ALL=hfst/en/errmodel.ed1alls.hfst
 ERRM_EN_1NOF=hfst/en/errmodel.ed1nofi.hfst
-ERRM_EN_1QWE=hfst/en/errmodel.ed1qwer.hfst
+ERRM_EN_1HUN=hfst/en/errmodel.ed1huns.hfst
 ERRM_EN_2UNW=hfst/en/errmodel.ed2unwe.hfst
-ERRM_EN_2QWE=hfst/en/errmodel.ed2qwer.hfst
-ERRM_EN_2SEX=hfst/en/errmodel.ed2sndx.hfst
 ERRM_EN_2NOF=hfst/en/errmodel.ed2nofi.hfst
-ERRM_EN_CORP=hfst/en/errmodel.ed2corp.hfst
-ERRM_EN_3ALL=hfst/en/errmodel.ed2alls.hfst
+ERRM_EN_2HUN=hfst/en/errmodel.ed2huns.hfst
 ERRM_EN_3UNW=hfst/en/errmodel.ed3unwe.hfst
 ERRM_EN_3NOF=hfst/en/errmodel.ed3nofi.hfst
-ERRM_EN_3ALL=hfst/en/errmodel.ed3alls.hfst
+ERRM_EN_3HUN=hfst/en/errmodel.ed3huns.hfst
+
+ERRM_EN_1QWE=hfst/en/errmodel.ed1qwer.hfst
+ERRM_EN_2QWE=hfst/en/errmodel.ed2qwer.hfst
+
 ERRM_EN_4UNW=hfst/en/errmodel.ed4unwe.hfst
-ERRM_EN_4ALL=hfst/en/errmodel.ed4alls.hfst
 ERRM_EN_5UNW=hfst/en/errmodel.ed5unwe.hfst
-ERRM_EN_5ALL=hfst/en/errmodel.ed5alls.hfst
 ERRM_EN_6UNW=hfst/en/errmodel.ed6unwe.hfst
-ERRM_EN_6ALL=hfst/en/errmodel.ed6alls.hfst
 ERRM_EN_7UNW=hfst/en/errmodel.ed7unwe.hfst
-ERRM_EN_7ALL=hfst/en/errmodel.ed7alls.hfst
 ERRM_EN_8UNW=hfst/en/errmodel.ed8unwe.hfst
-ERRM_EN_8ALL=hfst/en/errmodel.ed8alls.hfst
 
 ERRM_FI_0UNW=hfst/fi/errmodel.ed0unew.hfst
 ERRM_FI_1UNW=hfst/fi/errmodel.ed1unwe.hfst
@@ -165,7 +160,13 @@ RESULTS_EN_REAL=\
 				   results/en/real.spells.dict-corpuswg.errm-nf3.tsv \
 				   results/en/real.spells.dict-norvigxx.errm-nf1.tsv \
 				   results/en/real.spells.dict-norvigxx.errm-nf2.tsv \
-				   results/en/real.spells.dict-norvigxx.errm-nf3.tsv
+				   results/en/real.spells.dict-norvigxx.errm-nf3.tsv \
+				   results/en/real.spells.dict-corpuswg.errm-hs1.tsv \
+				   results/en/real.spells.dict-corpuswg.errm-hs2.tsv \
+				   results/en/real.spells.dict-corpuswg.errm-hs3.tsv \
+				   results/en/real.spells.dict-norvigxx.errm-hs1.tsv \
+				   results/en/real.spells.dict-norvigxx.errm-hs2.tsv \
+				   results/en/real.spells.dict-norvigxx.errm-hs3.tsv
 
 results-en: $(RESULTS_EN_RUNNING) $(RESULTS_EN_REAL)
 
@@ -275,6 +276,35 @@ results/en/real.spells.dict-norvigxx.errm-nf1.tsv: $(EN_TEST_WORDS_REAL) $(DICT_
 results/en/real.spells.dict-corpuswg.errm-nf1.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_CORP) $(ERRM_EN_1NOF)
 	$(HFST_OSPELL) -X results/en/real.stats.dict-corpuswg.errm-nf1.tsv -H results/en/real.hist.dict-corpuswg.errm-nf1.tsv $(ERRM_EN_1NOF) $(DICT_EN_CORP) < $(EN_TEST_WORDS_REAL) > $@
 
+results/en/real.spells.dict-norvigxx.errm-al2.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_NORV) $(ERRM_EN_2ALL)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-norvigxx.errm-al2.tsv -H results/en/real.hist.dict-norvigxx.errm-al2.tsv $(ERRM_EN_2ALL) $(DICT_EN_NORV) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-corpuswg.errm-al2.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_CORP) $(ERRM_EN_2ALL)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-corpuswg.errm-al2.tsv -H results/en/real.hist.dict-corpuswg.errm-al2.tsv $(ERRM_EN_2ALL) $(DICT_EN_CORP) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-norvigxx.errm-sx2.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_NORV) $(ERRM_EN_2SEX)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-norvigxx.errm-sx2.tsv -H results/en/real.hist.dict-norvigxx.errm-sx2.tsv $(ERRM_EN_2SEX) $(DICT_EN_NORV) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-corpuswg.errm-sx2.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_CORP) $(ERRM_EN_2SEX)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-corpuswg.errm-sx2.tsv -H results/en/real.hist.dict-corpuswg.errm-sx2.tsv $(ERRM_EN_2SEX) $(DICT_EN_CORP) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-norvigxx.errm-hs3.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_NORV) $(ERRM_EN_3HUN)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-norvigxx.errm-hs3.tsv -H results/en/real.hist.dict-norvigxx.errm-hs3.tsv $(ERRM_EN_3HUN) $(DICT_EN_NORV) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-corpuswg.errm-hs3.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_CORP) $(ERRM_EN_3HUN)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-corpuswg.errm-hs3.tsv -H results/en/real.hist.dict-corpuswg.errm-hs3.tsv $(ERRM_EN_3HUN) $(DICT_EN_CORP) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-norvigxx.errm-hs2.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_NORV) $(ERRM_EN_2HUN)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-norvigxx.errm-hs2.tsv -H results/en/real.hist.dict-norvigxx.errm-hs2.tsv $(ERRM_EN_2HUN) $(DICT_EN_NORV) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-corpuswg.errm-hs2.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_CORP) $(ERRM_EN_2HUN)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-corpuswg.errm-hs2.tsv -H results/en/real.hist.dict-corpuswg.errm-hs2.tsv $(ERRM_EN_2HUN) $(DICT_EN_CORP) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-norvigxx.errm-hs1.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_NORV) $(ERRM_EN_1HUN)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-norvigxx.errm-hs1.tsv -H results/en/real.hist.dict-norvigxx.errm-hs1.tsv $(ERRM_EN_1HUN) $(DICT_EN_NORV) < $(EN_TEST_WORDS_REAL) > $@
+
+results/en/real.spells.dict-corpuswg.errm-hs1.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_CORP) $(ERRM_EN_1HUN)
+	$(HFST_OSPELL) -X results/en/real.stats.dict-corpuswg.errm-hs1.tsv -H results/en/real.hist.dict-corpuswg.errm-hs1.tsv $(ERRM_EN_1HUN) $(DICT_EN_CORP) < $(EN_TEST_WORDS_REAL) > $@
 
 
 # profiling results
@@ -364,6 +394,16 @@ $(ERRM_EN_3ALL): hfst/en/soundex-full.hfst hfst/en/hunspell-reps+context.hfst hf
 		$(HFST_UNION) -v - hfst/en/hunspell-reps+context.hfst |\
 		$(HFST_FST2FST) -v -f olw -o $@
 
+$(ERRM_EN_3HUN): hfst/en/hunspell-reps.hfst hfst/en/hunspell-keys.hfst hfst/en/hunspell-trys.hfst hfst/en/sigmastar.hfst
+	$(HFST_UNION) -v hfst/en/hunspell-reps.hfst hfst/en/hunspell-keys.hfst |\
+		$(HFST_UNION) -v - hfst/en/hunspell-trys.hfst |\
+		$(HFST_REWEIGHT) -v -e -a "`cat corp/en/wikipedia.unseenweight`" |\
+		$(HFST_CONCATENATE) -v hfst/en/sigmastar.hfst - |\
+		$(HFST_CONCATENATE) -v - hfst/en/sigmastar.hfst |\
+		$(HFST_REPEAT) -v -f 1 -t 3 |\
+		$(HFST_MINIMIZE) -v |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
 $(ERRM_EN_3NOF): hfst/en/no-edits-1.hfst hfst/en/edit-1.hfst corp/en/wikipedia.unseenweight
 	$(HFST_REWEIGHT) -v hfst/en/edit-1.hfst -e -a "`cat corp/en/wikipedia.unseenweight`" |\
 		$(HFST_REPEAT) -f 1 -t 3 -v |\
@@ -395,8 +435,17 @@ $(ERRM_EN_2NOF): hfst/en/no-edits-1.hfst hfst/en/edit-1.hfst corp/en/wikipedia.u
 $(ERRM_EN_2ALL): hfst/en/soundex-full.hfst hfst/en/hunspell-reps+context.hfst hfst/en/edit-1-qwerty-halved.hfst
 	$(HFST_REWEIGHT) -v hfst/en/edit-1-qwerty-halved.hfst -b "`cat corp/en/wikipedia.unseenweight`" |\
 		$(HFST_REPEAT) -v -f 1 -t 2 |\
-		$(HFST_UNION) -v - hfst/en/soundex-full.hfst |\
 		$(HFST_UNION) -v - hfst/en/hunspell-reps+context.hfst |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_EN_2HUN): hfst/en/hunspell-reps.hfst hfst/en/hunspell-keys.hfst hfst/en/hunspell-trys.hfst hfst/en/sigmastar.hfst
+	$(HFST_UNION) -v hfst/en/hunspell-reps.hfst hfst/en/hunspell-keys.hfst |\
+		$(HFST_UNION) -v - hfst/en/hunspell-trys.hfst |\
+		$(HFST_REWEIGHT) -v -e -a "`cat corp/en/wikipedia.unseenweight`" |\
+		$(HFST_CONCATENATE) -v hfst/en/sigmastar.hfst - |\
+		$(HFST_CONCATENATE) -v - hfst/en/sigmastar.hfst |\
+		$(HFST_REPEAT) -v -f 1 -t 2 |\
+		$(HFST_MINIMIZE) -v |\
 		$(HFST_FST2FST) -v -f olw -o $@
 
 $(ERRM_EN_2QWE): hfst/en/edit-1-qwerty-halved.hfst corp/en/wikipedia.unseenweight
@@ -411,8 +460,16 @@ $(ERRM_EN_1NOF): hfst/en/edit-1-nonfirst.hfst corp/en/wikipedia.unseenweight
 
 $(ERRM_EN_1ALL): hfst/en/soundex-full.hfst hfst/en/hunspell-reps+context.hfst hfst/en/edit-1-qwerty-halved.hfst
 	$(HFST_REWEIGHT) -v hfst/en/edit-1-qwerty-halved.hfst -b "`cat corp/en/wikipedia.unseenweight`" |\
-		$(HFST_UNION) -v - hfst/en/soundex-full.hfst |\
 		$(HFST_UNION) -v - hfst/en/hunspell-reps+context.hfst |\
+		$(HFST_MINIMIZE) -v |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_EN_1HUN): hfst/en/hunspell-reps.hfst hfst/en/hunspell-keys.hfst hfst/en/hunspell-trys.hfst hfst/en/sigmastar.hfst
+	$(HFST_UNION) -v hfst/en/hunspell-reps.hfst hfst/en/hunspell-keys.hfst |\
+		$(HFST_UNION) -v - hfst/en/hunspell-trys.hfst |\
+		$(HFST_REWEIGHT) -v -e -a "`cat corp/en/wikipedia.unseenweight`" |\
+		$(HFST_CONCATENATE) -v hfst/en/sigmastar.hfst - |\
+		$(HFST_CONCATENATE) -v - hfst/en/sigmastar.hfst |\
 		$(HFST_MINIMIZE) -v |\
 		$(HFST_FST2FST) -v -f olw -o $@
 
@@ -429,11 +486,8 @@ $(ERRM_EN_0UNW): hfst/en/edit-0.hfst
 	$(HFST_MINIMIZE) -v $< |\
 		$(HFST_FST2FST) -v -f olw -o $@
 
-hfst/en/hunspell-reps+context.hfst: hfst/en/hunspell-reps.hfst
-	echo '?*' | $(HFST_REGEXP2FST) -v -o sigmastar.hfst
-	$(HFST_CONCATENATE) -v sigmastar.hfst $< |\
-		$(HFST_CONCATENATE) -v - sigmastar.hfst |\
-		$(HFST_MINIMIZE) -v -o $@
+hfst/en/sigmastar.hfst:
+	echo '?*' | $(HFST_REGEXP2FST) -v -o $@
 
 hfst/en/soundex-full.hfst: hfst/en/soundex.hfst
 	$(HFST_INVERT) $< -o $<.inv -v
@@ -613,10 +667,27 @@ manual/en/edit-1-qwerty-halved.txt: manual/en/qwerty.tsv
 	$(PYTHON2) editdist.py -s --no-elim "$(EN_ALPHABET)" -i manual/en/qwerty.tsv |\
 		fgrep -v "\\" > $@
 
-manual/en/hunspell-reps.strings:
+# if lexicon'd contain spaces we'd need not filter them
+manual/en/hunspell-reps.strings: $(HUNSPELL_EN_AFF)
 	grep '^REP' $(HUNSPELL_EN_AFF) |\
 		tail -n +2 |\
-		sed -e 's/REP[[:space:]]*//' -e 's/[[:space:]]\+/:/' > $@
+		sed -e 's/REP[[:space:]]*//' -e 's/[[:space:]]\+/:/' -e 's/_/ /g' |\
+		fgrep -v ' ' > $@
+
+manual/en/hunspell-keys.txt: $(HUNSPELL_EN_AFF)
+	grep '^KEY' $(HUNSPELL_EN_AFF) |\
+		sed -e 's/KEY[[:space:]]*//' -e 's/\(.\)\(.\)/0	1	\1	\2\n0	1	\2	\1\n/g' |\
+		head -n -1 |\
+		fgrep -v '|' > $@
+	echo 1 >> $@
+
+manual/en/hunspell-trys.txt: $(HUNSPELL_EN_AFF)
+	grep '^TRY' $(HUNSPELL_EN_AFF) |\
+		sed -e 's/TRY[[:space:]]*//' -e 's/\(.\)/0	1	\1	@_EPSILON_SYMBOL_@\n0	1	@_EPSILON_SYMBOL_@	\1\n/g' |\
+		head -n -1 |\
+		fgrep -v "'" > $@
+	echo 1 >> $@
+
 
 # a bit of error corpus collecting
 corp/en/speling-candidates.tsv: corp/en/enwiki-pages-meta-history.xml.bz2
