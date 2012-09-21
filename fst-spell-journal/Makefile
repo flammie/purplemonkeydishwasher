@@ -24,7 +24,10 @@ HFST_UNION=hfst-disjunct
 HFST_PROC=hfst-proc
 HFST_OSPELL=hfst-ospell-survey
 PYTHON2=python2
+PYTHON3=python3
 EDITDIST=editdist.py
+HUNSPELL=hunspell
+
 
 PAPER_SOURCES=fst-spell-2012.tex
 PAPER_AUXES=fst-spell-2012.aux fst-spell-2012.bbl fst-spell-2012.log fst-spell-2012.blg
@@ -166,7 +169,8 @@ RESULTS_EN_REAL=\
 				   results/en/real.spells.dict-corpuswg.errm-hs3.tsv \
 				   results/en/real.spells.dict-norvigxx.errm-hs1.tsv \
 				   results/en/real.spells.dict-norvigxx.errm-hs2.tsv \
-				   results/en/real.spells.dict-norvigxx.errm-hs3.tsv
+				   results/en/real.spells.dict-norvigxx.errm-hs3.tsv \
+				   results/en/real.spells.dict-hunspell.errm-hunspell.tsv
 
 results-en: $(RESULTS_EN_RUNNING) $(RESULTS_EN_REAL)
 
@@ -306,6 +310,19 @@ results/en/real.spells.dict-norvigxx.errm-hs1.tsv: $(EN_TEST_WORDS_REAL) $(DICT_
 results/en/real.spells.dict-corpuswg.errm-hs1.tsv: $(EN_TEST_WORDS_REAL) $(DICT_EN_CORP) $(ERRM_EN_1HUN)
 	$(HFST_OSPELL) -X results/en/real.stats.dict-corpuswg.errm-hs1.tsv -H results/en/real.hist.dict-corpuswg.errm-hs1.tsv $(ERRM_EN_1HUN) $(DICT_EN_CORP) < $(EN_TEST_WORDS_REAL) > $@
 
+# hunspell measures
+
+results/en/%.tsv: results/en/%.hunspells
+	$(PYTHON3) ./hunspells2stats.py -i $< -c corp/en/wikispells.hunnable.tsv -o $@
+
+results/en/real.spells.dict-hunspell.errm-hunspell.hunspells: corp/en/wikispells.hunnable.tsv
+	$(HUNSPELL) -1 -d en_US -i UTF-8 < $< |\
+		tr -s '\n' | tail -n +2 > $@
+
+corp/en/wikispells.hunnable.tsv: corp/en/wikispells.tsv
+	cut -f 2 $< | hunspell -d en_US -G > corp/en/hunnables
+	fgrep -f corp/en/hunnables $< > $@
+	-rm -f corp/en/hunnables
 
 # profiling results
 
