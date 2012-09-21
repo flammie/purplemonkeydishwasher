@@ -26,6 +26,7 @@ HFST_OSPELL=hfst-ospell-survey
 PYTHON2=python2
 PYTHON3=python3
 EDITDIST=editdist.py
+ASPELL=aspell
 HUNSPELL=hunspell
 
 
@@ -170,6 +171,7 @@ RESULTS_EN_REAL=\
 				   results/en/real.spells.dict-norvigxx.errm-hs1.tsv \
 				   results/en/real.spells.dict-norvigxx.errm-hs2.tsv \
 				   results/en/real.spells.dict-norvigxx.errm-hs3.tsv \
+				   results/en/real.spells.dict-aspell.errm-aspell.tsv \
 				   results/en/real.spells.dict-hunspell.errm-hunspell.tsv
 
 results-en: $(RESULTS_EN_RUNNING) $(RESULTS_EN_REAL)
@@ -311,6 +313,14 @@ results/en/real.spells.dict-corpuswg.errm-hs1.tsv: $(EN_TEST_WORDS_REAL) $(DICT_
 	$(HFST_OSPELL) -X results/en/real.stats.dict-corpuswg.errm-hs1.tsv -H results/en/real.hist.dict-corpuswg.errm-hs1.tsv $(ERRM_EN_1HUN) $(DICT_EN_CORP) < $(EN_TEST_WORDS_REAL) > $@
 
 # hunspell measures
+
+results/en/%.tsv: results/en/%.aspells
+	$(PYTHON3) ./hunspells2stats.py -i $< -c corp/en/wikispells.tsv -o $@
+
+results/en/real.spells.dict-aspell.errm-aspell.aspells: corp/en/wikispells.tsv
+	cut -f 1 $< |\
+		$(ASPELL) -a -d en_US |\
+		tr -s '\n' | tail -n +2 > $@
 
 results/en/%.tsv: results/en/%.hunspells
 	$(PYTHON3) ./hunspells2stats.py -i $< -c corp/en/wikispells.hunnable.tsv -o $@
