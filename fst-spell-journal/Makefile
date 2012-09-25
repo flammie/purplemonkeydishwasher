@@ -57,7 +57,7 @@ graphicx/%.pdf: dots/%.dot
 	dot -Tpdf -o$@ $<
 
 # language settings
-PROFILE_FOR_EXPR="1 2 3 4 5"
+PROFILE_FOR_EXPR=1 2 3 4 5
 
 TEST_CORPUS_HUGE=20000000
 TEST_CORPUS_LARGE=1000000
@@ -70,9 +70,17 @@ HUNSPELL_EN_AFF=en_US.aff
 EN_TEST_CORPUS=corp/en/wikipedia-test.txt
 
 
-EN_TEST_WORDS_HUGE=corp/en/wikipedia-test.$(TEST_CORPUS_HUGE).sorted
-EN_TEST_WORDS_LARGE=corp/en/wikipedia-test.$(TEST_CORPUS_LARGE).sorted
-EN_TEST_WORDS_TINY=corp/en/wikipedia-test.$(TEST_CORPUS_TINY).sorted
+EN_TEST_SORTS_HUGE=corp/en/wikipedia-test.$(TEST_CORPUS_HUGE).sorted
+EN_TEST_SORTS_LARGE=corp/en/wikipedia-test.$(TEST_CORPUS_LARGE).sorted
+EN_TEST_SORTS_TINY=corp/en/wikipedia-test.$(TEST_CORPUS_TINY).sorted
+EN_TEST_SORTS_ONE=corp/en/wikipedia-test.1.sorted
+EN_TEST_WORDS_HUGE=corp/en/wikipedia-test.$(TEST_CORPUS_HUGE).words
+EN_TEST_WORDS_LARGE=corp/en/wikipedia-test.$(TEST_CORPUS_LARGE).words
+EN_TEST_WORDS_TINY=corp/en/wikipedia-test.$(TEST_CORPUS_TINY).words
+EN_TEST_WORDS_ONE=corp/en/wikipedia-test.1.words
+EN_TEST_NONWORDS_LARGE=corp/en/wikipedia-test.$(TEST_CORPUS_LARGE).nonwords
+EN_TEST_NONWORDS_TINY=corp/en/wikipedia-test.$(TEST_CORPUS_TINY).nonwords
+EN_TEST_NONWORDS_ONE=corp/en/wikipedia-test.1.nonwords
 EN_TEST_WORDS_REAL=corp/en/wikispells.tsv
 
 DICT_EN_CORP=hfst/en/acceptor.corpuswg.hfst
@@ -336,11 +344,27 @@ corp/en/wikispells.hunnable.tsv: corp/en/wikispells.tsv
 
 # profiling results
 
-results/en/profiles.dict-corpuswg.errm-ed0.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_CORP) $(ERRM_EN_0UNW)
+PROFILES_EN=\
+			 results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-hs2.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-norvigxx.errm-hs2.tsv \
+			 results/en/profiles.1-words.dict-norvigxx.errm-hs2.tsv
+
+profiles-en: $(PROFILES_EN)
+
+results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-hs2.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_2HUN)
 	for i in $(PROFILE_FOR_EXPR); do \
-		$(HFST_OSPELL) -P $@ $(ERRM_EN_0UNW) $(DICT_EN_CORP) < $(EN_TEST_WORDS_LARGE) > /dev/null ;\
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_2HUN) $(DICT_EN_NORV) < $(EN_TEST_WORDS_LARGE) > /dev/null ;\
 	done
 
+results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-norvigxx.errm-hs2.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_2HUN) $(DICT_EN_NORV) < $(EN_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/en/profiles.1-words.dict-norvigxx.errm-hs2.tsv: $(EN_TEST_WORDS_ONE) $(DICT_EN_NORV) $(ERRM_EN_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_2HUN) $(DICT_EN_NORV) < $(EN_TEST_WORDS_ONE) > /dev/null ;\
+	done
 
 # dictionaries
 
@@ -584,33 +608,81 @@ corpora:
 
 # corpus to weighted word-form lists
 
+corp/en/%.words: corp/en/%.sorted
+	sort < $< > $@
 
-corp/en/%.$(TEST_CORPUS_HUGE).sorted: corp/en/%.txt
+corp/en/%.$(TEST_CORPUS_HUGE).nonwords: corp/en/%.txt hfst/en/acceptor.norvigxx.hfst
 	tr -s '[:space:].?!,;:/' '\n' < $< |\
 		grep "^[$(EN_ALPHABET)]*$$" |\
 		grep '[[:alpha:]]' |\
-		head -n $(TEST_CORPUS_HUGE) |\
-		sort > $@
+		$(HFST_LOOKUP) hfst/en/acceptor.norvigxx.hfst |\
+		fgrep '+?' |\
+		cut -f 1 |\
+		head -n $(TEST_CORPUS_HUGE) > $@
 
-corp/en/%.$(TEST_CORPUS_LARGE).sorted: corp/en/%.txt
+corp/en/%.$(TEST_CORPUS_LARGE).nonwords: corp/en/%.txt hfst/en/acceptor.norvigxx.hfst
 	tr -s '[:space:].?!,;:/' '\n' < $< |\
 		grep "^[$(EN_ALPHABET)]*$$" |\
 		grep '[[:alpha:]]' |\
-		head -n $(TEST_CORPUS_LARGE)|\
-		sort > $@
+		$(HFST_LOOKUP) hfst/en/acceptor.norvigxx.hfst |\
+		fgrep '+?' |\
+		cut -f 1 |\
+		head -n $(TEST_CORPUS_LARGE) > $@
 
-corp/en/%.$(TEST_CORPUS_TINY).sorted: corp/en/%.txt
+corp/en/%.$(TEST_CORPUS_TINY).nonwords: corp/en/%.txt hfst/en/acceptor.norvigxx.hfst
 	tr -s '[:space:].?!,;:/' '\n' < $< |\
 		grep "^[$(EN_ALPHABET)]*$$" |\
 		grep '[[:alpha:]]' |\
-		head -n $(TEST_CORPUS_TINY) |\
-		sort > $@
+		$(HFST_LOOKUP) hfst/en/acceptor.norvigxx.hfst |\
+		fgrep '+?' |\
+		cut -f 1 |\
+		head -n $(TEST_CORPUS_TINY) > $@
 
-corp/en/%.sorted: corp/en/%.txt
+corp/en/%.1.nonwords: corp/en/%.txt hfst/en/acceptor.norvigxx.hfst
 	tr -s '[:space:].?!,;:/' '\n' < $< |\
 		grep "^[$(EN_ALPHABET)]*$$" |\
 		grep '[[:alpha:]]' |\
-		sort > $@
+		$(HFST_LOOKUP) hfst/en/acceptor.norvigxx.hfst |\
+		fgrep '+?' |\
+		cut -f 1 |\
+		head -n 1 > $@
+
+corp/en/%.nonwords: corp/en/%.txt hfst/en/acceptor.norvigxx.hfst
+	tr -s '[:space:].?!,;:/' '\n' < $< |\
+		grep "^[$(EN_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' |\
+		$(HFST_LOOKUP) hfst/en/acceptor.norvigxx.hfst |\
+		fgrep '+?' |\
+		cut -f 1 > $@
+
+corp/en/%.$(TEST_CORPUS_HUGE).words: corp/en/%.txt
+	tr -s '[:space:].?!,;:/' '\n' < $< |\
+		grep "^[$(EN_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' |\
+		head -n $(TEST_CORPUS_HUGE) > $@
+
+corp/en/%.$(TEST_CORPUS_LARGE).words: corp/en/%.txt
+	tr -s '[:space:].?!,;:/' '\n' < $< |\
+		grep "^[$(EN_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' |\
+		head -n $(TEST_CORPUS_LARGE) > $@
+
+corp/en/%.$(TEST_CORPUS_TINY).words: corp/en/%.txt
+	tr -s '[:space:].?!,;:/' '\n' < $< |\
+		grep "^[$(EN_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' |\
+		head -n $(TEST_CORPUS_TINY) > $@
+
+corp/en/%.1.words: corp/en/%.txt
+	tr -s '[:space:].?!,;:/' '\n' < $< |\
+		grep "^[$(EN_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' |\
+		head -n 1 > $@
+
+corp/en/%.words: corp/en/%.txt
+	tr -s '[:space:].?!,;:/' '\n' < $< |\
+		grep "^[$(EN_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' > $@
 
 corp/en/%.uniqc: corp/en/%.sorted
 	uniq -c < $< > $@
