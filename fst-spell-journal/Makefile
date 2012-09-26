@@ -23,12 +23,14 @@ HFST_TXT2FST=hfst-txt2fst
 HFST_UNION=hfst-disjunct
 HFST_PROC=hfst-proc
 HFST_OSPELL=hfst-ospell-survey
+HFST_LOOKUP=hfst-lookup
 PYTHON2=python2
 PYTHON3=python3
 EDITDIST=editdist.py
 ASPELL=aspell
 HUNSPELL=hunspell
-
+# use GNU time rather than bash builtin
+TIME=/usr/bin/time
 
 PAPER_SOURCES=fst-spell-2012.tex
 PAPER_AUXES=fst-spell-2012.aux fst-spell-2012.bbl fst-spell-2012.log fst-spell-2012.blg
@@ -345,9 +347,24 @@ corp/en/wikispells.hunnable.tsv: corp/en/wikispells.tsv
 # profiling results
 
 PROFILES_EN=\
+			 results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-aspell.errm-aspell.tsv \
+			 results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-hunspell.errm-hunspell.tsv \
 			 results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-hs2.tsv \
+			 results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-aspell.errm-aspell.tsv \
+			 results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-hunspell.errm-hunspell.tsv \
+			 results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-norvigxx.errm-hs2.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-aspell.errm-aspell.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-hunspell.errm-hunspell.tsv \
 			 results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-norvigxx.errm-hs2.tsv \
-			 results/en/profiles.1-words.dict-norvigxx.errm-hs2.tsv
+			 results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-aspell.errm-aspell.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-hunspell.errm-hunspell.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-norvigxx.errm-hs2.tsv \
+			 results/en/profiles.1-words.dict-aspell.errm-aspell.tsv \
+			 results/en/profiles.1-words.dict-hunspell.errm-hunspell.tsv \
+			 results/en/profiles.1-words.dict-norvigxx.errm-hs2.tsv \
+			 results/en/profiles.1-nonwords.dict-aspell.errm-aspell.tsv \
+			 results/en/profiles.1-nonwords.dict-hunspell.errm-hunspell.tsv \
+			 results/en/profiles.1-nonwords.dict-norvigxx.errm-hs2.tsv
 
 profiles-en: $(PROFILES_EN)
 
@@ -364,6 +381,83 @@ results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-norvigxx.errm-hs2.tsv: $(EN_T
 results/en/profiles.1-words.dict-norvigxx.errm-hs2.tsv: $(EN_TEST_WORDS_ONE) $(DICT_EN_NORV) $(ERRM_EN_2HUN)
 	for i in $(PROFILE_FOR_EXPR); do \
 		$(HFST_OSPELL) -P $@ $(ERRM_EN_2HUN) $(DICT_EN_NORV) < $(EN_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-norvigxx.errm-hs2.tsv: $(EN_TEST_NONWORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_2HUN) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-norvigxx.errm-hs2.tsv: $(EN_TEST_NONWORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_2HUN) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/en/profiles.1-nonwords.dict-norvigxx.errm-hs2.tsv: $(EN_TEST_NONWORDS_ONE) $(DICT_EN_NORV) $(ERRM_EN_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_2HUN) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+# huns
+results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-hunspell.errm-hunspell.tsv: $(EN_TEST_WORDS_LARGE)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(HUNSPELL) -d en_US -i UTF-8 < $(EN_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-hunspell.errm-hunspell.tsv: $(EN_TEST_WORDS_TINY)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(HUNSPELL) -d en_US -i UTF-8 < $(EN_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/en/profiles.1-words.dict-hunspell.errm-hunspell.tsv: $(EN_TEST_WORDS_ONE)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(HUNSPELL) -d en_US -i UTF-8 < $(EN_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-hunspell.errm-hunspell.tsv: $(EN_TEST_NONWORDS_LARGE)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(HUNSPELL) -d en_US -i UTF-8 < $(EN_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-hunspell.errm-hunspell.tsv: $(EN_TEST_NONWORDS_TINY)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(HUNSPELL) -d en_US -i UTF-8 < $(EN_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/en/profiles.1-nonwords.dict-hunspell.errm-hunspell.tsv: $(EN_TEST_NONWORDS_ONE)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(HUNSPELL) -d en_US -i UTF-8 < $(EN_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+# as
+results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-aspell.errm-aspell.tsv: $(EN_TEST_WORDS_LARGE)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(ASPELL) -d en_US -a < $(EN_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-aspell.errm-aspell.tsv: $(EN_TEST_WORDS_TINY)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(ASPELL) -d en_US -a < $(EN_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/en/profiles.1-words.dict-aspell.errm-aspell.tsv: $(EN_TEST_WORDS_ONE)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(ASPELL) -d en_US -a < $(EN_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-aspell.errm-aspell.tsv: $(EN_TEST_NONWORDS_LARGE)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(ASPELL) -d en_US -a < $(EN_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-aspell.errm-aspell.tsv: $(EN_TEST_NONWORDS_TINY)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(ASPELL) -d en_US -a < $(EN_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/en/profiles.1-nonwords.dict-aspell.errm-aspell.tsv: $(EN_TEST_NONWORDS_ONE)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(ASPELL) -d en_US -a < $(EN_TEST_NONWORDS_ONE) > /dev/null ;\
 	done
 
 # dictionaries
