@@ -347,26 +347,277 @@ corp/en/wikispells.hunnable.tsv: corp/en/wikispells.tsv
 # profiling results
 
 PROFILES_EN=\
-			 results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-aspell.errm-aspell.tsv \
-			 results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-hunspell.errm-hunspell.tsv \
-			 results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-hs2.tsv \
-			 results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-aspell.errm-aspell.tsv \
-			 results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-hunspell.errm-hunspell.tsv \
-			 results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-norvigxx.errm-hs2.tsv \
-			 results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-aspell.errm-aspell.tsv \
-			 results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-hunspell.errm-hunspell.tsv \
-			 results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-norvigxx.errm-hs2.tsv \
-			 results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-aspell.errm-aspell.tsv \
-			 results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-hunspell.errm-hunspell.tsv \
-			 results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-norvigxx.errm-hs2.tsv \
-			 results/en/profiles.1-words.dict-aspell.errm-aspell.tsv \
-			 results/en/profiles.1-words.dict-hunspell.errm-hunspell.tsv \
-			 results/en/profiles.1-words.dict-norvigxx.errm-hs2.tsv \
 			 results/en/profiles.1-nonwords.dict-aspell.errm-aspell.tsv \
 			 results/en/profiles.1-nonwords.dict-hunspell.errm-hunspell.tsv \
-			 results/en/profiles.1-nonwords.dict-norvigxx.errm-hs2.tsv
+			 results/en/profiles.1-nonwords.dict-norvigxx.errm-ed1.tsv \
+			 results/en/profiles.1-nonwords.dict-norvigxx.errm-ed2.tsv \
+			 results/en/profiles.1-nonwords.dict-norvigxx.errm-ed3.tsv \
+			 results/en/profiles.1-nonwords.dict-norvigxx.errm-hs1.tsv \
+			 results/en/profiles.1-nonwords.dict-norvigxx.errm-hs2.tsv \
+			 results/en/profiles.1-nonwords.dict-norvigxx.errm-hs3.tsv \
+			 results/en/profiles.1-nonwords.dict-norvigxx.errm-nf1.tsv \
+			 results/en/profiles.1-nonwords.dict-norvigxx.errm-nf2.tsv \
+			 results/en/profiles.1-nonwords.dict-norvigxx.errm-nf3.tsv \
+			 results/en/profiles.1-words.dict-aspell.errm-aspell.tsv \
+			 results/en/profiles.1-words.dict-hunspell.errm-hunspell.tsv \
+			 results/en/profiles.1-words.dict-norvigxx.errm-ed1.tsv \
+			 results/en/profiles.1-words.dict-norvigxx.errm-ed2.tsv \
+			 results/en/profiles.1-words.dict-norvigxx.errm-ed3.tsv \
+			 results/en/profiles.1-words.dict-norvigxx.errm-hs1.tsv \
+			 results/en/profiles.1-words.dict-norvigxx.errm-hs2.tsv \
+			 results/en/profiles.1-words.dict-norvigxx.errm-hs3.tsv \
+			 results/en/profiles.1-words.dict-norvigxx.errm-nf1.tsv \
+			 results/en/profiles.1-words.dict-norvigxx.errm-nf2.tsv \
+			 results/en/profiles.1-words.dict-norvigxx.errm-nf3.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-norvigxx.errm-nf3.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-norvigxx.errm-nf2.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-norvigxx.errm-nf1.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-norvigxx.errm-hs3.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-norvigxx.errm-hs2.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-norvigxx.errm-hs1.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-norvigxx.errm-ed3.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-norvigxx.errm-ed2.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-norvigxx.errm-ed1.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-hunspell.errm-hunspell.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-aspell.errm-aspell.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-norvigxx.errm-nf3.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-norvigxx.errm-nf2.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-norvigxx.errm-nf1.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-norvigxx.errm-hs3.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-norvigxx.errm-hs2.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-norvigxx.errm-hs1.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-norvigxx.errm-ed3.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-norvigxx.errm-ed2.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-norvigxx.errm-ed1.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-hunspell.errm-hunspell.tsv \
+			 results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-aspell.errm-aspell.tsv \
+			 results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-nf2.tsv \
+			 results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-nf1.tsv \
+			 results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-hs2.tsv \
+			 results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-ed2.tsv \
+			 results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-ed1.tsv \
+			 results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-hunspell.errm-hunspell.tsv \
+			 results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-aspell.errm-aspell.tsv \
+			 results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-norvigxx.errm-nf2.tsv \
+			 results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-norvigxx.errm-nf1.tsv \
+			 results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-norvigxx.errm-hs2.tsv \
+			 results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-norvigxx.errm-ed2.tsv \
+			 results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-norvigxx.errm-ed1.tsv \
+			 results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-hunspell.errm-hunspell.tsv \
+			 results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-aspell.errm-aspell.tsv
+
 
 profiles-en: $(PROFILES_EN)
+
+results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-ed3.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_3UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-norvigxx.errm-ed3.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_3UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/en/profiles.1-words.dict-norvigxx.errm-ed3.tsv: $(EN_TEST_WORDS_ONE) $(DICT_EN_NORV) $(ERRM_EN_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_3UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-norvigxx.errm-ed3.tsv: $(EN_TEST_NONWORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_3UNW) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-norvigxx.errm-ed3.tsv: $(EN_TEST_NONWORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_3UNW) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/en/profiles.1-nonwords.dict-norvigxx.errm-ed3.tsv: $(EN_TEST_NONWORDS_ONE) $(DICT_EN_NORV) $(ERRM_EN_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_3UNW) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-ed2.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_2UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-norvigxx.errm-ed2.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_2UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/en/profiles.1-words.dict-norvigxx.errm-ed2.tsv: $(EN_TEST_WORDS_ONE) $(DICT_EN_NORV) $(ERRM_EN_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_2UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-norvigxx.errm-ed2.tsv: $(EN_TEST_NONWORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_2UNW) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-norvigxx.errm-ed2.tsv: $(EN_TEST_NONWORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_2UNW) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/en/profiles.1-nonwords.dict-norvigxx.errm-ed2.tsv: $(EN_TEST_NONWORDS_ONE) $(DICT_EN_NORV) $(ERRM_EN_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_2UNW) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-ed1.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_1UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-norvigxx.errm-ed1.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_1UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/en/profiles.1-words.dict-norvigxx.errm-ed1.tsv: $(EN_TEST_WORDS_ONE) $(DICT_EN_NORV) $(ERRM_EN_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_1UNW) $(DICT_EN_NORV) < $(EN_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-norvigxx.errm-ed1.tsv: $(EN_TEST_NONWORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_1UNW) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-norvigxx.errm-ed1.tsv: $(EN_TEST_NONWORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_1UNW) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/en/profiles.1-nonwords.dict-norvigxx.errm-ed1.tsv: $(EN_TEST_NONWORDS_ONE) $(DICT_EN_NORV) $(ERRM_EN_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_1UNW) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-nf3.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_3NOF) $(DICT_EN_NORV) < $(EN_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-norvigxx.errm-nf3.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_3NOF) $(DICT_EN_NORV) < $(EN_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/en/profiles.1-words.dict-norvigxx.errm-nf3.tsv: $(EN_TEST_WORDS_ONE) $(DICT_EN_NORV) $(ERRM_EN_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_3NOF) $(DICT_EN_NORV) < $(EN_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-norvigxx.errm-nf3.tsv: $(EN_TEST_NONWORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_3NOF) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-norvigxx.errm-nf3.tsv: $(EN_TEST_NONWORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_3NOF) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/en/profiles.1-nonwords.dict-norvigxx.errm-nf3.tsv: $(EN_TEST_NONWORDS_ONE) $(DICT_EN_NORV) $(ERRM_EN_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_3NOF) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-nf2.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_2NOF) $(DICT_EN_NORV) < $(EN_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-norvigxx.errm-nf2.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_2NOF) $(DICT_EN_NORV) < $(EN_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/en/profiles.1-words.dict-norvigxx.errm-nf2.tsv: $(EN_TEST_WORDS_ONE) $(DICT_EN_NORV) $(ERRM_EN_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_2NOF) $(DICT_EN_NORV) < $(EN_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-norvigxx.errm-nf2.tsv: $(EN_TEST_NONWORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_2NOF) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-norvigxx.errm-nf2.tsv: $(EN_TEST_NONWORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_2NOF) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/en/profiles.1-nonwords.dict-norvigxx.errm-nf2.tsv: $(EN_TEST_NONWORDS_ONE) $(DICT_EN_NORV) $(ERRM_EN_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_2NOF) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-nf1.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_1NOF) $(DICT_EN_NORV) < $(EN_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-norvigxx.errm-nf1.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_1NOF) $(DICT_EN_NORV) < $(EN_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/en/profiles.1-words.dict-norvigxx.errm-nf1.tsv: $(EN_TEST_WORDS_ONE) $(DICT_EN_NORV) $(ERRM_EN_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_1NOF) $(DICT_EN_NORV) < $(EN_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-norvigxx.errm-nf1.tsv: $(EN_TEST_NONWORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_1NOF) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-norvigxx.errm-nf1.tsv: $(EN_TEST_NONWORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_1NOF) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/en/profiles.1-nonwords.dict-norvigxx.errm-nf1.tsv: $(EN_TEST_NONWORDS_ONE) $(DICT_EN_NORV) $(ERRM_EN_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_1NOF) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-hs3.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_3HUN) $(DICT_EN_NORV) < $(EN_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-norvigxx.errm-hs3.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_3HUN) $(DICT_EN_NORV) < $(EN_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/en/profiles.1-words.dict-norvigxx.errm-hs3.tsv: $(EN_TEST_WORDS_ONE) $(DICT_EN_NORV) $(ERRM_EN_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_3HUN) $(DICT_EN_NORV) < $(EN_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-norvigxx.errm-hs3.tsv: $(EN_TEST_NONWORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_3HUN) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-norvigxx.errm-hs3.tsv: $(EN_TEST_NONWORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_3HUN) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/en/profiles.1-nonwords.dict-norvigxx.errm-hs3.tsv: $(EN_TEST_NONWORDS_ONE) $(DICT_EN_NORV) $(ERRM_EN_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_3HUN) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
 
 results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-hs2.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_2HUN)
 	for i in $(PROFILE_FOR_EXPR); do \
@@ -397,6 +648,38 @@ results/en/profiles.1-nonwords.dict-norvigxx.errm-hs2.tsv: $(EN_TEST_NONWORDS_ON
 	for i in $(PROFILE_FOR_EXPR); do \
 		$(HFST_OSPELL) -P $@ $(ERRM_EN_2HUN) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_ONE) > /dev/null ;\
 	done
+
+results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-hs1.tsv: $(EN_TEST_WORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_1HUN) $(DICT_EN_NORV) < $(EN_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_TINY)-words.dict-norvigxx.errm-hs1.tsv: $(EN_TEST_WORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_1HUN) $(DICT_EN_NORV) < $(EN_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/en/profiles.1-words.dict-norvigxx.errm-hs1.tsv: $(EN_TEST_WORDS_ONE) $(DICT_EN_NORV) $(ERRM_EN_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_1HUN) $(DICT_EN_NORV) < $(EN_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-norvigxx.errm-hs1.tsv: $(EN_TEST_NONWORDS_LARGE) $(DICT_EN_NORV) $(ERRM_EN_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_1HUN) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/en/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-norvigxx.errm-hs1.tsv: $(EN_TEST_NONWORDS_TINY) $(DICT_EN_NORV) $(ERRM_EN_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_1HUN) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/en/profiles.1-nonwords.dict-norvigxx.errm-hs1.tsv: $(EN_TEST_NONWORDS_ONE) $(DICT_EN_NORV) $(ERRM_EN_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_EN_1HUN) $(DICT_EN_NORV) < $(EN_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+
 
 # huns
 results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-hunspell.errm-hunspell.tsv: $(EN_TEST_WORDS_LARGE)
