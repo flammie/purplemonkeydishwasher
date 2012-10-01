@@ -394,6 +394,7 @@ PROFILES_EN=\
 			 results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-nf2.tsv \
 			 results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-nf1.tsv \
 			 results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-hs2.tsv \
+			 results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-hs1.tsv \
 			 results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-ed2.tsv \
 			 results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-norvigxx.errm-ed1.tsv \
 			 results/en/profiles.$(TEST_CORPUS_LARGE)-words.dict-hunspell.errm-hunspell.tsv \
@@ -401,6 +402,7 @@ PROFILES_EN=\
 			 results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-norvigxx.errm-nf2.tsv \
 			 results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-norvigxx.errm-nf1.tsv \
 			 results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-norvigxx.errm-hs2.tsv \
+			 results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-norvigxx.errm-hs1.tsv \
 			 results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-norvigxx.errm-ed2.tsv \
 			 results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-norvigxx.errm-ed1.tsv \
 			 results/en/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-hunspell.errm-hunspell.tsv \
