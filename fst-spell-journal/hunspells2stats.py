@@ -75,6 +75,8 @@ def main():
     no_corrects = 0
     lines = 0
     split = 0
+    guesses = 0
+    compounds = 0
     while inputline and csvline:
         if not inputline:
             print("input ended before csv", file=stderr)
@@ -97,6 +99,12 @@ def main():
         elif inputline[0] == "+":
             in_lm += 1
             roots += 1
+        elif inputline[0] == "-":
+            in_lm += 1
+            compounds += 1
+        elif inputline[0] == "?":
+            in_lm += 1
+            guesses += 1
         elif inputline[0] == "&":
             parts = inputline[2:].strip().split(",")
             mispelt = parts[0][:parts[0].find(" ", 3)]
