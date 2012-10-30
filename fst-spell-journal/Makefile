@@ -229,19 +229,58 @@ ERRM_SE_3NOF=hfst/se/errmodel.ed3nofi.hfst
 ERRM_SE_2QWE=hfst/se/errmodel.ed2qwer.hfst
 ERRM_SE_CORP=hfst/se/errmodel.ed2corp.hfst
 
-SEWIKI_DATE=20120827
-CORP_SE_WPLM=corp/se/wikipedia-train.txt
-SEWIKI_LEGO_CUTOFF=2
 SEWIKI_DATE=20120825
 CORP_SE_WPLM=corp/se/wikipedia-train.txt
+SEWIKI_LEGO_CUTOFF=2
 
 # }}}
 
 # {{{ Greenlandic settings
+KL_ALPHABET=abcdefghijklmnopqrstuwvxyzABCDEFGHIJKLMNOPQRSTUWVXYZ0123456789\'-
+
+KL_ALPHABET_SHORT=abcdefghijklmnopqrstuvwxyz-
+
+KL_TEST_SORTS_HUGE=corp/kl/wikipedia-test.$(TEST_CORPUS_HUGE).sorted
+KL_TEST_SORTS_LARGE=corp/kl/wikipedia-test.$(TEST_CORPUS_LARGE).sorted
+KL_TEST_SORTS_SMALL=corp/kl/wikipedia-test.$(TEST_CORPUS_SMALL).sorted
+KL_TEST_SORTS_TINY=corp/kl/wikipedia-test.$(TEST_CORPUS_TINY).sorted
+KL_TEST_SORTS_ONE=corp/kl/wikipedia-test.1.sorted
+KL_TEST_WORDS_HUGE=corp/kl/wikipedia-test.$(TEST_CORPUS_HUGE).words
+KL_TEST_WORDS_LARGE=corp/kl/wikipedia-test.$(TEST_CORPUS_LARGE).words
+KL_TEST_WORDS_SMALL=corp/kl/wikipedia-test.$(TEST_CORPUS_SMALL).words
+KL_TEST_WORDS_TINY=corp/kl/wikipedia-test.$(TEST_CORPUS_TINY).words
+KL_TEST_WORDS_ONE=corp/kl/wikipedia-test.1.words
+KL_TEST_NONWORDS_LARGE=corp/kl/wikipedia-test.$(TEST_CORPUS_LARGE).nonwords
+KL_TEST_NONWORDS_SMALL=corp/kl/wikipedia-test.$(TEST_CORPUS_SMALL).nonwords
+KL_TEST_NONWORDS_TINY=corp/kl/wikipedia-test.$(TEST_CORPUS_TINY).nonwords
+KL_TEST_NONWORDS_ONE=corp/kl/wikipedia-test.1.nonwords
+KL_TEST_WORDS_REAL=corp/kl/wikispells.tsv
+KL_TEST_WORDS_HUGE=corp/kl/wikipedia-test.$(TEST_CORPUS_HUGE).contexts
+KL_CONTEXT_WORDS_LARGE=corp/kl/wikipedia-test.$(TEST_CORPUS_LARGE).contexts
+KL_CONTEXT_WORDS_SMALL=corp/kl/wikipedia-test.$(TEST_CORPUS_SMALL).contexts
+KL_CONTEXT_WORDS_TINY=corp/kl/wikipedia-test.$(TEST_CORPUS_TINY).contexts
+KL_CONTEXT_WORDS_ONE=corp/kl/wikipedia-test.1.contexts
+KL_CONTEXT_NONWORDS_LARGE=corp/kl/wikipedia-test.$(TEST_CORPUS_LARGE).noncontexts
+KL_CONTEXT_NONWORDS_SMALL=corp/kl/wikipedia-test.$(TEST_CORPUS_SMALL).noncontexts
+KL_CONTEXT_NONWORDS_TINY=corp/kl/wikipedia-test.$(TEST_CORPUS_TINY).noncontexts
+KL_CONTEXT_NONWORDS_ONE=corp/kl/wikipedia-test.1.noncontexts
+
+DICT_KL_CORP=hfst/kl/acceptor.corpuswg.hfst
+DICT_KL_NOPD=hfst/kl/acceptor.gtklnopd.hfst
+DICT_KL_PROD=hfst/kl/acceptor.gtklprod.hfst
+
+
+ERRM_KL_0UNW=hfst/kl/errmodel.ed0unwe.hfst
+ERRM_KL_1UNW=hfst/kl/errmodel.ed1unwe.hfst
 ERRM_KL_2UNW=hfst/kl/errmodel.ed2unwe.hfst
+ERRM_KL_3UNW=hfst/kl/errmodel.ed3unwe.hfst
+ERRM_KL_1NOF=hfst/kl/errmodel.ed1nofi.hfst
+ERRM_KL_2NOF=hfst/kl/errmodel.ed2nofi.hfst
+ERRM_KL_3NOF=hfst/kl/errmodel.ed3nofi.hfst
 ERRM_KL_2QWE=hfst/kl/errmodel.ed2qwer.hfst
 ERRM_KL_CORP=hfst/kl/errmodel.ed2corp.hfst
 
+KLWIKI_LEGO_CUTOFF=1
 KLWIKI_DATE=20120902
 CORP_KL_WPLM=corp/kl/wikipedia-train.txt
 
@@ -538,6 +577,9 @@ results/fi/rung.spells.dict-divvunpd.errm-ed0.tsv: $(FI_TEST_WORDS_LARGE) $(DICT
 
 results/fi/rung.spells.dict-corpuswg.errm-ed0.tsv: $(FI_TEST_WORDS_LARGE) $(DICT_FI_CORP) $(ERRM_FI_0UNW)
 	$(HFST_OSPELL) -X results/fi/rung.stats.dict-corpuswg.errm-ed0.tsv -H results/fi/rung.hist.dict-corpuswg.errm-ed0.tsv $(ERRM_FI_0UNW) $(DICT_FI_CORP) < $(FI_TEST_WORDS_LARGE) > $@
+
+results/fi/rung.spells.dict-aspell.errm-aspell.aspells: $(FI_TEST_WORDS_LARGE)
+	$(ASPELL) -a -d fi < $< > $@
 
 # }}}
 #
@@ -936,6 +978,249 @@ corp/se/wikispells.hunnable.tsv: corp/se/wikispells.tsv
 	cut -f 2 $< | hunspell -d se -G > corp/se/hunnables
 	fgrep -f corp/se/hunnables $< > $@
 	-rm -f corp/se/hunnables
+
+# }}}
+
+# {{{ Greenlandic quality and coverage path klttings
+RESULTS_KL_RUNNING=\
+				   results/kl/rung.spells.dict-corpuswg.errm-ed0.tsv \
+				   results/kl/rung.spells.dict-corpuswg.errm-ed1.tsv \
+				   results/kl/rung.spells.dict-corpuswg.errm-ed2.tsv \
+				   results/kl/rung.spells.dict-divvunpd.errm-ed0.tsv \
+				   results/kl/rung.spells.dict-divvunpd.errm-ed1.tsv \
+				   results/kl/rung.spells.dict-divvunpd.errm-ed2.tsv \
+				   results/kl/rung.spells.dict-divvunac.errm-ed0.tsv \
+				   results/kl/rung.spells.dict-divvunac.errm-ed1.tsv \
+				   results/kl/rung.spells.dict-divvunac.errm-ed2.tsv
+RESULTS_KL_REAL=\
+				   results/kl/real.spells.dict-corpuswg.errm-ed0.tsv \
+				   results/kl/real.spells.dict-corpuswg.errm-ed1.tsv \
+				   results/kl/real.spells.dict-corpuswg.errm-ed2.tsv \
+				   results/kl/real.spells.dict-divvunpd.errm-ed0.tsv \
+				   results/kl/real.spells.dict-divvunpd.errm-ed1.tsv \
+				   results/kl/real.spells.dict-divvunpd.errm-ed2.tsv \
+				   results/kl/real.spells.dict-corpuswg.errm-nf1.tsv \
+				   results/kl/real.spells.dict-corpuswg.errm-nf2.tsv \
+				   results/kl/real.spells.dict-divvunpd.errm-nf1.tsv \
+				   results/kl/real.spells.dict-divvunpd.errm-nf2.tsv
+#				   results/kl/real.spells.dict-corpuswg.errm-hs1.tsv \
+				   results/kl/real.spells.dict-corpuswg.errm-hs2.tsv \
+				   results/kl/real.spells.dict-divvunpd.errm-hs1.tsv \
+				   results/kl/real.spells.dict-divvunpd.errm-hs2.tsv \
+
+results-kl: $(RESULTS_KL_RUNNING) $(RESULTS_KL_REAL)
+
+# }}}
+# 
+# {{{ Greenlandic tests for running texts
+results/kl/rung.spells.dict-divvunac.errm-ed5.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_NOPD) $(ERRM_KL_5UNW)
+	$(HFST_OSPELL) -X results/kl/rung.stats.dict-divvunac.errm-ed5.tsv -H results/kl/rung.hist.dict-divvunac.errm-ed5.tsv $(ERRM_KL_5UNW) $(DICT_KL_NOPD) < $(KL_TEST_WORDS_TINY) > $@
+
+results/kl/rung.spells.dict-divvunpd.errm-ed5.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_5UNW)
+	$(HFST_OSPELL) -X results/kl/rung.stats.dict-divvunpd.errm-ed5.tsv -H results/kl/rung.hist.dict-divvunpd.errm-ed5.tsv $(ERRM_KL_5UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_TINY) > $@
+
+results/kl/rung.spells.dict-corpuswg.errm-ed5.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_5UNW)
+	$(HFST_OSPELL) -X results/kl/rung.stats.dict-corpuswg.errm-ed5.tsv -H results/kl/rung.hist.dict-corpuswg.errm-ed5.tsv $(ERRM_KL_5UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_TINY) > $@
+
+results/kl/rung.spells.dict-divvunac.errm-ed4.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_NOPD) $(ERRM_KL_4UNW)
+	$(HFST_OSPELL) -X results/kl/rung.stats.dict-divvunac.errm-ed4.tsv -H results/kl/rung.hist.dict-divvunac.errm-ed4.tsv $(ERRM_KL_4UNW) $(DICT_KL_NOPD) < $(KL_TEST_WORDS_TINY) > $@
+
+results/kl/rung.spells.dict-divvunpd.errm-ed4.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_4UNW)
+	$(HFST_OSPELL) -X results/kl/rung.stats.dict-divvunpd.errm-ed4.tsv -H results/kl/rung.hist.dict-divvunpd.errm-ed4.tsv $(ERRM_KL_4UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_TINY) > $@
+
+results/kl/rung.spells.dict-corpuswg.errm-ed4.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_4UNW)
+	$(HFST_OSPELL) -X results/kl/rung.stats.dict-corpuswg.errm-ed4.tsv -H results/kl/rung.hist.dict-corpuswg.errm-ed4.tsv $(ERRM_KL_4UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_TINY) > $@
+
+results/kl/rung.spells.dict-divvunac.errm-ed3.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_NOPD) $(ERRM_KL_3UNW)
+	$(HFST_OSPELL) -X results/kl/rung.stats.dict-divvunac.errm-ed3.tsv -H results/kl/rung.hist.dict-divvunac.errm-ed3.tsv $(ERRM_KL_3UNW) $(DICT_KL_NOPD) < $(KL_TEST_WORDS_TINY) > $@
+
+results/kl/rung.spells.dict-divvunpd.errm-ed3.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_3UNW)
+	$(HFST_OSPELL) -X results/kl/rung.stats.dict-divvunpd.errm-ed3.tsv -H results/kl/rung.hist.dict-divvunpd.errm-ed3.tsv $(ERRM_KL_3UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_TINY) > $@
+
+results/kl/rung.spells.dict-corpuswg.errm-ed3.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_3UNW)
+	$(HFST_OSPELL) -X results/kl/rung.stats.dict-corpuswg.errm-ed3.tsv -H results/kl/rung.hist.dict-corpuswg.errm-ed3.tsv $(ERRM_KL_3UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_TINY) > $@
+
+results/kl/rung.spells.dict-divvunac.errm-ed2.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_NOPD) $(ERRM_KL_2UNW)
+	$(HFST_OSPELL) -X results/kl/rung.stats.dict-divvunac.errm-ed2.tsv -H results/kl/rung.hist.dict-divvunac.errm-ed2.tsv $(ERRM_KL_2UNW) $(DICT_KL_NOPD) < $(KL_TEST_WORDS_TINY) > $@
+
+results/kl/rung.spells.dict-divvunpd.errm-ed2.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_2UNW)
+	$(HFST_OSPELL) -X results/kl/rung.stats.dict-divvunpd.errm-ed2.tsv -H results/kl/rung.hist.dict-divvunpd.errm-ed2.tsv $(ERRM_KL_2UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_TINY) > $@
+
+results/kl/rung.spells.dict-corpuswg.errm-ed2.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_2UNW)
+	$(HFST_OSPELL) -X results/kl/rung.stats.dict-corpuswg.errm-ed2.tsv -H results/kl/rung.hist.dict-corpuswg.errm-ed2.tsv $(ERRM_KL_2UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_TINY) > $@
+
+results/kl/rung.spells.dict-divvunac.errm-ed1.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_NOPD) $(ERRM_KL_1UNW)
+	$(HFST_OSPELL) -X results/kl/rung.stats.dict-divvunac.errm-ed1.tsv -H results/kl/rung.hist.dict-divvunac.errm-ed1.tsv $(ERRM_KL_1UNW) $(DICT_KL_NOPD) < $(KL_TEST_WORDS_LARGE) > $@
+
+results/kl/rung.spells.dict-divvunpd.errm-ed1.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_1UNW)
+	$(HFST_OSPELL) -X results/kl/rung.stats.dict-divvunpd.errm-ed1.tsv -H results/kl/rung.hist.dict-divvunpd.errm-ed1.tsv $(ERRM_KL_1UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_LARGE) > $@
+
+results/kl/rung.spells.dict-corpuswg.errm-ed1.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_CORP) $(ERRM_KL_1UNW)
+	$(HFST_OSPELL) -X results/kl/rung.stats.dict-corpuswg.errm-ed1.tsv -H results/kl/rung.hist.dict-corpuswg.errm-ed1.tsv $(ERRM_KL_1UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_LARGE) > $@
+
+results/kl/rung.spells.dict-divvunac.errm-ed0.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_NOPD) $(ERRM_KL_0UNW)
+	$(HFST_OSPELL) -X results/kl/rung.stats.dict-divvunac.errm-ed0.tsv -H results/kl/rung.hist.dict-divvunac.errm-ed0.tsv $(ERRM_KL_0UNW) $(DICT_KL_NOPD) < $(KL_TEST_WORDS_LARGE) > $@
+
+results/kl/rung.spells.dict-divvunpd.errm-ed0.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_0UNW)
+	$(HFST_OSPELL) -X results/kl/rung.stats.dict-divvunpd.errm-ed0.tsv -H results/kl/rung.hist.dict-divvunpd.errm-ed0.tsv $(ERRM_KL_0UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_LARGE) > $@
+
+results/kl/rung.spells.dict-corpuswg.errm-ed0.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_CORP) $(ERRM_KL_0UNW)
+	$(HFST_OSPELL) -X results/kl/rung.stats.dict-corpuswg.errm-ed0.tsv -H results/kl/rung.hist.dict-corpuswg.errm-ed0.tsv $(ERRM_KL_0UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_LARGE) > $@
+
+# }}}
+#
+# {{{ Greenlandic quality tests for real errors
+
+results/kl/real.spells.dict-divvunac.errm-ed5.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_NOPD) $(ERRM_KL_5UNW)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunac.errm-ed5.tsv -H results/kl/real.hist.dict-divvunac.errm-ed5.tsv $(ERRM_KL_5UNW) $(DICT_KL_NOPD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunpd.errm-ed5.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_PROD) $(ERRM_KL_5UNW)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunpd.errm-ed5.tsv -H results/kl/real.hist.dict-divvunpd.errm-ed5.tsv $(ERRM_KL_5UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-corpuswg.errm-ed5.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_CORP) $(ERRM_KL_5UNW)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-corpuswg.errm-ed5.tsv -H results/kl/real.hist.dict-corpuswg.errm-ed5.tsv $(ERRM_KL_5UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunac.errm-ed4.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_NOPD) $(ERRM_KL_4UNW)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunac.errm-ed4.tsv -H results/kl/real.hist.dict-divvunac.errm-ed4.tsv $(ERRM_KL_4UNW) $(DICT_KL_NOPD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunpd.errm-ed4.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_PROD) $(ERRM_KL_4UNW)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunpd.errm-ed4.tsv -H results/kl/real.hist.dict-divvunpd.errm-ed4.tsv $(ERRM_KL_4UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-corpuswg.errm-ed4.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_CORP) $(ERRM_KL_4UNW)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-corpuswg.errm-ed4.tsv -H results/kl/real.hist.dict-corpuswg.errm-ed4.tsv $(ERRM_KL_4UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunac.errm-ed3.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_NOPD) $(ERRM_KL_3UNW)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunac.errm-ed3.tsv -H results/kl/real.hist.dict-divvunac.errm-ed3.tsv $(ERRM_KL_3UNW) $(DICT_KL_NOPD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunpd.errm-ed3.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_PROD) $(ERRM_KL_3UNW)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunpd.errm-ed3.tsv -H results/kl/real.hist.dict-divvunpd.errm-ed3.tsv $(ERRM_KL_3UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-corpuswg.errm-ed3.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_CORP) $(ERRM_KL_3UNW)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-corpuswg.errm-ed3.tsv -H results/kl/real.hist.dict-corpuswg.errm-ed3.tsv $(ERRM_KL_3UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunac.errm-ed2.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_NOPD) $(ERRM_KL_2UNW)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunac.errm-ed2.tsv -H results/kl/real.hist.dict-divvunac.errm-ed2.tsv $(ERRM_KL_2UNW) $(DICT_KL_NOPD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunpd.errm-ed2.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_PROD) $(ERRM_KL_2UNW)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunpd.errm-ed2.tsv -H results/kl/real.hist.dict-divvunpd.errm-ed2.tsv $(ERRM_KL_2UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-corpuswg.errm-ed2.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_CORP) $(ERRM_KL_2UNW)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-corpuswg.errm-ed2.tsv -H results/kl/real.hist.dict-corpuswg.errm-ed2.tsv $(ERRM_KL_2UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunac.errm-ed1.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_NOPD) $(ERRM_KL_1UNW)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunac.errm-ed1.tsv -H results/kl/real.hist.dict-divvunac.errm-ed1.tsv $(ERRM_KL_1UNW) $(DICT_KL_NOPD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunpd.errm-ed1.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_PROD) $(ERRM_KL_1UNW)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunpd.errm-ed1.tsv -H results/kl/real.hist.dict-divvunpd.errm-ed1.tsv $(ERRM_KL_1UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-corpuswg.errm-ed1.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_CORP) $(ERRM_KL_1UNW)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-corpuswg.errm-ed1.tsv -H results/kl/real.hist.dict-corpuswg.errm-ed1.tsv $(ERRM_KL_1UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunac.errm-ed0.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_NOPD) $(ERRM_KL_0UNW)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunac.errm-ed0.tsv -H results/kl/real.hist.dict-divvunac.errm-ed0.tsv $(ERRM_KL_0UNW) $(DICT_KL_NOPD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunpd.errm-ed0.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_PROD) $(ERRM_KL_0UNW)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunpd.errm-ed0.tsv -H results/kl/real.hist.dict-divvunpd.errm-ed0.tsv $(ERRM_KL_0UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-corpuswg.errm-ed0.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_CORP) $(ERRM_KL_0UNW)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-corpuswg.errm-ed0.tsv -H results/kl/real.hist.dict-corpuswg.errm-ed0.tsv $(ERRM_KL_0UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_REAL) > $@
+
+
+results/kl/real.spells.dict-divvunac.errm-nf5.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_NOPD) $(ERRM_KL_5NOF)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunac.errm-nf5.tsv -H results/kl/real.hist.dict-divvunac.errm-nf5.tsv $(ERRM_KL_5NOF) $(DICT_KL_NOPD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunpd.errm-nf5.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_PROD) $(ERRM_KL_5NOF)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunpd.errm-nf5.tsv -H results/kl/real.hist.dict-divvunpd.errm-nf5.tsv $(ERRM_KL_5NOF) $(DICT_KL_PROD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-corpuswg.errm-nf5.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_CORP) $(ERRM_KL_5NOF)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-corpuswg.errm-nf5.tsv -H results/kl/real.hist.dict-corpuswg.errm-nf5.tsv $(ERRM_KL_5NOF) $(DICT_KL_CORP) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunac.errm-nf4.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_NOPD) $(ERRM_KL_4NOF)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunac.errm-nf4.tsv -H results/kl/real.hist.dict-divvunac.errm-nf4.tsv $(ERRM_KL_4NOF) $(DICT_KL_NOPD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunpd.errm-nf4.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_PROD) $(ERRM_KL_4NOF)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunpd.errm-nf4.tsv -H results/kl/real.hist.dict-divvunpd.errm-nf4.tsv $(ERRM_KL_4NOF) $(DICT_KL_PROD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-corpuswg.errm-nf4.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_CORP) $(ERRM_KL_4NOF)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-corpuswg.errm-nf4.tsv -H results/kl/real.hist.dict-corpuswg.errm-nf4.tsv $(ERRM_KL_4NOF) $(DICT_KL_CORP) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunac.errm-nf3.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_NOPD) $(ERRM_KL_3NOF)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunac.errm-nf3.tsv -H results/kl/real.hist.dict-divvunac.errm-nf3.tsv $(ERRM_KL_3NOF) $(DICT_KL_NOPD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunpd.errm-nf3.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_PROD) $(ERRM_KL_3NOF)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunpd.errm-nf3.tsv -H results/kl/real.hist.dict-divvunpd.errm-nf3.tsv $(ERRM_KL_3NOF) $(DICT_KL_PROD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-corpuswg.errm-nf3.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_CORP) $(ERRM_KL_3NOF)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-corpuswg.errm-nf3.tsv -H results/kl/real.hist.dict-corpuswg.errm-nf3.tsv $(ERRM_KL_3NOF) $(DICT_KL_CORP) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunac.errm-nf2.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_NOPD) $(ERRM_KL_2NOF)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunac.errm-nf2.tsv -H results/kl/real.hist.dict-divvunac.errm-nf2.tsv $(ERRM_KL_2NOF) $(DICT_KL_NOPD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunpd.errm-nf2.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_PROD) $(ERRM_KL_2NOF)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunpd.errm-nf2.tsv -H results/kl/real.hist.dict-divvunpd.errm-nf2.tsv $(ERRM_KL_2NOF) $(DICT_KL_PROD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-corpuswg.errm-nf2.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_CORP) $(ERRM_KL_2NOF)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-corpuswg.errm-nf2.tsv -H results/kl/real.hist.dict-corpuswg.errm-nf2.tsv $(ERRM_KL_2NOF) $(DICT_KL_CORP) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunac.errm-nf1.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_NOPD) $(ERRM_KL_1NOF)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunac.errm-nf1.tsv -H results/kl/real.hist.dict-divvunac.errm-nf1.tsv $(ERRM_KL_1NOF) $(DICT_KL_NOPD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunpd.errm-nf1.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_PROD) $(ERRM_KL_1NOF)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunpd.errm-nf1.tsv -H results/kl/real.hist.dict-divvunpd.errm-nf1.tsv $(ERRM_KL_1NOF) $(DICT_KL_PROD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-corpuswg.errm-nf1.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_CORP) $(ERRM_KL_1NOF)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-corpuswg.errm-nf1.tsv -H results/kl/real.hist.dict-corpuswg.errm-nf1.tsv $(ERRM_KL_1NOF) $(DICT_KL_CORP) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunac.errm-hs3.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_NOPD) $(ERRM_KL_3HUN)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunac.errm-hs3.tsv -H results/kl/real.hist.dict-divvunac.errm-hs3.tsv $(ERRM_KL_3HUN) $(DICT_KL_NOPD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunpd.errm-hs3.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_PROD) $(ERRM_KL_3HUN)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunpd.errm-hs3.tsv -H results/kl/real.hist.dict-divvunpd.errm-hs3.tsv $(ERRM_KL_3HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-corpuswg.errm-hs3.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_CORP) $(ERRM_KL_3HUN)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-corpuswg.errm-hs3.tsv -H results/kl/real.hist.dict-corpuswg.errm-hs3.tsv $(ERRM_KL_3HUN) $(DICT_KL_CORP) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunac.errm-hs2.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_NOPD) $(ERRM_KL_2HUN)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunac.errm-hs2.tsv -H results/kl/real.hist.dict-divvunac.errm-hs2.tsv $(ERRM_KL_2HUN) $(DICT_KL_NOPD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunpd.errm-hs2.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_PROD) $(ERRM_KL_2HUN)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunpd.errm-hs2.tsv -H results/kl/real.hist.dict-divvunpd.errm-hs2.tsv $(ERRM_KL_2HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-corpuswg.errm-hs2.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_CORP) $(ERRM_KL_2HUN)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-corpuswg.errm-hs2.tsv -H results/kl/real.hist.dict-corpuswg.errm-hs2.tsv $(ERRM_KL_2HUN) $(DICT_KL_CORP) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunac.errm-hs1.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_NOPD) $(ERRM_KL_1HUN)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunac.errm-hs1.tsv -H results/kl/real.hist.dict-divvunac.errm-hs1.tsv $(ERRM_KL_1HUN) $(DICT_KL_NOPD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-divvunpd.errm-hs1.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_PROD) $(ERRM_KL_1HUN)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-divvunpd.errm-hs1.tsv -H results/kl/real.hist.dict-divvunpd.errm-hs1.tsv $(ERRM_KL_1HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_REAL) > $@
+
+results/kl/real.spells.dict-corpuswg.errm-hs1.tsv: $(KL_TEST_WORDS_REAL) $(DICT_KL_CORP) $(ERRM_KL_1HUN)
+	$(HFST_OSPELL) -X results/kl/real.stats.dict-corpuswg.errm-hs1.tsv -H results/kl/real.hist.dict-corpuswg.errm-hs1.tsv $(ERRM_KL_1HUN) $(DICT_KL_CORP) < $(KL_TEST_WORDS_REAL) > $@
+
+# }}}
+#
+# {{{ Greenlandic qualite tests for other spellers
+
+results/kl/%.tsv: results/kl/%.aspells
+	$(PYTHON3) ./hunspells2stats.py -i $< -c corp/kl/wikispells.tsv -o $@
+
+results/kl/real.spells.dict-aspell.errm-aspell.aspells: corp/kl/wikispells.tsv
+	cut -f 1 $< |\
+		$(ASPELL) -a -d fi |\
+		tr -s '\n' | tail -n +2 > $@
+
+results/kl/%.tsv: results/kl/%.hunspells
+	$(PYTHON3) ./hunspells2stats.py -i $< -c corp/kl/wikispells.hunnable.tsv -o $@
+
+results/kl/real.spells.dict-hunspell.errm-hunspell.hunspells: corp/kl/wikispells.hunnable.tsv
+	$(HUNSPELL) -1 -d kl -i UTF-8 < $< |\
+		tr -s '\n' | tail -n +2 > $@
+
+corp/kl/wikispells.hunnable.tsv: corp/kl/wikispells.tsv
+	cut -f 2 $< | hunspell -d kl -G > corp/kl/hunnables
+	fgrep -f corp/kl/hunnables $< > $@
+	-rm -f corp/kl/hunnables
 
 # }}}
 
@@ -1490,6 +1775,10 @@ PROFILES_FI=\
 			 results/fi/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunpd.errm-nf1.tsv \
 			 results/fi/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunpd.errm-ed1.tsv \
 			 results/fi/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-aspell.errm-aspell.tsv \
+			 results/fi/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunpd.errm-nf2.tsv \
+			 results/fi/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunpd.errm-ed2.tsv \
+			 results/fi/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunpd.errm-nf2.tsv \
+			 results/fi/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunpd.errm-ed2.tsv \
 			 results/fi/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunpd.errm-nf1.tsv \
 			 results/fi/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunpd.errm-ed1.tsv \
 			 results/fi/profiles.$(TEST_CORPUS_SMALL)-words.dict-aspell.errm-aspell.tsv \
@@ -2721,9 +3010,626 @@ results/se/profiles.1-nonwords.dict-aspell.errm-aspell.tsv: $(SE_TEST_NONWORDS_O
 	done
 # }}}
 
+# {{{ Greenlandic profiling test path klttings
+
+PROFILES_KL=\
+			 results/kl/profiles.1-nonwords.dict-divvunpd.errm-ed1.tsv \
+			 results/kl/profiles.1-nonwords.dict-divvunpd.errm-ed2.tsv \
+			 results/kl/profiles.1-nonwords.dict-divvunpd.errm-nf1.tsv \
+			 results/kl/profiles.1-nonwords.dict-divvunpd.errm-nf2.tsv \
+			 results/kl/profiles.1-words.dict-divvunpd.errm-ed1.tsv \
+			 results/kl/profiles.1-words.dict-divvunpd.errm-ed2.tsv \
+			 results/kl/profiles.1-words.dict-divvunpd.errm-nf1.tsv \
+			 results/kl/profiles.1-words.dict-divvunpd.errm-nf2.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunpd.errm-nf2.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunpd.errm-ed2.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunpd.errm-nf2.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunpd.errm-ed2.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunpd.errm-nf1.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunpd.errm-ed1.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunpd.errm-nf1.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunpd.errm-ed1.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunpd.errm-nf1.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunpd.errm-ed1.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunpd.errm-nf1.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunpd.errm-ed1.tsv \
+
+
+profiles-kl: $(PROFILES_KL)
+
+# }}}
+
+# {{{ Greenlandic profiling tests
+results/kl/profiles.$(CONTEXT_CORPUS_LARGE)-words.dict-divvunpd.errm-3gr.tsv: $(KL_CONTEXT_WORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(CONTEXT_SPELL1)   $(ERRM_KL_3HUN) $(DICT_KL_PROD) < $(KL_CONTEXT_WORDS_LARGE) |fgrep '['|fgrep -v '[inf]'| $(TIME) -a -o $@ $(CONTEXT_SPELL2) $(KL_TAGGER) 0.85 > /dev/null ;\
+	done
+
+results/kl/profiles.$(CONTEXT_CORPUS_SMALL)-words.dict-divvunpd.errm-3gr.tsv: $(KL_CONTEXT_WORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(CONTEXT_SPELL1)   $(ERRM_KL_3HUN) $(DICT_KL_PROD) < $(KL_CONTEXT_WORDS_SMALL) |fgrep '['|fgrep -v '[inf]'| $(TIME) -a -o $@ $(CONTEXT_SPELL2) $(KL_TAGGER) 0.85 > /dev/null ;\
+	done
+
+results/kl/profiles.1-words.dict-divvunpd.errm-3gr.tsv: $(KL_CONTEXT_WORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(CONTEXT_SPELL1)   $(ERRM_KL_3HUN) $(DICT_KL_PROD) < $(KL_CONTEXT_WORDS_ONE) |fgrep '['|fgrep -v '[inf]'| $(TIME) -a -o $@ $(CONTEXT_SPELL2) $(KL_TAGGER) 0.85 > /dev/null ;\
+	done
+
+results/kl/profiles.$(CONTEXT_CORPUS_LARGE)-nonwords.dict-divvunpd.errm-3gr.tsv: $(KL_CONTEXT_NONWORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(CONTEXT_SPELL1)   $(ERRM_KL_3HUN) $(DICT_KL_PROD) < $(KL_CONTEXT_NONWORDS_LARGE) |fgrep '['|fgrep -v '[inf]'| $(TIME) -a -o $@ $(CONTEXT_SPELL2) $(KL_TAGGER) 0.85 > /dev/null ;\
+	done
+
+results/kl/profiles.$(CONTEXT_CORPUS_SMALL)-nonwords.dict-divvunpd.errm-3gr.tsv: $(KL_CONTEXT_NONWORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(CONTEXT_SPELL1)   $(ERRM_KL_3HUN) $(DICT_KL_PROD) < $(KL_CONTEXT_NONWORDS_SMALL) |fgrep '['|fgrep -v '[inf]'| $(TIME) -a -o $@ $(CONTEXT_SPELL2) $(KL_TAGGER) 0.85 > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-divvunpd.errm-3gr.tsv: $(KL_CONTEXT_NONWORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(CONTEXT_SPELL1)   $(ERRM_KL_3HUN) $(DICT_KL_PROD) < $(KL_CONTEXT_NONWORDS_ONE) |fgrep '['|fgrep -v '[inf]'| $(TIME) -a -o $@ $(CONTEXT_SPELL2) $(KL_TAGGER) 0.85 > /dev/null ;\
+	done
+
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunpd.errm-5c3.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_3HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunpd.errm-5c3.tsv: $(KL_TEST_WORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_3HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunpd.errm-5c3.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_3HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-words.dict-divvunpd.errm-5c3.tsv: $(KL_TEST_WORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_3HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunpd.errm-5c3.tsv: $(KL_TEST_NONWORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_3HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunpd.errm-5c3.tsv: $(KL_TEST_NONWORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_3HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunpd.errm-5c3.tsv: $(KL_TEST_NONWORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_3HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-divvunpd.errm-5c3.tsv: $(KL_TEST_NONWORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_3HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunpd.errm-5c2.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_2HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunpd.errm-5c2.tsv: $(KL_TEST_WORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_2HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunpd.errm-5c2.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_2HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-words.dict-divvunpd.errm-5c2.tsv: $(KL_TEST_WORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_2HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunpd.errm-5c2.tsv: $(KL_TEST_NONWORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_2HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunpd.errm-5c2.tsv: $(KL_TEST_NONWORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_2HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunpd.errm-5c2.tsv: $(KL_TEST_NONWORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_2HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-divvunpd.errm-5c2.tsv: $(KL_TEST_NONWORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_2HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunpd.errm-5c1.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_1HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunpd.errm-5c1.tsv: $(KL_TEST_WORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_1HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunpd.errm-5c1.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_1HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-words.dict-divvunpd.errm-5c1.tsv: $(KL_TEST_WORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_1HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunpd.errm-5c1.tsv: $(KL_TEST_NONWORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_1HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunpd.errm-5c1.tsv: $(KL_TEST_NONWORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_1HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunpd.errm-5c1.tsv: $(KL_TEST_NONWORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_1HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-divvunpd.errm-5c1.tsv: $(KL_TEST_NONWORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_KL_1HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunpd.errm-ed3.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunpd.errm-ed3.tsv: $(KL_TEST_WORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunpd.errm-ed3.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-words.dict-divvunpd.errm-ed3.tsv: $(KL_TEST_WORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunpd.errm-ed3.tsv: $(KL_TEST_NONWORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3UNW) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunpd.errm-ed3.tsv: $(KL_TEST_NONWORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3UNW) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunpd.errm-ed3.tsv: $(KL_TEST_NONWORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3UNW) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-divvunpd.errm-ed3.tsv: $(KL_TEST_NONWORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3UNW) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunpd.errm-ed2.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunpd.errm-ed2.tsv: $(KL_TEST_WORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunpd.errm-ed2.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-words.dict-divvunpd.errm-ed2.tsv: $(KL_TEST_WORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunpd.errm-ed2.tsv: $(KL_TEST_NONWORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2UNW) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunpd.errm-ed2.tsv: $(KL_TEST_NONWORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2UNW) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunpd.errm-ed2.tsv: $(KL_TEST_NONWORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2UNW) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-divvunpd.errm-ed2.tsv: $(KL_TEST_NONWORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2UNW) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunpd.errm-ed1.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunpd.errm-ed1.tsv: $(KL_TEST_WORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunpd.errm-ed1.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-words.dict-divvunpd.errm-ed1.tsv: $(KL_TEST_WORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunpd.errm-ed1.tsv: $(KL_TEST_NONWORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1UNW) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunpd.errm-ed1.tsv: $(KL_TEST_NONWORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1UNW) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunpd.errm-ed1.tsv: $(KL_TEST_NONWORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1UNW) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-divvunpd.errm-ed1.tsv: $(KL_TEST_NONWORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1UNW) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunpd.errm-nf3.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3NOF) $(DICT_KL_PROD) < $(KL_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunpd.errm-nf3.tsv: $(KL_TEST_WORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3NOF) $(DICT_KL_PROD) < $(KL_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunpd.errm-nf3.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3NOF) $(DICT_KL_PROD) < $(KL_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-words.dict-divvunpd.errm-nf3.tsv: $(KL_TEST_WORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3NOF) $(DICT_KL_PROD) < $(KL_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunpd.errm-nf3.tsv: $(KL_TEST_NONWORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3NOF) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunpd.errm-nf3.tsv: $(KL_TEST_NONWORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3NOF) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunpd.errm-nf3.tsv: $(KL_TEST_NONWORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3NOF) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-divvunpd.errm-nf3.tsv: $(KL_TEST_NONWORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3NOF) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunpd.errm-nf2.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2NOF) $(DICT_KL_PROD) < $(KL_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunpd.errm-nf2.tsv: $(KL_TEST_WORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2NOF) $(DICT_KL_PROD) < $(KL_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunpd.errm-nf2.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2NOF) $(DICT_KL_PROD) < $(KL_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-words.dict-divvunpd.errm-nf2.tsv: $(KL_TEST_WORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2NOF) $(DICT_KL_PROD) < $(KL_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunpd.errm-nf2.tsv: $(KL_TEST_NONWORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2NOF) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunpd.errm-nf2.tsv: $(KL_TEST_NONWORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2NOF) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunpd.errm-nf2.tsv: $(KL_TEST_NONWORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2NOF) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-divvunpd.errm-nf2.tsv: $(KL_TEST_NONWORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2NOF) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunpd.errm-nf1.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1NOF) $(DICT_KL_PROD) < $(KL_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunpd.errm-nf1.tsv: $(KL_TEST_WORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1NOF) $(DICT_KL_PROD) < $(KL_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunpd.errm-nf1.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1NOF) $(DICT_KL_PROD) < $(KL_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-words.dict-divvunpd.errm-nf1.tsv: $(KL_TEST_WORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1NOF) $(DICT_KL_PROD) < $(KL_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunpd.errm-nf1.tsv: $(KL_TEST_NONWORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1NOF) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunpd.errm-nf1.tsv: $(KL_TEST_NONWORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1NOF) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunpd.errm-nf1.tsv: $(KL_TEST_NONWORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1NOF) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-divvunpd.errm-nf1.tsv: $(KL_TEST_NONWORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1NOF) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunpd.errm-hs3.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunpd.errm-hs3.tsv: $(KL_TEST_WORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunpd.errm-hs3.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+
+results/kl/profiles.1-words.dict-divvunpd.errm-hs3.tsv: $(KL_TEST_WORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunpd.errm-hs3.tsv: $(KL_TEST_NONWORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunpd.errm-hs3.tsv: $(KL_TEST_NONWORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunpd.errm-hs3.tsv: $(KL_TEST_NONWORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-divvunpd.errm-hs3.tsv: $(KL_TEST_NONWORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunpd.errm-hs2.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunpd.errm-hs2.tsv: $(KL_TEST_WORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunpd.errm-hs2.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-words.dict-divvunpd.errm-hs2.tsv: $(KL_TEST_WORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunpd.errm-hs2.tsv: $(KL_TEST_NONWORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunpd.errm-hs2.tsv: $(KL_TEST_NONWORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunpd.errm-hs2.tsv: $(KL_TEST_NONWORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-divvunpd.errm-hs2.tsv: $(KL_TEST_NONWORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunpd.errm-hs1.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunpd.errm-hs1.tsv: $(KL_TEST_WORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunpd.errm-hs1.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-words.dict-divvunpd.errm-hs1.tsv: $(KL_TEST_WORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1HUN) $(DICT_KL_PROD) < $(KL_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunpd.errm-hs1.tsv: $(KL_TEST_NONWORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunpd.errm-hs1.tsv: $(KL_TEST_NONWORDS_SMALL) $(DICT_KL_PROD) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunpd.errm-hs1.tsv: $(KL_TEST_NONWORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-divvunpd.errm-hs1.tsv: $(KL_TEST_NONWORDS_ONE) $(DICT_KL_PROD) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+# }}}
+
+# {{{ Greenlandic profilng tests for other spellers
+results/kl/profiles.$(TEST_CORPUS_LARGE)-words.dict-hunspell.errm-hunspell.tsv: $(KL_TEST_WORDS_LARGE)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(HUNSPELL) -d kl -i UTF-8 < $(KL_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-hunspell.errm-hunspell.tsv: $(KL_TEST_WORDS_SMALL)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(HUNSPELL) -d kl -i UTF-8 < $(KL_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.1-words.dict-hunspell.errm-hunspell.tsv: $(KL_TEST_WORDS_ONE)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(HUNSPELL) -d kl -i UTF-8 < $(KL_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-hunspell.errm-hunspell.tsv: $(KL_TEST_NONWORDS_LARGE)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(HUNSPELL) -d kl -i UTF-8 < $(KL_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-hunspell.errm-hunspell.tsv: $(KL_TEST_NONWORDS_SMALL)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(HUNSPELL) -d kl -i UTF-8 < $(KL_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-hunspell.errm-hunspell.tsv: $(KL_TEST_NONWORDS_ONE)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(HUNSPELL) -d kl -i UTF-8 < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+# aspell
+results/kl/profiles.$(TEST_CORPUS_LARGE)-words.dict-aspell.errm-aspell.tsv: $(KL_TEST_WORDS_LARGE)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(ASPELL) -d kl -a < $(KL_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-aspell.errm-aspell.tsv: $(KL_TEST_WORDS_SMALL)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(ASPELL) -d kl -a < $(KL_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-aspell.errm-aspell.tsv: $(KL_TEST_WORDS_TINY)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(ASPELL) -d kl -a < $(KL_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-words.dict-aspell.errm-aspell.tsv: $(KL_TEST_WORDS_ONE)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(ASPELL) -d kl -a < $(KL_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-aspell.errm-aspell.tsv: $(KL_TEST_NONWORDS_LARGE)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(ASPELL) -d kl -a < $(KL_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-aspell.errm-aspell.tsv: $(KL_TEST_NONWORDS_SMALL)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(ASPELL) -d kl -a < $(KL_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-aspell.errm-aspell.tsv: $(KL_TEST_NONWORDS_TINY)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(ASPELL) -d kl -a < $(KL_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-aspell.errm-aspell.tsv: $(KL_TEST_NONWORDS_ONE)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(ASPELL) -d kl -a < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+# }}}
+
 
 # dictionaries
-dictionaries: dictionaries-en dictionaries-fi dictionaries-se
+dictionaries: dictionaries-en dictionaries-fi dictionaries-se dictionaries-kl
 
 # {{{ English dictionary building
 dictionaries-en: $(DICT_EN_CORP) $(DICT_EN_NORV)
@@ -2787,9 +3693,33 @@ hfst/se/giellatekno-weighted.hfst: hfst/se/dictionary.default.hfst hfst/se/wikip
 
 # }}}
 #
+# {{{ Greenlandic dictionary building
+dictionaries-kl: $(DICT_KL_CORP) $(DICT_KL_NOPD) $(DICT_KL_PROD)
+
+$(DICT_KL_CORP): hfst/kl/wikipedia-train.hfst
+	$(HFST_MINIMIZE) -v $< | $(HFST_FST2FST) -v -f olw -o $@
+
+$(DICT_KL_NOPD): hfst/kl/giellatekno-filtered-weighted.hfst
+	$(HFST_MINIMIZE) -v $< | $(HFST_FST2FST) -v -f olw -o $@
+
+$(DICT_KL_PROD): hfst/kl/giellatekno-weighted.hfst
+	$(HFST_MINIMIZE) -v $< | $(HFST_FST2FST) -v -f olw -o $@
+
+hfst/kl/giellatekno-filtered-weighted.hfst: hfst/kl/dictionary.filtered.hfst hfst/kl/wikipedia-train.addone.hfst corp/kl/wikipedia-train.addone.unseenweight
+	$(HFST_COMPOSE) -F -v hfst/kl/dictionary.filtered.hfst hfst/kl/wikipedia-train.addone.hfst -o hfst/kl/dictionary.wpweights.hfst
+	$(HFST_REWEIGHT) -v hfst/kl/dictionary.filtered.hfst -e -a `cat corp/kl/wikipedia-train.addone.unseenweight` -o hfst/kl/dictionary.filtered.addone-unseen.hfst
+	$(HFST_UNION) -v hfst/kl/dictionary.wpweights.hfst hfst/kl/dictionary.filtered.addone-unseen.hfst -o $@
+
+
+hfst/kl/giellatekno-weighted.hfst: hfst/kl/dictionary.default.hfst hfst/kl/wikipedia-train.addone.hfst corp/kl/wikipedia-train.addone.unseenweight
+	$(HFST_COMPOSE) -F -v hfst/kl/dictionary.default.hfst hfst/kl/wikipedia-train.addone.hfst -o hfst/kl/dictionary.wpweights.hfst
+	$(HFST_REWEIGHT) -v hfst/kl/dictionary.default.hfst -e -a `cat corp/kl/wikipedia-train.addone.unseenweight` -o hfst/kl/dictionary.addone-unseen.hfst
+	$(HFST_UNION) -v hfst/kl/dictionary.wpweights.hfst hfst/kl/dictionary.addone-unseen.hfst -o $@
+
+# }}}
 # error models
 
-errmodels: errmodels-en errmodels-fi errmodels-se
+errmodels: errmodels-en errmodels-fi errmodels-se errmodels-kl
 
 # {{{ English error model building
 errmodels-en: $(ERRM_EN_8ALL) $(ERRM_EN_7ALL)
@@ -3262,8 +4192,162 @@ hfst/se/%.hfst: manual/se/%.strings
 
 # }}}
 #
+# {{{ Greenlandic error model building
+errmodels-kl: $(ERRM_KL_0UNW) $(ERRM_KL_1UNW) $(ERRM_KL_2UNW) $(ERRM_KL_3UNW) \
+			  $(ERRM_KL_1QWE) $(ERRM_KL_2QWE) $(ERRM_KL_3QWE) \
+			  $(ERRM_KL_1NOF) $(ERRM_KL_2NOF) $(ERRM_KL_3NOF)
+
+$(ERRM_KL_8ALL):  hfst/kl/hunspell-reps+context.hfst hfst/kl/edit-1-qwerty-halved.hfst
+	$(HFST_REWEIGHT) -v hfst/kl/edit-1-qwerty-halved.hfst -b "`cat corp/kl/wikipedia-train.unseenweight`" |\
+		$(HFST_REPEAT) -v -f 1 -t 8 |\
+		$(HFST_UNION) -v -  |\
+		$(HFST_UNION) -v - hfst/kl/hunspell-reps+context.hfst |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_KL_7ALL):  hfst/kl/hunspell-reps+context.hfst hfst/kl/edit-1-qwerty-halved.hfst
+	$(HFST_REWEIGHT) -v hfst/kl/edit-1-qwerty-halved.hfst -b "`cat corp/kl/wikipedia-train.unseenweight`" |\
+		$(HFST_REPEAT) -v -f 1 -t 7 |\
+		$(HFST_UNION) -v -  |\
+		$(HFST_UNION) -v - hfst/kl/hunspell-reps+context.hfst |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_KL_6ALL):  hfst/kl/hunspell-reps+context.hfst hfst/kl/edit-1-qwerty-halved.hfst
+	$(HFST_REWEIGHT) -v hfst/kl/edit-1-qwerty-halved.hfst -b "`cat corp/kl/wikipedia-train.unseenweight`" |\
+		$(HFST_REPEAT) -v -f 1 -t 6 |\
+		$(HFST_UNION) -v -  |\
+		$(HFST_UNION) -v - hfst/kl/hunspell-reps+context.hfst |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_KL_5UNW): hfst/kl/edit-1.hfst corp/kl/wikipedia-train.unseenweight
+	$(HFST_REWEIGHT) -v $< -e -a "`cat corp/kl/wikipedia-train.unseenweight`" |\
+		$(HFST_REPEAT) -f 1 -t 5 -v |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_KL_5ALL):  hfst/kl/hunspell-reps+context.hfst hfst/kl/edit-1-qwerty-halved.hfst
+	$(HFST_REWEIGHT) -v hfst/kl/edit-1-qwerty-halved.hfst -b "`cat corp/kl/wikipedia-train.unseenweight`" |\
+		$(HFST_REPEAT) -v -f 1 -t 5 |\
+		$(HFST_UNION) -v -  |\
+		$(HFST_UNION) -v - hfst/kl/hunspell-reps+context.hfst |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_KL_4UNW): hfst/kl/edit-1.hfst corp/kl/wikipedia-train.unseenweight
+	$(HFST_REWEIGHT) -v $< -e -a "`cat corp/kl/wikipedia-train.unseenweight`" |\
+		$(HFST_REPEAT) -f 1 -t 4 -v |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_KL_4ALL):  hfst/kl/hunspell-reps+context.hfst hfst/kl/edit-1-qwerty-halved.hfst
+	$(HFST_REWEIGHT) -v hfst/kl/edit-1-qwerty-halved.hfst -b "`cat corp/kl/wikipedia-train.unseenweight`" |\
+		$(HFST_REPEAT) -v -f 1 -t 4 |\
+		$(HFST_UNION) -v -  |\
+		$(HFST_UNION) -v - hfst/kl/hunspell-reps+context.hfst |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_KL_3ALL):  hfst/kl/hunspell-reps+context.hfst hfst/kl/edit-1-qwerty-halved.hfst
+	$(HFST_REWEIGHT) -v hfst/kl/edit-1-qwerty-halved.hfst -b "`cat corp/kl/wikipedia-train.unseenweight`" |\
+		$(HFST_REPEAT) -v -f 1 -t 3 |\
+		$(HFST_UNION) -v -  |\
+		$(HFST_UNION) -v - hfst/kl/hunspell-reps+context.hfst |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_KL_3HUN): hfst/kl/hunspell-reps.hfst hfst/kl/hunspell-keys.hfst hfst/kl/hunspell-trys.hfst hfst/kl/sigmastar.hfst
+	$(HFST_UNION) -v hfst/kl/hunspell-reps.hfst hfst/kl/hunspell-keys.hfst |\
+		$(HFST_UNION) -v - hfst/kl/hunspell-trys.hfst |\
+		$(HFST_REWEIGHT) -v -e -a "`cat corp/kl/wikipedia-train.unseenweight`" |\
+		$(HFST_CONCATENATE) -v hfst/kl/sigmastar.hfst - |\
+		$(HFST_CONCATENATE) -v - hfst/kl/sigmastar.hfst |\
+		$(HFST_REPEAT) -v -f 1 -t 3 |\
+		$(HFST_MINIMIZE) -v |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_KL_3NOF): hfst/kl/no-edits-1.hfst hfst/kl/edit-1.hfst corp/kl/wikipedia-train.unseenweight
+	$(HFST_REWEIGHT) -v hfst/kl/edit-1.hfst -e -a "`cat corp/kl/wikipedia-train.unseenweight`" |\
+		$(HFST_REPEAT) -f 1 -t 3 -v |\
+		$(HFST_CONCATENATE) -v hfst/kl/no-edits-1.hfst - |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_KL_3UNW): hfst/kl/edit-1.hfst corp/kl/wikipedia-train.unseenweight
+	$(HFST_REWEIGHT) -v $< -e -a "`cat corp/kl/wikipedia-train.unseenweight`" |\
+		$(HFST_REPEAT) -f 1 -t 3 -v |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_KL_2UNW): hfst/kl/edit-1.hfst corp/kl/wikipedia-train.unseenweight
+	$(HFST_REWEIGHT) -v $< -e -a "`cat corp/kl/wikipedia-train.unseenweight`" |\
+		$(HFST_REPEAT) -f 1 -t 2 -v |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_KL_2NOF): hfst/kl/no-edits-1.hfst hfst/kl/edit-1.hfst corp/kl/wikipedia-train.unseenweight
+	$(HFST_REWEIGHT) -v hfst/kl/edit-1.hfst -e -a "`cat corp/kl/wikipedia-train.unseenweight`" |\
+		$(HFST_REPEAT) -f 1 -t 2 -v |\
+		$(HFST_CONCATENATE) -v hfst/kl/no-edits-1.hfst - |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_KL_2ALL):  hfst/kl/hunspell-reps+context.hfst hfst/kl/edit-1-qwerty-halved.hfst
+	$(HFST_REWEIGHT) -v hfst/kl/edit-1-qwerty-halved.hfst -b "`cat corp/kl/wikipedia-train.unseenweight`" |\
+		$(HFST_REPEAT) -v -f 1 -t 2 |\
+		$(HFST_UNION) -v - hfst/kl/hunspell-reps+context.hfst |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_KL_2HUN): hfst/kl/hunspell-reps.hfst hfst/kl/hunspell-keys.hfst hfst/kl/hunspell-trys.hfst hfst/kl/sigmastar.hfst
+	$(HFST_UNION) -v hfst/kl/hunspell-reps.hfst hfst/kl/hunspell-keys.hfst |\
+		$(HFST_UNION) -v - hfst/kl/hunspell-trys.hfst |\
+		$(HFST_REWEIGHT) -v -e -a "`cat corp/kl/wikipedia-train.unseenweight`" |\
+		$(HFST_CONCATENATE) -v hfst/kl/sigmastar.hfst - |\
+		$(HFST_CONCATENATE) -v - hfst/kl/sigmastar.hfst |\
+		$(HFST_REPEAT) -v -f 1 -t 2 |\
+		$(HFST_MINIMIZE) -v |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_KL_2QWE): hfst/kl/edit-1-qwerty-halved.hfst corp/kl/wikipedia-train.unseenweight
+	$(HFST_REWEIGHT) -v $< -b "`cat corp/kl/wikipedia-train.unseenweight`" |\
+		$(HFST_REPEAT) -v -f 1 -t 2 |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_KL_1NOF): hfst/kl/edit-1-nonfirst.hfst corp/kl/wikipedia-train.unseenweight
+	$(HFST_REWEIGHT) -v $< -e -a "`cat corp/kl/wikipedia-train.unseenweight`" |\
+		$(HFST_MINIMIZE) -v |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_KL_1ALL):  hfst/kl/hunspell-reps+context.hfst hfst/kl/edit-1-qwerty-halved.hfst
+	$(HFST_REWEIGHT) -v hfst/kl/edit-1-qwerty-halved.hfst -b "`cat corp/kl/wikipedia-train.unseenweight`" |\
+		$(HFST_UNION) -v - hfst/kl/hunspell-reps+context.hfst |\
+		$(HFST_MINIMIZE) -v |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_KL_1HUN): hfst/kl/hunspell-reps.hfst hfst/kl/hunspell-keys.hfst hfst/kl/hunspell-trys.hfst hfst/kl/sigmastar.hfst
+	$(HFST_UNION) -v hfst/kl/hunspell-reps.hfst hfst/kl/hunspell-keys.hfst |\
+		$(HFST_UNION) -v - hfst/kl/hunspell-trys.hfst |\
+		$(HFST_REWEIGHT) -v -e -a "`cat corp/kl/wikipedia-train.unseenweight`" |\
+		$(HFST_CONCATENATE) -v hfst/kl/sigmastar.hfst - |\
+		$(HFST_CONCATENATE) -v - hfst/kl/sigmastar.hfst |\
+		$(HFST_MINIMIZE) -v |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_KL_1QWE): hfst/kl/edit-1-qwerty-halved.hfst corp/kl/wikipedia-train.unseenweight
+	$(HFST_REWEIGHT) -v $< -b "`cat corp/kl/wikipedia-train.unseenweight`" |\
+		$(HFST_MINIMIZE) -v |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_KL_1UNW): hfst/kl/edit-1.hfst
+	$(HFST_MINIMIZE) -v $< |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+$(ERRM_KL_0UNW): hfst/kl/edit-0.hfst
+	$(HFST_MINIMIZE) -v $< |\
+		$(HFST_FST2FST) -v -f olw -o $@
+
+hfst/kl/sigmastar.hfst:
+	echo '?*' | $(HFST_REGEXP2FST) -v -o $@
+
+hfst/kl/%.hfst: manual/kl/%.txt
+	$(HFST_TXT2FST) -v $< -o $@
+
+hfst/kl/%.hfst: manual/kl/%.strings
+	$(HFST_STRINGS2FST) -j $< | $(HFST_MINIMIZE) -o $@
+
+# }}}
+#
 # corpora
-corpora: corpora-en corpora-fi corpora-se
+corpora: corpora-en corpora-fi corpora-se corpora-kl
 
 # {{{ English corpora herding
 corpora-en: corp/en/wikipedia-test.txt corp/en/wikipedia-train.txt corp/en/big.txt
@@ -3348,17 +4432,65 @@ corp/se/wikipedia-train.txt: corp/se/sewiki-pages-articles-train.xml
 		$(WIKICLEAN) |\
 		iconv -c -f utf8 -t utf8//IGNORE > $@
 
+corp/se/wikipedia.txt: corp/se/sewiki-pages-articles.xml
+	$(AWK) '/<text/,/<\/text/ {print}' < $<|\
+		$(SED) -e 's_</\?text[^>]*>__g' |\
+		$(WIKICLEAN) |\
+		iconv -c -f utf8 -t utf8//IGNORE > $@
+
 corp/se/sewiki-pages-articles-$(SEWIKI_DATE).xml.bz2:
 	$(WGET) http://dumps.wikimedia.org/sewiki/$(SEWIKI_DATE)/sewiki-$(SEWIKI_DATE)-pages-articles.xml.bz2 -O $@
 
 corp/se/sewiki-pages-articles.lines: corp/se/sewiki-pages-articles-$(SEWIKI_DATE).xml.bz2
 	$(BZCAT) $< | wc -l > $@
 
+corp/se/sewiki-pages-articles.xml: corp/se/sewiki-pages-articles-$(SEWIKI_DATE).xml.bz2
+	$(BZCAT) $< > $@
+
 corp/se/sewiki-pages-articles-train.xml: corp/se/sewiki-pages-articles-$(SEWIKI_DATE).xml.bz2 corp/se/sewiki-pages-articles.lines
 	$(BZCAT) $< | head -n `cat corp/se/sewiki-pages-articles.lines | sed -e 's/$$/ * 0.9/' | bc | sed -e 's/[.,].*//'` > $@
 
 corp/se/sewiki-pages-articles-test.xml: corp/se/sewiki-pages-articles-$(SEWIKI_DATE).xml.bz2 corp/se/sewiki-pages-articles.lines
 	$(BZCAT) $< | tail -n +`cat corp/se/sewiki-pages-articles.lines | sed -e 's/$$/ * 0.9/' | bc | sed -e 's/[.,].*//'` > $@
+
+
+# }}}
+#
+# {{{ Greenlandic corpora herding
+corpora-kl: corp/kl/wikipedia-train.txt corp/kl/wikipedia-test.txt
+
+corp/kl/wikipedia-test.txt: corp/kl/klwiki-pages-articles-test.xml
+	$(AWK) '/<text/,/<\/text/ {print}' < $<|\
+		$(SED) -e 's_</\?text[^>]*>__g' |\
+		$(WIKICLEAN) |\
+		iconv -c -f utf8 -t utf8//IGNORE > $@
+
+corp/kl/wikipedia-train.txt: corp/kl/klwiki-pages-articles-train.xml
+	$(AWK) '/<text/,/<\/text/ {print}' < $<|\
+		$(SED) -e 's_</\?text[^>]*>__g' |\
+		$(WIKICLEAN) |\
+		iconv -c -f utf8 -t utf8//IGNORE > $@
+
+corp/kl/wikipedia.txt: corp/kl/klwiki-pages-articles.xml
+	$(AWK) '/<text/,/<\/text/ {print}' < $<|\
+		$(SED) -e 's_</\?text[^>]*>__g' |\
+		$(WIKICLEAN) |\
+		iconv -c -f utf8 -t utf8//IGNORE > $@
+
+corp/kl/klwiki-pages-articles-$(KLWIKI_DATE).xml.bz2:
+	$(WGET) http://dumps.wikimedia.org/klwiki/$(KLWIKI_DATE)/klwiki-$(KLWIKI_DATE)-pages-articles.xml.bz2 -O $@
+
+corp/kl/klwiki-pages-articles.lines: corp/kl/klwiki-pages-articles-$(KLWIKI_DATE).xml.bz2
+	$(BZCAT) $< | wc -l > $@
+
+corp/kl/klwiki-pages-articles.xml: corp/kl/klwiki-pages-articles-$(KLWIKI_DATE).xml.bz2
+	$(BZCAT) $< > $@
+
+corp/kl/klwiki-pages-articles-train.xml: corp/kl/klwiki-pages-articles-$(KLWIKI_DATE).xml.bz2 corp/kl/klwiki-pages-articles.lines
+	$(BZCAT) $< | head -n `cat corp/kl/klwiki-pages-articles.lines | sed -e 's/$$/ * 0.9/' | bc | sed -e 's/[.,].*//'` > $@
+
+corp/kl/klwiki-pages-articles-test.xml: corp/kl/klwiki-pages-articles-$(KLWIKI_DATE).xml.bz2 corp/kl/klwiki-pages-articles.lines
+	$(BZCAT) $< | tail -n +`cat corp/kl/klwiki-pages-articles.lines | sed -e 's/$$/ * 0.9/' | bc | sed -e 's/[.,].*//'` > $@
 
 
 # }}}
@@ -3485,7 +4617,7 @@ corp/en/%.addhalf.tropical: corp/en/%.uniqc
 # }}}
 #
 # {{{ Finnish corpora building
-corp/fi/%.sorted: corp/fi/%.words
+corp/fi/%.sorted: corp/fi/%.yeswords
 	sort < $< > $@
 
 corp/fi/%.$(CONTEXT_CORPUS_HUGE).contexts: corp/fi/%.txt
@@ -3534,30 +4666,39 @@ corp/fi/%.$(TEST_CORPUS_SMALL).nonwords: corp/fi/%.txt hfst/fi/acceptor.gtfiprod
 		cut -f 1 |\
 		head -n $(TEST_CORPUS_SMALL) > $@
 
-corp/fi/%.$(TEST_CORPUS_TINY).nonwords: corp/fi/%.txt hfst/fi/acceptor.gtfiprod.hfst
+corp/fi/%.$(TEST_CORPUS_TINY).nonwords: corp/fi/%.txt hfst/fi/acceptor.gtfiprod.hfstol
 	tr -s '[:space:].?!,;:/' '\n' < $< |\
 		grep "^[$(FI_ALPHABET)]*$$" |\
 		grep '[[:alpha:]]' |\
-		$(HFST_LOOKUP) hfst/fi/acceptor.gtfiprod.hfst |\
+		$(HFST_LOOKUP) hfst/fi/acceptor.gtfiprod.hfstol |\
 		fgrep '+?' |\
 		cut -f 1 |\
 		head -n $(TEST_CORPUS_TINY) > $@
 
-corp/fi/%.1.nonwords: corp/fi/%.txt hfst/fi/acceptor.gtfiprod.hfst
+corp/fi/%.1.nonwords: corp/fi/%.txt hfst/fi/dictionary.default.hfstol
 	tr -s '[:space:].?!,;:/' '\n' < $< |\
 		grep "^[$(FI_ALPHABET)]*$$" |\
 		grep '[[:alpha:]]' |\
-		$(HFST_LOOKUP) hfst/fi/acceptor.gtfiprod.hfst |\
+		$(HFST_LOOKUP) hfst/fi/dictionary.default.hfstol |\
 		fgrep '+?' |\
 		cut -f 1 |\
 		head -n 1 > $@
 
-corp/fi/%.nonwords: corp/fi/%.txt hfst/fi/acceptor.gtfiprod.hfst
+corp/fi/%.nonwords: corp/fi/%.txt hfst/fi/dictionary.default.hfstol
 	tr -s '[:space:].?!,;:/' '\n' < $< |\
 		grep "^[$(FI_ALPHABET)]*$$" |\
 		grep '[[:alpha:]]' |\
-		$(HFST_LOOKUP) hfst/fi/acceptor.gtfiprod.hfst |\
+		$(HFST_LOOKUP) hfst/fi/dictionary.default.hfstol |\
 		fgrep '+?' |\
+		cut -f 1 > $@
+
+corp/fi/%.yeswords: corp/fi/%.txt hfst/fi/dictionary.default.hfstol
+	tr -s '[:space:].?!,;:/' '\n' < $< |\
+		grep "^[$(FI_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' |\
+		$(HFST_LOOKUP) hfst/fi/dictionary.default.hfstol |\
+		fgrep -v '+?' |\
+		tr -s '\n' |\
 		cut -f 1 > $@
 
 corp/fi/%.$(TEST_CORPUS_HUGE).words: corp/fi/%.txt
@@ -3756,6 +4897,143 @@ corp/se/%.addhalf.tropical: corp/se/%.uniqc
 
 # }}}
 #
+# {{{ Greenlandic corpora building
+corp/kl/%.sorted: corp/kl/%.words
+	sort < $< > $@
+
+corp/kl/%.$(CONTEXT_CORPUS_HUGE).contexts: corp/kl/%.txt
+	$(AWK) -f text2contexts.awk < $< |\
+		head -n $(CONTEXT_CORPUS_HUGE) > $@
+
+corp/kl/%.$(CONTEXT_CORPUS_LARGE).contexts: corp/kl/%.txt
+	$(AWK) -f text2contexts.awk < $< |\
+		head -n $(CONTEXT_CORPUS_LARGE) > $@
+
+corp/kl/%.$(CONTEXT_CORPUS_SMALL).contexts: corp/kl/%.txt
+	$(AWK) -f text2contexts.awk < $< |\
+		head -n $(CONTEXT_CORPUS_SMALL) > $@
+
+corp/kl/%.1.contexts: corp/kl/%.txt
+	$(AWK) -f text2contexts.awk < $< |\
+		head -n 1 > $@
+
+corp/kl/%.contexts: corp/kl/%.txt
+	$(AWK) -f text2contexts.awk < $< > $@
+
+corp/kl/%.$(TEST_CORPUS_HUGE).nonwords: corp/kl/%.txt hfst/kl/acceptor.gtklprod.hfst
+	tr -s '[:space:].?!,;:/' '\n' < $< |\
+		grep "^[$(KL_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' |\
+		$(HFST_LOOKUP) hfst/kl/acceptor.gtklprod.hfst |\
+		fgrep '+?' |\
+		cut -f 1 |\
+		head -n $(TEST_CORPUS_HUGE) > $@
+
+corp/kl/%.$(TEST_CORPUS_LARGE).nonwords: corp/kl/%.txt hfst/kl/acceptor.gtklprod.hfst
+	tr -s '[:space:].?!,;:/' '\n' < $< |\
+		grep "^[$(KL_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' |\
+		$(HFST_LOOKUP) hfst/kl/acceptor.gtklprod.hfst |\
+		fgrep '+?' |\
+		cut -f 1 > corp/kl/$*.nonwords
+	cat corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords corp/kl/$*.nonwords |\
+		head -n $(TEST_CORPUS_LARGE) > $@
+
+corp/kl/%.$(TEST_CORPUS_SMALL).nonwords: corp/kl/%.txt hfst/kl/acceptor.gtklprod.hfst
+	tr -s '[:space:].?!,;:/' '\n' < $< |\
+		grep "^[$(KL_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' |\
+		$(HFST_LOOKUP) hfst/kl/acceptor.gtklprod.hfst |\
+		fgrep '+?' |\
+		cut -f 1 |\
+		head -n $(TEST_CORPUS_SMALL) > $@
+
+corp/kl/%.$(TEST_CORPUS_TINY).nonwords: corp/kl/%.txt hfst/kl/acceptor.gtklprod.hfst
+	tr -s '[:space:].?!,;:/' '\n' < $< |\
+		grep "^[$(KL_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' |\
+		$(HFST_LOOKUP) hfst/kl/acceptor.gtklprod.hfst |\
+		fgrep '+?' |\
+		cut -f 1 |\
+		head -n $(TEST_CORPUS_TINY) > $@
+
+corp/kl/%.1.nonwords: corp/kl/%.txt hfst/kl/acceptor.gtklprod.hfst
+	tr -s '[:space:].?!,;:/' '\n' < $< |\
+		grep "^[$(KL_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' |\
+		$(HFST_LOOKUP) hfst/kl/acceptor.gtklprod.hfst |\
+		fgrep '+?' |\
+		cut -f 1 |\
+		head -n 1 > $@
+
+corp/kl/%.nonwords: corp/kl/%.txt hfst/kl/acceptor.gtklprod.hfst
+	tr -s '[:space:].?!,;:/' '\n' < $< |\
+		grep "^[$(KL_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' |\
+		$(HFST_LOOKUP) hfst/kl/acceptor.gtklprod.hfst |\
+		fgrep '+?' |\
+		cut -f 1 > $@
+
+corp/kl/%.$(TEST_CORPUS_HUGE).words: corp/kl/%.txt
+	tr -s '[:space:].?!,;:/' '\n' < $< |\
+		grep "^[$(KL_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' |\
+		head -n $(TEST_CORPUS_HUGE) > $@
+
+corp/kl/%.$(TEST_CORPUS_LARGE).words: corp/kl/%.txt
+	tr -s '[:space:].?!,;:/' '\n' < $< |\
+		grep "^[$(KL_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' > corp/kl/$*.words
+	cat corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words corp/kl/$*.words |\
+		head -n $(TEST_CORPUS_LARGE) > $@
+
+corp/kl/%.$(TEST_CORPUS_SMALL).words: corp/kl/%.txt
+	tr -s '[:space:].?!,;:/' '\n' < $< |\
+		grep "^[$(KL_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' |\
+		head -n $(TEST_CORPUS_SMALL) > $@
+
+corp/kl/%.$(TEST_CORPUS_TINY).words: corp/kl/%.txt
+	tr -s '[:space:].?!,;:/' '\n' < $< |\
+		grep "^[$(KL_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' |\
+		head -n $(TEST_CORPUS_TINY) > $@
+
+corp/kl/%.1.words: corp/kl/%.txt
+	tr -s '[:space:].?!,;:/' '\n' < $< |\
+		grep "^[$(KL_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' |\
+		head -n 1 > $@
+
+corp/kl/%.words: corp/kl/%.txt
+	tr -s '[:space:].?!,;:/' '\n' < $< |\
+		grep "^[$(KL_ALPHABET)]*$$" |\
+		grep '[[:alpha:]]' > $@
+
+corp/kl/%.uniqc: corp/kl/%.sorted
+	uniq -c < $< | awk '$$1 > $(KLWIKI_LEGO_CUTOFF) {print}' > $@
+
+corp/kl/%.unseenweight: corp/kl/%.sorted
+	echo | $(AWK) "{print (-log(1 / (`wc -l < corp/kl/$*.sorted` + 1)));}" > $@
+
+corp/kl/%.addone.unseenweight: corp/kl/%.sorted corp/kl/%.uniqc
+	echo | $(AWK) "{print (-log(1 / (`wc -l < corp/kl/$*.sorted` + `wc -l < corp/kl/$*.uniqc`)));}" > $@
+
+corp/kl/%.addhalf.unseenweight: corp/kl/%.sorted corp/kl/%.uniqc
+	echo | $(AWK) "{print (-log(0.5 / (`wc -l < corp/kl/$*.sorted` + 0.5 * `wc -l < corp/kl/$*.uniqc`)));}" > $@
+
+corp/kl/%.tropical: corp/kl/%.uniqc
+	$(AWK) -f tropicalize-uniq-c.awk --assign=CS=`wc -l < corp/kl/$*.sorted` < $< > $@
+
+corp/kl/%.addone.tropical: corp/kl/%.uniqc
+	$(AWK) -f tropicalize-uniq-c-add-smoothing.awk --assign=CS=`wc -l < corp/kl/$*.sorted` --assign=LS=`wc -l < corp/kl/$*.uniqc` --assign=ALPHA=1 < $< > $@
+
+corp/kl/%.addhalf.tropical: corp/kl/%.uniqc
+	$(AWK) -f tropicalize-uniq-c-add-smoothing.awk --assign=CS=`wc -l < corp/kl/$*.sorted` --assign=LS=`wc -l < corp/kl/$*.uniqc` --assign=ALPHA=0.5 < $< > $@
+
+
+# }}}
+#
 #
 # from weighted lists to automata
 # EN
@@ -3799,19 +5077,19 @@ manual/en/edit-1-qwerty-halved.txt: manual/en/qwerty.tsv
 manual/en/hunspell-reps.strings: $(HUNSPELL_EN_AFF)
 	grep '^REP' $(HUNSPELL_EN_AFF) |\
 		tail -n +2 |\
-		sed -e 's/REP[[:space:]]*//' -e 's/[[:space:]]\+/:/' -e 's/_/ /g' |\
+		$(SED) -e 's/REP[[:space:]]*//' -e 's/[[:space:]]\+/:/' -e 's/_/ /g' |\
 		fgrep -v ' ' > $@
 
 manual/en/hunspell-keys.txt: $(HUNSPELL_EN_AFF)
 	grep '^KEY' $(HUNSPELL_EN_AFF) |\
-		sed -e 's/KEY[[:space:]]*//' -e 's/\(.\)\(.\)/0	1	\1	\2\n0	1	\2	\1\n/g' |\
+		$(SED) -e 's/KEY[[:space:]]*//' -e 's/\(.\)\(.\)/0	1	\1	\2\n0	1	\2	\1\n/g' |\
 		head -n -1 |\
 		fgrep -v '|' > $@
 	echo 1 >> $@
 
 manual/en/hunspell-trys.txt: $(HUNSPELL_EN_AFF)
 	grep '^TRY' $(HUNSPELL_EN_AFF) |\
-		sed -e 's/TRY[[:space:]]*//' -e 's/\(.\)/0	1	\1	@_EPSILON_SYMBOL_@\n0	1	@_EPSILON_SYMBOL_@	\1\n/g' |\
+		$(SED) -e 's/TRY[[:space:]]*//' -e 's/\(.\)/0	1	\1	@_EPSILON_SYMBOL_@\n0	1	@_EPSILON_SYMBOL_@	\1\n/g' |\
 		head -n -1 |\
 		fgrep -v "'" > $@
 	echo 1 >> $@
@@ -3842,19 +5120,19 @@ manual/fi/edit-1-qwerty-halved.txt: manual/fi/qwerty.tsv
 manual/fi/hunspell-reps.strings: $(HUNSPELL_FI_AFF)
 	grep '^REP' $(HUNSPELL_FI_AFF) |\
 		tail -n +2 |\
-		sed -e 's/REP[[:space:]]*//' -e 's/[[:space:]]\+/:/' -e 's/_/ /g' |\
+		$(SED) -e 's/REP[[:space:]]*//' -e 's/[[:space:]]\+/:/' -e 's/_/ /g' |\
 		fgrep -v ' ' > $@
 
 manual/fi/hunspell-keys.txt: $(HUNSPELL_FI_AFF)
 	grep '^KEY' $(HUNSPELL_FI_AFF) |\
-		sed -e 's/KEY[[:space:]]*//' -e 's/\(.\)\(.\)/0	1	\1	\2\n0	1	\2	\1\n/g' |\
+		$(SED) -e 's/KEY[[:space:]]*//' -e 's/\(.\)\(.\)/0	1	\1	\2\n0	1	\2	\1\n/g' |\
 		head -n -1 |\
 		fgrep -v '|' > $@
 	echo 1 >> $@
 
 manual/fi/hunspell-trys.txt: $(HUNSPELL_FI_AFF)
 	grep '^TRY' $(HUNSPELL_FI_AFF) |\
-		sed -e 's/TRY[[:space:]]*//' -e 's/\(.\)/0	1	\1	@_EPSILON_SYMBOL_@\n0	1	@_EPSILON_SYMBOL_@	\1\n/g' |\
+		$(SED) -e 's/TRY[[:space:]]*//' -e 's/\(.\)/0	1	\1	@_EPSILON_SYMBOL_@\n0	1	@_EPSILON_SYMBOL_@	\1\n/g' |\
 		head -n -1 |\
 		fgrep -v "'" > $@
 	echo 1 >> $@
@@ -3885,19 +5163,62 @@ manual/se/edit-1-qwerty-halved.txt: manual/se/qwerty.tsv
 manual/se/hunspell-reps.strings: $(HUNSPELL_SE_AFF)
 	grep '^REP' $(HUNSPELL_SE_AFF) |\
 		tail -n +2 |\
-		sed -e 's/REP[[:space:]]*//' -e 's/[[:space:]]\+/:/' -e 's/_/ /g' |\
+		$(SED) -e 's/REP[[:space:]]*//' -e 's/[[:space:]]\+/:/' -e 's/_/ /g' |\
 		fgrep -v ' ' > $@
 
 manual/se/hunspell-keys.txt: $(HUNSPELL_SE_AFF)
 	grep '^KEY' $(HUNSPELL_SE_AFF) |\
-		sed -e 's/KEY[[:space:]]*//' -e 's/\(.\)\(.\)/0	1	\1	\2\n0	1	\2	\1\n/g' |\
+		$(SED) -e 's/KEY[[:space:]]*//' -e 's/\(.\)\(.\)/0	1	\1	\2\n0	1	\2	\1\n/g' |\
 		head -n -1 |\
 		fgrep -v '|' > $@
 	echo 1 >> $@
 
 manual/se/hunspell-trys.txt: $(HUNSPELL_SE_AFF)
 	grep '^TRY' $(HUNSPELL_SE_AFF) |\
-		sed -e 's/TRY[[:space:]]*//' -e 's/\(.\)/0	1	\1	@_EPSILON_SYMBOL_@\n0	1	@_EPSILON_SYMBOL_@	\1\n/g' |\
+		$(SED) -e 's/TRY[[:space:]]*//' -e 's/\(.\)/0	1	\1	@_EPSILON_SYMBOL_@\n0	1	@_EPSILON_SYMBOL_@	\1\n/g' |\
+		head -n -1 |\
+		fgrep -v "'" > $@
+	echo 1 >> $@
+
+# }}}
+
+# {{{ Greenlandic error models
+manual/kl/no-edits-1.txt: manual/kl/edit-0.txt
+	$(AWK)  'BEGIN {OFS = "\t";} NF == 5 {$$2 = 1; print;} NF == 2 {$$1 =1; print;}' < manual/kl/edit-0.txt > $@
+
+manual/kl/edit-0.txt:
+	$(PYTHON2) editdist.py -d 0 -s --no-elim "$(KL_ALPHABET_SHORT)" |\
+		fgrep -v "\\" > $@
+
+manual/kl/edit-1.txt:
+	$(PYTHON2) editdist.py -s --no-elim "$(KL_ALPHABET_SHORT)" |\
+		fgrep -v "\\" > $@
+
+manual/kl/edit-1-nonfirst.txt:
+	$(PYTHON2) editdist.py --no-string-initial-correction -s --no-elim "$(KL_ALPHABET_SHORT)" |\
+		fgrep -v "\\" > $@
+
+manual/kl/edit-1-qwerty-halved.txt: manual/kl/qwerty.tsv
+	$(PYTHON2) editdist.py -s --no-elim "$(KL_ALPHABET_SHORT)" -i manual/kl/qwerty.tsv |\
+		fgrep -v "\\" > $@
+
+# if lexicon'd contain spaces we'd need not filter them
+manual/kl/hunspell-reps.strings: $(HUNSPELL_KL_AFF)
+	grep '^REP' $(HUNSPELL_KL_AFF) |\
+		tail -n +2 |\
+		$(SED) -e 's/REP[[:space:]]*//' -e 's/[[:space:]]\+/:/' -e 's/_/ /g' |\
+		fgrep -v ' ' > $@
+
+manual/kl/hunspell-keys.txt: $(HUNSPELL_KL_AFF)
+	grep '^KEY' $(HUNSPELL_KL_AFF) |\
+		$(SED) -e 's/KEY[[:space:]]*//' -e 's/\(.\)\(.\)/0	1	\1	\2\n0	1	\2	\1\n/g' |\
+		head -n -1 |\
+		fgrep -v '|' > $@
+	echo 1 >> $@
+
+manual/kl/hunspell-trys.txt: $(HUNSPELL_KL_AFF)
+	grep '^TRY' $(HUNSPELL_KL_AFF) |\
+		$(SED) -e 's/TRY[[:space:]]*//' -e 's/\(.\)/0	1	\1	@_EPSILON_SYMBOL_@\n0	1	@_EPSILON_SYMBOL_@	\1\n/g' |\
 		head -n -1 |\
 		fgrep -v "'" > $@
 	echo 1 >> $@
@@ -3912,7 +5233,7 @@ corp/en/speling-candidates.tsv: corp/en/enwiki-pages-meta-history.xml.bz2
 		$(AWK) -f dump-wiki-revisions-for-speling-wdiffs.awk --assign=CORPDIR=corp/en
 	chmod +x ./print-wdiffs.sh
 	./print-wdiffs.sh | grep '\[-.*+}' |\
-		sed -e 's/\[-//' -e 's/-] {+/	/' -e 's/+}//' > $@
+		$(SED) -e 's/\[-//' -e 's/-] {+/	/' -e 's/+}//' > $@
 	chmod +x ./remove-junk.sh
 	./remove-junk.sh
 
@@ -3922,7 +5243,7 @@ corp/fi/speling-candidates.tsv: corp/fi/fiwiki-pages-meta-history.xml.bz2
 		$(AWK) -f dump-wiki-revisions-for-speling-wdiffs-fi.awk --assign=CORPDIR=corp/fi
 	chmod +x ./print-wdiffs.sh
 	./print-wdiffs.sh | grep '\[-.*+}' |\
-		sed -e 's/\[-//' -e 's/-] *{+/	/' -e 's/+}//' > $@
+		$(SED) -e 's/\[-//' -e 's/-] *{+/	/' -e 's/+}//' > $@
 	chmod +x ./remove-junk.sh
 	./remove-junk.sh
 
@@ -3932,11 +5253,44 @@ corp/se/speling-candidates.tsv: corp/se/sewiki-pages-meta-history.xml.bz2
 		$(AWK) -f dump-wiki-revisions-for-speling-wdiffs-se.awk --assign=CORPDIR=corp/se
 	chmod +x ./print-wdiffs.sh
 	./print-wdiffs.sh | grep '\[-.*+}' |\
-		sed -e 's/\[-//' -e 's/-] *{+/	/' -e 's/+}//' > $@
+		$(SED) -e 's/\[-//' -e 's/-] *{+/	/' -e 's/+}//' > $@
 	chmod +x ./remove-junk.sh
 	./remove-junk.sh
 
 # KL
 #
+corp/kl/speling-candidates.tsv: corp/kl/klwiki-pages-meta-history.xml.bz2
+	$(BZCAT) $< |\
+		$(AWK) -f dump-wiki-revisions-for-speling-wdiffs-kl.awk --assign=CORPDIR=corp/kl
+	chmod +x ./print-wdiffs.sh
+	./print-wdiffs.sh | grep '\[-.*+}' |\
+		$(SED) -e 's/\[-//' -e 's/-] *{+/	/' -e 's/+}//' > $@
+	chmod +x ./remove-junk.sh
+	./remove-junk.sh
+
+
+# foo
+
+%.hfstol: %.hfst
+	hfst-fst2fst -f olw $< -o $@
+
+# bar
+
+corp/en/wikipedia.formspertokens.%.tsv: corp/en/wikipedia-train.words
+	head -n $* $< > $<.$*
+	$(PYTHON3) wordformspertokens.py -i $<.$* -o $@
+
+corp/fi/wikipedia.formspertokens.%.tsv: corp/fi/wikipedia.words
+	head -n $* $< > $<.$*
+	$(PYTHON3) wordformspertokens.py -i $<.$* -o $@
+
+corp/se/wikipedia.formspertokens.%.tsv: corp/se/wikipedia.words
+	head -n $* $< > $<.$*
+	$(PYTHON3) wordformspertokens.py -i $<.$* -o $@
+
+corp/kl/wikipedia.formspertokens.%.tsv: corp/kl/wikipedia.words
+	head -n $* $< > $<.$*
+	$(PYTHON3) wordformspertokens.py -i $<.$* -o $@
+
 
 # vim: set foldmethod=marker:
