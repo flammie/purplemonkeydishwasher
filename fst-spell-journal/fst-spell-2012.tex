@@ -1243,29 +1243,32 @@ The results are summarised in the graph~\ref{fig:quality}.
 
 For the practical spell-checking systems there are multiple levels of speed
 requirements, so we measure the effects of our different models to speed to see
-if the optimal models can actually be used in the interactive systems, offline
+if the optimal models can actually be used in the interactive systems, off-line
 corrections or just batch processing. In table~\ref{table:language-speed} we
-show the speed of different model combinations for spell-checking. For more
+show the speed of different model combinations for spell-checking---for more
 thorough evaluation of the speed of the finite-state language and the error
-models we refer to \cite{pirinen2012improving}. We test the systems with both
-running texts picked from Wikipedia verbatim, with all the correct word forms
-in them, and the lists of the unrecognised word forms, so we get both the speed
-of the real world spell-checking task and the speed of the error correction
-alone. The token counts tested range from 1 to 10,000 to 1,000,000, that is to
-test the both startup time and the scaling.\todo{trigrams segfault nao}
+models we refer to \cite{pirinen2012improving}. We perform three different test
+sets: startup time tests to see how big portion of time is spent on startup
+alone, the running corpus processing test to see how well the system fares for
+processing full running text, and the non-word correcting test to see how fast
+the system is when only producing corrections for the words. For each tests
+the results are given averaged over at least 5 runs; the tests for processing
+corpus and non-word data have been performed separately for 100, 10,000 and
+1,000,000 tokens, except in cases where word-per-second rate is less than 100
+we only performed tests for 100 and 10,000.
 
 \begin{table}
     \centering
-    \begin{tabular}{|l|r||r|r|r|r|}
+    \begin{tabular}{|l|r|r|r|}
         %\multicol{4}{|c|c|}{\bf Running text & \bf Non-words}
         \hline
-        \bf Input: & 1 (startup time) & 100 & 10,000 & 1,000,000 & 100 & 10,000 & 1,000,000 \\
-        \bf Language and error models & s & wps & wps & wps & wps \\
+        \bf Input: & 1 word & real words & non-words \\
+        \bf Language and error models & s & wps & wps \\
         \hline
-        \bf English hunspell & 0.5 &  & 138 & 174 & & 36 & 40 \\
-          \bf English aspell & <0.1 & & 18,181 & 20,000 & & 3,571 & 4,405 \\
+        \bf English hunspell & 0.5 & 174 & 40 \\
+          \bf English aspell & <0.1 & 20,000 & 4,405 \\
 
-             \bf English (A)FSA & 0.1 & & 1,007 & 1,007 & & 1,260 & 1,260 \\
+             \bf English (A)FSA & 0.1 1,007 & 1,260 \\
 % \bf English word trigrams & & & & & \\
         \hline
 %        \bf Finnish aspell & <0.1 & 454 & 781 & & 277 & 400 & 686 \\
@@ -1273,11 +1276,11 @@ test the both startup time and the scaling.\todo{trigrams segfault nao}
 %       \bf Finnish FSA & 13.5 & 0.2 & & & \\
 %%        \bf Finnish word trigrams & & & & & \\
 %        \hline
-        \bf North Sámi WP  & & & & & \\
-        \bf North Sámi FSA & & & & & \\
+        \bf North Sámi WP  & & & \\
+        \bf North Sámi FSA & & & \\
         \hline
-        \bf Greenlandic WP & & & & & \\
-       \bf Greenlandic FSA & & & & & \\
+        \bf Greenlandic WP & & & \\
+       \bf Greenlandic FSA & & & \\
         \hline
     \end{tabular}
     \caption{The speed of spell-checking with different models. The first three
@@ -1285,6 +1288,11 @@ test the both startup time and the scaling.\todo{trigrams segfault nao}
     in the language model to begin with, i.e. only
     misspellings\label{table:language-speed}}
 \end{table}
+
+From the table we easily notice already two important aspects of finite-state
+spelling correction: the speed is very predictable and in the same area
+regardless of input data, and even the English results are faster than for the
+hunspell version. 
 
 In the table~\ref{table:optimisation-speed} we show the speed gains achieved by
 cutting the search space with commonly used optimisation tricks, this is the
@@ -1294,20 +1302,20 @@ chapter, which shows clearly the trade-off between speed and quality.
 
 \begin{table}
     \centering
-    \begin{tabular}{|l|r||r|r|r||r|r|r|}
+    \begin{tabular}{|l|r|r|r|}
         \hline
-        \bf Input: & 1 (startup time) & 100 & 10,000 & 1,000,000 & 100 & 10,000 & 1,000,000 \\
-        \bf Language and error models & s   & wps   & wps        & wps & wps    &           \\
+        \bf Input:                    & 1 word & all words & non-words \\
+        \bf Language and error models & s      & wps       & wps       \\
         \hline
-        \bf English w/ 1 error     & 0.24  & 6,060  & 6,493  & 6,250  & 6,578 \\
- \bf English w/ 1 non-first error  & 0.20  & 15,625 & 17,857 & 16,393 & 17,857  \\
- \bf English w/ 1 hunspell error   & 0.08  & 13,698 & 13,956 & 18,518 & 18,758  \\
-     \bf English w/ 2 errors       & 0.24  & 140   & 138   & 144   & 139  \\
- \bf English w/ 2 non-first errors & 0.12  & 950   & 943   & 956   & 952 \\
- \bf English w/ 2 hunspell errors  & 0.08  & 1,002 & 1,005 & 1,265 & 1,282 \\
-   \bf English w/ 3 errors         & 0.84  & 7    &  --  &    6 & -- \\
- \bf English w/ 3 non-first errors & 0.16  & 100  &  --  &  104 & -- \\
- \bf English w/ 3 hunspell errors  & 0.12  & 120  &  --  &  162 & -- \\
+        \bf English w/ 1 error     & 0.24  & 6,493  & 6,578 \\
+ \bf English w/ 1 non-first error  & 0.20  & 17,857 & 17,857  \\
+ \bf English w/ 1 hunspell error   & 0.08  & 13,956 & 18,758  \\
+     \bf English w/ 2 errors       & 0.24  & 138    & 139  \\
+ \bf English w/ 2 non-first errors & 0.12  & 943    & 952 \\
+ \bf English w/ 2 hunspell errors  & 0.08  & 1,005  & 1,282 \\
+   \bf English w/ 3 errors         & 0.84  & 7      & 6    \\
+ \bf English w/ 3 non-first errors & 0.16  & 100    & 104  \\
+ \bf English w/ 3 hunspell errors  & 0.12  & 120    & 162  \\
 %  \bf English w/ 3 weighted errors &       &      &      &      &     \\
         \hline
 %        \bf Finnish w/ 1 errors   & 1.0  &  63  & 166 & 169 & 73 & 357  & 370 \\
@@ -1315,15 +1323,15 @@ chapter, which shows clearly the trade-off between speed and quality.
 %\bf Finnish w/ 1 non-first error  & 1.0  & 75   & 303 & 307 & 90 & 1,886 & \\
 %\bf Finnish w/ 2 non-first errors & 8.2  & 0.3  & --- & --- & 0.6 & --- & --- \\
 %        \hline
-        \bf North Sámi w/ 1 error & 0.28 & 304 & 2,252 & 2,304 & 500 & 2,631 & 2,857\\
-       \bf North Sámi w/ 2 errors & 0.31 & 13 & & & 30 & & \\
-        \bf North Sámi w/ 1 non-first errors & 0.27 & 344 & 4,608 & 5,025 & 344 & 6,172 & 8,000 \\
-        \bf North Sámi w/ 2 non-first errors & 0.28 & 22 & & & 70 & &  \\
+        \bf North Sámi w/ 1 error    & 0.28 & 2,304 & 2,857 \\
+\bf North Sámi w/ 1 non-first error  & 0.27 & 5,025 & 8,000 \\
+       \bf North Sámi w/ 2 errors    & 0.31 & 13    & 30    \\
+\bf North Sámi w/ 2 non-first errors & 0.28 & 22    & 70    \\
         \hline
-        \bf Greenlandic w/ 1 error & & & & & \\
-       \bf Greenlandic w/ 2 errors & & & & & \\
-        \bf Greenlandic w/ 1 non-first error & & & & & \\
-       \bf Greenlandic w/ 2 non-first errors & & & & & \\
+        \bf Greenlandic w/ 1 error    & & & \\
+\bf Greenlandic w/ 1 non-first error  & & & \\
+       \bf Greenlandic w/ 2 errors    & & & \\
+\bf Greenlandic w/ 2 non-first errors & & & \\
         \hline
     \end{tabular}
     \caption{The effect of different optimisations to speed
@@ -1390,7 +1398,30 @@ quality trade-off.
 \section{Future Directions}
 \label{sec:future}
 
-In future.
+The experiments performed for this survey show few important details that
+should be emphasized for future implementations: the finite-state models are
+faster than commonly used solutions for morphologically poor languages, and
+they are the only commonly used solutions for morphologically complex
+languages, and the speed is well in the range of what is required for most
+spell-checking software. This suggests that we should aim to get the
+finite-state spell-checkers used in the common applications. It has been noted
+that there are two obstacles in here: one is that the acceptance rate and use
+of current solutions is so wide that getting everyone to upgrade is not an
+easy task, and if the upgrade offers no visible improvements it will be
+unlikely to gain required momentum. The suggested solution therefore is to
+leverage spell-checking APIs of current and forthcoming systems to ensure
+seamless upgrade path with current systems applicable, this is already provided
+for most Linux based systems in libenchant, for Mac in SpellService, and for
+Android platforms in \ldots from version 4.0 onwards; we have made initial
+versions to support finite-state spell-checkers for these systems available in
+our download service\footnote{\url{}}.
+
+The efficiency of context-aware spell-checking in terms of reasonable 
+speed-quality trade-off is still quite far from being generally acceptable,
+the future approaches of this should emphasize on efficient encoding and
+application of finite-state probabilistic n-gram models in real-world
+applications, such as has been sought for in \cite{} for software n-gram
+spelling correctors.
 
 \bibliography{fstspell2012}
 
