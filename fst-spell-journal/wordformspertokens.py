@@ -24,7 +24,7 @@ def main():
     seenwords = set()
     tokens = 0
     uniqs = 0
-    sparsity = 10
+    sparsity = 1000
 
     try:
         opts, args = getopt(argv[1:], "hi:o:c:", ["help", "input=", "output=", "csv="])

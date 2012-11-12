@@ -289,7 +289,7 @@ CORP_KL_WPLM=corp/kl/wikipedia-train.txt
 DICTIONARIES=$(DICT_EN_CORP) $(DICT_EN_NO1S) $(DICT_EN_NORV) \
 			 $(DICT_FI_CORP) $(DICT_FI_NOPD) $(DICT_FI_PROD) \
 			 $(DICT_SE_CORP) $(DICT_SE_NOPD) $(DICT_SE_PROD) \
-			 $(DICT_KL_NOPD)
+			 $(DICT_KL_CORP) $(DICT_KL_NOPD) $(DICT_KL_PROD)
 
 # coverage and quality tables
 results: results-fi results-en
@@ -748,7 +748,8 @@ RESULTS_SE_RUNNING=\
 				   results/se/rung.spells.dict-divvunpd.errm-ed2.tsv \
 				   results/se/rung.spells.dict-divvunac.errm-ed0.tsv \
 				   results/se/rung.spells.dict-divvunac.errm-ed1.tsv \
-				   results/se/rung.spells.dict-divvunac.errm-ed2.tsv
+				   results/se/rung.spells.dict-divvunac.errm-ed2.tsv \
+				   results/se/rung.spells.dict-hunspell.errm-hunspell.tsv
 RESULTS_SE_REAL=\
 				   results/se/real.spells.dict-corpuswg.errm-ed0.tsv \
 				   results/se/real.spells.dict-corpuswg.errm-ed1.tsv \
@@ -759,11 +760,8 @@ RESULTS_SE_REAL=\
 				   results/se/real.spells.dict-corpuswg.errm-nf1.tsv \
 				   results/se/real.spells.dict-corpuswg.errm-nf2.tsv \
 				   results/se/real.spells.dict-divvunpd.errm-nf1.tsv \
-				   results/se/real.spells.dict-divvunpd.errm-nf2.tsv
-#				   results/se/real.spells.dict-corpuswg.errm-hs1.tsv \
-				   results/se/real.spells.dict-corpuswg.errm-hs2.tsv \
-				   results/se/real.spells.dict-divvunpd.errm-hs1.tsv \
-				   results/se/real.spells.dict-divvunpd.errm-hs2.tsv \
+				   results/se/real.spells.dict-divvunpd.errm-nf2.tsv \
+				   results/se/real.spells.dict-hunspell.errm-hunspell.tsv
 
 results-se: $(RESULTS_SE_RUNNING) $(RESULTS_SE_REAL)
 
@@ -968,10 +966,14 @@ results/se/real.spells.dict-aspell.errm-aspell.aspells: corp/se/wikispells.tsv
 		tr -s '\n' | tail -n +2 > $@
 
 results/se/%.tsv: results/se/%.hunspells
-	$(PYTHON3) ./hunspells2stats.py -i $< -c corp/se/wikispells.hunnable.tsv -o $@
+	$(PYTHON3) ./hunspells2stats.py -i $< -c corp/se/wikispells.tsv -o $@
 
-results/se/real.spells.dict-hunspell.errm-hunspell.hunspells: corp/se/wikispells.hunnable.tsv
+results/se/real.spells.dict-hunspell.errm-hunspell.hunspells: corp/se/wikispells.tsv
 	$(HUNSPELL) -1 -d se -i UTF-8 < $< |\
+		tr -s '\n' | tail -n +2 > $@
+
+results/se/rung.spells.dict-hunspell.errm-hunspell.hunspells: $(SE_TEST_WORDS_SMALL)
+	$(HUNSPELL) -d se -i UTF-8 < $< |\
 		tr -s '\n' | tail -n +2 > $@
 
 corp/se/wikispells.hunnable.tsv: corp/se/wikispells.tsv
@@ -1049,13 +1051,13 @@ results/kl/rung.spells.dict-divvunpd.errm-ed2.tsv: $(KL_TEST_WORDS_TINY) $(DICT_
 results/kl/rung.spells.dict-corpuswg.errm-ed2.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_2UNW)
 	$(HFST_OSPELL) -X results/kl/rung.stats.dict-corpuswg.errm-ed2.tsv -H results/kl/rung.hist.dict-corpuswg.errm-ed2.tsv $(ERRM_KL_2UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_TINY) > $@
 
-results/kl/rung.spells.dict-divvunac.errm-ed1.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_NOPD) $(ERRM_KL_1UNW)
-	$(HFST_OSPELL) -X results/kl/rung.stats.dict-divvunac.errm-ed1.tsv -H results/kl/rung.hist.dict-divvunac.errm-ed1.tsv $(ERRM_KL_1UNW) $(DICT_KL_NOPD) < $(KL_TEST_WORDS_LARGE) > $@
+results/kl/rung.spells.dict-divvunac.errm-ed1.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_NOPD) $(ERRM_KL_1UNW)
+	$(HFST_OSPELL) -X results/kl/rung.stats.dict-divvunac.errm-ed1.tsv -H results/kl/rung.hist.dict-divvunac.errm-ed1.tsv $(ERRM_KL_1UNW) $(DICT_KL_NOPD) < $(KL_TEST_WORDS_TINY) > $@
 
-results/kl/rung.spells.dict-divvunpd.errm-ed1.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_PROD) $(ERRM_KL_1UNW)
-	$(HFST_OSPELL) -X results/kl/rung.stats.dict-divvunpd.errm-ed1.tsv -H results/kl/rung.hist.dict-divvunpd.errm-ed1.tsv $(ERRM_KL_1UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_LARGE) > $@
+results/kl/rung.spells.dict-divvunpd.errm-ed1.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_PROD) $(ERRM_KL_1UNW)
+	$(HFST_OSPELL) -X results/kl/rung.stats.dict-divvunpd.errm-ed1.tsv -H results/kl/rung.hist.dict-divvunpd.errm-ed1.tsv $(ERRM_KL_1UNW) $(DICT_KL_PROD) < $(KL_TEST_WORDS_TINY) > $@
 
-results/kl/rung.spells.dict-corpuswg.errm-ed1.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_CORP) $(ERRM_KL_1UNW)
+results/kl/rung.spells.dict-corpuswg.errm-ed1.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_1UNW)
 	$(HFST_OSPELL) -X results/kl/rung.stats.dict-corpuswg.errm-ed1.tsv -H results/kl/rung.hist.dict-corpuswg.errm-ed1.tsv $(ERRM_KL_1UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_LARGE) > $@
 
 results/kl/rung.spells.dict-divvunac.errm-ed0.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_NOPD) $(ERRM_KL_0UNW)
@@ -2389,6 +2391,7 @@ results/fi/profiles.1-nonwords.dict-aspell.errm-aspell.tsv: $(FI_TEST_NONWORDS_O
 
 PROFILES_SE=\
 			 results/se/profiles.1-nonwords.dict-divvunpd.errm-ed1.tsv \
+			 results/se/profiles.1-nonwords.dict-divvunpd.errm-ed1.tsv \
 			 results/se/profiles.1-nonwords.dict-divvunpd.errm-ed2.tsv \
 			 results/se/profiles.1-nonwords.dict-divvunpd.errm-nf1.tsv \
 			 results/se/profiles.1-nonwords.dict-divvunpd.errm-nf2.tsv \
@@ -2415,7 +2418,13 @@ PROFILES_SE=\
 			 results/se/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunpd.errm-nf1.tsv \
 			 results/se/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunpd.errm-ed1.tsv \
 			 results/se/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunpd.errm-nf1.tsv \
-			 results/se/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunpd.errm-ed1.tsv
+			 results/se/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunpd.errm-ed1.tsv \
+			 results/se/profiles.1-nonwords.dict-hunspell.errm-hunspell.tsv \
+			 results/se/profiles.1-words.dict-hunspell.errm-hunspell.tsv \
+			 results/se/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-hunspell.errm-hunspell.tsv \
+			 results/se/profiles.$(TEST_CORPUS_TINY)-words.dict-hunspell.errm-hunspell.tsv \
+			 results/se/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-hunspell.errm-hunspell.tsv \
+			 results/se/profiles.$(TEST_CORPUS_SMALL)-words.dict-hunspell.errm-hunspell.tsv
 
 
 profiles-se: $(PROFILES_SE)
@@ -3013,6 +3022,14 @@ results/se/profiles.1-nonwords.dict-aspell.errm-aspell.tsv: $(SE_TEST_NONWORDS_O
 # {{{ Greenlandic profiling test path klttings
 
 PROFILES_KL=\
+			 results/kl/profiles.1-nonwords.dict-corpuswg.errm-ed1.tsv \
+			 results/kl/profiles.1-nonwords.dict-corpuswg.errm-ed2.tsv \
+			 results/kl/profiles.1-nonwords.dict-corpuswg.errm-nf1.tsv \
+			 results/kl/profiles.1-nonwords.dict-corpuswg.errm-nf2.tsv \
+			 results/kl/profiles.1-words.dict-corpuswg.errm-ed1.tsv \
+			 results/kl/profiles.1-words.dict-corpuswg.errm-ed2.tsv \
+			 results/kl/profiles.1-words.dict-corpuswg.errm-nf1.tsv \
+			 results/kl/profiles.1-words.dict-corpuswg.errm-nf2.tsv \
 			 results/kl/profiles.1-nonwords.dict-divvunpd.errm-ed1.tsv \
 			 results/kl/profiles.1-nonwords.dict-divvunpd.errm-ed2.tsv \
 			 results/kl/profiles.1-nonwords.dict-divvunpd.errm-nf1.tsv \
@@ -3021,6 +3038,14 @@ PROFILES_KL=\
 			 results/kl/profiles.1-words.dict-divvunpd.errm-ed2.tsv \
 			 results/kl/profiles.1-words.dict-divvunpd.errm-nf1.tsv \
 			 results/kl/profiles.1-words.dict-divvunpd.errm-nf2.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-corpuswg.errm-nf2.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-corpuswg.errm-ed2.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-corpuswg.errm-nf2.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-corpuswg.errm-ed2.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-corpuswg.errm-nf1.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-corpuswg.errm-ed1.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-corpuswg.errm-nf1.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-corpuswg.errm-ed1.tsv \
 			 results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunpd.errm-nf2.tsv \
 			 results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunpd.errm-ed2.tsv \
 			 results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunpd.errm-nf2.tsv \
@@ -3029,6 +3054,10 @@ PROFILES_KL=\
 			 results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunpd.errm-ed1.tsv \
 			 results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunpd.errm-nf1.tsv \
 			 results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunpd.errm-ed1.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-corpuswg.errm-nf1.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-corpuswg.errm-ed1.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-corpuswg.errm-nf1.tsv \
+			 results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-corpuswg.errm-ed1.tsv \
 			 results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunpd.errm-nf1.tsv \
 			 results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunpd.errm-ed1.tsv \
 			 results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunpd.errm-nf1.tsv \
@@ -3552,6 +3581,356 @@ results/kl/profiles.1-nonwords.dict-divvunpd.errm-hs1.tsv: $(KL_TEST_NONWORDS_ON
 		$(HFST_OSPELL) -P $@ $(ERRM_KL_1HUN) $(DICT_KL_PROD) < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
 	done
 
+results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-corpuswg.errm-ed3.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-words.dict-corpuswg.errm-ed3.tsv: $(KL_TEST_WORDS_ONE) $(DICT_KL_CORP) $(ERRM_KL_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-corpuswg.errm-ed3.tsv: $(KL_TEST_NONWORDS_LARGE) $(DICT_KL_CORP) $(ERRM_KL_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3UNW) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-corpuswg.errm-ed3.tsv: $(KL_TEST_NONWORDS_SMALL) $(DICT_KL_CORP) $(ERRM_KL_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3UNW) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-corpuswg.errm-ed3.tsv: $(KL_TEST_NONWORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3UNW) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-corpuswg.errm-ed3.tsv: $(KL_TEST_NONWORDS_ONE) $(DICT_KL_CORP) $(ERRM_KL_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3UNW) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-words.dict-corpuswg.errm-ed2.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_CORP) $(ERRM_KL_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-corpuswg.errm-ed2.tsv: $(KL_TEST_WORDS_SMALL) $(DICT_KL_CORP) $(ERRM_KL_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-corpuswg.errm-ed2.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-words.dict-corpuswg.errm-ed2.tsv: $(KL_TEST_WORDS_ONE) $(DICT_KL_CORP) $(ERRM_KL_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-corpuswg.errm-ed2.tsv: $(KL_TEST_NONWORDS_LARGE) $(DICT_KL_CORP) $(ERRM_KL_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2UNW) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-corpuswg.errm-ed2.tsv: $(KL_TEST_NONWORDS_SMALL) $(DICT_KL_CORP) $(ERRM_KL_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2UNW) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-corpuswg.errm-ed2.tsv: $(KL_TEST_NONWORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2UNW) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-corpuswg.errm-ed2.tsv: $(KL_TEST_NONWORDS_ONE) $(DICT_KL_CORP) $(ERRM_KL_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2UNW) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-words.dict-corpuswg.errm-ed1.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_CORP) $(ERRM_KL_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-corpuswg.errm-ed1.tsv: $(KL_TEST_WORDS_SMALL) $(DICT_KL_CORP) $(ERRM_KL_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-corpuswg.errm-ed1.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-words.dict-corpuswg.errm-ed1.tsv: $(KL_TEST_WORDS_ONE) $(DICT_KL_CORP) $(ERRM_KL_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1UNW) $(DICT_KL_CORP) < $(KL_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-corpuswg.errm-ed1.tsv: $(KL_TEST_NONWORDS_LARGE) $(DICT_KL_CORP) $(ERRM_KL_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1UNW) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-corpuswg.errm-ed1.tsv: $(KL_TEST_NONWORDS_SMALL) $(DICT_KL_CORP) $(ERRM_KL_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1UNW) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-corpuswg.errm-ed1.tsv: $(KL_TEST_NONWORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1UNW) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-corpuswg.errm-ed1.tsv: $(KL_TEST_NONWORDS_ONE) $(DICT_KL_CORP) $(ERRM_KL_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1UNW) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-words.dict-corpuswg.errm-nf3.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_CORP) $(ERRM_KL_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3NOF) $(DICT_KL_CORP) < $(KL_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-corpuswg.errm-nf3.tsv: $(KL_TEST_WORDS_SMALL) $(DICT_KL_CORP) $(ERRM_KL_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3NOF) $(DICT_KL_CORP) < $(KL_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-corpuswg.errm-nf3.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3NOF) $(DICT_KL_CORP) < $(KL_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-words.dict-corpuswg.errm-nf3.tsv: $(KL_TEST_WORDS_ONE) $(DICT_KL_CORP) $(ERRM_KL_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3NOF) $(DICT_KL_CORP) < $(KL_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-corpuswg.errm-nf3.tsv: $(KL_TEST_NONWORDS_LARGE) $(DICT_KL_CORP) $(ERRM_KL_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3NOF) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-corpuswg.errm-nf3.tsv: $(KL_TEST_NONWORDS_SMALL) $(DICT_KL_CORP) $(ERRM_KL_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3NOF) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-corpuswg.errm-nf3.tsv: $(KL_TEST_NONWORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3NOF) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-corpuswg.errm-nf3.tsv: $(KL_TEST_NONWORDS_ONE) $(DICT_KL_CORP) $(ERRM_KL_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3NOF) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-words.dict-corpuswg.errm-nf2.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_CORP) $(ERRM_KL_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2NOF) $(DICT_KL_CORP) < $(KL_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-corpuswg.errm-nf2.tsv: $(KL_TEST_WORDS_SMALL) $(DICT_KL_CORP) $(ERRM_KL_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2NOF) $(DICT_KL_CORP) < $(KL_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-corpuswg.errm-nf2.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2NOF) $(DICT_KL_CORP) < $(KL_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-words.dict-corpuswg.errm-nf2.tsv: $(KL_TEST_WORDS_ONE) $(DICT_KL_CORP) $(ERRM_KL_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2NOF) $(DICT_KL_CORP) < $(KL_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-corpuswg.errm-nf2.tsv: $(KL_TEST_NONWORDS_LARGE) $(DICT_KL_CORP) $(ERRM_KL_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2NOF) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-corpuswg.errm-nf2.tsv: $(KL_TEST_NONWORDS_SMALL) $(DICT_KL_CORP) $(ERRM_KL_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2NOF) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-corpuswg.errm-nf2.tsv: $(KL_TEST_NONWORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2NOF) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-corpuswg.errm-nf2.tsv: $(KL_TEST_NONWORDS_ONE) $(DICT_KL_CORP) $(ERRM_KL_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2NOF) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-words.dict-corpuswg.errm-nf1.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_CORP) $(ERRM_KL_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1NOF) $(DICT_KL_CORP) < $(KL_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-corpuswg.errm-nf1.tsv: $(KL_TEST_WORDS_SMALL) $(DICT_KL_CORP) $(ERRM_KL_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1NOF) $(DICT_KL_CORP) < $(KL_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-corpuswg.errm-nf1.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1NOF) $(DICT_KL_CORP) < $(KL_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-words.dict-corpuswg.errm-nf1.tsv: $(KL_TEST_WORDS_ONE) $(DICT_KL_CORP) $(ERRM_KL_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1NOF) $(DICT_KL_CORP) < $(KL_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-corpuswg.errm-nf1.tsv: $(KL_TEST_NONWORDS_LARGE) $(DICT_KL_CORP) $(ERRM_KL_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1NOF) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-corpuswg.errm-nf1.tsv: $(KL_TEST_NONWORDS_SMALL) $(DICT_KL_CORP) $(ERRM_KL_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1NOF) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-corpuswg.errm-nf1.tsv: $(KL_TEST_NONWORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1NOF) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-corpuswg.errm-nf1.tsv: $(KL_TEST_NONWORDS_ONE) $(DICT_KL_CORP) $(ERRM_KL_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1NOF) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-words.dict-corpuswg.errm-hs3.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_CORP) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3HUN) $(DICT_KL_CORP) < $(KL_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-corpuswg.errm-hs3.tsv: $(KL_TEST_WORDS_SMALL) $(DICT_KL_CORP) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3HUN) $(DICT_KL_CORP) < $(KL_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-corpuswg.errm-hs3.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3HUN) $(DICT_KL_CORP) < $(KL_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+
+results/kl/profiles.1-words.dict-corpuswg.errm-hs3.tsv: $(KL_TEST_WORDS_ONE) $(DICT_KL_CORP) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3HUN) $(DICT_KL_CORP) < $(KL_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-corpuswg.errm-hs3.tsv: $(KL_TEST_NONWORDS_LARGE) $(DICT_KL_CORP) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3HUN) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-corpuswg.errm-hs3.tsv: $(KL_TEST_NONWORDS_SMALL) $(DICT_KL_CORP) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3HUN) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-corpuswg.errm-hs3.tsv: $(KL_TEST_NONWORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3HUN) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-corpuswg.errm-hs3.tsv: $(KL_TEST_NONWORDS_ONE) $(DICT_KL_CORP) $(ERRM_KL_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_3HUN) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-words.dict-corpuswg.errm-hs2.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_CORP) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2HUN) $(DICT_KL_CORP) < $(KL_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-corpuswg.errm-hs2.tsv: $(KL_TEST_WORDS_SMALL) $(DICT_KL_CORP) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2HUN) $(DICT_KL_CORP) < $(KL_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-corpuswg.errm-hs2.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2HUN) $(DICT_KL_CORP) < $(KL_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-words.dict-corpuswg.errm-hs2.tsv: $(KL_TEST_WORDS_ONE) $(DICT_KL_CORP) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2HUN) $(DICT_KL_CORP) < $(KL_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-corpuswg.errm-hs2.tsv: $(KL_TEST_NONWORDS_LARGE) $(DICT_KL_CORP) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2HUN) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-corpuswg.errm-hs2.tsv: $(KL_TEST_NONWORDS_SMALL) $(DICT_KL_CORP) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2HUN) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-corpuswg.errm-hs2.tsv: $(KL_TEST_NONWORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2HUN) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-corpuswg.errm-hs2.tsv: $(KL_TEST_NONWORDS_ONE) $(DICT_KL_CORP) $(ERRM_KL_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_2HUN) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-words.dict-corpuswg.errm-hs1.tsv: $(KL_TEST_WORDS_LARGE) $(DICT_KL_CORP) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1HUN) $(DICT_KL_CORP) < $(KL_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-words.dict-corpuswg.errm-hs1.tsv: $(KL_TEST_WORDS_SMALL) $(DICT_KL_CORP) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1HUN) $(DICT_KL_CORP) < $(KL_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-words.dict-corpuswg.errm-hs1.tsv: $(KL_TEST_WORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1HUN) $(DICT_KL_CORP) < $(KL_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-words.dict-corpuswg.errm-hs1.tsv: $(KL_TEST_WORDS_ONE) $(DICT_KL_CORP) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1HUN) $(DICT_KL_CORP) < $(KL_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-corpuswg.errm-hs1.tsv: $(KL_TEST_NONWORDS_LARGE) $(DICT_KL_CORP) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1HUN) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-corpuswg.errm-hs1.tsv: $(KL_TEST_NONWORDS_SMALL) $(DICT_KL_CORP) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1HUN) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/kl/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-corpuswg.errm-hs1.tsv: $(KL_TEST_NONWORDS_TINY) $(DICT_KL_CORP) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1HUN) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/kl/profiles.1-nonwords.dict-corpuswg.errm-hs1.tsv: $(KL_TEST_NONWORDS_ONE) $(DICT_KL_CORP) $(ERRM_KL_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_KL_1HUN) $(DICT_KL_CORP) < $(KL_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
 # }}}
 
 # {{{ Greenlandic profilng tests for other spellers
