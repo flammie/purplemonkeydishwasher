@@ -1,25 +1,24 @@
 \documentclass[11pt]{article}
-\usepackage{eacl2009}
-\usepackage{times}
-%\usepackage{url}
+% not using EACL on post publication release
+%\usepackage{eacl2009}
+\usepackage{fontspec}
+\usepackage{url}
 \usepackage{latexsym}
-% my additions to EACL –TAP
-\usepackage{ifpdf}
-\usepackage[utf8]{inputenc}
 \usepackage{hyperref}
+\usepackage{xltxtra}
 
-\setlength\titlebox{6.5cm} % You can expand the title box if you
+% \setlength\titlebox{6.5cm} % You can expand the title box if you
 % really have to
 
-\ifpdf
-\pdfinfo{
-  /Author (Krister Linden and Tommi Pirinen
-  /Title (Weighted Finite-State Morphological Analysis of Finnish Inflection and Compounding)
-  /CreationDate (D:20090101123456)
-  /Subject (Finite-State Morphology)
-  /Keywords (FSM;FST;Morphology)
+\hypersetup{
+    pdfinfo={
+        Author={Krister Linden and Tommi Pirinen},
+        Title={Weighted Finite-State Morphological Analysis of Finnish Inflection and Compounding},
+        CreationDate={D:20090101123456},
+        Subject={Finite-State Morphology},
+        Keywords={FSM;FST;Morphology}
+    }
 }
-\fi
 
 
 \title{Weighted Finite-State Morphological Analysis\\
@@ -29,7 +28,7 @@
 \author{Krister Lindén\\
   University of Helsinki\\
   Helsinki, Finland\\
-  {\tt Krister.Linden@helsinki.fi} \And
+  {\tt Krister.Linden@helsinki.fi} \and
   Tommi Pirinen\\
   University of Helsinki\\
   Helsinki, Finland\\
@@ -55,7 +54,9 @@
   one tool. On our Finnish test corpus, the best method succeeds with
   99,98 \% precision and recall.
   \footnote{This is author's draft; it may differ from print version.
-  This paper was published in Proceedings of Nodalida 2009}
+  This paper was published in Proceedings of Nodalida 2009. Specifically,
+  this version does not use the eacl style, and uses \XeLaTeX{} and other
+  modern \TeX Live parts, as well as hyperrefs.}
 \end{abstract}
 
 \section{Introduction}
@@ -68,7 +69,7 @@ dictionary \cite{kotus/2007}.
 
 There have been various attempts at curbing the potential
 combinatorial explosion of segmentations that a prolific compounding
-mechanism produces. Karlsson \shortcite{karlsson/1992} showed that for
+mechanism produces. Karlsson \cite{karlsson/1992} showed that for
 Swedish the most significant factor in disambiguating compounds was
 the counting of the number of parts in the analysis, where the
 analysis with the fewest parts almost always was the best
@@ -94,16 +95,16 @@ i.e. high-frequency words should in general have more compounds.
 In addition, we suggest that the special penalty suggested by Karlsson
 and maintained by Schiller is unnecessary when framing the problem in
 a probabilistic framework. This has also been suggested by others, see
-e.g. Marek \shortcite{marek/2006}. However, this is the first time the
+e.g. Marek \cite{marek/2006}. However, this is the first time the
 disambiguation principles of Karlsson and of Schiller are compared
 with a fully probabilistic approach on the same corpus.
 
 Previously, there has been no publicly available general framework for
 conveniently integrating both a full-fledged morphological description
 and for representing probabilities for general morphological compound
-and inflectional analysis. Karlsson \shortcite{karlsson/1992} used
+and inflectional analysis. Karlsson \cite{karlsson/1992} used
 applied a post-processing phase to count the parts, and Schiller
-\shortcite{schiller/2005} used the proprietary weighted finite-state compiler
+\cite{schiller/2005} used the proprietary weighted finite-state compiler
 of Xerox \cite{kempe/2003}, which compiles regular expressions. We
 therefore introduce the open source software tool
 \textsc{hfst-lexc}\footnote{\url{http://kitwiki.csc.fi/twiki/bin/view/KitWiki/HfstLexC}},
@@ -156,7 +157,7 @@ and not considered in this paper.
 \section{Morphological analysis of Finnish}
 \label{Sect2}
 
-Pirinen \shortcite{pirinen/2008} presented an open source
+Pirinen \cite{pirinen/2008} presented an open source
 implementation of a finite state morphological analyzer for Finnish.
 We use that implementation as a baseline for the compounding analysis
 as Pirinen's analyzer has a fully productive compounding
@@ -315,8 +316,8 @@ LEXICON ##
 \end{small}
 \end{figure*}
 
-According to Karlsson~\shortcite{karlsson/1992} and
-Schiller~\shortcite{schiller/2005}, we may need to ensure that the
+According to Karlsson~\cite{karlsson/1992} and
+Schiller~\cite{schiller/2005}, we may need to ensure that the
 weight of the compound segmentation \emph{ab} of a word always is
 greater than the weight of a non-compound analysis \emph{c} of the
 same word, so for compounds we use Equation~\ref{eqn:compoundweight},
@@ -377,7 +378,7 @@ LEXICON ##
 \end{figure*}
 
 In order to compare with the original principle suggested by
-Karlsson~\shortcite{karlsson/1992}, we create a third lexicon for which
+Karlsson~\cite{karlsson/1992}, we create a third lexicon for which
 structural weights are placed on the compound borders only, so for
 compounds we use Equation~\ref{eqn:compoundmaxweight}.
 
@@ -553,7 +554,7 @@ high number of very short one-syllable words which interfere with the
 compounding, whereas Finnish is more restricted in the number of short
 words. Scandinavian languages are similar to German in that they have
 a number of short one-syllable nouns. Using probabilistic approach with
-swedish compound disambiguation is demonstrated in \shortcite{sjobergh/2004},
+swedish compound disambiguation is demonstrated in \cite{sjobergh/2004},
 which shows results of 86 \% accuracy of compound segmenting when using
 compound component frequencies and 90 \% for number of compound components.
 However, it is a question for
@@ -582,7 +583,7 @@ This research was funded by the Finnish Academy and the Finnish
 Ministry of Education. We are also grateful to the HFST-Helsinki
 Finite State Technology research team and to the anonymous reviewers.
 
-\bibliographystyle{acl}
+\bibliographystyle{unsrt}
 \bibliography{hfst-all}
 
 \end{document}
