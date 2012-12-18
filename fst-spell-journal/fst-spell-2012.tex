@@ -10,7 +10,7 @@
 \usepackage{xltxtra}
 \usepackage{url}
 
-\usepackage{todonotes}
+\usepackage[obeyDraft]{todonotes}
 \usepackage{ifpdf}
 
 \usepackage{multirow}
@@ -1141,8 +1141,8 @@ contrast these results to the speed gains shown in the corresponding table
         \bf North Sámi w/ 2 errors & 3.5 & 3.5 & 3.5 & 0.0 & 3.5 & 3.5 \\
         \bf North Sámi w/ 2 nonfirst errors & 3.5 & 3.5 & 3.5 & 0.0 & 3.5 & 0.0\\
         \hline
-        \bf Greenlandic foma &  \\
-        \hline
+%        \bf Greenlandic foma &  \\
+%        \hline
           \bf Greenlandic w/ 1 error & 13.3 & 2.2 & 6.7 & 2.2 & 0.0 & 8.9 \\
  \bf Greenlandic w/ 1 nonfirst error & 13.3 & 2.2 & 6.7 & 2.2 & 0.0 & 8.9 \\
          \bf Greenlandic w/ 2 errors & 13.3 & 6.7 & 4.4 & 0.0 & 0.0 & 35.6 \\
@@ -1194,14 +1194,14 @@ commercial world. For this comparison we have only used a subset of corrections
 since the commercial systems do not allow for automated evaluations and
 this has been made by hand. 
 
-The results are summarised in the graph~\ref{fig:quality}.
-
-\begin{figure}
-    \centering
-    \missingfigure{This is gonna be a cool R plot}
-    \caption{A plot of dubious quality
-    \label{fig:quality}}
-\end{figure}
+%The results are summarised in the graph~\ref{fig:quality}.
+%
+%\begin{figure}
+%    \centering
+%    \missingfigure{This is gonna be a cool R plot}
+%    \caption{A plot of dubious quality
+%    \label{fig:quality}}
+%\end{figure}
 
 
 \subsection{Speed Evaluation}
@@ -1245,12 +1245,12 @@ chapter, which shows clearly the trade-off between speed and quality.
 
           \bf English (A)FSA & 0.1 & 1,007 & 1,260 \\
         \hline
-        \bf English w/ 1 error     & 0.24  & 6,493  & 6,578 \\
- \bf English w/ 1 non-first error  & 0.20  & 17,857 & 17,857  \\
- \bf English w/ 1 hunspell error   & 0.08  & 13,956 & 18,758  \\
-     \bf English w/ 2 errors       & 0.24  & 138    & 139  \\
- \bf English w/ 2 non-first errors & 0.12  & 943    & 952 \\
- \bf English w/ 2 hunspell errors  & 0.08  & 1,005  & 1,282 \\
+        \bf English w/ 1 error     & 0.06  & 5,721  & 6,559 \\
+ \bf English w/ 1 non-first error  & 0.20  & 16,474 & 17,911  \\
+ \bf English w/ 1 hunspell error   & 0.08  & 13,796 & 18,684  \\
+     \bf English w/ 2 errors       & 0.20  & 137    & 145  \\
+ \bf English w/ 2 non-first errors & 0.12  & 957    & 936 \\
+ \bf English w/ 2 hunspell errors  & 0.08  & 999    & 1,393 \\
    \bf English w/ 3 errors         & 0.84  & 7      & 6    \\
  \bf English w/ 3 non-first errors & 0.16  & 100    & 104  \\
  \bf English w/ 3 hunspell errors  & 0.12  & 120    & 162  \\
@@ -1266,17 +1266,17 @@ chapter, which shows clearly the trade-off between speed and quality.
 %\bf Finnish w/ 1 non-first error  & 1.0  & 75   & 303 & 307 & 90 & 1,886 & \\
 %\bf Finnish w/ 2 non-first errors & 8.2  & 0.3  & --- & --- & 0.6 & --- & --- \\
 %        \hline
-   \bf North Sámi hunspell & & & \\
-        \bf North Sámi WP  & & & \\
-        \bf North Sámi FSA & & & \\
+   \bf North Sámi hunspell & 4.51 & 3 & 2 \\
+%        \bf North Sámi WP  & & & \\
+%        \bf North Sámi AFSA & & & \\
         \hline
-        \bf North Sámi w/ 1 error    & 0.28 & 2,304 & 2,857 \\
-\bf North Sámi w/ 1 non-first error  & 0.27 & 5,025 & 8,000 \\
+        \bf North Sámi w/ 1 error    & 0.28 & 2,304 & 2,839 \\
+\bf North Sámi w/ 1 non-first error  & 0.27 & 5,025 & 7,898 \\
        \bf North Sámi w/ 2 errors    & 0.31 & 13    & 30    \\
 \bf North Sámi w/ 2 non-first errors & 0.28 & 22    & 70    \\
         \hline
         \bf Greenlandic WP    & 0.1  & 526 & 555\\
-       \bf Greenlandic FSA    & 5.22 & 0.12 & 0.33 \\
+%       \bf Greenlandic AFSA    &  & &  \\
         \hline
         \bf Greenlandic w/ 1 error    & 1.27 & 49 & 142 \\
 \bf Greenlandic w/ 1 non-first error  & 1.25 & 85 & 416 \\
@@ -1288,21 +1288,32 @@ chapter, which shows clearly the trade-off between speed and quality.
         correction \label{table:speed}}
 \end{table}
 
-In the next figure~\ref{fig:speed-quality} we show the plot of
-different optimisations in speed-quality scale, on the vertical axis the models
-covering the errors and on the horizontal axis the quality in \% units. The
-selection of the optimal combination depends on the usage goals, e.g. for the
-offline processing the quality should be optimised while interactive user
-interfaces may benefit to emphasize the speed over the certain quality
-threshold.
+When we compare the results of our systems against the respective non-fst
+solutions, we can see that against hunspell we gain measurable improvement
+all over the board. The only software solution beating FSTs is aspell, that
+has been engineered for English with the specific metaphone solutions and
+whatnot, our FST only comes in the same ballpark given the optimised 1 error
+models. The figures for higher order models for English are usable as online
+spell-checkers just as well, with average feedback time of seventh of second
+for error correction at distance of 3, when generating all possibilities. It
+is also noteworthy that the Greenlandic models are sufficient for online use
+at standard edit distance 2 error model.
 
-\begin{figure}
-    \centering
-    \missingfigure{R-plot of Y:quality, X:ed1nf,ed1,ed2nf,ed2,... and language
-    lines}
-    \caption{A plot of dubious quality
-    \label{fig:speed-quality}}
-\end{figure}
+%In the next figure~\ref{fig:speed-quality} we show the plot of
+%different optimisations in speed-quality scale, on the vertical axis the models
+%covering the errors and on the horizontal axis the quality in \% units. The
+%selection of the optimal combination depends on the usage goals, e.g. for the
+%offline processing the quality should be optimised while interactive user
+%interfaces may benefit to emphasize the speed over the certain quality
+%threshold.
+%
+%\begin{figure}
+%    \centering
+%    \missingfigure{R-plot of Y:quality, X:ed1nf,ed1,ed2nf,ed2,... and language
+%    lines}
+%    \caption{A plot of dubious quality
+%    \label{fig:speed-quality}}
+%\end{figure}
 
 \subsection{Error Analysis}
 \label{subsec:error-analysis}
