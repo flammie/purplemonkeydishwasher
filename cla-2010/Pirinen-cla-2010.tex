@@ -1,0 +1,993 @@
+\documentclass[a4paper,conference]{IEEEtran}
+
+
+\IEEEoverridecommandlockouts
+
+\ifCLASSINFOpdf
+% \usepackage[pdftex]{graphicx}
+% declare the path(s) where your graphic files are
+% \graphicspath{{../pdf/}{../jpeg/}}
+% and their extensions so you won't have to specify these with
+% every instance of \includegraphics
+% \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+% or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+% will default to the driver specified in the system graphics.cfg if no
+% driver is specified.
+% \usepackage[dvips]{graphicx}
+% declare the path(s) where your graphic files are
+% \graphicspath{{../eps/}}
+% and their extensions so you won't have to specify these with
+% every instance of \includegraphics
+% \DeclareGraphicsExtensions{.eps}
+\fi
+
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{algorithm}
+\usepackage{algorithmic}[2]
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+\usepackage[cmex10]{amsmath}
+
+\lstset{stepnumber=2,numbers=left,extendedchars=true,escapeinside={|-}{-|},gobble=4}
+
+\begin{document}
+
+\title{Building and Using Existing Hunspell Dictionaries and \TeX\ Hyphenators
+  as Finite-State Automata}
+
+\author{\IEEEauthorblockN{Tommi A Pirinen, Krister Lind\'{e}n}
+  \IEEEauthorblockA{University of Helsinki,\\
+    Department of Modern Languages\\
+    Unionkatu 40, FI-00014 University of Helsinki, Finland\\
+    Email: \{tommi.pirinen,krister.linden\}@helsinki.fi}
+}
+
+\IEEEspecialpapernotice{(Authors' pre-print draft version)}
+% make the title area
+\maketitle
+
+\begin{abstract}
+  There are numerous formats for writing spell-checkers for
+  open-source systems and there are many descriptions for languages
+  written in these formats. Similarly, for word hyphenation by
+  computer there are \TeX\ rules for many languages. In this paper we
+  demonstrate a method for converting these spell-checking lexicons
+  and hyphenation rule sets into finite-state automata, and present a
+  new finite-state based system for writer's tools used in current
+  open-source software such as Firefox, OpenOffice.org and enchant via
+  the spell-checking library voikko.
+\end{abstract}
+
+
+\section{Introduction}
+\label{sec:introduction}
+
+\IEEEPARstart{C}{urrently} there is a wide range of different free open-source
+solutions for spell-checking and hyphenation by computer. For
+hyphenation the ubiquitous solution is the original \TeX\ algorithm
+described in \cite{liang/1983}.  The most popular of the spelling
+dictionaries are the various instances of *spell software, i.e.
+ispell\footnote{\url{http://www.lasr.cs.ucla.edu/geoff/ispell.html}},
+aspell\footnote{\url{http://aspell.net}}, myspell and
+hunspell\footnote{\url{http://hunspell.sf.net}} and other *spell
+derivatives.  The \TeX\ hyphenation patterns are readily available on
+the Internet to cover some 49 languages. The hunspell dictionaries
+provided with the OpenOffice.org suite cover 98 languages.
+
+The program-based spell-checking methods have their limitations
+because they are based on specific program code that is extensible
+only by coding new features into the system and getting all users to
+upgrade. E.g. hunspell has limitations on what affix morphemes you can
+attach to word roots with the consequence that not all languages with
+rich inflectional morphologies can be conveniently implemented in
+hunspell. This has already resulted in multiple new pieces of software
+for a few languages with implementations to work around the
+limitations, e.g.  emberek (Turkish), hspell (Hebrew), uspell
+(Yiddish) and voikko (Finnish). What we propose is to use a generic
+framework of finite-state automata for these tasks. With finite-state
+automata it is possible to implement the spell-checking functionality
+as a one-tape weighted automaton containing the language model and a
+two-tape weighted automaton containing the error model. This also
+allows simple use of unigram training for optimizing spelling suggestion
+results \cite{conf/lrec/Pirinen2010}. With this model, extensions to
+context-based n-gram models for real-word spelling error problems
+\cite{DBLP:conf/cicling/Wilcox-OHearnHB08} are also possible.
+
+We also provide a method for integrating the finite-state spell-checking
+and hyphenation into applications using an open-source spell-checking
+library voikko\footnote{\url{http://voikko.sf.net}}, which provides a
+connection to typical open-source software, such as Mozilla Firefox,
+OpenOffice.org and the Gnome desktop via enchant.
+
+\section{Definitions}
+\label{sec:definitions}
+
+In this article we use weighted two-tape finite-state automata---or
+weighted finite-state transducers---for all processing. We use the
+following symbol conventions to denote the parts of a weighted
+finite-state automaton: a transducer $T = (\Sigma, \Gamma, Q, q_0,
+Q_f, \delta, \rho)$ with a semi-ring $(S, \oplus, \otimes,
+\overline{0}, \overline{1})$ for weights. Here $\Sigma$ is a set with
+the input tape alphabet, $\Gamma$ is a set with the output tape
+alphabet, $Q$ a finite set of states in the transducer, $q_0 \in Q$ is
+an initial state of the transducer, $Q_f \subset Q$ is a set of finite
+states, $\delta: Q \times \Sigma \times \Gamma \times S \rightarrow Q$
+is a transition relation, $\rho: Q_f \rightarrow S$ is a final weight
+function. A successful path is a list of transitions from an initial
+state to a final state with a weight different from $\overline{0}$
+collected from the transition function and the final state function in
+the semi-ring $S$ by the operation $\otimes$. We typically denote a
+successful path as a concatenation of input symbols, a colon and a
+concatenation of output symbols. The weight of the successful path is
+indicated as a subscript in angle brackets,
+$\textit{input:output}_{<w>}$. A path transducer is denoted by
+subscripting a transducer with the path.  If the input and output
+symbols are the same, the colon and the output part can be omitted.
+
+The finite-state formulation we use in this article is based on Xerox
+formalisms for finite-state methods in natural language processing
+\cite{beesley/2003}, in practice lexc is a formalism for writing right linear
+grammars using morpheme sets called lexicons. Each morpheme in a lexc grammar
+can define their right follower lexicon, creating a finite-state network called
+a \emph{lexical transducer}. In formulae, we denote a lexc style lexicon named $X$ as
+$Lex_X$ and use the shorthand notation $Lex_X \cup \textit{input:output Y}$ to
+denote the addition of a lexc string or morpheme, \texttt{input:output Y ;} to
+the \texttt{LEXICON X}.  In the same framework, the twolc formalism is used to
+describe context restrictions for symbols and their realizations in the form of
+parallel rules as defined in the appendix of \cite{beesley/2003}. We use
+$Twol_Z$ to denote the rule set $Z$ and use the shorthand notation $Twol_Z \cap
+\textit{a:b} \leftrightarrow \textit{l e f t} \_ \textit{r i g h t}$ to denote
+the addition of a rule string \texttt{a:b <=> l e f t \_ r i g h t ;} to the
+rule set $Z$, effectively saying that \textit{a:b} only applies in
+the specified context.
+
+A spell-checking dictionary is essentially a single-tape finite-state
+automaton or a language model $T_L$, where the alphabet $\Sigma_L =
+\Gamma_L$ are characters of a natural language. The successful paths
+define the correctly spelled word-forms of the language
+\cite{conf/lrec/Pirinen2010}. If the spell-checking automaton is
+weighted, the weights may provide additional information on a word's
+correctness, e.g. the likelihood of the word being correctly spelled
+or the probability of the word in some reference corpus. The
+spell-checking of a word $s$ is performed by creating a path automaton
+$T_s$ and composing it with the language model, $T_s \circ T_L$. A
+result with the successful path $s_{<W>}$, where $W$ is greater than
+some threshold value, means that the word is correctly spelled. As the
+result is not needed for further processing as an automaton and as the language model
+automaton is free of epsilon cycles, the spell-checking can be
+optimized by performing a simple traversal (lookup) instead, which
+gives a significant speed-advantage over full composition
+\cite{conf/fsmnlp/Silfverberg2009}.
+
+A spelling correction model or an error model $T_E$ is a two-tape
+automaton mapping the input text strings of the text to be
+spell-checked into strings that may be in the language model. The
+input alphabet $\Sigma_E$ is the alphabet of the text to be
+spell-checked and the output alphabet is $\Gamma_E = \Sigma_L$. For
+practical applications, the input alphabet needs to be extended by a
+special any symbol with the semantics of a character not belonging to
+the alphabet of the language model in order to account for input text
+containing typos outside the target natural language alphabet. The
+error model can be composed with the language model, $T_L \circ T_E$,
+to obtain an error model that only produces strings of the target
+language. For space efficiency, the composition may be carried out
+during run-time using the input string to limit the search space. The
+weights of an error model may be used as an estimate for the likelihood of the
+combination of errors. The error model is applied as a filter between
+the path automaton $T_s$ compiled from the erroneous string, $s \notin
+T_L$, and the language model, $T_L$, using two compositions, $T_s
+\circ T_E \circ T_L$. The resulting transducer consists of a
+potentially infinite set of paths relating an incorrect string with
+correct strings from $L$. The paths, $s:s^i_{<w_i>}$, are weighted by
+the error model and language model using the semi-ring multiplication
+operation, $\otimes$. If the error model and the language model
+generate an infinite number of suggestions, the best suggestions may
+be efficiently enumerated with some variant of the n-best-paths
+algorithm \cite{mohri/2002}. For automatic spelling corrections, the
+best path may be used. If either the error model or the language model
+is known to generate only a finite set of results, the suggestion
+generation algorithm may be further optimized.
+
+A hyphenation model $T_H$ is a two-tape automaton mapping input text
+strings of the text to be hyphenated to possibly hyphenated strings of
+the text, where the input alphabet, $\Sigma_E$, is the alphabet of the
+text to be hyphenated and the output alphabet, $\Gamma_E$, is
+$\Sigma_E \cup H$, where $H$ is the set of symbols marking hyphenation
+points. For simple applications, this equals hyphens or discretionary
+(soft) hyphens $H = {-}$. For more fine-grained control over
+hyphenation, it is possible to use several different hyphens or
+weighted hyphens.  Hyphenation of the word $s$ is performed with the
+path automaton $T_s$ by composing, $T_s \circ T_H$, which results in
+an acyclic path automaton containing a set of strings mapped to the
+hyphenated strings with weights $s:s^h_{<w_h>}$. Several alternative hyphenations
+may be correct according to the hyphenation rules. A conservative hyphenation algorithm
+should only suggest the hyphenation points agreed on by all the alternatives.
+
+\section{Material}
+\label{sec:material}
+
+In this article we present methods for converting the hunspell and
+\TeX\ dictionaries and rule sets for use with open-source finite-state
+writer's tools.  As concrete dictionaries we use the repositories of
+free implementations of these dictionaries and rule sets found on the
+internet, e.g. for the hunspell dictionary files found on the
+OpenOffice.org spell-checking
+site\footnote{\url{http://wiki.services.openoffice.org/wiki/Dictionaries}}.
+For hyphenation, we use the \TeX\ hyphenation patterns found on the
+\TeX hyphen page\footnote{\url{http://www.tug.org/tex-hyphen/}}.
+
+In this section we describe the parts of the file formats we are
+working with. All of the information of the hunspell format specifics
+is derived from the
+\texttt{hunspell(4)}\footnote{\url{http://manpages.ubuntu.com/manpages/dapper/man4/hunspell.4.html}}
+man page, as that is the only normative documentation of hunspell we
+have been able to locate. For \TeX\ hyphenation patterns, the
+reference documentation is Frank Liang's doctoral thesis
+\cite{liang/1983} and the \TeX book \cite{knuth/1986}.
+
+\subsection{Hunspell File Format}
+\label{subsec:material-hunspell}
+
+A hunspell spell-checking dictionary consists of two files: a
+dictionary file and an affix file. The dictionary file contains only
+root forms of words with information about morphological affix classes
+to combine with the roots.  The affix file contains lists of affixes
+along with their context restrictions and effects, but the affix file
+also serves as a settings file for the dictionary, containing all
+meta-data and settings as well.
+
+The dictionary file starts with a number that is intended to be the
+number of lines of root forms in the dictionary file, but in practice
+many of the files have numbers different from the actual line count,
+so it is safer to just treat it as a rough estimate. Following the
+initial line is a list of strings containing the root forms of the
+words in the morphology. Each word may be associated with an arbitrary
+number of classes separated by a slash. The classes are encoded in one
+of the three formats shown in the examples of
+Figure~\ref{fig:hunspell-dic-examples}: a list of binary octets
+specifying classes from 1--255 (minus octets for CR, LF etc.), as in
+the Swedish example on lines
+\ref{vrb:hunspelldicsvstart}--\ref{vrb:hunspelldicsvend}, a list of
+binary words, specifying classes from 1--65,535 (again ignoring octets
+with CR and LF) or a comma separated list of numbers written in digits
+specifying classes 1--65,535 as in the North Sámi examples on lines
+\ref{vrb:hunspelldicsestart}--\ref{vrb:hunspelldicseend}. We refer to
+all of these as continuation classes encoded by their numeric decimal
+values, e.g. 'abakus' on line \ref{vrb:hunspelldicsvstart} would have
+continuation classes 72, 68 and 89 (the decimal values of the ASCII
+code points for H, D and Y respectively). In the Hungarian example,
+you can see the affix compression scheme, which refers to the line
+numbers in the affix file containing the continuation class listings,
+i.e. the part following the slash character in the previous two
+examples. The lines of the Hungarian dictionary also contain some
+extra numeric values separated by a tab which refer to the morphology
+compression scheme that is also mentioned in the affix definition
+file; this is used in the hunmorph morphological analyzer
+functionality which is not implemented nor described in this paper.
+
+\begin{figure}[tbp]
+  \centering
+  \begin{lstlisting}
+    # Swedish
+    abakus/HDY|-\label{vrb:hunspelldicsvstart}-|
+    abalienation/AHDvY
+    abalienera/MY|-\label{vrb:hunspelldicsvend}-|
+    # Northern S|-\'{a}-|mi
+    okta/1|-\label{vrb:hunspelldicsestart}-|
+    guokte/1,3
+    golbma/1,3|-\label{vrb:hunspelldicseend}-|
+    # Hungarian
+    |-\"{u}-|z|-\'{e}-|r/1  1|-\label{vrb:hunspelldichustart}-|
+    |-\"{u}-|zlet|-\'{a}-|g/2       2
+    |-\"{u}-|zletvezet|-\"{o}-|/3   1
+    |-\"{u}-|zletszerz|-\"{o}-|/4   1|-\label{verb:hunspelldichuend}-|
+  \end{lstlisting}
+  \caption{Excerpts of Swedish, Northern S|-\'{a}-|mi and Hungarian dictionaries}
+  \label{fig:hunspell-dic-examples}
+\end{figure}
+
+The second file in the hunspell dictionaries is the affix file,
+containing all the settings for the dictionary, and all non-root
+morphemes. The Figure~\ref{fig:hunspell-aff-examples} shows parts of
+the Hungarian affix file that we use for describing different setting
+types.  The settings are typically given on a single line composed of
+the setting name in capitals, a space and the setting values, like the
+NAME setting on line~\ref{vrb:hunspellaffname}. The hunspell files
+have some values encoded in UTF-8, some in the ISO 8859 encoding, and
+some using both binary and ASCII data at the same time. Note that in the examples in this article, we have
+transcribed everything into UTF-8 format or the nearest relevant encoded
+character with a displayable code point.
+
+The settings we have used for building the spell-checking automata can
+be roughly divided into the following four categories: meta-data, error
+correction models, special continuation classes, and the actual
+affixes. An excerpt of the parts that we use in the Hungarian affix file
+is given in Figure~\ref{fig:hunspell-aff-examples}.
+
+The meta-data section contains, e.g., the name of the dictionary on
+line~\ref{vrb:hunspellaffname}, the character set encoding on
+line~\ref{vrb:hunspellaffset}, and the type of parsing used for
+continuation classes, which is omitted from the Hungarian lexicon
+indicating 8-bit binary parsing.
+
+The error model settings each contain a small part of the actual error
+model, such as the characters to be used for edit distance, their weights,
+confusion sets and phonetic confusion sets. The list of word
+characters in order of popularity, as seen on
+line~\ref{vrb:hunspellafftry} of
+Figure~\ref{fig:hunspell-aff-examples}, is used for the edit distance
+model. The keyboard layout, i.e. neighboring key sets, is specified
+for the substitution error model on
+line~\ref{vrb:hunspellaffkey}. Each set of the characters, separated by
+vertical bars, is regarded as a possible slip-of-the-finger typing
+error. The ordered confusion set of possible spelling error pairs is
+given on
+lines~\ref{vrb:hunspellaffrepstart}--\ref{vrb:hunspellaffrepend},
+where each line is a pair of a `mistyped' and a `corrected' word
+separated by whitespace.
+
+The compounding model is defined by special continuation classes,
+i.e. some of the continuation classes in the dictionary or affix file
+may not lead to affixes, but are defined in the compounding section of
+the settings in the affix file. In
+Figure~\ref{fig:hunspell-aff-examples}, the compounding rules are
+specified on
+lines~\ref{vrb:hunspellaffcompoundstart}--\ref{vrb:hunspellaffcompoundend}. The
+flags in these settings are the same as in the affix definitions, so
+the words in class 118 (corresponding to lower case v) would be
+eligible as compound initial words, the words with class 120 (lower
+case x) occur at the end of a compound, and words with 117 only occur
+within a compound. Similarly, special flags are given to word forms
+needing affixes that are used only for spell checking but not for the
+suggestion mechanism, etc.
+
+The actual affixes are defined in three different parts of the file:
+the compression scheme part on the
+lines~\ref{vrb:hunspellaffafstart}--\ref{vrb:hunspellaffafend}, the
+suffix definitions on the
+lines~\ref{vrb:hunspellaffsfxstart}--\ref{vrb:hunspellaffsfxend}, and
+the prefix definitions on the
+lines~\ref{vrb:hunspellaffpfxstart}--\ref{vrb:hunspellaffpfxend}.
+
+The compression scheme is a grouping of frequently co-occurring
+continuation classes. This is done by having the first AF line list a
+set of continuation classes which are referred to as the continuation
+class 1 in the dictionary, the second line is referred to the
+continuation class 2, and so forth. This means that for example
+continuation class 1 in the Hungarian dictionary refers to the classes
+on line~\ref{vrb:hunspellaffafone} starting from 86 (V) and ending
+with 108 (l).
+
+The prefix and suffix definitions use the same structure. The prefixes
+define the left-hand side context and deletions of a dictionary entry
+whereas the suffixes deal with the right-hand side. The first line of
+an affix set contains the class name, a boolean value defining whether
+the affix participates in the prefix-suffix combinatorics and the
+count of the number of morphemes in the continuation class, e.g. the
+line \ref{vrb:hunspellaffpfxstart} defines the prefix continuation
+class attaching to morphemes of class 114 (r) and it combines with
+other affixes as defined by the Y instead of N in the third field. The
+following lines describe the prefix morphemes as triplets of removal,
+addition and context descriptions, e.g., the line
+\ref{vrb:hunspellaffsfxone} defines removal of 'ö', addition of
+'\H{o}s' with continuation classes from AF line 1108, in case the
+previous morpheme ends in 'ö'. The context description may also
+contain bracketed expressions for character classes or a fullstop
+indicating any character (i.e. a wild-card) as in the POSIX regular
+expressions, e.g. the context description on line
+\ref{vrb:hunspellaffsfxend} matches any Hungarian vowel except a, e or
+ö, and the \ref{vrb:hunspellaffpfxend} matches any context.  The
+deletion and addition parts may also consist of a sole `0' meaning a
+zero-length string. As can be seen in the Hungarian example, the lines
+may also contain an additional number at the end which is used for the
+morphological analyzer functionalities.
+
+\begin{figure}[tbp]
+  \centering
+  \begin{lstlisting}
+    AF 1263 |-\label{vrb:hunspellaffafstart}-|
+    AF V|-\"{E}-|-jxLn|-\'{O}-||-\'{e}-||-\`{e}-|3|-\"{A}-||-\"{a}-|TtYc,4l # 1 |-\label{vrb:hunspellaffafone}-|
+    AF Um|-\"{O}-|yiYc|-\c{C}-| # 2
+    AF |-\"{O}-|CWR|-\'{I}-|-j|-\th-||-\'{O}-||-\'{i}-|y|-\'{E}-||-\'{A}-||-\"{y}-|Yc2 # 3 |-\label{vrb:hunspellaffafend}-|
+
+    NAME Magyar Ispell helyes|-\'{i}-|r|-\'{a}-|si sz|-\'{o}-|t|-\'{a}-|r     |-\label{vrb:hunspellaffname}-|
+    LANG hu_HU     |-\label{vrb:hunspellafflang}-|
+    SET UTF-8     |-\label{vrb:hunspellaffset}-|
+    KEY |-\"{o}-||-\"{u}-||-\'{o}-||qwertzuiop|-\H{o}-||-\'{u}-|| # wrap
+        asdfghjkl|-\'{e}-||-\'{a}-||-\H{u}-||-\'{i}-|yxcvbnm        |-\label{vrb:hunspellaffkey}-|
+    TRY |-\'{i}-||-\'{o}-||-\'{u}-|taeslz|-\'{a}-|norhgki|-\'{e}-| # wrap
+        dmy|-\H{o}-|pv|-\"{o}-|bucfj|-\"{u}-|yxwq-.|-\'{a}-|      |-\label{vrb:hunspellafftry}-|
+    
+    COMPOUNDBEGIN v     |-\label{vrb:hunspellaffcompoundstart}-|
+    COMPOUNDEND x     
+    ONLYINCOMPOUND |     |-\label{vrb:hunspellaffcompoundend}-|
+    NEEDAFFIX u     
+    
+    REP 125        |-\label{vrb:hunspellaffrepstart}-|
+    REP |-\'{i}-| i       
+    REP i |-\'{i}-|       
+    REP |-\'{o}-| o       
+    REP oliere oli|-\'{e}-|re
+    REP cc gysz       
+    REP cs ts       
+    REP cs ds       
+    REP ccs ts       |-\label{vrb:hunspellaffrepend}-|
+    # 116 more REP lines
+    
+    SFX ? Y 3 |-\label{vrb:hunspellaffsfxstart}-|
+    SFX ? |-\"{o}-| |-\H{o}-|s/1108 |-\"{o}-| 20973 |-\label{vrb:hunspellaffsfxone}-|
+    SFX ? 0 |-\"{o}-|s/1108 [^a|-\'{a}-|e|-\'{e}-|i|-\'{i}-|o|-\'{o}-||-\"{o}-||-\H{o}-|u|-\"{u}-||-\H{u}-|] 20973
+    SFX ? 0 s/1108 [|-\'{a}-||-\'{e}-|i|-\'{i}-|o|-\'{o}-||-\'{u}-||-\H{o}-|u|-\'{u}-||-\"{u}-||-\H{u}-|-] 20973 |-\label{vrb:hunspellaffsfxend}-|
+    
+    PFX r Y 195 |-\label{vrb:hunspellaffpfxstart}-|
+    PFX r 0 leg|-\'{u}-|jra/1262 . 22551
+    PFX r 0 leg|-\'{u}-|jj|-\'{a}-|/1262 . 22552 |-\label{vrb:hunspellaffpfxend}-|
+    # 193 more PFX r lines
+  \end{lstlisting}
+  \caption{Excerpts from Hungarian affix file}
+  \label{fig:hunspell-aff-examples}
+\end{figure}
+
+\subsection{\TeX\ Hyphenation Files}
+\label{subsec:material-tex}
+
+The \TeX\ hyphenation scheme is described in Frank Liang's
+dissertation \cite{liang/1983}, which provides a packed suffix tree
+structure for storing the hyphenation patterns, which is a special
+optimized finite-state automaton.  This paper merely reformulates the
+finite-state form of the patterns, for the purpose of obtaining a
+general finite-state transducer version of the rules to be combined
+with other pieces of the finite-state writer's tools.  In principle,
+the \TeX\ hyphenation files are like any \TeX\ source files, they may
+contain arbitrary \TeX\ code, and the only requirement is that they
+have the `patterns' command and/or the `hyphenation' command. In
+practice, it is a convention that they do not contain anything else
+than these two commands, as well as a comment section describing the
+licensing and these conventions. The patterns section is a whitespace
+separated list of hyphenation pattern strings. The pattern strings are
+simple strings containing characters of the language as well as
+numbers marking hyphenation points, as shown in
+Figure~\ref{fig:tex-hyph-example}. The odd numbers add a potential
+hyphenation point in the context specified by non-numeric characters,
+and the even numbers remove one, e.g. on line~\ref{vrb:texhyphpat25},
+the hyphen with left context `f' and right context `fis' would be
+removed, and a hyphen with left context `ff' and right context `is' is
+added. The numbers are applied in ascending order.  The full-stop
+character is used to signify a word boundary so the rule on
+line~\ref{vrb:texhyphpatstart} will apply to `ache' but not to
+`headache'. The hyphenation command on
+lines~\ref{vrb:texhyphypstart}--\ref{vrb:texhyphypend} is just a list
+of words with all hyphenation points marked by hyphens. It has higher
+precedence than the rules and it is used for fixing mistakes made
+by the rule set.
+
+\begin{figure}[tbp]
+  \centering
+  \begin{lstlisting}
+    \patterns{
+      .ach4 |-\label{vrb:texhyphpatstart}-|
+      .ad4der
+      .af1t
+      .al3t
+      .am5at
+      f5fin.
+      f2f5is |-\label{vrb:texhyphpat25}-|
+      f4fly
+      f2fy |-\label{vrb:texhyphpatend}-|
+    }
+    \hyphenation{
+      as-so-ciate |-\label{vrb:texhyphypstart}-|
+      
+      project
+      ta-ble |-\label{vrb:texhyphypend}-|
+    }
+    
+  \end{lstlisting}
+  \caption{Excerpts from English \TeX\ hyphenation patterns}
+  \label{fig:tex-hyph-example}
+\end{figure}
+
+\section{Methods}
+\label{sec:methods}
+
+This article presents methods for converting the existing spell-checking
+dictionaries with error models, as well as hyphenators to finite-state
+automata. As our toolkit we use the free open-source HFST
+toolkit\footnote{\url{http://HFST.sf.net}}, which is a general purpose API for
+finite-state automata, and a set of tools for using legacy data, such as Xerox
+finite-state morphologies. For this reason this paper presents the algorithms
+as formulae such that they can be readily implemented using finite-state
+algebra and the basic HFST tools.
+
+The lexc lexicon model is used by the tools for describing parts of the
+morphotactics. It is a simple right-linear grammar for specifying finite-state
+automata described in \cite{beesley/2003,conf/sfcm/Linden2009}. The twolc rule
+formalism is used for defining context-based rules with two-level automata and
+they are described in \cite{koskenniemi/1983,conf/sfcm/Linden2009}.
+
+This section presents both a pseudo-code presentation for the conversion
+algorithms, as well as excerpts of the final converted files from the material
+given in Figures~\ref{fig:hunspell-dic-examples},
+\ref{fig:hunspell-aff-examples} and \ref{fig:tex-hyph-example} of
+Section~\ref{sec:material}.  The converter code is available in the HFST SVN
+repository\footnote{\url{http://hfst.svn.sourceforge.net/viewvc/hfst/trunk/conversion-scripts/}}
+, for those who wish to see the specifics of the implementation in
+lex, yacc, c and python.
+
+\subsection{Hunspell Dictionaries}
+
+The hunspell dictionaries are transformed into a finite-state transducer
+language model by a finite-state formulation consisting of two parts: a lexicon
+and one or more rule sets. The root and affix dictionaries are turned into
+finite-state lexicons in the lexc formalism. The Lexc formalism models the part
+of the morphotax concerning the root dictionary and the adjacent suffixes. The
+rest is encoded by injecting special symbols, called flag diacritics, into the
+morphemes restricting the morpheme co-occurrences by implicit rules that have
+been outlined in \cite{beesley/1998}; the flag diacritics are denoted in lexc
+by at-sign delimited substrings. The affix definitions in hunspell also define
+deletions and context restrictions which are turned into explicit two-level
+rules.
+
+The pseudo-code for the conversion of hunspell files is provided in
+Algorithm~\ref{algo:dic-aff-lex} and excerpts from the conversion of the examples
+in Figures~\ref{fig:hunspell-dic-examples} and \ref{fig:hunspell-aff-examples}
+can be found in Figure~\ref{fig:lexc-twolc-dictionary}. The dictionary file of
+hunspell is almost identical to the lexc root lexicon, and the conversion is
+straightforward. This is expressed on lines~\ref{a}--\ref{b} as simply going
+through all entries and adding them to the root lexicon, as in
+lines~\ref{c}---\ref{d} of the example result. The handling of
+affixes is similar, with the exception of adding flag diacritics for
+co-occurrence restrictions along with the morphemes. This is shown on
+lines~\ref{g}---\ref{h} of the pseudo-code, and applying it will create the
+lines~\ref{e}---\ref{f} of the Swedish example, which does not contain further
+restrictions on suffixes.
+
+To finalize the morpheme and compounding restrictions, the final lexicon in the
+lexc description must be a lexicon checking that all prefixes with forward requirements
+have their requiring flags turned off.
+
+\begin{algorithm}[tbp]
+  \caption{Extracting morphemes from hunspell dictionaries}
+  \label{algo:dic-aff-lex}
+  \begin{algorithmic}[2]
+    \STATE $finalflags \leftarrow \epsilon$
+    \FORALL{lines $morpheme/Conts$ in dic}
+    \STATE $flags \leftarrow \epsilon$
+    \FORALL{$cont$ in $Conts$ \label{a}}
+    \STATE $flags \leftarrow flags + \textit{@C.cont@}$
+    \STATE $Lex_{Conts} \leftarrow Lex_{Conts} \cup \textit{0:[<cont] cont}$
+    \ENDFOR
+    \STATE $Lex_{Root} \leftarrow Lex_{Root} \cup \textit{flags + morpheme Conts}$
+    \ENDFOR \label{b}
+    \FORALL{suffixes $lex, deletions, morpheme/Conts, context$ in aff \label{g}}
+    \STATE $flags \leftarrow \epsilon$
+    \FORALL{$cont$ in $Conts$}
+    \STATE $flags \leftarrow flags + \textit{@C.cont@}$
+    \STATE $Lex_{Conts} \leftarrow Lex_{Conts} \cup \textit{0 cont}$
+    \ENDFOR
+    \STATE $Lex_{lex} \leftarrow Lex_{lex} \cup \textit{flags} + [<lex] + \textit{morpheme Conts}$
+    \FORALL{$del$ in $deletions$}
+    \STATE $lc \leftarrow context + deletions\textrm{ before del}$
+    \STATE $rc \leftarrow deletions \textrm{ after del} + [<lex] + morpheme$
+    \STATE $Twol_{d} \leftarrow Twol_{d} \cap \textit{del:0} \Leftrightarrow \textit{lc \_ rc}$
+    \ENDFOR
+    \STATE $Twol_{m} \leftarrow Twol_{m} \cap [<lex]:0 \Leftrightarrow \textit{context \_ morpheme}$
+    \ENDFOR
+    \FORALL{prefixes $lex, deletions, morpheme/conts, context$ in aff}
+    \STATE $flags \leftarrow \textit{@P.lex@}$
+    \STATE $finalflags \leftarrow finalflags + \textit{@D.lex@}$
+    \STATE $lex \rightarrow prefixes$
+    \COMMENT{othewise as with suffixes, swapping left and right}
+    \ENDFOR \label{h}
+    \STATE $Lex_{end} \leftarrow Lex_{end} \cup \textit{finalflags \#}$
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{figure}[tbp]
+  \centering
+  \begin{lstlisting}
+    LEXICON Root
+        HUNSPELL_pfx ;
+        HUNPELL_dic ;
+    
+    ! swedish lexc
+    LEXICON HUNSPELL_dic |-\label{c}-|
+    @C.H@@C.D@@C.Y@abakus HDY ; 
+    @C.A@@C.H@@C.D@@C.v@@C.Y@abalienation 
+        HUNSPELL_AHDvY ;
+    @C.M@@C.Y@abalienera MY ; |-\label{d}-|
+    
+    LEXICON HDY 
+    0:[<H]    H ;
+    0:[<D]    D ;
+    0:[<Y]    Y ;
+    
+    LEXICON H |-\label{e}-|
+    er  HUNSPELL_end ;
+    ers  HUNSPELL_end ;
+    er  HUNSPELL_end ;
+    ers  HUNSPELL_end ; |-\label{f}-|
+    
+    LEXICON HUNSPELL_end
+    @D.H@@D.D@@D.Y@@D.A@@D.v@@D.m@ # ;
+
+    ! swedish twolc file
+    Rules
+    "Suffix H allowed contexts"
+    %[%<H%]: 0 <=> \ a _ e r ;
+        \ a _ e r s ;
+        a:0 _ e r ;
+        a:0 _ e r s ;
+
+    "a deletion contexts"
+    a:0 <=> _ %[%<H%]:0 e r ;
+        _ %[%<H%]: e r s ;
+  \end{lstlisting}
+  \caption{Converted dic and aff lexicons and rules governing the deletions}
+  \label{fig:lexc-twolc-dictionary}
+\end{figure}
+
+\subsection{Hunspell Error Models}
+
+The hunspell dictionary configuration file, i.e. the affix file, contains
+several parts that need to be combined to achieve a similar error correction
+model as in the hunspell lexicon.
+
+The error model part defined in the KEY section allows for one slip of
+the finger in any of the keyboard neighboring classes. This is implemented by
+creating a simple homogeneously weighted crossproduct of each class, as given
+on lines~\ref{vrb:pseudokeystart}--\ref{vrb:pseudokeyend} of
+Algorithm~\ref{algo:try-key-rep}. For the first part of the example on
+line~\ref{vrb:hunspellaffkey} of Figure~\ref{fig:hunspell-aff-examples}, this
+results in the lexc lexicon on
+lines~\ref{lexcerrorkeystart}--\ref{lexcerrorkeyend} in
+Figure~\ref{fig:lexc-error-models}.
+
+The error model part defined in the REP section is an arbitrarily long ordered
+confusion set. This is implemented by simply encoding them as increasingly
+weighted paths, as shown in lines
+\ref{vrb:pseudorepstart}--\ref{vrb:pseudorepend} of the pseudo-code in
+Algorithm~\ref{algo:try-key-rep}.
+
+The TRY section such as the one on line~\ref{vrb:hunspellafftry} of
+Figure~\ref{fig:hunspell-aff-examples}, defines characters to be tried as the
+edit distance grows in descending order. For a more detailed formulation of a
+weighted edit distance transducer, see e.g.  \cite{conf/lrec/Pirinen2010}).  We
+created an edit distance model with the sum of the positions of the characters
+in the TRY string as the weight, which is defined on
+lines~\ref{vrb:pseudotrystart}--\ref{vrb:pseudotryend} of the pseudo-code in
+Algorithm~\ref{algo:try-key-rep}. The initial part of the converted example
+is displayed on lines~\ref{lexcerrortrystart}--\ref{lexcerrortryend} of
+Figure~\ref{fig:lexc-error-models}.
+
+Finally to attribute different likelihood to different parts of the error
+models we use different weight magnitudes on different types of errors, and 
+to allow only correctly written substrings, we restrict the result by the
+root lexicon and morfotax lexicon, as given on
+lines~\ref{lexcerrorrootstart}--\ref{lexcerrorretend} of
+Figure~\ref{fig:lexc-error-models}.  With the weights on
+lines~\ref{lexcerrorrootstart}--\ref{lexcerrorrootend}, we ensure that KEY
+errors are always suggested before REP errors and REP errors before TRY errors.
+Even though the error model allows only one error of any type, simulating the
+original hunspell, the resulting transducer can be transformed into an error
+model accepting multiple errors by a simple FST algebraic concatenative
+n-closure, i.e. repetition.
+
+\begin{algorithm}[tbp]
+  \caption{Extracting patterns for hunspell error models}
+  \label{algo:try-key-rep}
+  \begin{algorithmic}[2]
+    \FORALL{neighborsets $ns$ in KEY \label{vrb:pseudokeystart}}
+    \FORALL{character $c$ in $ns$}
+    \FORALL{character $d$ in $ns$ such that $c != d$}
+    \STATE $Lex_{KEY} \leftarrow Lex_{KEY} \cup c:d_{<0>} \#  $
+    \ENDFOR
+    \ENDFOR
+    \ENDFOR \label{vrb:pseudokeyend}
+    \STATE $w \leftarrow 0$
+    \FORALL{pairs $wrong, right$ in REP \label{vrb:pseudorepstart}}
+    \STATE $w \leftarrow w + 1$
+    \STATE $LEX_{REP} \leftarrow LEX_{REP} \cup wrong:right_{<w>} \#  $
+    \ENDFOR \label{vrb:pseudorepend}
+    \STATE $w \leftarrow 0$
+    \FORALL{character $c$ in TRY \label{vrb:pseudotrystart}}
+    \STATE $w \leftarrow w + 1$
+    \STATE $Lex_{TRY} \leftarrow Lex_{TRY} \cup c:0_{<w>} \#  $
+    \STATE $Lex_{TRY} \leftarrow Lex_{TRY} \cup 0:c_{<w>} \#  $
+    \FORALL{character $d$ in TRY such that $c != d$}
+    \STATE $Lex_{TRY} \leftarrow Lex_{TRY} \cup c:d_{<w>} \#  $
+    \COMMENT{for swap: replace $\#$ with $cd$ and add $Lex_{cd} \cup d:c_{<0>} \#$}
+    \ENDFOR
+    \ENDFOR \label{vrb:pseudotryend}
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{figure}[tbp]
+  \centering
+  \begin{lstlisting}
+    LEXICON HUNSPELL_error_root |-\label{lexcerrorrootstart}-|
+    < ? > HUNSPELL_error_root ; 
+    HUNSPELL_KEY "weight: 0" ;
+    HUNSPELL_REP "weight: 100" ;
+    HUNSPELL_TRY "weight: 1000" ; |-\label{lexcerrorrootend}-|
+    
+    LEXICON HUNSPELL_errret |-\label{lexcerrorretstart}-|
+    < ? > HUNSPELL_errret ; 
+    # ;  |-\label{lexcerrorretend}-|
+    
+    LEXICON HUNSPELL_KEY |-\label{lexcerrorkeystart}-|
+    |-\"{o}-|:|-\"{u}-| HUNSPELL_errret "weight: 0" ; 
+    |-\"{o}-|:|-\'{o}-| HUNSPELL_errret "weight: 0" ;
+    |-\"{u}-|:|-\"{o}-| HUNSPELL_errret "weight: 0" ;
+    |-\"{u}-|:|-\'{o}-| HUNSPELL_errret "weight: 0" ;
+    |-\'{o}-|:|-\"{o}-| HUNSPELL_errret "weight: 0" ;
+    |-\'{o}-|:|-\"{u}-| HUNSPELL_errret "weight: 0" ; 
+    ! same for other parts |-\label{lexcerrorkeyend}-|
+    
+    LEXICON HUNSPELL_TRY |-\label{lexcerrortrystart}-|
+    |-\'{i}-|:0 HUNSPELL_errret "weight: 1" ;
+    0:|-\'{i}-| HUNSPELL_errret "weight: 1" ;
+    |-\'{i}-|:|-\'{o}-| HUNSPELL_errret "weight: 2" ;
+    |-\'{o}-|:|-\'{i}-| HUNSPELL_errret "weight: 2" ;
+    |-\'{o}-|:0 HUNSPELL_errret "weight: 2" ;
+    0:|-\'{o}-| HUNSPELL_errret "weight: 2" ;
+    ! same for rest of the alphabet |-\label{lexcerrortryend}-|
+    
+    LEXICON HUNSPELL_REP |-\label{lexcerrorrepstart}-|
+    |-\'{i}-|:i HUNSPELL_errret "weight: 1" ;
+    i:|-\'{i}-| HUNSPELL_errret "weight: 2" ;
+    |-\'{o}-|:o HUNSPELL_errret "weight: 3" ;       
+    oliere:oli|-\`{e}-|re HUNSPELL_errret "weight: 4" ; 
+    cc:gysz HUNSPELL_errret "weight: 5" ;       
+    cs:ts HUNSPELL_errret "weight: 6" ;       
+    cs:ds HUNSPELL_errret "weight: 7" ;       
+    ccs:ts HUNSPELL_errret "weight: 8" ;  
+    ! same for rest of REP pairs... |-\label{lexcerrorrepend}-|
+    
+  \end{lstlisting}
+  \caption{Converted error models from aff file}
+  \label{fig:lexc-error-models}
+\end{figure}
+
+\subsection{\TeX\ Hyphenation}
+
+The formulation of hyphenation as finite-state transducers is simple.  We use
+the hyphenation alphabet $\Sigma_H = {-}$. To model the context-based deletions
+and additions of hyphenation patterns, we use twol rules with centers of
+$\epsilon:-$ for addition and $-:\epsilon$ for deletion. The algorithm for
+creating the rule sets described in Algorithm~\ref{algo:texpat} simply goes
+through the patterns, and for each hyphenation point of each pattern extracts
+left and right context strings and adds them to the contexts of a rule. 
+The result is exemplified in Figure~\ref{fig:twolc-hyphen-models}.
+There is one rule for each of the hyphenation point numbers. The rules may be 
+composed into one single transducer at compile time or applied as cascade at runtime.
+
+The \TeX\ hyphenation pattern also contains explicit exceptions to the
+hyphenation patterns, which are simply specific word forms with hyphenations,
+and can be compiled as simple paths: e.g. for the pattern\{as-so-ciate\} we
+create a path $as\epsilon so\epsilon ciate:as-so-ciate$
+
+\begin{algorithm}[tbp]
+  \caption{Extracting hyphenation patterns from \TeX}
+  \label{algo:texpat}
+  \begin{algorithmic}[2]
+    \FORALL{patterns $p$}
+    \FORALL{digits $d$ in $p$}
+    \STATE $l, r \leftarrow$ split $p$ on $d$
+    \IF{$d$ odd}
+    \STATE $l, r \leftarrow l, r << 0:\epsilon$
+    \STATE $Twol_d \leftarrow Twol_d \cap 0:\epsilon \leftrightarrow l \_ r ;$
+    \ELSE
+    \STATE $l, r \leftarrow l, r << \epsilon:0$
+    \STATE $Twol_d \leftarrow Twol_d \cap \epsilon:0 \leftrightarrow l \_ r ;$
+    \ENDIF
+    \ENDFOR
+    \ENDFOR
+    \FORALL{hyphenations $h$}
+    \STATE $word \leftarrow h - hyphens$
+    \STATE $Lex_{exceptions} \leftarrow Lex_{exceptions} \cup \textit{word:h \#}$
+    \ENDFOR
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{figure}[tbp]
+  \centering
+  \begin{lstlisting}
+    "Hyphen insertion 1"
+    0:%- <=> # (0:%-) a (0:%-) f _ t ;
+    ...
+  \end{lstlisting}
+  \caption{Converted hyphenation models from \TeX examples}
+  \label{fig:twolc-hyphen-models}
+\end{figure}
+
+\section{Implementation and Tests}
+
+We have implemented the spell-checkers and hyphenators as finite-state
+transducers using program code and scripts with a Makefile.  To test the code, we have
+converted 49 hyphenation pattern files and more than 42 hunspell
+dictionaries from various language families. They consist of the dictionaries that were accessible from the
+aforementioned web sites at the time of writing. The
+Tables~\ref{table:texhyph-automata} and \ref{table:hunspell-automata}
+gives an overview of the sizes of the compiled automata. The size is given in binary multiples
+of bytes as reported by \texttt{ls -hl}. 
+
+In the hyphenation table, the second
+column gives the number of patterns in the rules. The total size is a result of
+composing all hyphenation rules into one transducer; it may be noted that
+both separate rules and a single composed transducer are equally usable at runtime. The separated
+version requires less memory whereas the single composed version is faster.  For large results, such as the
+Norwegian\footnote{both Nynorsk and bokmål \texttt{input} the same patterns}
+one, it may still be beneficial to keep the rules separated. In the Norwegian
+case, the four separately compiled rules are each of sizes between 1.2 MiB and 9.7 MiB.
+
+For the hunspell automata in Table~\ref{table:hunspell-automata}, we also give the
+number of roots in the dictionary file and the affixes in affix file. These numbers
+should also help with identifying the version of the dictionary, since there are multiple
+different versions available in the downloads.
+
+The resulting transducers were tested by hand using the results of the
+corresponding \TeX\ \texttt{hyphenate} command and \texttt{hunspell -d} as well
+as the authors' language skills to judge errors. As testing material, a wikipedia
+article on the Finnish
+language\footnote{\url{http://en.wikipedia.org/wiki/Finnish+language} and its
+international links} were used for most languages, and some arbitrary articles
+where this particular article was not found. In both tests, the majority of differences come from
+the lack of normalization or case folding. E.g. this resulted in our converted
+transducers failing to hyphenate words where uppercase letters would have been equal to
+their lowercase variants. 
+
+The hunspell model was built incrementally
+starting from the basic set of affixes and dictionary, and either adding or
+skipping all directive types of the file format as found in the wild. Some of
+the omissions show up e.g. in the English results, where omitting of the PHONE
+directive for the suggestion mechanism results in some of the differing suggestions
+in English tests, e.g.  first suggestion for  \emph{calqued} in
+hunspell is \emph{catafalqued}. Without implementing the phonetic folding,
+we get no results within 1 hunspell error, and get word forms like \emph{chalked},
+\emph{caulked}, and so forth, within 2 hunspell errors. No other language has .aff
+files with PHONE rules, e.g. in French \emph{comitatif} gets the suggestions \emph{commutatif} and
+\emph{limitatif} as the first ones in both systems. 
+
+\begin{table}[tbp]
+  \caption{Compiled hyphenation automata sizes}
+  \label{table:texhyph-automata}
+  \centering
+  \begin{tabular}{c|c|c}
+    \hline
+    \textbf{Language} & \textbf{Hyphenator total} & \textbf{Number of patterns} \\
+    \hline
+    \hline
+    Norwegian & 978 MiB & 27,166 \\
+    German (Germany, 1996) & 72 MiB & 14,528 \\
+    German (Germany, 1901) & 66 MiB & 14,323 \\
+    Dutch & 58 MiB & 12,742 \\
+    English (Great Britain) & 38 MiB & 8,536 \\
+    Irish & 20 MiB & 6,046\\
+    English (U.S.) & 19 MiB & 4,948\\
+    Hungarian & 15 MiB &  13,469 \\
+    Swedish & 12 MiB & 4,717 \\
+    Icelandic & 12 MiB & 4,199\\
+    Estonian & 8.8 MiB & 3,701\\
+    Russian & 4.2 MiB & 4,820\\
+    Czech & 3.1 MiB & 3,646\\
+    Ancient Greek & 2.4 MiB & 2,005\\
+    Ukrainian & 1.5 MiB & 1,269\\
+    Danish & 1.4 MiB & 1,153\\
+    Slovak & 1.1 MiB & 2,483\\
+    Slovenian & 939 KiB & 1,086\\
+    Spanish & 546 KiB & 971\\
+    French & 521 KiB & 1,184\\
+    Interlingua & 382 KiB & 650\\
+    Greek (Polyton) & 325 KiB & 798\\
+    Upper Sorbian & 208 KiB & 1,524 \\
+    Galician & 160 KiB & 607 \\
+    Romanian & 151 KiB & 665 \\
+    Mongolian & 135 KiB & 532 \\
+    Finnish & 111 KiB & 280\\
+    Catalan & 95 KiB & 231 \\
+    Greek (Monoton) & 91 KiB & 429\\
+    Serbian & 76 KiB & 2,681 \\
+    Serbocroatian & 56 KiB & 2,681 \\
+    Sanskrit & 32 KiB & 550 \\
+    Croatian & 32 KiB & 1,483\\
+    Coptic & 30 KiB & 128 \\
+    Latin & 26 KiB & 87 \\
+    Bulgarian & 24 KiB & 1,518\\
+    Portuguese & 19 KiB & 320\\
+    Basque & 15 KiB & 49\\
+    Indonesian & 14 KiB & 46\\
+    Turkish & 8 KiB & 602\\
+    Chinese (Pinyin) & 868 & 202 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{table}[tbp]
+  \caption{Compiled Hunspell automata sizes}
+  \label{table:hunspell-automata}
+  \centering
+  \begin{tabular}{c|c|c|c}
+    \hline
+    \textbf{Language} & \textbf{Dictionary} & \textbf{Roots} & \textbf{Affixes} \\
+    \hline
+    \hline
+    Portugese (Brazil) & 14 MiB & 307,199 & 25,434 \\
+    Polish & 14 MiB & 277,964 & 6,909 \\
+    Czech & 12 MiB & 302,542 & 2,492 \\
+    Hungarian & 9.7 MiB & 86,230 & 22,991 \\
+    Northern S\'{a}mi & 8.1 MiB & 527,474 & 370,982 \\ 
+    Slovak & 7.1 MiB & 175,465 & 2,223 \\
+    Dutch & 6.7 MiB & 158,874 & 90\\
+    Gascon & 5.1 MiB & 2,098,768 & 110 \\
+    Afrikaans & 5.0 MiB & 125,473 & 48 \\
+    Icelandic & 5.0 MiB & 222087 & 0 \\
+    Greek & 4.3 MiB & 574,961 & 126 \\
+    Italian & 3.8 MiB & 95,194 & 2,687 \\
+    Gujarati & 3.7 MiB & 168,956 & 0 \\
+    Lithuanian & 3.6 MiB & 95,944 & 4,024 \\
+    English (Great Britain) & 3.5 MiB & 46,304 & 1,011 \\
+    German & 3.3 MiB & 70,862 & 348 \\
+    Croatian & 3.3 MiB & 215,917 & 64 \\
+    Spanish & 3.2 MiB & 76,441 & 6,773 \\
+    Catalan & 3.2 MiB & 94,868 & 996 \\
+    Slovenian & 2.9 MiB & 246,857 & 484 \\
+    Faeroese & 2.8 MiB & 108,632 & 0 \\
+    French & 2.8 MiB & 91,582 & 507 \\
+    Swedish & 2.5 MiB & 64,475 & 330 \\
+    English (U.S.) & 2.5 MiB & 62,135 & 41 \\
+    Estonian & 2.4 MiB & 282,174 & 9,242\\
+    Portugese (Portugal) & 2 MiB & 40.811 & 913 \\
+    Irish & 1.8 MiB & 91,106 & 240 \\
+    Friulian & 1.7 MiB & 36,321 & 664 \\
+    Nepalese & 1.7 MiB & 39,925 & 502 \\
+    Thai & 1.7 MiB & 38,870 & 0 \\
+    Esperanto & 1.5 MiB & 19,343 & 2,338 \\
+    Hebrew & 1.4 MiB & 329237 & 0 \\
+    Bengali & 1.3 MiB & 110,751 & 0 \\
+    Frisian& 1.2 MiB & 24,973 & 73 \\
+    Interlingua & 1.1 MiB & 26850 & 54 \\
+    Persian & 791 KiB & 332,555 & 0 \\
+    Indonesian & 765 KiB & 23,419 & 17 \\
+    Azerbaijani & 489 KiB & 19,132 & 0 \\
+    Hindi & 484 KiB & 15,991 & 0 \\
+    Amharic & 333 KiB & 13,741 & 4 \\
+    Chichewa & 209 KiB & 5,779 & 0 \\
+    Kashubian & 191 KiB & 5,111 & 0 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\section{Conclusion}
+
+We have demonstrated a method and created the software to convert legacy
+spell-checker and hyphenation data to a more general framework of
+finite-state automata and used it in a real-life application. We have
+also referred to methods for extending the system to more advanced
+error models and the inclusion of other more complex models in the
+same system. We are currently developing a platform for finite-state
+based spell-checkers for open-source systems in order to improve the
+front-end internationalization.
+
+The next obvious development for the finite-state spell checkers is to
+apply the unigram training \cite{conf/lrec/Pirinen2010} to the automata,
+and extend the unigram training to cover longer n-grams and real word
+error correction.
+
+% conference papers do not normally have an appendix
+% use section* for acknowledgement.
+
+\section*{Acknowledgment}
+
+The authors would like to thank Miikka Silfverberg and others in the
+HFST research team as well as the anonymous reviewers for useful comments on the
+manuscript.
+
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv,cla-2010}
+
+% that's all folks
+\end{document}
