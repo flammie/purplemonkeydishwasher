@@ -597,19 +597,20 @@ capable of turning words into the soundex codes, such as
 \emph{Levenshtein:L152}. In order to use this as an error model we need to be
 able to map the L152 back to all the possible words corresponding the string
 L152 (there are infinitely many); in the finite-state technology this is as
-simple as composing the mapping with its inversion. During the years more
-elaborate algorithms have been developed for English, such as speedcop, and
-metaphone in its three incarnations
+simple as composing the mapping with its inversion.
+
+During the years more elaborate algorithms have been developed for English,
+such as speedcop, and metaphone in its three incarnations
 \cite[]{philips1990hanging,philips2000double}\footnote{the third version,
-Metaphone 3, is a commercial product that has not been openly documented and
-cannot be used in free/open source or academic research systems}. Mainly what
-they do is add more rules, maybe more numbers or letters for the folding, but
-the implementation is the same and the finite-state formulation likewise. For
-languages other than English there are fewer of these, since many of the
+    Metaphone 3, is a commercial product that has not been openly documented
+and cannot be used in free/open source or academic research systems}.  Mainly
+what they do is add more rules, maybe more numbers or letters for the folding,
+but the implementation is the same and the finite-state formulation likewise.
+For languages other than English there are fewer of these, since many of the
 languages are written in more phonemic orthographies and this error type is
-virtually non-existent. And in case it exists it can be handled with
-simpler models as it will only cause errors subsumed by e.g. edit distance 2,
-as is the case with all our other test languages.
+virtually non-existent. And in case it exists it can be handled with simpler
+models as it will only cause errors subsumed by e.g. edit distance 2, as is the
+case with all our other test languages.
 
 One of the obvious features of using regular finite-state automata to model
 errors is that we can turn from an edit distance 1 into an edit distance $n$
@@ -707,7 +708,7 @@ at fairly regular intervals the results will follow that distribution for any
 reasonable corpus material. Finally, even if the mistakes of some user do not
 follow the standard distribution, the users are more understanding towards a
 spell-checker that suggests the common words with the common typing errors than
-the ones that suggest very rare and obscure word-forms.\todo{back this up?}
+the ones that suggest very rare and obscure word-forms.
 
 The most simple language model for spell-checking to induce or learn, is
 the surface word-form unigram probability model. This model is simply created
@@ -1173,6 +1174,13 @@ a string initial edit has been removed; this corroborates existing research
 that string initial errors are slightly less common in typed regular text such
 as Wikipedia, whereas the results seem opposite for dictated texts and OCR.
 
+In the Greenlandic data we can see that there is a great change in figures
+when increasing the edit distance, but mostly the change adds to the mass of
+low-ranked suggestions. This may be explained by two things: the likelyhood
+to have more typos would naturally increase as the average length of the words
+grows longer, and the frequency statistics do not have as good predictive power
+as the number of word-forms raises.
+
 Another approach for optimising the search quality and maybe even speed
 is to use the weighted finite-state mechanics to define the common
 optimisations, i.e. first modification, larger distance and so forth. This way
@@ -1199,9 +1207,12 @@ concerned.
 
 Finally we compare the results of our system with the actual systems in
 everyday use, that is, the hunspell and aspell in practice, and Microsoft's
-Word for commercial world. For this comparison we have only used a subset of
-corrections since the commercial systems do not allow for automated evaluations
-and this has been made by hand. 
+Word for commercial world. When looking at this comparison we can see, that
+for English data, we actually provide an overall improvement with most of the
+error models, this is mainly due to the probabilistic language model, which
+works very nicely for languages like English. The data on North Sámi on the
+opposite shows no meaningful improvement neither with the change from hunspell
+to our probabilistic language models or with the variation of the error models.
 
 %The results are summarised in the graph~\ref{fig:quality}.
 %
@@ -1247,12 +1258,10 @@ section, which shows clearly the trade-off between speed and quality.
     \begin{tabular}{|l|r|r|r|}
         \hline
         \bf Input:                    & 1 word & all words & non-words \\
-        \bf Language and error models & s      & wps       & wps       \\
+        \bf Language and error models &        &           &           \\
         \hline
         \bf English hunspell & 0.5 & 174 & 40 \\
           \bf English aspell & <0.1 & 20,000 & 4,405 \\
-
-          \bf English (A)FSA & 0.1 & 1,007 & 1,260 \\
         \hline
         \bf English w/ 1 error     & 0.06  & 5,721  & 6,559 \\
  \bf English w/ 1 non-first error  & 0.20  & 16,474 & 17,911  \\
@@ -1289,24 +1298,40 @@ section, which shows clearly the trade-off between speed and quality.
         \hline
         \bf Greenlandic w/ 1 error    & 1.27 & 49 & 142 \\
 \bf Greenlandic w/ 1 non-first error  & 1.25 & 85 & 416 \\
-       \bf Greenlandic w/ 2 errors    & 5.22 & 0.12 & 0.33 \\
-\bf Greenlandic w/ 2 non-first errors & 1.37 & 0.30 & 0.5 \\
+       \bf Greenlandic w/ 2 errors    & 5.22 & 1/5 & 1/3 \\
+\bf Greenlandic w/ 2 non-first errors & 1.37 & 1/3 & 1/2 \\
         \hline
     \end{tabular}
     \caption{The effect of different language and error models on speed of
-        spelling correction (in words per second) \label{table:speed}}
+        spelling correction (startup time in seconds, correction time in 
+        full words per second) \label{table:speed}}
 \end{table}
 
 When we compare the results of our systems against the respective non-fst
 solutions, we can see that against hunspell we gain measurable improvement
-across the board. The only software solution beating FSTs is aspell, that has
-been engineered for English with the specific metaphone solution, our FST is in
-the same ballpark given the optimised 1 error models. The figures for higher
-order models for English are still usable as online spell-checkers, with an
-average feedback time of a seventh of second for error correction at edit
-distance of 3, when generating all possible corrections. It is also noteworthy
-that the Greenlandic models are sufficient for online use with a standard edit
-distance 2 error model.
+across the board. The only software solution beating FSTs is aspell with
+English. Assumably the English aspell corrector has the most specific
+optimisations with the specific metaphone solution. Our FST is in the same
+ballpark as the aspell nly with the optimised 1 error models.  Notably, the
+figures for higher order models for English are still usable as online
+spell-checkers, with an average feedback time of a seventh of second for error
+correction at edit distance of 3, when generating all possible corrections.
+
+For North Sámi we see quite significant improvement in the speed with our FST
+solution as compared to hunspell, both being still usable for interactive
+spell-checking at response times of well under a second. The Greenlandic
+figures show that the combination of the current weighted language model and
+2 errors are at the borderline of being usable already, producing average wait
+times greater than 1 second per word. To contrast this for a quality trade-off,
+both the 1 error model, but also raw wikipedia corpus based acyclic language
+model will give reasonable figures for most spell-checking uses.
+
+In general when contrasting the
+Tables~\ref{table:quality}~and~\ref{table:speed}, we see very unsurprising
+speed-to-quality trade-off. This way with finite-state systems we can
+leave the selection of the trade-off fully in hands of end-user, whether it is
+the developer of the specific language and error models, or the user of the
+office suite program.
 
 %In the next figure~\ref{fig:speed-quality} we show the plot of
 %different optimisations in speed-quality scale, on the vertical axis the models
@@ -1327,6 +1352,27 @@ distance 2 error model.
 \section{Discussion}
 \label{sec:discussion}
 
+The improvement of quality by simple probabilistic features for spell-checking
+has been well studied in~\cite{church1991probability}, in this work we show
+that introducing it to finite-state spell-checking system does work in giving
+similar increase in quality of the spell-checking suggestions.
+
+The speed to quality trade-off is a well known feature in spell-checking
+systems, and several aspects of it have been shown in previous research. The
+concept of cutting away string initial modifications from the search 
+space has been often suggested~\cite{}, but only rarely quantified~\cite{}
+extensively. In this paper we show its effects on finite-state systems and
+complex languages to give significant speed improvements like with the
+algorithmic solutions, but also show that the quality deterioration in 
+real-world data is minimal.
+
+In the other implementations of fuzzy string matching in finite-state automata
+it has been shown that specialised algorithms \cite{oflazer/1996} and
+pre-constructed specialised automata for fuzzy searches \cite{hulden/2009}
+are very effective. In our system we have traded some of this efficiency with
+extensible generalisation of allowing arbitrary weighted finite-state automata
+as both language and error models, and shown that the efficiency is still in
+the usable category for most common spell-checking applications.
 
 \subsection{Error Analysis}
 \label{subsec:error-analysis}
