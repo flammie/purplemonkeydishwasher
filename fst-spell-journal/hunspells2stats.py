@@ -141,6 +141,9 @@ def main():
         inputline = inputfile.readline()
         csvline = csvfile.readline()
         lines += 1
+    if lines < 1:
+        print("DATOISSA VIRHE. END.")
+        exit(1)
     print("All\t1st\t2nd\t3rd\t4th\t5th\tWorse\tnone\tin LM", file=statsfile)
     print(lines,  firsts,  seconds,  thirds,  fourths,  fifths,  lower,  no_corrects,  in_lm, sep="\t", file=statsfile)
     print(lines/lines*100,  firsts/lines*100,  seconds/lines*100,  thirds/lines*100,  fourths/lines*100,  fifths/lines*100,  lower/lines*100,  no_corrects/lines*100,  in_lm/lines*100, sep="% \t", file=statsfile)

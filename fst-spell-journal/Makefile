@@ -2419,6 +2419,35 @@ PROFILES_SE=\
 			 results/se/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunpd.errm-ed1.tsv \
 			 results/se/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunpd.errm-nf1.tsv \
 			 results/se/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunpd.errm-ed1.tsv \
+			 results/se/profiles.1-nonwords.dict-divvunac.errm-ed1.tsv \
+			 results/se/profiles.1-nonwords.dict-divvunac.errm-ed1.tsv \
+			 results/se/profiles.1-nonwords.dict-divvunac.errm-ed2.tsv \
+			 results/se/profiles.1-nonwords.dict-divvunac.errm-nf1.tsv \
+			 results/se/profiles.1-nonwords.dict-divvunac.errm-nf2.tsv \
+			 results/se/profiles.1-words.dict-divvunac.errm-ed1.tsv \
+			 results/se/profiles.1-words.dict-divvunac.errm-ed2.tsv \
+			 results/se/profiles.1-words.dict-divvunac.errm-nf1.tsv \
+			 results/se/profiles.1-words.dict-divvunac.errm-nf2.tsv \
+			 results/se/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunac.errm-nf2.tsv \
+			 results/se/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunac.errm-ed2.tsv \
+			 results/se/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunac.errm-nf2.tsv \
+			 results/se/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunac.errm-ed2.tsv \
+			 results/se/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunac.errm-nf1.tsv \
+			 results/se/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunac.errm-ed1.tsv \
+			 results/se/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunac.errm-nf1.tsv \
+			 results/se/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunac.errm-ed1.tsv \
+			 results/se/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunac.errm-nf2.tsv \
+			 results/se/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunac.errm-ed2.tsv \
+			 results/se/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunac.errm-nf2.tsv \
+			 results/se/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunac.errm-ed2.tsv \
+			 results/se/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunac.errm-nf1.tsv \
+			 results/se/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunac.errm-ed1.tsv \
+			 results/se/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunac.errm-nf1.tsv \
+			 results/se/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunac.errm-ed1.tsv \
+			 results/se/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunac.errm-nf1.tsv \
+			 results/se/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunac.errm-ed1.tsv \
+			 results/se/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunac.errm-nf1.tsv \
+			 results/se/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunac.errm-ed1.tsv \
 			 results/se/profiles.1-nonwords.dict-hunspell.errm-hunspell.tsv \
 			 results/se/profiles.1-words.dict-hunspell.errm-hunspell.tsv \
 			 results/se/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-hunspell.errm-hunspell.tsv \
@@ -2432,6 +2461,518 @@ profiles-se: $(PROFILES_SE)
 # }}}
 
 # {{{ North Sámi profiling tests
+results/se/profiles.$(CONTEXT_CORPUS_LARGE)-words.dict-divvunac.errm-3gr.tsv: $(SE_CONTEXT_WORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(CONTEXT_SPELL1)   $(ERRM_SE_3HUN) $(DICT_SE_NOPD) < $(SE_CONTEXT_WORDS_LARGE) |fgrep '['|fgrep -v '[inf]'| $(TIME) -a -o $@ $(CONTEXT_SPELL2) $(SE_TAGGER) 0.85 > /dev/null ;\
+	done
+
+results/se/profiles.$(CONTEXT_CORPUS_SMALL)-words.dict-divvunac.errm-3gr.tsv: $(SE_CONTEXT_WORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(CONTEXT_SPELL1)   $(ERRM_SE_3HUN) $(DICT_SE_NOPD) < $(SE_CONTEXT_WORDS_SMALL) |fgrep '['|fgrep -v '[inf]'| $(TIME) -a -o $@ $(CONTEXT_SPELL2) $(SE_TAGGER) 0.85 > /dev/null ;\
+	done
+
+results/se/profiles.1-words.dict-divvunac.errm-3gr.tsv: $(SE_CONTEXT_WORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(CONTEXT_SPELL1)   $(ERRM_SE_3HUN) $(DICT_SE_NOPD) < $(SE_CONTEXT_WORDS_ONE) |fgrep '['|fgrep -v '[inf]'| $(TIME) -a -o $@ $(CONTEXT_SPELL2) $(SE_TAGGER) 0.85 > /dev/null ;\
+	done
+
+results/se/profiles.$(CONTEXT_CORPUS_LARGE)-nonwords.dict-divvunac.errm-3gr.tsv: $(SE_CONTEXT_NONWORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(CONTEXT_SPELL1)   $(ERRM_SE_3HUN) $(DICT_SE_NOPD) < $(SE_CONTEXT_NONWORDS_LARGE) |fgrep '['|fgrep -v '[inf]'| $(TIME) -a -o $@ $(CONTEXT_SPELL2) $(SE_TAGGER) 0.85 > /dev/null ;\
+	done
+
+results/se/profiles.$(CONTEXT_CORPUS_SMALL)-nonwords.dict-divvunac.errm-3gr.tsv: $(SE_CONTEXT_NONWORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(CONTEXT_SPELL1)   $(ERRM_SE_3HUN) $(DICT_SE_NOPD) < $(SE_CONTEXT_NONWORDS_SMALL) |fgrep '['|fgrep -v '[inf]'| $(TIME) -a -o $@ $(CONTEXT_SPELL2) $(SE_TAGGER) 0.85 > /dev/null ;\
+	done
+
+results/se/profiles.1-nonwords.dict-divvunac.errm-3gr.tsv: $(SE_CONTEXT_NONWORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(CONTEXT_SPELL1)   $(ERRM_SE_3HUN) $(DICT_SE_NOPD) < $(SE_CONTEXT_NONWORDS_ONE) |fgrep '['|fgrep -v '[inf]'| $(TIME) -a -o $@ $(CONTEXT_SPELL2) $(SE_TAGGER) 0.85 > /dev/null ;\
+	done
+
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunac.errm-5c3.tsv: $(SE_TEST_WORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_3HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunac.errm-5c3.tsv: $(SE_TEST_WORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_3HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunac.errm-5c3.tsv: $(SE_TEST_WORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_3HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/se/profiles.1-words.dict-divvunac.errm-5c3.tsv: $(SE_TEST_WORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_3HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunac.errm-5c3.tsv: $(SE_TEST_NONWORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_3HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunac.errm-5c3.tsv: $(SE_TEST_NONWORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_3HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunac.errm-5c3.tsv: $(SE_TEST_NONWORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_3HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/se/profiles.1-nonwords.dict-divvunac.errm-5c3.tsv: $(SE_TEST_NONWORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_3HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunac.errm-5c2.tsv: $(SE_TEST_WORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_2HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunac.errm-5c2.tsv: $(SE_TEST_WORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_2HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunac.errm-5c2.tsv: $(SE_TEST_WORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_2HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/se/profiles.1-words.dict-divvunac.errm-5c2.tsv: $(SE_TEST_WORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_2HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunac.errm-5c2.tsv: $(SE_TEST_NONWORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_2HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunac.errm-5c2.tsv: $(SE_TEST_NONWORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_2HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunac.errm-5c2.tsv: $(SE_TEST_NONWORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_2HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/se/profiles.1-nonwords.dict-divvunac.errm-5c2.tsv: $(SE_TEST_NONWORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_2HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunac.errm-5c1.tsv: $(SE_TEST_WORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_1HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunac.errm-5c1.tsv: $(SE_TEST_WORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_1HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunac.errm-5c1.tsv: $(SE_TEST_WORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_1HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/se/profiles.1-words.dict-divvunac.errm-5c1.tsv: $(SE_TEST_WORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_1HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunac.errm-5c1.tsv: $(SE_TEST_NONWORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_1HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunac.errm-5c1.tsv: $(SE_TEST_NONWORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_1HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunac.errm-5c1.tsv: $(SE_TEST_NONWORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_1HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/se/profiles.1-nonwords.dict-divvunac.errm-5c1.tsv: $(SE_TEST_NONWORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ -n 5 $(ERRM_SE_1HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunac.errm-ed3.tsv: $(SE_TEST_WORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3UNW) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunac.errm-ed3.tsv: $(SE_TEST_WORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3UNW) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunac.errm-ed3.tsv: $(SE_TEST_WORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3UNW) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/se/profiles.1-words.dict-divvunac.errm-ed3.tsv: $(SE_TEST_WORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3UNW) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunac.errm-ed3.tsv: $(SE_TEST_NONWORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3UNW) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunac.errm-ed3.tsv: $(SE_TEST_NONWORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3UNW) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunac.errm-ed3.tsv: $(SE_TEST_NONWORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3UNW) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/se/profiles.1-nonwords.dict-divvunac.errm-ed3.tsv: $(SE_TEST_NONWORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_3UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3UNW) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunac.errm-ed2.tsv: $(SE_TEST_WORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2UNW) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunac.errm-ed2.tsv: $(SE_TEST_WORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2UNW) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunac.errm-ed2.tsv: $(SE_TEST_WORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2UNW) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/se/profiles.1-words.dict-divvunac.errm-ed2.tsv: $(SE_TEST_WORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2UNW) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunac.errm-ed2.tsv: $(SE_TEST_NONWORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2UNW) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunac.errm-ed2.tsv: $(SE_TEST_NONWORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2UNW) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunac.errm-ed2.tsv: $(SE_TEST_NONWORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2UNW) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/se/profiles.1-nonwords.dict-divvunac.errm-ed2.tsv: $(SE_TEST_NONWORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_2UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2UNW) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunac.errm-ed1.tsv: $(SE_TEST_WORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1UNW) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunac.errm-ed1.tsv: $(SE_TEST_WORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1UNW) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunac.errm-ed1.tsv: $(SE_TEST_WORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1UNW) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/se/profiles.1-words.dict-divvunac.errm-ed1.tsv: $(SE_TEST_WORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1UNW) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunac.errm-ed1.tsv: $(SE_TEST_NONWORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1UNW) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunac.errm-ed1.tsv: $(SE_TEST_NONWORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1UNW) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunac.errm-ed1.tsv: $(SE_TEST_NONWORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1UNW) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/se/profiles.1-nonwords.dict-divvunac.errm-ed1.tsv: $(SE_TEST_NONWORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_1UNW)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1UNW) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunac.errm-nf3.tsv: $(SE_TEST_WORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3NOF) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunac.errm-nf3.tsv: $(SE_TEST_WORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3NOF) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunac.errm-nf3.tsv: $(SE_TEST_WORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3NOF) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/se/profiles.1-words.dict-divvunac.errm-nf3.tsv: $(SE_TEST_WORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3NOF) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunac.errm-nf3.tsv: $(SE_TEST_NONWORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3NOF) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunac.errm-nf3.tsv: $(SE_TEST_NONWORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3NOF) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunac.errm-nf3.tsv: $(SE_TEST_NONWORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3NOF) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/se/profiles.1-nonwords.dict-divvunac.errm-nf3.tsv: $(SE_TEST_NONWORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_3NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3NOF) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunac.errm-nf2.tsv: $(SE_TEST_WORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2NOF) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunac.errm-nf2.tsv: $(SE_TEST_WORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2NOF) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunac.errm-nf2.tsv: $(SE_TEST_WORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2NOF) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/se/profiles.1-words.dict-divvunac.errm-nf2.tsv: $(SE_TEST_WORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2NOF) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunac.errm-nf2.tsv: $(SE_TEST_NONWORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2NOF) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunac.errm-nf2.tsv: $(SE_TEST_NONWORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2NOF) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunac.errm-nf2.tsv: $(SE_TEST_NONWORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2NOF) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/se/profiles.1-nonwords.dict-divvunac.errm-nf2.tsv: $(SE_TEST_NONWORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_2NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2NOF) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunac.errm-nf1.tsv: $(SE_TEST_WORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1NOF) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunac.errm-nf1.tsv: $(SE_TEST_WORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1NOF) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunac.errm-nf1.tsv: $(SE_TEST_WORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1NOF) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/se/profiles.1-words.dict-divvunac.errm-nf1.tsv: $(SE_TEST_WORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1NOF) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunac.errm-nf1.tsv: $(SE_TEST_NONWORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1NOF) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunac.errm-nf1.tsv: $(SE_TEST_NONWORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1NOF) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunac.errm-nf1.tsv: $(SE_TEST_NONWORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1NOF) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/se/profiles.1-nonwords.dict-divvunac.errm-nf1.tsv: $(SE_TEST_NONWORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_1NOF)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1NOF) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunac.errm-hs3.tsv: $(SE_TEST_WORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunac.errm-hs3.tsv: $(SE_TEST_WORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunac.errm-hs3.tsv: $(SE_TEST_WORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+
+results/se/profiles.1-words.dict-divvunac.errm-hs3.tsv: $(SE_TEST_WORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunac.errm-hs3.tsv: $(SE_TEST_NONWORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunac.errm-hs3.tsv: $(SE_TEST_NONWORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunac.errm-hs3.tsv: $(SE_TEST_NONWORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/se/profiles.1-nonwords.dict-divvunac.errm-hs3.tsv: $(SE_TEST_NONWORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_3HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_3HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunac.errm-hs2.tsv: $(SE_TEST_WORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunac.errm-hs2.tsv: $(SE_TEST_WORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunac.errm-hs2.tsv: $(SE_TEST_WORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/se/profiles.1-words.dict-divvunac.errm-hs2.tsv: $(SE_TEST_WORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunac.errm-hs2.tsv: $(SE_TEST_NONWORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunac.errm-hs2.tsv: $(SE_TEST_NONWORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunac.errm-hs2.tsv: $(SE_TEST_NONWORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/se/profiles.1-nonwords.dict-divvunac.errm-hs2.tsv: $(SE_TEST_NONWORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_2HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_2HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-words.dict-divvunac.errm-hs1.tsv: $(SE_TEST_WORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-words.dict-divvunac.errm-hs1.tsv: $(SE_TEST_WORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-words.dict-divvunac.errm-hs1.tsv: $(SE_TEST_WORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
+results/se/profiles.1-words.dict-divvunac.errm-hs1.tsv: $(SE_TEST_WORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1HUN) $(DICT_SE_NOPD) < $(SE_TEST_WORDS_ONE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-divvunac.errm-hs1.tsv: $(SE_TEST_NONWORDS_LARGE) $(DICT_SE_NOPD) $(ERRM_SE_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_LARGE) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-divvunac.errm-hs1.tsv: $(SE_TEST_NONWORDS_SMALL) $(DICT_SE_NOPD) $(ERRM_SE_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-divvunac.errm-hs1.tsv: $(SE_TEST_NONWORDS_TINY) $(DICT_SE_NOPD) $(ERRM_SE_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_TINY) > /dev/null ;\
+	done
+
+results/se/profiles.1-nonwords.dict-divvunac.errm-hs1.tsv: $(SE_TEST_NONWORDS_ONE) $(DICT_SE_NOPD) $(ERRM_SE_1HUN)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(HFST_OSPELL) -P $@ $(ERRM_SE_1HUN) $(DICT_SE_NOPD) < $(SE_TEST_NONWORDS_ONE) > /dev/null ;\
+	done
+
 results/se/profiles.$(CONTEXT_CORPUS_LARGE)-words.dict-divvunpd.errm-3gr.tsv: $(SE_CONTEXT_WORDS_LARGE) $(DICT_SE_PROD) $(ERRM_SE_3HUN)
 	for i in $(PROFILE_FOR_EXPR); do \
 		$(CONTEXT_SPELL1)   $(ERRM_SE_3HUN) $(DICT_SE_PROD) < $(SE_CONTEXT_WORDS_LARGE) |fgrep '['|fgrep -v '[inf]'| $(TIME) -a -o $@ $(CONTEXT_SPELL2) $(SE_TAGGER) 0.85 > /dev/null ;\
@@ -2957,6 +3498,11 @@ results/se/profiles.$(TEST_CORPUS_SMALL)-words.dict-hunspell.errm-hunspell.tsv: 
 		$(TIME) -a -o $@ $(HUNSPELL) -d se -i UTF-8 < $(SE_TEST_WORDS_SMALL) > /dev/null ;\
 	done
 
+results/se/profiles.$(TEST_CORPUS_TINY)-words.dict-hunspell.errm-hunspell.tsv: $(SE_TEST_WORDS_TINY)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(HUNSPELL) -d se -i UTF-8 < $(SE_TEST_WORDS_TINY) > /dev/null ;\
+	done
+
 results/se/profiles.1-words.dict-hunspell.errm-hunspell.tsv: $(SE_TEST_WORDS_ONE)
 	for i in $(PROFILE_FOR_EXPR); do \
 		$(TIME) -a -o $@ $(HUNSPELL) -d se -i UTF-8 < $(SE_TEST_WORDS_ONE) > /dev/null ;\
@@ -2970,6 +3516,11 @@ results/se/profiles.$(TEST_CORPUS_LARGE)-nonwords.dict-hunspell.errm-hunspell.ts
 results/se/profiles.$(TEST_CORPUS_SMALL)-nonwords.dict-hunspell.errm-hunspell.tsv: $(SE_TEST_NONWORDS_SMALL)
 	for i in $(PROFILE_FOR_EXPR); do \
 		$(TIME) -a -o $@ $(HUNSPELL) -d se -i UTF-8 < $(SE_TEST_NONWORDS_SMALL) > /dev/null ;\
+	done
+
+results/se/profiles.$(TEST_CORPUS_TINY)-nonwords.dict-hunspell.errm-hunspell.tsv: $(SE_TEST_NONWORDS_SMALL)
+	for i in $(PROFILE_FOR_EXPR); do \
+		$(TIME) -a -o $@ $(HUNSPELL) -d se -i UTF-8 < $(SE_TEST_NONWORDS_TINY) > /dev/null ;\
 	done
 
 results/se/profiles.1-nonwords.dict-hunspell.errm-hunspell.tsv: $(SE_TEST_NONWORDS_ONE)
@@ -5653,7 +6204,7 @@ corp/kl/speling-candidates.tsv: corp/kl/klwiki-pages-meta-history.xml.bz2
 %.hfstol: %.hfst
 	hfst-fst2fst -f olw $< -o $@
 
-# bar
+# Second graphs {{{
 
 corp/en/wikipedia.formspertokens.%.tsv: corp/en/wikipedia-train.words
 	head -n $* $< > $<.$*
@@ -5670,6 +6221,33 @@ corp/se/wikipedia.formspertokens.%.tsv: corp/se/wikipedia.words
 corp/kl/wikipedia.formspertokens.%.tsv: corp/kl/wikipedia.words
 	head -n $* $< > $<.$*
 	$(PYTHON3) wordformspertokens.py -i $<.$* -o $@
+
+# }}}
+
+# Wikipedia figures {{{
+
+wikipedia-stats:\
+	results/en/wikipedia-test.stats results/en/wikipedia-train.stats\
+	results/fi/wikipedia-test.stats results/fi/wikipedia-train.stats\
+	results/se/wikipedia-test.stats results/se/wikipedia-train.stats\
+	results/kl/wikipedia-test.stats results/kl/wikipedia-train.stats
+
+results/en/%.stats: corp/en/%.words
+	wc -l < $< > $@
+	sort < $< | uniq | wc -l >> $@
+
+results/fi/%.stats: corp/fi/%.words
+	wc -l < $< > $@
+	sort < $< | uniq | wc -l >> $@
+
+results/se/%.stats: corp/se/%.words
+	wc -l < $< > $@
+	sort < $< | uniq | wc -l >> $@
+
+results/kl/%.stats: corp/kl/%.words
+	wc -l < $< > $@
+	sort < $< | uniq | wc -l >> $@
+
 
 
 # vim: set foldmethod=marker:
