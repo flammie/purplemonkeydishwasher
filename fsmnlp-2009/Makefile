@@ -1,8 +1,13 @@
+# To recreate FSMNLP 2009 paper
 
-fsmnlp-2009-new.pdf: fsmnlp-2009-new.tex
+LATEX=xelatex
+
+PAPER=Pirinen-fsmnlp-2009.pdf
+
+all: $(PAPER)
 
 %.pdf: %.tex
-	pdflatex $<
-	pdflatex $<
-	pdflatex $<
-	pdflatex $<
+	$(LATEX) $<
+	$(LATEX) $<
+	$(LATEX) $<
+	$(LATEX) $<
