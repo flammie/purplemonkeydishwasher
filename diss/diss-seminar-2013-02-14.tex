@@ -1,0 +1,210 @@
+\documentclass[t,12pt]{beamer}
+\usepackage{helvet}
+\usepackage{times}
+\usepackage{courier}
+
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{url}
+\usepackage{textpos}
+\usepackage{xspace}
+\usepackage{array}
+
+\graphicspath{{./fig/}}
+
+% theme options: hy/ml/hum, rovio/sinetti, hiit
+% default: hy,rovio
+
+%\usetheme[hy]{HY}
+%\usetheme[hy,sinetti]{HY}
+\usetheme[hum,rovio]{HY}
+%\usetheme[ml,rovio]{HY}
+%\usetheme[ml,rovio,hiit]{HY}
+
+
+\title{Weighted Finite-State Methods in Spell-Checking\\
+\scriptsize{research seminar in Uni. Helsinki}}
+\author{Tommi A Pirinen \scriptsize \guilsinglleft{}tommi.pirinen@helsinki.fi\guilsinglright{}}
+\institute{University of Helsinki\\Department of Modern Languages}
+\date{\today}
+
+\begin{document}
+
+\selectlanguage{english}
+
+\HyTitle
+%\maketitle
+
+\begin{frame}
+    \frametitle{Outline (of Thesis)}
+    \tableofcontents
+\end{frame}
+
+
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Outline}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\section{Introduction, backgrounds, motivations, history}
+
+\begin{frame}
+    \frametitle{Finite-State + Spell-Checking}
+    \begin{itemize}
+        \item A simple task: go through all words in text to see if they
+            belong to language LL, if not, modify them with relation
+            EE to fit into language LL
+        \item In Finite-State world language model LL is any (weighted) single
+            tape finite-state automaton recognising the words of the
+            language
+        \item The error model EE is any (weighted) two-tape automaton, that
+            describes spelling errors, i.e. mapping from misspelt word into
+            the correct one
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Practical, Real-World Motivation(s)}
+    \begin{itemize}
+        \item Fastest and most efficient way to deal with English is always
+            finite data-structure of all word-forms (harvested from corpora)
+            $\rightarrow$ ``this problem is solved / trivial''$\dagger$
+        \item maybe finite-state approach, \emph{infinite} lexicons,
+            and such may be necessary for morphologically complexer languages?
+            \begin{itemize}
+            \item e.g. cumulative amount of unique word-forms in texts of
+            morphologically complex languages, the graphs for Finnish and
+            English from Wiki are quite different
+            \end{itemize}
+        \item esp. lesser resourced languages won't get good spell-checker from
+            corpora only
+    \end{itemize}
+    \begin{tiny}$\dagger$latest measure from my FSA English speller is only
+    beaten by aspell but not hunspell.\end{tiny}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Theoretical Motivations?}
+    \begin{itemize}
+        \item Regular grammars or FSAs are the weakest to describe ~fully
+            morph. complex natural langs
+        \item Formal langs or methods for subset of regular languages do not
+            generally improve efficiency
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{A Graphical Example}
+    From this misspelled word as automaton:\\
+    %\includegraphics[height=0.6in]{cta}\\
+    Applying this very specific error (correction) model:\\
+%\includegraphics[height=0.6in]{cta2cat}\\
+    We can compose or intersect with a word in this dictionary:\\
+%\includegraphics[height=0.6in]{catses}\\
+\end{frame}
+
+
+\section{Language Models}
+
+\begin{frame}
+    \frametitle{Very short history of Speller LMs:}
+    \begin{enumerate}
+        \item letter n-grams
+        \item word-form list (shown in Pirinen 20xx)
+        \item ispell, aspell, hunspell (stems, affix stripping)
+            (shown in Pirinen20xxb,c)
+
+        \item contexts (word-form trigrams, POSes)
+        \item finite-state automata
+        \item statistical LMs (Bayspell, winnow spell, etc.)
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{A language model as a FST}
+    A language model looks like this:
+    %\includegraphics[height=2.0in]{demo-lm}
+\end{frame}
+
+\section{Statistical Language Models}
+\begin{frame}
+    \frametitle{Short list of Weighted FS LMs:}
+    \begin{itemize}
+        \item surface word-form unigram probabilities
+        \item rules based on lemmas and tags
+        \item surface word-form n-grams
+        \item analysis probabilities almost require disambiguated gold
+            corpora
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{WF Probabilities(?) of morphologically complex Langs}
+    \begin{itemize}
+        \item long compounds, derivation chains etc. that exist in these
+            langs get rarer in corpora
+        \item Using word-forms to train compounds in Finnish: 
+            weight of new compound \emph{foo}+\emph{bar} = weights of componenets
+            foo, bar combined
+        \item Should be generalised: weights are counted per morph for for
+            all languages $\rightarrow$ all languages become equally simple?
+    \end{itemize}
+\end{frame}
+
+\section{Error Models}
+
+\begin{frame}
+    \frametitle{Short list of WFSA Error Models:}
+    \begin{itemize}
+        \item Levenshtein-Damerau Edit distance (keyboard typing mistakes)
+        \item its optimisations: no edit at first position, limiting distance,
+            cutting parts of alphabet for mistakes
+        \item Confusion sets (competency errors); arbitrary string-to-string
+            mappings
+        \item Mistakes learnt from error corpora, may require manually verified
+            good data
+        \item Typical FSA EM would be a combination of all, done by simple
+            disjuncting union join
+    \end{itemize}
+\end{frame}
+
+
+\section{Efficiency Evaluations}
+
+\begin{frame}
+    \frametitle{Speed measurements}
+    \begin{itemize}
+        \item So and so, done in Pirinen and Hardwick (2012)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Quality measurements}
+    \begin{itemize}
+        \item Like this: in Pirinen (2013?; forthcoming)
+    \end{itemize}
+\end{frame}
+
+\section{References}
+
+\begin{frame}
+    \frametitle{Thesis articles}
+    \begin{itemize}
+        \item Pirinen 2010
+        \item Pirinen 2011
+        \item Pirinen 2012
+        \item Pirinen 2013 Forthcoming
+    \end{itemize}
+\end{frame}
+
+\end{document}
+% vim: set spell:
