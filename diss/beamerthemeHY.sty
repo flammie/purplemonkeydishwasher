@@ -1,0 +1,168 @@
+\ProvidesPackageRCS $Header: beamerthemeHY.sty,v 1.3 2007/02/23
+17:09:35 Huu$
+%\ProvidesPackageRCS $Header: beamerthemeHY.sty,v 1.2 2006/10/03
+%10:06:48 Huu$
+%\ProvidesPackageRCS $Header: beamerthemeHY.sty,v 1.1 2006/09/08
+%13:47:02 Huu$
+%\ProvidesPackageRCS $Header: beamerthemeHY.sty,v 1.0 2006/04/12
+%15:05:20 Huu$
+
+% Copyright 2006 by Antti Leino <antti.leino@helsinki.fi>
+%           2011 by Teppo Niinimäki <teppo.niinimaki@helsinki.fi>
+%
+% This program can be redistributed and/or modified under the terms
+% of the GNU Public License, version 2.
+
+\DeclareOptionBeamer{hy}{
+    \def\Hy@Title{
+        \def\rovio{hy.png}
+        \def\sinetti{hy-cs.png}
+        \colorlet{hy@kansi@fg}{white}
+        \colorlet{hy@kansi@hy}{white}
+        \colorlet{hy@kansi@title}{white}
+        \colorlet{hy@tdk}{hy@HY}
+    }
+}
+\DeclareOptionBeamer{hum}{
+    \def\Hy@Title{
+        \def\rovio{hum.png}
+        \def\sinetti{hum-cs.png}
+        \colorlet{hy@kansi@fg}{black}
+        \colorlet{hy@kansi@hy}{hy@HYwhite}
+        \colorlet{hy@kansi@title}{hy@HYblack}
+        \colorlet{hy@tdk}{hy@HUM}
+    }
+}
+\DeclareOptionBeamer{ml}{
+    \def\Hy@Title{
+        \def\rovio{ml.png}
+        \def\sinetti{ml-cs.png}
+        \colorlet{hy@kansi@fg}{black}
+        \colorlet{hy@kansi@hy}{hy@HY}
+        \colorlet{hy@kansi@title}{hy@HY}
+        \colorlet{hy@tdk}{hy@ML}
+    }
+}
+\DeclareOptionBeamer{rovio}{
+    \@roviotrue
+    \colorlet{hy@HYwhite}{hy@HY}
+    \colorlet{hy@HYblack}{hy@HY}
+}
+\DeclareOptionBeamer{sinetti}{
+    \@roviofalse
+    \colorlet{hy@HYwhite}{white}
+    \colorlet{hy@HYblack}{black}
+}
+\DeclareOptionBeamer{hiit}{
+    \@hiittrue
+}
+
+\mode<presentation>
+
+\useoutertheme{default}
+\useinnertheme{default}
+
+\newif\if@rovio
+\newif\if@hiit
+
+\usecolortheme{HY}
+
+\ExecuteOptionsBeamer{hy,rovio}
+\ProcessOptionsBeamer
+
+\Hy@Title
+
+\setbeamerfont{block title}{size={}}
+
+\setbeamersize{sidebar width left=12mm}
+\setbeamertemplate{sidebar left}{
+    \vspace{5mm}
+    \hspace{5mm}
+    \if@rovio
+        \includegraphics[width=14mm]{\rovio}
+    \else
+        \includegraphics[width=14mm]{\sinetti}
+    \fi
+    \par\vfill
+}
+
+\setbeamertemplate{title page}{
+%    \hspace{-15mm}
+    \if@rovio
+      \parbox{.64\textwidth}{
+          \vbox to .92\textheight{
+              \vspace{6mm}
+              \textcolor{hy@kansi@hy}{\tiny HELSINGIN YLIOPISTO\\
+                  \raisebox{2mm}[0pt][0pt]{HELSINGFORS UNIVERSITET}\\
+                  \raisebox{4mm}[0pt][0pt]{UNIVERSITY OF HELSINKI}
+              }
+              \par\vspace{15mm}
+              \raggedright
+              \textcolor{hy@kansi@title}{\textbf{\Large \inserttitle}}
+              \par\vspace{5mm}
+              \textcolor{hy@kansi@fg}{\insertauthor}\\
+              \textcolor{hy@kansi@fg}{\insertdate}
+              \par\vfill
+              \textcolor{hy@kansi@fg}{\textbf{\footnotesize\insertinstitute}}
+          }
+      }
+      \makebox[0pt][l]{
+          \rule{-5mm}{0pt}
+          \raisebox{-45mm}[0pt][0pt]{
+              \includegraphics[width=85mm]{\rovio}}}
+      \if@hiit
+          \makebox[0pt][l]{
+    	      \rule{2mm}{0pt}
+    	      \raisebox{31mm}[0pt][0pt]{
+		          \includegraphics[width=25mm]{hiit.pdf}}}
+      \fi
+    \else
+      \parbox{.95\textwidth}{
+          \vbox to .92\textheight{
+              \vspace{6mm}
+              \textcolor{hy@kansi@hy}{\tiny HELSINGIN YLIOPISTO\\
+                  \raisebox{2mm}[0pt][0pt]{HELSINGFORS UNIVERSITET}\\
+                  \raisebox{4mm}[0pt][0pt]{UNIVERSITY OF HELSINKI}
+              }
+              \par\vspace{15mm}
+              \raggedright
+              \textcolor{hy@kansi@title}{\textbf{\Large \inserttitle}}
+              \par\vspace{5mm}
+              \textcolor{hy@kansi@fg}{\insertauthor}\\
+              \textcolor{hy@kansi@fg}{\insertdate}
+              \par\vfill
+              \textcolor{hy@kansi@fg}{\textbf{\footnotesize\insertinstitute}}
+          }
+      }
+    \fi
+}
+
+\setbeamertemplate{navigation symbols}{}
+
+\defbeamertemplate{itemize subsubitem}{dash}{--}
+
+\setbeamercolor{item}{fg=hy@tdk}
+\setbeamercolor{subitem}{fg=hy@tdk}
+\setbeamercolor{subsubitem}{fg=hy@tdk}
+\setbeamertemplate{itemize item}[square]
+\setbeamertemplate{itemize subitem}[square]
+\setbeamertemplate{itemize subsubitem}[dash]
+
+\def\HyTitle{
+    \setbeamercolor{background canvas}{bg=hy@tdk}
+    \frame{\titlepage}
+    \setbeamercolor{background canvas}{bg=white}
+    \def\rovio{gen-hy.png}
+    \def\sinetti{gen-hy-cs.png}
+}
+
+\setbeamertemplate{frametitle}{
+%    \vspace{7mm}\vbox to 1cm{
+    \vspace{7mm}\vbox to 12mm{
+        \textbf{\insertframetitle}\\
+        \textbf{\large \insertframesubtitle}
+    }
+}
+
+\mode
+<all>
