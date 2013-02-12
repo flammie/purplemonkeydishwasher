@@ -7,14 +7,9 @@ BIB=bibtex
 
 all: Pirinen-2012-dissertation.pdf diss-seminar-2013-02-14.pdf
 
-Pirinen-2012-dissertation.pdf: Pirinen-2012-dissertation.tex diss.bib
+%.pdf: %.tex diss.bib
 	$(TEX) $<
 	$(BIB) $*
-	$(TEX) $<
-	$(TEX) $<
-	$(TEX) $<
-
-diss-seminar-2013-02-14.pdf: diss-seminar-2013-02-14.tex
 	$(TEX) $<
 	$(TEX) $<
 	$(TEX) $<

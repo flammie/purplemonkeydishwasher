@@ -18,6 +18,7 @@
 
 \graphicspath{{./fig/}}
 
+
 % theme options: hy/ml/hum, rovio/sinetti, hiit
 % default: hy,rovio
 
@@ -29,7 +30,8 @@
 
 
 \title{Weighted Finite-State Methods in Spell-Checking\\
-\scriptsize{research seminar in Uni. Helsinki}}
+\scriptsize{thesis status report in
+research seminar}}
 \author{Tommi A Pirinen \scriptsize \guilsinglleft{}tommi.pirinen@helsinki.fi\guilsinglright{}}
 \institute{University of Helsinki\\Department of Modern Languages}
 \date{\today}
@@ -46,16 +48,7 @@
     \tableofcontents
 \end{frame}
 
-
-\AtBeginSection[]
-{
-  \begin{frame}<beamer>
-    \frametitle{Outline}
-    \tableofcontents[currentsection]
-  \end{frame}
-}
-
-\section{Introduction, backgrounds, motivations, history}
+\section{Introduction, backgrounds, motivations, history, articles}
 
 \begin{frame}
     \frametitle{Finite-State + Spell-Checking}
@@ -96,48 +89,46 @@
     \frametitle{Theoretical Motivations?}
     \begin{itemize}
         \item Regular grammars or FSAs are the weakest to describe ~fully
-            morph. complex natural langs
+            morph. complex natural langs? (Not provable)
         \item Formal langs or methods for subset of regular languages do not
-            generally improve efficiency
+            generally improve efficiency? In terms of computational complexity;
+            experimentally..?
+        \item WFSAs provide a neat framework for bit of probabilistic and ruled
+            combinatorics of preferences in spell-checking task
     \end{itemize}
 \end{frame}
 
-\begin{frame}
-    \frametitle{A Graphical Example}
-    From this misspelled word as automaton:\\
-    %\includegraphics[height=0.6in]{cta}\\
-    Applying this very specific error (correction) model:\\
-%\includegraphics[height=0.6in]{cta2cat}\\
-    We can compose or intersect with a word in this dictionary:\\
-%\includegraphics[height=0.6in]{catses}\\
-\end{frame}
 
+\begin{frame}[allowframebreaks]
+  \frametitle{Thesis Articles}
+  \begin{small}
+      \phantomsection
+      \bibliographystyle{apalike}
+      \bibliography{diss}
+    \end{small}
+\end{frame}
 
 \section{Language Models}
 
 \begin{frame}
-    \frametitle{Very short history of Speller LMs:}
+    \frametitle{Short history of Speller LMs:}
     \begin{enumerate}
         \item letter n-grams
-        \item word-form list (shown in Pirinen 20xx)
+        \item word-form list $\rightarrow$ \cite{pirinen2012effects}
         \item ispell, aspell, hunspell (stems, affix stripping)
-            (shown in Pirinen20xxb,c)
+            $\rightarrow$ \cite{pirinen2010building,pirinen2010creating}
 
-        \item contexts (word-form trigrams, POSes)
-        \item finite-state automata
+        \item contexts (word-form trigrams, POSes) $\rightarrow$
+            \cite{pirinen2012improving}
+        \item finite-state automata $\rightarrow$ all cited
         \item statistical LMs (Bayspell, winnow spell, etc.)
+            $\rightarrow$ \cite{pirinen2010finitestate}
     \end{enumerate}
-\end{frame}
-
-\begin{frame}
-    \frametitle{A language model as a FST}
-    A language model looks like this:
-    %\includegraphics[height=2.0in]{demo-lm}
 \end{frame}
 
 \section{Statistical Language Models}
 \begin{frame}
-    \frametitle{Short list of Weighted FS LMs:}
+    \frametitle{Short list of Weighted LMs:}
     \begin{itemize}
         \item surface word-form unigram probabilities
         \item rules based on lemmas and tags
@@ -153,8 +144,8 @@
         \item long compounds, derivation chains etc. that exist in these
             langs get rarer in corpora
         \item Using word-forms to train compounds in Finnish: 
-            weight of new compound \emph{foo}+\emph{bar} = weights of componenets
-            foo, bar combined
+            weight of new compound \emph{foo}+\emph{bar} = weights of components
+            foo, bar combined~\cite{pirinen2009weighted,pirinen2009weighting}
         \item Should be generalised: weights are counted per morph for for
             all languages $\rightarrow$ all languages become equally simple?
     \end{itemize}
@@ -166,14 +157,16 @@
     \frametitle{Short list of WFSA Error Models:}
     \begin{itemize}
         \item Levenshtein-Damerau Edit distance (keyboard typing mistakes)
+            \cite{pirinen2010finitestate}
         \item its optimisations: no edit at first position, limiting distance,
             cutting parts of alphabet for mistakes
+            \cite{pirinen2012effects}
         \item Confusion sets (competency errors); arbitrary string-to-string
-            mappings
+            mappings \cite{pirinen2010building}
         \item Mistakes learnt from error corpora, may require manually verified
             good data
-        \item Typical FSA EM would be a combination of all, done by simple
-            disjuncting union join
+        \item Typical FSA ErrM would be a combination of all, done by simple
+            disjuncting union join etc.
     \end{itemize}
 \end{frame}
 
@@ -182,29 +175,54 @@
 
 \begin{frame}
     \frametitle{Speed measurements}
-    \begin{itemize}
-        \item So and so, done in Pirinen and Hardwick (2012)
-    \end{itemize}
+    \begin{table}
+        \centering
+        \begin{tabular}{|l|r|}
+            \hline
+            \bf System & WPS \\
+            \hline
+            \bf English Hunspell & 174 \\
+            \bf English aspell & 20,000 \\
+            \bf English WFSA & 999 \\
+            \hline
+            \bf North Saami Hunspell & 3 \\
+                \bf North Saami WFSA & 22 \\
+            \hline
+            \bf Finnish aspell & 781 \\
+              \bf Finnish WFSA & 1/3 \\
+            \hline
+            \bf Greenlandic WFSA & 1/3 \\
+        \end{tabular}
+    \caption{The speed of finite-state spell-checking~\cite{pirinen2012effects}}
+    \end{table}
 \end{frame}
 
 \begin{frame}
     \frametitle{Quality measurements}
-    \begin{itemize}
-        \item Like this: in Pirinen (2013?; forthcoming)
-    \end{itemize}
+    \begin{table}
+        \centering
+        \begin{tabular}{|l|r|}
+            \hline
+            \bf System & Correct sug. 1st \\
+            \hline
+            \bf English Hunspell & 59.3~\%  \\
+            \bf English aspell & 55.7~\% \\
+            \bf English WFSA & 73.7~\%  \\
+            \hline
+            \bf Finnish aspell & 21.1~\% \\
+            \bf Finnish WFSA & 54.8~\% \\
+            \hline
+            \bf North Saami Hunspell & 9.4~\%  \\
+            \bf North Saami WFSA & 3.5~\% \\
+            \hline
+            \bf Greenlandic WFSA & 13.3~\% \\
+        \end{tabular}
+        \caption{The quality of spell-checkers in first suggestion correct
+        statistics~\cite{pirinen2013quality}}
+    \end{table}
 \end{frame}
 
-\section{References}
 
-\begin{frame}
-    \frametitle{Thesis articles}
-    \begin{itemize}
-        \item Pirinen 2010
-        \item Pirinen 2011
-        \item Pirinen 2012
-        \item Pirinen 2013 Forthcoming
-    \end{itemize}
-\end{frame}
 
 \end{document}
 % vim: set spell:
