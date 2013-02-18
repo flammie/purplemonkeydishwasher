@@ -1420,9 +1420,9 @@ In \textbf{Related works} there is the whole vast field of literature of
 statistical language models per se. The concept of having good language model
 and using data from corpora to train it is the very basics of any form of
 statistical natural language engineering so it is easily covered in any
-elementary text book, e.g. \cite{noppakirja}. For related software see e.g.
-SRILM~\cite{stolcke2002srilm},for the more popular ones in open source
-statistical language processing.
+elementary text book, e.g. \cite{manning1999foundations}. For related software
+see e.g.  SRILM~\cite{stolcke2002srilm},for the more popular ones in open
+source statistical language processing.
 
 The existing work on training infinite dictionaries is more rare, as it is not
 needed for English. For German this is dealt with in \cite{schiller2006german},
@@ -1578,8 +1578,7 @@ context based string rewriting to phonemic folding schemes, provides a good
 motivation to have such arbitrarily combinable systems for creating these
 error models outside the software level.
 
-The rest of this chapter is laid out along following articles: in I
-\ref{sec:hunspell-error} go through the existing error models used in the
+The rest of this chapter is laid out along following articles: in~\ref{sec:hunspell-error} I go through the existing error models used in the
 popular spelling software \texttt{hunspell}, and show their finite-state
 formulations.  Finally I discuss the context-based language models in
 finite-state spelling correction for morphologically complex languages with
@@ -1657,6 +1656,7 @@ implementing a weighted edit distance measure for finite-state automata. It
 differs slightly from the formulation we use, in following aspects: \ldots
 
 \section{Hunspell's Error Modeling}
+\label{sec:hunspell-error}
 
 \textbf{Main Article}: \emph{Building and Using Existing Hunspell Dictionaries
 and \TeX\ Hyphenators as Finite-State Automata} by myself and Krister Lindén.
@@ -1784,8 +1784,8 @@ form is mostly trivial.
 
 \section{Conclusions}
 
-In chapter \ref{chap:error}, I discussed the formulation of error correction in
-finite-state spell-checking as basic finite-state automaton. 
+In chapter \ref{chap:error-models}, I discussed the formulation of error
+correction in finite-state spell-checking as basic finite-state automaton. 
 
 \chapter{Efficiency of Finite-state Spell-checking}
 \label{chap:efficiency}
@@ -1825,9 +1825,9 @@ spell-checking implementation in e.g. \cite{linden2011hfst}---in this article
 we measured the effects of different language and error model combinations to
 the speed. Then in \cite{pirinen2013quality} I extended the same evaluation to
 make more formal evaluation of the quality with same methods, using real
-spelling errors made by wikipedia contributors instead of traditional error
-archives that are not ...  of what errors nowadays are, or automatically made
-ones.
+spelling errors made by Wikipedia contributors instead of traditional error
+archives that are not a good representative set of what errors nowadays are, or
+automatically made ones.
 
 \section{Speed of Finite-State Spell-Checking}
 
@@ -1842,6 +1842,20 @@ our more complex spell-checkers it was commonly noted that the speed might be
 an issue for finite-state spell-checking systems to gain ground from the
 traditional solutions. 
 
+When discussing of such practical measurements as speed of spell-checker, a
+care must be taken in evaluation metrics. The most common use of spell-checker
+is still inter-active systems where a misspelt word is underlined when user
+makes a mistake, and the system is capable of suggesting corrections when user
+asks for them. This sets the limits that system should be capable of checking
+text as it is typed, and responding with suggestion as they are 
+demanded. It is well-known that finite-state language models that are single
+tape automata, language recognisers, can answer the question of whether the 
+string is in given language in linear time~\cite{aho2007compilers}, in
+practical measurements this amounts to spell-checking times up to
+100,000~strings per second~\cite{silfverberg2009hfst}. The central evaluation
+and optimisation was therefore performed on the error correction part which
+varies both with the language model and the error model selected.
+
 In the article we study different \textbf{related} optimisation schemes from
 non-finite-state spell-checking and evaluate the how different error models and
 parameters affect the speed of finite-state the spell-checking. We also ran the
@@ -1849,22 +1863,71 @@ tests on scale of morphologically different languages to see if the concept of
 morphological complexity reflects on the speed of spell-checking as it does to
 the base features (node, edge counts etc.) of the language models.
 
+The optimisation tricks of speed in spell-checking software has been a central
+topic in the research since the beginning. There are numerous solutions that we
+ported here to finite-state world to test their efficiency, and few methods
+related to problems with the finite-state formulation of the error models (i.e.
+the generated duplicate correction paths in the edit distance models larger
+than 1 edits long, and limitation of result set size).
+
+One interesting optimisation that we studied was the ignoring of the errors
+at first-position of the world, this is known from many practical systems, but
+scarcely documented or especially explained. Some of the research, such
+as~\cite{bhagat2007spelling}, give some statistics on plausibility of such 
+method, that it is more likely to make mistake in other parts of the words than
+the very first letter, but do not offer hypothesis as to why this happens.
+Practically, we replicated these results for our set of morphologically correct
+languages as well, giving further evidence that it may be used as a possible
+optimisation scheme.
+
+It is likewise interesting, that even though we tried to devise methods to
+prevent the larger error models of doing unnecessary things like removing and
+adding the precisely same characters in succession, this did not provide
+significant addition in the search speed of the corrections.
+
+The comparative evaluation of different language models is relatively rarely
+found in the literature. This could be due to the fact that scientific writing
+in spell-checking is still more oriented towards algorithmics research, where
+the language models of related systems may not have significant influence on
+the asymptotic speed of the process and are thus considered uninteresting. Most
+of the studies are centered towards measuring overall systems of single
+languages, such as Arabic, Indian languages~\cite{chaudhuri2002towards},
+Hungarian~\cite{tron2005hunmorph} or Spanish~\cite{otero2007contextual}, on top
+of the default treatments on English~\cite{mitton1987spelling}.
+
 \section{The Precision of Finite-State Spell-Checking}
 
-\textbf{Main article:} is . In this article I take a broad
-look on evaluation of all the language and error models and testing approaches
-I've developed in the past years of research and compare them to existing
-results on real systems-
+\textbf{Main article:} \emph{Speed and Quality Trade-Offs in Weighted
+Finite-State Spell-Checking}. In this article I take a broad look on evaluation
+of all the language and error models and testing approaches I've developed in
+the past years of research and compare them to existing results on real
+systems.
 
 \textbf{Motivation} for this larger article was to perform a larger survey
 for all the finite-state spelling methods that have been created in the
 project. In the paper I aim to show that the current state-of-the-art
 finite-state spell-checking is starting to be viable option for many
-common end-applications.
+common end-applications. The article is practical continuation to the speed
+optimisation evaluation, where I studied the concept of speeding up the
+finite-state spell-checking systems. In order for optimisations to be usable
+for end-users I needed to show that the quality degradation caused by the
+optimisation schemes that cut off part of a search space is not 
+disproportionately big for the error models that are effective enough to be
+used in the real world systems.
 
-In \textbf{Results} I show that the finite-state spell-checking in general
-does outperform the traditionally used software algorithm driven spell-checkers
-both in quality and in speed of the processing.
+When measuring the quality of spelling error correction, the basic finding is
+that the simple edit-distance measure at length of one will usually cover
+majority of errors on typical typing error situations, for English the 
+original statistics were at 80~\%~\cite{damerau1964technique}, with various
+newer studies giving similar findings between 79~\% and 94~\% depending on
+the type of corpora (hand-written and dictated versus normal typing).
+The numbers for morphologically complex languages are not in the same range,
+rather the edit distance of one is around 50 --- 70~\% of coverage. One
+reason for such may be that the length of a word is a factor in the typing
+error process; e.g. such that it is more likely to type two or more typos
+and leave them uncorrected with a language where average word length is 16
+as compared to one where it is 6. Intuitively this would make sense, and the
+figures obtained from my tests in the article provide some evidence of this.
 
 \section{Conclusions}
 
@@ -1986,7 +2049,8 @@ morph based statistics for all the languages to get the possibly less scarce
 statistics and more similar results. With regards to getting the speed and
 memory efficiency to the level that is usable in everyday applications, I
 suspect there is space for much improvement by basic engineering decisions and
-optimisations.
+optimisations. This has also been a topic in much of recent spell-checking
+research for non-finite-state systems, e.g. in~\cite{carlson2001scaling}.
 
 The concept of context-based error-detection, the real-word error detection,
 and other forms of grammar correction has not been dealt with very large scale
