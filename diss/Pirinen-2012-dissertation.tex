@@ -1,5 +1,5 @@
-\documentclass[officiallayout]{unihelcompling}
-%\documentclass[officiallayout,draft]{unihelcompling}
+%\documentclass[officiallayout]{unihelcompling}
+\documentclass[officiallayout,draft]{unihelcompling}
 
 \usepackage{amssymb}
 
@@ -116,13 +116,13 @@ available resources, or otherwise.
 The improvements and methods to the spell-checking and correction presented in
 the thesis should provide a good base for future of more efficient
 spell-checking, but they are not yet in popular end-user applications---for one
-because I believe the productivisation and social engineering required to make
-it happen is not part of the research work. The current approaches have been
+because I believe the productising and social engineering required to make it
+happen is not part of the research work. The current approaches have been
 tested on colleagues, local students, and select few brave alpha-testers from
-Greenland, whose native language we all know is in fact trickier to handle than
-most of ours. As the results of the testing were not at all so negative, we can
-hope that future does bring better spell-checkers and autocorrections for us
-with the slightly more tricky native languages.
+Greenland, whose native language we all know is, in fact trickier to handle
+than most of ours. As the results of the testing were not at all so negative,
+we can hope that future does bring better spell-checkers and autocorrections
+for us with the slightly more tricky native languages.
 
 %%\section*{Acknowledgements}
 %%\label{sec:acknowledgements}
@@ -182,10 +182,10 @@ has its roots in mathematical theory of formal \emph{languages}, which I will
 refer to as \emph{string sets} throughout this thesis to avoid confusion with
 the more common meaning of the term, natural languages. The theoretical beauty
 of this approach will be recapped in the later subsections more closely, the
-practical considerations it has are following: it gained popularity among the
+practical considerations it has, are following: it gained popularity among the
 computational linguists of morphologically complex languages around 1980's and
 onwards, and is thought by some of us as the only way to handle more
-morphologically complex languages, therefore, this sets the directions of this
+morphologically complex languages, therefore, this sets the direction of this
 thesis as such \emph{implementing spell-checking for languages of varying
 morphological complexity} (efficiently). 
 
@@ -207,31 +207,30 @@ a very practical system with potentially everyday use, we need to be sure to
 root the theoretical advances so that they are practically usable. For this
 reason the systems used in the thesis are also mainly limited to freely
 available and open source materials and techniques, indeed, if a spell-checking
-sub-system is mentioned within this thesis you should be sure to be able to
-download a functional prototype at least, all the software and data is
-available in our version management 
-system\footnote{\url{http://svn.code.sf.net/p/hfst}}, as should be in all
-properly conducted scientific research to fulfill the basic requirement of
-reproducibility.\todo{urls here and there}
+sub-system is mentioned within this thesis, you should be able to download a
+functional prototype at least. All the software and data is available in our
+version management system\footnote{\url{http://svn.code.sf.net/p/hfst}}, as
+should be in all properly conducted scientific research to fulfill the basic
+requirement of reproducibility.
 
-Another point-of-view in the thesis is quality of the spell-checking for the
-morphologically complex languages. The vast majority of research on the topic
-that there is has already shown impressive numbers on quality of spell-checking
-and corrections, with statistical approaches, gigaword corpora easily available
-(for English), and so on, it almost seems like a solved problem. Even the
-common intuition, however, does raise suspicion if the morphologically more
-complex language may not be so favorable to simple statistical approaches. The
-contribution of this thesis is also in showing the limits of these approaches
-for morphologically complex, and resource-poor languages, exploring possible
+Another point-of-view in the thesis is the quality of the spell-checking for
+the morphologically complex languages. The vast majority of the research on the
+topic for English has already shown impressive numbers on quality of
+spell-checking and corrections, with statistical approaches, it almost seems
+like a scientific consensus on the solution. Even the common intuition,
+however, does raise a suspicion if the morphologically more complex language
+may not be so favorable to simple statistical approaches. The contribution of
+this thesis is also in showing of the limits of these approaches for
+morphologically complex, and resource-poor languages, exploring possible
 modifications or tricks that can be used to recover the situation and so forth.
 
 The remainder of this first chapter is dedicated for informal introduction to
 the thesis topic. It consists of closer definitions of the practical and
-scientific concepts central to treating building a practical spell-checking
-system a research problem, some very down-to-earth rationale for this approach,
-and the background details that motivate the research of finite-state methods
-for spell-checking even when spell-checking itself has already been researched
-to death otherwise. Finally, as this is an article-based thesis, I give an
+scientific concepts central to building a practical spell-checking system as a
+research problem, some very down-to-earth rationale for this approach, and the
+background details that motivate the research of finite-state methods for
+spell-checking even when spell-checking itself has already been researched to
+death otherwise. Finally, as this is an article-based thesis, I give an
 overview to the articles of the thesis, and describe how the thesis is
 structured.
 
@@ -245,15 +244,19 @@ cover different existing and practical conceptualisations, and set the relevant
 terminology up in neat and systematic manner.
 
 The primary division of labour that is present throughout this thesis including
-the title, is the division to spell-checking and correction. The former is the
-task of \emph{detecting} the errors from the texts, whereas the latter is the
-task of \emph{suggesting} the most likely correct word forms in place of the
-error. It is of great importance to treat these two tasks as separate, as the
+in the title, is the division to spell-checking and correction. The former is
+the task of \emph{detecting} the errors from the texts, whereas the latter is
+the task of \emph{suggesting} the most likely correct word forms in place of
+the error. This separation is rather central to my thesis, so make a point to
+always read the word \emph{spell-checking} to mean only the task of detecting
+whether or not the word is correctly written, and \emph{correction}, to mean
+the process where system suggests possible corrections for the mistake.  It is
+of great importance to treat these two tasks as separate, as the
 implementations made for each other can be quite freely mixed and matched.
-While there are systems that use the same methods and approaches for both,
-this is not by any means necessity. A system giving suggestions should usually
-not need to care which kind of word form it is correcting and by what criteria
-it got it in order to work, and this is an important feature in a few of the
+While there are systems that use the same methods and approaches for both, this
+is not by any means a necessity. A system giving suggestions should usually not
+need to care which kind of word form it is correcting and by what criteria it
+got it in order to work, and this is an important feature in a few of the
 approaches I present in the thesis and therefore some concepts I present in
 this section.
 
@@ -261,38 +264,41 @@ The methods of detecting errors can be divided practically among the data they
 use for evidence of word being \emph{misspelt}. The basic division is whether
 the system looks word-form itself, in \emph{isolated} spelling error detection,
 or if it actually looks the \emph{context}. Traditionally the isolated error
-detection has based on word-form lists from where to lookup if the word-form
-to check is valid, the only additional notion we have in terms of this thesis,
-as I am talking about finite-state spell-checking, is that our 
-\emph{dictionaries}, are ...(systems) capable of representing infinite number
-of word-forms, that is, they contain not only the dictionary words, but the
-derivations and compounds necessary to reasonably spell-check morphologically
-complex language. Sometimes, but not very often, this spell-checking is
-backed up with statistical information about words, the words that are in
-dictionary, but very rare, may be marked as errors, usually just only if they
-are one typing error away from a very common word, such as in case of
-\todo{pick examples and few references, jurafsky etc.}
-The short-coming of isolated approaches for spell-checking
-is that they will only recognise those spelling errors, which result in a
-word-form that is not in the dictionary, the so-called \emph{non-word}
-spelling errors. There are also a lot of spelling errors that result in a
-word-form that is another valid word-form in the language, but not one that
-the writer meant. These \emph{real-word} spelling errors will almost always
-require the use of context to get some evidence that something is wrong. Here
-again, the simplest approach is to use statistics; if the two-three words do not
-usually appear around the one we are detecting, it may be an error. Another,
-more elaborate context-based method for detecting errors is to use full-fledged
-natural language processing system that can parse morphology, syntax or other
-features from running text, can usually recognise sentences or phrases that
-are unusual, or even directly grammatically wrong; these systems are usually
-already called \emph{grammar checkers} and correctors, rather than spelling
-checkers, and are not mostly covered in this thesis\footnote{a word of warning
-    about this terminology: some practical systems, such as office software,
-    will call any spelling checker that uses any context based approach,
-    as opposed to isolated approach, a spelling checker. This terminological
-    confusion is not carried over to Microsoft Word's recent incarnations, but
-    at the time of writing Apache OpenOffice.Org and LibreOffice do still follow
-the confused terminology.}.
+detection has been based on word-form lists from where to lookup if the
+word-form to check is valid. The only additional notion we have in terms of
+this thesis, as I am talking about finite-state spell-checking, is that our
+\emph{dictionaries}, are systems capable of representing infinite number of
+word-forms, that is, they contain not only the dictionary words, but the
+derivations and compounds necessary to reasonably spell-check a morphologically
+complex language. Sometimes, but not very often, this spell-checking is backed
+up with statistical information about words. The words that are in dictionary,
+but are very rare, might be marked as errors, usually just only if they are one
+typing error away from a very common word, such as in case of mistyping
+\misspelt{lave}\footnote{I will use this special emphasis for misspellings
+    throughout the thesis, most of the users of contemporary spell-checkers
+should be familiar to it} instead of \emph{leave}~\citep{kukich1992techniques}.
+The spelling errors of this kind, where the resulting word is an existing word
+in the dictionary, are called \emph{real-word} errors.  The short-coming of
+isolated approaches for spell-checking is that they will basically only
+recognise those spelling errors, which result in a word-form that is not in the
+dictionary, the so-called \emph{non-word} spelling errors. The real-word
+spelling errors will almost always require the use of context to get some
+evidence that something is wrong. Here again, the simplest approach is to use
+statistics; if the two-three words do not usually appear around the one we are
+detecting, it may be an error. Another, more elaborate context-based method for
+detecting errors is to use full-fledged natural language processing system that
+can parse morphology, syntax or other features from running text, can usually
+recognise sentences or phrases that are unusual, or even directly grammatically
+wrong; these systems are usually already called \emph{grammar checkers}
+\footnote{a word of warning about this terminology: some practical
+    systems, such as office software, will call any spelling checker that uses
+    any context based approach, as opposed to isolated approach, a spelling
+checker. This terminological confusion is not carried over to Microsoft Word's
+recent incarnations, but at the time of writing Apache OpenOffice.Org and
+LibreOffice do still follow the confused terminology.} and
+correctors, rather than spelling checkers, and are not a central topic to 
+this thesis, although I do try to make it clear what kind of extensions could
+be made quite trivially to turn my spell-checkers into such grammar-checkers.
 
 The error-correction task is divided most naturally by the types of errors that
 are made. There have been many different classifications for these with
@@ -301,8 +307,15 @@ category of errors that is based on unintentional mistake, such as
 mistyping on the keyboard. This is the type of spelling error that is the
 main target for correction suggestion systems typically, and the common
 research results have claimed that between 80 and 95 \% of all spelling
-errors can be attributed by having \emph{one} typing error in a word.\todo{the
-error types are in that one article}
+errors can be attributed by having \emph{one} typing error in a 
+word\citep{kukich1992techniques}. The rest of the spelling errors are more
+or less based on \emph{competence}, such errors can be caused by not knowing
+how to spell a word, especially common in orthographies like English, or not
+knowing the correct way to inflect a word, which is common when writing in a
+non-native language. Increasingly common are errors caused by limited input
+methods, such as dropping accents or otherwise transcribing text to match e.g.
+a virtual keyboard in a mobile phone---neatly enough, these errors are 
+typically indistinguishable from mistaken key press.
 
 
 
@@ -311,29 +324,31 @@ error types are in that one article}
 
 One theme of the thesis was to bring the effective and high-quality
 spell-checking for languages that have different variety of morphological
-features---or complexity, though this term is sometimes frowned upon with the
-belief that morphologically simple languages like English would be considered
-less valuable. To substantiate this claim I will first try to define what I
-mean by the morphological complexity. The topic of this thesis is not typology
-or morphological complexity, and I will take a rather practical view on the
-topic. This is a measure of complexity that affects the building of the correct
-word-form recognisers and use and requirements of the resources; there are only
-few easily measurable factors in this play-field: The morphological complexity
-for many of the purposes of creation of the language model is the complexity of
-the word-forms in terms of \emph{morphs}, that is, the average count of morphs
-in the word or \emph{morph-to-word} ratio\footnote{In literature the term is
-often morpheme to word ratio, as morpheme is an abstraction that cannot really
-be counted from actual text, I prefer to use less misleading form of the
-term.}. The morphs I use here refers to the smallest divisible unit in the word
-that is used so regularly, that it can be practically used in the language
-description---that is, a productive morph. For example, the English word
-\emph{cat} has one morph, and its plural, \emph{cats} has two morphs.  Another
-factor of morphological complexity that is important is the variation, that
-creates a set of related morphs, which are encoded in an abstraction called
-\emph{morpheme}, for example, the words \emph{runs}, and \emph{catches}, have
-suffix morphs \emph{-s}, and \emph{-es}, which could be grouped together. This
-variation can be realised in terms of number of \emph{morphemes} per language
-or \emph{morphs-per-morpheme}.k when spelling.
+features. I will refer to this difference as complexity, even if this term is
+sometimes frowned upon with the belief that morphologically simple languages
+like English would be considered less valuable---which is simply not the case.
+To substantiate this claim I will first try to define what I mean by the
+morphological complexity. The topic of this thesis is not typology or
+morphological complexity, and I will take a rather practical view on the topic.
+This is a measure of complexity that affects the building and using of the
+correct word-form recognisers in terms of computational and practical
+resources; there are only few easily measurable factors in this play-field: The
+morphological complexity for many of the purposes of creation of the language
+model is the complexity of the word-forms in terms of \emph{morphs}, that is,
+the average count of morphs in the word or \emph{morph-to-word}
+ratio\footnote{In literature the term is often morpheme to word ratio, as
+    morpheme is an abstraction that cannot really be counted from actual text,
+I prefer to use less misleading form of the term.}. The morphs I use here
+refers to the smallest divisible unit in the word that is used so regularly,
+that it can be practically used in the language description---that is, a
+productive morph. For example, the English word \emph{cat} has one morph, and
+its plural, \emph{cats} has two morphs.  Another factor of morphological
+complexity that is important is the variation, that creates a set of related
+morphs, which are encoded in an abstraction called \emph{morpheme}, for
+example, the words \emph{runs}, and \emph{catches}, have suffix morphs
+\emph{-s}, and \emph{-es}, which could be grouped together. This variation can
+be realised in terms of number of \emph{morphemes} per language or
+\emph{morphs-per-morpheme}.
 
 The common terminology for complexity of languages talks about \emph{isolating}
 and \emph{synthetic} languages. In terms of our morphological complexity
@@ -350,7 +365,7 @@ itself is considered a formative of new morph.
 
 These classifications lend themselves nicely to one nice view of the
 spell-checking software, the languages that fall into synthetic and
-agglutinative have most of the languages that have their special
+agglutinative contain most of the languages that have their special
 implementations in world of open source spell-checkers; Finnish and Voikko,
 Hungarian and Hunspell, Turkish and Zemberek, and so forth.  This tendency
 suggests that people trying to build spell-checkers with limitations of
@@ -364,7 +379,7 @@ generating infinitely long words. For language where these processes are common
 the spell-checking needs to support the infinite dictionary made by these
 morphological processes at least to some extent to be useful. And surprisingly
 many of both existing systems and those described in recent research simply do
-not acknowledge the possibility\citep{}, some skimming over the fact as possible
+not acknowledge the possibility, some skimming over the fact as possible
 extension to the system, some ignoring it altogether but usually without any
 example of implementation and evaluation strictly around English or few other
 popular indo-european languages with similar features.  The fact that lexicon
