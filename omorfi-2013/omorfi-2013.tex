@@ -1,0 +1,105 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+
+\usepackage{url}
+\usepackage{hyperref}
+
+\usepackage[margin=3cm]{geometry}
+
+\usepackage{natbib}
+
+\linespread{1.3}
+
+\setmainfont{Times New Roman}
+
+\title{The Newest Morphological Analyser of Finnish Language}
+
+\iffalse
+\author{Tommi A Pirinen}
+\fi
+
+\begin{document}
+
+\section{Introduction}
+
+Computational morphological analysis is a central component for most of the
+computational applications of linguistic analysis. The morphological analysis
+for Finnish language was first described some 30 years ago~\cite{}. In this
+article, I show a new system for computational analysis of Finnish language,
+and go through some topics that recent development in the field of computational
+linguistics have reflected to our analyser that differs from the existing
+implementations. In computational linguistics, the beginning of 2000's has been
+largely time for statistical language models and engineering. It is commonly
+argued that statistical models are not as easily suitable for morphologically
+complex languages like Finnish as they are for e.g. English. Our system is
+based on the same assumption, and the core of the system is similar rule-based
+system as described in earlier research of Finnish analysis. In this article
+we show how we have integrated statistical features to traditional rule-based
+morphological analyser of Finnish language that has been developed
+earlier in University of Helsinki~\cite{pirinen2008}.
+
+Another recent development in the computational language models is the concept
+of \emph{maintainability} of these computational systems, e.g.
+in~\cite{maxwell}. Specifically we will show how we use the power of
+\emph{crowd-sourcing} to keep up with the new words, neologisms and other rare
+words missing from dictionary. In particular we study the use of the popular
+online dictionary Wiktionary as a source of additional lexical data. The
+crowd-sourcing as well as few newer morphological phenomena in the language
+have implications to lexicographical structure of the data as well, so we try
+to describe in this article some of the newest findings based on the word data
+we have added to lexical resources of our systems. While morphology of language
+is quite resistant to change, variations such as quantitative consonant
+gradation of the bleh stops have required new additions to existing
+classifications. Furthermore we have re-analysed the generalisations of old
+lexicographical classifications and noted that resulting system is more
+favorable for computational systems as well as human classifiers to make
+educated guesses when classifying unknown words---as well as verifying
+classifications of existing lexical data.
+
+The basic framework of the computational system we present here is largely
+unchanged from the one introduced in~\cite{koskenniemi1983twolevel} and
+followed-up on in~\cite{pirinen2008}, that is, finite-state automata. The main
+technological difference is that we are now using weighted finite-state 
+automata~\cite{openfst}, which practically means that we have capability to
+express statistics or preference relations in our morphological dictionaries.
+In this article we show how we have used existing methods and findings with
+our Finnish morphological analyser.
+
+The paper is organised as follows. blah blah blah
+
+\section{Methods}
+
+\section{Evaluations}
+
+In this section we present the evaluation of our system as a full-fledged
+morphological, and we also evaluate the lexicographical system we use for
+the classification of new word-forms. To show how our new lexicographical
+classification improves from the baseline of the contemporary dictionary
+classification, we show a run of word-forms found in number of resources that
+old dictionary deemed non-existing or rare.
+
+\subsection{Dictionary Coverage}
+
+
+\subsection{Classification Precision}
+
+
+\subsection{Analysis of Word Forms Outside Dictionary Classification}
+
+
+\section{Discussion}
+
+
+\section{Conclusion}
+
+
+
+% apalike with underscores???
+\bibliographystyle{apalike}
+\bibliography{omorfi2013}
+
+\end{document}
+% vim: set spell:
