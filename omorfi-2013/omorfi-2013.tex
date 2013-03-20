@@ -15,7 +15,7 @@
 
 \setmainfont{Times New Roman}
 
-\title{The Newest Morphological Analyser of Finnish Language}
+\title{Omorfi–Newest Computational Morphological Analysis of Finnish}
 
 \iffalse
 \author{Tommi A Pirinen}
@@ -23,15 +23,27 @@
 
 \begin{document}
 
+\maketitle
+
 \section{Introduction}
 
 Computational morphological analysis is a central component for most of the
 computational applications of linguistic analysis. The morphological analysis
 for Finnish language was first described some 30 years ago~\cite{}. In this
-article, I show a new system for computational analysis of Finnish language,
-and go through some topics that recent development in the field of computational
-linguistics have reflected to our analyser that differs from the existing
-implementations. In computational linguistics, the beginning of 2000's has been
+article, I show a new system for computational analysis of Finnish language that
+has practically been in use and freely available for some years now, but has not
+been documented through a scientific publication so far. The aim of this paper
+is to examine the differences of our current approach to traditional systems
+that are used for the task and to highlight some of the new developments that
+are relevant to our system. The new developments that we discuss are mainly
+in line with the recent trends in the field of computational linguistics. In the
+recent years, there has been sharply rising interest in the statistical methods
+for computational linguistics. However, morphologically complex language like
+Finnish does not lend itself as easily for statistical treatment, so we try
+to bring into focus the modifications to the basic statistical approaches that
+we have applied to have them working for Finnish morphological analysis.
+
+In computational linguistics, the beginning of 2000's has been
 largely time for statistical language models and engineering. It is commonly
 argued that statistical models are not as easily suitable for morphologically
 complex languages like Finnish as they are for e.g. English. Our system is
@@ -39,7 +51,8 @@ based on the same assumption, and the core of the system is similar rule-based
 system as described in earlier research of Finnish analysis. In this article
 we show how we have integrated statistical features to traditional rule-based
 morphological analyser of Finnish language that has been developed
-earlier in University of Helsinki~\cite{pirinen2008}.
+earlier in University of Helsinki~\cite{pirinen2008}. We furthermore demonstrate
+a full-fledged version
 
 Another recent development in the computational language models is the concept
 of \emph{maintainability} of these computational systems, e.g.
@@ -56,21 +69,127 @@ gradation of the bleh stops have required new additions to existing
 classifications. Furthermore we have re-analysed the generalisations of old
 lexicographical classifications and noted that resulting system is more
 favorable for computational systems as well as human classifiers to make
-educated guesses when classifying unknown words---as well as verifying
+educated guesses when classifying unknown words–as well as verifying
 classifications of existing lexical data.
 
 The basic framework of the computational system we present here is largely
-unchanged from the one introduced in~\cite{koskenniemi1983twolevel} and
-followed-up on in~\cite{pirinen2008}, that is, finite-state automata. The main
+unchanged from the one introduced in~\cite{koskenniemi1983twolevel}. 
+The finite-state automata remain the state-of-the-art for morphological analysis
+of morphologically complex languages to date. The main
 technological difference is that we are now using weighted finite-state 
 automata~\cite{openfst}, which practically means that we have capability to
 express statistics or preference relations in our morphological dictionaries.
 In this article we show how we have used existing methods and findings with
 our Finnish morphological analyser.
 
-The paper is organised as follows. blah blah blah
+To summarise, this article tries to give an overview of the Finnish analyser,
+collecting together the past years of experiments that have gotten into the
+working system and contrasting them with other systems that have been or are
+in practice use for Finnish computational morphologies.
+
+The paper is organised as follows: In section~\ref{sec:background}, we go
+through the basic concepts of Finnish morphology, modern finite-state
+technology and the management of lexicographical data that is relatively
+central to the new system. 
+
+\section{Backgrounds}
+
+Finnish morphology is well understood and documented, e.g. in \cite{,,} and
+most recently in \cite{visk}. This is important to note, since we believe that
+the point of computational morphological analyser is primarily to capture
+contemporary linguistic knowledge about word-forms as accurately as possible.
+Therefore we have made an attempt to follow the descriptions of the newest
+research on words in \cite{visk}[chapter 1].
+
+The features of Finnish morphophonology that are directly relevant to this
+topic are stem variations, vowel harmony, and otherwise mostly concatenative
+morphotactics. These are the only aspects of Finnish morphophonology that
+determine the lexicographical classification of Finnish words for means of this
+computational implementation. 
+
+There have been numerous implementations of Finnish morphological analysis
+along the years. The most popular ones can be dated back to 1980's,
+including~\cite{koskenniemi1983twolevel}, which could be seen as the closest
+technological relative of our implementation, and among the more influential
+works in the field of computational morphology. Other such work along the years
+include~\cite{holman1988finnmorf}.  More recent works have showed e.g. a fully
+statistical approach for approximating a morphological segmentation of
+Finnish~\cite{creutz2005unsupervised}.
+
+In~\cite{ranta2008predictable}, Ranta presents a morphological analysis of
+Finnish based on \emph{smart paradigm} system. The treatment of Finnish
+lexicography in the smart paradigm system is useful reference for our work,
+since it maintains similar differences to contemporary dictionaries and other
+analysers as our system. 
+
+\section{Data}
+
+One of the main building blocks for rule based analysis of morphology is
+lexicographical data. In order to correctly inflect a word, a root and some
+classification to determine inflection is needed. Without classification, it is
+only possible to guess the inflectional patterns of the word. For most Finnish
+words, guessing a correct pattern is quite possible, but for purposes where
+high precision is required, such as spell-checking, a manually verified lexicon
+is necessary. Also, the task of classification is only needed once per word,
+and does not necessarily require expert skills beyond native-like language
+understanding.
+
+The requirement for large amounts of lexicographical data is very apparent in
+applications like spell-checking that require knowledge of how good a word-form
+really is. For example for compound words---a potentially infinite class of
+words in Finnish---a compound that is known to exist and has been attested in
+a number of texts is very much a better word than a compound that can be made
+up by morpholegal combination of nominals' forms.
+
+The sources for lexicographical data for Finnish are many. The most traditional
+is the dictionary maintained by Research institute of languages in Finland. For
+this, the lexicographical data has been available under free software licence
+since 2007, and it is the original base of our analyser. This data consists of
+some 90,000 word-forms. The classification uses 80 numeric classes, which could
+freely combine with 14 alphabetic classes for the stem consonant gradation.
+This means theoretically 1,120 classes, though not all combinations are possible
+or used. On top of that there are few words that have multiple classes, or some
+that do not fit into classification and the exceptions are defined in the prose
+of the dictionary---all in all, not an ideal classification for computational
+treatment. Furthermore, the background of this classification scheme were in
+removing some classes from the previous one by making phonological
+generalisations, such as grouping all simplifying diphthong stems under one
+class, on the other hand, some classes only differ from each other by perceived
+popularity of one allomorph---and neither of these classification logics has
+been carried out thoroughly and systematically.
+
+The data on official dictionary is relatively conservative and does not update
+often, so it has been necessary to seek other sources of lexical data for number
+of classes of words that are important in practical applications, like
+neologisms, jargon, proper nouns and so forth. The first source of lexical data
+we attained from the internet is a free open source user-built database named
+Joukahainen\footnote{\url{http://joukahainen}}. Their database uses another
+classification scheme, \ldots
+
+Another source of lexical data we are using is crowd-sourcing, in this case the
+popular Wiktionary project. Wiktionary is dictionary that is built on Wikipedia
+style open for everyone editing. This results that the data quality fluctuates
+quite a bit between the lexicographical entries, and it needs to be verified
+more carefully. The classification of Wiktionary words varies between the
+official dictionary classification to none to plain bogus classes, which happens
+because Wiktionary does not restrict anyhow how the data can be inputted; users
+can basically write anything in place of the classification as they see fit.
+
+There is a fourth source of data that is commonly used, that is expert
+classification at University of Helsinki, done in project basis to collect
+new sets of data or to verify the data from above sources. For the needs of
+these projects, we have devised a new classification, as well as computational
+methods to help the workers to classify and verify the data.
 
 \section{Methods}
+
+The core computational methodology for the implementation of the analyser is
+finite-state technology, introduced
+in~\cite{koskenniemi1983twolevel,beesley2003finitestate}. On top of that we
+have applied recent extensions from the research of finite-state morphology,
+such as weighted finite-state methods~\cite{hfst2012}, especially those
+that have been  built with morphologically complex languages in mind, such
+as compounding-aware weighted finite-state models~\cite{pirinen2009weighted}.
 
 \section{Evaluations}
 
@@ -82,6 +201,27 @@ classification, we show a run of word-forms found in number of resources that
 old dictionary deemed non-existing or rare.
 
 \subsection{Dictionary Coverage}
+
+First we measure the naive coverage for the systems where it is possible to
+measure naive coverage. This tells how many of the word-forms in the material
+are out-of-vocabulary items. 
+
+\begin{table}
+    \centering
+    \begin{tabular}{|l|r|r|r|}
+        \hline
+        \bf System: & Ours & FINTWOL & textmorfo$\dagger$ \\
+        \hline
+        \bf Corpus & & & \\
+        \hline
+        Gutenberg & 99~\% & 74~\% & 100~\% \\
+        Wikipedia & 99~\% &       & 100~\% \\
+        Europarl  &       &       & 100~\% \\
+        \hline
+    \end{tabular}
+    \caption{Naive coverages when analysing common corpora
+    \label{table:coverage}}
+\end{table}
 
 
 \subsection{Classification Precision}
