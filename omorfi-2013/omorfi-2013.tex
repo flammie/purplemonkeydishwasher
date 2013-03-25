@@ -25,6 +25,28 @@
 
 \maketitle
 
+\begin{abstract}
+
+    This paper describes a contemporary system for computational analysis of
+    morphology of Finnish word-forms. There are a few aspects that are notable
+    in the development: Firstly extended classification that has been needed to
+    accommodate computational semi-automatic classification of new words and
+    finetune the inflectiona variants, and to systematically go through the
+    synchronic variations in morphophonology of Finnish on character level.
+    Secondly we describe the recent developments in field of statistical
+    computational linguistics and show how we have adapted the findings in
+    the field to our traditional rule-based approach of Finnish morphology,
+    The system presented in the paper is considered to be of general use. To
+    evaluate this claim we have analysed three large text corpora on the system
+    and verified that only 1~\% of the word-forms remains unknown to the system.
+    We have also made a rudimentary quality comparison against automatically
+    analysed results of another system. With these results we furthermore
+    show that the new classification of word attributes for nnn~\% of word-forms
+    in corpus of high literary Finnish although previous dictionary
+    classifications would've considered these word-forms non-standard.
+
+\end{abstract}
+
 \section{Introduction}
 
 Computational morphological analysis is a central component for most of the
@@ -143,14 +165,16 @@ up by morpholegal combination of nominals' forms.
 
 The sources for lexicographical data for Finnish are many. The most traditional
 is the dictionary maintained by Research institute of languages in Finland. For
-this, the lexicographical data has been available under free software licence
-since 2007, and it is the original base of our analyser. This data consists of
-some 90,000 word-forms. The classification uses 80 numeric classes, which could
-freely combine with 14 alphabetic classes for the stem consonant gradation.
-This means theoretically 1,120 classes, though not all combinations are possible
-or used. On top of that there are few words that have multiple classes, or some
-that do not fit into classification and the exceptions are defined in the prose
-of the dictionary---all in all, not an ideal classification for computational
+this, the lexicographical data of the dictionary (Nykysuomen
+sanalista\footnote{\url{http://kaino.kotus.fi/sanat/nykysuomi}}) has been
+available under free software licence since 2007, and it is the original base
+of our analyser. This data consists of some 90,000 word-forms. The
+classification uses 80 numeric classes, which could freely combine with 14
+alphabetic classes for the stem consonant gradation.  This means theoretically
+1,120 classes, though not all combinations are possible or used. On top of that
+there are few words that have multiple classes, or some that do not fit into
+classification and the exceptions are defined in the prose of the
+dictionary---all in all, not an ideal classification for computational
 treatment. Furthermore, the background of this classification scheme were in
 removing some classes from the previous one by making phonological
 generalisations, such as grouping all simplifying diphthong stems under one
@@ -177,19 +201,111 @@ can basically write anything in place of the classification as they see fit.
 
 There is a fourth source of data that is commonly used, that is expert
 classification at University of Helsinki, done in project basis to collect
-new sets of data or to verify the data from above sources. For the needs of
+new sets of data or to verify the data from above sources as well as data
+collected by semi-automatic harvesting methods. For the needs of
 these projects, we have devised a new classification, as well as computational
 methods to help the workers to classify and verify the data.
 
+The full lexical data used in the analyser consists of 396,673 classified
+lexemes, the classification is roughly summarised by the classes and origin in
+table~\ref{table:lexical}. The columns are the lexical sources used, in order
+\emph{Nykysuomen sanalista} by KOTUS (RILF), \emph{Joukahainen}, 
+\emph{Wiktionary}, terms harvested in various research project in University of
+Helsinki, and lastly total sum. The rows represent coarse morphological
+classification that is based on morphological features only (i.e., inflection,
+not considering syntax or semantics), however, proper nouns are separated into
+their own class. Notable of the others class is, that the dictionaries for
+adverbs, adpositions and such words with defective paradigms have one entry per
+inflectional ending, and as such they all count as non-inflecting.
+
+\begin{table}
+  \centering
+    \begin{tabular}{|l|r|r|r|r||r|}
+        \hline
+        \bf Database: & Kotus & Joukahainen & Wiktionary & HY & \bf Total \\
+        \bf Class   & & & & & \\
+        \hline
+        Adjectives     & 10,537 & 652 & 59 & 6,368 & 17,616 \\
+        Nouns          & 67,608 & 2,945 & 1,133 & 1,589 & 73,275\\
+        (Proper nouns) & 20 & 5,394 & 70 & 262,330 & 267,814\\
+        Verbs          & 9,685 & 476 & 12 & 499 & 10,672\\
+        Others         & 6620 & 5 & 12 & 25,536 & 32,173 \\
+        \hline
+        \bf Total      & 94,290 & 9,472 & 1,286 & 296,322 & 396,637 \\
+        \hline
+    \end{tabular}
+  \caption{Lexical data used in the analyser
+  \label{table:lexical}}
+\end{table}
+
 \section{Methods}
+
+The system presented uses well-established techniques, such as
+finite state morphology~\cite{beesley2003finite}. In this section we
+describe specific 
+
+\subsection{Implementation of the Analyser}
 
 The core computational methodology for the implementation of the analyser is
 finite-state technology, introduced
-in~\cite{koskenniemi1983twolevel,beesley2003finitestate}. On top of that we
+in~\cite{koskenniemi1983twolevel,beesley2003finite}. On top of that we
 have applied recent extensions from the research of finite-state morphology,
-such as weighted finite-state methods~\cite{hfst2012}, especially those
-that have been  built with morphologically complex languages in mind, such
-as compounding-aware weighted finite-state models~\cite{pirinen2009weighted}.
+such as weighted finite-state methods~\cite{openfst,hfst2012}. This brings the
+traditional rule-based language analyser towards the statistical language
+analysers that are widely popular in handling of morphologically less
+complex languages, e.g. for English virtually all systems currently in use
+are statistical.
+
+A naive way to apply statistical methods for morphological analysis is
+straight-forward; to get the likelihood of word-form $P(w)$ as a surface form
+$w$, we calculate the amount of word-forms $f(w)$in a corpus and divide it by
+the number of word-forms in the whole corpus $CS$. This is shown in formula:
+
+$$
+P(w) = \frac{f(w)}{CS}
+$$
+
+For a morphologically complex language with relatively little corpora, the
+frequency of most of the word-forms is $0$. To handle this gracefully, we need
+to estimate the probability of unseen words and offset a part of the
+probability mass among them. A basic schoolbook approach to this is
+\emph{additive discounting}, where we simply assume that all unseen words have
+appeared in the corpus $\alpha$ times, and we increase the corpus size by
+$\alpha$ per each type $T$ in the corpus. This is shown in formula:
+
+$$
+P(\hat w) = \frac{f(w) + \alpha}{CS + T \times \alpha}
+$$
+
+Another consideration that we used from recent research
+findings~\cite{pirinen2009weighting} is the estimation of the compound words by
+their parts, this means that given unseen compound \emph{banaaniovi}, the
+estimated likelihood is $P(\mathrm{banaani}) \times P(\mathrm{ovi})$, rather
+than $P(\mathrm{\hat banaaniovi})$. One of the non-apparent results of such
+training is that in case of ambiguous compounds, the analyser will
+systematically prefer the ones with least words.
+
+\subsection{Classification and Its Use}
+
+The lexical data that is used in the analyser comes from variety of sources,
+with different quality, classification schemes (or lack of thereof) and \ldots.
+To maintain the data we have rethought the classification scheme by
+systematically analysing the word-forms of each paradigm on character level such
+that for each stem variation and each suffix, the word is considered to be in
+the same class iff each character of the each stem's corresponding varying part
+and each character in each suffix allomorph variant is the same. 
+
+To contrast our classification with the existing classification we get, for
+example, two separate classes for each class by the difference in vowel
+harmony: this is evident because for inessive suffix \emph{ssä} and \emph{ssa}
+are not the same on the character level. Similarly we get four classes instead
+of one for the non-alternating nominal stems since the singular illatives
+\emph{on}, \emph{un}, \emph{yn}, \emph{ön} are not the same on character level.
+Since there is a number of minor details in Finnish morphophonology that
+results combinatorically in quite many classes, we provide the whole table with
+mappings to existing other systems in our wiki
+page\footnote{\url{https://code.google.com/p/omorfi/wiki/InflectionClassTables}}.
+
 
 \section{Evaluations}
 
@@ -204,25 +320,50 @@ old dictionary deemed non-existing or rare.
 
 First we measure the naive coverage for the systems where it is possible to
 measure naive coverage. This tells how many of the word-forms in the material
-are out-of-vocabulary items. 
+are out-of-vocabulary items. The naive coverage is formally defined as
+$\mathrm{Coverage} = \frac{\mathrm{Analysed}}{\mathrm{Corpus size}}$. The
+results are presented in table~\ref{table:coverage}. 
 
 \begin{table}
     \centering
-    \begin{tabular}{|l|r|r|r|}
+    \begin{tabular}{|l|r|r|}
         \hline
-        \bf System: & Ours & FINTWOL & textmorfo$\dagger$ \\
+        \bf System: & Omorfi & FINTWOL \\
         \hline
-        \bf Corpus & & & \\
+        \bf Corpus & & \\
         \hline
-        Gutenberg & 99~\% & 74~\% & 100~\% \\
-        Wikipedia & 99~\% &       & 100~\% \\
-        Europarl  &       &       & 100~\% \\
+        Gutenberg & 98.3~\% & 93.0~\%   \\
+        Wikipedia & 98.4~\% & 92.7~\% \\
+        Europarl  & 99.3~\% & 93.6~\% \\
         \hline
     \end{tabular}
     \caption{Naive coverages when analysing common corpora
     \label{table:coverage}}
 \end{table}
 
+\subsection{Analysis Precision and Recall}
+
+The accuracy of analysis was measured in traditional precision---recall metric,
+using Finnish text collection's \emph{Helsingin sanomat} corpus from the year
+1995. Precision is measured as proportion of correct analyses in all analyses.
+and recall as proportion of correct strings in all of the tokens. More formally
+$\mathrm{Precision} = \frac{\mathrm{correct analysis}}{\mathrm{all analyses}}$
+and $\mathrm{Recall} = \frac{\mathrm{correct reading}}{\mathrm{all tokens}}$.
+
+\begin{table}
+    \centering
+    \begin{tabular}{|l|r|r|r|}
+        \hline
+        \bf Measure & Precision at 1 & Recall at 1---5 & Recall $\infty$  \\
+        \hline
+        \bf Corpus & & & \\
+        \hline
+        Helsingin Sanomat 1995 & & & \\
+        \hline
+    \end{tabular}
+    \caption{Quality of the analyser measured as equality to results of
+        another analyser \label{table:quality}}
+\end{table}
 
 \subsection{Classification Precision}
 
@@ -232,10 +373,44 @@ are out-of-vocabulary items.
 
 \section{Discussion}
 
+Morphological analysis of Finnish by computational methods and finite-state
+automata is a 30 year old topic. In this paper we attempted to study the
+similarities and differences that our current system has to those developed
+in the years between. Compared to most of the other systems we know of,
+we attempt to bring some statistical methods to morphological analysis of
+Finnish. 
+
+There are a couple of reasons for meticulous re-classification of paradigms
+we did in the system. One is that by systematically resorting to synchronic
+character level knowledge, we could get the most simple naive morphological
+description that lends itself to automatic classification of out of vocabulary
+words. For example, the longest suffix classification works quite well in
+guessing the paradigms, however, if you are using the old classification
+scheme, trying to find evidence that word belongs to class 1 by the fact that
+we try to find illatives of form \emph{Vn} or inessives of form \emph{ssA} is
+slightly harder task than finding the wordforms with suffix exactly e.g.
+\emph{on} and \emph{ssa}. To that aspect, the system is not useful only
+for guessing, as the lexical data comes from various sources, including
+freely editable dictionary, we can also use the automatic classification
+schemes to ensure that the word data coming from such sources is classified to
+our expectations.
+
+The measurements of precision and recall we use in the evaluation section are
+based on a ``gold standard'' that is merely a result of another automatic
+analyser, not necessarily a representative of correctly analysed Finnish. For
+this effect, it is better to read the precision and recall scores as 
+\emph{faithfulness} scores of our system being a re-implementation of the
+reference system.
 
 \section{Conclusion}
 
-
+In this article we set out to show some features of the newest edition of our
+Finnish morphological analyser. We have showed that it gives reasonably good
+results for basic analysis tasks with much higher coverage, precision and recall
+than other systems currently in use. We studied the usefulness of systematic
+re-classification of Finnish inflectional paradigms based on synchronic
+orthographical evidence, and found that it provides some benefits for tasks
+like automatic classification and verification of new lexical data.
 
 % apalike with underscores???
 \bibliographystyle{apalike}
