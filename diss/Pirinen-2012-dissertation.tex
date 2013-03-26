@@ -1,11 +1,15 @@
-%\documentclass[officiallayout]{unihelcompling}
-\documentclass[officiallayout,draft]{unihelcompling}
+\documentclass[officiallayout]{unihelcompling}
+%\documentclass[officiallayout,draft]{unihelcompling}
 
 \usepackage{amssymb}
 
 % hacking citations
 \usepackage{natbib}
 
+\usepackage{polyglossia}
+
+\setdefaultlanguage{english}
+\setotherlanguages{finnish,russian}
 
 \usepackage{fontspec}
 \usepackage{xunicode}
@@ -28,7 +32,7 @@
 \newcommand\misspelt{\bgroup\markoverwith
 {\textcolor{red}{\lower3.5pt\hbox{\sixly \char58}}}\ULon}
 
-%\setmainfont{Times}
+\setmainfont[Mapping=tex-text]{Times New Roman}
 
 \title{Weighted Finite-State Methods for 
 %\misspelt{
@@ -52,13 +56,15 @@ and Correction\footnote{Smooth draft}}
 \preexaminerb{---}
 \opponent{---}
 \custos{Anssi Yli-Jyrä, University of Helsinki, Finland}
-\generalterms{thesis, example, another example, still more examples,
-  more and more examples}
-\additionalkeywords{example, an example phrase with many words}
-\crcshort{A.0, C.0.0}
+\generalterms{thesis, finite-state, spell-checking, language model,
+  morphology}
+\additionalkeywords{statistical language models, morphologically complex
+languages}
+\crcshort{F.1.1, I.2.7, I.7.1}
 \crclong{
-\item[A.0] Example Category
-\item[C.0.0] Another Example
+\item[F.1.1] Finite-State Automata
+\item[I.3.1] Natural Language Processing
+\item[I.7.1] Spelling
 }
 \permissionnotice{
   To be presented in \ldots{} text of a long permission notice. Text of
@@ -100,10 +106,6 @@ and Correction\footnote{Smooth draft}}
     poly-agglutinative Greenlandic via Finnish and Saami languages.
 \end{abstract}
 
-\tableofcontents
-
-\listoftodos
-
 \mainmatter
 
 \chapter*{Preface}
@@ -143,6 +145,9 @@ for us with the slightly more tricky native languages.
 
 \section*{Acknowledgements}
 \label{sec:acknowledgements}
+
+The research for this thesis was done in the HFST research project, funded by
+FIN-CLARIN and various other things I must list here first.
 %%
 %%Generally speaking, I am not a person to explicitly thank any one typically. It
 %%should be noted though that if you are reading this text searching for your
@@ -175,12 +180,95 @@ for us with the slightly more tricky native languages.
 %%to uralic languages, among others. 
 %%
 %%On personal level I am thankful to my family, my friends in university of
-%%Helsinki and the one true deity who shares the initials with finite-state
-%%machines\footnote{\url{http://en.wikipedia.org/wiki/FSM}}---without them,
-%%none of this would have been possible.
+%%Helsinki, especially those in student organisations like Aspekti and Hyrmy,
+%%and the one true deity who shares the initials with finite-state
+%%machines---without them, none of this would have been possible.
 
-Helsinki \today,\\
----Tommi ``Flammie'' Antero Pirinen
+\textfinnish{Helsingissä \today,\\
+---T.~F.~A.~P.}
+
+\chapter*{Original Papers}
+
+This thesis consists of an introduction and the following peer-reviewed publi-
+cations, which are referred to as Papers I–X in the text. These publications
+are reproduced at the end of the print version of the thesis.
+
+\defcitealias{pirinen2009weighted}{I}
+\defcitealias{pirinen2009weighting}{II}
+\defcitealias{pirinen2010finitestate}{III}
+\defcitealias{pirinen2010building}{IV}
+\defcitealias{pirinen2010creating}{V}
+\defcitealias{pirinen2011modularisation}{VI}
+\defcitealias{pirinen2012compiling}{VII}
+\defcitealias{pirinen2012improving}{VIII}
+\defcitealias{pirinen2012effects}{IX}
+\defcitealias{pirinen2013quality}{X}
+
+\begin{enumerate}
+    \item[\citetalias{pirinen2009weighted}]
+        Krister Lindén and Tommi Pirinen.
+        \newblock Weighted finite-state morphological analysis of Finnish 
+        compounds.
+        \newblock In \emph{Nodalida}, Odense, Denmark, 2009.
+    \item[\citetalias{pirinen2009weighting}]
+        Krister Lindén and Tommi Pirinen.
+        \newblock Weighting finite-state morphological analyzers using HFST
+        tools.
+        \newblock In \emph{Finite-State Methods in Natural Language Processing},
+        Pretoria, South-Africa, 2009.
+    \item[\citetalias{pirinen2010finitestate}]
+        Tommi~A Pirinen and Krister Lindén.
+        \newblock Finite-state spell-checking with weighted language and error
+        models.
+        \newblock In {\em Proceedings of the Seventh SaLTMiL workshop on 
+            creation and use of basic lexical resources for less-resourced 
+        languagages}, Valletta, Malta, 2010.
+    \item[\citetalias{pirinen2010building}]
+        Tommi~A Pirinen and Krister Lindén.
+        \newblock Building and using existing Hunspell dictionaries and {\TeX }
+        hyphenators as finite-state automata.
+        \newblock In {\em Proccedings of Computational Linguistics -
+            Applications, 2010}, Wis{\l}a, Poland, 2010.
+    \item[\citetalias{pirinen2010creating}]
+        Tommi~A Pirinen and Krister Lindén.
+        \newblock Creating and weighting Hunspell dictionaries as finite-state
+        automata.
+        \newblock {\em Investigationes Linguistic\ae}, 21, 2010.
+    \item[\citetalias{pirinen2011modularisation}]
+        Tommi~A Pirinen.
+        \newblock Modularisation of Finnish finite-state language 
+        description—towards wide collaboration in open source development of
+        morphological analyser.
+        \newblock In {\em Proceedings of Nodalida}, volume~18 of {\em NEALT
+        proceedings}, Rīga, Latvia, 2011.
+    \item[\citetalias{pirinen2012compiling}]
+        Tommi A Pirinen and Francis M. Tyers.
+        \newblock Compiling apertium morphological dictionaries with HFST and
+        using them in HFST applications.
+        \newblock {\em Language Technology for Normalisation of Less-Resourced
+        Languages}, 2012.
+    \item[\citetalias{pirinen2012improving}]
+        Tommi A Pirinen, Miikka Silfverberg, and Krister Lindén.
+        \newblock Improving finite-state spell-checker suggestions with part of
+        speech n-grams.
+        \newblock In {\em CICLING}, Delhi, India, 2012.
+    \item[\citetalias{pirinen2012effects}]
+        Tommi~A Pirinen and Sam Hardwick.
+        \newblock Effects of weighted finite-state language and error models on
+        speed and efficiency of finite-state spell-checking.
+        \newblock In {\em FSMNLP}, Donostia--San Sebastían, Spain, 2012.
+    \item[\citetalias{pirinen2013quality}]
+        Tommi A Pirinen.
+        \newblock Quality and Speed Trade-Offs in
+        Finite-State Spell-Checking and Correction, \misspelt{forthcoming}
+\end{enumerate}
+
+The implementations and data for reproduction of the results is available
+in the version control system of the HFST project\footnote{\url{http://svn.code.sf.net/p/hfst/code/trunk/articles/}}.
+
+\tableofcontents
+
+\listoftodos
 
 \chapter{Introduction}
 \label{chap:introduction}
@@ -496,17 +584,6 @@ getting things to work nicely; catching up with the quality and speed of the
 spell-checkers for languages like English. My articles, in chronological order
 are:
 
-\defcitealias{pirinen2009weighted}{I}
-\defcitealias{pirinen2009weighting}{II}
-\defcitealias{pirinen2010finitestate}{III}
-\defcitealias{pirinen2010building}{IV}
-\defcitealias{pirinen2010creating}{V}
-\defcitealias{pirinen2011modularisation}{VI}
-\defcitealias{pirinen2012compiling}{VII}
-\defcitealias{pirinen2012effects}{VIII}
-\defcitealias{pirinen2012improving}{IX}
-\defcitealias{pirinen2013quality}{X}
-
 \begin{enumerate}
     \item[\citetalias{pirinen2009weighted}]
         Krister Lindén and Tommi Pirinen.
@@ -550,16 +627,16 @@ are:
         using them in HFST applications.
         \newblock {\em Language Technology for Normalisation of Less-Resourced
         Languages}, 2012.
-    \item[\citetalias{pirinen2012effects}]
-        Tommi~A Pirinen and Sam Hardwick.
-        \newblock Effects of weighted finite-state language and error models on
-        speed and efficiency of finite-state spell-checking.
-        \newblock In {\em FSMNLP}, Donostia--San Sebastían, Spain, 2012.
     \item[\citetalias{pirinen2012improving}]
         Tommi A Pirinen, Miikka Silfverberg, and Krister Lindén.
         \newblock Improving finite-state spell-checker suggestions with part of
         speech n-grams.
         \newblock In {\em CICLING}, Delhi, India, 2012.
+    \item[\citetalias{pirinen2012effects}]
+        Tommi~A Pirinen and Sam Hardwick.
+        \newblock Effects of weighted finite-state language and error models on
+        speed and efficiency of finite-state spell-checking.
+        \newblock In {\em FSMNLP}, Donostia--San Sebastían, Spain, 2012.
     \item[\citetalias{pirinen2013quality}]
         Tommi A Pirinen.
         \newblock Quality and Speed Trade-Offs in
@@ -867,7 +944,7 @@ other than English it has often been noted that using sequences of
 morphological analyses instead of the surface word-forms is more important
 factor in detecting the errors and improving the results~\citep[for
 Spanish]{otero2007contextual}. I have performed an experiment with this
-approach in~\citepalias{pirinen2011improving} for Finnish.
+approach in~\citepalias{pirinen2012improving} for Finnish.
 
 The problems of implementing Hungarian with ispell, aspell and the like lead to
 Hunspell, with multiple affix stripping and compounding added. Similarly for
@@ -878,10 +955,10 @@ earlier by \citep{aho1975efficient} being more of a keyword search. This method
 used a specialised search algorithm for finite-state network.
 In~\citet{agata2002typographical} the finite-state methods were extended to
 cover the error-model as well. Their work showed a practical implementation of
-finite-state edit distance, and finally in \citepalias{pirine2009finitestate} I
-showed that an approach by trivial extension to weighted finite-state automata
-for both language and error models for spell-checking and correction is
-plausible for the morphologically complexer languages.
+finite-state edit distance, and finally in \citepalias{pirinen2010finitestate}
+I showed that an approach by trivial extension to weighted finite-state
+automata for both language and error models for spell-checking and correction
+is plausible for the morphologically complexer languages.
 
 % The methods proposed since then use a Bayesian approach (Golding
 %(1995)) that may be combined with part-of-speech trigrams (Golding and Sch-
@@ -1342,15 +1419,16 @@ with assumption that all new systems require months of development time.
 A side result that I partially failed to communicate in this paper is, movement
 towards generalised compilation formula of the finite-state dictionaries. The
 compilation formula in this article is a variation of the earlier formulas I
-have presented~\citep{linden2009hfst,pirinen2010building}---I suggest this has
-two implications: for engineering side, we can use same algorithms to compile
-all the different dictionaries, which means that the automatic improvements and
-optimisations that can be applied to the structure of the automata will improve
-all applications. More importantly, it means that the different applications'
-formalisms for writing dictionaries use same linguistic models and same kind of
-(lack of) abstraction is present. This suggests that there is a potential for
-generalisations such that different applications could converge using a single,
-linguistically encoded dictionaries.
+have presented~\citep{linden2009hfst} and \citepalias{pirinen2010building}---I
+suggest this has two implications: for engineering side, we can use same
+algorithms to compile all the different dictionaries, which means that the
+automatic improvements and optimisations that can be applied to the structure
+of the automata will improve all applications. More importantly, it means that
+the different applications' formalisms for writing dictionaries use same
+linguistic models and same kind of (lack of) abstraction is present. This
+suggests that there is a potential for generalisations such that different
+applications could converge using a single, linguistically encoded
+dictionaries.
 
 \section{Other Possibilities for Generic Morphological Formula}
 \label{sec:other-lms}
@@ -1735,7 +1813,7 @@ with only some theoretical works \citep{agata2002typographical,mohri2003edit}
 and single examples in books~\citep{beesley2003finite} actually dealing with
 it.  The error modeling however has been central topic for software based
 solutions to spell-checking
-cf.~\citet{deorowicz2005correcting,kukich1992spelling,mitton2009orderingdeorowicz2005correcting},
+cf.~\citet{deorowicz2005correcting,kukich1992spelling,mitton2009ordering,deorowicz2005correcting},
 so I believe that proper finite-state solution to it is in place.
 
 One of the typical arguments for not using finite-state error models is that
