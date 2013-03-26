@@ -15,7 +15,8 @@
 
 \setmainfont{Times New Roman}
 
-\title{The Newest Morphological Analyser of Finnish Language}
+\title{Omorfi---The New Old of Computational Morphological analysis of Finnish
+Language}
 
 \iffalse
 \author{Tommi A Pirinen}
@@ -68,9 +69,41 @@ express statistics or preference relations in our morphological dictionaries.
 In this article we show how we have used existing methods and findings with
 our Finnish morphological analyser.
 
+As a final, very notable thing, omorfi system is free and open source product.
+In contemporary computational linguistics, freeness of systems and data is
+rightly seen as a cornerstone of properly conducted science, as it fulfills the
+requirement of repeatability by not setting unnecessary fences on repetition of
+the scientific results. This also means that it can be downloaded to any home
+computer and modified to each end user application at will.
+
 The paper is organised as follows. blah blah blah
 
 \section{Methods}
+
+The practical way how finite-state machines work for morphological analysers
+has some implications to the low-level output result of the system. In
+figure~\ref{fig:output-example} we an example of one specific output formatting
+scheme of the beginning sentence of the universal declaration of human rights.
+It contains some ambiguities and points to note. A finite-state analyser is a
+system that maps a string representing a word-form in text to a set of string
+comprising the potential analyses and vice versa, familiarly to all existing
+systems. In addition, contemporary systems like ours assign a real-value to
+each string pair, that can be used to rank the possible readings.  The system
+omorfi is using is based on an algebraic structure called \emph{tropical
+semiring} which describes how the values are to be interpreted, what it
+practically means is that we use numerical weights that are combined together
+using regular addition and the ranking is done in ascending order of values.
+In a statistical system this value is directly derived from the probability of
+the analysis using formula $W(wf) = \log(P(wf)$, where W is the weight function
+and P is the probability function of word-form $wf$. If there is not enough
+statistical data, however, the system can be easily extended with hand-written
+weighting procedures. For Finnish this means that, when there is not available
+a corpus of morphological analyses, it can be substituted with estimations of
+likelihoods of specific analyses. Omorfi has one implementation of this based
+on \cite{visk}[§ 1227] for cases. Rest of the analyses were scaled based on the
+case values and estimated on a short manually disambiguated text, but these are
+subject to vary between different versions of analyser as more data becomes
+available.
 
 \section{Evaluations}
 
