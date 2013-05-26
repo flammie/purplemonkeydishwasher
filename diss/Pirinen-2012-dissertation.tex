@@ -430,6 +430,7 @@ indistinguishable from a mistyping.
 \label{sec:morphological-complexity}
 
 One theme of the thesis was to bring effective and high-quality spell-checking
+and correction
 to languages that have a variety of morphological features. I will refer to
 this variety as complexity, even if this term is sometimes frowned upon with
 the belief that morphologically simple languages like English would be
@@ -655,33 +656,29 @@ languages. In \citepalias{pirinen2010finitestate} we try to tackle the problem
 of scarcity of the corpus resources especially in conjunction with
 morphologically complex languages, using crowd-sourcing option provided by
 Wikipedia and measuring how smaller text corpora will still benefit the
-spell-checking results. In \citepalias{pirinen2010building,pirinen2010creating}
-I have studied the compilation and use of existing non-finite-state language
-descriptions as finite-state automata-based language models of a finite-state
-spell-checking system.  Specifically in \citepalias{pirinen2010creating} I
-attempt to recreate much of Hunspell spell-checking system, including their
-error correction methods, in finite-state form. In
-\citepalias{pirinen2011modularisation} I research the topic of maintenance and
-upkeep of finite-state language models, and try to prove why finite-state
-language models are feasible for long-term maintenance for a vast array of
-applications with just one language description instead of one description per
-application.  I extend this theme in \citepalias{pirinen2012compiling} by
-showing conversion of language models outside the morphological analysers and
-spell-checkers into a suitable finite-state automaton. In
-\citepalias{pirinen2012improving} I tackled the problematic issue of
-context-aware spell-checkers for morphologically complex and resource-poor
-languages, showing and proving what practical limitations there are and what
-can be done to get some benefits of such implementation. In
+spelling correction results. In
+\citepalias{pirinen2010building,pirinen2010creating} I have studied the
+compilation and use of existing non-finite-state language descriptions as
+finite-state automata-based language models of a finite-state spell-checking
+system.  Specifically in \citepalias{pirinen2010creating} I attempt to recreate
+much of Hunspell spell-checking system, including their error correction
+methods, in finite-state form. In \citepalias{pirinen2011modularisation} I
+research the topic of maintenance and upkeep of finite-state language models,
+and try to prove why finite-state language models are feasible for long-term
+maintenance for a vast array of applications with just one language description
+instead of one description per application.  I extend this theme in
+\citepalias{pirinen2012compiling} by showing conversion of language models
+outside the morphological analysers and spell-checkers into a suitable
+finite-state automaton. In \citepalias{pirinen2012improving} I tackled the
+problematic issue of context-aware spell-checkers for morphologically complex
+and resource-poor languages, showing and proving what practical limitations
+there are and what can be done to get some benefits of such implementation. In
 \citepalias{pirinen2012effects,pirinen2013quality} we have already reached to
 point of full-fledged, workable systems for spell-checking, and test the full
 power of those systems, first for speed and efficiency in
 \citepalias{pirinen2012effects}, then in a larger scale
 survey~\citepalias{pirinen2013quality}, the quality of spelling suggestions, as
 well as extensions to some of the speed measurements.
-%As an epilogue, in I revisit the concept of Finnish as morphologically complex
-%language and prove that limitations of at least Finnish for traditional
-%non-finite-state approaches to spell-checking simply might not have been there
-%after all.
 The chronological order is also visible in the schematic diagram of
 Figure~\ref{fig:schematic-diagram}: the finite-state language models (in the
 leftmost package) were conceptualised after the statistical weighting schemes
@@ -777,13 +774,14 @@ future work in the field.
 \chapter{Background}
 \label{chap:background}
 
-Spell-checking by computer is a topic that is already over half a century old,
-and a one that has been researched periodically throughout that time.  In this
-chapter I attempt to walk through the long history of spell-checking with an
-eye on both the scientific study of spell-checking, as well as the practical
-end-user systems for that. While I attempt to cover as much as possible on the
-topic, there are bound to be many omissions and for fuller picture I recommend
-reading some of the previous surveys on spell-checking and correction, such as
+Spell-checking and correction by computer is a topic that is already over half
+a century old, and a one that has been researched periodically throughout that
+time.  In this chapter I attempt to walk through the long history of
+spell-checking with an eye on both the scientific study of spell-checking, as
+well as the practical end-user systems for that. While I attempt to cover as
+much as possible on the topic, there are bound to be many omissions and for
+fuller picture I recommend reading some of the previous surveys on
+spell-checking and correction, such as
 \citet{kukich1992spelling,mitton2009ordering}.  In~\citet{kukich1992spelling}
 the history of spell-checking, both scientific improvements and some real-world
 applications is very well summed up until the publication time of early 1990's.
@@ -791,20 +789,20 @@ In \citet{mitton2009ordering} there are more recent advances on non-word
 spelling correction.  \citet{kukich1992spelling} also refers to spell-checking
 as a \emph{perennial topic} in computational linguistics, I find this
 characterisation quite accurate as it has been prevalent and recurring theme
-throughout the history of computational linguistics and earlier in
-computer science.
+throughout the history of computational linguistics and earlier in computer
+science.
 
 This backgrounding chapter is organised as follows: In
 Section~\ref{sec:history} I go through the history of spell-checking and
 correction, especially the scientific contributions that relate to my research,
 and practical software systems I have used as baseline for my target
-functionality.  After dealing with the history of spell-checking I go through
-the closely related scientific fields in Section~\ref{sec:related}, whose
-results are relevant to my research. Finally, I go through the current
-situation in Section~\ref{sec:finite-state-theory}, and specifically the
-finite-state approaches to spell-checking, and describe my particular system. I
-will also detail much of the notation and terminology in these chapters, and
-contrast them to other similar approaches.
+functionality.  After dealing with the history of spell-checking and correction
+I go through the closely related scientific fields in
+Section~\ref{sec:related}, whose results are relevant to my research. Finally,
+I go through the current situation in Section~\ref{sec:finite-state-theory},
+and specifically the finite-state approaches to spell-checking and correction,
+and describe my particular system. I will also detail much of the notation and
+terminology in these chapters, and contrast them to other similar approaches.
 
 \section{Brief History and Prior Work}
 \label{sec:history}
@@ -824,7 +822,7 @@ to the other string. The editing operations defined were following:
     \item \emph{changing} a letter to another, and
     \item \emph{swapping} or transposing adjacent letters
         (This is omitted from some formulations and sometimes ignored in
-        spell-checking applications)
+        spelling correction applications)
 \end{itemize}
 
 For example, distance between \emph{cat} and \misspelt{ca} is 1 (deletion of
@@ -952,13 +950,14 @@ Turkish, various computational methods have been used. Among
 those~\citet{oflazer1996errortolerant} demonstrates one of the first
 finite-state spell-checking with full-fledged finite-state language model---the
 earlier by \citep{aho1975efficient} being more of a keyword search. This method
-used a specialised search algorithm for finite-state network.
-In~\citet{agata2002typographical} the finite-state methods were extended to
-cover the error-model as well. Their work showed a practical implementation of
-finite-state edit distance, and finally in \citepalias{pirinen2010finitestate}
-I showed that an approach by an extension to weighted finite-state
-automata for both language and error models for spell-checking and correction
-is plausible for the morphologically complexer languages.
+used a specialised search algorithm for error tolerance part when traversing
+the finite-state network.  In~\citet{agata2002typographical} the finite-state
+methods were extended to cover the error-model as well. Their work showed a
+practical implementation of finite-state edit distance, and finally in
+\citepalias{pirinen2010finitestate} I showed that an approach by an extension
+to weighted finite-state automata for both language and error models for
+spell-checking and correction is plausible for the morphologically complexer
+languages.
 
 % The methods proposed since then use a Bayesian approach (Golding
 %(1995)) that may be combined with part-of-speech trigrams (Golding and Sch-
@@ -1073,7 +1072,7 @@ well-specified fuzziness.
 In many practical systems a spelling corrector or its weak equivalent is used
 for pre-processing. This phase of processing is often called e.g. 
 \emph{normalisation}. Many approaches of the normalisation are directly
-relevant to spell-checking, and parts of the spell-checking system I have
+relevant to spelling correction, and parts of the spell-checking system I have
 developed have been getting ideas from development of systems such as SMS
 normalisation to standard written language~\citep{kobus2008normalizing}.
 
@@ -1177,8 +1176,8 @@ simply calculating and encoding probabilities---this is what most of the
 comparable products do in spell-checking and correction, and what has been
 researched in statistical language models. The key formula for conceiving any
 statistical process giving probabilistic distribution $P$ as a part of a
-finite-state automaton is $-log P$, i.e. the smaller the probability the bigger
-the weight. The probability here is not straight-forward, but relatively
+finite-state automaton is $-\log P$, i.e. the smaller the probability the
+bigger the weight. The probability here is not straight-forward, but relatively
 simple. For most things we calculate $P(x) = \frac{f(x)}{\sum_{z \in
 \mathcal{D}} f(z)}$, where x is the event whose probability to count, $f()$ is
 the frequency of event, and $\mathcal{D}$ the collection of all events, so the
@@ -1230,7 +1229,7 @@ my practical applications I have used the range 0.5--1.
 \label{chap:language-models}
 
 In this chapter I will go through the various kinds of language models that are
-used for the task of spell -hecking and correction. Language models are used
+used for the task of spell checking and correction. Language models are used
 for these two tasks. Depending on the system, these two tasks can either share
 a common language model, or use separate and different language models, or even
 different approaches to apply that language model. This separation is an
@@ -1562,23 +1561,27 @@ actually requiring more resources, and propose some possible solutions.
 \label{sec:statistical}
 
 A basic statistical language model is a simple structure that can be
-\emph{trained} using a corpus of texts that contains word-forms. For
-spell-checking a simple logic of suggesting a word-form that is more common
-before one that is less, is usually the best approach in terms of precision,
-and in the majority of the cases leads into correct suggestion. This is
-formalised into the weighted finite-state form by a simple probability formula:
-$w(x) = -\log P(x)$, where $w$ is a weight in tropical semi-ring structure and
-$P(x)$ is a probability of wordform $x$.  The morphologically complex languages
-are thought to be more difficult to train because the number of the different
-word-forms is greatly larger than with morphologically simple languages, which
-leads to decreased discriminative capabilities for the probability
-calculations, as the number of word-forms with exactly same amount of
-word-forms increases. In my research I have studied some approaches to deal
-with this situation. The thing that further worsens this situation is, that
-morphologically complex languages often have less resources. Much of the
-contributions I have provided here concentrate on using the scarce resources in
-a way that will give nearly the same advantage from the statistical training as
-one would expect for morphologically poor languages with more resources.
+\emph{trained} using a corpus of texts that contains word-forms. There is ample
+existing research for statistical and trained language models for various
+purposes, and I strongly recommend basic works
+like~\citet{manning1999foundations} as a good reference for the methods and
+math background in this chapter.  For spelling correction a simple logic of
+suggesting a word-form that is more common before one that is less, is usually
+the best approach in terms of precision, and in the majority of the cases leads
+into correct suggestion. This is formalised into the weighted finite-state form
+by a simple probability formula: $w(x) = -\log P(x)$, where $w$ is a weight in
+tropical semi-ring structure and $P(x)$ is a probability of wordform $x$.  The
+morphologically complex languages are thought to be more difficult to train
+because the number of the different word-forms is greatly larger than with
+morphologically simple languages, which leads to decreased discriminative
+capabilities for the probability calculations, as the number of word-forms with
+exactly same amount of word-forms increases. In my research I have studied some
+approaches to deal with this situation. The thing that further worsens this
+situation is, that morphologically complex languages often have less resources.
+Much of the contributions I have provided here concentrate on using the scarce
+resources in a way that will give nearly the same advantage from the
+statistical training as one would expect for morphologically poor languages
+with more resources.
 
 The more complex statistical language models, such as ones that use
 morphological, syntactic or other analyses, require a large amount of
@@ -1590,6 +1593,30 @@ quality analysis data is not essential to typical spell-checking systems, but
 more for fine-tuning of the final product and building of the grammar-checking
 systems out of spell-checkers.
 
+Another significant piece of information in statistical models is
+\emph{context}. The basic statistical probabilities I described above work on
+simple frequencies of word-forms in isolation, these kind of models are called
+e.g. \emph{unigram} language models. The common language models for
+applications like part-of-speech guessing, automatic translation and evem
+spell-checking for real word errors typically use the probabilities of e.g.
+word-forms in context, taking likelihood of word-form being after its previous
+words as the probability value, These are called \emph{n-gram} language models.
+The requirement for large amounts of training data is even more steep in models
+like these, so I will only briefly study the use of such models in conjunction
+with finite-state spelling correction. One has to be wary though, when reading
+these terms throughout this chapter: I will commonly apply methods of
+n-gram language models to make unigram language models of complex languages
+work better, practically treating morphological sub-parts as components
+of n-gram model the way one would treat word-forms for n-gram word models of
+English. I will commonly refer to the resulting models as unigram while the
+underlying models in reality are hybrid of both.
+
+The main theme to follow for the rest of the chapter is the concept of workable
+statistical models for morphologically complex languages with small amounts of
+the training data available. The improvements are provided in style of
+\emph{tricks} or hacks to the regular contemporary algorithms, ways to cleverly
+reuse the existing scarce data as much as possible while sticking to the well
+established algorithms of the field otherwise.
 
 \section{Language Models for Languages with Compounding}
 \label{sec:compounding}
@@ -1684,7 +1711,7 @@ In \textbf{related works} there is the whole vast field of literature of
 statistical language models per se. The concept of having good language model
 and using data from corpora to train it is the very basics of any form of
 statistical natural language engineering so it is easily covered in any
-elementary text book, e.g. \citet{manning1999foundations}. For related software
+elementary text book, e.g. . For related software
 see e.g.  SRILM~\citep{stolcke2002srilm} for the more popular ones in open
 source statistical language processing.
 
