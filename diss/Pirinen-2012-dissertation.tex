@@ -8,6 +8,9 @@
 
 \usepackage{polyglossia}
 
+% for "= hacks
+\usepackage[shortcuts]{extdash}
+
 \setdefaultlanguage{english}
 \setotherlanguages{finnish,russian}
 
@@ -38,7 +41,7 @@
 %\misspelt{
 Spell-Checking
 %}
-and Correction\footnote{Smooth draft}}
+and Correction\footnote{Cool draft}}
 \author{Tommi A Pirinen}
 
 
@@ -56,7 +59,7 @@ and Correction\footnote{Smooth draft}}
 \preexaminerb{---}
 \opponent{---}
 \custos{Anssi Yli-Jyrä, University of Helsinki, Finland}
-\generalterms{thesis, finite-state, spell-checking, language model,
+\generalterms{thesis, finite-state, spell\-/checking, language model,
   morphology}
 \additionalkeywords{statistical language models, morphologically complex
 languages}
@@ -84,14 +87,14 @@ languages}
 \maketitle
 
 \begin{abstract} 
-    This dissertation is a large-scale study of spell-checking and correction
-    using finite-state technology. Finite-state spell-checking is a key method
+    This dissertation is a large-scale study of spell\-/checking and correction
+    using finite-state technology. Finite-state spell\-/checking is a key method
     for handling morphologically complex languages in a computationally
     efficient manner. The dissertation goes through technological and practical
     considerations that are required for finite-state spell-checkers to be at
     the same level as state-of-the-art non-finite-state spell-checkers. 
 
-    Three aspects of spell-checking are considered in the thesis: modeling of
+    Three aspects of spell\-/checking are considered in the thesis: modeling of
     the correctly written words and word-forms with finite-state language
     models, applying statistical information to finite-state language models
     with a specific view to morphologically complex languages, and modeling the
@@ -100,7 +103,7 @@ languages}
 
     The usability of finite-state spell-checkers as a viable alternative to
     traditional software-based solutions is shown by a large-scale
-    evaluation of speed and quality of spell-checking with languages of
+    evaluation of speed and quality of spell\-/checking with languages of
     a morphologically different nature. The selected languages display a
     full range of typological complexity from isolating English to 
     poly-agglutinative Greenlandic via Finnish and the Saami languages.
@@ -132,9 +135,9 @@ working in computational linguistics, or even natural language engineering,
 especially when it concerns languages different from English, by complexity,
 availability of resources, or otherwise.
 
-The improvements to, and methods for, the spell-checking and correction
+The improvements to, and methods for, the spell\-/checking and correction
 presented in the thesis should provide a good base for future more efficient
-spell-checking, but they are not yet included popular end-user applications---
+spell\-/checking, but they are not yet included popular end-user applications---
 because I believe the productification and social engineering required to make
 it happen is not part of the research work. The current approaches have been
 tested on colleagues, local students, and a select few brave alpha-testers from
@@ -188,6 +191,7 @@ FIN-CLARIN and various other things I must list here first.
 ---T.~F.~A.~P.}
 
 \chapter*{Original Papers}
+\label{chap:papers}
 
 This thesis consists of an introduction and the following peer-reviewed publi-
 cations, which are referred to as Papers I–X in the text. These publications
@@ -218,7 +222,7 @@ are reproduced at the end of the print version of the thesis.
         Pretoria, South-Africa, 2009.
     \item[\citetalias{pirinen2010finitestate}]
         Tommi~A Pirinen and Krister Lindén.
-        \newblock Finite-state spell-checking with weighted language and error
+        \newblock Finite-state spell\-/checking with weighted language and error
         models.
         \newblock In {\em Proceedings of the Seventh SaLTMiL workshop on 
             creation and use of basic lexical resources for less-resourced 
@@ -255,7 +259,7 @@ are reproduced at the end of the print version of the thesis.
     \item[\citetalias{pirinen2012effects}]
         Tommi~A Pirinen and Sam Hardwick.
         \newblock Effects of weighted finite-state language and error models on
-        speed and efficiency of finite-state spell-checking.
+        speed and efficiency of finite-state spell\-/checking.
         \newblock In {\em FSMNLP}, Donostia--San Sebastían, Spain, 2012.
     \item[\citetalias{pirinen2013quality}]
         Tommi A Pirinen.
@@ -283,7 +287,7 @@ academic works published in the 1960's, and the field has greatly developed
 since.
 
 The purpose of this thesis is to research one specific approach to
-spell-checking---that of finite-state technology. The finite-state technology
+spell\-/checking---that of finite-state technology. The finite-state technology
 has its roots in the mathematical theory of formal \emph{languages}, which I
 will refer to as \emph{string sets} throughout this thesis to avoid confusion
 with the more common meaning of the term, natural languages. The theoretical
@@ -292,7 +296,7 @@ The practical circumstances of this approach are the following: it gained
 popularity among computational linguists interested in morphologically complex
 languages around the 1980's and onwards, and is thought by some of us to be the
 only way to handle more morphologically complex languages. This sets the
-direction of this thesis to \emph{implement spell-checking for languages of
+direction of this thesis to \emph{implement spell\-/checking for languages of
 varying morphological complexity} efficiently.
 
 Finite-state approaches are traditional to computational handling of Finnish,
@@ -300,11 +304,11 @@ cf.~\citet{koskenniemi1983twolevel}. Finnish is my native language and for
 practical reasons a recurring theme in this thesis. Whilst concentrating on
 scientific contributions made during the years, this thesis is in a way also a
 book describing the past years of development of the actual, language
-independent, spell-checking software\footnote{available, free and open source,
+independent, spell\-/checking software\footnote{available, free and open source,
 like all good scientific research products} which is used also in making of
 this very thesis. So, it should be clear that the contribution of this thesis
 is meant to be a very concrete, should I even say a final---albeit
-beta-quality---system for spell-checking.  There are some practical
+beta-quality---system for spell\-/checking.  There are some practical
 implications of using one's native language to evaluate and develop new and
 improved methods; the motivation for spending immeasurable amounts of spare
 time is there.
@@ -313,17 +317,17 @@ One common theme throughout the thesis is efficiency. As we are working with a
 practical system with potential everyday use, we need to ground the theoretical
 advances so that they are practically usable. For this reason the systems used
 in the thesis are also mainly limited to freely available and open source
-materials and techniques. Indeed, if a spell-checking sub-system is mentioned
+materials and techniques. Indeed, if a spell\-/checking sub-system is mentioned
 in this thesis, you should at least be able to download a functional prototype.
 All our software and data is available in our version management
 system\footnote{\url{http://svn.code.sf.net/p/hfst}}, as it should be in all
 properly conducted scientific research to fulfill the basic requirement of
 reproducibility.
 
-Another point-of-view in the thesis is the quality of the spell-checking for
+Another point-of-view in the thesis is the quality of the spell\-/checking for
 morphologically complex languages. For English, the vast majority of the
 research on the topic has already shown impressive numbers on quality of
-spell-checking and corrections with statistical approaches. It almost seems
+spell\-/checking and corrections with statistical approaches. It almost seems
 like a scientific consensus on the solution. The common intuition,
 however, raises some suspicion that the morphologically more complex languages
 may not be so favorable to simple statistical approaches. The contribution of
@@ -333,10 +337,10 @@ modifications or tricks that can be used to salvage the situation.
 
 The remainder of this first chapter is dedicated to an informal introduction to
 the thesis topic. It consists of closer definitions of the practical and
-scientific concepts central to building a spell-checking system as a research
+scientific concepts central to building a spell\-/checking system as a research
 problem, some very down-to-earth rationale for this approach, and the
 background details that motivate the research of finite-state methods for
-spell-checking even when spell-checking itself has already almost been
+spell\-/checking even when spell\-/checking itself has already almost been
 researched to death. Finally, as this is an article-based thesis, I give an
 overview of the articles of the thesis, and describe how the thesis is
 structured.
@@ -344,18 +348,18 @@ structured.
 \section{Components of a Spell-Checking and Correction System}
 \label{sec:practical-components}
 
-The spell-checking and correction, like the title would suggest, can already be
+The spell\-/checking and correction, like the title would suggest, can already be
 separated into two components. Furthermore both of the components can be
 divided, classified and analysed into many separate pieces. In this section I
 try to cover different existing and practical conceptualisations, and introduce
 the relevant terminology in a neat and systematic manner.
 
 The primary division of labour that is present throughout this thesis including
-in the title, is the division into spell-checking and correction. The former is
+in the title, is the division into spell\-/checking and correction. The former is
 the task of \emph{detecting} the errors in the texts, whereas the latter is the
 task of \emph{suggesting} the most likely correct word forms in place of the
 error. This separation is rather central to my thesis, so Imake a point to
-always read the word \emph{spell-checking} to mean only the task of detecting
+always read the word \emph{spell\-/checking} to mean only the task of detecting
 whether or not the word is correctly written, and \emph{correction}, to mean
 the process where the system suggests possible corrections for the mistake.  It
 is of great importance to treat these two tasks as separate, as the
@@ -373,11 +377,11 @@ system looks only at the word-form itself, in \emph{isolated} spelling error
 detection, or if it actually looks at the \emph{context} as well. Traditionally
 the isolated error detection has been based on lookup from word-form lists
 checking if the word-form is valid. The only additional notion we have in terms
-of this thesis, talking about finite-state spell-checking, is that our
+of this thesis, talking about finite-state spell\-/checking, is that our
 \emph{dictionaries} are systems capable of representing an infinite number of
 word-forms, i.e., they contain not only the dictionary words, but also the
 derivations and compounds necessary to reasonably spell-check a morphologically
-complex language. Sometimes, but not very often, this spell-checking is backed
+complex language. Sometimes, but not very often, this spell\-/checking is backed
 up with statistical information about words: the words that are in a
 dictionary, but are very rare, might be marked as errors, if they are one
 typing error away from a very common word, such as \misspelt{lave}\footnote{I
@@ -386,7 +390,7 @@ typing error away from a very common word, such as \misspelt{lave}\footnote{I
 it.} instead of \emph{leave}~\citep{kukich1992techniques}.  The spelling errors
 of this kind, where the resulting word is an existing word in the dictionary,
 are called \emph{real-word} errors.  The short-coming of isolated approaches
-for spell-checking is that they will basically only recognise those spelling
+for spell\-/checking is that they will basically only recognise those spelling
 errors, which result in a word-form that is not in the dictionary, the
 so-called \emph{non-word} spelling errors. The real-word spelling errors will
 almost always require the use of context to get some evidence that something is
@@ -429,135 +433,134 @@ indistinguishable from a mistyping.
 \section{Morphological Complexity}
 \label{sec:morphological-complexity}
 
-One theme of the thesis was to bring effective and high-quality spell-checking
-and correction
-to languages that have a variety of morphological features. I will refer to
-this variety as complexity, even if this term is sometimes frowned upon with
-the belief that morphologically simple languages like English would be
-considered less valuable---which is not the case.  To substantiate this claim I
-will first try to define what I mean by morphological complexity. The topic of
-this thesis is not typology nor morphological complexity, and I will take a
-rather practical view on the topic.  This is a measure of complexity that
-affects the building and use of correct word-form recognisers in terms of
-computational and practical resources; there are only few easily measurable
-factors in this playing field. The morphological complexity of the language model is the complexity of the word-forms
-in terms of \emph{morphs}, i.e., the average count of morphs in the word or
-\emph{morph-to-word} ratio\footnote{In the literature the term is often morpheme to
-    word ratio. As a morpheme is an abstraction that cannot really be counted
-    in actual text, I prefer to use the less misleading form of the term.}. The
-    morphs I use here refer to the smallest meaningful unit in the word that is
-    used so regularly, that it can be practically used in the language
-    description---that is, a productive morph. For example, the English word
-    \emph{cat} has one morph, and its plural, \emph{cats} has two morphs.
-    Another factor of morphological complexity that is important is the
-    variation that creates a set of related morphs, which are encoded in an
-    abstraction called \emph{morpheme}, for example, the words \emph{runs}, and
-    \emph{catches}, have suffix morphs \emph{-s}, and \emph{-es}, which could
-    be grouped together. This variation can be realised in terms of the number of
-    \emph{morphemes} per language or \emph{morphs-per-morpheme}.
+One theme of the thesis was to bring effective and high-quality spell\-/checking
+and correction to languages that have a variety of morphological features. I
+will refer to this variety as complexity, even if this term is sometimes
+frowned upon with the belief that morphologically simple languages like English
+would be considered less valuable---which is not the case.  To substantiate
+this claim I will first try to define what I mean by morphological complexity.
+The topic of this thesis is not typology nor morphological complexity, and I
+will take a rather practical view on the topic.  This is a measure of
+complexity that affects the building and use of correct word-form recognisers
+in terms of computational and practical resources; there are only few easily
+measurable factors in this playing field. The morphological complexity of the
+language model is the complexity of the word-forms in terms of \emph{morphs},
+i.e., the average count of morphs in the word or \emph{morph-to-word}
+ratio\footnote{In the literature the term is often morpheme to word ratio. As a
+morpheme is an abstraction that cannot really be counted in actual text, I
+prefer to use the less misleading form of the term.}. The morphs I use here
+refer to the smallest meaningful unit in the word that is used so regularly,
+that it can be practically used in the language description---that is, a
+productive morph. For example, the English word \emph{cat} has one morph, and
+its plural, \emph{cats} has two morphs.  Another factor of morphological
+complexity that is important is the variation that creates a set of related
+morphs, which are encoded in an abstraction called \emph{morpheme}, for
+example, the words \emph{runs}, and \emph{catches}, have suffix morphs
+\emph{-s}, and \emph{-es}, which could be grouped together. This variation can
+be realised in terms of the number of \emph{morphemes} per language or
+\emph{morphs-per-morpheme}.
 
 The common terminology for complexity of languages talks about \emph{isolating}
 and \emph{synthetic} languages. In terms of our morphological complexity
-measures isolating are languages that have an average morph-to-word ratio around
-1--2. The languages with high morph-to-word ratio are often called
+measures isolating are languages that have an average morph-to-word ratio
+around 1--2. The languages with high morph-to-word ratio are often called
 \emph{poly-synthetic}. Another scale of terms is \emph{analytic},
-\emph{agglutinative}, \emph{fusional}, and again, \emph{poly-synthetic}. To
-refer to the kind of variation the morphemes tend to, in analytic cases the
-morph-to-word ratio is low and therefore morphs do not have variations either,
-the agglutinative languages have morphs that have little variation to extent
-that typical language models are concatenated from separate morphs, and
-fusional languages have very high rate of variation up to extent that variation
-itself is considered a formative of new morph. 
+\emph{agglutinative}, \emph{fusional}, and again, \emph{poly-synthetic}. Which
+is to refer to the kind of variation the morphemes tend to have. In analytic
+cases the morph-to-word ratio is low and therefore morphs do not have
+variations either, the agglutinative languages have morphs that have little
+variation to the extent that typical language models are concatenated from
+separate morphs, and fusional languages have very high rate of variation to the
+extent that variation itself is considered a new morph. 
 
-These classifications lend themselves nicely to one nice view of the
-spell-checking software, the languages that fall into synthetic and
+These classifications lend themselves nicely to a view of
+spell\-/checking software, where the languages that fall into synthetic and
 agglutinative contain most of the languages that have their special
-implementations in world of open source spell-checkers; Finnish and Voikko,
+implementations in the world of open source spell-checkers; Finnish and Voikko,
 Hungarian and Hunspell, Turkish and Zemberek, and so forth.  This tendency
 suggests that people trying to build spell-checkers with limitations of
-(nearly) word-list or statistics based systems will not be able to reach
-satisfying results and other approaches are in fact necessary.
+almost only word-list or statistics-based systems will not be able to reach
+satisfying results, and other approaches are in fact necessary.
 
 One, perhaps the most important form of morphological complexity relevant to
 the topic of this thesis, and one that is often ignored, is the rate of
 productive derivation and compounding that forms recurring structures capable
 of generating infinitely long words. For a language where these processes are
-common, spell-checking needs to support an infinite dictionary caused by these
-morphological processes---at least to some extent---to be useful. And
-surprisingly many of both existing systems, and those described in recent
-research simply do not acknowledge the possibility. Some are skimming over the
-fact as a possible extension to the system, some ignoring it altogether but
-usually without any example of an implementation and an evaluation strictly
-based on English or few other popular indo-european languages with similar
-features.  The fact that lexicon of many languages is infinite and that it has
-practical effects has a good theoretical treatment in
+common, spell\-/checking needs---at least to some extent---to support an infinite
+dictionary to be useful. Surprisingly many of both existing systems, and those
+described in recent research simply do not acknowledge the need. Some are
+glossing over the fact as a possible extension to the system, some ignoring it
+altogether but usually without any example of an implementation and evaluating
+strictly based on English or a few other popular indo-european languages with
+similar features.  The fact that the lexicon of many languages is infinite and
+that this has practical effects has a good theoretical treatment in
 e.g.~\citet{kornai2002many}.
 
-To illustrate the practical issues with morphological complex languages we use
-the de facto open source spell-checking system, Hunspell. Of aforementioned
-morphological features, Hunspell supports up to 2 affixes per word, or 3
-morphemes. For languages going beyond that, including Hungarian, the creator of
-dictionary will at least need to combine multiple morphemes into one to get a
-working system. The morpheme count in Hunspell is realised as affix sets, of
-which Hunspell supports up to 65,000 (the exact number supported and reported
-to be supported may vary a bit in versions, but it seems to be less than
-65,535). On a more positive note, the compounding part of infinite word-lists
-is supported by Hunspell.
+To illustrate the practical issues with morphologically complex languages we
+use the de facto open source spell\-/checking system, Hunspell. Of the
+aforementioned morphological features, Hunspell supports up to 2 affixes per
+word, or 3 morphemes. For languages going beyond that, including Hungarian, the
+creator of a dictionary will at least need to combine multiple morphemes into
+one to get a working system. The morpheme count in Hunspell is realised as
+affix sets, of which Hunspell supports up to 65,000 (the exact number supported
+may vary a bit in versions, but it seems to be less than 65,535). On a more
+positive note, the compounding part of infinite word-lists is supported by
+Hunspell.
 
-As a concrete example of limitations, for Finnish there has been at least one
-failed attempt to build a spelling-checker using Hunspell
-\citep{pitkanen2006hunspell}, whereas we know from early days of the
-finite-state methods in computational linguistics that Finnish is doable, in
-fact it has been often suggested that the initial presentation of automatic
-morphological analysis of Finnish in \citet{koskenniemi1983twolevel} is one of
-the main factors in the popularity of finite-state methods among many of the
-related languages. Many of the languages with similar morphological features
-however have been implemented also under the Hunspell formalism, indeed as even
-the name suggests, the formalism originated as set of extensions to older
-*spell formalisms to support Hungarian language. For North Sámi, there is an
-implementation for Hunspell, The languages that fall into poly- side of the
-morphological complexity are usually noted as very hard to properly implement
-with current Hunspell formalism and limitations, though often the results are
-found tolerable. E.g. for gikuyu \citet{chege2010developing} used 19,000 words
-with extensive affix rules as a spell-checker, for which they say attained a
-recall of 84~\%. Same does not seem to apply for Greenlandic, where it was
-found that a collection of 350,000 word-forms will only cover 25~\% of the
-word-forms in texts from the
-newspaper\footnote{\url{http://oqaaserpassualeriffik.org/a-bit-of-history/}}.
+As a concrete example of limitations with e.g. Hunspell, for Finnish there has
+been at least one failed attempt to build a spelling-checker using Hunspell
+\citep{pitkanen2006hunspell}, whereas we know from the early days of the
+finite-state methods in computational linguistics that Finnish is
+implementable, in fact it has often been suggested that the initial
+presentation of automatic morphological analysis of Finnish in
+\citet{koskenniemi1983twolevel} is one of the main factors in the popularity of
+finite-state methods among many of the related languages. Many of the languages
+with similar morphological features however have been implemented also in the
+Hunspell formalism, indeed as even the name suggests, the formalism originated
+as set of extensions to older *spell formalisms to support Hungarian language.
+For North Sámi, there is an implementation for Hunspell. The languages that
+fall into polysynthetic side of the morphological complexity are usually noted
+as very hard to properly implement with the current Hunspell formalism and its
+limitations, though often the results are found tolerable. E.g. for Gĩkũyũ
+\citet{chege2010developing} used 19,000 words with extensive affix rules as a
+spell-checker, for which they say they attained a recall of 84~\%. Same does
+not seem to apply for Greenlandic, where it was found that a collection of
+350,000 word-forms will only cover 25~\% of the word-forms in newspaper
+texts\footnote{\url{http://oqaaserpassualeriffik.org/a-bit-of-history/}}.
 
-The sizes of word-lists lead to the final, perhaps the most practical metric of
-measurement in the morphological complexity of the language in context of
+The sizes of word-lists lead to the final, perhaps most practical metric of
+measurement in the morphological complexity of languages in the context of
 computational applications. That is, the size of the dictionary when it is in
 the memory of the computer, whatever may be the method of encoding it or
-compressing it; this is easily measurable and very important factor for any
-practical application.  For example for word-list approach, even uncompressed
-the word-list of million words with average word length of $N$ is just $N$
-megabytes, storing the list in finite-state automaton, suffix trie or hash,
-considerably less. With derivation and compounding the memory requirements tend
-to go up rapidly, so there is a practical correlation measure between the
-complexity of the language defined in theoretical terms earlier; in worst case
-scenarios this is obviously a limiting factor, e.g. some versions of my
-Greenlandic experiment taking up to 3 gigabytes of memory, which is clearly
-unacceptable for a spelling checker in an average 2013 end-user computer
-system.
+compressing it; this is easily measurable and a very important factor for any
+practical application.  For example for a word-list approach, even an
+uncompressed the word-list of a million words with average word length of $N$
+is just $N$ megabytes, storing the list in finite-state automaton, suffix trie
+or hash, considerably less. With derivation and compounding the memory
+requirements tend to go up rapidly, so there is a practical correlation measure
+between the complexity of the language defined in theoretical terms earlier; in
+a worst case scenario this is obviously a limiting factor, e.g. some versions
+of my Greenlandic experiment took up almost 3 gigabytes of memory, which is
+clearly unacceptable for a spelling checker in an average 2013 end-user
+computer system.
 
 \section{Finite-State Technology in Natural Language Processing}
 \label{sec:finite-state-technology-in-nlp}
 
-After the limitations and problems of the word-lists and other simple
-approaches, we come to the second part of the thesis topic: finite-state
-methods.  It is commonly believed that regular languages the finite-state
-automata encode are of same expressive power as the natural language
-morphologies, which means it is also the case that all languages' dictionaries
-can be encoded using finite-state automata. I have taken this assumption at its
-face value when developing the thesis, and have used finite-state solutions for
-language modelling as an axiomatically known to be true building block,
-developing that side more on the practicalities of the finite-state automata
-use in practical application of the spell-checking. In real-world applications
-we commonly hit the limitations of the system in any case, and documenting
-these is a part of a good research on the topic.
+After considering the limitations and problems of the word-lists and other
+simple approaches, we come to the second part of the thesis topic: finite-state
+methods.  It is commonly believed that the regular languages that the
+finite-state automata encode are of the same expressive power as the natural
+language morphologies, which means it is also the case that all language
+dictionaries can be encoded using finite-state automata. I have taken this
+assumption at its face value when developing the thesis, and have used
+finite-state solutions for language modelling as an axiomatically known to be
+true building block, developing the idea more towards the practical application
+of the spell\-/checking. In real-world applications we commonly hit the
+limitations of the system in any case, and documenting these is part of good
+research on the topic.
 
-The newest developments in the finite-state approach to natural language
+The latest developments in the finite-state approach to natural language
 processing has been the concept of weights in finite-state automata.  Simply
 said, I study some approaches of bringing the expressive power of statistical
 language models to the traditional rule-based models. One significant part of
@@ -565,13 +568,13 @@ the contributions in this thesis studies the notions of applying statistical
 approaches in conjunction with morphologically complex languages using
 finite-state methods.
 
-The concept of modeling typing errors is not so widely accepted parts of the
-finite-state technology. While for example in the speech applications, trying
-to map a representation of the spoken audio signal into written language is
-quite common, it is relatively new in the mapping of typing errors to correctly
-typed text. The contribution to finite-state methods in this thesis is further
-research on the application of finite-state models of typing errors as
-a practical component in a full spelling correction system.
+The concept of modeling typing errors is not so widely accepted as a part of
+the finite-state technology. While for example in speech applications,
+trying to map a representation of the spoken audio signal into written language
+is quite common, it is relatively new in the mapping of typing errors to
+correctly typed text. The contribution to finite-state methods in this thesis
+is further research on the application of finite-state models of typing errors
+as a practical component in a full spelling correction system.
 
 \todo{Needs a re-write}
 
@@ -579,189 +582,130 @@ a practical component in a full spelling correction system.
 \label{sec:articles}
 
 This dissertation is a collection of articles I have written during the
-development of different parts of our finite-state spell-checking system. It
-covers a wide range of topics, all tied together by the very practical goal of
-getting things to work nicely; catching up with the quality and speed of the
-spell-checkers for languages like English. My articles, in chronological order
-are:
-
-\begin{enumerate}
-    \item[\citetalias{pirinen2009weighted}]
-        Krister Lindén and Tommi Pirinen.
-        \newblock Weighted finite-state morphological analysis of Finnish 
-        compounds.
-        \newblock In \emph{Nodalida}, Odense, Denmark, 2009.
-    \item[\citetalias{pirinen2009weighting}]
-        Krister Lindén and Tommi Pirinen.
-        \newblock Weighting finite-state morphological analyzers using HFST
-        tools.
-        \newblock In \emph{Finite-State Methods in Natural Language Processing},
-        Pretoria, South-Africa, 2009.
-    \item[\citetalias{pirinen2010finitestate}]
-        Tommi~A Pirinen and Krister Lindén.
-        \newblock Finite-state spell-checking with weighted language and error
-        models.
-        \newblock In {\em Proceedings of the Seventh SaLTMiL workshop on 
-            creation and use of basic lexical resources for less-resourced 
-        languagages}, Valletta, Malta, 2010.
-    \item[\citetalias{pirinen2010building}]
-        Tommi~A Pirinen and Krister Lindén.
-        \newblock Building and using existing Hunspell dictionaries and {\TeX }
-        hyphenators as finite-state automata.
-        \newblock In {\em Proccedings of Computational Linguistics -
-            Applications, 2010}, Wis{\l}a, Poland, 2010.
-    \item[\citetalias{pirinen2010creating}]
-        Tommi~A Pirinen and Krister Lindén.
-        \newblock Creating and weighting Hunspell dictionaries as finite-state
-        automata.
-        \newblock {\em Investigationes Linguistic\ae}, 21, 2010.
-    \item[\citetalias{pirinen2011modularisation}]
-        Tommi~A Pirinen.
-        \newblock Modularisation of Finnish finite-state language 
-        description—towards wide collaboration in open source development of
-        morphological analyser.
-        \newblock In {\em Proceedings of Nodalida}, volume~18 of {\em NEALT
-        proceedings}, Rīga, Latvia, 2011.
-    \item[\citetalias{pirinen2012compiling}]
-        Tommi A Pirinen and Francis M. Tyers.
-        \newblock Compiling apertium morphological dictionaries with HFST and
-        using them in HFST applications.
-        \newblock {\em Language Technology for Normalisation of Less-Resourced
-        Languages}, 2012.
-    \item[\citetalias{pirinen2012improving}]
-        Tommi A Pirinen, Miikka Silfverberg, and Krister Lindén.
-        \newblock Improving finite-state spell-checker suggestions with part of
-        speech n-grams.
-        \newblock In {\em CICLING}, Delhi, India, 2012.
-    \item[\citetalias{pirinen2012effects}]
-        Tommi~A Pirinen and Sam Hardwick.
-        \newblock Effects of weighted finite-state language and error models on
-        speed and efficiency of finite-state spell-checking.
-        \newblock In {\em FSMNLP}, Donostia--San Sebastían, Spain, 2012.
-    \item[\citetalias{pirinen2013quality}]
-        Tommi A Pirinen.
-        \newblock Quality and Speed Trade-Offs in
-        Finite-State Spell-Checking and Correction, \misspelt{forthcoming}
-\end{enumerate}
+development of different parts of our finite-state spell\-/checking system. It
+covers a wide range of topics, all tied together by the goal of getting things
+to work nicely; catching up with the quality and speed of the spell-checkers
+for languages like English. My articles, in chronological order are presented
+in an unnumbered Chapter \emph{Original Papers} on page~\pageref{chap:papers}.
 
 The development shown in the articles is easy to follow in the
-\textbf{chronological order}, it almost tells its own story dictated by
-practical necessities. In the beginning we have Finnish morphological analyser
-\citep{pirinen2008suomen}, which cannot quite simply be turned into a
-statistical dictionary for it contains too rich morphological productivity, in
-articles \citepalias{pirinen2009weighted,pirinen2009weighting} we explore some
-advanced weighting options of the Finnish morphology that could give better
-treatment for compounds and derived word-forms in morphologically complex
-languages. In \citepalias{pirinen2010finitestate} we try to tackle the problem
-of scarcity of the corpus resources especially in conjunction with
-morphologically complex languages, using crowd-sourcing option provided by
-Wikipedia and measuring how smaller text corpora will still benefit the
-spelling correction results. In
+\textbf{chronological order}, it almost tells its own story. In the beginning
+we have a Finnish morphological analyser \citep{pirinen2008suomen}, which
+cannot yet be turned into a statistical dictionary as it contains too rich
+morphological productivity. In articles
+\citepalias{pirinen2009weighted,pirinen2009weighting} we explore some advanced
+weighting options of the Finnish morphology that could give better treatment of
+compounds and derived word-forms in morphologically complex languages. In
+\citepalias{pirinen2010finitestate} we try to tackle the problem of scarcity of
+corpus resources especially in conjunction with morphologically complex
+languages, using a crowd-sourcing option provided by Wikipedia and measuring
+how smaller text corpora will still improve the spelling correction results. In
 \citepalias{pirinen2010building,pirinen2010creating} I have studied the
-compilation and use of existing non-finite-state language descriptions as
-finite-state automata-based language models of a finite-state spell-checking
-system.  Specifically in \citepalias{pirinen2010creating} I attempt to recreate
-much of Hunspell spell-checking system, including their error correction
-methods, in finite-state form. In \citepalias{pirinen2011modularisation} I
-research the topic of maintenance and upkeep of finite-state language models,
-and try to prove why finite-state language models are feasible for long-term
-maintenance for a vast array of applications with just one language description
-instead of one description per application.  I extend this theme in
-\citepalias{pirinen2012compiling} by showing conversion of language models
-outside the morphological analysers and spell-checkers into a suitable
-finite-state automaton. In \citepalias{pirinen2012improving} I tackled the
-problematic issue of context-aware spell-checkers for morphologically complex
-and resource-poor languages, showing and proving what practical limitations
-there are and what can be done to get some benefits of such implementation. In
-\citepalias{pirinen2012effects,pirinen2013quality} we have already reached to
-point of full-fledged, workable systems for spell-checking, and test the full
-power of those systems, first for speed and efficiency in
-\citepalias{pirinen2012effects}, then in a larger scale
+compilation and reuse of existing non-finite-state language descriptions as
+finite-state automata-based language models of a finite-state spell\-/checking
+system.  Specifically in \citepalias{pirinen2010creating} I attempt to
+reimplement much of the Hunspell spell\-/checking system, including their error
+correction methods, in finite-state form. In
+\citepalias{pirinen2011modularisation} I research the topic of how to maintain
+finite-state language models, and try to show that finite-state language models
+are feasible for long-term maintenance for a vast array of applications using
+just one language description instead of one description per application.  I
+extend this theme in \citepalias{pirinen2012compiling} by showing how to
+convert language models outside the morphological analysers and spell-checkers
+into a suitable finite-state automaton. In \citepalias{pirinen2012improving} I
+tackle the problematic issue of context-aware spell-checkers for
+morphologically complex and resource-poor languages, showing some practical
+limitations there are and what can be done to get some benefits from such an
+implementation. In \citepalias{pirinen2012effects,pirinen2013quality} we have
+already reached the point of full-fledged, workable systems for
+spell\-/checking, and test the full power of those systems, first for speed and
+efficiency in \citepalias{pirinen2012effects}, and then in a larger scale
 survey~\citepalias{pirinen2013quality}, the quality of spelling suggestions, as
-well as extensions to some of the speed measurements.
-The chronological order is also visible in the schematic diagram of
-Figure~\ref{fig:schematic-diagram}: the finite-state language models (in the
-leftmost package) were conceptualised after the statistical weighting schemes
-of morphologically complex language (in the middle package) and the resulting
-combinations were evaluated on larger scale (in the rightmost package).
+well as extensions to some of the speed measurements.  The chronological order
+is also visible in the schematic diagram of Figure~\ref{fig:schematic-diagram}:
+the finite-state language models (in the leftmost package) were conceptualised
+after the statistical weighting schemes of morphologically complex language (in
+the middle package) and the resulting combinations were evaluated on a larger
+scale (in the rightmost package).
 
 The \textbf{division of labour} within those articles, also quite naturally
 follows from the chronological development.
 In~\citepalias{pirinen2009weighted,pirinen2009weighting}, as I was the author
-of the Finnish finite-state implementation of a morphological analyser we were
-extending with weight structures, I did much of the legwork in implementing the
-practical software for weighting the analyser. The result of this work is the
-weight support in such parts of our finite-state tool chain as
-\texttt{hfst-lexc} and \texttt{hfst-strings2fst}---that is, practically the
+of the Finnish finite-state implementation of the morphological analyser we
+were extending with weight structures, I did much of the legwork in
+implementing the practical software for weighting the analyser. The result of
+this work is the weight support in such parts of our finite-state tool chain as
+\texttt{hfst-lexc} and \texttt{hfst-strings2fst}---that is, in practice the
 compilers for morphemes and other string sets. In these early articles, the
-evaluation scheme and major parts of the written article are work of Krister
-Lindén.  In~\citepalias{pirinen2010finitestate} I already take into account
-that previous experiments were performed using commercial corpora unavailable
-for scientific, free and open source work, which lead me to devise a statistic
-training as well as an evaluation scheme based on the freely available
-Wikipedia data. The evaluation and statistical training setup that was built in
-this article has then evolved throughout the thesis, in form of collected make
-recipes, awk scripts, python scripts and other pieces of bash command-line
-programming. The engineering work on Hunspell language models
+evaluation scheme and major parts of the written article are the work of
+Krister Lindén.  In~\citepalias{pirinen2010finitestate} I already take into
+account that previous experiments were performed using commercial corpora
+unavailable for scientific, free and open source work, which lead me to devise
+a statistic training as well as an evaluation scheme-based on the freely
+available Wikipedia data. The evaluation and statistical training setup that
+was built in this article has then evolved throughout the thesis, in the form
+of collected \texttt{make} recipes, \texttt{awk} scripts, \texttt{python}
+scripts and other pieces of \texttt{bash} command-line programming. The
+engineering work on Hunspell language models
 in~\citepalias{pirinen2010building,pirinen2010creating} originated from the
-previous compilation formulas for morphologies, documented e.g.\/
+compilation formulas for morphologies, documented e.g.\/
 in~\cite{linden2009hfst}, and were constructed by Krister Lindén and myself.
 The same technique was applied to building of the Apertium system's language
 models in~\citepalias{pirinen2012compiling} with technical help from one of the
 Apertium system's main contributors, Francis Tyers.  The context-based weighted
-finite-state methods of \citepalias{pirinen2012improving} were originated
+finite-state methods of \citepalias{pirinen2012improving} originated
 from~\citet{silfverberg2010partofspeech}, with whom I also co-operated in the
 porting of the system to finite-state spelling checker use. The evaluation
-scheme was slightly modified from earlier one used in
+scheme was slightly modified from an earlier one used in
 \citepalias{pirinen2010building}. The writing of the article
 \citepalias{pirinen2012improving} was for the main part  my own work, whereas
-the mathematical formulas were build in co-operation by the article's other
+the mathematical formulas were built in co-operation by the article's other
 authors.  In~\citepalias{pirinen2012effects}, the evaluation setup and article
 was written by myself, with majority of the technical implementations done by
 Sam Hardwick, who is also the main author behind the finite-state
-spell-checking component of our current software, as is further detailed
+spell\-/checking component of our current software, as is further detailed
 in~\citet{linden2011hfst}.  In the
 articles~\citepalias{pirinen2011modularisation,pirinen2013quality} the majority
-of test setup, article structure, engineering and other tasks were performed by
-myself, which is reflected in the fact that they are published under my name
-only. It is, however, true that all of the work within this thesis was made as
-member in the HFST research group, and there is no doubt that there is an
-abundance of minor ideas regarding to the engineering of the software,
-evaluation setup and article writeup that are creation of collective
-brainstorming as well.
+of the test setup, article structure, engineering and other tasks were
+performed by myself, which is reflected in the fact that they are published
+under my name only. It is, however, true that all of the work within this
+thesis was made as member in the HFST research group, and there is no doubt
+that there is an abundance of minor ideas regarding engineering of the
+software, evaluation setup and article writeup that are the creation of
+collective brainstorming as well.
 
 Another way to conceptualise the thesis is under the following \textbf{research
 questions}: How to implement reasonable statistical language models for
-finite-state spell-checking in, how to implement a finite-state equivalent of
-state-of-the-art software spell-checking, how to develop and maintain a
-language model for finite-state spell-checking, what is the quality of
-finite-state spell-checking compared to software-based approach, what is the
-speed of the finite-state spell-checking compared to other software
-based-approach, what are the limitations of the finite-state based approaches
-compared to software-based spell-checking---and doing this all with
-morphologically complex languages that are minority, lesser resourced ones.
+finite-state spell\-/checking, how to implement a finite-state equivalent of
+state-of-the-art software spell\-/checking, how to develop and maintain a
+language model for finite-state spell\-/checking, what is the quality of
+finite-state spell\-/checking compared with a software-based approach, what is the
+speed of the finite-state spell\-/checking compared with other software
+based-approach, what are the limitations of the finite-state-based approaches
+compared with software-based spell\-/checking---and doing all of this with
+morphologically complex languages that are lesser-resourced ones.
 
 The rest of the thesis is \textbf{organised} by topic \textbf{into chapters} as
 follows: In \ref{chap:background} I will attempt to summarise the whole prior
-research of spell-checking and correction, as well as describe the development
-of the actual in-use spell-checkers to best of my knowledge. I will then
-describe the previous research specifically on finite-state approaches to
-spell-checking, and describe the theory of finite-state spell-checking in terms
-of our specific implementation of finite-state spell-checking. The chapters
-\ref{chap:language-models}---\ref{chap:efficiency} contain the research papers
-of the thesis sorted under four headings that match the original goals of
-thesis.  In chapter~\ref{chap:language-models} I go through the existing
-spell-checking and other language models and their use as part of the
-spell-checking system, and introduce the finite-state point of view to the
-language models that initially were software based.
+research of spell\-/checking and correction, as well as describe the
+development of the actual in-use spell-checkers to the best of my knowledge. I will
+then describe the previous research specifically on finite-state approaches to
+spell\-/checking, and describe the theory of finite-state spell\-/checking in
+terms of our specific implementation. The
+chapters \ref{chap:language-models}---\ref{chap:efficiency} contain the
+research papers of the thesis sorted under four headings that match
+original goals of this thesis.  In chapter~\ref{chap:language-models} I go through
+the existing spell\-/checking and other language models and their use as part
+of the spell\-/checking system, and introduce the finite-state point of view to
+the language models that initially were software-based.
 In~\ref{chap:statistical-models} I describe some weighted finite-state methods
 to bring statistics to the language and error models.
 In~\ref{chap:error-models} I study the finite-state formulations of error
-modeling and contrast my implementations to the others that have been used.
+modeling and contrast my implementations with the others that have been used.
 Finally, in~\ref{chap:efficiency}, I fully evaluate these systems on both speed
 and quality to verify their usability in practical and real-world applications.
 Most of the articles I have written fall neatly under one of these headings,
-but I do revisit few of them in more than one of the chapters. In the final
+but I do revisit a few of them in more than one of the chapters. In the final
 chapter~\ref{chap:conclusion} I summarise the thesis and lay out the possible
 future work in the field.
 
@@ -777,37 +721,37 @@ future work in the field.
 Spell-checking and correction by computer is a topic that is already over half
 a century old, and a one that has been researched periodically throughout that
 time.  In this chapter I attempt to walk through the long history of
-spell-checking with an eye on both the scientific study of spell-checking, as
+spell\-/checking with an eye on both the scientific study of spell\-/checking, as
 well as the practical end-user systems for that. While I attempt to cover as
 much as possible on the topic, there are bound to be many omissions and for
 fuller picture I recommend reading some of the previous surveys on
-spell-checking and correction, such as
+spell\-/checking and correction, such as
 \citet{kukich1992spelling,mitton2009ordering}.  In~\citet{kukich1992spelling}
-the history of spell-checking, both scientific improvements and some real-world
+the history of spell\-/checking, both scientific improvements and some real-world
 applications is very well summed up until the publication time of early 1990's.
 In \citet{mitton2009ordering} there are more recent advances on non-word
-spelling correction.  \citet{kukich1992spelling} also refers to spell-checking
+spelling correction.  \citet{kukich1992spelling} also refers to spell\-/checking
 as a \emph{perennial topic} in computational linguistics, I find this
 characterisation quite accurate as it has been prevalent and recurring theme
 throughout the history of computational linguistics and earlier in computer
 science.
 
 This backgrounding chapter is organised as follows: In
-Section~\ref{sec:history} I go through the history of spell-checking and
+Section~\ref{sec:history} I go through the history of spell\-/checking and
 correction, especially the scientific contributions that relate to my research,
 and practical software systems I have used as baseline for my target
-functionality.  After dealing with the history of spell-checking and correction
+functionality.  After dealing with the history of spell\-/checking and correction
 I go through the closely related scientific fields in
 Section~\ref{sec:related}, whose results are relevant to my research. Finally,
 I go through the current situation in Section~\ref{sec:finite-state-theory},
-and specifically the finite-state approaches to spell-checking and correction,
+and specifically the finite-state approaches to spell\-/checking and correction,
 and describe my particular system. I will also detail much of the notation and
 terminology in these chapters, and contrast them to other similar approaches.
 
 \section{Brief History and Prior Work}
 \label{sec:history}
 
-The history of spell-checking and correction by computer can usually be timed
+The history of spell\-/checking and correction by computer can usually be timed
 to have begun somewhere around 1960's, with inventions like Levenshtein's and
 Damerau's measures of distances between strings
 \citep{levenshtein1966binary,damerau1964technique}, or Damerau-Levenshtein
@@ -852,14 +796,14 @@ application seems to be more towards OCR than keyboard input. This basic
 approach took the letter n-grams and assumed that words containing unlikely
 letter combinations were not spelled correctly.
 
-For the very first spell-checking software in common use---there are a few
+For the very first spell\-/checking software in common use---there are a few
 disputes and claims to it---but it is commonly attributed to the SPELL
 program~\citep{gorin1971spell}.  Some of the earlier work has been used mainly
 by one research group for their own purposes 
 only~\citep{earnest2011first,earnest2012first}. The first predecessors of SPELL
 according to Les Earnest were systems for recognising hand-written cursive text
 as auxiliary parts of larger software. Following this the SPELL was possibly
-among the first self-standing software for spell-checking.
+among the first self-standing software for spell\-/checking.
 
 The features of SPELL are interesting, as its legacy has carried over to all
 the spell-checkers for Unix systems that came after it up to the contemporary
@@ -883,12 +827,12 @@ suffix-trees and binary search trees, partitioning of dictionary by frequency
 \citep{knuth1973art} and most importantly, finite-state automata
 \citep{aho1975efficient}. While Aho's article is about constructing more
 specific finite-state automata for efficient keyword matching it is a first
-implementation towards finite-state spell-checking.
+implementation towards finite-state spell\-/checking.
 
 The SPELL program's direct descendant is the current international
 ispell~\citep{gorin1971spell}, where the additional i originates from the name
 \texttt{ITS SPELL}. It is still commonly in use in many Unix-based systems.
-According to its documentation, the feature of suffix stripping based on
+According to its documentation, the feature of suffix stripping-based on
 classification was added by Bill Ackerman in 1978, e.g. it would only attempt
 to strip plural suffix \emph{-es} for words that were identified of having such
 plural suffix.  This concept of affix flags is still used in all of the
@@ -948,7 +892,7 @@ The problems of implementing Hungarian with ispell, aspell and the like lead to
 Hunspell, with multiple affix stripping and compounding added. Similarly for
 Turkish, various computational methods have been used. Among
 those~\citet{oflazer1996errortolerant} demonstrates one of the first
-finite-state spell-checking with full-fledged finite-state language model---the
+finite-state spell\-/checking with full-fledged finite-state language model---the
 earlier by \citep{aho1975efficient} being more of a keyword search. This method
 used a specialised search algorithm for error tolerance part when traversing
 the finite-state network.  In~\citet{agata2002typographical} the finite-state
@@ -956,7 +900,7 @@ methods were extended to cover the error-model as well. Their work showed a
 practical implementation of finite-state edit distance, and finally in
 \citepalias{pirinen2010finitestate} I showed that an approach by an extension
 to weighted finite-state automata for both language and error models for
-spell-checking and correction is plausible for the morphologically complexer
+spell\-/checking and correction is plausible for the morphologically complexer
 languages.
 
 % The methods proposed since then use a Bayesian approach (Golding
@@ -971,11 +915,11 @@ languages.
 % [[quoted from al2006learning]]
 
 In the Table~\ref{table:history-apps} I have first summarised the practical
-end-user applications of spell-checking, specifically of the freely available
+end-user applications of spell\-/checking, specifically of the freely available
 *spell family of products. Then I show some of  the main academic research
 on specific practical and statistical advances~\cite{al2006learning} that I
 have used during my research. Then in the final set of rows I have the
-finite-state spell-checking systems that I am aware of.
+finite-state spell\-/checking systems that I am aware of.
 
 \begin{table}
     \centering
@@ -1036,12 +980,12 @@ finite-state spell-checking systems that I am aware of.
 There are a number of other research questions in the field of computational
 linguistics that use same methodology and face the same problems. A large set
 of research problems within computational linguistics can be formulated in some
-frames that are directly relevant to the issues of spell-checking and
+frames that are directly relevant to the issues of spell\-/checking and
 correction, as most of them require the basic component of a language model and
-very often another one of an error model. The language model of spell-checking
+very often another one of an error model. The language model of spell\-/checking
 predicts how correct a word-form is, and in linguistic analyser it predicts the
 analysis and its likelihood. The error model of spelling corrector predicts
-what is meant based on what is written assuming error in the process of typing
+what is meant-based on what is written assuming error in the process of typing
 somewhere, part of the error sources, such as cognitive errors, overlap for
 speech recognition and information extraction alike. Part of the error models
 for other applications like diacritic restoration for information retrieval and
@@ -1053,7 +997,7 @@ task, the correction task---to mix and match the approaches found in various
 places to the spelling correction. The rest of this subsection I use to shortly
 introduce the specific approaches and algorithms from outside the spelling
 detection and correction that I have re-used or tried to re-use in my
-experiments on spell-checking and correction.
+experiments on spell\-/checking and correction.
 
 The relevant research on the finite-state approaches to predictive text entry
 is e.g. in~\citep{silfverberg2010partofspeech}, and the results of
@@ -1072,14 +1016,14 @@ well-specified fuzziness.
 In many practical systems a spelling corrector or its weak equivalent is used
 for pre-processing. This phase of processing is often called e.g. 
 \emph{normalisation}. Many approaches of the normalisation are directly
-relevant to spelling correction, and parts of the spell-checking system I have
+relevant to spelling correction, and parts of the spell\-/checking system I have
 developed have been getting ideas from development of systems such as SMS
 normalisation to standard written language~\citep{kobus2008normalizing}.
 
 \section{Theory of Finite-State Models}
 \label{sec:finite-state-theory}
 
-Finite-state models for spell-checking and especially correction are relatively
+Finite-state models for spell\-/checking and especially correction are relatively
 new---beginning from \citep{oflazer1996errortolerant} as far as I know---, and
 definitions and interpretations have not been standardised yet, so in this
 chapter I will try to go through the various definitions and explain my
@@ -1093,7 +1037,7 @@ systems, such as n-tuple $(Q, \Sigma, \delta, Q_i, Q_f, W)$, where $Q$ is the
 set of the states in the automaton, $\Sigma$ is the alphabet in transitions,
 $\delta$ is the transition mapping, and $Q_i, Q_f$ the subsets of states for
 initial states, and final states and $W$ is the structure of weights. The
-$\Sigma$ set in the automata of spell-checking system is almost always just
+$\Sigma$ set in the automata of spell\-/checking system is almost always just
 some---usually language specific for optimisation reasons---subset of the
 Unicode set of symbols for writing natural languages, with the addition of
 following special symbols, which have specific meaning in automata theory: the
@@ -1161,7 +1105,7 @@ the second tape of the final composition that is, the one on the language
 model side.
 
 The weights in weighted finite-state automata are used to encode the preference
-in spelling correction, and sometimes also acceptability in the spell-checking
+in spelling correction, and sometimes also acceptability in the spell\-/checking
 function. A path that has larger collected weight gets pushed down in the
 suggestion list and the ones with smaller weights are in the top. The weight
 can be amended by the error model, there the weight would express the
@@ -1173,7 +1117,7 @@ languages with limited resources.
 
 The baseline for acquisition of the weights for language and error models is
 simply calculating and encoding probabilities---this is what most of the
-comparable products do in spell-checking and correction, and what has been
+comparable products do in spell\-/checking and correction, and what has been
 researched in statistical language models. The key formula for conceiving any
 statistical process giving probabilistic distribution $P$ as a part of a
 finite-state automaton is $-\log P$, i.e. the smaller the probability the
@@ -1239,7 +1183,7 @@ The primary purpose of a language model in both of these tasks is similar, to
 tell whether a word-form is suitable, and, ideally, how suitable it is.
 
 The purpose of this chapter is to show the development through the traditional
-simple word-list spell-checking models to complex morphological analysers with
+simple word-list spell\-/checking models to complex morphological analysers with
 compounding and derivation, and their finite-state formulations. This follows
 from my initial goal to not only to show new language models and spell-checkers
 in my thesis, but to recreate the existing results of non-finite-state
@@ -1252,11 +1196,11 @@ The rest of the chapter is organised as follows: First in
 Section~\ref{sec:generic} I introduce some generic formulas for finite-state
 morphologies we have recognised when creating compilers for quite a few
 dictionary formats. Based on this, I show the finite-state compilation of
-Hunspell dictionaries, the de facto standard of open source spell-checking in
+Hunspell dictionaries, the de facto standard of open source spell\-/checking in
 Section~\ref{sec:Hunspell}.  Then I show the conversion of the rule-based
 machine translation dictionaries as spell-checkers in
 Section~\ref{sec:apertium}. In section~\ref{sec:other-lms} I describe other
-language models that can be used in finite-state spell-checking. Finally, in
+language models that can be used in finite-state spell\-/checking. Finally, in
 Section~\ref{sec:maintenance}, I introduce a brief general treatment on
 management of linguistic data to have it apply on multitude of projects in an
 article where I try to tie together the different approaches to compiling and
@@ -1296,16 +1240,16 @@ spelling correction.
 
 \textbf{Main Article}: \emph{Building and Using Existing Hunspell Dictionaries
 and \TeX\ Hyphenators as Finite-State Automata} by myself and Krister Lindén.
-In this article we present finite-state formulations of existing spell-checking
+In this article we present finite-state formulations of existing spell\-/checking
 language and error models.
 
 \textbf{Motivation} of this piece of engineering is far-grasping both on 
 technical and theoretical level. We set out to prove that the existing
-methods for spell-checking are truly a subset of the finite-state methods.
+methods for spell\-/checking are truly a subset of the finite-state methods.
 Practically we also tried to show that typically, if not always, the 
 finite-state version should be faster than software-based, e.g. for affix
 stripping for sure, but also for error modelling. The practical motivation
-for the work is that there is no chance for any new spell-checking system to
+for the work is that there is no chance for any new spell\-/checking system to
 survive, unless it is capable of using the current Hunspell dictionaries.
 
 In \textbf{related works}, there has been to my knowledge, following
@@ -1320,7 +1264,7 @@ in~\citet{tron2005hunmorph}.
 
 There is a number of meaningful \textbf{results} in the article. This article
 is central part of the thesis in that it provides the empiric proof that
-finite-state spell-checking is proper superset of Hunspell's algorithmic 
+finite-state spell\-/checking is proper superset of Hunspell's algorithmic 
 approach in terms of expressive powers, and the empiric results also suggest
 improvement in speed over the board. The results on speed are detailed in my
 latter articles and also in the chapter~\ref{chap:efficiency} of this thesis,
@@ -1329,7 +1273,7 @@ result---the expressiveness and faithfulness of finite-state formulation of
 the Hunspell systems.
 
 Hunspell's language model writing formalism clearly shows that it is based on
-the main branch of the word-list based ispell spell-checkers. Words are
+the main branch of the word-list-based ispell spell-checkers. Words are
 assigned flags that combine them with affixes, here the concept of affixes is
 extended with context restrictions and deletions, but nevertheless the same
 affix logic as its predecessors. The additional features brought to Hunspell to
@@ -1344,9 +1288,9 @@ around the same size as finite-state dictionaries and morphologies made with
 other methods.
 
 When talking about Hunspell it is not possible to avoid the motivation behind
-the development of a new system for spell-checking---as my thesis is also about
-a new system for spell-checking. Hunspell was made on the basis that the
-existing spell-checking dictionary formalisms are insufficient to write a
+the development of a new system for spell\-/checking---as my thesis is also about
+a new system for spell\-/checking. Hunspell was made on the basis that the
+existing spell\-/checking dictionary formalisms are insufficient to write a
 Hungarian dictionary efficiently. Similar systems were written for many of the
 morphologically complexer languages. For the language coverage in language
 models though, the compilation of e.g. Hunspell dictionaries here could be
@@ -1374,7 +1318,7 @@ not appear to be an issue for the practical systems we tried.
 \textbf{Main Article:} \emph{Compiling Apertium morphological dictionaries with
 HFST and using them in HFST applications} by myself Francis M. Tyers. In this
 engineering oriented article we experiment with the existing language models
-used for machine translation as a part of the finite-state spell-checking
+used for machine translation as a part of the finite-state spell\-/checking
 system.
 
 The main \textbf{Motivation} for doing this experiment was to see how well we
@@ -1384,7 +1328,7 @@ This is especially interesting from my computer science background, since
 the re-usability of code and data is something that I feel is lacking in
 computational linguistics even now in 2010's.
 
-As this experiment was built on existing, partially finite-state based system,
+As this experiment was built on existing, partially finite-state-based system,
 the \textbf{related works} already consist of a specific algorithm on building
 the automata from XML dictionaries~\citep{rojas2005construccion} and its
 features on fast and accurate tokenising and analysing. On that end,
@@ -1408,7 +1352,7 @@ formalism does not support compounding or recurring derivation, and thus final
 automata are bound to be acyclic. 
 
 The one result that we tried to high-light in the paper was that we could
-already provide a rudimentary spell-checker based on lexical data build solely
+already provide a rudimentary spell-checker-based on lexical data build solely
 for the purpose of limited range machine translation, and we could do that for
 a range of languages that, at the time of writing lacked the spell-checkers
 altogether. And the task of writing the compiler for this existing format
@@ -1436,7 +1380,7 @@ dictionaries.
 
 There is an abundance of formalisms for writing dictionaries, analysers and
 language technology tools available, and I have only covered here the few most
-prominent for the use of finite-state spell-checking. For example I have shown
+prominent for the use of finite-state spell\-/checking. For example I have shown
 compilation formula for Hunspell formalism. The aspell and ispell formalisms
 are simplifications of this, and the formula can easily be simplified for them
 by removing the multiple suffix consideration and compounding loop in the
@@ -1444,7 +1388,7 @@ bag-of-morphs construction: $\mathcal{M}_L := \mathcal{M}_{prefix}
 \mathcal{M}_{roots} \mathcal{M}_{suffix}$.
 
 It should also be noted that the common baseline approaches using word-form
-lists or such spell-checking corpora, such as~\citet{norvig2010howto}, are even
+lists or such spell\-/checking corpora, such as~\citet{norvig2010howto}, are even
 more trivial to formulate in this formula: $\mathcal{M}_L :=
 \mathcal{M}_{wordforms}$.
 
@@ -1455,7 +1399,7 @@ more trivial to formulate in this formula: $\mathcal{M}_L :=
 description—towards wide collaboration in open source development of
 morphological analyser} by myself. This short paper is mainly an opinion
 piece style article, but it is included here as it ties together the
-aspect of maintainable language models for spell-checking applications.
+aspect of maintainable language models for spell\-/checking applications.
 
 One of the main \textbf{motivations} for writing this article was the
 realisation after some years of work on the finite-state language model
@@ -1471,7 +1415,7 @@ towards re-usable, well-written resources, with proper abstraction levels and
 the basic knowledge representation.
 
 Another part of motivation is that the language descriptions, whether for
-finite-state morphological analysis or Hunspell spell-checking are typically
+finite-state morphological analysis or Hunspell spell\-/checking are typically
 written by one linguist, and left to rot as no one can read them anymore.  This
 is very unuseful approach in the crowd-sourcing world of today, and it could
 surely be improved by simple improvements to formalisms and practices.  In this
@@ -1505,12 +1449,12 @@ much work in progress.
 \section{Conclusions}
 
 In this chapter, I have shown that the vast majority of the different
-contemporary approaches to spell-checking can be formulated as finite-state
+contemporary approaches to spell\-/checking can be formulated as finite-state
 automata, and they can even be compiled into one using one simple generic
 formula. These results, with addition of all those existing finite-state
 language models that no one has been able to turn into e.g. Hunspell
 dictionaries should provide a basis for evidence that the finite-state
-spell-checking might be a plausible alternative for traditional spell-checking
+spell\-/checking might be a plausible alternative for traditional spell\-/checking
 approaches as far as modelling of the correctly spelled language is in
 question.
 
@@ -1519,42 +1463,43 @@ question.
 
 One of the goals of my thesis was to bring the statistical language models
 closer to usability for morphologically complex languages with lesser
-resources. For this purpose I sought into trying out the most typical
-traditional statistical approaches turning them into finite-state form
-using the well-studied algorithms of weighted finite-state automata. With the
-more morphologically complex languages, the improvement gained by bringing
-statistical data to the language models into system is not as optimistic as
-for English, I then experimented with various ways of improving the quality
-by more efficient use of linguistic data and simply fine-tuning the parameters.
+resources. For this purpose I tried out the most typical traditional
+statistical approaches turning them into finite-state form using well-studied
+algorithms of weighted finite-state automata. With the more morphologically
+complex languages, the improvement gained by bringing statistical data to the
+language models in the system is less encouraging than for English. I then
+experimented with various ways of improving the results by more efficient use
+of linguistic data and simply fine-tuning the parameters.
 
 The problem that arises from the combination of morphologically complex
-languages and the lesser resourced languages is two-fold, and I go through two
-separate approaches to tackle this. The first problem can be alleviated by
-raising other---more linguistically motivated objects---to the primary training
-feature rather than plain running word-forms. This in general is of course not
-problem-free, as the general solution would then require analysed,
-disambiguated language resources for training, which requires manual labour to
-produce, whereas surface word-forms come without extra effort. So instead of
-requiring manually annotated data I have studied into salvaging what can be
-easily used from running texts without the need of analysis---for Finnish
-this meant word-forms and roots for compound parts. Other part of the problem I
-tried to deal with showing that even a limited resource of lesser
-quality---that happens to be available under free and open licence---can be
-used in conjunction with well-formed rule-based material to greatly improve
-results of spell-checking.
+languages and the lesser-resourced languages is challenging, since the amount
+and quality of the training data is smaller and the requirements for it are
+greater. I go through two separate approaches to tackle this. The first
+approach is to gather more linguistically motivated pieces of information from
+the data as the primary training feature rather than the plain old surface
+word-forms. This is not free of problems, as many good pieces of information
+can only be extracted from analysed, disambiguated language resources,
+which requires manual labour to produce, whereas surface word-forms
+come without extra effort. So instead of requiring manually annotated data I
+have studied how to salvage what can be easily used from running texts without
+the need of analysis---for Finnish this meant word-forms and roots for compound
+parts. The other approach I took was trying to see if even a limited
+resource of lesser quality---that happens to be available under a free and open
+licence---can be used combined with a well-formed, rule-based material to
+greatly improve the results in error correction.
 
 In this chapter I will describe the statistical methods I needed to introduce
 to get good statistical language models for morphologically complex languages
-specifically Finnish, but most approaches could be applied for others with a
+such as Finnish, but most approaches could be applied yo others with a
 few simple modifications. In Section~\ref{sec:statistical} I will introduce the
 general format of all statistical finite-state models.  In
-Section~\ref{sec:compounding} I discuss the basic findings on compound boundary
+Section~\ref{sec:compounding} I discuss the basic findings of the compound boundary
 identification problem, and in Section~\ref{sec:training-compounds} I extend
 this approach towards generic statistical training of language models with
 compounding features. In Section~\ref{sec:hunspell-training} I use the same
 statistical models with the Hunspell dictionaries turned into finite-state
 automata. Finally in Section~\ref{sec:lesser-training} I study the common
-problem with the combination of less resources and more complex morphology
+problem with the combination of fewer resources and more complex morphology
 actually requiring more resources, and propose some possible solutions.
 
 \section{Theory of Statistical Finite State Models}
@@ -1568,48 +1513,49 @@ like~\citet{manning1999foundations} as a good reference for the methods and
 math background in this chapter.  For spelling correction a simple logic of
 suggesting a word-form that is more common before one that is less, is usually
 the best approach in terms of precision, and in the majority of the cases leads
-into correct suggestion. This is formalised into the weighted finite-state form
-by a simple probability formula: $w(x) = -\log P(x)$, where $w$ is a weight in
-tropical semi-ring structure and $P(x)$ is a probability of wordform $x$.  The
-morphologically complex languages are thought to be more difficult to train
-because the number of the different word-forms is greatly larger than with
-morphologically simple languages, which leads to decreased discriminative
-capabilities for the probability calculations, as the number of word-forms with
-exactly same amount of word-forms increases. In my research I have studied some
-approaches to deal with this situation. The thing that further worsens this
-situation is, that morphologically complex languages often have less resources.
-Much of the contributions I have provided here concentrate on using the scarce
-resources in a way that will give nearly the same advantage from the
-statistical training as one would expect for morphologically poor languages
-with more resources.
+into acorrect suggestion. This is formalised into the weighted finite-state
+form by a simple probability formula: $w(x) = -\log P(x)$, where $w$ is a
+weight in tropical semi-ring structure and $P(x)$ is the probability of
+wordform $x$.  The morphologically complex languages are thought to be more
+difficult to train because the number of the different word-forms is much
+larger than for morphologically simple languages, which leads to decreased
+discriminative capabilities for the probability calculations, as the number of
+word-forms with the exactly same amount of word-forms increases. In my research
+I have studied some approaches to deal with this situation. The thing that
+further worsens this situation is that morphologically complex languages often
+have less resources.  Much of the contributions I have provided here
+concentrate on using the scarce resources in a way that will give nearly the
+same advantage from the statistical training as one would expect for
+morphologically poor languages with more resources.
 
-The more complex statistical language models, such as ones that use
-morphological, syntactic or other analyses, require a large amount of
-manually verified data that is not in general available for majority of the
-world's languages. In my research I present some methods to make use of the
-data that is available, or unverified, to get improvement to the language
-models, when possible. In general I try to show that the significance of such
-quality analysis data is not essential to typical spell-checking systems, but
-more for fine-tuning of the final product and building of the grammar-checking
-systems out of spell-checkers.
+The more complex statistical language models, such as the ones that use
+morphological, syntactic or other analyses, require a large amount of manually
+verified data that is not in general available for the majority of the world's
+languages. In my research I present some methods to make use of the data that
+is available, even if it is unverified, to improve the language models, when
+possible. In general I try to show that the significance of analysed data is
+not essential to typical spell\-/checking systems, but more significant for
+fine-tuning of the final product and building of the grammar-checking systems
+out of spell-checkers.
 
 Another significant piece of information in statistical models is
 \emph{context}. The basic statistical probabilities I described above work on
 simple frequencies of word-forms in isolation, these kind of models are called
-e.g. \emph{unigram} language models. The common language models for
-applications like part-of-speech guessing, automatic translation and evem
-spell-checking for real word errors typically use the probabilities of e.g.
-word-forms in context, taking likelihood of word-form being after its previous
-words as the probability value, These are called \emph{n-gram} language models.
-The requirement for large amounts of training data is even more steep in models
-like these, so I will only briefly study the use of such models in conjunction
-with finite-state spelling correction. One has to be wary though, when reading
-these terms throughout this chapter: I will commonly apply methods of
-n-gram language models to make unigram language models of complex languages
-work better, practically treating morphological sub-parts as components
-of n-gram model the way one would treat word-forms for n-gram word models of
-English. I will commonly refer to the resulting models as unigram while the
-underlying models in reality are hybrid of both.
+e.g. \emph{unigram} or context-agnostic language models. The common language
+models for applications like part-of-speech guessing, automatic translation and
+even spell\-/checking for real word errors typically use the probabilities of
+e.g.  word-forms in context, taking likelihood of word-form being after its
+previous words as the probability value. These are called \emph{n-gram}
+language models.  The requirement for large amounts of training data is even
+more steep in models like these than it is with context ignorant models, so I
+will only briefly study the use of such models in conjunction with finite-state
+spelling correction. One has to be wary though, when reading these terms
+throughout this chapter: I will commonly apply methods of n-gram language
+models to make unigram language models of complex languages work better,
+practically treating morphological sub-parts as components of n-gram model the
+way one would treat word-forms for n-gram word models of English. I will
+commonly refer to the resulting models as unigram while the underlying models
+in reality are a hybrid of both.
 
 The main theme to follow for the rest of the chapter is the concept of workable
 statistical models for morphologically complex languages with small amounts of
@@ -1623,237 +1569,228 @@ established algorithms of the field otherwise.
 
 \textbf{Main article}: \emph{Weighted Finite-State Morphological Analysis of
 Finnish Inflection and Compounding} \citepalias{pirinen2009weighted} by Krister
-Lindén and myself, introduced the statistical training of morphologically
-complex language with infinite lexicon using variation of basic unigram
-training methods.
+Lindén and myself, introduced the statistical models of a morphologically
+complex language with an infinite lexicon.
 
 The original \textbf{motivation} for this research was to implement the
-compound segmentation for Finnish given the ambiguous compounding of previous
-implementation~\citep{pirinen2008suomen}. In the article we established that
-Finnish as morphologically complex language requires special statistical
-handling for its language models to be in same ballpark as simpler statistical
-models for morphologically simpler languages.
+compound segmentation for Finnish given the ambiguous compounding of the
+previous implementation~\citep{pirinen2008suomen}. In the article we
+established that Finnish as a morphologically complex language requires special
+statistical handling for its language models to be in the same ballpark as
+simpler statistical models for morphologically simpler languages.
 
 In \textbf{related works}, the compound segmentation problem has been solved
-for Swedish language by selecting the compounds with least boundaries
-systematically~\citep{karlsson1992swetwol}, and for German by using statistics
+for Swedish language by systematically selecting the compounds with fewest boundaries~\citep{karlsson1992swetwol}, and for German by using statistics
 of words~\citep{schiller2006german}. In the article we showed a generalisation
 to both approaches, where the statistics are learned from the surface
-word-forms in running text, instead of pre-analysed and disambiguated corpus
-and manual selection routine.  Showing that this method worked built two
+word-forms in running text, instead of a pre-analysed and disambiguated corpus
+and a manual selection routine.  Showing that this method worked built two
 important contributions to the language models of morphologically complex
-languages: firstly, the learning can be made with running unanalysed texts,
+languages: firstly, the learning can be made from running unanalysed texts,
 which is crucial, because the lack of good materials for most of the
 lesser-resourced languages, and secondly, the application of basic statistical
 formulas to morphologically complex languages was an important generalisation.
 
-The \textbf{results}, as stated in the motivation, the experiment framed in
-article was built on disambiguation of the compound boundaries, rather than
-building language models for general applications. The weighting mechanism
-however was applied to the language model of Finnish for all the future
-research in wider set of topics. It is only later research that I did in fact
-find out that the statistical method of weighting morphologically complex
-language models based on the word constituents of found in the text outside
-their full word form compound forms that partially solves the problem of
-training statistically the language models of compounding languages.
+The \textbf{results}, as stated in the motivation are that, the experiment
+framed in article was built on disambiguation of the compound boundaries,
+rather than building language models for general applications. The weighting
+mechanism however was applied to the language model of Finnish for all the
+future research in a wider set of topics.
 
 In the article I study the precision and recall of the compound segmentation
 of Finnish compounds using the statistical language modeling scheme. The
 results shown in the article are rather promising; nearly all compound
 segmentations are correctly found even with the baseline approaches of giving
 rule-based weights to morphological complexity. There is a slight improvement
-when using the statistically formed system that gives slightly higher
-granularity in few cases. There is one caveat in the material used in the
-paper, since Finnish lacks gold standard material for any analysed text
-corpora really, we used a commercial corpora made by another combination
+when using the statistically formed system that gives a higher
+granularity in a few cases. There is one caveat in the material used in the
+paper, since Finnish lacks a gold standard material for any analysed text
+corpora, we used a commercial corpus made by another combination
 of automatic analysers. This means that the precision and recall values we
-get are measuring how closely we imitate the referent black box system, rather
+get are measuring how closely we imitated the referent black box system, rather
 than real world compound segmentations.
-
-As conceivable \textbf{future research}, there is a generalisation to this
-method I have not yet experimented with; the constituents that I used for
-Finnish were word-forms, this is based on the fact that Finnish compounds are
-of a relatively simple form: the initial parts are same as surface forms of
-regular singular nominatives or genitives of any plurality (productively) or
-any form (rarely). This is not the case for other languages, notably even
-German and Swedish have commonly a compositive marker only shown in compound
-forms and not in surface forms. There are few of those in Finnish as well,
-e.g.\/ words ending in some `-nen' final derivation will compound with `-s'
-form not seen outside compounds and some archaic compositives exist for a few
-words.  Likewise in languages like Greenlandic, there is no compounding forming
-the complexity, but only recurring inflection and derivation as it is. The
-generalisation that might be needed here is to train the language model based
-on \emph{morphs} instead of the uncompounded word forms.  I believe this could
-make statistics of languages of varying morphological complexity more uniform,
-since the variation in amount of morphs between languages is far more limited
-than for word-forms. There is a previous research on such language models based
-on not the morphs, but rather letter n-graphs, or statistically likely affixes
-in~\citet{creutz2005morfessor}.
 
 \section{The Statistical Training of Compounding Language Models}
 \label{sec:training-compounds}
 
 \textbf{Main Article}: \emph{Weighting Finite-State Morphological Analyzers
 using HFST tools} by Krister Lindén and myself. In this article we set out
-to provide generic formulation of statistical training of finite-state
+to provide a generic formulation of statistical training of finite-state
 language models regardless of complexity.
 
-\textbf{Motivation} of this piece was to streamline and generalise the process
-of creation of the statistical finite-state language models, as the experiment
-in previous article \citepalias{pirinen2009weighted} the compound
-disambiguation scheme was build in a very ad hoc manner. The intention of the
-new method for training of the language models is to get all existing language
-models trainable regardless of how they are built; this makes the process of
-training of a language model very much alike it had been in all
-non-finite-state software to date.
+\textbf{Motivation} of this piece of research was to streamline and generalise
+the process of creation of the statistical finite-state language models, as the
+experiment in the previous article \citepalias{pirinen2009weighted} was built
+in a very ad hoc manner. The intention of the new method for training the
+language models is to get all the existing language models trainable regardless
+of how they are built; this makes the process of training a language model very
+similar to what it has been in all non-finite-state software to date.
 
-In \textbf{related works} there is the whole vast field of literature of
-statistical language models per se. The concept of having good language model
-and using data from corpora to train it is the very basics of any form of
-statistical natural language engineering so it is easily covered in any
-elementary text book, e.g. . For related software
-see e.g.  SRILM~\citep{stolcke2002srilm} for the more popular ones in open
-source statistical language processing.
+In \textbf{related works} there is the whole field of literature of statistical
+language models per se. The concept of having good language model and using
+data from corpora to train it is the very basics of any form of statistical
+natural language engineering. For common established software in the field, see
+e.g.  SRILM~\citep{stolcke2002srilm}.  The existing work on training infinite
+dictionaries is more rare, as it is not needed for English. For German this is
+dealt with in \citep{schiller2006german}, which also uses finite-state
+technology in its implementation.
 
-The existing work on training infinite dictionaries is more rare, as it is not
-needed for English. For German this is dealt with in
-\citep{schiller2006german}, which also uses finite-state technology in its
-implementation.
-
-As initial \textbf{results} in the article I replicated the earlier compound
-segmentation task from, to show that generalised formula works.
-Furthermore I experimented on the traditional POS tagging task to see how the
+As an initial \textbf{result} in the article, I replicated the earlier compound
+segmentation task from~\citepalias{pirinen2009weighted}, to show that the generalised formula works.
+Furthermore I experimented with the traditional POS tagging task to see how the
 compound ambiguity actually affects the quality of POS tagging. The result
-shows an improvement which proves that statistical word based compound
-modeling, is actually a useful part of statistically trained morphological
+shows an improvement which proves that statistical word-based compound
+modeling, is actually a useful part of a statistically trained morphological
 analyser. This has the practical implication that it is indeed better to
-use the compound-based unigram model as baseline statistical trained analyser
-of a language, rather than simple word-form training based statistical model.
+use a compound-based model as baseline statistical trained analyser
+of a language, rather than simple word-form-based statistical model.
 
-In general the unigram language model with the addition of word-form based
-training for compounds shows a good promise for the method of training
+In general the unigram language model with the addition of word-form-based
+training for compounds shows good promise for training
 morphologically complex languages from the morphologically relevant parts
-instead of plain word-forms. And as the morphological sub-parts of the word
-form in a way a sub-n-gram structure, it is possible to use the whole learnt
-knowledge from word-form n-gram research to apply the methods. For future
-research it would be extremely interesting to see a non-compound-heavy
-morphologically complex language, such as Greenlandic to be trained from morphs
-instead of word-forms and see how it fares.
+instead of plain word-forms. Based on these results I moved towards an 
+understanding that the statistical method of weighting morphologically complex
+language models based on the word constituents of compound forms is a way 
+forward for statistically training morphologically complex language models.
+
+As conceivable \textbf{future research}, there is a generalisation to this
+method I have not yet experimented with; the constituents that I used for
+Finnish were word-forms, this is based on the fact that Finnish compounds are
+of a relatively simple form: the initial parts are the same as surface forms of
+regular singular nominatives or genitives of any plurality and in some cases
+any form. This is similar to some other languages, such as German and Swedish.
+There are some forms with a \emph{compositive} marker in compound forms that is
+not available in isolated surface forms, and there are q few of those in
+Finnish as well, e.g.\/ words ending in some `-nen' final derivation will
+compound with `-s' form not seen outside compounds in addition to some archaic
+compositives exist for a few words.  In languages like Greenlandic, compounding
+does not heavily contribute to the complexity, but rather recurring inflection
+and derivation. The generalisation that might be needed is to train the
+language model based on \emph{morphs} instead of the uncompounded word forms.
+I believe this could make statistics of languages of varying morphological
+complexity more uniform, since the variation in amount of morphs between
+languages is far more limited than for word-forms. There is a previous research
+on such language models based on not the morphs, but rather letter n-graphs, or
+statistically likely affixes in~\citet{creutz2005morfessor}.
+
 
 \section{Weighting Hunspell as Finite-State Automata}
 \label{sec:hunspell-training}
 
-\textbf{Main Article}: \emph{Creating and Weighting Hunspell Dictionaries as Finite-State Automata} by myself and Krister Lindén. In this article we present
+\textbf{Main Article}: \emph{Creating and Weighting Hunspell Dictionaries as
+Finite-State Automata} by myself and Krister Lindén. In this article we present
 weighted versions of finite-state Hunspell automata. This is also the main
-article introducing the weighted finite-state spell-checking for first time
-on larger scale.
+article introducing the weighted finite-state spell\-/checking for first time
+on a larger scale.
 
 The main \textbf{motivation} for this experiment was to work on extending the
 previously verified results for weighting finite-state language models to newly
 created formulations of Hunspell language models as finite-state automata. The
 functionality of this approach could be counted as further motivation for
-moving from Hunspell software approach to weighted finite-state automata with
+moving from a Hunspell software approach to weighted finite-state automata with
 the added expressive powers and efficiency.
 
-\textbf{Related works} describing probabilistic or otherwise preferential
-language models for spell-checking. The main source for current version of 
+In \textbf{related works} describing probabilistic or otherwise preferential
+language models for spell\-/checking, the main source for current version of 
 context-insensitive spelling correction using statistical models comes
-probably from \citep{church1991probability}.
+probably from \citet{church1991probability}.
 
-Main \textbf{results} in the article were measured from large range of Hunspell
-languages for precision, showing improvement of quality over the board with
-simple unigram training methods over the Hunspell automata. A methodogical
-detail about the evaluation should be noted, the errors were constructed using
-automatic methods, in vein of ones researched in
+The main \textbf{results} in the article were measured from a large range of
+Hunspell languages for precision, showing improvement of quality across the
+board with a simple unigram training method and the Hunspell automata. A
+methodological detail about the evaluation should be noted, the errors were
+constructed using automatic methods, in the vein of ones researched in
 \citep{bigert2003autoeval,bigert2005automatic}. This gives a clear indication
-that the statistical approach for language models of spell-checking do improve
+that the statistical approach for language models of spell\-/checking improves
 the overall quality in its most straightforward setup.
 
-The implication of these results to the large picture of this research is
-that it may show that the finite-state formulation of Hunspell language models
-is a reliable way forward for Hunspell spell-checkers, providing the additional
+The implication of these results for the larger picture of this research is to
+show that the finite-state formulation of Hunspell language models is a
+reliable way forward for Hunspell spell-checkers, providing the additional
 benefit of statistical language modeling to Husnpell's well-engineered
-rule based models. This would be important for practical development of
-the next generation spell-checking systems, since the creation of dictionaries
-and language models requires some expert knowledge, which is scarcely available
-for most of the lesser-resourced languages.
+rule-based models. This is important for practical development of the next
+generation spell\-/checking systems, since the creation of dictionaries and
+language models requires some expert knowledge, which is scarcely available for
+most of the lesser-resourced languages.
 
 \section{Lesser Resourced Languages in Statistical Spell-Checking}
 \label{sec:lesser-training}
 
 \textbf{Main Article}: \emph{Finite-State Spell-Checking with Weighted Language
 and Error Models} by myself and Krister Lindén. In this article we first
-researched the problem from point of view of less resourced languages. Even
+researched the problem from the point of view of less-resourced languages. Even
 though Finnish does not have significantly more freely usable resources this
-is first explicit mention of the problem in my research. Furthermore, I
+is the first explicit mention of the problem in my research. Furthermore, I
 used the North Saami for the first time to show the limitedness of language
-resources for real lesser resourced non-national language.
+resources for a real lesser resourced non-national language.
 
-\textbf{Motivation} for this article was to write a publication that explicitly
-explores the difficulties that morphologically complex and lesser resourced
-languages face when trying to peruse statistical language models and
+The \textbf{motivation} for this article was to write a publication that
+explicitly explores the difficulties that morphologically complex and lesser
+resourced languages face when trying to pursue statistical language models and
 corpus-based training. The article fits well into contemporary research on
-natural language engineering often considers corpus-training as a kind of
-solution for all problems ignoring the scarcity of resources at one point and
-the much higher requirement of unannotated resources for morphologically
-complex languages on another.
+natural language engineering often considering corpus-training as a kind of
+solution for all problems ignoring the scarcity of resources on the other hand
+and the much higher requirement of unannotated resources for morphologically
+complex languages on the other.
 
-In \textbf{Related works}, the concept of lesser resourced languages in
-computational linguistics was coming to focus in recent years. Particularly I
+In \textbf{related works}, the concept of lesser resourced languages in
+computational linguistics has come into focus in recent years. Particularly I
 followed Anssi Yli-Jyrä's recent work on African
-languages~\citep{yli2005toward} and all the work related to previous years of
-the Speech and Language Technology for Minority Languages workshop, where I
-presented this paper.  The concept of using Wikipedia as statistical language
-model was likewise new common theme in the LREC conferences.
+languages~\citep{yli2005toward} and all the work related to the previous years
+of the Speech and Language Technology for Minority Languages workshop, where I
+presented this paper.  The concept of using Wikipedia as a basis for a
+statistical language model was likewise new common theme in the LREC
+conferences.
 
 The most central \textbf{results} of this work show that the Wikipedias for
 small language groups will give some gains in spelling correction, when
-properly coupled with the rule-based language model. This is despite the fact
+properly coupled with a rule-based language model. This is despite the fact
 that Wikipedias of lesser resourced language are comparably tiny and not very
-high quality, especially when related to quality of correct spelling.  I have
-hypothesised that the underlying reason for this is that in the events where
-simple spell-checking like edit distance or confusion sets produce ambiguous
-results, in the majority of the cases it is beneficial to simply vote for the
-most common word-form from these results.
+high quality, especially when related to the quality of correct spelling.  I
+have hypothesised that the underlying reason for this is that in the events
+where simple spell\-/checking like edit distance or confusion sets produce
+ambiguous results, in the majority of the cases it is beneficial to simply vote
+for the most common word-form from these results.
 
-As a side result in this article I show how to use the language model to
+As an additional result in this article I show how to use the language model to
 automatically generate the baseline error models. This finding is expanded in
-the Section~\ref{chap:efficiency}.
+Section~\ref{chap:efficiency}.
 
 In general the concept of using freely available and open sourced---and
-crowd-sourced---data should be common focus in the research of computational
+crowd-sourced---data should be a common focus in the research of computational
 linguistics in lesser resourced languages. This is one of the main sources of
-large amounts of free data that most communities are willing to put effort for,
-and it does not require advanced algorithms or expert proofreader to make the
-data usable for many of the applications of computational linguistics.
+large amounts of free data that most communities are willing to put an effort
+into, and it does not require advanced algorithms or an expert proofreader to
+make the data usable for many of the applications of computational linguistics.
 
 \section{Conclusions}
 
-In this chapter, I have discussed about different approaches to create
-statistical language models for finite-state spell-checking and.  In general I
-have shown in this chapter that it is possibly to take arbitrary language
-models for morphologically complex languages and train it with same approaches
-regardless of the method and theory the original model was built in.
+In this chapter, I have discussed about some different approaches to creating
+statistical language models for finite-state spell\-/checking and. I have shown
+in this chapter that it is possibly to take arbitrary language models for
+morphologically complex languages and train them with same approaches
+regardless of the method and theory according to which original model was
+built.
 
 
 \chapter{Error Models}
 \label{chap:error-models}
 
 The error modeling for spelling correction is an important part of
-spell-checking system and in my opinion deserves to be treated as a whole
+spell\-/checking system and in my opinion deserves to be treated as a whole
 separate subtopic of its own. The finite-state formulation of error models in
-finite-state spell-checking system in particular is a relatively novel idea,
+finite-state spell\-/checking system in particular is a relatively novel idea,
 with only some theoretical works \citep{agata2002typographical,mohri2003edit}
 and single examples in books~\citep{beesley2003finite} actually dealing with
-it.  The error modeling however has been central topic for software based
-solutions to spell-checking
+it.  The error modeling however has been central topic for software-based
+solutions to spell\-/checking
 cf.~\citet{deorowicz2005correcting,kukich1992spelling,mitton2009ordering,deorowicz2005correcting},
 so I believe that proper finite-state solution to it is in place.
 
 One of the typical arguments for not using finite-state error models is that
 special software algorithms are faster and more efficient than building and
 especially applying the finite-state models. In the articles where I build
-the finite-state models for spell-checking I have ran some evaluations on
+the finite-state models for spell\-/checking I have ran some evaluations on
 resulting system to prove that finite-state system is at usable speed
 and memory consumption levels. A thorough evaluation of this however
 is in chapter \ref{chap:efficiency}.
@@ -1914,7 +1851,7 @@ popularity of statistical approaches in the field of natural language
 engineering the time trade-off may be palatable for most end-users developing
 the language models.
 
-The implication of the fully weighted finite-state framework for spell-checking
+The implication of the fully weighted finite-state framework for spell\-/checking
 is that we can e.g. apply statistics for all parts of the process, i.e.,
 the probability of input, the conditional probability of specific
 combination of errors and the probability of the resulting word-form in 
@@ -1962,18 +1899,18 @@ differs slightly from the formulation we use.
 
 \textbf{Main Article}: \emph{Building and Using Existing Hunspell Dictionaries
 and \TeX\ Hyphenators as Finite-State Automata} by myself and Krister Lindén.
-In this article We have formulated the Hunspell's software based algorithms for
+In this article We have formulated the Hunspell's software-based algorithms for
 error correction and their specific optimisation tricks in terms of
 finite-state automata.
 
 The main \textbf{motivation} for this research was to recreate Hunspell's
-spell-checking in a finite-state form. In terms of the  error modeling it
+spell\-/checking in a finite-state form. In terms of the  error modeling it
 basically consists of a modification of edit distance for speed gains. The
 nature of these modification are based on some popular findings on the spelling
 errors that are made. One modification is to take the keyboard layout into
 account when considering the replacement type of errors. Another addition is to
 sort and limit the alphabet used for other error types. Finally Hunspell allows
-the writer of the spell-checking dictionary to define specific string-to-string
+the writer of the spell\-/checking dictionary to define specific string-to-string
 mutations for common errors.
 
 The finite-state formulation of these errors is a combination of limitations
@@ -2005,7 +1942,7 @@ have very obvious mapping to pronunciation, such as English. In the phonemic
 keying methods the strings of a language are attempted to connect with phonemic
 or phonemically motivated description. This technique was originally used for
 sorting family names in archives~\citep{russell1918soundex}. These systems have
-been successfully adapted to spell-checking and are in use for English for
+been successfully adapted to spell\-/checking and are in use for English for
 example in aspell as the double metaphone algorithm~\citep{philips2000double}.
 Since these algorithms are a mapping from strings to strings, it is trivially
 modifiable into a finite-state spelling correction model. Considering a
@@ -2028,7 +1965,7 @@ Lindén. In this article I have made an attempt to cover spelling correction
 of morphologically complexer languages with finite-state technology.
 
 \textbf{Motivation} for this article was to show that finite-state version of
-spell-checking is also usable for context-aware form, and secondarily to
+spell\-/checking is also usable for context-aware form, and secondarily to
 explore the limitations and required changes for the context-based language
 models that are needed for morphologically complexer languages to get similar
 results as are attained with simple statistical context models for
@@ -2058,15 +1995,15 @@ Finnish, but do improve the quality of suggestions, by around 2~\%
 units.
 
 One of the negative results of the paper is that the time and memory
-consumption of the POS based or word-form based spelling correction are not yet
+consumption of the POS-based or word-form-based spelling correction are not yet
 justifiable for general consumer products as a good tradeoff. There have been
 many recent articles exploring on the optimisatory side of the context-based
-spell-checking that should be seen into as the future work for context-based
+spell\-/checking that should be seen into as the future work for context-based
 finite-state spelling correction. The optimisation of the n-gram models has
 been brought up many times in non-finite-state solutions too,
 e.g.~\citep{church2007compressing}. While mainly an engineering stunt, there is
 a lot to be deserved from this development before practical end-user
-applications for contextual spell-checking are to be considered.
+applications for contextual spell\-/checking are to be considered.
 
 \section{Other Finite-State Error Models}
 \label{sec:other-errors}
@@ -2075,7 +2012,7 @@ In~\citet{deorowicz2005correcting} there is an extensive study on error
 modeling for spelling correction. Some of the models have been
 introduced earlier in this chapter.
 
-One of the optimisation tricks used in some practical spell-checking systems,
+One of the optimisation tricks used in some practical spell\-/checking systems,
 but not in Hunspell, is to avoid modifying the first character of the word in
 the error modeling step. The gained improvement in speed is notable. The
 rationale for this is the assumption that it is rarer to make mistakes at the
@@ -2100,7 +2037,7 @@ in set of errors $\mathcal{D}$.
 \section{Conclusions}
 
 In chapter \ref{chap:error-models}, I discussed the formulation of error
-correction in finite-state spell-checking as basic finite-state automaton. 
+correction in finite-state spell\-/checking as basic finite-state automaton. 
 
 \chapter{Efficiency of Finite-State Spell-Checking}
 \label{chap:efficiency}
@@ -2112,32 +2049,32 @@ minimisation. In practice, however, the speed and size requirements of
 finite-state automata required for language models, error models and their
 combinations are not easy to predict, and the worst case scenarios of these
 combinatorics specifically are still exponential. This is especially important
-for error modelling in spell-checking, since it easily goes towards the worst
+for error modelling in spell\-/checking, since it easily goes towards the worst
 case scenario, i.e. the theoretically ideal naive error model that can rewrite
 any string into any string with some probabilities attached is not easily
 computable.
 
-Towards the latter parts of my research on finite-state spell-checking I set
+Towards the latter parts of my research on finite-state spell\-/checking I set
 out to write few larger scale evaluation articles to prove the efficiency and
-usability of finite-state spell-checking. For larger scale testing I also
+usability of finite-state spell\-/checking. For larger scale testing I also
 sought to show how the linguistically common but technologically almost undealt
 with concept of morphological complexity practically relates to the
 finite-state language models.
 
 The evaluation of the finite-state spelling correction needs to be contrasted
-to the existing comparisons and evaluations of spell-checking systems. Luckily,
-the spell-checking has been a topic popular enough to have number of recent
-evaluations available.  Also the very informal introduction to spell-checking
+to the existing comparisons and evaluations of spell\-/checking systems. Luckily,
+the spell\-/checking has been a topic popular enough to have number of recent
+evaluations available.  Also the very informal introduction to spell\-/checking
 by~\citep{norvig2010howto} has been a valuable source of practical frameworks
 for test setup of the evaluation of the spelling checkers as well as the
-ultimate baseline comparison for English language spell-checking.
+ultimate baseline comparison for English language spell\-/checking.
 
 The evaluation of the finite-state spelling checkers in this chapter consists
 of two different goals: when working with English, we merely aim to reproduce
 the results that are published in the literature and are well known. When
 working with morphologically complexer languages, we aim to show that the more
 complex languages we select, the more work and optimisations are needed to
-attain reasonable performance for baseline spell-checking and correction.
+attain reasonable performance for baseline spell\-/checking and correction.
 Throughout the chapter we have tried to follow the linguistically motivated
 selection of languages, i.e. selecting at least one from the moderately rich
 and one from the polyagglutinative languages; the suitable languages for these
@@ -2149,23 +2086,23 @@ an example of polyagglutinative language.
 The efficiency evaluation is split into two sections, in section
 \ref{sec:speed} I evaluate the speed efficiency and optimisation schemes of
 finite-state spelling checkers together with Sam Hardwick who did the
-most legwork on the finite-state spell-checking implementation in e.g.
+most legwork on the finite-state spell\-/checking implementation in e.g.
 \citep{linden2011hfst}. Then in Section~\ref{sec:quality} I measure the
-effects these optimisations have on quality of the spell-checking.
+effects these optimisations have on quality of the spell\-/checking.
 
 \section{Speed of Finite-State Spell-Checking}
 \label{sec:speed}
 
 \textbf{Main article:} \emph{Effect of Language and Error Models on Efficiency
 of Finite-State Spell-Checking and Correction} by myself and Sam Hardwick. In
-this article we set out to prove finite-state spell-checking is an efficient
+this article we set out to prove finite-state spell\-/checking is an efficient
 solution and document how builders of the spellers can tune the parameters
 of their models.
 
 The \textbf{motivation} for the article was practical, in discussions with
 people building alternative spelling checkers, as well as with alpha testers of
 our more complex spell-checkers it was commonly noted that the speed might be
-an issue for finite-state spell-checking systems to gain ground from the
+an issue for finite-state spell\-/checking systems to gain ground from the
 traditional solutions. It is noteworthy, that the formulation of system was
 from the get-go built so that the developers of the language and error models
 can freely make these optimisations as they need.
@@ -2178,19 +2115,19 @@ one. This sets the limits that system should be capable of checking text as it
 is typed, and responding with suggestion as they are demanded. It is well-known
 that finite-state language models being single tape automata, language
 recognisers, can answer the question of whether the string is in given language
-in linear time. In practical measurements this amounts to spell-checking times
+in linear time. In practical measurements this amounts to spell\-/checking times
 up to 100,000~strings per second e.g. in~\citet{silfverberg2009hfst}. The
 central evaluation and optimisation was therefore performed on the error
 correction part which varies both with the language model and the error model
 selected.
 
 In the article we study different \textbf{related} optimisation schemes from
-non-finite-state spell-checking and evaluate the how different error models and
-parameters affect the speed of finite-state the spell-checking. We also ran the
+non-finite-state spell\-/checking and evaluate the how different error models and
+parameters affect the speed of finite-state the spell\-/checking. We also ran the
 tests on scale of morphologically different languages to see if the concept of
-morphological complexity reflects on the speed of spell-checking.
+morphological complexity reflects on the speed of spell\-/checking.
 
-The optimisation tricks of speed in spell-checking software has been a central
+The optimisation tricks of speed in spell\-/checking software has been a central
 topic in the research since the beginning. There are numerous solutions that we
 ported into finite-state form to test their efficiency, and few a methods
 related to problems with the finite-state formulation of the error models (i.e.
@@ -2214,7 +2151,7 @@ significant addition in the search speed of the corrections.
 
 The comparative evaluation of the different language models is relatively
 rarely found in the literature. This could be due to the fact that scientific
-writing in spell-checking is still more oriented towards algorithmics research,
+writing in spell\-/checking is still more oriented towards algorithmics research,
 where the language models of related systems do not have an influence on the
 asymptotic speed of the process and are thus considered uninteresting.  Most of
 the studies are centered towards measuring overall systems of single languages,
@@ -2235,10 +2172,10 @@ systems.
 \textbf{Motivation} for this article was to perform a larger survey for all the
 finite-state spelling methods that have been created in my thesis project. In
 the paper I aim to show that the current state-of-the-art finite-state
-spell-checking is starting to be a viable option for many common
+spell\-/checking is starting to be a viable option for many common
 end-applications. This article is practical continuation to the speed
 optimisation evaluation, where I studied the concept of speeding up the
-finite-state spell-checking systems by manipulation of the error and language
+finite-state spell\-/checking systems by manipulation of the error and language
 models. In order for these optimisations to be usable for end-users I needed to
 show that the quality degradation caused by the optimisation schemes that
 remove a part of the search space is not disproportionately big for the error
@@ -2260,7 +2197,7 @@ evidence of towards that effect.
 
 \section{Conclusions}
 
-In this chapter I have shown the aspects of finite-state spell-checking that
+In this chapter I have shown the aspects of finite-state spell\-/checking that
 make it a plausible end-user spell-checker as a practical application. I have
 shown that the decrease in speed when moving from optimised specific
 algorithmic methods to correct strings or traverse finite-state network to
@@ -2270,8 +2207,8 @@ that of current software solutions such as Hunspell.
 
 I have tested a set of morphologically different languages and
 large corpora to show the usability of finite-state language and error-models
-for practical spell-checking applications and shown that it is possible to tune
-the systems for interactive spell-checking with little effort using the
+for practical spell\-/checking applications and shown that it is possible to tune
+the systems for interactive spell\-/checking with little effort using the
 finite-state algebra.
 
 The practical findings show the requirement of different speeds and quality
@@ -2285,9 +2222,9 @@ simple fine-tuning of the parameters of the finite-state automat.
 \label{chap:conclusion}
 
 In this thesis I have researched the plausibility of making finite-state
-language and error models for real-world, finite-state spell-checking and
+language and error models for real-world, finite-state spell\-/checking and
 correction applications, and presented approaches to formulat traditional
-spell-checking solutions for finite-state use. The contributions of this work
+spell\-/checking solutions for finite-state use. The contributions of this work
 are split into two separate sections: Section~\ref{sec:scholarly-contributions}
 summarises the scientific contributions of the work that is in my thesis, and
 Section~\ref{sec:practical-contributions} recounts the results of this thesis
@@ -2301,7 +2238,7 @@ and practical ideas that the results of this thesis lead into.
 One of the main contributions, I believe, is the improvement and verification
 of the statistical language modeling methods in context of weighted 
 finite-state automata. I believe that throughout the thesis, by continously
-using the initial finding of the word-form based compound word training
+using the initial finding of the word-form-based compound word training
 approach introduced in~\citepalias{pirinen2009weighted}, I have shown that the
 morphologically complex languages can be statistically trained as weighted
 finite-state automata and I maintain that this approach should be carried on
@@ -2317,7 +2254,7 @@ language modeling, I have shown that a generalised finite-state formula based
 on knowledge of morphology can be used to compile the most common existing
 language models into equivalent automata.
 
-Finally, to tie in the scientific evaluation of finite-state spell-checking as
+Finally, to tie in the scientific evaluation of finite-state spell\-/checking as
 viable alternative, I have performed a large-scale testing on wide range
 morphologically different languages, with different resources, and shown that
 all are plausibly usable for typical spelling correction situations.
@@ -2326,7 +2263,7 @@ all are plausibly usable for typical spelling correction situations.
 \section{Practical Contributions}
 \label{sec:practical-contributions}
 
-The spell-checking software that is the topic of this thesis, is very
+The spell\-/checking software that is the topic of this thesis, is very
 practical real world application that, despite this being an academic
 dissertation, cannot be ignored, when talking about the contributions of this
 thesis. One of the important contributions, I believe, is the alpha testing
@@ -2338,7 +2275,7 @@ desktop, as well as the OpenOffice.org / Libreoffice and Firefox browser, has
 been a good testing ground for other morphologically complex languages,
 including Finnish and North Saami, but also the slew of forthcoming Uralic
 languages currently being implemented in the University of Helsinki, most of
-which have not ever had a spell-checking system at all. 
+which have not ever had a spell\-/checking system at all. 
 
 The statistical and weighted methods used to improve the language models have
 been directly ported into classical tool chains and work flows of the 
@@ -2357,7 +2294,7 @@ surface with the optimisations like \emph{avoid typing mistakes at the
 beginning of the word}. Furthermore, it should be possible to make adaptive
 error models using simple feedback system for the finite-state error-models.
 
-During the time I spent writing this thesis, the world of spell-checking has
+During the time I spent writing this thesis, the world of spell\-/checking has
 considerably changed with the mass market of a variety of input methods in the
 new touch screen user interfaces. When I started the thesis work, by far the
 most common methods to input text were regular 100+ key PC keyboards and T9 key
@@ -2369,30 +2306,30 @@ correction than before\footnote{case in point, there are collections of
     humorous automatic spelling corrections made by these systems floating
 around the internet, such as \url{http://www.damnyouautocorrect.com/}}. This
 point will slightly affect the considerations of the practical evaluations of
-the speed of spell-checking; the new spelling correctors coupled with
+the speed of spell\-/checking; the new spelling correctors coupled with
 predictive entry methods need to be called after each input event instead of
 only when correction is required!
 
 On the engineering and software management side, one very visible, practical,
 perhaps even foreseeable future work, there would not be anything stopping from
 these methods getting into use in real world spell-checkers. The actual
-implementation has been done with help of spell-checking systems like voikko,
+implementation has been done with help of spell\-/checking systems like voikko,
 and enchant. The morphologically complex languages that are one selling point
 of this thesis are lacking of the basic language technology support partially
-due to the dominance of too limited string based forms of language modeling.
+due to the dominance of too limited string-based forms of language modeling.
 
-The concept of context-aware spell-checking with finite-state systems was
+The concept of context-aware spell\-/checking with finite-state systems was
 merely scratched on the surface by the article
 \citepalias{pirinen2012improving}, the results showed some promise and some
 problems, but with some work it may be possible to get as sizable improvements
 for morphologically complex languages as for morphologically simple ones. One
 possible solution to be drawn from the actual results of the other articles in
-the thesis is to approach the morph based statistics for all the languages to
+the thesis is to approach the morph-based statistics for all the languages to
 get the possibly less scarce statistics and more similar results. With regards
 to getting the speed and memory efficiency to the level that is usable in
 everyday applications, I suspect there is space for much improvement by basic
 engineering decisions and optimisations. This has also been a topic in much of
-recent spell-checking research for non-finite-state systems, e.g.
+recent spell\-/checking research for non-finite-state systems, e.g.
 in~\citep{carlson2001scaling}.
 
 The concept of context-based error-detection, the real-word error detection,
@@ -2406,8 +2343,8 @@ limiting factor for rapidly testing such a system is lack of error corpora
 with real-word spelling errors.
 
 As an theoretically interesting development, it would be nice to have a formal
-proof that the finite-state spell-checking and correction models are a proper
-superset of the Hunspell spell-checking methods, as my quantitative
+proof that the finite-state spell\-/checking and correction models are a proper
+superset of the Hunspell spell\-/checking methods, as my quantitative
 evaluation of the current approach shows that this is plausible.
 
 \bibliographystyle{apalike}
