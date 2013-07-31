@@ -38,9 +38,9 @@
 \setmainfont[Mapping=tex-text]{Times New Roman}
 
 \title{Weighted Finite-State Methods for 
-%\misspelt{
+\misspelt{
 Spell-Checking
-%}
+}
 and Correction\footnote{Summer draft}}
 \author{Tommi A Pirinen}
 
@@ -1009,7 +1009,8 @@ spelling detection and correction domain that I have re-used or tried to
 re-use in my experiments on spell\-/checking and correction.
 
 The relevant research on the finite\-/state approaches to predictive text entry
-is referred to e.g. in~\citep{silfverberg2010partofspeech}, and the results of
+is referred to e.g. in~\citep{silfverberg2010partofspeech,forcada2001corpus},
+and the results of
 these applications have been applied verbatim to our language models where
 applicable.
 
@@ -2345,18 +2346,19 @@ error-models.
 During the time I spent writing this thesis, the world of spell\-/checking has
 considerably changed with the mass market of a variety of input methods in the
 new touch screen user interfaces. When I started the thesis work, by far the
-most common methods to input text were regular 100+ key PC keyboards and T9 key
-pads on mobile phones. This is no longer the case, as input methods like Swype,
-XT9, and so on, are gaining in popularity. A revision of the methods introduced
-in this thesis is required, especially so since the input methods of these
-systems are \emph{more} heavily reliant on the high quality, automatic spelling
-correction than before\footnote{A case in point, there are collections of
-humorous automatic spelling corrections caused by these systems, floating
-around on the internet, such as \url{http://www.damnyouautocorrect.com/}.}.
-This point will slightly affect the considerations of the practical evaluations
-of the speed of spell\-/checking; the new spelling correctors coupled with
-predictive entry methods need to be called after each input event instead of
-only when correction is required!
+most common methods to input text were regular 100+ key PC keyboards and key
+pads on mobile phones with T9 input method\footnote{\url{http://www.t9.com}}.
+This is no longer the case, as input methods like Swype, XT9, and so on, are
+gaining in popularity. A revision of the methods introduced in this thesis is
+required, especially so since the input methods of these systems are
+\emph{more} heavily reliant on the high quality, automatic spelling correction
+than before\footnote{A case in point, there are collections of humorous
+automatic spelling corrections caused by these systems, floating around on the
+internet, such as \url{http://www.damnyouautocorrect.com/}.}.  This point will
+slightly affect the considerations of the practical evaluations of the speed of
+spell\-/checking; the new spelling correctors coupled with predictive entry
+methods need to be called after each input event instead of only when
+correction is required!
 
 On the engineering and software management side, one very visible, practical,
 perhaps even foreseeable future work, there would not be anything stopping
