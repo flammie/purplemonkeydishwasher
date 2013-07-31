@@ -1151,17 +1151,20 @@ researched in statistical language models. The key formula for conceiving any
 statistical process in the tropical semiring giving probabilistic distribution
 $P$ as a part of a finite\-/state automaton is $-\log P$, i.e. the smaller the
 probability the bigger the weight. The probability here is not
-straight-forward, but relatively simple. For most things we calculate $P(x) =
-\frac{f(x)}{\sum_{z \in \mathcal{D}} f(z)}$, where x is the event whose
-probability to count, $f()$ is the frequency of the event, and $\mathcal{D}$
-the collection of all events, so the probability of $x$ is counted as the
-proportion of the event $x$ in all events $z$ of $\mathcal{D}$. For example,
-for a simple language model, $x$ could be a word-form, and $\mathcal{D}$ a
-corpus of running text turned into word-forms, then we would expect that
-$P('\mathrm{is}') > P('\mathrm{quantitatively}')$, for any reasonable corpus of
-the English language. Similarly for error modelling, $x$ might be a typo $a:s$,
-and for an error corpus of typos written with a qwerty layout keyboard we would
-expect $P(\mathrm{a}:\mathrm{s}) > P(\mathrm{a}:\mathrm{l})$.
+straight-forward, but relatively simple. For most things we calculate 
+\begin{equation}
+    P(x) = \frac{f(x)}{\sum_{z \in \mathcal{D}} f(z)},
+\end{equation}
+where x is the event whose probability to count, $f()$ is the frequency of the
+event, and $\mathcal{D}$ the collection of all events, so the probability of
+$x$ is counted as the proportion of the event $x$ in all events $z$ of
+$\mathcal{D}$. For example, for a simple language model, $x$ could be a
+word-form, and $\mathcal{D}$ a corpus of running text turned into word-forms,
+then we would expect that $P('\mathrm{is}') > P('\mathrm{quantitatively}')$,
+for any reasonable corpus of the English language. Similarly for error
+modelling, $x$ might be a typo $a:s$, and for an error corpus of typos written
+with a qwerty layout keyboard we would expect $P(\mathrm{a}:\mathrm{s}) >
+P(\mathrm{a}:\mathrm{l})$.
 
 An important factor that morphologically-complex languages bring to the concept
 of statistical language models is obvious, the amount of different plausible
@@ -1188,14 +1191,16 @@ their statistical machine translation work e.g.  in~\citet{brants2007large}.
 The basic forms of estimating and distributing the probability mass to account
 for unseen events has been researched extensively. The basic logic that I have
 used in many of my research papers is the simplest known additive discounting:
-here the estimated probability for an event $x$ is seen as $P(\hat{x}) =
-\frac{f(x) + \alpha}{\sum_{z \in \mathcal{D}}(f(z) + \alpha)}$ that is, each
-frequency is incremented by $\alpha$ and this mass of increments is added to
-divisor to keep distribution in probabilistic bounds---this has the effect that
-all unseen tokens are considered to have be seen $\alpha$ times and all others
-$\alpha$ more times than they have been seen in the training data. For values
-of $\alpha$ in my practical applications I have used the range 0.5--1, based
-on empirical testing and values found in basic literature, such
+here the estimated probability for an event $x$ is seen as 
+\begin{equation}
+    P(\hat{x}) = \frac{f(x) + \alpha}{\sum_{z \in \mathcal{D}}(f(z) + \alpha)}
+\end{equation}
+that is, each frequency is incremented by $\alpha$ and this mass of increments
+is added to divisor to keep distribution in probabilistic bounds---this has the
+effect that all unseen tokens are considered to have be seen $\alpha$ times and
+all others $\alpha$ more times than they have been seen in the training data.
+For values of $\alpha$ in my practical applications I have used the range
+0.5--1, based on empirical testing and values found in basic literature, such
 as~\citet{manning1999foundations}.
 
 
@@ -2248,9 +2253,11 @@ is doable for finite\-/state spelling-correction as well. The modification of
 the training logic as presented by \citep{church1991probability} into
 finite\-/state form is mostly trivial. E.g. if we consider the building of a
 finite\-/state language model from a corpus of word-forms, the corpus of errors
-is same set of string pairs with weights of $w(x:y) := -\log\frac{f(x:y) +
-\alpha}{\mathcal{D}_{a:b \in \Sigma^2} f(a:b) + \alpha}$, for error pairs $x:y$
-in a set of errors $\mathcal{D}$.
+is same set of string pairs with weights of 
+\begin{equation}
+    w(x:y) := -\log\frac{f(x:y) + \alpha}{\mathcal{D}_{a:b \in \Sigma^2} f(a:b) + \alpha},
+\end{equation}
+for error pairs $x:y$ in a set of errors $\mathcal{D}$.
 
 \section{Conclusions}
 
