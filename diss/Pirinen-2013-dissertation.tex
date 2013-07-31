@@ -1298,7 +1298,68 @@ features come from the basic formula we use for a bag of morphs and filters
 style finite\-/state morphology as it is defined in~\citet{linden2009hfst}. The
 practical side of the main result shows that all of the language models are
 around the same size as finite\-/state dictionaries and morphologies made with
-other methods.
+other methods, this is shown in the Table~\ref{table:cla-2010-repro} 
+reproduced from~\citepalias{pirinen2010building}.
+
+\begin{table}
+    \centering
+ \begin{tabular}{c|c|c|c}
+    \hline
+    \textbf{Language} & \textbf{Dictionary} & \textbf{Roots} & \textbf{Affixes} 
+\\
+    \hline
+    \hline
+    Portugese (Brazil) & 14 MiB & 307,199 & 25,434 \\
+    Polish & 14 MiB & 277,964 & 6,909 \\
+    Czech & 12 MiB & 302,542 & 2,492 \\
+    Hungarian & 9.7 MiB & 86,230 & 22,991 \\
+    Northern S\'{a}mi & 8.1 MiB & 527,474 & 370,982 \\ 
+    Slovak & 7.1 MiB & 175,465 & 2,223 \\
+    Dutch & 6.7 MiB & 158,874 & 90\\
+    Gascon & 5.1 MiB & 2,098,768 & 110 \\
+    Afrikaans & 5.0 MiB & 125,473 & 48 \\
+    Icelandic & 5.0 MiB & 222087 & 0 \\
+    Greek & 4.3 MiB & 574,961 & 126 \\
+    Italian & 3.8 MiB & 95,194 & 2,687 \\
+    Gujarati & 3.7 MiB & 168,956 & 0 \\
+    Lithuanian & 3.6 MiB & 95,944 & 4,024 \\
+    English (Great Britain) & 3.5 MiB & 46,304 & 1,011 \\
+    German & 3.3 MiB & 70,862 & 348 \\
+    Croatian & 3.3 MiB & 215,917 & 64 \\
+    Spanish & 3.2 MiB & 76,441 & 6,773 \\
+    Catalan & 3.2 MiB & 94,868 & 996 \\
+    Slovenian & 2.9 MiB & 246,857 & 484 \\
+    Faeroese & 2.8 MiB & 108,632 & 0 \\
+    French & 2.8 MiB & 91,582 & 507 \\
+    Swedish & 2.5 MiB & 64,475 & 330 \\
+    English (U.S.) & 2.5 MiB & 62,135 & 41 \\
+    Estonian & 2.4 MiB & 282,174 & 9,242\\
+    Portugese (Portugal) & 2 MiB & 40.811 & 913 \\
+    Irish & 1.8 MiB & 91,106 & 240 \\
+    Friulian & 1.7 MiB & 36,321 & 664 \\
+    Nepalese & 1.7 MiB & 39,925 & 502 \\
+    Thai & 1.7 MiB & 38,870 & 0 \\
+    Esperanto & 1.5 MiB & 19,343 & 2,338 \\
+    Hebrew & 1.4 MiB & 329237 & 0 \\
+    Bengali & 1.3 MiB & 110,751 & 0 \\
+    Frisian& 1.2 MiB & 24,973 & 73 \\
+    Interlingua & 1.1 MiB & 26850 & 54 \\
+    Persian & 791 KiB & 332,555 & 0 \\
+    Indonesian & 765 KiB & 23,419 & 17 \\
+    Azerbaijani & 489 KiB & 19,132 & 0 \\
+    Hindi & 484 KiB & 15,991 & 0 \\
+    Amharic & 333 KiB & 13,741 & 4 \\
+    Chichewa & 209 KiB & 5,779 & 0 \\
+    Kashubian & 191 KiB & 5,111 & 0 \\
+    \hline
+  \end{tabular}
+
+  \caption{Compiled Hunspell automata sizes. Reproduced 
+      from~\citepalias{pirinen2010building}
+  \label{table:cla-2010-repro}}
+\end{table}
+
+
 
 When talking about Hunspell it is not possible to avoid the motivation behind
 the development of a new system for spell\-/checking---as my thesis is also
@@ -1370,11 +1431,34 @@ The one result that we tried to high-light in the paper was that we could
 already provide a rudimentary spell-checker based on lexical data built solely
 for the purpose of limited range machine translation, and we could do that for
 a range of languages that, at the time of writing lacked spell-checkers
-altogether. And the task of writing the compiler for this existing format based
-on other morphology formalisms we had made and turning the compiled language
-model to a baseline spell-checker was not more than a few days work. This point
-in generic usefulness of finite\-/state systems is often easily overlooked with
-an assumption that all new systems require months of development time.
+altogether. A list of the languages tested here is provided in the
+Table~\ref{table:lrec-2012-repro}, reproduced
+from~\citepalias{pirinen2012compiling}. And the task of writing the compiler
+for this existing format based on other morphology formalisms we had made and
+turning the compiled language model to a baseline spell-checker was not more
+than a few days work. This point in generic usefulness of finite\-/state
+systems is often easily overlooked with an assumption that all new systems
+require months of development time.
+
+\begin{table}
+    \centering
+    \begin{scriptsize}
+\begin{tabular}{|l|r|r||r|r||r|r|}
+\hline
+\bf Language & \bf Speed (words/sec) & \bf Apert. comp. & \bf HFST comp. & \bf Apert. lookup & \bf HFST lookup \\
+\hline
+Basque       &  7,900  & 35.7 s & 160.0  s & 32.0 s & 18.4 s \\
+Norwegian    &  9,200  & 6.6 s  & 200.2 s  & 2.4 s  & 5.5  s \\
+Manx         &  4,700  & 0.8 s  & 11.2  s  & 1.6 s  & 2.2  s \\
+\hline
+\end{tabular}
+\end{scriptsize}
+  \caption{Efficiency of spelling correction in artificial test setup, average 
+  over three runs. Speed of HFST-based system against original in compilation
+  and speed of HFST-based system against original in corpus analysis (as
+  seconds in user time).  Reformatted from \citepalias{pirinen2012compiling}.
+  \label{table:lrec-2012-repro}}
+\end{table}
 
 A side result that I partially failed to communicate in this paper is, the
 development towards a generalised compilation formula for finite\-/state
@@ -2025,11 +2109,62 @@ spell-checker. In my article~\citepalias{pirinen2012improving} we reimplemented
 a finite\-/state system very similar to the one used for Spanish, originally
 unaware of these parallel results.
 
-\textbf{Results} show that the regular n-grams, which are used for English to
-successfully improve the spelling correction, are not so effective for Finnish.
-Furthermore the improvement that is gained for Spanish when applying the POS
-n-grams in this task does not give equally promising results for Finnish, but
-do improve the quality of suggestions, by around 2~\% units.
+\textbf{Results}---given in Table~\ref{table:repro-2012-cicling} reproduced
+from \citepalias{pirinen2012improving}---show that the regular n-grams, which
+are used for English to successfully improve the spelling correction, are not
+so effective for Finnish.  Furthermore the improvement that is gained for
+Spanish when applying the POS n-grams in this task does not give equally
+promising results for Finnish, but do improve the quality of suggestions, by
+around 5~\% units.
+
+\begin{table}
+\centering
+      \begin{tabular}{lrrrrrrr}
+        \hline
+        Algorithm & 1 & 2 & 3 & 4 & 5 & 1---10 \\
+        \hline
+        \multicolumn{7}{c}{\textbf{English}} \\
+        \hline
+        Edit distance 2 (baseline) 
+% & 22    & 2    & 2    & 1    & 3    & 80 \\
+& 25.9 \% & 2.4 \% & 2.4 \% & 1.2 \% & 3.5 \% & 94.1 \% \\
+        \hline
+        Edit distance 2 with Unigrams 
+%&    ?   &       &      &      &       &     \\
+& 28.2 \% & 5.9 \% & 29.4 \% & 3.5\% & 28.2 \% & 97.6 \% \\
+        \hline
+        Edit distance 2 with Word N-grams 
+%&     ?  &       &      &      &       &     \\
+& 29.4 \% & 10.6 \% & 34.1 \% & 5.9 \% & 14.1 \% & 97.7 \% \\
+        \hline
+        Edit distance 2 with POS N-grams 
+% & 58    & 16    & 3    & 2    & 0    & 79 \\
+& 68.2 \% & 18.8 \% & 3.5 \% & 2.4 \% & 0.0 \% & 92.9 \% \\
+\hline
+        \multicolumn{7}{c}{\textbf{Finnish}} \\
+        \hline
+        Edit distance 2 (baseline)
+% 214    & 28    & 13    & 15    & 6    & 289 \\
+& 66.5 \% & 8.7 \% & 4.0 \% & 4.7 \% & 1.9 \% & 89.8 \% \\
+        \hline
+        Edit distance 2 with Unigrams 
+% 197    & 43    & 5    & 10    & 11    & 284 \\
+& 61.2 \% & 13.4 \% & 1.6 \% & 3.1 \% & 3.4 \% & 88.2 \% \\
+        \hline
+        Edit distance 2 with Word N-grams
+%&    ?   &       &      &      &       &     \\
+& 65.0 \% & 14.4 \% & 3.8 \% & 3.1 \% & 2.2 \% & 90.6 \% \\
+        \hline
+        Edit distance 2 with POS N-grams
+%230    & 30    & 4    & 11    & 1    & 276 \\
+& 71.4 \% & 9.3 \% & 1.2 \% & 3.4 \% & 0.3 \% & 85.7 \% \\
+        \hline
+    \end{tabular}
+  \caption{Precision of suggestion algorithms with real spelling errors.
+      Reproduced from \citepalias{pirinen2012improving}
+  \label{table:repro-2012-cicling}}
+
+\end{table}
 
 One of the negative results of the paper is that the time and memory
 consumption of the POS-based or word-form-based spelling correction is not yet
@@ -2179,6 +2314,69 @@ related to problems with the finite\-/state formulation of the error models (i.e
 the generated duplicate correction paths in the edit distance models larger
 than 1 edits long, and limitation of result set size during traversal).
 
+The results of the evaluation---reproduced in
+Table~\ref{table:fsmlnp-2012-repro} from the
+article~\citepalias{pirinen2012effects}---are enlightening. The common
+phenomenon we noticed is that applying the same optimisations in finite-state
+forms that are popular in other spelling correctors, have similar positive
+effects to the correction times.
+
+\begin{table}
+    \centering
+%\begin{scriptsize}
+\begin{tabular}{|l|rrr|}
+\hline
+\bf Error model & \bf English & \bf Finnish & \bf Greenlandic \\ 
+\hline
+Reference impl. &
+9.93&7.96&11.42
+\\
+Generate all edits 2 & 
+3818.20&118775.60&36432.80
+\\
+\hline
+Edit distance 1 &
+0.26&6.78&4.79
+\\
+Edit distance 2 &
+7.55&220.42&568.36
+\\
+%% Edit distance 3 &
+%% 140.96&2649.29&---
+%% \\
+No firsts ed 1 & 
+0.44&3.19&3.52
+\\
+No firsts ed 2 &
+1.38&61.88&386.06
+\\
+%% No firsts ed 3 &
+%% 8.25&824.05&---
+%% \\
+No redundancy ed 2 &
+7.52&4230.94&6420.66
+\\
+%% No redundancy ed 3 &
+%% 143.64&78517.63&---
+%% \\
+No redundancy and firsts ed 2 &
+1.51&62.05&386.63
+\\
+%No redundancy and firsts ed 3 &
+%---&---&---
+%\\
+Lower order first ed 1 to 2 &
+4.31&157.07&545.91
+\\
+\hline
+\end{tabular}
+%\end{scriptsize}
+
+    \caption{Effect of language and error models to speed (time in seconds per 
+        10,000 word forms). Reproduced from \citepalias{pirinen2012effects}.
+    \label{table:fsmnlp-2012-repro}}
+\end{table}
+
 One interesting optimisation that we studied was the ignoring of the errors at
 the first-position of the word. This is known from many practical systems, but
 scarcely documented. Some of the research, such as~\citet{bhagat2007spelling},
@@ -2227,7 +2425,7 @@ remove a part of the search space is not disproportionately big for the error
 models that are effective enough to be used in the real world systems.
 
 When measuring the quality of spelling error correction, the basic finding is
-that the simple edit-distance measure at length one will usually cove ther
+that the simple edit-distance measure at length one will usually cove the
 majority of errors in typical typing error situations. For English the original
 statistics were at 95~\%~\citep{damerau1964technique}, with various newer
 studies giving similar findings between 79~\% and 95~\% depending on the type
@@ -2237,8 +2435,62 @@ languages are not in the same range, rather the edit distance one gains around
 factor in the typing error process; e.g. such that it is more likely to type
 two or more typos and leave them uncorrected with a language where the average
 word length is 16 compared with one where it is 6. Intuitively this would make
-sense, and the figures obtained from my tests in the article provide some
+sense, and the figures obtained from my tests in the article~\citepalias{pirinen2013quality}---reproduced in Table~\ref{table:nejlt-2013-repro}---provide some
 evidence to that effect.
+
+\begin{table}
+    \centering
+    \begin{tabular}{|l|r|r|r|r|r|r|}
+        \hline
+        \bf Rank: & $1^{st}$ & $2^{nd}$ & $3^{rd}$ & $4^{th}$ & $5^{th}$ & rest 
+\\
+        \bf Language and error models &   &  &  &  &  &  \\
+        \hline
+        \bf English Hunspell & 59.3 & 5.8 & 3.5 & 2.3 & 0.0 & 0.0 \\
+          \bf English aspell & 55.7 & 5.7 & 8.0 & 2.2 & 0.0 & 0.0 \\
+%            \bf English Word & & & & & &  \\
+        \hline
+        \bf English w/ 1 error     & 66.7 & 7.0  & 5.2 & 1.8 & 1.8 & 1.8 \\
+ \bf English w/ 1 non-first error  & 66.7 & 8.8  & 7.0 & 0.0 & 0.0 & 1.8 \\
+ \bf English w/ 1 Hunspell error   & 45.6 & 8.7  & 0.0 & 0.0 & 0.0 & 0.0 \\
+     \bf English w/ 2 errors       & 71.9 & 14.0 & 0.0 & 3.5 & 3.5 & 3.5 \\
+ \bf English w/ 2 non-first errors & 71.3 & 17.5 & 0.0 & 1.8 & 3.5 & 1.8 \\
+ \bf English w/ 2 Hunspell errors  & 73.7 & 12.3 & 1.8 & 0.0 & 0.0 & 3.5 \\
+   \bf English w/ 3 errors         & 73.7 & 14.0 & 0.0 & 3.5 & 3.5 & 5.3 \\
+ \bf English w/ 3 non-first errors & 73.7 & 17.5 & 0.0 & 1.8 & 3.5 & 3.5 \\
+ \bf English w/ 3 Hunspell errors  & 73.7 & 12.3 & 1.8 & 0.0 & 0.0 & 8.8 \\
+  %\bf English w/ 3 weighted errors &      &      &     &     &     &     \\
+        \hline
+       \bf Finnish aspell & 21.1 & 5.8 & 3.8 & 1.9 & 0.0 & 0.0 \\
+%        \bf Finnish voikko & & & & & & \\
+%        \bf Finnish Word   & & & & & & \\
+%        \hline
+        \bf Finnish w/ 1 errors & 54.8 & 19.0 & 7.1 & 0.0 & 0.0 & 0.0 \\
+        \bf Finnish w/ 2 errors & 54.8 & 19.0 & 7.1 & 2.4 & 0.0 & 7.1 \\
+\bf Finnish w/ 1 non-first error & 54.8 & 21.4 & 4.8 & 0.0 & 0.0 & 0.0 \\
+\bf Finnish w/ 2 non-first errors & 54.8 & 21.4 & 4.8 & 0.0 & 0.0 & 7.1 \\
+        \hline
+        \bf North Saami Hunspell & 9.4 & 3.1 & 0.0 & 3.1 & 0.0 & 0.0 \\
+%            \bf North Saami Word & & \\
+        \hline
+        \bf North Saami w/ 1 error & 3.5 & 3.5 & 0.0 & 6.9 & 0.0 & 0.0 \\
+        \bf North Saami w/ 1 nonfirst errors & 3.5 & 3.5 & 0.0 & 6.9 & 0.0 & 0.0\\
+        \bf North Saami w/ 2 errors & 3.5 & 3.5 & 3.5 & 0.0 & 3.5 & 3.5 \\
+        \bf North Saami w/ 2 nonfirst errors & 3.5 & 3.5 & 3.5 & 0.0 & 3.5 & 0.0\\
+        \hline
+%        \bf Greenlandic foma &  \\
+%        \hline
+          \bf Greenlandic w/ 1 error & 13.3 & 2.2 & 6.7 & 2.2 & 0.0 & 8.9 \\
+ \bf Greenlandic w/ 1 nonfirst error & 13.3 & 2.2 & 6.7 & 2.2 & 0.0 & 8.9 \\
+         \bf Greenlandic w/ 2 errors & 13.3 & 6.7 & 4.4 & 0.0 & 0.0 & 35.6 \\
+\bf Greenlandic w/ 2 nonfirst errors & 13.3 & 6.7 & 4.4 & 0.0 & 0.0 & 35.6 \\
+        \hline
+    \end{tabular}
+
+    \caption{The effect of different language and error models on correction 
+        quality (in \%). Reproduced from~\citepalias{pirinen2013quality}.
+    \label{table:nejlt-2013-repro}}
+\end{table}
 
 \section{Conclusions}
 
