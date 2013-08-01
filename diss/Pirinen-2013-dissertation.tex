@@ -35,7 +35,7 @@
 \newcommand\misspelt{\bgroup\markoverwith
 {\textcolor{red}{\lower3.5pt\hbox{\sixly \char58}}}\ULon}
 
-\setmainfont[Mapping=tex-text]{Times New Roman}
+\setmainfont[Mapping=tex-text]{Liberation Serif}
 
 \title{Weighted Finite-State Methods for 
 \misspelt{
@@ -2026,7 +2026,7 @@ swapped at the price of one edit that is a path $\pi_{x:y y:x}$. This
 unweighted edit distance 1 error model is shown in Figure~\ref{fig:edit1-ab}.
 
 \begin{figure}
-    \includegraphics[width=\textwidth]{edit1-ab-unw}
+    %\includegraphics[width=\textwidth]{edit1-ab-unw}
     \caption{A non-deterministic unweighted two-tape automaton implementing
         edit distance of 1 where $\Sigma = {\mathrm{a}, \mathrm{b}, \epsilon
         \mathrm{(shown as 0)}}$. The deletion, addition and change is shown in
@@ -2050,7 +2050,7 @@ the unweighted ones defined earlier, with limited maximum distance, as the
 application of the infinite edit measure is expectedly slow.
 
 \begin{figure}
-    \includegraphics[width=\textwidth]{edit-weighted}
+    %\includegraphics[width=\textwidth]{edit-weighted}
     \caption{A Weighted automaton for measuring arbitrary edit distance where
         $\Sigma = {\mathrm{a}, \mathrm{b}}$ and uniform weights of $1.00$ per
         edit. The states $q_1$ and $q_2$ are used as a memory for
