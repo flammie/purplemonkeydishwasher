@@ -22,8 +22,8 @@ A Report for the University of Helsinki Department of Modern Languages]
 \DeclareOption{fleqn}{\PassOptionsToClass{\CurrentOption}{book}}
 \DeclareOption{openbib}{\PassOptionsToClass{\CurrentOption}{book}}
 \ProcessOptions\relax
-\LoadClass[b5paper,11pt]{book}
-\ifx\tktla@afour\@undefined\special{papersize=176mm,250mm}\else\relax\fi
+\LoadClass[a4paper,12pt]{book}
+\ifx\tktla@afour\@undefined\special{papersize=210mm,297mm}\else\relax\fi
 \RequirePackage[nottoc]{tocbibind}
 \RequirePackage{fancyhdr}
 \@ifclasslater{book}{2001/04/21}{
@@ -100,16 +100,16 @@ A Report for the University of Helsinki Department of Modern Languages]
   \fi
 }
 \ifcase\tktla@layout
-  \setlength{\oddsidemargin}{27mm}
+  \setlength{\oddsidemargin}{32mm}
   \addtolength{\oddsidemargin}{-1in}
-  \setlength{\evensidemargin}{24mm}
+  \setlength{\evensidemargin}{29mm}
   \addtolength{\evensidemargin}{-1in}
-  \setlength{\topmargin}{21mm}
+  \setlength{\topmargin}{25mm}
   \addtolength{\topmargin}{-1in}
   \setlength{\headheight}{15pt}
   \setlength{\headsep}{13.6pt}
   \setlength{\footskip}{22pt}
-  \setlength{\textwidth}{125mm}
+  \setlength{\textwidth}{149mm}
   \setlength{\textheight}{195mm}
   \fancyhf{}
   \fancyhead[RO,LE]{\thepage}
@@ -129,11 +129,11 @@ A Report for the University of Helsinki Department of Modern Languages]
         \tktla@pubyear\par}
       \vspace{\fill}
       {\bfseries\Large\@title\par}
-      \vspace{25mm}
+      \vspace{29mm}
       {\Large\@author\par}
-      \vspace{25mm}
+      \vspace{29mm}
       \ifx\tktla@permission\@undefined\relax\else
-        \begin{minipage}{98mm}
+        \begin{minipage}{117mm}
           \itshape\small\tktla@permission\par
         \end{minipage}
         \par
