@@ -96,14 +96,14 @@ languages}
 \chapter*{Preface}
 \label{chap:preface}
 
-Spell-checkers are very basic-level, commonly used practical software.
+Spell-checkers are very basic-level, commonly used practical programs.
 Ubi\-quitous enough that nowadays they are in everyday use for most of us,
-whether in office software suites, Facebook text fields or a mobile
-phone autocorrect utility. The practical motivation for this thesis comes
-first and foremost from the disappointment in contemporary applications for
-smaller, more complex languages than English, like my native language, Finnish.
-Why does not my telephone know \emph{my Finnish}? Even I could implement this
-better! And so I did.
+whether in office software suites, Facebook text fields or a mobile phone
+autocorrect utility. The practical motivation for this thesis comes first and
+foremost from the disappointment in contemporary applications for smaller, more
+complex languages than English, such as my native language, Finnish.  Why does
+not my telephone know \emph{my Finnish}? Even I could implement this better!
+And so I did.
 
 The scientific background of the thesis builds on the research of the
 computational linguistics scene at the university of Helsinki, starting from my
@@ -117,55 +117,57 @@ working in computational linguistics, or even natural language engineering,
 especially when it concerns languages different from English, by complexity,
 availability of resources, or otherwise.
 
-The improvements to, and methods for, the spell\-/checking and correction
+The improvements on, and methods for, the spell\-/checking and correction
 presented in the thesis should provide a good base for future more efficient
-spell\-/checking, but they are not yet included popular end-user applications---
-because I believe the productification and social engineering required to make
-it happen is not part of the research work. The current approaches have been
-tested on colleagues, local students, and a select few brave alpha-testers from
-Greenland, whose native language is well-known to be trickier to handle than
-most of ours. As the results of the testing were encouraging, we can hope that
-the future brings better spell-checkers and autocorrections for us with
-slightly more tricky native languages.
+spell\-/checking, but they are not yet included in popular end-user
+applications--- because I believe the productification and social engineering
+required to make it happen is not part of the research work. The current
+approaches have been tested on colleagues, local students, and a select few
+brave alpha-testers from Greenland, whose native language is well-known to be
+trickier to handle than most of ours. As the results of the testing were
+encouraging, we can hope that the future brings better spell-checkers and
+autocorrections for those of us with slightly more tricky native languages.
 
 \section*{Acknowledgements}
 \label{sec:acknowledgements}
 
-Official thanks go to FIN-CLARIN project for funding my research, and for Yliopistotutkintolautakunta, for providing spelling error materials.
-Besides that, I am not a person who explicitly thanks any one. It
-should be noted though that if you are reading this text searching for your
-name, it is the most likely that you deserve thanks; obviously keeping track of
-everyone I owe gratitude for is not an easy task for disorganised person like
-myself, so here is a randomly organised list of things I am thankful for, or
-have been thankful for during the idle times of writing this thesis, in
-absolutely no particular order and without doubt full of omissions.
+Official thanks go to FIN-CLARIN project for funding my research, and to
+Yliopistotutkintolautakunta, for providing spelling error materials.  Besides
+that, I am not a person who explicitly thanks any one. It should be noted
+though that if you are reading this text searching for your name, it is
+most likely that you deserve thanks; obviously keeping track of everyone I owe
+gratitude to is not an easy task for a disorganised person like myself, so here
+is a randomly organised list of things I am thankful for, or have been thankful
+for during the idle times of writing this thesis, in absolutely no particular
+order and without doubt full of omissions.
 
 The first obvious contribution for the whole thesis project and all comes from
-the local research group and other colleagues in University of Helsinki. The
-HFST project for working on the software and the FinnTreeBank and Finnish
+the local research group and other colleagues in University of Helsinki, the
+HFST project for working on the software, and the FinnTreeBank and Finnish
 Wordnet project for providing that extra bit of help with Finnish language
 model building. Specifically I would like to thank my original master's thesis
 advisor Kimmo Koskenniemi for leading me to this line of work, my PhD thesis
 advisor and HFST project leader Krister Lindén for keeping the goal in sight
-throughout the thesis project and helping managing the times and ideas.  In
-HFST team I owe to Sam Hardwick, for doing really the majority of software work
-in \texttt{hfstospell} branch of project, Miikka Silfverberg for providing the
-statistical and context-based finite\-/state models that go beyond my expertise
-and Erik Axelson for maintaining the whole software behemoth.  I am very
-grateful to Per Langgård for picking my contribution in LREC 2011 up as a way
-to get the next version of Greenlandic speller to people and thus introducing
-me to whole intriguing problem field of poly-synthetic languages' computational
-modelling. The thesis and its focus would be quite different without it.  I
-thank Jack Rueter for numerous fruitful discussions on all topics related to
-Uralic languages, among others. I thank whole Divvun / Giellatekno project at
-University of Tromsø for the computational morphologies which we have been
-slowly turning into spell-checkers, especially Sjur Moshagen and Trond
-Trosterud for co-operation in this project. And I also thank Apertium project
-and contributors for another fine source of linguistic materials to turn into
-spell-checkers, and Francis Tyers for all his help with Apertium related
-issues, proofreading, and numerous fruitful discussions.
+throughout the thesis project and helping managing the times and ideas.  In the
+HFST team I owe gratitude to Sam Hardwick, for doing really the majority of the
+software work in the \texttt{hfstospell} branch of the project, Miikka
+Silfverberg for providing the statistical and context-based finite\-/state
+models that go beyond my expertise, and Erik Axelson for maintaining the whole
+software behemoth.  I am very grateful to Per Langgård for picking my
+contribution in LREC 2011 up as a way to get the next version of Greenlandic
+speller to people and thus introducing me to the whole intriguing problematic
+field of poly-synthetic languages' computational modelling. The thesis and its
+focus would be quite different without it.  I thank Jack Rueter for numerous
+fruitful discussions on all topics related to Uralic languages, amongst others.
+I thank whole the Divvun / Giellatekno project at University of Tromsø for the
+computational morphologies, which we have been slowly turning into
+spell-checkers, especially Sjur Moshagen and Trond Trosterud for co-operation
+in this project. And I also thank the Apertium project and contributors for
+another fine source of linguistic materials to turn into spell-checkers, and
+Francis Tyers for all his help with Apertium related issues, proofreading, and
+numerous fruitful discussions.
 
-On personal level I am thankful to my family, my friends in university of
+On a personal level I am thankful to my family, my friends in the university of
 Helsinki, especially those in student organisations like Aspekti and Hyrmy, and
 the one deity who shares the initials with finite\-/state machines,
 FSM---without them, none of this would have been possible.
@@ -176,9 +178,9 @@ FSM---without them, none of this would have been possible.
 \chapter*{Original Papers}
 \label{chap:papers}
 
-This thesis consists of an introduction and the following peer-reviewed publi-
-cations, which are referred to as Papers I–X in the text. These publications
-are reproduced at the end of the print version of the thesis.
+This thesis consists of an introduction and the following peer-reviewed
+publications, which are referred to as Papers I–X in the text. These
+publications are reproduced at the end of the print version of the thesis.
 
 \defcitealias{pirinen2009weighted}{I}
 \defcitealias{pirinen2009weighting}{II}
@@ -251,7 +253,7 @@ are reproduced at the end of the print version of the thesis.
         %\misspelt{forthcoming}
 \end{enumerate}
 
-The implementations and data for reproducing of the results are available
+The implementations and data for reproducing the results are available
 in the version control system of the HFST project\footnote{\url{http://svn.code.sf.net/p/hfst/code/trunk/articles/}}.
 
 \tableofcontents
