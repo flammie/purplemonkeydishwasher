@@ -212,6 +212,14 @@ what kind of improvement can be made with smaller, obtainable corpora
 accompanied with hand-crafted rules approximating the lacking
 \emph{probabilities}.
 
+Since this is a survey on existing finite-state technologies used in comparison
+to contemporary non-finite-state string algorithm solutions we will throughout
+the article make references to Hunspell which can be considered as a de facto
+standard of open source spell-checking and therefore the baseline of the
+quality to achieve to be a usable replacement. The finite-state formulations of
+all the Hunspell methods are either referred to in existing literature or
+formulated within article even when they are not used in the evaluation.
+
 This article is structured as follows: In the following
 Subsection~\ref{subsec:background} we describe the history of spell-checking up
 to the finite-state formulation of the problem, then show the traditional
@@ -328,59 +336,40 @@ to filter singleton events e.g. hapax legomena from the training data.
 \subsection{Morphologically Complex Resource-Poor Languages}
 \label{subsec:morphologically-complex}
 
-One claim examined in this article is that there is a set of morphologically
-complex languages for which the finite-state models are a necessity in order to
-deal with spell-checking in a manner that is usable for end-users of the
-application.  The topic of morphological complexity and linguistic typologies
-is wide and the terminology is not generally agreed on, instead of going into
-details of the terminology, we show figures related to computational linguistic
-properties to demonstrate the practical meaning of computationally
-morphologically complex language and why it requires a finite-state approach
-instead of plain word lists. With spell-checkers, the important figures for
-end-users are coverage---how many valid words the spell-checker recognises out
-of all words in the corus---and precision---how many real words the
-spell-checker will accepts out of all words it covers.  We relate this to the
-question of morphological complexity and computational models by looking at the
-size of word-form lists required to have high enough coverage and precision for
-the spell-checker. The hypothesis is that languages that are morphologically
-complex are capable of producing infinite word-forms via morphological
-processes like compounding and derivation, and the number of word-forms covered
-by a basic dictionary and inflections is much higher than for English. We base
-this hypothesis on the fact that the English inflectional morphology contains
-approximately 2 word-forms per dictionary word, so a dictionary of 100,000
-words can be covered by a word-list of 200,000 word-forms. Conversely, e.g.
-Finnish inflectional morphology has approximately 4,000 word-forms per
-noun\footnote{In Finnish there are 2 number suffixes times 15 cases times 5
-possessive suffixes times 26 combinations of focus clitic particles, give or
-take a few allomorphs.}, so to approximate the same coverage as an English
-dictionary of 100,000 words we need 400,000,000 word-forms ignoring the
-productive derivation and compounding.
+One of the main rationales of going fully finite-state instead of relying on
+word-form lists and affix stripping, is the claim that morphologically complex
+languages simply cannot be handled with sufficient coverage and quality using
+those traditional methods. While it is very hard to formally prove that the
+infiniteness of the dictionary\footnote{We thank the anonymous reviewer for
+valuable suggestions with regards to description of morphologically complex
+languages' problems in this context.} in a finite-state language model is truly
+necessary to accurately predict the extents of productivity of an average
+writer of a morphologically complex language, there are some practical figures
+and factoids to the effect that it may be easier or more pleasant to write a
+language model of necessary predictive powers needed by morphologically complex
+language using finite-state technology. The first cue of such a phenomenon is
+the fact that while Hunspell has virtually 100~\% domination of the open source
+spell-checking field, the authors of language models for morphologically
+complex languages such as Turkish (cf.  Zemberek\footnote{}), Finnish (cf.
+Voikko) and Arabic~(cf.  xxxspell\footnote{}) have still opted to write another
+software to work with, even though it makes the usage of those spell-checkers
+troublesome and coverage of supported applications a lot smaller.
 
-We briefly and informally measured from the source texts of Wikipedia the
-following: words collected from the first 90~\% of the English Wikipedia will
-cover 98.9~\% of the rest of the Wikipedia. For North Saami this number is
-65.8~\%, for Finnish 85~\% and for Greenlandic 91~\%. In this experiment we did
-not consider the correctness of the word-forms. We merely show the extent and
-shape of the long tail. For correctness figures related to the productivity of
-the morphologically rich languages, we made an experiment measuring coverage
-with a dictionary that simulates a word-form list by disallowing compounds and
-derivations. The results for North Saami are that without compounds and
-derivation the coverage of Wikipedia with the available dictionary is just 1~\%
-whereas otherwise it is 48~\%. More detailed numbers are available in
-Section~\ref{sec:evaluation}.
+Another aspect of problems with morphologically complex languages is that the
+amount of training data in terms of plain running word-forms is greater, as it
+is probably undisputed that the amount of word-forms used in average text is
+likely to be at least higher than with morphologically less complex languages.
+In order for statistical training to have discriminative powers a greater
+amount of data is then needed. It is furthermore true that the majority of
+morphologically complex languages have less resources to train the models.  For
+training spelling checkers specifically the main data needed is merely
+correctly written unannotated text, but even that is scarce when it comes to
+languages like Greenlandic or Saami that are not native languages and have not
+been actively used by native speakers in context of free, open source corpora
+such as Wikipedias. It has however been proven that weighted finite-state
+methods can be harnessed to alleviate this particular
+problem~\cite{pirinen2010finitestate}.
 
-To get another view of the scarcity of the language resource data in terms
-of naïve unigram models, in Figure~\ref{fig:forms-vs-tokens}, we show the
-histogram of Wikipedia data in terms of how many unique word-forms we get by
-reading how many words of Wikipedia. This is directly relevant to the
-predictive power of such a simple unigram model.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{graphicx/formspertokens}
-    \caption{Unique word-forms (y-axis) per tokens (x-axis)
-    \label{fig:forms-vs-tokens}}
-\end{figure}
 
 \section{Contemporary Methods for Making Finite-State Language and Error Models
 and Their Weighting}
@@ -529,7 +518,16 @@ trivial; for any given transformation $S:U$ we have a path $\pi = S_1:U_1
 S_2:U_2 \ldots S_n:U_n$, where n is $max(|S|, |U|)$ and the missing characters
 of the shorter word substituted the epsilons.  Trivially, the path can be
 extended with arbitrary contexts $L \_ R$, where $L, R \in \Sigma^{\star}$, by
-concatenating those contexts on left and right respectively. 
+concatenating those contexts on left and right respectively. To apply a
+confusion set on a word using a language model, we use following formula:
+
+\begin{equation}
+    \mathcal{M}_{\mathrm{word}} \circ \bigcup_{\mathrm{CP}} \circ \mathcal{M}_{\mathrm{L}},
+\end{equation}
+
+where $\mathcal{M}_{\mathrm{word}}$ is a word as a single path automaton,
+$\mathrm{CP}$ is a set of confused string pairs in context, and
+$\mathcal{M}_{\mathrm{L}}$ is a language model.
 
 Concerning the current de-facto standard of open source spell-checking,
 Hunspell, its suggestion approaches are optimised variations of what is
@@ -554,6 +552,14 @@ in the program code as sequential processing. The finite-state implementation
 encodes the priorities as weights, as detailed in
 Subsection~\ref{subsec:manual-weighting}.
 
+One of the systems that is used in some of the languages with less phonemic
+orthographies is phonemic folding. Since our aim is to prove that the
+finite-state systems will be strong enough to implement the complete
+replacement for contemporary spelling checkers, we provide a finite-state way
+to achieve phonemic folding here, with an example of soundex̃~\footnote{We have
+    heard from multiple sources, including the anonymous reviewer, that this
+    has been documented in literature many times, however, we have not not been
+able to find a single instance of it, so we provide a formulation here.}
 The phonemic folding schemes obviously vary from language to language, but the
 basic idea of them is usually the same: assign some value to the set of
 similarly sounding parts of the words; these can be as simple as a
@@ -589,8 +595,8 @@ numbers\footnote{This is slightly modified from
         zeroes.
 \end{enumerate}
 
-Now the finite-state version is rather simple; for the actual automaton, see
-the appendix on Page~\pageref{appendix:soundex}. The first rule is encoded by
+Now the finite-state version is rather simple; for a visual representation, 
+see the vector image in~\footnote{\url{}}. The first rule is encoded by
 simply going from the start state to specific states for each six letters that
 might need to be skipped when doubled, or a seventh state for the letters that
 do not correspond to a number, then each of these states skips the skippables
@@ -599,7 +605,18 @@ capable of turning words into the soundex codes, such as
 \emph{Levenshtein:L152}. In order to use this as an error model we need to be
 able to map the L152 back to all the possible words corresponding the string
 L152 (there are infinitely many); in the finite-state technology this is as
-simple as composing the mapping with its inversion.
+simple as composing the mapping with its inversion. Therefore we formally
+define phonemic folding of a word over language model as:
+
+\begin{equation}
+    \mathcal{M}_{\mathrm{word}} \circ \mathcal{M}_{\mathrm{phon}} \circ \mathcal{M}_{\mathrm{phon}}^{-1} \circ \mathcal{M}_{\mathrm{L}},
+\end{equation}
+
+where $\mathcal{M}_{\mathrm{word}}$ is a path automaton of the word to be
+folded, $\mathcal{M}_{\mathrm{phon}}$ is a phonemic folding two-tape automaton,
+and $\mathcal{M}_{\mathrm{L}}$ is a language model. Thus an arbitrary phonemic
+folding model can be applied as a part of a finite-state spell-checking
+process.
 
 During the years more elaborate algorithms have been developed for English,
 such as speedcop, and metaphone in its three incarnations
@@ -678,39 +695,17 @@ provide an improvement~\cite[]{pirinen/2010/lrec}, however for the more
 advanced weighting, such as the morphological feature-based
 one~\cite[]{pirinen2012improving} or the error-model weighting, the requirement
 is already to have large amounts of manually annotated high quality texts. 
-%The
-%manual weighting schemes are in effect similar as software based approaches
-%when they arrange the suggestions in an order based on e.g. the flags in the
-%dictionary; we merely replace the flags with the weights in the paths.
 
-Assuming we have suitable corpora for training the language and error models,
-or even inducing the whole models from the corpora alone, we can use simple
-scripts to create the models from the data, and to include them in existing
-models. One of the reasons why this is a very tempting approach, is that it
-will give improvements with even relatively small corpora and rarely decrease
-the quality or even the speed. The reason for this is simple; the unweighted
-language model acts as if all the word-forms have equal probability and the
-suggestions of the same distance will be generated in an arbitrary order (e.g.
-alphabetical). Any new probability will just act as if it was the unweighted
-model, but in addition the strings that were in the training corpora are
-slightly preferred in the order of probability, similarly for error corpora and
-models, this will at least make the ordering less arbitrary. Since the
-structure of the graphs is not changed in the weighting process the traversal
-will be approximately as fast. Also, unless the earlier arbitrary order was
-more favorable systematically, the result improves. We can see the opposite
-effect if for example the testing material is skewed towards the same arbitrary
-order as the correction algorithm---as it happens the default for many
-automated processes is binary alphabetic order.
-
-Specifically this basic probabilistic training does not suffer as much from the
-sparseness of data as the other tasks like the statistical machine translation
-or the morphological analysis where one unseen event will accumulate over the
-course of the sentence or so. Also assuming that typos are events that happen
-at fairly regular intervals the results will follow that distribution for any
-reasonable corpus material. Finally, even if the mistakes of some user do not
-follow the standard distribution, the users are more understanding towards a
-spell-checker that suggests the common words with the common typing errors than
-the ones that suggest very rare and obscure word-forms.
+Basic probabilistic training for spelling correction does not suffer as much
+from the sparseness of data as the other tasks like the statistical machine
+translation or the morphological analysis where one unseen event will
+accumulate over the course of the sentence or so. Also assuming that typos are
+events that happen at fairly regular intervals the results will follow that
+distribution for any reasonable corpus material. Finally, even if the mistakes
+of some user do not follow the standard distribution, the users are more
+understanding towards a spell-checker that suggests the common words with the
+common typing errors than the ones that suggest very rare and obscure
+word-forms.
 
 The most simple language model for spell-checking to induce or learn, is
 the surface word-form unigram probability model. This model is simply created
@@ -1128,14 +1123,15 @@ error models have homogeneous weights per error and the language models have no
 weights; this means in effect that all the suggestions within 1 edit come in an
 arbitrary (but specified\footnote{In the current implementation of
     \texttt{hfst-ospell}, the order is determined by
-    \texttt{std::less<std::string>().} In our system this appears to be
-byte-wise lexicographic order.} order before the suggestions within 2 edits.
-We contrast this with a basic weighting scheme with word-form probability
-weights to show the effect of plain statistical language modeling.
+    \texttt{std::less<std::string>()}, which in our system appears to be in
+descending order of characters interpreted as bytes.} order before the
+suggestions within 2 edits.  We contrast this with a basic weighting scheme
+with word-form probability weights to show the effect of plain statistical
+language modeling.
 
 One of the popular optimisations for the error models is to vary the edit
 distance, or more generally, the number of times the errors in the error model
-are applied.  Another commonly used optimisation is to disallow the
+are applied.  Another often used optimisation is to disallow the
 modifications of the first letter of the word. The third optimisation that is
 applied e.g.  with Hunspell is limiting the edit types with keyboard adjacency
 maps etc.  These are obvious speed versus quality trade-offs, in
@@ -1383,6 +1379,72 @@ models, or the user of the office suite program.
 %    \label{fig:speed-quality}}
 %\end{figure}
 
+\subsection{Memory Usage Evaluation}
+
+Depending on the use case of the spell-checker, the memory usage may also be a
+limiting factor. To give you some idea of the memory-speed trade-offs that
+different finite-state models include, in Table~\ref{table:memory} we provide
+the memory usage values when performing the evaluation tasks as above. The
+measurements are performed with the valgrind utility and represent the peak
+memory usage when testing on the 10,000 or 100 word test sets as described in
+previous chapters.
+
+\begin{table}
+    \centering
+    \begin{tabular}{|l|r|}
+        \hline
+        \bf Measurement:              & Peak memory usage \\
+        \bf Language and error models &        \\
+        \hline
+        \bf English Hunspell &  \\
+          \bf English aspell &  \\
+        \hline
+        \bf English w/ 1 error     &  \\
+ \bf English w/ 1 non-first error  &   \\
+ \bf English w/ 1 Hunspell error   &   \\
+     \bf English w/ 2 errors       &   \\
+ \bf English w/ 2 non-first errors &  \\
+ \bf English w/ 2 Hunspell errors  &  \\
+   \bf English w/ 3 errors         &   \\
+ \bf English w/ 3 non-first errors &   \\
+ \bf English w/ 3 Hunspell errors  &   \\
+%  \bf English w/ 3 weighted errors &       &      &      &      &     \\
+        \hline
+   \bf North Saami Hunspell & \\
+%        \bf North Saami WP  & & & \\
+%        \bf North Saami AFSA & & & \\
+        \hline
+        \bf North Saami w/ 1 error    &  \\
+\bf North Saami w/ 1 non-first error  &  \\
+       \bf North Saami w/ 2 errors    &  \\
+\bf North Saami w/ 2 non-first errors &  \\
+        \hline
+        \bf Finnish aspell & \\
+        \hline
+%        \bf Finnish WP & & & & & \\
+%       \bf Finnish FSA & 13.5 & 0.2 & & & \\
+%%        \bf Finnish word trigrams & & & & & \\
+%        \hline
+        \bf Finnish w/ 1 errors   &   \\
+\bf Finnish w/ 1 non-first error  &   \\
+        \bf Finnish w/ 2 errors   &  \\
+\bf Finnish w/ 2 non-first errors &  \\
+        \hline
+        \bf Greenlandic WP    & \\
+%       \bf Greenlandic AFSA    &  & &  \\
+        \hline
+        \bf Greenlandic w/ 1 error    & \\
+\bf Greenlandic w/ 1 non-first error  & \\
+       \bf Greenlandic w/ 2 errors    &  \\
+\bf Greenlandic w/ 2 non-first errors &  \\
+        \hline
+    \end{tabular}
+    \caption{The peak memory usage of processes checking and correcting
+        word-forms with various language and error model combinations
+        (memory in binary multiples of bytes as written) \label{table:memory}}
+\end{table}
+
+
 \section{Discussion}
 \label{sec:discussion}
 
@@ -1522,24 +1584,6 @@ reviewing the manuscript prior to submission.
 
 \bibliography{fstspellnejlt}
 
-\section*{Soundex automaton}
-\label{appendix:soundex}
-
-There is a commented AT\&T format automaton in our source code
-repository\footnote{\url{http://svn.code.sf.net/p/hfst/code/trunk/articles/fst-spell-nejlt/manual/en/soundex.txt}}.
-This description fully encodes the soundex algorithm.  The format is as
-follows: lines with four fields represent arcs, the first field is the
-beginning state of the arc and the second field is the end state of the arc.
-The third field is the input symbol of the arc and the fourth field is the
-output symbol of the arc. The rows with one field are the final states. The
-resulting automaton is drawn in Figure~\ref{fig:soundex}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{graphicx/soundex}
-    \caption{Soundex algorithm as finite-state automaton
-    \label{fig:soundex}}
-\end{figure}
 
 \end{document} 
 
