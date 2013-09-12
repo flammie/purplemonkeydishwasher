@@ -39,20 +39,20 @@ TIME=/usr/bin/time
 # }}}
 #
 # {{{ latex building stuff
-PAPER_SOURCES=fst-spell-2012.tex
-PAPER_AUXES=fst-spell-2012.aux fst-spell-2012.bbl fst-spell-2012.log fst-spell-2012.blg
-PAPER_PDF=fst-spell-2012.pdf
+PAPER_SOURCES=fst-spell-nejlt.tex
+PAPER_AUXES=fst-spell-nejlt.aux fst-spell-nejlt.bbl fst-spell-nejlt.log fst-spell-nejlt.blg
+PAPER_PDF=fst-spell-nejlt.pdf
 GRAPHICX=graphicx/xy-edit1.pdf graphicx/soundex.pdf
 DOTS=dots/xy-edit1.dot dots/soundex.dot
 
 DOCS=README LICENCE
 
-fst-spell-2012.pdf: fst-spell-2012.tex fstspell2012.bib $(GRAPHICX)
-	$(TEX) fst-spell-2012.tex
-	$(BIB) fst-spell-2012
-	$(TEX) fst-spell-2012.tex
-	$(TEX) fst-spell-2012.tex
-	$(TEX) fst-spell-2012.tex
+fst-spell-nejlt.pdf: fst-spell-nejlt.tex fstspellnejlt.bib $(GRAPHICX)
+	$(TEX) fst-spell-nejlt.tex
+	$(BIB) fst-spell-nejlt
+	$(TEX) fst-spell-nejlt.tex
+	$(TEX) fst-spell-nejlt.tex
+	$(TEX) fst-spell-nejlt.tex
 
 clean-article:
 	-rm -f $(PAPER_PDF) $(PAPER_AUXES)
