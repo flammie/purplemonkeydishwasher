@@ -296,42 +296,53 @@ power as the existing statistical spell-checking software algorithms.
 
 In this article, where the formulas of finite-state algebra are concerned, we
 assume the standard notations from \cite{aho2007compilers}: a one-tape
-finite-state automaton $M$ is a system $(Q, \Sigma, \delta, Q_s, Q_f, W)$,
-where $Q$ is the set of states, $\Sigma$ the alphabet, $\delta$ the transition
-mapping of form $Q \times \Sigma^t \rightarrow Q$, where t is number of tapes
-in the automaton, $Q_s$ the initial states of the automaton and $Q_f$ the final
-states of the automaton. For weighted automata we extend as in
-\cite{mohri2009weighted} such that $\delta$ is extended to $Q \times \Sigma^t
-\times W \rightarrow Q$, where $W$ is the weight, and additionally the system
-includes a final weight mapping $\rho: Q_f \rightarrow W$. The structure we use
-for weights is systematically the tropical semiring $(\mathbb{R}_+ \cup
-{+\infty}, min, +, +\infty, 0)$, i.e. weights are positive floats that are
-collected by addition.
+finite-state automaton $\mathcal{M}$ is a system $(Q, \Sigma, \delta, Q_s, Q_f,
+W)$, where $Q$ is the set of states, $\Sigma$ the alphabet, $\delta$ the
+transition mapping of form $Q \times \Sigma \rightarrow Q$, and $Q_s$ and $Q_f$
+the initial and final states of the automaton respectively.  For weighted
+automata we extend as in \cite{mohri2009weighted} such that $\delta$ is
+extended to $Q \times \Sigma \times W \rightarrow Q$, where $W$ is the
+weight, and additionally the system includes a final weight mapping $\rho: Q_f
+\rightarrow W$. The structure we use for weights is systematically the tropical
+semiring $(\mathbb{R}_+ \cup {+\infty}, min, +, +\infty, 0)$, i.e. weights are
+positive real numbers that are collected by addition.
 
 For the finite-state spell-checking we use the following common notations:
-$M_d$ is a single tape weighted finite-state automaton used for detecting the
-spelling errors, where threshold $w_d$ may be used to discard bad word forms,
-$M_s$ is a single tape weighted finite-state automaton used for suggesting
+$\mathcal{M}_\mathrm{D}$ is a single tape weighted finite-state automaton used
+for detecting the spelling errors, $\mathcal{M}_\mathrm{S}$ is a single tape
+weighted finite-state automaton used as a language model when suggesting
 correct words, where the weight value is used to rank the suggestions.  In many
-occasions we study the possibility of $M_d = M_s$. The error models are
-weighted two tape automata commonly marked as $M_e$.
+occasions we study the possibility of $\mathcal{M}_\mathrm{D} =
+\mathcal{M}_\mathrm{S}$. The error models are weighted two tape automata
+commonly marked as $\mathcal{M}_\mathrm{E}$. A misspelled word automaton is
+generally marked as $\mathcal{\mathrm{word}}$, and the suggestion procedure
+is encompassed by formula:
+
+\begin{equation}
+    \label{formula:application}
+    \mathcal{M}_{\mathrm{word}} \circ \mathcal{M}_{\mathrm{E}} \circ \mathcal{M}_{\mathrm{S}},
+\end{equation}
+
+which results in a two-tape automaton consisting of a misspelled word-form
+$\mathcal{M}_{\mathrm{word}}$ mapped to the spelling corrections described by
+error model $\mathcal{M}_\mathrm{E}$ approved by suggestion dictionary 
+$\mathcal{M}_\mathrm{S}$. Each of the components may be weighted and the
+weight is collected by standard weighted finite-state automata operations as
+defined by the semiring.
 
 In where the probabilities are used, the basic formula to get probabilities
 from the discrete frequencies of events (word-forms, mistyping events, etc.) is
-straightforward $P(x) = \frac{c(x)}{\mathrm{corpus size}}$, where x is the
-event, c is the count or frequency of the event, and corpus size is the sum of
-all event counts in the training corpus. The encoding of weights in a
-finite-state automaton is done by setting $Q_{\pi_x} = -\log P(x) \in \rho$.
-As events not appearing in corpora should have a larger probability than zero,
-we use the simple additive smoothing techniques, setting $P(x) = \frac{c(x) +
+straightforward $P(x) = \frac{c(x)}{\mathrm{corpus size}}$, where $x$ is the
+event, $c$ is the count or frequency of the event, and corpus size is the sum
+of all event counts in the training corpus. The encoding of weights in a
+finite-state automaton is done by setting $Q_{\pi_x} = -\log P(x)$.  As events
+not appearing in corpora should have a larger probability than zero, we use the
+simple additive smoothing techniques, setting $P(\hat{x}) = \frac{c(x) +
 \alpha}{\mathrm{corpus size} + (\mathrm{dictionary size} \times \alpha)}$, so
 for unknown event $\hat{x}$ the probability will be counted as if it had
 $\alpha$ appearances.  Another approach would be to set $P(\hat{x}) <
 \frac{1}{\mathrm{corpus size}}$, which makes the probability distribution leak
-but may work under some conditions \cite[]{brants2007large}.  The interesting
-values with this probabilistic weighting is setting threshold $w_d :=
-\frac{\alpha}{\mathrm{corpus size} + \mathrm{dictionary size} \times \alpha}$
-to filter singleton events e.g. hapax legomena from the training data.
+but may work under some conditions \cite[]{brants2007large}.
 
 \subsection{Morphologically Complex Resource-Poor Languages}
 \label{subsec:morphologically-complex}
@@ -376,7 +387,7 @@ and Their Weighting}
 \label{sec:methods}
 
 The task of spell-checking is divided into locating the spelling errors and
-suggesting the corrections for the spelling errors. In the finite-state
+suggesting the corrections for the spelling errors. In finite-state
 spell-checking the former task requires a language model, that can tell whether
 or not a given string is correct. The simplest finite-state approach for this
 is just an unweighted single-tape finite-state automaton where all of the
@@ -408,20 +419,20 @@ probabilities of making specific mistypings or errors or just arbitrary
 penalties, as is basically done with many of the traditional software-based
 approaches \cite[such as][]{Hunspell/manual}.
 
-This chapter is organised as follows, in the
-Section~\ref{subsec:language-models} we describe how the finite-state language
-models are made and how they can be tuned for spell-checking use, as well as
-the basic probabilistic and hand-written weighting techniques that have been
-used to implement the weighted language models in finite-state context. In
-Section~\ref{subsec:error-models} we go through a number of popular schemes for
-modeling the typos and other spelling errors.  In
-Section~\ref{subsec:manual-weighting} we go through some finite-state weighting
-schemes that are based on mainly the expert judgement and fiddling with the
-weights.  In Section~\ref{subsec:automatic-weighting} we study the methods for
-inducing the weights for the language and the error models from unannotated and
-small annotated corpora, and in Section~\ref{subsec:combining-weights} we show
-both statistically sound and unsound methods of combining the weights in the
-models.
+Rest of this Section is organised as follows, in the
+Subsection~\ref{subsec:language-models} we describe how the finite-state
+language models are made and how they can be tuned for spell-checking use, as
+well as the basic probabilistic and hand-written weighting techniques that have
+been used to implement the weighted language models in finite-state context. In
+Subection~\ref{subsec:error-models} we go through a number of popular schemes
+for modeling the typos and other spelling errors.  In
+Subsection~\ref{subsec:manual-weighting} we go through some finite-state
+weighting schemes that are based on mainly the expert judgement and fiddling
+with the weights.  In Subsection~\ref{subsec:automatic-weighting} we study the
+methods for inducing the weights for the language and the error models from
+unannotated and small annotated corpora, and in
+Subsection~\ref{subsec:combining-weights} we show both statistically sound and
+unsound methods of combining the weights in the models.
 
 \subsection{Compiling Finite-State Language Models}
 \label{subsec:language-models}
@@ -451,12 +462,12 @@ spell-checking available for the languages that could not have been supported
 with the above-mentioned non-finite-state methods. These languages are
 supported by the original two-level morphology~\cite[]{koskenniemi/1983} or the
 development on it by Xerox in \emph{Finite-State
-Morphology}~\cite[]{beesley2003finite}.  More over, this also includes the
+Morphology}~\cite[]{beesley2003finite}.  Moreover, this also includes the
 recent open-source systems for natural language processing based on the
 finite-state technology, such as the rule-based machine-translation system
-apertium~\cite[]{apertium2010}, and the finite-state formalisms like
-sfst~\cite[]{schmid2006programming} and kleene~\cite[]{beesley2012kleene} as
-well as the free and open source clones of xerox systems
+Apertium~\cite[]{apertium2010}, and the finite-state formalisms like
+SFST~\cite[]{schmid2006programming} and Kleene~\cite[]{beesley2012kleene} as
+well as the free and open source clones of Xerox systems
 like~\cite{hfst/2012/cla,hulden2009foma}.  The language models these systems
 produce are of course all finite-state automata that can be attached to
 spell-checking system with very little
@@ -469,23 +480,23 @@ The baseline error model for spell-checking is the Damerau-Levenshtein distance
 measure. As the finite-state formulations of error models are the most recent
 development in the finite-state spell-checking, the earliest reference to a
 finite-state error model in an actual spell-checking system is by
-\cite{schulz/2002}, it also contains a very thorough description of building
-finite-state models for the different forms of edit distances. The basic
-idea is this: for each type of error: insertion, deletion and the replacement
-of
-letters, add one arc $x:\epsilon$, $\epsilon:x$ and $x:y$ respectively, for
-each letter $x, y \in \Sigma, x \neq y$ from the initial state to the final
-state (this is a 2 state automaton). To extend this with the swaps of adjacent
-characters, we have to reserve one state from the automata for each character
-pair $x:y$, such that the following $y:x$ will lead to the final state
-\cite[]{pirinen/2010/lrec} with the modification that each state apart
-from the start state is a final state.  The fixed automaton for the alphabet
-$\Sigma = \{x, y, ?\}$, where $?$ denotes any unknown symbol\footnote{This
-    extension is relatively common for finite-state methods in natural language
-processing, its full implementation in the finite-state systems is not entirely
-trivial and not well-documented, but we refer the reader to
-\cite[]{beesley2003finite} for the details on one implementation of it.}, is
-given in Figure~\ref{fig:xy-edit-1}.
+\cite{schulz/2002} and its later refinement in~\cite{schulz2004fast}, it also
+contains a very thorough description of building finite-state models for the
+different forms of edit distances. The basic idea is this: for each type of
+error: insertion, deletion and the replacement of letters, add one arc
+$x:\epsilon$, $\epsilon:x$ and $x:y$ respectively, for each letter $x, y \in
+\Sigma, x \neq y$ from the initial state to the final state (this is a 2 state
+automaton). To extend this with the swaps of adjacent characters, we have to
+reserve one state from the automata for each character pair $x:y$, such that
+the following $y:x$ will lead to the final state \cite[]{pirinen/2010/lrec}
+with the modification that each state apart from the start state is a final
+state.  The fixed automaton for the alphabet $\Sigma = \{x, y, ?\}$, where $?$
+denotes any unknown symbol\footnote{This extension is relatively common for
+    finite-state methods in natural language processing, its full
+    implementation in the finite-state systems is not entirely trivial and not
+    well-documented, but we refer the reader to \cite[]{beesley2003finite} for
+the details on one implementation of it.}, is given in
+Figure~\ref{fig:xy-edit-1}.
 
 \begin{figure}
     \centering
@@ -495,6 +506,12 @@ given in Figure~\ref{fig:xy-edit-1}.
     \label{fig:xy-edit-1}}
 \end{figure}
 
+The edit distance type error models used in this article are all composed of
+the automata such as one shown in Figure~\ref{fig:xy-edit-1}, expanded by
+necessary alphabets and repeated necessary amount of times using standard
+finite-state algebra. The application of the error models was givenin
+Formula~\ref{formula:application}.
+
 To optimise the error models in very simple ways, you can cut off select parts
 of the alphabet, error types, or, reduce the possible places to apply the
 errors.  One of the most popular modification to speed up the edit distance
@@ -502,7 +519,7 @@ algorithm is to disable the modifications at the \emph{first character} of the
 word, this provides a big improvement since the word-length is a factor in the
 speed of correction generation, and the selection of first character---as
 opposed to the latter characters---is based on some
-data~\cite[]{bhagat2007spelling}.  This simple modification provides a
+data~\cite[]{bhagat2007spelling}.  This modification provides a
 measurable speedup at the cost of recall. The finite-state implementation of it
 is simple, we concatenate one unmodifiable character---a $?$ symbol arc---in
 front of the error model.  Hunspell's implementation of the correction
@@ -516,7 +533,7 @@ nearly always covered by specific string transformations, i.e.
 Encoding simple string transformations as finite-state automata is very
 trivial; for any given transformation $S:U$ we have a path $\pi = S_1:U_1
 S_2:U_2 \ldots S_n:U_n$, where n is $max(|S|, |U|)$ and the missing characters
-of the shorter word substituted the epsilons.  Trivially, the path can be
+of the shorter word substituted with epsilons.  Trivially, the path can be
 extended with arbitrary contexts $L \_ R$, where $L, R \in \Sigma^{\star}$, by
 concatenating those contexts on left and right respectively. To apply a
 confusion set on a word using a language model, we use following formula:
@@ -531,20 +548,31 @@ $\mathcal{M}_{\mathrm{L}}$ is a language model.
 
 Concerning the current de-facto standard of open source spell-checking,
 Hunspell, its suggestion approaches are optimised variations of what is
-described earlier in this chapter:
+described earlier in this chapter. We informally specify them here to
+give an impression that our finite-state approaches are sufficient to encode
+them, for full details and examples the manual page 4 of
+Hunspell\footnote{\url{http://sourceforge.net/projects/hunspell/files/Hunspell/Documentation/}} is suggested reading.
 
 \begin{itemize}
     \item KEY: is a keyboard layout adjusted single \emph{replacement} type
         spelling error for specific subsets of the alphabet, e.g. rows and 
-        columns of a keyboard
+        columns of a keyboard. An example of this would be a configuration
+        where \emph{w} is allowed to be replaced by an \emph{e}, but not
+        by an \emph{o}, because of how the keys are laid out in the qwerty
+        keyboard
     \item TRY: is an edit distance error for the set of characters, 
-        \emph{without swaps or replacements}
+        \emph{without swaps or replacements}, for example if \emph{e} is
+        allowed, a mispelling \emph{exampl} may be corrected to \emph{example}
     \item REP: is a string transformation error from \emph{confusable
-        substrings} within words
+        substrings} within words. For example allowing \emph{ie} to be replaced
+        with an {ei} because they are often confused in English spelling.
     \item MAP: is a string transformation error from a single character to 
-        many characters, with higher priority
+        many characters, with higher priority. In effect it seems to be
+        used for character decoding failures, such as treating XML character
+        references as characters.
     \item PHONE: is a phonemic error with specific tables using a double
-        metaphone algorithm
+        metaphone algorithm, a simplified example is given later in the
+        phonemic mapping example.
 \end{itemize}
 
 Each of these error models have different priorities in Hunspell, implemented
@@ -557,20 +585,20 @@ orthographies is phonemic folding. Since our aim is to prove that the
 finite-state systems will be strong enough to implement the complete
 replacement for contemporary spelling checkers, we provide a finite-state way
 to achieve phonemic folding here, with an example of soundex̃~\footnote{We have
-    heard from multiple sources, including the anonymous reviewer, that this
-    has been documented in literature many times, however, we have not not been
-able to find a single instance of it, so we provide a formulation here.}
-The phonemic folding schemes obviously vary from language to language, but the
-basic idea of them is usually the same: assign some value to the set of
-similarly sounding parts of the words; these can be as simple as a
-context-independent mappings or as complex as hundreds of parallel rules with
-contexts. Here we introduce a finite-state formulation of the soundex algorithm
-by~\cite{russell1918soundex}, originally made for cataloguing English language
-names. The soundex algorithm is quite simple. It assigns each word to a code
-made of its first letter followed by a three number sequence mapping the
-letters that are considered phonemically important to up to three
-numbers\footnote{This is slightly modified from
-\url{http://en.Wikipedia.org/wiki/Soundex} to match the finite-state formula.}:
+    heard from multiple sources, that this has been documented in literature
+    many times, however, we have not not been able to find a single instance of
+such literature, so we provide a formulation here.} The phonemic folding
+schemes obviously vary from language to language, but the basic idea of them is
+usually the same: assign some value to the set of similarly sounding parts of
+the words; these can be as simple as a context-independent mappings or as
+complex as hundreds of parallel rules with contexts. Here we introduce a
+finite-state formulation of the soundex algorithm by~\cite{russell1918soundex},
+originally made for cataloguing English language names. The soundex algorithm
+is quite simple. It assigns each word to a code made of its first letter
+followed by a three number sequence mapping the letters that are considered
+phonemically important to up to three numbers\footnote{This is slightly
+modified from \url{http://en.Wikipedia.org/wiki/Soundex} to match the
+finite-state formula.}:
 
 \begin{enumerate}
     \item Retain the first letter of the name 
@@ -658,19 +686,26 @@ preferred~\cite[]{karlsson1992swetwol}; this means that we should suggest
 lexicalised words before new derivations or compounds.  In weighted
 finite-state form this restriction is attaching weight to the compound and the
 derivation boundaries or their analyses, which are encoded in the dictionary.
-In Hunspell this corresponds to the setting \texttt{MAXCPDSUGS}. Similar
+In Hunspell this corresponds to the setting \texttt{MAXCPDSUGS}, which is
+the number of compound words allowed in suggestions. Similar
 consideration can be made for the other features that may be available or
 encodable in the language model: giving more penalty weight to the rare form
 suffixes, the rare lexemes or the substandard forms.
 
 Designing and understanding the weighting scheme manually, even for
-morphologically complex languages is quite simple, since we use the tropical
+morphologically complex languages can be done easily, since we use the tropical
 semiring and its collect operator is a regular addition. For example for
 Finnish we might want to say that a word with instructive suffix is less likely
 than a four-part compound, we assign the instructive a weight that is equal or
 greater than four times the weight of the compound boundary (this will work for
 Finnish, since the instructive suffix can only appear once per word-form, so we
 know it does not stack, whereas compounding is productive and unlimited).
+Obvious limitation of designing manual ranking schemes like this does not
+account for all cases of a morphologically complex language, rather it just
+allows a dictionary writer to express some of the simple preferences, in form
+of ``I'd rather not see instructives unless you really have no other
+suggestions to offer, and also please keep multi-part compounds away if you
+can''.
 
 For the error model part, we have similar considerations, for example
 following the Hunspell model of error corrections, we start by allowing the
@@ -710,7 +745,7 @@ word-forms.
 The most simple language model for spell-checking to induce or learn, is
 the surface word-form unigram probability model. This model is simply created
 as a finite-state automaton by taking all the strings from the corpora along
-with their frequency-based weights, and disjuncting them into a simple acyclic
+with their frequency-based weights, and making an union into a simple acyclic
 finite-state automaton, where each string now corresponds to a path and the end
 weight of the path is the probability cast into a tropical weight. One easily
 acquirable corpus model is Wikipedia~\cite[]{pirinen/2010/lrec}, which has at
@@ -749,7 +784,7 @@ distributing the mass among the unseen word-forms~\cite[for a good introduction
 to smoothing models we refer to][]{jurafsky2000speech}. In these experiments we
 apply simple additive smoothing as it is cheap to implement and works well
 enough; for measuring how the smoothing method affects quality see e.g.
-\cite{chen1999empirical}. In the finite-state form the smoothing is done by
+\cite{chen1999empirical}. In finite-state form the smoothing is done by
 subtracting the seen words from the language model\footnote{For optimisation
     this part may be omitted; even penalising the whole language model will
     only leave duplicate paths that have large weights and will have no effect
@@ -769,9 +804,10 @@ edit distance model, and counting the specific errors iteratively, in this
 approach the errors are learnt by just seeing the \emph{potential errors} in
 the corpora, without knowledge of whether they are the right errors that were
 made in the text.  Now, each edit distance error arc of form $x:y$, $x, y \in
-\Sigma \cup {\epsilon}$ in the error model is to be weighted by the $-log
+\Sigma \cup {\epsilon}, x \neq y$ in the error model is to be weighted by the $-log
 \frac{c(x:y)}{\mathrm{error count}}$, where $c(x:y)$ is the count of x:y
-corrections in the corpus. In \cite{brill2000improved} it is proposed that the
+corrections in the corpus and $\mathrm{error count}$ the sum of all errors in
+error corpus. In \cite{brill2000improved} it is proposed that the
 edit distance is replaced by an arbitrary string-to-string mapping; this
 extension is possible to Church's method for error corpus creation and
 the existing error model of string to string mappings. In this case the
@@ -815,7 +851,7 @@ accomplished with for example the following simple formula: $w_e
 \subsection{Application of the Finite-State Language and Error Models in
 Spell-Checking}
 
-The task to identify spelling errors with finite-state automata is at its
+The task of identifying spelling errors with finite-state automata is at its
 simplest a process of looking up the strings of running text from the automaton
 of a language model. This achieves the isolated non-word error detection. The
 speed of finite-state lookup is known to be fast---the traversal of a
@@ -897,19 +933,25 @@ resources, we use English.  With English we can recreate the results of the
 reference literature, at least whenever the cited works properly distribute
 their data for verification purposes. This section briefly introduces the data
 and methods to compile the models in an informative manner; for the exact
-implementation, the repeatability of result, or the attempt to implement the
-same approaches for another language, the reader is advised to utilise the
-scripts, the programs and the makefiles available from our source code
+implementation, the repeatability of result\footnote{Repeatabilty is a key
+    requirement of science in general and because it can easily be achieved in
+    computational linguistics since test variation caused by measurement error
+    is less likely, it is extremely necessary to provide open material and
+    source codes for all works to be considered scientific. For further
+reference a story of Zigglebottom parser~\cite{pedersen2008empiricism} is
+suggested reading excercise.}, or the attempt to implement the same approaches
+for another language, the reader is advised to utilise the scripts, the
+programs and the makefiles available from our source code
 repository\footnote{\url{http://svn.code.sf.net/p/hfst/code/trunk/articles/fst-spell-nejlt/}}.
 To demonstrate a crude, statistical baseline model for languages, we use the
 Wikipedia data alone as the language models. This also shows how different the
-Wikipedia data is for the languages.
-When considering the data of Wikipedia, a point has to be made on the
-limitedness and quality of Wikipedias for lesser resourced languages. In
-Table~\ref{table:wikipedia-data} we show the statistics of the data we have
-drawn from Wikipedia for training and testing purposes. In case of English
-and Finnish the data is selected from subset of Wikipedia tokens, with North
-Saami and Greenlandic we had no other choice than to use the full Wikipedia.
+Wikipedia data is for the languages.  When considering the data of Wikipedia, a
+point has to be made on the limitedness and quality of Wikipedias for lesser
+resourced languages. In Table~\ref{table:wikipedia-data} we show the statistics
+of the data we have drawn from Wikipedia for training and testing purposes. In
+case of English and Finnish the data is selected from subset of Wikipedia
+tokens, with North Saami and Greenlandic we had no other choice than to use the
+full Wikipedia.
 
 \begin{table}
     \centering
@@ -927,7 +969,7 @@ Saami and Greenlandic we had no other choice than to use the full Wikipedia.
         \bf Greenlandic & 136,241     & 28,268    & 7,233       & 1,973 \\
         \hline
     \end{tabular}
-    \caption{The extents of Wikipedia data per language (in tokens)
+    \caption{The extents of Wikipedia data per language (in token)
     \label{table:wikipedia-data}}
 \end{table}
 
@@ -967,7 +1009,7 @@ the two keys of same position in the previous row, e.g. \texttt{qaw},
 \texttt{wse}, \ldots, \texttt{azs}, \texttt{sxd}, \ldots.  The keyboard
 adjacency values are taken from the CLDR Version
 22\footnote{\url{http://cldr.unicode.org}}, modified to the standard 101---104
-key PC keyboard layout, for Androids or other grid layout keyboards it would
+key PC keyboard layout, for Android or other grid layout keyboards it would
 make sense to either delete the a-w relation or add the q-s relation for
 diagonally adjacent keys---probably the latter since the area of mistypings on
 small touch screens is significantly larger than on the mechanical keyboards.
@@ -975,7 +1017,7 @@ small touch screens is significantly larger than on the mechanical keyboards.
 The training corpora for each of the languages is based on Wikipedia; to train
 the language model we have used the correct word-forms of the first 90~\% of
 the Wikipedia, the non-words for error model, and the remaining 10~\% is used
-to test the models. For another experiment we also device a language model for
+to test the models. For another experiment we also devise a language model for
 these languages solely from the corpus training data, as with English.  For
 English we select only the initial 10~\% of the corpus to train the model and
 the next 5~\% to test it---this is several orders of magnitude greater than
@@ -1331,8 +1373,8 @@ clearly shows the trade-off between speed and quality.
         \hline
     \end{tabular}
     \caption{The effect of different language and error models on speed of
-        spelling correction (startup time in seconds, correction time in 
-        full words per second) \label{table:speed}}
+        spelling correction (startup time in seconds, correction rate in 
+        words per second) \label{table:speed}}
 \end{table}
 
 When we compare the results of our systems with the respective non-fst
