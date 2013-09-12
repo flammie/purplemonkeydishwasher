@@ -12,3 +12,6 @@ all: omorfi-2013.pdf
 	$(TEX) $<
 	$(TEX) $<
 	$(TEX) $<
+
+clean:
+	-rm -f omorfi-2013.pdf omorfi-2013.aux omorfi-2013.bbl omorfi-2013.log
