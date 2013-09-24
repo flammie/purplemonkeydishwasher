@@ -15,6 +15,11 @@
 
 \usepackage{multirow}
 
+\usepackage[normalem]{ulem}
+
+\newcommand\textul{\bgroup\markoverwith
+{\textcolor{red}{\lower3.5pt\hbox{\sixly \char58}}}\ULon}
+
 \pagestyle{empty}
 %\bibliographystyle{natbib.fullname}
 \bibliographystyle{cslipubs-natbib}
@@ -914,10 +919,15 @@ errors, regardless of the likelihood of the word forms in the language model.
 To accomplish this, we have to scale the weights in the error model to ensure
 that any weight in the error model is greater than or equal to any weight in
 the language model, this can be accomplished with for example the following
-the formula: $\hat{w_e} = w_e + maxw(\mathcal{M}_\mathrm{S})$,
-where $\hat{w_e}$ the scaled weight of error model weights,
-$w_e$ the original error model weight and $maxw(\mathcal{M}_\mathrm{S})$ 
-highest weight found in the language model used for error corrections.
+the formula: 
+
+\begin{equation}
+    \hat{w_e} = w_e + maxw(\mathcal{M}_\mathrm{S}),
+\end{equation}
+
+where $\hat{w_e}$ the scaled weight of error model weights, $w_e$ the original
+error model weight and $maxw(\mathcal{M}_\mathrm{S})$ highest weight found in
+the language model used for error corrections.
 
 \subsection{Application of the Finite-State Language and Error Models in
 Spell-Checking}
@@ -1010,12 +1020,13 @@ compile the models in an informative manner; for the exact implementation, the
 reproduction of result, or the attempt to implement the same approaches for
 another language, the reader is advised to utilise the scripts, the programs
 and the makefiles available from our source code
-repository\footnote{\url{http://svn.code.sf.net/p/hfst/code/trunk/articles/fst-spell-nejlt/}.
+repository\footnote{\url{https://github.com/flammie/purplemonkeydishwasher/tree/master/fst-spell-journal/}.
     It is noteworthy, that we consider reproducibility a key requirement of
-    science in general, and, because it can easily be achieved in computational
+    science in general. And because it can easily be achieved in computational
     linguistics, since test variation caused by measurement error is less
     likely, it is in fact necessary to provide both the data and the source
-    code.  For further reference a long discussion on the topic starting from
+    code.  For further reference there is 
+    a long, on-going  discussion on the topic starting from
 the \emph{story of Zigglebottom
 parser}~\cite[]{pedersen2008empiricism,fokkensoffspring}.} To demonstrate a
 crude, statistical baseline model for languages, we use the Wikipedia data
@@ -1102,7 +1113,7 @@ Saami or Greenlandic, or to the statistical one used with English drawn from
 Norvig's data. The error corpus has been extracted from Wikipedia
 with a script very similar to the one described by~\cite{max2010mining}. The
 script that performs fetching and cleaning can be found in our
-repository\footnote{\url{http://svn.code.sf.net/p/hfst/code/articles/fst-spell-nejlt/}}. The main approach is: 1) search for a comment
+repository\footnote{\url{https://github.com/flammie/purplemonkeydishwasher/tree/master/fst-spell-journal/}}. The main approach is: 1) search for a comment
 element with the value suggesting spelling (e.g., for the English Wikipedia
 \texttt{<comment>sp</comment>}. 2) extract the text content of the element and
 of the previous revision. 3) take a \texttt{wdiff -3} from these two and 4)
@@ -1617,8 +1628,8 @@ This may be explained by two things: the likelihood
 to have more typos would naturally increase as the average length of the words
 grows longer, and the frequency statistics do not have as good predictive power
 as the number of word-forms rises. For example we get in our error corpus
-\emph{misigisaqarfigilluarneqarnerusarpoq} when meaning
-\emph{misigisaqarfiulluarnerusarpoq}. A majority of these is plausibly
+\emph{misigisaqarfi\textul{gi}lluarne\textul{qarne}rusarpoq} when meaning
+\emph{misigisaqarfi\textul{u}lluarnerusarpoq}. A majority of these is plausibly
 competence or grammar mistakes or a combination of both: using the wrong form
 and misspelling it.
 
