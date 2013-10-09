@@ -27,22 +27,25 @@ Use of Large Corpora---A Case Study in Management of Finnish Lexicon in Omorfi}
 
 \maketitle
 
-\begin{abstract}
+\begin{abstract} 
+    
     In this article we demonstrate the use of large coverage varied real text
-    corpora for four different purposes: first to collect new lexical data, i.e.
-    word-forms, classifications and other features, second to extend existing
+    corpora for four different purposes: first to collect new lexical data,
+    e.g., words, classifications and other features, second to extend existing
     lexical data, third to verify lexical data collected from various sources
-    and finally to regression test the full system developed using the lexical
-    data. In our experiment we take a free and open source Finnish morphological
-    analyser, we verify some existing features that are morphological (i.e.,
-    visible in the word-form) as well as  extend and verify some features that
-    are syntactic-semantic (i.e., visible in distribution and context). We
-    also demonstrate that the resulting morphological and surface-syntactic
-    statistics extracted in the process can be readily used as naive statistical
-    language models. The experiment is performed using a mature morphological
-    computational linguistic description of Finnish language that has been
-    adapted for multiple applications and uses a variety of different sources
-    for acquiring lexical data.
+    and finally to regression test the final system using that data.  In our
+    experiment we take a free and open source morphological analyser and freely
+    available corpora to verify some existing features that are morphological
+    (i.e., visible in the word-form) as well as to extend and to verify some
+    features that are syntactic-semantic (i.e., visible in distribution and
+    context). We also demonstrate that the resulting morphological and
+    surface-syntactic statistics extracted in the process can be readily used
+    as naive statistical language models. The experiment is performed using a
+    mature morphological computational linguistic description of Finnish
+    language that has been adapted for multiple applications and uses a variety
+    of different sources for acquiring lexical data, to show the general
+    applicability and usefulness of the method.
+
 \end{abstract}
 
 \section{Introduction}
@@ -51,27 +54,32 @@ Use of Large Corpora---A Case Study in Management of Finnish Lexicon in Omorfi}
 For a mature computational language description, harvesting and maintaining the
 masses of lexical data is one of the main tasks done all the time. In a modern
 environment, this task is no longer carried on by one computational-linguist
-expert. Often they are harvested from various crowd-sourced dictionary
+expert. Often the data are harvested from various crowd-sourced dictionary
 development environments, such as
 Wiktionary\footnote{\url{http://fi.wiktionary.org}} or
-O\-mega\-wi\-ki\footnote{\url{http://www.omegawiki.org}}, and while they ideally
-need to be verified by competent language speaker before integrating into
-system, often the task is time consuming and prone to mistakes, so providing
-rigorous test sets by use of extensible corpora is crucial. Another aspect of
-lexical data harvesting that often comes into focus is when extending the use
-of an computational linguistic description into new applications, it is
-invariably necessary to create new classifications for word-forms. For example
-the Finnish morphology that we use has been adapted to Finnish-English machine
-translation, which needed among others the gender of human referent nominals in
-order to get personal pronouns right, another project adapted the analyser to
-named entity recognition task, which in turn needed great quantities of new
-proper nouns added to the dictionary and classified by semantic means. Third
-aspect of lexical data maintenance is verifying integrity and definitions, even
-if data comes from trustworthy sources it may often be that definitions used by
-lexicographers have been different when it comes to classification, to ensure
-that all lexical data from different sources works with same computational
-linguistic description, large scale tests can provide very helpful evidence of
-the uniformity of behaviour within a class.
+O\-mega\-wi\-ki\footnote{\url{http://www.omegawiki.org}}, and while they
+ideally need to be verified by competent language speaker before integrating
+into system, often the task is time consuming and prone to mistakes, so
+providing rigorous test sets by use of extensible corpora is crucial to help
+the expert to perform the task in a timely manner. Another aspect of lexical
+data harvesting that often comes into focus is, when extending the use of a
+computational linguistic description into new applications, it is invariably
+necessary to create new classifications for words. For example the Finnish
+morphology that we use has been adapted to Finnish-English machine
+translation\footnote{\url{http://sourceforge.net/p/apertium/svn/HEAD/tree/nursery/apertium-fin-eng/}},
+which would have needed, among other classifications, the gender of human
+referent nominals in order to get personal pronouns right\footnote{Finnish uses
+gender neutral third person singular whereas English has one for each gender
+leaving a slot of missing information to be filled}. Another project adapted
+the analyser to named entity recognition task, which in turn needed great
+quantities of new proper nouns added to the dictionary and classified by
+semantic means. Third aspect of lexical data maintenance is verifying the
+integrity and definitions, because even if data comes from trustworthy sources
+it may often be, that the definitions used by lexicographers have been
+different when it comes to the classification, or there may be simple humane
+mistakes. In order to ensure that all lexical data from different sources works
+with same computational linguistic description, large scale tests can provide
+very helpful evidence of the uniformity of behaviour within a class.
 
 The concept of using corpora as means of harvesting new data is not new in
 itself, in fact probably most linguistic projects that make use of
@@ -79,57 +87,98 @@ lexicographical data will have at some point used corpora to extract new words
 and features from, e.g., for extraction part alone, LREC held in 2012 had at
 least 5 papers dealing with automatic extraction of lexical features.  What we
 provide here is a software engineering oriented view on using corpora as
-properly integrated test unit on all phases of lexicon development for
-continuous and semi-automated maintenance of the lexical data instead of single
-updates of partial data.
+properly integrated test unit in all phases of the lexicon development for a
+continuous and semi-automated maintenance of the lexical data instead of a
+single update of a partial data.
+
+The big picture behind this paper is that computational linguistics and
+linguistics often have too big of a gap between them, which ends up in
+linguistic grammars defining classifications too loosely and too full of
+exceptions to be implementable. This in turn leads then computational linguists
+to define classes that do not exist in linguistic grammars, which will appear
+in the specific software show as one-off hacks, which only the users of these
+specific systems will understand. If a classification in a grammar has a
+criteria, it must be observable and thus testable, if it is observable it will
+be usable in computational linguistics too, thus, I suggest combining the two
+disciplines by making the criteria of linguistic classifications the first
+class citizens of both the linguistic and the computational descriptions by use
+of corpora and statistics.  This in part provides for better long-term
+maintainability for the (computational) linguistic descriptions, an aspect of
+grammar development that has been often called for in recent years~\cite{maxwell2013system,maxwell2008joint,moshagen2013building,pirinen2011modularisation}.
 
 \section{Methods}
 
-The methods for creating statistics from corpus data we use in this projects
-currently only depend on python data structures having access to the corpus
-data, the tokens it forms and sets of analyses the corpus processing system
-attaches for each token. In our case we have a python interface to FST-based
-corpus processing, which provides unambiguous left-to-right longest
-tokenisations of the text, and ambiguous morphological analyses along with some
-classification information per word-form. From this we gather statistical
-distributions, such as specific word-form analyses per lemma, and word-forms or
-analyses at specific contextual positions. Each of the types of information
-gathered in this manner is based on linguistic knowledge of existing
-classifications, mainly encoded in the official grammar~\cite{visk}, and should
+All of the methods from verification to regress testing are based on simple
+statistic distributions applied over word-forms, tokens and analyses. The form
+is always the same, proportion of features $f$ in context $C$ of feature $g$ 
+from all features in same category in context $C$. The features can be 
+single analyses of single like parts-of-speech matching $P$, the context can
+be either the same analysis, or any of the analyses in contextual positions
+left or right of this word in text. E.g., given analysis with part-of-speech
+\emph{adjective}, what is the distribution of different derivation
+\emph{comparative} analyses, or in context, given the part-of-speech
+\emph{adjective}, what is the distribution of agreeing analyses with
+part-of-speech \emph{noun} in the next word to the right. If a classification
+requires adjectives to have comparative forms, we expect to see distribution of
+comparative forms that shows non-zero amount of some variants of comparatives.
+
+To implement these we use the python\footnote{\url{http://python.org}}
+scripting language to gather the basic statistics from the output of a
+morphological analyser in terms of distributions of analyses per input token
+and analyses of specific context\footnote{the implementation is freely
+available in \url{http://code.google.com/p/omorfi/}, we consider providing free and open data and
+implementations crucial for scientific reproduction and replication purposes}.
+In our case we have an underlying python interface to FST-based corpus
+processing provided by free open source project HFST~\cite{linden2013hfst},
+this is used to apply the morphological analyser to raw corpora to get the
+ambiguous analyses for the statistics. From the analyses we gather the
+statistics based on linguistic rules according to categories, such as
+parts-of-speech, and their defined classifications.
+
+The classification used
+are mainly retrieved from the official grammar~\cite{visk}, and should
 therefore form an ideal test for collecting, verifying and testing the
-classifications. E.g., a \emph{morphological adjective}\footnote{Word
-`adjective' is somewhat problematically defined loosely in terms of morphology,
-syntax and semantics together, which makes classification often troublesome for
-computational methods.} is recognised by the existence of comparative forms,
-and the lack of those forms will be a good clue of misclassification. On the
-other hand \emph{syntactic adjective} is defined by having an agreeing nominal
-on right context or predicative verb in the left context. Ideally these two
-classes would of course be disjoint to begin with, to make classification more
-systematic, since they do not form a proper homogeneous uniform class.  Another
+linguistic classifications for use of a computational system. In the grammar
+classifications, e.g., (certain kinds of) \emph{adjectives}\footnote{Word
+    `adjective' is somewhat problematically defined loosely in terms of
+    morphology, syntax and semantics together, which makes classification often
+    troublesome for computational methods; in future it might be sensible to
+separate these tasks under different class names. The current grammar actually
+literally uses the expression \emph{certain kinds of} when defining adjectives'
+different classes.} are recognised by the existence of comparative forms, and
+the lack of those forms will be a good clue of misclassification in the lexical
+data we currently use. On the other hand (certain kinds of) \emph{adjectives}
+are defined by having an agreeing nominal on right context or predicative verb
+in the left context. To test these classifications we gather the adjectives
+comparative form statistics, and their agreeing nominal statistics. Another
 feature that is interesting to gather for Finnish is the position and form of
 the complements for e.g., adpositions, which generally can take nominal
-complements in one of six cases and in either direction; traditionally following
-models from other languages the Finnish grammars have often defined adpostion
-to be one of preposition, postposition or both, but with proper distributions
-from corpora we can easily improve this feature. Some of the seemingly semantic
-features can also be guessed and verified using merely morphological
-distributions like this, e.g., whether a nominal is a title correlates
-with humanity of its right nominal complement.
+complements in one of six cases and in either direction; traditionally
+following models from other languages the Finnish grammars have often defined
+adposition to be one of preposition, postposition or both, but with proper
+distributions from corpora we can easily improve this feature. This can be
+captured by collecting distributions of left and right nominals and their cases
+for the words that are analysed as adpositions. Also, some of the seemingly
+semantic features can also be guessed and verified using merely morphological
+distributions like this, e.g., whether a nominal is a title correlates with
+humanness of its right nominal complement. 
 
 \section{Data}
 
 For experimentation we have used a mature language description of
-Finnish~\cite{pirinen2011modularisation} that consists some 400,000 lexemes and
-a few existing classifications, such as part-of-speech classes, inflectional
-paradigms, and proper noun classes. The lexical data comes from number of
-projects varying from institute of languages in Finland's official dictionary
-and academic projects to fully crowd-sourced projects like Wiktionary. To test
-out that the classifications match the expectations we have used three large
-and well-established free and open source corpora:
+Finn\-ish~\cite{pirinen2008suomen} that consists some 400,000 lexemes and a few
+existing classifications, such as part-of-speech classes, inflectional
+paradigms, and proper noun classes, for full view of all, it is advised to see
+the project's home site\footnote{\url{http://code.google.com/p/omorfi/}}. The
+lexical data comes from number of projects varying from institute of languages
+in Finland's official
+dictionary\footnote{\url{http://kaino.kotus.fi/nykysuomi/sanat}} and academic
+projects to fully crowd-sourced projects like Wiktionary. To test out that the
+classifications match the expectations we have used three large and
+well-established free and open source corpora:
 Wikipedia\footnote{\url{http://download.wikimedia.org/}}, Project
-Gutenberg\footnote{\url{http://gutenberg.org}} and texts of European
-parliament from JRC
-Acquis\footnote{http://ipsc.jrc.ec.europa.eu/index.php?id=198}
+Gutenberg\footnote{\url{http://gutenberg.org}} and texts of European parliament
+from JRC Acquis\footnote{\url{http://ipsc.jrc.ec.europa.eu/index.php?id=198}}
 \cite{steinberger2006jrc}. 
 
 \section{Evaluation}
@@ -145,9 +194,9 @@ contexts. The results are given in the table~\ref{table:results}.
 
 In previous work the corpora have been used for single time extension of the
 lexical data or coverage based maintenance of computational linguistic
-description. We have presented a sustainable way of integrating corpora
-as part of the development work-flow to extend, verify and maintain the lexical
-data and language description clean and free of errors.
+description. We have presented a sustainable way of integrating corpora as part
+of the development work-flow to extend, verify and maintain the lexical data
+and to keep the language description clean and free of errors.
 
 \subsection{Error Analysis}
 
@@ -173,7 +222,7 @@ In this experiment we worked with ambiguous morphological analyses and simple
 positional rules only capable of scanning specific relative
 positions. For many of the real linguistic definitions, it would be interesting
 to have better analyses and word-to-word relations available, e.g., such that
-dependency tree banks have.
+dependency tree banks like~\cite{haverinen2013building} have.
 
 \section{Conclusion}
 
