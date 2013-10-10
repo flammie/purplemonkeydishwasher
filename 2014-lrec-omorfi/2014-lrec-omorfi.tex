@@ -76,7 +76,7 @@ quantities of new proper nouns added to the dictionary and classified by
 semantic means. Third aspect of lexical data maintenance is verifying the
 integrity and definitions, because even if data comes from trustworthy sources
 it may often be, that the definitions used by lexicographers have been
-different when it comes to the classification, or there may be simple humane
+different when it comes to the classification, or there may be simple human
 mistakes. In order to ensure that all lexical data from different sources works
 with same computational linguistic description, large scale tests can provide
 very helpful evidence of the uniformity of behaviour within a class.
@@ -108,7 +108,7 @@ grammar development that has been often called for in recent years~\cite{maxwell
 
 \section{Methods}
 
-All of the methods from verification to regress testing are based on simple
+All of the methods from verification to regression testing are based on simple
 statistic distributions applied over word-forms, tokens and analyses. The form
 is always the same, proportion of features $f$ in context $C$ of feature $g$ 
 from all features in same category in context $C$. The features can be 
@@ -161,7 +161,7 @@ captured by collecting distributions of left and right nominals and their cases
 for the words that are analysed as adpositions. Also, some of the seemingly
 semantic features can also be guessed and verified using merely morphological
 distributions like this, e.g., whether a nominal is a title correlates with
-humanness of its right nominal complement. 
+humanness of its right nominal complement.
 
 \section{Data}
 
@@ -177,9 +177,12 @@ projects to fully crowd-sourced projects like Wiktionary. To test out that the
 classifications match the expectations we have used three large and
 well-established free and open source corpora:
 Wikipedia\footnote{\url{http://download.wikimedia.org/}}, Project
-Gutenberg\footnote{\url{http://gutenberg.org}} and texts of European parliament
-from JRC Acquis\footnote{\url{http://ipsc.jrc.ec.europa.eu/index.php?id=198}}
-\cite{steinberger2006jrc}. 
+Gutenberg\footnote{\url{http://www.gutenberg.org}} and texts of the European
+commission in JRC Acquis
+corpus\footnote{\url{http://ipsc.jrc.ec.europa.eu/index.php?id=198}}~\cite{steinberger2006jrc}.
+The fetching and preprocessing of the data has been done using tools available
+freely from a web
+repository\footnote{\url{https://github.com/flammie/bash-corpora}}.
 
 \section{Evaluation}
 
@@ -188,7 +191,7 @@ strongest evidence (multiple matches with over 95~\% of agreement or less than
 5~\% in case of negative matches) of either
 disproving the current class or extending the classification with new
 information, and evaluated them using linguistic expertise and the specific
-contexts. The results are given in the table~\ref{table:results}.
+contexts. The results are given in table~\ref{table:results}.
 
 \section{Discussion}
 
