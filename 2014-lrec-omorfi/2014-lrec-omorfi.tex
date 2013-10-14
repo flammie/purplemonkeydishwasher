@@ -192,12 +192,19 @@ repository\footnote{\url{https://github.com/flammie/bash-corpora}}.
 
 \section{Evaluation}
 
-To evaluate the scheme we have randomly sampled the statistics that give the
-strongest evidence (multiple matches with over 95~\% of agreement or less than 
-5~\% in case of negative matches) of either
-disproving the current class or extending the classification with new
-information, and evaluated them using linguistic expertise and the specific
-contexts. 
+To evaluate the scheme we have manually gone through the classifications and
+their statistics, that either disprove the current class or add a new class
+with new information, and compared them to a gold standard. For the gold
+standard we had linguists manually classifying the word-lists using official
+grammar and evidence from real world material as basis. In case of adposition
+complement directionality we note that linguist judgements of common
+directionality are represented in statistics systematically as 48---100~\% of
+all cases (with four possible classes), For initial evaluation sampling we used
+only word-forms with over 10,000 hits in corpus. For case selection the correct
+form seems to have slight evidence for syntactic case distinctions but very
+strong tendencies for required semantic or adverbial cases.
+
+%%% RESULT TABLE TO BE AUTOMATED
 % The results are given in table~\ref{table:results}.
 
 \section{Discussion}
@@ -226,6 +233,12 @@ kuukausina tulleista artikkelista,}''
 linguistic} than any other \ldots). For this reason there needs to be methods
 for an expert to override and blacklist / whitelist the results as necessary.
 
+For adpositional complements it seems that syntactic forms that are common
+in general will show as false positives quite often, so it is necessary to
+perform some normalisation if those distinctions are to be harvested and
+maintained, however, for adpositions that have adverbial complements the
+statistics are already usable.
+
 \subsection{Future Work}
 
 In this experiment we worked with ambiguous morphological analyses and simple
@@ -237,9 +250,7 @@ dependency tree banks like~\cite{haverinen2013building} have.
 \section{Conclusion}
 
 In this article we applied large corpora-based extraction, verification and
-testing for Finnish language description. Results show that even with quite
-tight thresholds we are able to extract good new data and clean up existing
-data with accuracy of nnn~\%.
+testing for Finnish language description.
 
 \bibliographystyle{unsrt}
 \bibliography{lrec2014}
