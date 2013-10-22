@@ -104,11 +104,11 @@ whether in office software suites, Facebook text fields or a mobile phone
 autocorrect utility. The practical motivation for this thesis comes first and
 foremost from the disappointment in contemporary applications for smaller, more
 complex languages than English, such as my native language, Finnish.  Why does
-not my telephone know \emph{my Finnish}? Even I could implement this better!
+my telephone not know \emph{my Finnish}? Even I could implement this better!
 And so I did.
 
 The scientific background of the thesis builds on the research of the
-computational linguistics scene at the university of Helsinki, starting from my
+computational linguistics scene at the University of Helsinki, starting from my
 master's thesis work, which was a finite\-/state model of the Finnish
 language---using this language model as part of a practical piece of end-user
 software, and towards advancement of scientific treatment of the problems
@@ -134,43 +134,42 @@ autocorrections for those of us with slightly more tricky native languages.
 \label{sec:acknowledgements}
 
 Official thanks go to FIN-CLARIN project for funding my research, and to
-Yliopistotutkintolautakunta, for providing spelling error materials.  Besides
-that, I am not a person who explicitly thanks any one. It should be noted
-though that if you are reading this text searching for your name, it is
-most likely that you deserve thanks; obviously keeping track of everyone I owe
-gratitude to is not an easy task for a disorganised person like myself, so here
-is a randomly organised list of things I am thankful for, or have been thankful
-for during the idle times of writing this thesis, in absolutely no particular
-order and without doubt full of omissions.
+Yliopistotutkintolautakunta, for providing spelling error materials.
 
-The first obvious contribution for the whole thesis project and all comes from
-the local research group and other colleagues in University of Helsinki, the
-HFST project for working on the software, and the FinnTreeBank and Finnish
-Wordnet project for providing that extra bit of help with Finnish language
-model building. Specifically I would like to thank my original master's thesis
-advisor Kimmo Koskenniemi for leading me to this line of work, my PhD thesis
-advisor and HFST project leader Krister Lindén for keeping the goal in sight
-throughout the thesis project and helping managing the times and ideas.  In the
-HFST team I owe gratitude to Sam Hardwick, for doing really the majority of the
-software work in the \texttt{hfstospell} branch of the project, Miikka
-Silfverberg for providing the statistical and context-based finite\-/state
-models that go beyond my expertise, and Erik Axelson for maintaining the whole
-software behemoth.  I am very grateful to Per Langgård for picking my
-contribution in LREC 2011 up as a way to get the next version of Greenlandic
-speller to people and thus introducing me to the whole intriguing problematic
-field of poly-synthetic languages' computational modelling. The thesis and its
-focus would be quite different without it.  I thank Jack Rueter for numerous
-fruitful discussions on all topics related to Uralic languages, amongst others.
-I thank whole the Divvun / Giellatekno project at University of Tromsø for the
-computational morphologies, which we have been slowly turning into
-spell-checkers, especially Sjur Moshagen and Trond Trosterud for co-operation
-in this project. And I also thank the Apertium project and contributors for
-another fine source of linguistic materials to turn into spell-checkers, and
-Francis Tyers for all his help with Apertium related issues, proofreading, and
-numerous fruitful discussions. Finally I would like to thank Don Killian for
-the latest proofreading and feedback.
+On academic level, there is an endless amount of colleagues and acquaintances
+met in numerous conferences, workshops and other academic events throughout the
+world who have contributed to the thesis by giving ideas, challenging my
+theories and writing supporting or rivalling software and methods, I am
+grateful for each and every one. What follows is a list of specific
+contributions I can recall at the moment, by no means an exhaustive list of
+thanks, and in no particular order.  The first obvious contribution for the
+whole thesis project and all comes from the local research group and other
+colleagues at the University of Helsinki, the HFST project for working on the
+software, and the FinnTreeBank and Finnish Wordnet project for providing that
+extra bit of help with Finnish language model building. Specifically I would
+like to thank my original master's thesis advisor Kimmo Koskenniemi for leading
+me to this line of work, my PhD thesis advisor and HFST project leader Krister
+Lindén for keeping the goal in sight throughout the thesis project and helping
+managing time and ideas.  In the HFST team I owe gratitude to Sam Hardwick, for
+doing really the majority of the software work in the \texttt{hfstospell}
+branch of the project, Miikka Silfverberg for providing the statistical and
+context-based finite\-/state models that go beyond my expertise, and Erik
+Axelson for maintaining the whole software behemoth.  I am very grateful to Per
+Langgård for picking my contribution in LREC 2011 up as a way to get the next
+version of Greenlandic speller to people and thus introducing me to the whole
+intriguing problematic field of poly-synthetic languages' computational
+modelling. The thesis and its focus would be quite different without it.  I
+thank Jack Rueter for numerous fruitful discussions on all topics related to
+Uralic languages, amongst others.  I thank whole the Divvun / Giellatekno
+project at the University of Tromsø for the computational morphologies, which
+we have been slowly turning into spell-checkers, especially Sjur Moshagen and
+Trond Trosterud for co-operation in this project. And I also thank the Apertium
+project and contributors for another fine source of linguistic materials to
+turn into spell-checkers, and Francis Tyers for all his help with Apertium
+related issues, proofreading, and numerous fruitful discussions. Finally I
+would like to thank Don Killian for the latest proofreading and feedback.
 
-On a personal level I am thankful to my family, my friends in the university of
+On a personal level I am thankful to my family, my friends at the university of
 Helsinki, especially those in student organisations like Aspekti and Hyrmy, and
 the one deity who shares the initials with finite\-/state machines,
 FSM---without them, none of this would have been possible.
@@ -280,7 +279,7 @@ published in the 1960's, e.g.~\cite{damerau1964technique}, and the field has
 greatly developed since.
 
 The purpose of this thesis is to research one specific approach to
-spell\-/checking---that of finite\-/state technology. The finite-state technology
+spell\-/checking---that of finite\-/state technology. Finite-state technology
 has its roots in the mathematical theory of formal \emph{languages}, which I
 will refer to as \emph{string sets} throughout this thesis to avoid confusion
 with the more common meaning of the term, natural languages. The theoretical
@@ -292,15 +291,15 @@ only way to handle more morphologically complex languages. This sets the
 direction of this thesis to \emph{implement spell\-/checking for languages of
 varying morphological complexity} efficiently.
 
-Finite-state approaches have traditionally been popular to computational handling of Finnish,
-cf.~\citet{koskenniemi1983twolevel}. Finnish is my native language and for
-practical reasons a recurring theme in this thesis. Whilst concentrating on
-scientific contributions made during the years, this thesis is in a way also a
-book describing the past years of development of the actual, language
-independent, spell\-/checking software\footnote{available, free and open source,
-like all good scientific research products} which is used also in making of
-this very thesis. So, it should be clear that the contribution of this thesis
-is meant to be a very concrete, should I even say a final---albeit
+Finite-state approaches have traditionally been popular for computational
+handling of Finnish, cf.~\citet{koskenniemi1983twolevel}. Finnish is my native
+language and for practical reasons a recurring theme in this thesis. Whilst
+concentrating on scientific contributions made during the years, this thesis is
+in a way also a book describing the past years of development of the actual,
+language independent, spell\-/checking software\footnote{available, free and
+open source, like all good scientific research products} which is also used in
+the making of this very thesis. So, it should be clear that the contribution of
+this thesis is meant to be a very concrete, should I even say a final---albeit
 beta-quality---system for spell\-/checking.  There are some practical
 implications of using one's native language to evaluate and develop new and
 improved methods; the motivation for spending immeasurable amounts of spare
@@ -318,7 +317,7 @@ properly conducted scientific research to fulfill the basic requirement of
 reproducibility.
 
 Another point-of-view in the thesis is the quality of the spell\-/checking for
-morphologically complex languages. For English, the vast majority of the
+morphologically complex languages. For English, the vast majority of
 research on the topic has already shown impressive numbers on quality of
 spell\-/checking and corrections with statistical approaches. It almost seems
 like a scientific consensus on the solution. The common intuition,
@@ -338,10 +337,10 @@ researched to death. Finally, as this is an article-based thesis, I give an
 overview of the articles of the thesis, and describe how the thesis is
 structured.
 
-\section{Components of a Spell-Checking and Correction}
+\section{Components of Spell-Checking and Correction}
 \label{sec:practical-components}
 
-The spell\-/checking and correction, like the title would suggest, can already be
+Spell\-/checking and correction, as title suggests, can already be
 separated into two components. Furthermore both of the components can be
 divided, classified and analysed into many separate pieces. In this section I
 try to cover different existing and practical conceptualisations, and introduce
@@ -392,8 +391,8 @@ for spell\-/checking is that they will basically only recognise those spelling
 errors, which result in a word-form that is not in the dictionary, the
 so-called \emph{non-word} spelling errors. The real-word spelling errors will
 almost always require the use of context to get some evidence that something is
-wrong. Here again, the simplest approach is to use statistics; if the word in
-word we are inspecting does not usually appear in the current context of two to
+wrong. Here again, the simplest approach is to use statistics; if the word
+we are inspecting does not usually appear in the current context of two to
 three words, it may be an error. Another, more elaborate context-based method
 for detecting errors is to use a full-fledged natural language processing
 system that can parse morphology, syntax or other features of running text.
@@ -415,7 +414,7 @@ different names, but most will agree that there is a
 category of errors that is based on unintentional mistakes, such as
 mistyping at the keyboard. This is the type of spelling error that is the
 main target for correction suggestion systems, and the common
-research results have claimed that between 80 and 95 \% of all spelling
+research results have claimed that between 80 and 95\% of all spelling
 errors can be attributed by having \emph{one} typing error in a 
 word~\citep{kukich1992techniques}. The rest of the spelling errors are more
 or less based on \emph{competence}, such errors can be caused by not knowing
@@ -440,7 +439,7 @@ this claim I will first try to define what I mean by morphological complexity.
 The topic of this thesis is not typology nor morphological complexity, and I
 will take a rather practical view on the topic.  This is a measure of
 complexity that affects the building and use of correct word-form recognisers
-in terms of computational and practical resources; there are only few easily
+in terms of computational and practical resources; there are only a few easily
 measurable factors in this playing field. The morphological complexity of the
 language model is the complexity of the word-forms in terms of \emph{morphs},
 i.e., the average count of morphs in the word or \emph{morph-to-word}
@@ -527,8 +526,8 @@ complexity are usually noted as very hard to properly implement with the
 current Hunspell formalism and its limitations, though often the results are
 found tolerable. E.g. for Gĩkũyũ \citet{chege2010developing} used 19,000 words
 with extensive affix rules as a spell-checker, for which they say they attained
-a recall of 84~\%. Same does not seem to apply for Greenlandic, where it was
-found that a collection of 350,000 word-forms will only cover 25~\% of the
+a recall of 84\%. Same does not seem to apply for Greenlandic, where it was
+found that a collection of 350,000 word-forms will only cover 25\% of the
 word-forms in newspaper
 texts\footnote{\url{http://oqaaserpassualeriffik.org/a-bit-of-history/}}.
 
@@ -781,8 +780,8 @@ of t), the distance between \emph{cat} and \misspelt{catt} is 1 (addition of
 t), and so forth.  It is easy to see from these definitions how it is useful
 for spelling correction; they are the model of basic typos or slips of the
 finger on a keyboard. The paper by \citet{damerau1964technique} is often cited
-to be saying that 95~\% of the errors are covered by distance 1, i.e. one
-application of this edit algorithm would fix 95~\% of misspellings in a text.
+to be saying that 95\% of the errors are covered by distance 1, i.e. one
+application of this edit algorithm would fix 95\% of misspellings in a text.
 While this is indeed the claim made in the article, citing it in context of
 modern spelling-checker may neglect the difference between input mechanisms
 (and data transmission, and storage) of computers of the time. It is likely
@@ -790,7 +789,7 @@ that spelling errors from cursive hand writing, punch cards, and keyboards are
 different, yet this variation is dealt with in the
 article~\citep{damerau1964technique}. Further studies on different forms of
 computerised texts~\citep{kukich1992techniques} have shown that the range of
-single edit errors is around 70~\%--95~\% in various setups (e.g. OCR,
+single edit errors is around 70\%--95\% in various setups (e.g. OCR,
 dictating and typing, normal running text).
 
 Much of the research on error detection, rather than correction, concentrated
@@ -875,7 +874,7 @@ commercial product without publicly available documentation:
 As the computational power increased, it became increasingly practical to look
 again at the problem of real-word spelling error detection.
 In~\citet{mays1991context} it is suggested that for English context-based
-approaches detect 76~\% of the spelling errors, and are able to correct 73~\%.
+approaches detect 76\% of the spelling errors, and are able to correct 73\%.
 The context-aware models are a requirement for the discovery of the real-word
 spelling errors, but independently of that, they can also be used to improve
 error correction. 
@@ -1000,12 +999,12 @@ very often another one from an error model. The language model of
 spell\-/checking predicts how correct a word-form is, and in a linguistic
 analyser it predicts the analysis and its likelihood. The error model of a
 spelling corrector predicts what is meant based on what is written assuming an
-error in the process of typing somewhere. Part of the error sources, such as
+error in the process of typing somewhere. Some of the error sources, such as
 cognitive errors, overlap in speech recognition and information extraction
-alike. Part of the error models for other applications like diacritic
+alike. Some of the error models for other applications like diacritic
 restoration for information retrieval and noise cancellation for speech
-recognition may solve different problems but the used approaches are still
-applicable. Realising this all, at one point of the research made me
+recognition may solve different problems but the approaches used are still
+applicable. Realising this all, at one point of the research, made me
 persistently require a modular design from our spelling correction
 systems---including a strict separation of the spelling detection task, the
 correction task---to be able to mix and match the approaches found in various
@@ -1040,7 +1039,7 @@ SMS normalisation to standard written language~\citep{kobus2008normalizing}.
 \label{sec:finite-state-theory}
 
 Finite-state models for spell\-/checking and especially correction are relatively
-new---beginning from \citep{oflazer1996errortolerant}---, and
+new, beginning from \citep{oflazer1996errortolerant}, and
 definitions and interpretations have not been standardised yet, so in this
 chapter I will try to go through the various definitions and explain my
 solution and how I ended up with it. To begin with, I will use a few paragraphs
@@ -1058,14 +1057,14 @@ some---usually language-specific for optimisation reasons---subset of the
 Unicode set of symbols~\citep{unicode} for writing natural languages, with the
 addition of the following special symbols, which have specific meaning in
 automata theory: the empty symbol epsilon $\epsilon$ that matches zero-length
-strings on application of the automata, the wild-card symbol $?$ that matches
-any one symbol of $\Sigma$ during any application of the automaton.  When
-talking of two-tape automata\footnote{I will systematically \emph{avoid} the
-    term transducer in this thesis, a two-tape automaton is not special enough
-    to warrant the use of a special term over any other specialisation of an
-    automaton. Using the word transducer will only confuse the reader to think
-that there is something more to it.}, it merely means that the alphabet is of
-the form $\Sigma^2$, otherwise two-tape automata are practically the same as
+strings on application of the automata, and the wild-card symbol $?$ that
+matches any one symbol of $\Sigma$ during any application of the automaton.
+When talking of two-tape automata\footnote{I will systematically \emph{avoid}
+    the term transducer in this thesis, a two-tape automaton is not special
+enough to warrant the use of a special term over any other specialisation of an
+automaton. Using the word transducer will only confuse the reader to think that
+there is something more to it.}, it merely means that the alphabet is of the
+form $\Sigma^2$, otherwise two-tape automata are practically the same as
 single-tape automata for our purposes. The weighted automata talked about
 throughout the thesis are using the \emph{tropical
 semiring}~\cite{mohri1997finitestate} weight structure $(\mathbb{R}_+ \cup
@@ -1847,7 +1846,7 @@ generation spell\-/checking systems, since the creation of dictionaries and
 language models requires some expert knowledge, which is scarcely available for
 most of the lesser-resourced languages.
 
-\section{Lesser Resourced Languages in Statistical Spelling Correction}
+\section{Lesser-Resourced Languages in Statistical Spelling Correction}
 \label{sec:lesser-training}
 
 \textbf{Main Article}: \emph{Finite-State Spell-Checking with Weighted Language
@@ -1860,15 +1859,15 @@ open-source language resources for spell-checking for a real lesser-resourced
 non-national language.
 
 The \textbf{motivation} for this article was to write a publication that
-explicitly explores the difficulties that morphologically complex and lesser
-resourced languages face when trying to pursue statistical language models and
-corpus-based training. The article fits well into contemporary research on
-natural language engineering often considering corpus-training as a kind of
-solution for all problems ignoring the scarcity of resources on the other hand
-and the much higher requirement of unannotated resources for morphologically
-complex languages on the other.
+explicitly explores the difficulties that morphologically complex and
+lesser-resourced languages face when trying to pursue statistical language
+models and corpus-based training. The article fits well into contemporary
+research on natural language engineering often considering corpus-training as a
+kind of solution for all problems ignoring the scarcity of resources on the
+other hand and the much higher requirement of unannotated resources for
+morphologically complex languages on the other.
 
-In \textbf{related works}, the concept of lesser resourced languages in
+In \textbf{related works}, the concept of lesser-resourced languages in
 computational linguistics has come into focus in recent years. Particularly I
 followed Anssi Yli-Jyrä's recent work on African
 languages~\citep{yli2005toward} and all the work related to the previous years
@@ -1893,18 +1892,18 @@ Section~\ref{chap:efficiency}.
 
 In general the concept of freely available and open\-/sourced, and
 crowd\-/sourced, data should be a common focus in the research of computational
-linguistics in lesser resourced languages. This is one of the main sources of
+linguistics in lesser-resourced languages. This is one of the main sources of
 large amounts of free data that most communities are willing to put an effort
 into, and it does not require advanced algorithms or an expert proofreader to
 make the data usable for many of the applications of computational linguistics.
 
 \section{Conclusions}
 
-In this chapter, I have discussed about some different approaches to creating
-statistical language models for finite\-/state spell\-/checking and. I have
+In this chapter, I have discussed different approaches to creating
+statistical language models for finite\-/state spell\-/checking. I have
 shown in this chapter that it is possible to take arbitrary language models for
-morphologically complex languages and train them with same approaches
-regardless of the method and theory according to which original model was
+morphologically complex languages and train them with the same approaches
+regardless of the method and theory according to which the original model was
 built. I have extended the basic word-form unigram training with methods from
 \(n\)-gram training to be able to cope with infinite compounding of some
 morphologically-complex languages and thus laid out a path forward for all
@@ -2155,7 +2154,7 @@ are used for English to successfully improve the spelling correction, are not
 so effective for Finnish.  Furthermore the improvement that is gained for
 Spanish when applying the POS \(n\)-grams in this task does not give equally
 promising results for Finnish, but do improve the quality of suggestions, by
-around 5~\% units.
+around 5\% units.
 
 \begin{table}
     \begin{scriptsize}
@@ -2168,37 +2167,37 @@ around 5~\% units.
         \hline
         Edit distance 2 (baseline) 
 % & 22    & 2    & 2    & 1    & 3    & 80 \\
-& 25.9 \% & 2.4 \% & 2.4 \% & 1.2 \% & 3.5 \% & 94.1 \% \\
+& 25.9\% & 2.4\% & 2.4\% & 1.2\% & 3.5\% & 94.1\% \\
         \hline
         Edit distance 2 with Unigrams 
 %&    ?   &       &      &      &       &     \\
-& 28.2 \% & 5.9 \% & 29.4 \% & 3.5\% & 28.2 \% & 97.6 \% \\
+& 28.2\% & 5.9\% & 29.4\% & 3.5\% & 28.2\% & 97.6\% \\
         \hline
         Edit distance 2 with Word N-grams 
 %&     ?  &       &      &      &       &     \\
-& 29.4 \% & 10.6 \% & 34.1 \% & 5.9 \% & 14.1 \% & 97.7 \% \\
+& 29.4\% & 10.6\% & 34.1\% & 5.9\% & 14.1\% & 97.7\% \\
         \hline
         Edit distance 2 with POS N-grams 
 % & 58    & 16    & 3    & 2    & 0    & 79 \\
-& 68.2 \% & 18.8 \% & 3.5 \% & 2.4 \% & 0.0 \% & 92.9 \% \\
+& 68.2\% & 18.8\% & 3.5\% & 2.4\% & 0.0\% & 92.9\% \\
 \hline
         \multicolumn{7}{c}{\textbf{Finnish}} \\
         \hline
         Edit distance 2 (baseline)
 % 214    & 28    & 13    & 15    & 6    & 289 \\
-& 66.5 \% & 8.7 \% & 4.0 \% & 4.7 \% & 1.9 \% & 89.8 \% \\
+& 66.5\% & 8.7\% & 4.0\% & 4.7\% & 1.9\% & 89.8\% \\
         \hline
         Edit distance 2 with Unigrams 
 % 197    & 43    & 5    & 10    & 11    & 284 \\
-& 61.2 \% & 13.4 \% & 1.6 \% & 3.1 \% & 3.4 \% & 88.2 \% \\
+& 61.2\% & 13.4\% & 1.6\% & 3.1\% & 3.4\% & 88.2\% \\
         \hline
         Edit distance 2 with Word N-grams
 %&    ?   &       &      &      &       &     \\
-& 65.0 \% & 14.4 \% & 3.8 \% & 3.1 \% & 2.2 \% & 90.6 \% \\
+& 65.0\% & 14.4\% & 3.8\% & 3.1\% & 2.2\% & 90.6\% \\
         \hline
         Edit distance 2 with POS N-grams
 %230    & 30    & 4    & 11    & 1    & 276 \\
-& 71.4 \% & 9.3 \% & 1.2 \% & 3.4 \% & 0.3 \% & 85.7 \% \\
+& 71.4\% & 9.3\% & 1.2\% & 3.4\% & 0.3\% & 85.7\% \\
         \hline
     \end{tabular}
   \caption{Precision of suggestion algorithms with real spelling errors.
@@ -2232,7 +2231,7 @@ rationale for this is the assumption that it is rarer to make mistakes in the
 first character of the word---or perhaps easier to notice and fix such
 mistakes. There are some measurements on this phenomenon
 in~\citet{bhagat2007spelling}, but the probabilities of having the first-letter
-error in papers he refers to vary from 1~\% up to 15~\%, so it is still open to
+error in papers he refers to vary from 1\% up to 15\%, so it is still open to
 debate. In measurements I made for morphologically complex languages
 in~\citepalias{pirinen2012improving}, I also found a slight tendency towards
 the effect that the errors are more likely in non-initial parts of the words,
@@ -2264,7 +2263,7 @@ finite-state error model.
 
 One of the motivations for finite\-/state technology is that the time
 complexity of the application of finite\-/state automata is known to be linear
-with regards to size of the input as long as finite\-/state automata can be
+with regards to the size of the input as long as finite\-/state automata can be
 optimised by operations like determinisation. In practice, however, the speed
 and size requirements of finite\-/state automata required for language models,
 error models and their combinations are not easy to predict, and the worst case
@@ -2283,7 +2282,7 @@ testing I also sought to show how the linguistically common but technologically
 almost undealt with concept of morphological complexity practically relates to
 the finite\-/state language models.
 
-The evaluation of the finite\-/state spelling correction needs to be contrasted
+The evaluation of finite\-/state spelling correction needs to be contrasted
 with the existing comparisons and evaluations of spell\-/checking systems.
 Luckily, spell\-/checking has been a topic popular enough to have a number
 of recent evaluations available.  Also the very informal introduction to
@@ -2306,7 +2305,7 @@ in University of Tromsø's server\footnote{\url{http://giellatekno.uit.no}}.
 From there we have selected North Saami as a moderately rich and Greenlandic as
 an example of a poly-synthetic language.
 
-The efficiency evaluation is split into two sections, in
+The efficiency evaluation is split into two sections. In
 Section~\ref{sec:speed} I evaluate the speed efficiency and optimisation
 schemes of finite\-/state spelling checkers together with Sam Hardwick who did
 the most of the legwork on the finite\-/state spell\-/checking implementation
@@ -2470,11 +2469,11 @@ models that are effective enough to be used in the real world systems.
 When measuring the quality of spelling error correction, the basic finding is
 that the simple edit-distance measure at length one will usually cover the
 majority of errors in typical typing error situations. For English the original
-statistics were at 95~\%~\citep{damerau1964technique}, with various newer
-studies giving similar findings between 79~\% and 95~\% depending on the type
+statistics were at 95\%~\citep{damerau1964technique}, with various newer
+studies giving similar findings between 79\% and 95\% depending on the type
 of corpora~\citep{kukich1992spelling}.  The numbers for morphologically complex
 languages are not in the same range, rather the edit distance one gains around
-50--70~\% coverage. One reason for this may be that the length of a word is a
+50--70\% coverage. One reason for this may be that the length of a word is a
 factor in the typing error process; e.g. such that it is more likely to type
 two or more typos and leave them uncorrected with a language where the average
 word length is 16 compared with one where it is 6. Intuitively this would make
@@ -2531,7 +2530,7 @@ evidence to that effect.
     \end{tabular}
 
     \caption{The effect of different language and error models on correction 
-        quality (in \%). Reproduced from~\citepalias{pirinen2013quality}.
+        quality (in\%). Reproduced from~\citepalias{pirinen2013quality}.
     \label{table:nejlt-2013-repro}}
 \end{table}
 
