@@ -25,7 +25,11 @@ University of Helsinki\\
 Department of Speech Sciences\\
 \url{tommi.pirinen@helsinki.fi}
 \and
-Juha Kuokkala}
+Juha Kuokkala\\
+University of Helsinki\\
+Department of Modern Languages\\
+\url{juha.kuokkala@helsinki.fi}
+}
 
 \date{\today}
 
@@ -81,7 +85,7 @@ the analyser to named entity recognition task, which in turn needed great
 quantities of new proper nouns added to the dictionary and classified by
 semantic means. Third aspect of lexical data maintenance is verifying the
 integrity and definitions, because even if data comes from trustworthy sources
-it may often be, that the definitions used by lexicographers have been
+it may often be that the definitions used by lexicographers have been
 different when it comes to the classification, or there may be simple human
 mistakes. In order to ensure that all lexical data from different sources works
 with same computational linguistic description, large scale tests can provide
@@ -103,9 +107,9 @@ linguistic grammars defining classifications too loosely and too full of
 exceptions to be implementable. This in turn leads then computational linguists
 to define classes that do not exist in linguistic grammars, which will appear
 in the specific software show as one-off hacks, which only the users of these
-specific systems will understand. If a classification in a grammar has a
-criteria, it must be observable and thus testable, if it is observable it will
-be usable in computational linguistics too, thus, I suggest combining the two
+specific systems will understand. If a classification in a grammar has 
+criteria, it must be observable and thus testable; if it is observable, it will
+be usable in computational linguistics too. Thus, we suggest combining the two
 disciplines by making the criteria of linguistic classifications the first
 class citizens of both the linguistic and the computational descriptions by use
 of corpora and statistics.  This in part provides for better long-term
@@ -118,35 +122,35 @@ All of the methods from verification to regression testing are based on simple
 statistic distributions applied over word-forms, tokens and analyses. The form
 is always the same, proportion of features $f$ in context $C$ of feature $g$ 
 from all features in same category in context $C$. The features can be 
-single analyses of single like parts-of-speech matching $P$, the context can
+single analyses of single words like parts-of-speech matching $P$, and the context can
 be either the same analysis, or any of the analyses in contextual positions
-left or right of this word in text. E.g., given analysis with part-of-speech
+left or right of this word in text. For example, given analysis with part-of-speech
 \emph{adjective}, what is the distribution of different derivation
 \emph{comparative} analyses, or in context, given the part-of-speech
 \emph{adjective}, what is the distribution of agreeing analyses with
 part-of-speech \emph{noun} in the next word to the right. If a classification
-requires adjectives to have comparative forms, we expect to see distribution of
+requires adjectives to have comparative forms, we expect to see a distribution of
 comparative forms that shows non-zero amount of some variants of comparatives.
 
-To implement these we use the python\footnote{\url{http://python.org}}
+To implement these we use the Python\footnote{\url{http://python.org}}
 scripting language to gather the basic statistics from the output of a
 morphological analyser in terms of distributions of analyses per input token
-and analyses of specific context\footnote{the implementation is freely
+and analyses of specific context\footnote{The implementation is freely
 available in \url{http://code.google.com/p/omorfi/}, we consider providing free and open data and
-implementations crucial for scientific reproduction and replication purposes}.
-In our case we have an underlying python interface to FST-based corpus
-processing provided by free open source project HFST~\cite{linden2013hfst},
-this is used to apply the morphological analyser to raw corpora to get the
+implementations crucial for scientific reproduction and replication purposes.}.
+In our case we have an underlying Python interface to FST-based corpus
+processing provided by the free open source project HFST~\cite{linden2013hfst},
+which is used to apply the morphological analyser to raw corpora to get
 ambiguous analyses for the statistics. From the analyses we gather the
 statistics based on linguistic rules according to categories, such as
 parts-of-speech, and their defined classifications.
 
-The classification used
+The classifications used
 are mainly retrieved from the official grammar~\cite{visk}, and should
 therefore form an ideal test for collecting, verifying and testing the
 linguistic classifications for use of a computational system. In the grammar
-classifications, e.g., (certain kinds of) \emph{adjectives}\footnote{Word
-    `adjective' is somewhat problematically defined loosely in terms of
+classifications, for example, (certain kinds of) \emph{adjectives}\footnote{The word
+    `adjective' is somewhat problematically defined in terms of
     morphology, syntax and semantics together, which makes classification often
     troublesome for computational methods; in future it might be sensible to
 separate these tasks under different class names. The current grammar actually
@@ -155,15 +159,15 @@ different classes.} are recognised by the existence of comparative forms, and
 the lack of those forms will be a good clue of misclassification in the lexical
 data we currently use. On the other hand (certain kinds of) \emph{adjectives}
 are defined by having an agreeing nominal on right context or predicative verb
-in the left context. To test these classifications we gather the adjectives
+in the left context. To test these classifications we gather the adjectives'
 comparative form statistics, and their agreeing nominal statistics. Another
 feature that is interesting to gather for Finnish is the position and form of
 the complements for e.g., adpositions, which generally can take nominal
 complements in one of six cases and in either direction; traditionally
-following models from other languages the Finnish grammars have often defined
+following models from other languages, the Finnish grammars have often defined
 adposition to be one of preposition, postposition or both, but with proper
-distributions from corpora we can easily improve this feature. This can be
-captured by collecting distributions of left and right nominals and their cases
+distributions from corpora we can easily improve this classification. This can be
+achieved by collecting distributions of left and right nominals and their cases
 for the words that are analysed as adpositions. Also, some of the seemingly
 semantic features can also be guessed and verified using merely morphological
 distributions like this, e.g., whether a nominal is a title correlates with
@@ -172,11 +176,11 @@ humanness of its right nominal complement.
 \section{Data}
 
 For experimentation we have used a mature language description of
-Finn\-ish~\cite{pirinen2008suomen} that consists some 400,000 lexemes and a few
+Finn\-ish~\cite{pirinen2008suomen} that consists of some 400,000 lexemes and a few
 existing classifications, such as part-of-speech classes, inflectional
-paradigms, and proper noun classes, for full view of all, it is advised to see
+paradigms, and proper noun classes; for full view of all, it is advised to see
 the project's home site\footnote{\url{http://code.google.com/p/omorfi/}}. The
-lexical data comes from number of projects varying from institute of languages
+lexical data comes from a number of projects varying from the Institute of Languages
 in Finland's official
 dictionary\footnote{\url{http://kaino.kotus.fi/nykysuomi/sanat}} and academic
 projects to fully crowd-sourced projects like Wiktionary. To test out that the
@@ -193,16 +197,19 @@ repository\footnote{\url{https://github.com/flammie/bash-corpora}}.
 \section{Evaluation}
 
 To evaluate the scheme we have manually gone through the classifications and
-their statistics, that either disprove the current class or add a new class
-with new information, and compared them to a gold standard. For the gold
-standard we had linguists manually classifying the word-lists using official
-grammar and evidence from real world material as basis. In case of adposition
+their statistics that either disprove the current class or add a new class
+with new information, and compared them to a gold standard. 
+The initial evaluation sample contained
+only word-forms with over 10,000 hits in the corpus. 
+For the gold standard we had linguists manually classifying the word-lists using 
+official grammar and evidence from real world material as basis. 
+In the case of adposition
 complement directionality we note that linguist judgements of common
 directionality are represented in statistics systematically as 48---100~\% of
-all cases (with four possible classes), For initial evaluation sampling we used
-only word-forms with over 10,000 hits in corpus. For case selection the correct
-form seems to have slight evidence for syntactic case distinctions but very
-strong tendencies for required semantic or adverbial cases.
+all cases (with four possible classes). 
+For case selection, the statistics seem to give slight evidence for
+distinctions in syntactic cases
+but very strong tendencies for required semantic or adverbial cases.
 
 %%% RESULT TABLE TO BE AUTOMATED
 % The results are given in table~\ref{table:results}.
@@ -219,10 +226,11 @@ and to keep the language description clean and free of errors.
 
 When looking at some of the tests that fail to give good results, we notice
 that even with as large corpora as we use, the lack of data may leave existing
-linguistic phenomena non-existing. For example both the data in our corpora and
+linguistic phenomena unnoticed. For example both the data in our corpora and
 official grammar classify `\emph{kielitieteellinen}' (linguistic) as an
-non-comparing adjective, yet a simple Google search yields a number of real
-world results, that are grammatical, such as: ``\emph{Torstain haastavampaan
+non-comparing adjective, yet a simple Google search yields a number of 
+grammatical real world results using comparative, such as: 
+``\emph{Torstain haastavampaan
     settiin lukeutuu sit se avoin \textbf{kielitieteellisempi} kurssi, jossa
 valtaosa opiskelijoista on
 japanilaisia}''\footnote{\url{http://7830km.blogspot.fi/2013/04/mulla-kauas-paluulippu-on.html}}
@@ -230,13 +238,13 @@ japanilaisia}''\footnote{\url{http://7830km.blogspot.fi/2013/04/mulla-kauas-palu
 \textbf{kielitieteellisempi} kuin muistaakseni mikään kielitiederyhmään viime
 kuukausina tulleista artikkelista,}''
 \footnote{\url{news:oiiup4p6hj.fsf@beta.hut.fi}} (\ldots is \textbf{more
-linguistic} than any other \ldots). For this reason there needs to be methods
+linguistic} than any other \ldots). For this reason there need to be methods
 for an expert to override and blacklist / whitelist the results as necessary.
 
 For adpositional complements it seems that syntactic forms that are common
 in general will show as false positives quite often, so it is necessary to
 perform some normalisation if those distinctions are to be harvested and
-maintained, however, for adpositions that have adverbial complements the
+maintained; however, for adpositions that have adverbial complements the
 statistics are already usable.
 
 \subsection{Future Work}
@@ -244,13 +252,17 @@ statistics are already usable.
 In this experiment we worked with ambiguous morphological analyses and simple
 positional rules only capable of scanning specific relative
 positions. For many of the real linguistic definitions, it would be interesting
-to have better analyses and word-to-word relations available, e.g., such that
-dependency tree banks like~\cite{haverinen2013building} have.
+to have better analyses and word-to-word relations available, for example such 
+that dependency tree banks like~\cite{haverinen2013building} have.
 
 \section{Conclusion}
 
 In this article we applied large corpora-based extraction, verification and
-testing for Finnish language description.
+testing on a Finnish language description.
+In addition to discovering lexical features,
+these methods can be used in maintaining the integrity of
+a full-scale computational morphological description
+constantly being updated from multiple sources.
 
 \bibliographystyle{unsrt}
 \bibliography{lrec2014}
