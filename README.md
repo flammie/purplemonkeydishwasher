@@ -14,3 +14,13 @@ repo look very different from the originals.
 The name of the repo refers to *broken telephone* / *indian whisper* gag in
 Simpsons episode *PTA Disbands* (S6E21), which you should find very relevant to
 my research.
+
+The directory names follow the hierarchy of year-event-topic, where topic is
+optional. The makefiles create the paper in format Pirinen-year-event..., this
+is to identify that it is my author's post-publication draft version. The
+makefiles should also try to reproduce the results in the paper, if possible.
+This is what open science, the only proper form of science is about. For more
+details, see: [Reproducibility](http://en.wikipedia.org/wiki/Reproducibility)
+[Repeatability](http://en.wikipedia.org/wiki/Repeatability), and
+[Reproducing NLP 
+research](http://wordpress.let.vupr.nl/reproducingnlpresearch/)...
