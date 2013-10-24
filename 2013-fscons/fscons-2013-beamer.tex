@@ -30,7 +30,7 @@
 
 
 \title[Open- and Crowd-sourced Lexicography]{Open-Source Morphologies and Crowd-Sourcing Lexicography}
-\author[Tommi A Pirinen]{Tommi A Pirinen \scriptsize \guilsinglleft{}tommi.pirinen@helsinki.fi\guilsinglright{}}
+\author[Tommi A Pirinen]{Tommi A Pirinen \scriptsize \guilsinglleft{}tommi.pirinen@helsinki.fi\guilsinglright{} / \guilsinglleft{}flammie@gentoo.org\guilsinglright{}}
 \institute[University of Helsinki]{Department of Speech Sciences\\University of Helsinki}
 \date{\today (draft)}
 
@@ -53,8 +53,7 @@
 \HyTitle
 %\maketitle
 
-\begin{frame}{outline}
-    \frametitle{Outline}
+\begin{frame}{Outline}
     \tableofcontents
 \end{frame}
 
@@ -68,6 +67,9 @@
         \item in a broad sense: classifying words, inflectional suffixes, etc.
         \item E.g., \emph{hundarnas} = hund + ar + n + as = dog, common gender,
             needs ar as plural suffix, possessive form
+        \item \emph{Finite-State Morphology} that I work with, is capable of
+            arbitrary compounding and derivation, e.g., \emph{farfar\ldots} for
+            great \ldots grandfather
         \item to reach a system dealing with this we need data about
             words, leading to...
     \end{itemize}
@@ -80,14 +82,20 @@
         \item How do they inflect (i.e., which are the valid forms of the word)
         \item How do they operate with other words in sentence (syntax)
         \item What do words mean, how do you translate them (semantics)
+        \item All sorts of other usage notes
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Example of trad. dictionary}
+\begin{frame}[plain]{Example of trad. dictionary}
+    [Oxford English Dictionary, $3^{rd}$ ed., s.v. set]
+    \includegraphics[keepaspectratio=true,width=1\paperwidth]{oed}
 \end{frame}
 
 \begin{frame}{One example of Digital Dictionary}
-    \texttt{}
+    [our Finnish omorfi database s.v. \emph{asettaa} (set)]
+\texttt{
+asettaa	['V\_VIEROITTAA']	VERB	53	C	False	False	None	False	False	None	aset	aset{t0}aa{\textasciicircum back}{C}	None	weaken	back	False	False	False	None	False	False	False	False	asettaa
+    }
 \end{frame}
 
 \begin{frame}{Crowd-sourcing}
@@ -103,23 +111,179 @@
 
 \subsection{Crowd-sourcing: uses and issues}
 
-\begin{frame}{Levels of Crowd-Sourcing}
+\begin{frame}{Uses of Crowd-Sourcing in Morphology Development}
+    \begin{itemize}
+        \item New words come and go all the time: \emph{crowd-sourcing}, 
+            \emph{facebooking}, \ldots, and we need all of them ASAP
+        \item Collecting new features of words never ends \ldots
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Issues in Crowd-Sourcing Lexicographies}
     \begin{enumerate}
         \item Using data (long) after it has been built by harvesting, scraping,
-            etc., this is where we are mostly at with Wiktionary
-        \item Requesting specific data 
-        \item Designing system to collect data in good manner, like Omegawiki
+            etc. requires lots of work
+        \item Inputting well-structured data in system not designed for it is
+            cumber-some and error prone
+        \item That is, wiktionary is really just an attempt of using somethign
+            desinged for writing encyclopedic prose in structured dictionaries
+        \item Wiktionaries are never stable, trying to use data from outside
+            the system requires tracking changes in conventions
+        \item Newer systems attempted to bridge the gaps have not been 
+            successful either (Omegawiki, ...)
     \end{enumerate}
 \end{frame}
 
-\begin{frame}{Example of Wiktionary Scraping}
+\begin{frame}[plain]{Example of Wiktionary Page}
+    \includegraphics[keepaspectratio=true,width=1\paperwidth]{fiwikt-web}
+\end{frame}
 
+\begin{frame}[fragile]{And its Source...}
+    \begin{verbatim}
+===Verbi===
+{{fi-verbi|as|ettaa|muistaa|C}}
+
+# [[laittaa]], [[panna]], [[sijoittaa]] paikalleen
+#:''Hän asetti maljakon pöydälle.''
+# [[määrätä]], [[määrittää]]
+...
+====Käännökset====
+{{kohta|1|laittaa, panna, sijoittaa paikalleen|
+*englanti: [[put]], [[place]], [[set]], move into position, [[locate]]
+*hollanti: [[aanbrengen]]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Scraping the Data From Wiktionary}
+    \begin{enumerate}
+        \item find section for Finnish words
+        \item find each definition
+        \item find and translate something like
+            \texttt{fi-verbi|as|ettaa|muistaa|C}
+                into \texttt{asettaa V\_MUISTAA VERB 53 C\ldots}
+    \end{enumerate}
+    \begin{itemize}
+        \item e.g., when I last wrote the script for scraping this data,
+            \texttt{fi-verbi|as|ettaa|muistaa|C} was \texttt{fi-verb|53|C}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Example 2: Omegawiki}
+
+\end{frame}
+
+\begin{frame}{Conclusions: How to Proceed}
+    \begin{itemize}
+        \item How to combine popularity of Wiktionary with forms and structure
+            of Omegawiki
+        \item Improve user interfaces?
+        \item Better access to wiki data?
+        \item Feedback from databases to Wiktionary?
+    \end{itemize}
 \end{frame}
 
 \section{Part 2: Productising Research Results}
 
 \subsection{Introduction}
 
+\begin{frame}{Case of Creating Spell-Checkers for Less-Resourced Languages}
+    \begin{itemize}
+        \item Take my PhD thesis: from open source morphologies to efficient
+            finite-state spell-checkers
+        \item Add my Gentoo experience: distribution and maintaining software
+            in a Linux system's repository
+        \item Final solution: Bring spell-checkers of
+            complex minority languages into users machines and systems
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Current Research Methodology}
+    \begin{enumerate}
+        \item Research problem (issues in current spell-checking)
+        \item Idea for solution (scribbled notes and formulas)
+        \item Proof-of-concept implementation (hacky code)
+        \item Experimentation (one-off measurements)
+        \item Publication ()
+        \item ... (semi-finished code)
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{Suggested Continuation}
+    \begin{enumerate}
+        \item ... Publication 
+        \item Software Development (from hacky code to real library)
+        \item Integration to Real World Software ()
+        \item Maintenance
+        \item Profit
+    \end{enumerate}
+\end{frame}
+
+\subsection{Some examples}
+
+\begin{frame}{Example from Early Part of my Project}
+    \begin{enumerate}
+        \item Transforming existing hunspell dictionaries into more efficient
+            finite-state spell-checkers
+        \item Few obscure formulas: ....
+        \item Then some flex and yacc code and scripts
+            to transform hunspell data files in around 10 commands
+        \item Measured some improvement over hunspell on most of the languages
+        \item Published in 2010 in an IEEE journal
+        \item The collection of scripts used is probably unusable now
+    \end{enumerate}
+\end{frame}
+
+
+\begin{frame}{End of my thesis Project}
+    \begin{itemize}
+        \item Full working spell-checking
+        \item Integration to common open source software: LibreOffice,
+            Mozilla, enchant (GTK+)
+        \item Standard installation but turned off by default, requires manual
+            work and not in current distributions, but packages exist
+    \end{itemize}
+\end{frame}
+
+\subsection{Requirements for a Software Product}
+
+\begin{frame}{Product Requirements Unmet by Typical Scientific Software}
+    \begin{itemize}
+        \item Stability: no error checking, no crash guarding, ... since software
+            is only used in protected env. by experts without malicious intents
+        \item Licencing: Academic licence restrictions are strictly against
+            GNU definition of Freedom; smaller discrepancies, e.g., Debian legal
+            does not allow even GPLv2 and Apache2 on same software
+        \item Standards: GNU standards, not only for licence but installation
+            procedures, packaging
+        \item User interfaces: GNU, Gnome, KDE, ... integration
+        \item Documentation: 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Other Issues in }
+    \begin{itemize}
+        \item Software maintenance in Linux distributions requires committed
+            people to work on it
+        \item Getting access to Linux distribution systems requires social
+            engineering
+        \item Niche products (limited use scientific software, small
+            languages' support) may be frowned upon by software engineers. E.g.:
+        \item ``Well, that's a valid enhancement request, of course, but something must to be done to prevent filling the text language dropdown with \alert{such rubbish languages}, making it hard to use.'' a comment to bug report asking for Kumyk
+            support in LibreOffice
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Windows Support? And other systems; Android, Mac OS X?}
+    \begin{itemize}
+        \item Windows support usually requires commercial contracts, non-free
+            implementations, NDAs
+        \item For spell-checking, Windows 8, Android 4, Mac OS X are gradually
+            opening the access to spell-checking components that can be used
+            to replace or extend system libraries
+        \item In general, software product maintenance could be passed over
+            from scientist to hobbyists and commercial workers, 
+    \end{itemize}
+\end{frame}
 
 \end{document}
 % vim: set spell:
