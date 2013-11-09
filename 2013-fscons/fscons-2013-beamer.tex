@@ -29,10 +29,10 @@
 %\usetheme[ml,rovio,hiit]{HY}
 
 
-\title[Open- and Crowd-sourced Lexicography]{Open-Source Morphologies and Crowd-Sourcing Lexicography}
+\title[Open- and Crowd-sourced Lexicography]{Open-Source Morphologies and Crowd-Sourcing Lexicography\\\scriptsize{at FSCONS 2013}}
 \author[Tommi A Pirinen]{Tommi A Pirinen \scriptsize \guilsinglleft{}tommi.pirinen@helsinki.fi\guilsinglright{} / \guilsinglleft{}flammie@gentoo.org\guilsinglright{}}
 \institute[University of Helsinki]{Department of Speech Sciences\\University of Helsinki}
-\date{\today (draft)}
+\date{\today}
 
 \subject{Research}
 
@@ -57,19 +57,29 @@
     \tableofcontents
 \end{frame}
 
+\begin{frame}{Myself and relevant projects}
+    \begin{itemize}
+        \item Academically: Tommi A Pirinen \url{http://www.helsinki.fi/\%7etapirine/}, see also Open science / reproducible research at \url{http://github.com/flammie/purplemonkeydishwasher}
+        \item in FLOSS e.g., Flammie \url{http://dev.gentoo.org/\%7eflammie/}
+        \item Open source morphology for Finnish \url{http://code.google.com/p/omorfi/}, \url{\#omorfi} on Freenode
+        \item hfst-ospell \url{http://hfst.sf.net/}, \url{\#hfst}
+        \item apertium machine translation, simple4all text-to-speech, 
+            localisation etc. \ldots
+    \end{itemize}
+\end{frame}
+
 \section{Part 1: Crowd-Sourcing and Lexical Data Concepts and Experiences}
 
 \subsection{Introduction: Concepts}
 
 \begin{frame}{Morphology}
     \begin{itemize}
-        \item inflect words
+        \item originally in linguistics: inflect words
         \item in a broad sense: classifying words, inflectional suffixes, etc.
-        \item E.g., \emph{hundarnas} = hund + ar + n + as = dog, common gender,
-            needs ar as plural suffix, possessive form
-        \item \emph{Finite-State Morphology} that I work with, is capable of
-            arbitrary compounding and derivation, e.g., \emph{farfar\ldots} for
-            great \ldots grandfather
+        \item E.g., \emph{hundarnas} = hund + ar + na + s = dog, common gender,
+            needs ar as plural suffix, possessive form (the dogs')
+        \item \emph{Finite-State Morphology} I work with, is capable of
+            much more complex language systems
         \item to reach a system dealing with this we need data about
             words, leading to...
     \end{itemize}
@@ -82,7 +92,7 @@
         \item How do they inflect (i.e., which are the valid forms of the word)
         \item How do they operate with other words in sentence (syntax)
         \item What do words mean, how do you translate them (semantics)
-        \item All sorts of other usage notes
+        \item Everything else
     \end{itemize}
 \end{frame}
 
@@ -115,7 +125,14 @@ asettaa	['V\_VIEROITTAA']	VERB	53	C	False	False	None	False	False	None	aset	aset{
     \begin{itemize}
         \item New words come and go all the time: \emph{crowd-sourcing}, 
             \emph{facebooking}, \ldots, and we need all of them ASAP
-        \item Collecting new features of words never ends \ldots
+        \item Collecting new features and information bits for words never ends
+        \item semantics: is it (can it be) human, sentient, edible, female,
+            location, corporation, mass nouns
+        \item popularity: common word, rare, obscure
+        \item style and usage: dialects, curse words, academic, computer,
+            medicine
+        \item \ldots approx. each new application for language model needs new
+            data
     \end{itemize}
 \end{frame}
 
@@ -125,8 +142,8 @@ asettaa	['V\_VIEROITTAA']	VERB	53	C	False	False	None	False	False	None	aset	aset{
             etc. requires lots of work
         \item Inputting well-structured data in system not designed for it is
             cumber-some and error prone
-        \item That is, wiktionary is really just an attempt of using somethign
-            desinged for writing encyclopedic prose in structured dictionaries
+        \item That is, wiktionary is really just an attempt of using something
+            designed for writing encyclopedic prose in structured dictionaries
         \item Wiktionaries are never stable, trying to use data from outside
             the system requires tracking changes in conventions
         \item Newer systems attempted to bridge the gaps have not been 
@@ -169,31 +186,68 @@ asettaa	['V\_VIEROITTAA']	VERB	53	C	False	False	None	False	False	None	aset	aset{
 \end{frame}
 
 \begin{frame}{Example 2: Omegawiki}
-
-\end{frame}
-
-\begin{frame}{Conclusions: How to Proceed}
     \begin{itemize}
-        \item How to combine popularity of Wiktionary with forms and structure
-            of Omegawiki
-        \item Improve user interfaces?
-        \item Better access to wiki data?
-        \item Feedback from databases to Wiktionary?
+        \item database approach for storing data in well structured form
+        \item getting data would be easier and more consistent
+        \item still quite cumbersome to edit
+        \item lacks some central pieces of infromation for Finnish and most
+            other langs than English, e.g., inflection classification
     \end{itemize}
 \end{frame}
 
+\begin{frame}[plain]{Example of Omegawiki Page}
+    \includegraphics[keepaspectratio=true,width=1\paperwidth]{omegawiki}
+\end{frame}
+
+\begin{frame}{Quality Issues in Crowd-Sourcing}
+    \begin{itemize}
+        \item people know lots of their native languages but not always enough
+        \item some contributors are language learners
+        \item vandalism
+        \item Two ways currently used to cope with this: python scripts, regexes
+            etc. to check some sanity
+        \item Automatic tests with the final software and free texts: do new
+            additions work somewhat like old words, etc.
+        \item In the end it all falls down to expert reviews again
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Conclusions (questions): How to Proceed?}
+    \begin{itemize}
+        \item How to combine popularity of Wiktionary with forms and structure
+            of Omegawiki?
+        \item Improve user interfaces?
+        \item Better access to wiki data?
+        \item Feedback from databases to Wiktionary?
+        \item Answers? Questions? 
+    \end{itemize}
+\end{frame}
+
+\HyTitle
+
 \section{Part 2: Productising Research Results}
+
+\begin{frame}{Myself and relevant projects (again)}
+    \begin{itemize}
+        \item Academically: Tommi A Pirinen \url{http://www.helsinki.fi/\%7etapirine/}, see also Open science / reproducible research at \url{http://github.com/flammie/purplemonkeydishwasher}
+        \item in FLOSS e.g., Flammie \url{http://dev.gentoo.org/\%7eflammie/}
+        \item Open source morphology for Finnish \url{http://code.google.com/p/omorfi/}, \url{\#omorfi} on Freenode
+        \item hfst-ospell \url{http://hfst.sf.net/}, \url{\#hfst}
+        \item apertium machine translation, simple4all text-to-speech, 
+            localisation etc. \ldots
+    \end{itemize}
+\end{frame}
 
 \subsection{Introduction}
 
 \begin{frame}{Case of Creating Spell-Checkers for Less-Resourced Languages}
     \begin{itemize}
-        \item Take my PhD thesis: from open source morphologies to efficient
+        \item Research work: Moving from open source morphologies to efficient
             finite-state spell-checkers
-        \item Add my Gentoo experience: distribution and maintaining software
-            in a Linux system's repository
-        \item Final solution: Bring spell-checkers of
-            complex minority languages into users machines and systems
+        \item Including conversion from existing formats to something equivalent
+            of finite-state automata (e.g., from hunspell and its predecessors)
+        \item At the moment: Software exists, is usable in enchant, libreoffice,
+            etc., but not available in distros
     \end{itemize}
 \end{frame}
 
@@ -203,16 +257,18 @@ asettaa	['V\_VIEROITTAA']	VERB	53	C	False	False	None	False	False	None	aset	aset{
         \item Idea for solution (scribbled notes and formulas)
         \item Proof-of-concept implementation (hacky code)
         \item Experimentation (one-off measurements)
-        \item Publication ()
-        \item ... (semi-finished code)
+        \item Publication
+        \item ... Research projects, funding etc. end here, all results get abandoned
     \end{enumerate}
+    Results, data, code, is all published in open science terms.
 \end{frame}
 
 \begin{frame}{Suggested Continuation}
     \begin{enumerate}
         \item ... Publication 
         \item Software Development (from hacky code to real library)
-        \item Integration to Real World Software ()
+        \item Integration to Real World Software
+        \item Distribution
         \item Maintenance
         \item Profit
     \end{enumerate}
@@ -221,6 +277,7 @@ asettaa	['V\_VIEROITTAA']	VERB	53	C	False	False	None	False	False	None	aset	aset{
 \subsection{Some examples}
 
 \begin{frame}{Example from Early Part of my Project}
+    hunspell2fst, would be rather important in business of replacing hunspell:
     \begin{enumerate}
         \item Transforming existing hunspell dictionaries into more efficient
             finite-state spell-checkers
@@ -234,11 +291,12 @@ asettaa	['V\_VIEROITTAA']	VERB	53	C	False	False	None	False	False	None	aset	aset{
 \end{frame}
 
 
-\begin{frame}{End of my thesis Project}
+\begin{frame}{Compare to: End of my Thesis Project}
     \begin{itemize}
-        \item Full working spell-checking
+        \item Full working spell-checking, faster than hunspell, more efficient
+            in most cases (but likely less stable)
         \item Integration to common open source software: LibreOffice,
-            Mozilla, enchant (GTK+)
+            Mozilla, enchant (GTK+) (via software library voikko)
         \item Standard installation but turned off by default, requires manual
             work and not in current distributions, but packages exist
     \end{itemize}
@@ -256,14 +314,16 @@ asettaa	['V\_VIEROITTAA']	VERB	53	C	False	False	None	False	False	None	aset	aset{
         \item Standards: GNU standards, not only for licence but installation
             procedures, packaging
         \item User interfaces: GNU, Gnome, KDE, ... integration
-        \item Documentation: 
+        \item Documentation: Academic paper is not code documentation or so 
+            forth 
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Other Issues in }
+\begin{frame}{Other Issues}
     \begin{itemize}
         \item Software maintenance in Linux distributions requires committed
-            people to work on it
+            people to work on it (e.g., I only have access to gentoo's web since
+            lack of activity etc.)
         \item Getting access to Linux distribution systems requires social
             engineering
         \item Niche products (limited use scientific software, small
@@ -282,6 +342,22 @@ asettaa	['V\_VIEROITTAA']	VERB	53	C	False	False	None	False	False	None	aset	aset{
             to replace or extend system libraries
         \item In general, software product maintenance could be passed over
             from scientist to hobbyists and commercial workers, 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Conclusion: Questions? Answers?}
+    \begin{itemize}
+        \item Open science and FLOSS is not enough for all (any?) academic
+            projects to become products (in FLOSS envs even)
+        \item Scientists are scarce resource for software development,
+            maintenance, distribution...
+        \item
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Links and References}
+    \begin{itemize}
+        \item foo
     \end{itemize}
 \end{frame}
 
