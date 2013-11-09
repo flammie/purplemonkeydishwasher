@@ -78,6 +78,9 @@
         \item in a broad sense: classifying words, inflectional suffixes, etc.
         \item E.g., \emph{hundarnas} = hund + ar + na + s = dog, common gender,
             needs ar as plural suffix, possessive form (the dogs')
+        \item derivation and compounding can create infinitely many
+            infinitely long words which must be predicted e.g. paternal
+            grandfathers in Finnish (isä, isänisä, isänisänisä, isän\ldots isä)
         \item \emph{Finite-State Morphology} I work with, is capable of
             much more complex language systems
         \item to reach a system dealing with this we need data about
@@ -190,7 +193,7 @@ asettaa	['V\_VIEROITTAA']	VERB	53	C	False	False	None	False	False	None	aset	aset{
         \item database approach for storing data in well structured form
         \item getting data would be easier and more consistent
         \item still quite cumbersome to edit
-        \item lacks some central pieces of infromation for Finnish and most
+        \item lacks some central pieces of information for Finnish and most
             other langs than English, e.g., inflection classification
     \end{itemize}
 \end{frame}
@@ -326,10 +329,23 @@ asettaa	['V\_VIEROITTAA']	VERB	53	C	False	False	None	False	False	None	aset	aset{
             lack of activity etc.)
         \item Getting access to Linux distribution systems requires social
             engineering
+        \item for some distros and products external repositories, overlays,
+            ppa's, help, but they are not feasible for the most important target
+            group of spell-checkers
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Social Issues with Linguistics vs. FLOSS Hackers}
+    \begin{itemize}
         \item Niche products (limited use scientific software, small
             languages' support) may be frowned upon by software engineers. E.g.:
-        \item ``Well, that's a valid enhancement request, of course, but something must to be done to prevent filling the text language dropdown with \alert{such rubbish languages}, making it hard to use.'' a comment to bug report asking for Kumyk
+        \item ``Well, that's a valid enhancement request, of course, but
+            something must to be done to prevent filling the text language
+            dropdown with \alert{such rubbish languages}, making it hard to
+            use.'' ---a maintainer comment to bug report asking for Kumyk
             support in LibreOffice
+        \item Similar attitude is common for any non-English related language
+            support request
     \end{itemize}
 \end{frame}
 
@@ -337,7 +353,8 @@ asettaa	['V\_VIEROITTAA']	VERB	53	C	False	False	None	False	False	None	aset	aset{
     \begin{itemize}
         \item Windows support usually requires commercial contracts, non-free
             implementations, NDAs
-        \item For spell-checking, Windows 8, Android 4, Mac OS X are gradually
+        \item For spell-checking, Windows 8 (as far as I've heard),
+            Android 4, Mac OS X are gradually
             opening the access to spell-checking components that can be used
             to replace or extend system libraries
         \item In general, software product maintenance could be passed over
@@ -355,9 +372,12 @@ asettaa	['V\_VIEROITTAA']	VERB	53	C	False	False	None	False	False	None	aset	aset{
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Links and References}
+\begin{frame}{Even More Links and References}
     \begin{itemize}
-        \item foo
+        \item \url{http://github.com/flammie/purplemonkeydishwasher/2013fscons/}
+        \item \url{http://wordpress.let.vupr.nl/reproducingnlpresearch/}
+        \item \url{https://sourceforge.net/p/hfst/code/HEAD/tree/trunk/conversion-scripts}
+        \item \url{https://sourceforge.net/p/hfst/code/HEAD/tree/trunk/hfst-ospell}
     \end{itemize}
 \end{frame}
 
