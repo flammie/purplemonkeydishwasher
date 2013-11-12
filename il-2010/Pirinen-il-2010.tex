@@ -79,12 +79,12 @@ as a one-tape weighted automaton containing the language model and a
 two-tape weighted automaton containing the error model.
 
 We also extend the hunspell spell checking system by using simple corpus-based
-unigram probability training \cite{conf/lrec/Pirinen2010}. With this probability
+unigram probability training \cite{pirinen2010finitestate}. With this probability
 trained lexicon it is possible to fine-tune the spelling error suggestions 
 
 With this model, extensions to
 context-based n-gram models for real-word spelling error problems
-\cite{DBLP:conf/cicling/Wilcox-OHearnHB08} are also possible.
+\cite{wilcox-ohearn2008realword} are also possible.
 
 We also provide a method for integrating the finite-state spell-checking
 and hyphenation into applications using an open-source spell-checking
@@ -119,7 +119,7 @@ symbols are the same, the colon and the output part can be omitted.
 
 The finite-state formulation we use in this article is based on Xerox
 formalisms for finite-state methods in natural language processing
-\cite{beesley/2003}, in practice lexc is a formalism for writing right linear
+\cite{beesley2003finite}, in practice lexc is a formalism for writing right linear
 grammars using morpheme sets called lexicons. Each morpheme in a lexc grammar
 can define their right follower lexicon, creating a finite-state network called
 a \emph{lexical transducer}. In formulae, we denote a lexc style lexicon named $X$ as
@@ -127,7 +127,7 @@ $Lex_X$ and use the shorthand notation $Lex_X \cup \textit{input:output Y}$ to
 denote the addition of a lexc string or morpheme, \texttt{input:output Y ;} to
 the \texttt{LEXICON X}.  In the same framework, the twolc formalism is used to
 describe context restrictions for symbols and their realizations in the form of
-parallel rules as defined in the appendix of \cite{beesley/2003}. We use
+parallel rules as defined in the appendix of \cite{beesley2003finite}. We use
 $Twol_Z$ to denote the rule set $Z$ and use the shorthand notation $Twol_Z \cap
 \textit{a:b} \leftrightarrow \textit{l e f t} \_ \textit{r i g h t}$ to denote
 the addition of a rule string \texttt{a:b <=> l e f t \_ r i g h t ;} to the
@@ -138,7 +138,7 @@ A spell-checking dictionary is essentially a single-tape finite-state
 automaton or a language model $T_L$, where the alphabet $\Sigma_L =
 \Gamma_L$ are characters of a natural language. The successful paths
 define the correctly spelled word-forms of the language
-\cite{conf/lrec/Pirinen2010}. 
+\cite{pirinen2010finitestate}. 
 
 For weighted spell-checking, we define the weights in lexicon as
 as probability of the word in Wikipedia. For weight model of the automaton
@@ -171,7 +171,7 @@ the error model and language model using the semi-ring multiplication
 operation, $\otimes$. If the error model and the language model
 generate an infinite number of suggestions, the best suggestions may
 be efficiently enumerated with some variant of the n-best-paths
-algorithm \cite{mohri/2002}. For automatic spelling corrections, the
+algorithm \cite{mohri2002efficient}. For automatic spelling corrections, the
 best path may be used. If either the error model or the language model
 is known to generate only a finite set of results, the suggestion
 generation algorithm may be further optimized.
@@ -417,9 +417,9 @@ algebra and the basic HFST tools.
 
 The lexc lexicon model is used by the tools for describing parts of the
 morphotactics. It is a simple right-linear grammar for specifying finite-state
-automata described in \cite{beesley/2003,conf/sfcm/Linden2009}. The twolc rule
+automata described in \cite{beesley2003finitestate,linden2009hfst}. The twolc rule
 formalism is used for defining context-based rules with two-level automata and
-they are described in \cite{koskenniemi/1983,conf/sfcm/Linden2009}.
+they are described in \cite{koskenniemi1983twolevel,linden2009hfst}.
 
 This section presents both a pseudo-code presentation for the conversion
 algorithms, as well as excerpts of the final converted files from the material
@@ -439,7 +439,7 @@ finite-state lexicons in the lexc formalism. The Lexc formalism models the part
 of the morphotax concerning the root dictionary and the adjacent suffixes. The
 rest is encoded by injecting special symbols, called flag diacritics, into the
 morphemes restricting the morpheme co-occurrences by implicit rules that have
-been outlined in \cite{beesley/1998}; the flag diacritics are denoted in lexc
+been outlined in \cite{beesley1998constraining}; the flag diacritics are denoted in lexc
 by at-sign delimited substrings. The affix definitions in hunspell also define
 deletions and context restrictions which are turned into explicit two-level
 rules.
@@ -568,7 +568,7 @@ Algorithm~\ref{algo:try-key-rep}.
 The TRY section such as the one on line~\ref{vrb:hunspellafftry} of
 Figure~\ref{fig:hunspell-aff-examples}, defines characters to be tried as the
 edit distance grows in descending order. For a more detailed formulation of a
-weighted edit distance transducer, see e.g.  \cite{conf/lrec/Pirinen2010}).  We
+weighted edit distance transducer, see e.g.  \cite{pirinen2010finitestate}).  We
 created an edit distance model with the sum of the positions of the characters
 in the TRY string as the weight, which is defined on
 lines~\ref{vrb:pseudotrystart}--\ref{vrb:pseudotryend} of the pseudo-code in
@@ -669,7 +669,7 @@ n-closure, i.e. repetition.
 
 Finite-state automata can be weighted simply by using finite-state composition.
 For corpus based weighting, the automata containing weighted language model
-simply encodes a probability of a token appearing in the corpus \cite{conf/lrec/Pirinen2010}.
+simply encodes a probability of a token appearing in the corpus \cite{pirinen2010finitestate}.
 The weights are formulated as penalty values belonging to the weighted semiring
 using formula of $-\log\frac{f}{CS}$ where $f$ is the frequency of token, and
 $CS$ the size of corpus in tokens. For tokens not appearing in the corpus, a
