@@ -32,6 +32,9 @@
 \usepackage{graphicx}
 \usepackage{geometry}
 
+% long tables
+\usepackage{longtable}
+
 \newcommand\misspelt{\bgroup\markoverwith
 {\textcolor{red}{\lower3.5pt\hbox{\sixly \char58}}}\ULon}
 
@@ -39,9 +42,9 @@
 \linespread{1.3}
 
 \title{Weighted Finite-State Methods for 
-%\misspelt{
+\misspelt{
 Spell-Checking
-%}
+}
 and Correction
 %\footnote{Not a draft anymore}
 }
@@ -58,8 +61,8 @@ and Correction
 \printhouse{Unigrafia?}
 \pubpages{87} % --- remember to update this!
 \supervisorlist{Krister Lindén, University of Helsinki, Finland}
-\preexaminera{---}
-\preexaminerb{---}
+\preexaminera{Mikel L. Forcada, Universitat d' Alacant}
+\preexaminerb{Lars Bodin, Svensk Språkbanket}
 \opponent{---}
 \custos{---, University of Helsinki, Finland}
 \generalterms{thesis, finite-state, spell-checking, language model,
@@ -254,7 +257,8 @@ publications are reproduced at the end of the print version of the thesis.
 \end{enumerate}
 
 The implementations and data for reproducing the results are available
-in the version control system of the HFST project\footnote{\url{http://svn.code.sf.net/p/hfst/code/trunk/articles/}}.
+in the version control system of the HFST
+project.\footnote{\url{http://svn.code.sf.net/p/hfst/code/trunk/articles/}}
 
 \tableofcontents
 
@@ -310,7 +314,7 @@ in the thesis are also mainly limited to freely-available and open-source
 materials and techniques. Indeed, if a spell\-/checking sub-system is mentioned
 in this thesis, you should at least be able to download a functional prototype.
 All our software and data is available in our version management
-system\footnote{\url{http://svn.code.sf.net/p/hfst}}, as it should be in all
+system,\footnote{\url{http://svn.code.sf.net/p/hfst}} as it should be in all
 properly conducted scientific research to fulfill the basic requirement of
 reproducibility.
 
@@ -441,9 +445,9 @@ in terms of computational and practical resources; there are only a few easily
 measurable factors in this playing field. The morphological complexity of the
 language model is the complexity of the word-forms in terms of \emph{morphs},
 i.e., the average count of morphs in the word or \emph{morph-to-word}
-ratio\footnote{In the literature the term is often morpheme to word ratio. As a
+ratio.\footnote{In the literature the term is often morpheme to word ratio. As a
 morpheme is an abstraction that cannot really be counted in actual text, I
-prefer to use the less misleading form of the term.}. The morphs I use here
+prefer to use the less misleading form of the term.} The morphs I use here
 refer to the smallest meaningful unit in the word that is used so regularly,
 that it can be practically used in the language description---that is, a
 productive morph. For example, the English word \emph{cat} has one morph, and
@@ -472,9 +476,9 @@ These classifications lend themselves nicely to a view of spell\-/checking
 software, where the languages that fall into synthetic and agglutinative
 contain most of the languages that have their special implementations in the
 world of open source spell\-/checkers; Finnish and
-Voikko\footnote{\url{http://voikko.puimula.org}}, Hungarian and
-Hunspell\footnote{\url{http://hunspell.sf.net}}, Turkish and
-Zemberek\footnote{\url{http://code.google.com/p/zemberek/}}, and so forth.
+Voikko,\footnote{\url{http://voikko.puimula.org}} Hungarian and
+Hunspell,\footnote{\url{http://hunspell.sf.net}} Turkish and
+Zemberek,\footnote{\url{http://code.google.com/p/zemberek/}} and so forth.
 This tendency suggests that people trying to build spell-checkers with
 limitations of almost only word-list or statistics-based systems will not be
 able to reach satisfying results, and other approaches are in fact necessary.
@@ -527,7 +531,7 @@ with extensive affix rules as a spell-checker, for which they say they attained
 a recall of 84\%. Same does not seem to apply for Greenlandic, where it was
 found that a collection of 350,000 word-forms will only cover 25\% of the
 word-forms in newspaper
-texts\footnote{\url{http://oqaaserpassualeriffik.org/a-bit-of-history/}}.
+texts.\footnote{\url{http://oqaaserpassualeriffik.org/a-bit-of-history/}}
 
 The sizes of word-lists lead to the final, perhaps most practical metric of
 measurement in the morphological complexity of languages in the context of
@@ -717,7 +721,7 @@ further detailed in the articles themselves. For exact changelogs one can also
 read SVN
 log\footnote{\url{http://sourceforge.net/p/hfst/code/HEAD/tree/trunk/articles/}}
 and for newer articles also git
-commitlog.\footnote{\url{https://github.com/flammie/purplemonkeydishwasher}}
+commitlog\footnote{\url{https://github.com/flammie/purplemonkeydishwasher}}.
 
 Another way to conceptualise the thesis is under the following \textbf{research
 questions}: How to implement reasonable statistical language models for
@@ -839,8 +843,8 @@ on efficiently looking up words from finite word-lists and building data
 structures. During this time, also the first statistical approaches, as in
 \citet{raviv1967decision}, drawing from basic foundations of mathematical
 theory of information from as early as
-\citet{shannon1948mathematical}\footnote{I feel I must attribute
-\citet{liberman2012noisily} for this tidbit of information}, were devised. In
+\citet{shannon1948mathematical},\footnote{I feel I must attribute
+\citet{liberman2012noisily} for this tidbit of information} were devised. In
 this research the statistical theories are applied to characters of English
 legal text, recognising also names and other terms. The input mode of this
 application seems to be more towards OCR than keyboard input. This basic
@@ -909,9 +913,9 @@ have the same code \texttt{S140} and can be matched. What the soundex ruleset
 is basically about, is saving the first letter and assigning rest of
 non-adjacent non-vowels a number. There have been some schemes to elaborate and
 make this work for foreign names and more words, most notably Metaphones
-by~\citet{philips1990hanging,philips2000double}\footnote{the third is a
+by~\citet{philips1990hanging,philips2000double}.\footnote{the third is a
 commercial product without publicly available documentation:
-\url{http://amorphics.com/buy_metaphone3.html}}.
+\url{http://amorphics.com/buy_metaphone3.html}}
 
 As the computational power increased, it became increasingly practical to look
 again at the problem of real-word spelling error detection.
@@ -1101,16 +1105,16 @@ addition of the following special symbols, which have specific meaning in
 automata theory: the empty symbol epsilon $\epsilon$ that matches zero-length
 strings on application of the automata, and the wild-card symbol $?$ that
 matches any one symbol of $\Sigma$ during any application of the automaton.
-When talking of two-tape automata\footnote{I will systematically \emph{avoid}
+When talking of two-tape automata,\footnote{I will systematically \emph{avoid}
     the term transducer in this thesis, a two-tape automaton is not special
 enough to warrant the use of a special term over any other specialisation of an
 automaton. Using the word transducer will only confuse the reader to think that
-there is something more to it.}, it merely means that the alphabet is of the
+there is something more to it.} it merely means that the alphabet is of the
 form $\Sigma^2$, otherwise two-tape automata are practically the same as
 single-tape automata for our purposes. The weighted automata talked about
 throughout the thesis are using the \emph{tropical
 semiring}~\cite{mohri1997finitestate} weight structure $(\mathbb{R}_+ \cup
-\infty, min, +)$; this is the so-called penalty weight structure, which
+\infty, \min, +)$; this is the so-called penalty weight structure, which
 practically means that on application and weight combination the smallest one
 is used, on combination of the weights they are added together. The set of
 final states is extended with a final weight function $\rho$ that specifies an
@@ -1185,9 +1189,9 @@ straight-forward, but relatively simple. For most things we calculate
 \begin{equation}
     P(x) = \frac{f(x)}{\sum_{z \in \mathcal{D}} f(z)},
 \end{equation}
-where x is the event whose probability to count, $f()$ is the frequency of the
-event, and $\mathcal{D}$ the collection of all events, so the probability of
-$x$ is counted as the proportion of the event $x$ in all events $z$ of
+where $x$ is the event whose probability to count, $f()$ is the frequency of
+the event, and $\mathcal{D}$ the collection of all events, so the probability
+of $x$ is counted as the proportion of the event $x$ in all events $z$ of
 $\mathcal{D}$. For example, for a simple language model, $x$ could be a
 word-form, and $\mathcal{D}$ a corpus of running text turned into word-forms,
 then we would expect that $P('\mathrm{is}') > P('\mathrm{quantitatively}')$,
@@ -1359,9 +1363,9 @@ affix logic as its predecessors. The additional features brought to Hunspell to
 set it apart from previous versions were the possibility to have more than one
 affix per root---two for most versions, and then a number of various extra
 features based on the same flags as used for affixation, such as compounding,
-offensive suggestion pruning\footnote{E.g. English Hunspell dictionary will
+offensive suggestion pruning,\footnote{E.g. English Hunspell dictionary will
     recognise, but not suggest word-forms: \emph{asshole, bugger, \ldots,
-shitty}}, and limited circumfixation.  A majority of these features come from
+shitty}} and limited circumfixation.  A majority of these features come from
 the basic formula we use for a bag of morphs and filters style finite\-/state
 morphology as it is defined in~\citet{linden2009hfst}. The practical side of
 the main result shows that all of the language models are around the same size
@@ -1369,9 +1373,9 @@ as finite\-/state dictionaries and morphologies made with other methods, this
 is shown in the Table~\ref{table:cla-2010-repro} reproduced
 from~\citepalias{pirinen2010building}.
 
-\begin{table}
-    \centering
- \begin{tabular}{c|c|c|c}
+\begin{longtable}{c|c|c|c}
+%    \centering
+% \begin{tabular}{c|c|c|c}
     \hline
     \textbf{Language} & \textbf{Dictionary} & \textbf{Roots} & \textbf{Affixes} 
 \\
@@ -1420,12 +1424,12 @@ from~\citepalias{pirinen2010building}.
     Chichewa & 209 KiB & 5,779 & 0 \\
     Kashubian & 191 KiB & 5,111 & 0 \\
     \hline
-  \end{tabular}
+%  \end{tabular}
 
   \caption{Compiled Hunspell automata sizes. Reproduced 
       from~\citepalias{pirinen2010building}
   \label{table:cla-2010-repro}}
-\end{table}
+\end{longtable}
 
 
 
@@ -1554,12 +1558,12 @@ shown a compilation formula for the Hunspell formalism. The aspell and ispell
 formalisms are simplifications of this, and the formula can easily be
 simplified for them by removing the multiple suffix consideration and
 compounding loop in the bag-of-morphs construction: $\mathcal{M}_L :=
-\mathcal{M}_{prefix} \mathcal{M}_{roots} \mathcal{M}_{suffix}$.
+\mathcal{M}_\mathrm{prefix} \mathcal{M}_\mathrm{roots} \mathcal{M}_\mathrm{suffix}$.
 
 It should also be noted that the common baseline approaches using word-form
 lists or such spell\-/checking corpora, such as~\citet{norvig2010howto}, are even
 more trivial to formulate in this formula: $\mathcal{M}_L :=
-\mathcal{M}_{wordforms}$.
+\mathcal{M}_\mathrm{wordforms}$.
 
 \section{Maintenance of the Language Models}
 \label{sec:maintenance}
@@ -1779,7 +1783,7 @@ the statistically formed system that gives a higher granularity in a few cases.
 There is one caveat in the material used in the paper, since Finnish lacks a
 gold standard material for any analysed text corpora, we used a commercial
 corpus made by another combination of automatic
-analysers\footnote{\url{http://www.csc.fi/english/research/software/ftc}}. This
+analysers.\footnote{\url{http://www.csc.fi/english/research/software/ftc}} This
 means that the precision and recall values we get are measuring how closely we
 imitated the referent black box system, rather than real world compound
 segmentations.
@@ -2343,7 +2347,7 @@ Throughout the chapter we have tried to follow the linguistically motivated
 selection of languages, i.e. selecting at least one from the moderately rich
 and one from the poly-synthetic languages; the suitable languages for these
 purposes having open source, freely available implementations have been found
-in University of Tromsø's server\footnote{\url{http://giellatekno.uit.no}}.
+in University of Tromsø's server.\footnote{\url{http://giellatekno.uit.no}}
 From there we have selected North Saami as a moderately rich and Greenlandic as
 an example of a poly-synthetic language.
 
@@ -2659,8 +2663,8 @@ desktop, as well as the OpenOffice.org / Libreoffice and Firefox browser, has
 been a good testing ground for other morphologically complex languages,
 including Finnish and North Saami, but also the slew of forthcoming Uralic
 languages currently being implemented at the University of
-Helsinki\footnote{\url{http://www.ling.helsinki.fi/~rueter/UrjSpell/testaus_fi.shtml}
-(temporary URL for testing phase)}, most of which have not ever had a
+Helsinki,\footnote{\url{http://www.ling.helsinki.fi/~rueter/UrjSpell/testaus_fi.shtml}
+(temporary URL for testing phase)} most of which have not ever had a
 spell\-/checking system at all. 
 
 The statistical and weighted methods used to improve the language models have
@@ -2685,14 +2689,14 @@ During the time I spent writing this thesis, the world of spell\-/checking has
 considerably changed with the mass market of a variety of input methods in the
 new touch screen user interfaces. When I started the thesis work, by far the
 most common methods to input text were regular 100+ key PC keyboards and key
-pads on mobile phones with T9 input method\footnote{\url{http://www.t9.com}}.
+pads on mobile phones with T9 input method.\footnote{\url{http://www.t9.com}}
 This is no longer the case, as input methods like Swype, XT9, and so on, are
 gaining in popularity. A revision of the methods introduced in this thesis is
 required, especially so since the input methods of these systems are
 \emph{more} heavily reliant on the high quality, automatic spelling correction
-than before\footnote{A case in point, there are collections of humorous
+than before.\footnote{A case in point, there are collections of humorous
 automatic spelling corrections caused by these systems, floating around on the
-internet, such as \url{http://www.damnyouautocorrect.com/}.}.  This point will
+internet, such as \url{http://www.damnyouautocorrect.com/}.}  This point will
 slightly affect the considerations of the practical evaluations of the speed of
 spell\-/checking; the new spelling correctors coupled with predictive entry
 methods need to be called after each input event instead of only when
