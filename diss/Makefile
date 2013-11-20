@@ -4,13 +4,21 @@
 
 TEX=xelatex
 BIB=bibtex
-HT2F=/home/tommi/bin/hfst-fst2txt
+HT2F=hfst-fst2txt
 
-all: Pirinen-2013-dissertation.pdf diss-seminar-2013-02-14.pdf
+DISS=Pirinen-2013-dissertation.pdf
+PRESENTATIONS=diss-seminar-2013-02-14.pdf
+GRAPHIX=edit1-ab-unw.pdf edit-weighted.pdf diss-structure-uml-ish.pdf
 
-%.pdf: %.tex diss.bib diss-structure-uml-ish.pdf edit1-ab-unw.pdf edit-weighted.pdf
+all: $(DISS)
+
+presentations: $(PRESENTATIONS)
+
+# edit1-ab-unw.pdf edit-weighted.pdf
+
+$(DISS): Pirinen-2013-dissertation.tex diss.bib $(GRAPHIX)
 	$(TEX) $<
-	$(BIB) $*
+	$(BIB) Pirinen-2013-dissertation
 	$(TEX) $<
 	$(TEX) $<
 	$(TEX) $<
