@@ -74,7 +74,7 @@ A Report for the University of Helsinki Department of Modern Languages]
 \newcommand{\tktla@pubtype}{PhD Thesis}
 \newcommand{\pubtype}[1]{\renewcommand{\tktla@pubtype}{{#1}}}
 \newcommand{\tktla@copyright}{
-  Copyright \copyright{} \tktla@pubyear{} \@author}
+  Copyright \copyright{} \tktla@pubyear{} \@author (\url{http://creativecommons.org/licenses/by-nc-nd/3.0/deed}}
 \newcommand{\copyrighttext}[1]{\renewcommand{\tktla@copyright}{{#1}}}
 \newcommand{\supervisorlist}[1]{\newcommand{\tktla@supervisorlist}{#1}}
 \newcommand{\preexaminera}[1]{\newcommand{\tktla@preexaminera}{#1}}
@@ -90,8 +90,12 @@ A Report for the University of Helsinki Department of Modern Languages]
   \tktla@copyrightpage
 }
 \newcommand{\tktla@printisxns}{
-  ISSN \tktla@issn\par
-  ISBN \tktla@isbnpaperback{} (paperback)\par
+  \ifx\tktla@issn\@undefined\relax\else
+    ISSN \tktla@issn\par
+  \fi
+  \ifx\tktla@isgnpaperback\@undefined\relax\else
+    ISBN \tktla@isbnpaperback{} (paperback)\par
+  \fi
   \ifx\tktla@isbnpdf\@undefined\relax\else
     ISBN \tktla@isbnpdf{} (PDF)\par
   \fi
