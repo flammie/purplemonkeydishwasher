@@ -307,16 +307,19 @@ implications of using one's native language to evaluate and develop new and
 improved methods; the motivation for spending immeasurable amounts of spare
 time is there.
 
-One common theme throughout the thesis is efficiency. As we are working with a
-practical system with potential everyday use, we need to ground the theoretical
-advances so that they are practically usable. For this reason the systems used
-in the thesis are also mainly limited to freely-available and open-source
-materials and techniques. Indeed, if a spell\-/checking sub-system is mentioned
-in this thesis, you should at least be able to download a functional prototype.
-All our software and data is available in our version management
-system,\footnote{\url{http://svn.code.sf.net/p/hfst}} as it should be in all
-properly conducted scientific research to fulfill the basic requirement of
-reproducibility.
+One practical, important feature of this thesis is that the end product the
+scientific methods are built for is usable and available as an end-user
+spell-checker at some point in future. For this reason I aim to ground the
+theoretical advances so that they are practically usable for larger audience of
+end users and this includes limiting resources required to build the systems
+experimented with to freely-available and open-source materials and techniques.
+Indeed, if a spell\-/checking sub-system is mentioned in this thesis, you
+should at least be able to download a functional prototype.  All our software
+and data is available in our version management
+system,\footnote{\url{http://svn.code.sf.net/p/hfst}}. I also strongly believe
+that this approach entailing not only free and libre open source software for
+the scientific software and results, but also properly conducted open
+scientific research to fulfill the basic requirement of reproducibility.
 
 Another point-of-view in the thesis is the quality of the spell\-/checking for
 morphologically complex languages. For English, the vast majority of
@@ -432,6 +435,23 @@ indistinguishable from a mistyping.
 \section{Morphological Complexity}
 \label{sec:morphological-complexity}
 
+\emph{Morphology} is the subfield of linguistics that deals with the structure
+of a word-form. A \emph{word-form}, for intents of this dissertation, is
+defined as a segment in text that is separated by whitespace symbols or other
+similar orthographic conventions. While from a linguistic point-of-view this
+definition is not without problems, it is one that a actual spell-checking
+software of today has to cope with. To give an example, in English `cat'
+is a word-form, as is `dogs', or `involuntarily'. The structure
+of a word-form is composed of one or more morphs. A \emph{morph} is a segment
+of word that has been defined by linguistic theories as a minimal unit carrying
+meaning, or more vaguely, purpose. In `cat' there is one morph, the
+root word meaning cat, in `dogs' there is another morph at the end:
+`s' morph marking plurality in English. In word `foxes', there
+is a plural morph `es'. Sometimes when describing morphology abstractions
+called morphemes are used to group similar morphs together, for example in
+English it could be said that plural morpheme is `(e)s', based on these
+examples.
+
 One theme of the thesis was to bring effective and high-quality spell\-/checking
 and correction to languages that have a variety of morphological features. I
 will refer to this variety as complexity, even if this term is sometimes
@@ -442,39 +462,36 @@ The topic of this thesis is not typology nor morphological complexity, and I
 will take a rather practical view on the topic.  This is a measure of
 complexity that affects the building and use of correct word-form recognisers
 in terms of computational and practical resources; there are only a few easily
-measurable factors in this playing field. The morphological complexity of the
-language model is the complexity of the word forms in terms of \emph{morphs},
-i.e., the average count of morphs in the word or \emph{morph-to-word}
+measurable factors in this playing field. The morphological complexity of a
+computational language model is based on, e.g., the complexity of the word
+forms in terms of \emph{morphs}.
+This is measurable as the average count of morphs in the word or
+\emph{morph-to-word}
 ratio.\footnote{In the literature the term is often morpheme to word ratio. As a
 morpheme is an abstraction that cannot really be counted in actual text, I
 prefer to use the less misleading form of the term.} The morphs I use here
 refer to the smallest meaningful unit in the word that is used so regularly,
 that it can be practically used in the language description---that is, a
-productive morph. For example, the English word \emph{cat} has one morph, and
+productive morph. For example, the English word \emph{cat} has one overt morph,\footnote{it is possible to consider the unmarked singular as being made of an empty morph
+as well, which would make the count two instead of one. I believe treating
+empty morphs as not counting towards complexity is in line with how the 
+computational, in either case, it would affect all languages' neutral word-forms
+in similar manner and retain their relative orderings in terms of complexity.} and
 its plural, \emph{cats} has two morphs.  Another factor of morphological
 complexity that is important is the variation that creates a set of related
 morphs, which are encoded in an abstraction called \emph{morpheme}, for
 example, the words \emph{runs}, and \emph{catches}, have suffix morphs
 \emph{-s}, and \emph{-es}, which could be grouped together. This variation can
 be realised in terms of the number of \emph{morphemes} per language or
-\emph{morphs-per-morpheme}.
+\emph{morphs-per-morpheme}. Since computational language model, especially
+one for spell-checking, needs to predict all correct word-forms, both the
+number of potential word-forms created by morph chains and the amount of
+variation within these morphs are good values to estimate the size and
+computational complexity of the language model for such prediction task.
 
-The common terminology for complexity of languages talks about \emph{isolating}
-and \emph{synthetic} languages. In terms of our morphological complexity
-measures isolating are languages that have an average morph-to-word ratio
-around 1--2. The languages with high morph-to-word ratio are often called
-\emph{poly-synthetic}. Another scale of terms is \emph{analytic},
-\emph{agglutinative}, \emph{fusional}, and again, \emph{poly-synthetic}. Which
-is to refer to the kind of variation the morphemes tend to have. In analytic
-cases the morph-to-word ratio is low and therefore morphs do not have
-variations either, the agglutinative languages have morphs that have little
-variation to the extent that typical language models are concatenated from
-separate morphs, and fusional languages have very high rate of variation to the
-extent that variation itself is considered a new morph. 
-
-These classifications lend themselves nicely to a view of spell\-/checking
-software, where the languages that fall into synthetic and agglutinative
-contain most of the languages that have their special implementations in the
+These measures lend themselves nicely to a view of spell\-/checking
+software, where the languages that have significantly higher values 
+include those that have their special implementations in the
 world of open-source spell\-/checkers; Finnish and
 Voikko,\footnote{\url{http://voikko.puimula.org}} Hungarian and
 Hunspell,\footnote{\url{http://hunspell.sf.net}} Turkish and
@@ -494,9 +511,9 @@ in~\cite{hassan2008language,watson2003new}, simply do not acknowledge the need.
 Some are glossing over the fact as a possible extension to the system, some
 ignoring it altogether but usually without any example of an implementation and
 evaluating strictly based on English or a few other popular Indo-European
-languages with similar features.  The fact that the lexicon of many languages
-is infinite and that this has practical effects has a good theoretical
-treatment in e.g.~\citet{kornai2002many}.
+languages with similar features. The fact that for many languages only
+way to have language models with reasonable coverage is a system which predicts
+infinite amounts of compound and derivation combinations is noteworthy.
 
 To illustrate the practical issues with morphologically complex languages we
 use the \emph{de facto} open-source spell\-/checking system, Hunspell. Of the
@@ -505,7 +522,9 @@ word, or 3 morphemes. For languages going beyond that, including Hungarian, the
 creator of a dictionary will at least need to combine multiple morphemes into
 one to get a working system. The morpheme count in Hunspell is realised as
 affix sets, of which Hunspell supports up to 65,000 (the exact number supported
-may vary a bit in versions, but it seems to be less than 65,535). On a more
+may vary a bit in versions, but it seems to be less than 65,535, which
+would have been expected for two-byte coding of suffix flags that was
+used in the system). On a more
 positive note, the compounding part of infinite word-lists is supported by
 Hunspell.
 
@@ -522,7 +541,7 @@ also in the Hunspell formalism, indeed as even the name suggests, the formalism
 originated as set of extensions to older *spell\footnote{specifically, 
     myspell, c.f.
 \url{http://www.openoffice.org/lingucomponent/dictionary.html}} formalisms to
-support Hungarian language.  For North Sámi, there is an implementation for
+support Hungarian language.  For North Saami, there is an implementation for
 Hunspell.\footnote{\url{http://divvun.no}} The languages that fall into polysynthetic side of the morphological
 complexity are usually noted as very hard to properly implement with the
 current Hunspell formalism and its limitations, though often the results are
@@ -554,16 +573,10 @@ computer system.
 
 After considering the limitations and problems of the word-lists and other
 simple approaches, we come to the second part of the thesis topic: finite\-/state
-methods.  It is commonly believed that the regular languages that the
-finite\-/state automata encode are of the same expressive power as the natural
-language morphologies, which means it is also the case that all language
-dictionaries can be encoded using finite\-/state automata. I have taken this
-assumption at its face value when developing the thesis, and have used
-finite\-/state solutions for language modelling as an axiomatically known to be
-true building block, developing the idea more towards the practical application
-of the spell\-/checking. In real-world applications we commonly hit the
-limitations of the system in any case, and documenting these is part of good
-research on the topic.
+methods. In this dissertation I have selected to use finite-state automata
+as a general framework for handling of the language models as a main part
+because of its success in handling of morphologically varied 
+languages~\cite{beesley2003finite}.
 
 The latest developments in the finite\-/state approach to natural language
 processing has been the concept of weights in finite\-/state automata.  I
@@ -779,7 +792,7 @@ spell\-/checking and correction, such as
 presents
 the history of spell\-/checking, both scientific improvements and some
 real-world applications is very well summed up until the publication time of
-early 1990's.  \citet{mitton2009ordering} presemts some more recent advances on
+early 1990's.  \citet{mitton2009ordering} presents some more recent advances on
 non-word spelling correction.  \citet{kukich1992spelling} also refers to
 spell\-/checking as a \emph{perennial topic} in computational linguistics, I
 find this characterisation quite accurate as it has been a prevalent and
@@ -817,14 +830,20 @@ to the other string. The editing operations defined were the following:
     \item \emph{deletion} of a letter
     \item \emph{addition} of a letter
     \item \emph{changing} a letter to another, and
-    \item \emph{swapping} or transposing adjacent letters
-        (This is omitted from some formulations and sometimes ignored in
-        spelling correction applications)
+    \item \emph{swapping} transposing adjacent letters (missing in
+        Levenshtein's formulation, central to spelling correction for
+        e.g., keyboards)
 \end{itemize}
 
 For example, the distance between \emph{cat} and \misspelt{ca} is 1 (deletion
 of t), the distance between \emph{cat} and \misspelt{catt} is 1 (addition of
-t), and so forth.  It is easy to see from these definitions how it is useful
+t), and so forth. Formally, these operations create a metric between two
+strings, and for spell-checking applications it is typical to find smallest
+distance between strings when correcting. It is also possible to use values
+differing from 1 for the operations to get better suitable distance metrics
+for specific spelling correction tasks.
+
+It is easy to see from the definitions of the operations how it is useful
 for spelling correction; they are the model of basic typos or slips of the
 finger on a keyboard. The paper by \citet{damerau1964technique} is often cited
 to be saying that 95\% of the errors are covered by distance 1, i.e. one
@@ -856,7 +875,7 @@ For the very first spell\-/checking software in common use---there are a few
 disputes and claims to it---but it is commonly attributed to the SPELL
 program~\citep{gorin1971spell}.  Some of the earlier work has been used mainly
 by one research group for their own purposes
-only~\citep{earnest2011first,earnest2012first,earnest2013legacies}. The first
+only.\footnote{\url{http://www.stanford.edu/~learnest/legacies.pdf}} The first
 predecessors of SPELL according to Les Earnest were systems for recognising
 hand-written cursive text as auxiliary parts of larger software. Following this
 the SPELL was possibly among the first self-standing software for
@@ -930,17 +949,11 @@ error correction.
 In \citet{al2006learning} it is shown that it is possible to learn the common
 real-word errors directly from the text using correctly spelled reference texts
 to calculate context factors for the words, and seeking words deviating from
-the factors enough in the other texts, crafting some logic formulas for
-replacements of the real-words.
+the factors enough in the other texts.
 
-While computation power and storage space has improved along Moore's
-prediction until recently, it is still not obvious if practical word \(n\)-gram
-models are light enough to be used interactively in a desktop product that is
-practically in use during the whole uptime of a modern desktop system.
-
-In the world of context-aware models, simple word-form \(n\)-grams are not the only
-form of context that has been used---especially in the context of languages
-other than English it has often been noted that using sequences of
+In the world of context-aware models, simple word-form \(n\)-grams are not the
+only form of context that has been used---especially in the context of
+languages other than English it has often been noted that using sequences of
 morphological analyses instead of the surface word forms is a more important
 factor in detecting the errors and improving the results~\citet[for
 Spanish]{otero2007contextual}. I have performed an experiment with this
@@ -951,7 +964,9 @@ Hunspell, with multiple affix stripping and compounding added. Similarly for
 Turkish, various computational methods have been used. Among
 those~\citet{oflazer1996errortolerant} demonstrates one of the first
 finite\-/state spell\-/checking with full-fledged finite-state language
-model---the earlier by \citet{aho1975efficient} being more of a keyword search.
+model. There is earlier finite-state spelling correction system
+defined by \citet{aho1975efficient}, where both the dictionary and the texts
+are limited to keyword search from indexes.
 This method used a specialised search algorithm for error tolerance when
 traversing the finite\-/state network.  In~\citet{agata2002typographical} the
 finite\-/state methods were extended to cover the error-model as well. Their work
@@ -960,6 +975,7 @@ showed a practical implementation of finite\-/state edit distance, and finally i
 extension to weighted finite\-/state automata for both language and error models
 for spell\-/checking and correction is plausible for the more morphologically
 more complex languages.
+
 
 % The methods proposed since then use a Bayesian approach (Golding
 %(1995)) that may be combined with part-of-speech trigrams (Golding and Sch-
@@ -973,12 +989,40 @@ more complex languages.
 % [[quoted from al2006learning]]
 
 In the Table~\ref{table:history-apps} I have first summarised the practical
-end-user applications of spell\-/checking, specifically of the freely-available
-*spell family of products. Then I summarise some of the main academic research
-on specific practical and statistical advances presented
-by~\citet{al2006learning} that I have used during my research. Then in the
-final set of rows I have the finite\-/state spell\-/checking systems that I am
-aware of.
+end-user applications of spell\-/checking. In first column I give the
+related software and academic reference if available, in second column is the
+year of the publication of the software or research finding. In third column
+is short note about the error models the system uses, the abbreviation ED is
+used for edit distance algorithm and FSA for finite-state automata's 
+expressive powers. In fourth column is a characterisation of the dictionary
+or language model format, e.g., word-list means finite list of words and 
+affixes generally refer to algorithms that can remove add specific suffixes to
+some words of the word-list (or remove them, depending on how you view the
+implementation).
+In first set of entries I give the history from original SPELL software up
+until its contemporary descendant and \emph{de facto} standard of
+free/libre open source software (FLOSS): hunspell. The dictionaries have
+not changed much in this branch, practically all use word-lists with some
+affix capabilities based on classifying of the words. In error correction,
+all use at least some form of edit distance algorithm, with varying weights
+or orderings of the edit operations, including simple soundslike weighting
+in GNU aspell\footnote{\url{http://aspell.net/man-html/The-Simple-Soundslike.html}} and Metaphone variants for English in kspell and newer. More details on
+error models are provided in  Chapter~\ref{chap:error-models}.
+In second part of table I summarise some of the main academic research
+on specific practical and statistical advances as originally presented
+by~\citet{al2006learning} that I have used during my research. This means the
+prominent \texttt{correct} spell-checker re-ranker by~\citet{church1991probability} which basically re-orders the results of abovementioned spell programs by
+probabilities. This design has influenced many of my spell-checker designs.
+The further statistical approaches that are relevant are Bayesian 
+approach~\citep{golding1995bayesian} and Winnow~\citep{golding1999winnow}. The
+main differences between these approaches lie in statistical formulations.
+In final section of the table I show the main history of contemporary 
+finite-state spell-checking, starting from~\citet{oflazer1996errortolerant}.
+For this section the noteworthy differences are whether the error correction
+uses basic edit distance measures in the finite-state graph, more advanced
+search, or finite-state algebra with full expressive power of regular grammars.
+Other differences are in the implementation and efficiency of the
+spelling correction or error-tolerant search.
 
 \begin{table}
     \centering
@@ -1002,9 +1046,9 @@ aware of.
         GNU aspell & 2002 & Rule-weighted ED & Compounding & ED is avgd \\
     (Kevin Atkins) & & & (dropped) & w/ soundslike \\
         \hline
-        myspell & 200x & weighted ED & 2 affixes & OpenOffice 1 \\
+        myspell & 2000 & weighted ED & 2 affixes & OpenOffice 1 \\
         \hline
-        Hunspell & 200x & weighted ED & 2 affixes & Configurable \\
+        Hunspell & 2005 & weighted ED & 2 affixes & Configurable \\
                  &      & Confusables & Compounds & edits \\
         \hline
         \multicolumn{5}{|c|}{\bf Academic projects etc.} \\
@@ -1062,26 +1106,23 @@ spelling detection and correction domain that I have re-used or tried to
 re-use in my experiments on spell\-/checking and correction.
 
 The relevant research on the finite\-/state approaches to predictive text entry
-is referred to e.g. in~\citet{silfverberg2010partofspeech,forcada2001corpus},
-and the results of
+is referred to e.g. in~\citet{silfverberg2010partofspeech}, and the results of
 these applications have been applied verbatim to our language models where
 applicable.
 
-A highly relevant sub-field of computer science is string algorithms,
-specifically \emph{approximate string matching}. In practice, even this thesis
-would be a suitable contribution to the field of approximate string matching,
-as it strongly builds on the algorithms developed within this domain. The
-approximate string matching using fuzzy search algorithms in finite\-/state
-automata is one of the implementations I often contrast my work with, as I have
-routinely replaced the fuzzy search algorithm by a composition of
-well-specified fuzziness and n-best search.
-
 In many practical systems a spelling corrector or its weak equivalent is used
 for pre-processing. This phase of processing is often called e.g.
-\emph{normalisation}. Many approaches of the normalisation are directly
-relevant to spelling correction, and parts of the spell\-/checking system I
-have developed have been inspired by the development of systems such as
-SMS normalisation to standard written language~\citep{kobus2008normalizing}.
+\emph{normalisation}, \emph{diacritic restoration}, and so forth. Normalisation
+and diacritic restoration both are basically spell-checking tasks with very
+limited alphabets and error models, e.g. in diacritic restorations only allowed
+corrections are additions of diacritics to a base character (e.g. changing
+\emph{a} to one of \emph{à}, \emph{á}, \emph{ã}, \emph{ą}, \ldots), similarly
+normalisation restricts correction to e.g., case changes and typographic
+variants.  Many approaches of the normalisation are directly relevant to
+spelling correction, and parts of the spell\-/checking system I have developed
+have been inspired by the development of systems such as SMS normalisation to
+standard written language~\citep{kobus2008normalizing}.
+More new results\citet{petterson2013,porta2013}
 
 \section{Theory of Finite-State Models}
 \label{sec:finite-state-theory}
@@ -1096,41 +1137,38 @@ notations. These should be familiar to anyone who has dabbled in weighted
 finite\-/state theory e.g. from \citet{aho2007compilers,mohri1997finitestate}.
 
 The automata are conventionally marked in computer sciences and mathematics as
-systems, such as n-tuple $(Q, \Sigma, \delta, Q_i, Q_f, W)$, where $Q$ is the
-set of the states in the automaton, $\Sigma$ is the alphabet in transitions,
-$\delta$ is the transition mapping, and $Q_i, Q_f$ the subsets of states for
-initial states, and final states and $W$ is the structure of weights. The
-$\Sigma$ set in the automata of spell\-/checking system is almost always just
-some---usually language-specific for optimisation reasons---subset of the
+systems, such as n-tuple $(Q, \Sigma, \delta, Q_i, Q_f, \rho)$, where $Q$ is
+the set of the states in the automaton, $\Sigma$ is the alphabet in
+transitions, $\delta: Q \times \Sigma \times W \rightarrow Q$ is the transition
+mapping from state to state with an alphabet and a weight, and $Q_i \in Q, Q_f
+\in Q$ the subsets of states for initial states and final states, $\rho: Q_f
+\rightarrow W$ the final weight mapping and $W$ is the structure of weights.
+The $\Sigma$ set in the automata of spell\-/checking system is almost always
+just some---usually language-specific for optimisation reasons---subset of the
 Unicode set of symbols~\citep{unicode} for writing natural languages, with the
 addition of the following special symbols, which have specific meaning in
 automata theory: the empty symbol epsilon $\epsilon$ that matches zero-length
 strings on application of the automata, and the wild-card symbol $?$ that
 matches any one symbol of $\Sigma$ during any application of the automaton.
-When talking of two-tape automata,\footnote{I will systematically \emph{avoid}
-    the term transducer in this thesis, a two-tape automaton is not special
-enough to warrant the use of a special term over any other specialisation of an
-automaton. Using the word transducer will only confuse the reader to think that
-there is something more to it.} it merely means that the alphabet is of the
-form $\Sigma^2$, otherwise two-tape automata are practically the same as
-single-tape automata for our purposes. The weighted automata talked about
-throughout the thesis are using the \emph{tropical
-semiring}~\cite{mohri1997finitestate} weight structure $(\mathbb{R}_+ \cup
-\infty, \min, +)$; this is the so-called penalty weight structure, which
-practically means that on application and weight combination the smallest one
-is used, on combination of the weights they are added together. The set of
-final states is extended with a final weight function $\rho$ that specifies an
-additional weight to the path with each end state. For the rest of the
-finite\-/state algebra I use the standard notations which to my knowledge do
-not have any variation that requires documenting in this introduction (e.g.
-$\cup$ for union, $\cap$ for intersection and so forth).
+When talking of transducers, it merely means that the alphabet is of the form
+$\Sigma^2$. Practically this can be thought of so that automaton accepts e.g.,
+correct word-forms and transducer, e.g., rewrites misspelled word-forms.  The
+weighted automata talked about throughout the thesis are using the
+\emph{tropical semiring}~\cite{mohri1997finitestate} weight structure
+$(\mathbb{R}_+ \cup \infty, \min, +)$; this is the so-called penalty weight
+structure, which practically means that on application and weight combination
+the smallest one is used, on combination of the weights they are added
+together. The set of final states is extended with a final weight function
+$\rho$ that specifies an additional weight to the path with each end state. For
+the rest of the finite\-/state algebra I use the standard notations which to my
+knowledge do not have any variation that requires documenting in this
+introduction (e.g.  $\cup$ for union, $\cap$ for intersection and so forth).
 
 A finite\-/state automaton, with a $\Sigma$ set drawn from the set of natural
 language alphabets, such as letters A through Z, digits 0 through 9 and the
 punctuation marks hyphen and apostrophe, can accurately encode most words of
 the English language in the accepting paths of the automaton---excepting such
-edge cases as \emph{naïve}. These kind of single-tape
-finite\-/state automata recognising words of a language are used both in process
+edge cases as \emph{naïve}. These kind of acceptors recognising words of a language are used both in process
 of detecting spelling errors of non-word type in a running text, and matching
 the misspelt word forms to the correct word-forms. The use of such automata as
 language models is documented very extensively in natural language processing;
@@ -1138,12 +1176,12 @@ in the context of morphologically complex languages more relevant to the topics 
 this thesis. For a starting point, see, e.g., Finite-State Morphology~\citep{beesley2003finite,beesley2004morphological}.
 
 I use the finite\-/state automata also in error-correction. In this case the
-finite\-/state automata are two-tape automata that encode the relations from
+finite\-/state transducers that encode the relations from
 misspellings to corrections in their accepting paths. There are few influential
 works in the field of finite\-/state methods for the error modelling. The
 initial work may have been laid out by~\citet{oflazer1996errortolerant}, who
 uses an algorithmic approach on language model traversal as a limited form of
-error modelling; this has been extended and improved e.g.
+error modelling; this has been extended and improved e.g.,
 by~\citet{hulden2009fast}.  An approach to weighted finite\-/state systems was
 described by~\citet{mohri2003edit}, which includes good mathematical basis for
 finite-state error-modelling using weighted edit-distance automata and weighted
@@ -1155,13 +1193,13 @@ concept of expanding the language-model automata by a Levenshtein rule
 automaton, creating a language model automaton that can recognise word forms
 containing a given number of Levenshtein type errors, i.e. all word forms at a
 given Levenshtein-Damerau distance. My definitions diverge here by considering
-the error model as a separate, arbitrary two-tape automaton; this allows
+the error model as a separate, arbitrary transducer; this allows
 operating on either the language model or the misspelt string with the error
 producing or removing functionality of the model, and provides an opportunity
 to test which variation is the most effective. 
 
 Now we can also make the generalisation to consider the strings of the language
-that we are correcting as a single-path single-tape automaton consisting of
+that we are correcting as a single-path acceptor consisting of
 just one word, so we can formally define an unweighted finite\-/state spelling
 correction system as the composition $(w \circ M_e \circ M_c)_2$, where $w$ is
 the word to correct, $M_e$ the automaton encoding the error model, and $M_c$
@@ -1237,7 +1275,9 @@ effect that all unseen tokens are considered to have be seen $\alpha$ times and
 all others $\alpha$ more times than they have been seen in the training data.
 For values of $\alpha$ in my practical applications I have used the range
 0.5--1, based on empirical testing and values found in the literature, such
-as~\citet{manning1999foundations}.
+as~\citet{manning1999foundations}. There are other, more elaborate approaches
+to this as well̃~\cite{chen1999empirical}, but for this thesis I have found this
+easy to understand and implement version be most suitable.
 
 
 
@@ -1247,7 +1287,7 @@ as~\citet{manning1999foundations}.
 In this chapter I will go through the various kinds of
 \emph{language models}\footnote{As a terminological note, in natural language
     engineering the term language model is used narrowly, referring only
-    to systems that are based on statistics of finite word lists. In
+    to systems that are purely statistical \(n\)-gram models. In
     computational linguistics a language model is any method capable of
     telling whether a given word-form is in a language, and potentially
     providing further data about it.} that are
@@ -1286,7 +1326,7 @@ article where I try to tie together the different approaches to compiling and
 using the finite\-/state dictionaries and computational linguistic models at
 large.
 
-\section{Generic Finite-State Formula for Morphology}
+\section{Sketch of Generic Finite-State Formula for Morphology}
 \label{sec:generic}
 
 Before delving further into the intricacies of compiling existing and new
@@ -1299,25 +1339,18 @@ combinations of sets of morphemes, combined with rules of
 example one such rule would be defining that English plural suffix of form `-s'
 is followed by a certain subset of nouns.} and possibly morphophonology.  The
 basic starting point is an arbitrary combinations of morphs as an automaton
-$\mathcal{M}_{\mathrm{morphs}} := \bigcup ({\mathrm{morph}})^\star$. The set of
-morphotactic rules over the classifications of morphs (e.g. hidden in the
-automata in the boundaries of morphs as special symbol arcs) is always
-construed over $\mathcal{R}_{\mathrm{morph}} \in \Gamma^\star << \Sigma^\star$
-where $\Gamma$ is the boundaries of morphs such that $\Gamma \cap \Sigma =
-\emptyset$. The morphophonology likewise is an automaton
-$\mathcal{R}_{\mathrm{phon}} \in \Sigma \times \Sigma$ modelling variation in
-the characters, possibly bound to morpheme boundaries. If you follow this train
-of thought that all formulas generalise to this formula, the chapter will be
-more straightforward to follow.
-
-When dealing with finite\-/state language models for other purposes, e.g.
-analysis of language, the compilation formula is exactly the same as shown for
-the Lexc language in e.g.~\citet{linden2009hfst}, keeping in mind that the
-second tape means cross-products in the formulas above. In the resulting
-language, the language model for finite\-/state spelling correction only needs
-the surface tape of the automaton, so it is possible to make a projection, or
-use composition instead of intersection in the application phase of the
-finite\-/state spelling correction.
+$\mathcal{M}_{\mathrm{morphs}} = \bigcup_{\mathrm{morph \in \Sigma^\star}}
+({\mathrm{morph}})^\star$.  This kind of a \emph{bag of morphs} approach
+creates automaton consisting of arbitrary combinations of morphs of a language,
+e.g. for English it would have combinations like `cat', `cats', `dog', `dogs',
+\ldots but also `catdog', `sdog', or `sssdogsdogsscatcat'. To restrict these,
+we usually define classifications of thes morphs, say, `cat' and `dog' are
+\texttt{nouns}, and `s' is a \texttt{plural}, English morphotax would define
+that a plural appears after nouns. To realise morphotactic rules over the
+classifications of morphs, we usually can create set of helper symbols, e.g.
+{\texttt{nouns}, \texttt{plural}} $\in \Gamma, \Gamma \cap \Sigma = \emptyset$
+and then have morphotax as automaton construed over $(\Gamma \cup
+\Sigma)^\star$.
 
 \section{Compiling Hunspell Language Models}
 \label{sec:Hunspell}
@@ -1333,9 +1366,9 @@ methods for spell\-/checking are truly a subset of the finite\-/state methods.
 In practice we also tried to show that typically, if not always, the
 finite\-/state version should be faster than the string-algorithm version, e.g. for
 affix stripping for sure, but also for error modelling. The practical
-motivation for the work is that there is no chance for any new spell\-/checking
-system to survive, unless it is capable of profiting from the existing Hunspell
-dictionaries.
+motivation for the work is that the chances for any new spell\-/checking
+system to survive are rather limited, unless it is capable of using the
+existing Hunspell dictionaries without major difficulties.
 
 In \textbf{related works}, there has, to my knowledge, only been, the following
 attempt to use Hunspell data as automata: a master's thesis project partially
@@ -1447,8 +1480,14 @@ more morphologically complex languages.
 %read as a good evidence on more general applicability conversion.
 
 As the implementation framework for context restrictions and deletions for the
-Hunspell affix morphotactics we used twol rules~\citep{karttunen1992two}. With
-the context restrictions and its combinatorics twolc rules are well within
+Hunspell affix morphotactics we used twol rules~\citep{karttunen1992two}. Twol
+rules are a generic way of defining valid contexts of character pairs in a
+transducer. Hunspell on the other hand, defines deletions, and combinations of
+morphs. In practice this means, that when hunspell formulates that a suffix
+follows a word root in certain class, if it ends in given regular expression,
+our twol representation was made to allow the morph boundary symbol in that
+regular expression context while also deleting the context as defined.  With
+the context restrictions and its combinatorics twol rules are well within
 reason, as restriction is the central rule type in design of twol, whereas the
 deletions are not very easy to implement in that formalism. As an afterthought,
 a better and more efficient representation might have been to combine
@@ -1506,9 +1545,9 @@ the spell-checking models.
 The one result that we tried to highlight in the paper was that we could
 already provide a rudimentary spell-checker based on lexical data built solely
 for the purpose of limited range machine translation, and we could do that for
-a range of languages that, at the time of writing lacked spell-checkers
-altogether. A list of the languages tested here is provided in the
-Table~\ref{table:lrec-2012-repro}, reproduced
+a range of languages---, including some that at the time
+of writing lacked spell-checkers altogether. A list of the languages tested
+here is provided in the Table~\ref{table:lrec-2012-repro}, reproduced
 from~\citepalias{pirinen2012compiling}. And the task of writing the compiler
 for this existing format based on other morphology formalisms we had made and
 turning the compiled language model to a baseline spell-checker was not more
@@ -1559,12 +1598,12 @@ prominent for the use in finite\-/state spell\-/checking. For example I have
 shown a compilation formula for the Hunspell formalism. The aspell and ispell
 formalisms are simplifications of this, and the formula can easily be
 simplified for them by removing the multiple suffix consideration and
-compounding loop in the bag-of-morphs construction: $\mathcal{M}_L :=
+compounding loop in the bag-of-morphs construction: $\mathcal{M}_L =
 \mathcal{M}_\mathrm{prefix} \mathcal{M}_\mathrm{roots} \mathcal{M}_\mathrm{suffix}$.
 
 It should also be noted that the common baseline approaches using word-form
 lists or such spell\-/checking corpora, such as~\citet{norvig2010howto}, are even
-more trivial to formulate in this formula: $\mathcal{M}_L :=
+more trivial to formulate in this formula: $\mathcal{M}_L =
 \mathcal{M}_\mathrm{wordforms}$.
 
 \section{Maintenance of the Language Models}
@@ -1981,16 +2020,15 @@ and memory consumption levels. A thorough evaluation of this, however, is in
 Chapter \ref{chap:efficiency}.
 
 The theoretical and practical motivation for suggesting finite\-/state models
-for error correction is obvious: the expressive power of a weighted two-tape
-automaton is an ideal format for specifying the combinations of the spelling
-errors that can be made and corrected, and since weighted finite\-/state
-automata are closed under finite\-/state algebra, it is easy to build more complex statistical models consisting of different types of
-errors by combining them from building blocks. The fact that traditional
-non-finite-state spelling correctors use a number of different algorithms
-starting from all the variants and modifications of the edit distance to
-arbitrary context based string rewriting to phonemic folding schemes provides a
-good motivation to have such arbitrarily combinable systems for creating these
-error models outside the software.
+for error correction is obvious: the expressive power of a weighted transducer
+is an ideal format for specifying the combinations of the spelling errors that
+can be made and corrected, and it is possible to build more complex statistical
+models consisting of different types of errors by combining them from building
+blocks. The fact that traditional non-finite-state spelling correctors use a
+number of different algorithms starting from all the variants and modifications
+of the edit distance to arbitrary context based string rewriting to phonemic
+folding schemes provides a good motivation to have such arbitrarily combinable
+systems for creating these error models outside the software.
 
 The rest of this chapter is laid out as follows: In
 Section~\ref{sec:error-application} I describe how the finite\-/state
@@ -2015,8 +2053,8 @@ It is possible to use various generic graph algorithms to work on fuzzy
 traversal of the finite\-/state graph, like is done in~\citet{hulden2009fast}.
 It is also possible to create a finite\-/state network that already includes
 the potential error mapping, as is shown in~\citet{schulz2002fast}. The
-approach that I use is to apply basic finite\-/state algebra with a two-tape
-automata working as the error model. This is a slight variation of a model
+approach that I use is to apply basic finite\-/state algebra with a transducer
+working as the error model. This is a slight variation of a model
 originally presented by~\citet{mohri2003edit}. We apply the errors to
 misspelled strings by two compositions, performed serially in a single
 operation: $\mathcal{M}_{\mathrm{Sugg}} = (\mathcal{M}_{\mathrm{input}} \circ
@@ -2049,7 +2087,7 @@ has been Damerau-Levenshtein edit
 distance~\citep{damerau1964technique,levenshtein1966binary}. There has been
 multiple formulations of the finite\-/state edit distance, but in this section
 we describe the one that is used by our systems. This formulation of the edit
-distance as a two-tape finite\-/state automaton was first presented
+distance as a transducer was first presented
 in~\citet{schulz2002fast}.
 
 Finite-state edit distance is a rather simple concept; each of the error types
@@ -2061,7 +2099,7 @@ unweighted edit distance 1 error model is shown in Figure~\ref{fig:edit1-ab}.
 
 \begin{figure}
     \includegraphics[width=\textwidth]{edit1-ab-unw}
-    \caption{A non-deterministic unweighted two-tape automaton implementing
+    \caption{A non-deterministic unweighted transducer implementing
         edit distance of 1 where $\Sigma = {\mathrm{a}, \mathrm{b}, 0}$.
         The deletion, addition and change is shown in
         edit from $q_0$ to $q_1$, and the states $q_2$ and $q_3$ are used as a
@@ -2290,7 +2328,7 @@ finite\-/state form is mostly trivial. E.g. if we consider the building of a
 finite\-/state language model from a corpus of word forms, the corpus of errors
 is same set of string pairs with weights of 
 \begin{equation}
-    w(x:y) := -\log\frac{f(x:y) + \alpha}{\mathcal{D}_{a:b \in \Sigma^2} f(a:b) + \alpha},
+    w(x:y) = -\log\frac{f(x:y) + \alpha}{\mathcal{D}_{a:b \in \Sigma^2} f(a:b) + \alpha},
 \end{equation}
 where $x, y \in \Sigma*$ are error pairs $x:y$ in a set of errors
 $\mathcal{D}$.
@@ -2382,7 +2420,7 @@ still inter-active, where a misspelt word is underlined when user makes a
 mistake, and the system is capable of suggesting corrections when a user
 requests one. This sets the limits that system should be capable of checking
 text as it is typed, and responding with suggestion as they are demanded. It is
-well-known that finite\-/state language models being single-tape automata,
+well-known that finite\-/state language models being acceptors,
 language recognisers, can answer the question of whether the string is in given
 language in linear time. In practical measurements this amounts to
 spell\-/checking times up to 100,000~strings per second e.g.
@@ -2405,10 +2443,9 @@ than 1 edits long, and limitation of result set size during traversal).
 
 The results of the evaluation---reproduced in
 Table~\ref{table:fsmnlp-2012-repro} from the
-article~\citepalias{pirinen2012effects}---are enlightening. The common
-phenomenon we noticed is that applying the same optimisations in finite-state
-forms that are popular in other spelling correctors, have similar positive
-effects to the correction times.
+article~\citepalias{pirinen2012effects}---are enlightening. Basically the main
+finding of the article is that the disallowing of the first mutation in the
+error model provides significant boost in performance.
 
 \begin{table}
     \centering
@@ -2442,21 +2479,12 @@ No firsts ed 2 &
 %% No firsts ed 3 &
 %% 8.25&824.05&---
 %% \\
-No redundancy ed 2 &
-7.52&4230.94&6420.66
-\\
 %% No redundancy ed 3 &
 %% 143.64&78517.63&---
 %% \\
-No redundancy and firsts ed 2 &
-1.51&62.05&386.63
-\\
 %No redundancy and firsts ed 3 &
 %---&---&---
 %\\
-Lower order first ed 1 to 2 &
-4.31&157.07&545.91
-\\
 \hline
 \end{tabular}
 %\end{scriptsize}
@@ -2561,12 +2589,6 @@ evidence to that effect.
         \hline
         \bf North Saami Hunspell & 9.4 & 3.1 & 0.0 & 3.1 & 0.0 & 0.0 \\
 %            \bf North Saami Word & & \\
-        \hline
-        \bf North Saami w/ 1 error & 3.5 & 3.5 & 0.0 & 6.9 & 0.0 & 0.0 \\
-        \bf North Saami w/ 1 nonfirst errors & 3.5 & 3.5 & 0.0 & 6.9 & 0.0 & 0.0\\
-        \bf North Saami w/ 2 errors & 3.5 & 3.5 & 3.5 & 0.0 & 3.5 & 3.5 \\
-        \bf North Saami w/ 2 nonfirst errors & 3.5 & 3.5 & 3.5 & 0.0 & 3.5 & 0.0\\
-        \hline
 %        \bf Greenlandic foma &  \\
 %        \hline
           \bf Greenlandic w/ 1 error & 13.3 & 2.2 & 6.7 & 2.2 & 0.0 & 8.9 \\
@@ -2576,7 +2598,7 @@ evidence to that effect.
         \hline
     \end{tabular}
 
-    \caption{The effect of different language and error models on correction 
+    \caption{Effect of different language and error models on correction 
         quality (in\%). Reproduced from~\citepalias{pirinen2013quality}.
     \label{table:nejlt-2013-repro}}
 \end{table}
@@ -2624,18 +2646,17 @@ and practical ideas that the results of this thesis lead into.
 
 One of the main contributions, I believe, is the improvement and verification
 of the statistical language modelling methods in context of weighted
-finite\-/state automata. I believe that throughout the thesis, by continously
+finite\-/state automata. I believe that throughout the thesis, by continuously
 using the initial finding of the word-form-based compound word training
 approach introduced in~\citepalias{pirinen2009weighted}, I have shown that the
 morphologically complex languages can be statistically trained as weighted
 finite\-/state automata and I maintain that this approach should be carried on
 to the majority of future finite\-/state language models.
 
-In the spelling correction mechanics, I have stuck to the two-tape
-finite\-/state automaton as an ubiquitous error model for finite\-/state
-spelling correction, and shown that it can be reasonably used in an interactive
-spelling correction software in place of any traditional spelling correction
-solution.
+In the spelling correction mechanics, I have shown that weighted finite-state
+transducers are a feasible error model. I have experimented that it can be
+reasonably used in an interactive spelling correction software in place of any
+traditional spelling correction solution.
 
 
 As a contribution that is an almost practical software engineering side of
