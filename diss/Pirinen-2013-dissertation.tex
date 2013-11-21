@@ -58,11 +58,11 @@ and Correction
 %\isbnpaperback{000-00-0000-0}
 \isbnpdf{000-00-0000-0}
 \issn{0000-0000}
-\printhouse{Unigrafia?}
+\printhouse{Unigrafia}
 \pubpages{87} % --- remember to update this!
-\supervisorlist{Krister Lindén, University of Helsinki, Finland}
-\preexaminera{Mikel L. Forcada, Universitat d' Alacant}
-\preexaminerb{Lars Bodin, Svensk Språkbanket}
+\supervisorlist{Krister Lindén, Helsingin yliopisto, Finland}
+\preexaminera{Prof. Mikel L. Forcada, Universitat d' Alacant, Spain}
+\preexaminerb{Prof. Lars Borin, Göteborgs universitet, Sweden}
 \opponent{---}
 \custos{---, University of Helsinki, Finland}
 \generalterms{thesis, finite-state, spell-checking, language model,
@@ -452,41 +452,45 @@ called morphemes are used to group similar morphs together, for example in
 English it could be said that plural morpheme is `(e)s', based on these
 examples.
 
-One theme of the thesis was to bring effective and high-quality spell\-/checking
-and correction to languages that have a variety of morphological features. I
-will refer to this variety as complexity, even if this term is sometimes
-frowned upon with the belief that morphologically simple languages like English
-would be considered less valuable---which is not the case.  To substantiate
-this claim I will first try to define what I mean by morphological complexity.
-The topic of this thesis is not typology nor morphological complexity, and I
-will take a rather practical view on the topic.  This is a measure of
-complexity that affects the building and use of correct word-form recognisers
-in terms of computational and practical resources; there are only a few easily
-measurable factors in this playing field. The morphological complexity of a
-computational language model is based on, e.g., the complexity of the word
-forms in terms of \emph{morphs}.
-This is measurable as the average count of morphs in the word or
-\emph{morph-to-word}
-ratio.\footnote{In the literature the term is often morpheme to word ratio. As a
-morpheme is an abstraction that cannot really be counted in actual text, I
+One theme of the thesis was to bring effective and high-quality
+spell\-/checking and correction to languages that have a variety of
+morphological features. I will refer to this variety as complexity, even if
+this term is sometimes frowned upon with the belief that morphologically simple
+languages like English would be considered less valuable---which is not the
+case.  To substantiate this claim I will first try to define what I mean by
+morphological complexity.  The topic of this thesis is not typology nor
+morphological complexity, and I will take a rather practical view on the topic.
+This is a measure of complexity that affects the building and use of correct
+word-form recognisers in terms of computational and practical resources; there
+are only a few easily measurable factors in this playing field. In linguistics
+they have been studied starting from̃~\citep{greenberg1960qualitative} and up
+to recent times including the endeavour known as world atlas of linguistic
+structures~\citep{wals}.
+The
+morphological complexity of a computational language model is based on, e.g.,
+the complexity of the word forms in terms of \emph{morphs}.  This is measurable
+as the average count of morphs in the word or \emph{morph-to-word}
+ratio.\footnote{In the literature the term is often morpheme to word ratio. As
+a morpheme is an abstraction that cannot really be counted in actual text, I
 prefer to use the less misleading form of the term.} The morphs I use here
 refer to the smallest meaningful unit in the word that is used so regularly,
 that it can be practically used in the language description---that is, a
-productive morph. For example, the English word \emph{cat} has one overt morph,\footnote{it is possible to consider the unmarked singular as being made of an empty morph
-as well, which would make the count two instead of one. I believe treating
-empty morphs as not counting towards complexity is in line with how the 
-computational, in either case, it would affect all languages' neutral word-forms
-in similar manner and retain their relative orderings in terms of complexity.} and
-its plural, \emph{cats} has two morphs.  Another factor of morphological
-complexity that is important is the variation that creates a set of related
-morphs, which are encoded in an abstraction called \emph{morpheme}, for
-example, the words \emph{runs}, and \emph{catches}, have suffix morphs
-\emph{-s}, and \emph{-es}, which could be grouped together. This variation can
-be realised in terms of the number of \emph{morphemes} per language or
-\emph{morphs-per-morpheme}. Since computational language model, especially
-one for spell-checking, needs to predict all correct word-forms, both the
-number of potential word-forms created by morph chains and the amount of
-variation within these morphs are good values to estimate the size and
+productive morph. For example, the English word \emph{cat} has one overt
+morph,\footnote{it is possible to consider the unmarked singular as being made
+    of an empty morph as well, which would make the count two instead of one. I
+    believe treating empty morphs as not counting towards complexity is in line
+    with how the computational, in either case, it would affect all languages'
+    neutral word-forms in similar manner and retain their relative orderings in
+terms of complexity.} and its plural, \emph{cats} has two morphs.  Another
+factor of morphological complexity that is important is the variation that
+creates a set of related morphs, which are encoded in an abstraction called
+\emph{morpheme}, for example, the words \emph{runs}, and \emph{catches}, have
+suffix morphs \emph{-s}, and \emph{-es}, which could be grouped together. This
+variation can be realised in terms of the number of \emph{morphemes} per
+language or \emph{morphs-per-morpheme}. Since computational language model,
+especially one for spell-checking, needs to predict all correct word-forms,
+both the number of potential word-forms created by morph chains and the amount
+of variation within these morphs are good values to estimate the size and
 computational complexity of the language model for such prediction task.
 
 These measures lend themselves nicely to a view of spell\-/checking
@@ -502,18 +506,19 @@ able to reach satisfying results, and other approaches are in fact necessary.
 
 One, perhaps the most important form of morphological complexity relevant to
 the topic of this thesis, and one that is often ignored, is the rate of
-productive derivation and compounding that forms recurring structures capable
-of generating infinitely long words. For a language where these processes are
-common, spell\-/checking needs---at least to some extent---to support an
-infinite dictionary to be useful. Surprisingly many of both existing systems,
-and those described in recent research, e.g.
-in~\cite{hassan2008language,watson2003new}, simply do not acknowledge the need.
-Some are glossing over the fact as a possible extension to the system, some
-ignoring it altogether but usually without any example of an implementation and
-evaluating strictly based on English or a few other popular Indo-European
-languages with similar features. The fact that for many languages only
-way to have language models with reasonable coverage is a system which predicts
-infinite amounts of compound and derivation combinations is noteworthy.
+productive derivation and compounding that produces new ad hoc words and
+word-forms that are difficult to predict using finite word lists.  For a
+language where these processes are common, spell\-/checking greatly benefits
+from a dictionary capable of predicting a large number of words not seen
+before. Surprisingly many of both existing systems, and those described in
+recent research, e.g.  in~\cite{hassan2008language,watson2003new}, simply do
+not acknowledge the need.  Some are glossing over the fact as a possible
+extension to the system, some ignoring it altogether but usually without any
+example of an implementation and evaluating strictly based on English or a few
+other popular Indo-European languages with similar features. The fact that for
+many languages only way to have language models with reasonable coverage is a
+system which predicts infinite amounts of compound and derivation combinations
+is noteworthy.
 
 To illustrate the practical issues with morphologically complex languages we
 use the \emph{de facto} open-source spell\-/checking system, Hunspell. Of the
@@ -525,8 +530,7 @@ affix sets, of which Hunspell supports up to 65,000 (the exact number supported
 may vary a bit in versions, but it seems to be less than 65,535, which
 would have been expected for two-byte coding of suffix flags that was
 used in the system). On a more
-positive note, the compounding part of infinite word-lists is supported by
-Hunspell.
+positive note, the compounding part is supported by Hunspell.
 
 As a concrete example of limitations with e.g. Hunspell, for Finnish there has
 been at least one failed attempt to build a spelling-checker using Hunspell
@@ -559,14 +563,29 @@ the memory of the computer, whatever may be the method of encoding it or
 compressing it; this is easily measurable and a very important factor for any
 practical application.  For example for a word-list approach, even an
 uncompressed the word-list of a million words with average word length of $N$
-is just $N$ megabytes, storing the list in finite\-/state automaton, suffix trie
-or hash, considerably less. With derivation and compounding the memory
-requirements tend to go up rapidly, so there is a practical correlation measure
-between the complexity of the language defined in theoretical terms earlier; in
-a worst case scenario this is obviously a limiting factor, e.g. some versions
-of my Greenlandic experiment took up almost 3 gigabytes of memory, which is
-clearly unacceptable for a spelling checker in an average 2013 end-user
-computer system.
+is just $N$ megabytes, storing the list in finite\-/state automaton, suffix
+trie or hash, considerably less. While even most word-list based software do
+store the data in one of the more advanced data structures, it is the
+limitations of hunspell like affix limit, that will force major parts of
+word-form lists to be included in inefficient format on disk, and it will
+greatly hinder the speed of hunspell operation in practive. With derivation and
+compounding the memory requirements tend to go up rapidly, even with
+finite-state approaches, so there is a practical correlation measure between
+the complexity of the language defined in theoretical terms earlier; in a worst
+case scenario this is obviously a limiting factor, e.g. some versions of my
+Greenlandic experiment with finite-state auotmata took up almost 3 gigabytes of
+memory, which is clearly unacceptable for a spelling checker in an average 2013
+end-user computer system.
+
+\subsection{On Infinity of Lexicon}
+\label{subsec:infinity}
+
+While I've tried my best to avoid highly volatile debated aspects of
+morphological complexity, there is one that is the central differentiating
+factor between the finite-state approaches and word-list approaches to
+language I cannot avoid, and that is the expression power capable of
+predicting infinite amount of word-forms.  is mentioned numerous times in the
+articles of the thesis, that is, the expressive power of cyclic automata that
 
 \section{Finite-State Technology in Natural Language Processing}
 \label{sec:finite-state-technology-in-nlp}
@@ -1557,7 +1576,7 @@ require months of development time.
 
 \begin{table}
     \centering
-    \begin{scriptsize}
+    \begin{small}
 \begin{tabular}{|l|r|r||r|r||r|r|}
 \hline
 \bf Language & \bf Speed (words/sec) & \bf Apert. comp. & \bf HFST comp. & \bf Apert. lookup & \bf HFST lookup \\
@@ -1567,7 +1586,7 @@ Norwegian    &  9,200  & 6.6 s  & 200.2 s  & 2.4 s  & 5.5  s \\
 Manx         &  4,700  & 0.8 s  & 11.2  s  & 1.6 s  & 2.2  s \\
 \hline
 \end{tabular}
-\end{scriptsize}
+\end{small}
   \caption{Efficiency of spelling correction in artificial test setup, average 
   over three runs. Speed of HFST-based system against original in compilation
   and speed of HFST-based system against original in corpus analysis (as
@@ -1635,25 +1654,33 @@ This is a very unuseful approach in the crowd-sourcing world of today, and it
 could surely be alleviated by simple improvements to formalisms and practices.
 In this branch of my research I argue for building more crowd-sourceable
 systems, in the form of linguistically motivated data that is understandable
-for anyone fluent in the language.
+for anyone fluent in the language. While producing easy access to some
+low-hanging fruits in dictionary building, the research of crowd-sourcing
+lexicography is still a new topic in science and very much a work in progress.
+
 
 Looking into the \textbf{related works}, I soon realised that I was not
 totally, though admittedly mostly, alone in my feeling that the finite\-/state
 and other computational language descriptions need a bit of thought to be
 maintainable and re-usable. The three notable computational linguists writing
 on the same topic that I came across immediately when researching the topic
-were~\citet{maxwell2008joint}, and~\citet{wintner2008strengths}. The common
-features of all our concerns include indeed the lack of abstraction, and
-therefore very application specific hacks---such as encoding optimisations of
-graph structure into the dictionary data as in~\citep{karttunen2006numbers}---in language descriptions that could
-ideally be very generic. This also leads me to suggest that some related works
-that are very under-used in the field of \emph{computational} linguistics are
-the basic schoolbook materials on computer science and software engineering:
-Knuth's pursuit on literate programming~\citep{knuth1984literate} for
-well-structured and documented programs---as that is what computational
-language models really are, rather than just data. And the whole
-object-oriented programming movement, for encapsulation, abstraction and
-management of the data for re-usability and other principled purposes.
+were~\citet{maxwell2008joint}, and~\citet{wintner2008strengths}. Similar
+concerns have been addressed in non-finite-state computational linguistics in
+the Grammatical Framework project, of which, e.g., the concept of smart
+paradigms~\citep{ranta2008predictable} was in part an inspiration for me to
+start thinking better systems for managing finite-state language descriptions.
+The common features of all our concerns include indeed the lack of abstraction,
+and therefore very application specific hacks---such as encoding optimisations
+of graph structure into the dictionary data as
+in~\citep{karttunen2006numbers}---in language descriptions that could ideally
+be very generic. This also leads me to suggest that some related works that are
+very under-used in the field of \emph{computational} linguistics are the basic
+schoolbook materials on computer science and software engineering: Knuth's
+pursuit on literate programming~\citep{knuth1984literate} for well-structured
+and documented programs---as that is what computational language models really
+are, rather than just data. And the whole object-oriented programming movement,
+for encapsulation, abstraction and management of the data for re-usability and
+other principled purposes.
 
 The main \textbf{results} of this paper are seen on the continuity of the
 Finnish language model and its relatively good amount of repurposing over the
@@ -1796,18 +1823,20 @@ established that Finnish as a morphologically complex language requires special
 statistical handling for its language models to be in the same ballpark as
 simpler statistical models for morphologically simpler languages.
 
-In \textbf{related works}, the compound segmentation problem has been
-researched for Swedish language by systematically selecting the word forms with
-fewest compound boundaries~\citep{karlsson1992swetwol}, and for German by using
-statistics of words~\citep{schiller2006german}. In the article we showed a
-generalisation to both approaches, where the statistics are learned from the
-surface word forms in running text, instead of a pre-analysed and disambiguated
-corpus and a manual selection routine.  Showing that this method worked built
-two important contributions to the language models of morphologically complex
-languages: firstly, the learning can be made from running unanalysed texts,
-which is crucial, because the lack of good materials for most of the
-lesser-resourced languages, and secondly, the application of basic statistical
-formulas to morphologically complex languages was an important generalisation.
+In \textbf{related works}, the first approaches to compound segmentation
+problem that have been used non-lexical, grapheme n-gram
+approaches~\cite{kokkinakis2008semantically} researched for Swedish language by
+systematically selecting the word forms with fewest compound
+boundaries~\citep{karlsson1992swetwol}, and for German by using statistics of
+words~\citep{schiller2006german}. In the article we showed a generalisation to
+both approaches, where the statistics are learned from the surface word forms
+in running text, instead of a pre-analysed and disambiguated corpus and a
+manual selection routine.  Showing that this method worked built two important
+contributions to the language models of morphologically complex languages:
+firstly, the learning can be made from running unanalysed texts, which is
+crucial, because the lack of good materials for most of the lesser-resourced
+languages, and secondly, the application of basic statistical formulas to
+morphologically complex languages was an important generalisation.
 
 The \textbf{results}, as stated in the motivation are that, the experiment
 framed in article was built on disambiguation of the compound boundaries,
@@ -1882,8 +1911,11 @@ any form. This is similar to some other languages, such as German and Swedish.
 There are some forms with a \emph{compositive} marker in compound forms that is
 not available in isolated surface forms, and there are a few of those in
 Finnish as well, e.g.\/ words ending in some `-nen' final derivation will
-compound with `-s' form not seen outside compounds in addition to some archaic
-compositives exist for a few words.  In languages like Greenlandic, compounding
+compound with `-s' form not seen outside compounds. In addition there
+are some archaic compositives exist for a few words and some typically 
+non-compounding cases are attested as well, this is, however, not a productive
+phenomenon and therefore handled in lexicon by making those rare forms a new
+entries in the dictionary.  In languages like Greenlandic, compounding
 does not heavily contribute to the complexity, but rather recurring inflection
 and derivation. The generalisation that might be needed is to train the
 language model based on \emph{morphs} instead of the uncompounded word forms.
@@ -2516,7 +2548,12 @@ research, where the language models of related systems do not have an influence
 on the asymptotic speed of the process and are thus considered uninteresting.
 Most of the studies are focused on measuring overall systems of single
 languages, such as Arabic~\citep{attia2013improved}, Indian
-languages~\citep{chaudhuri2002towards}, Hungarian~\citep{tron2005hunmorph} or
+languages~\citep{chaudhuri2002towards},\footnote{The wording ``Indian
+    language(s)'' is from the article, and while not a linguistically coherent
+    group, is commonly used in the field of Indian natural language engineering
+and e.g., in linguistic conferences such as COLING 2012, CICLING 2012 organised
+in India as name of topic focus. The specific examples in the article seem to
+be of Bangla.} Hungarian~\citep{tron2005hunmorph} or
 Spanish~\cite{otero2007contextual}, as well as all the research on
 English~\citep{mitton1987spelling}.
 
