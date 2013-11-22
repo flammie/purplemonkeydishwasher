@@ -35,6 +35,9 @@
 % long tables
 \usepackage{longtable}
 
+% articles in print version
+\usepackage{pdfpages}
+
 \newcommand\misspelt{\bgroup\markoverwith
 {\textcolor{red}{\lower3.5pt\hbox{\sixly \char58}}}\ULon}
 
@@ -200,7 +203,7 @@ publications are reproduced at the end of the print version of the thesis.
     \item[\citetalias{pirinen2009weighted}]
         Krister Lindén and Tommi Pirinen.
         \newblock Weighted finite-state morphological analysis of Finnish 
-        compounds.
+        compounding with HFST-LEXC.
         \newblock In \emph{Nodalida}, Odense, Denmark, 2009.
     \item[\citetalias{pirinen2009weighting}]
         Krister Lindén and Tommi Pirinen.
@@ -2802,7 +2805,44 @@ evaluation of the current approach shows that this is plausible.
 \bibliographystyle{apalike}
 \bibliography{diss,arts}
 
+\appendix
+\chapter{Appendices}
+\section{Copyrights of Introduction and Articles}
+\label{appendix:copyrights}
 
+This introduction is published under \emph{Creative Commons
+Attribution–NonCommercial-NoDerivs 3.0 Unported} licence, which can be found in
+Appendix~\ref{appendix:licence}. The articles that are included
+here in the print version, reproduced without changes from their originals are
+copyrighted property of their respective publishers. The viewers of electric
+version of the dissertation are instructed to visit my
+homepage\footnote{\url{http://www.helsinki.fi/\%7etapirine/publications}} or
+        search the articles using Google
+        Scholar.\footnote{\url{http://scholar.google.com}}
+
+\iftrue
+\section{Original Articles}
+\label{appendix:articles}
+
+\includepdfset{pagecommand={}}
+\includepdf[scale=0.9,pages=-]{pirinen2009weighted.pdf}
+\includepdf[scale=0.9,pages=-]{pirinen2009weighting.pdf}
+\includepdf[scale=0.9,pages={17-21}]{pirinen2010finitestate.pdf}
+\includepdf[scale=0.9,pages=-]{pirinen2010building.pdf}
+\includepdf[scale=0.9,pages=-]{pirinen2010creating.pdf}
+\includepdf[scale=0.9,pages=-]{pirinen2011modularisation.pdf}
+\includepdf[scale=0.9,pages=-]{pirinen2012compiling.pdf}
+\includepdf[scale=0.9,pages={13-21}]{pirinen2012effects.pdf}
+\includepdf[scale=0.9,pages=-]{pirinen2012improving.pdf}
+\includepdf[scale=0.9,pages=-]{pirinen2013quality.pdf}
+
+
+\fi
+
+\section{Licence}
+\label{appendix:licence}
+
+\input{cc-by-nc-nd-unported-3.tex}
 
 \end{document}
 % vim: set spell:
