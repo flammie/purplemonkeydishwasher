@@ -171,7 +171,8 @@ Trond Trosterud for co-operation in this project. And I also thank the Apertium
 project and contributors for another fine source of linguistic materials to
 turn into spell-checkers, and Francis Tyers for all his help with Apertium
 related issues, proofreading, and numerous fruitful discussions. Finally I
-would like to thank Don Killian for the latest proofreading and feedback.
+would like to thank Don Killian for the latest proofreading and feedback, and
+the two pre-examiners for their insightful and generous feedback and ideas.
 
 On a personal level I am thankful to my family, my friends at the university of
 Helsinki, especially those in student organisations like Aspekti and Hyrmy, and
@@ -443,33 +444,32 @@ of a word-form. A \emph{word-form}, for intents of this dissertation, is
 defined as a segment in text that is separated by whitespace symbols or other
 similar orthographic conventions. While from a linguistic point-of-view this
 definition is not without problems, it is one that a actual spell-checking
-software of today has to cope with. To give an example, in English `cat'
-is a word-form, as is `dogs', or `involuntarily'. The structure
-of a word-form is composed of one or more morphs. A \emph{morph} is a segment
-of word that has been defined by linguistic theories as a minimal unit carrying
-meaning, or more vaguely, purpose. In `cat' there is one morph, the
-root word meaning cat, in `dogs' there is another morph at the end:
-`s' morph marking plurality in English. In word `foxes', there
-is a plural morph `es'. Sometimes when describing morphology abstractions
-called morphemes are used to group similar morphs together, for example in
-English it could be said that plural morpheme is `(e)s', based on these
-examples.
+software of today has to cope with. In fact, many of spell-checkers today are
+restricted to handle words that some other software has decided are word-forms
+like this. To give an example, in English `cat' is a word-form, as is `dogs',
+or `involuntarily'. The structure of a word-form is composed of one or more
+morphs. A \emph{morph} is a segment of word that has been defined by linguistic
+theories as a minimal unit carrying meaning, or more vaguely, purpose. In `cat'
+there is one morph, the root word meaning cat, in `dogs' there is another morph
+at the end: `s' morph marking plurality in English. In word `foxes', there is a
+plural morph `es'. Sometimes when describing morphology abstractions called
+morphemes are used to group similar morphs together, for example in English it
+could be said that plural morpheme is `(e)s', based on these examples.
 
 One theme of the thesis was to bring effective and high-quality
 spell\-/checking and correction to languages that have a variety of
-morphological features. I will refer to this variety as complexity, even if
-this term is sometimes frowned upon with the belief that morphologically simple
-languages like English would be considered less valuable---which is not the
-case.  To substantiate this claim I will first try to define what I mean by
-morphological complexity.  The topic of this thesis is not typology nor
-morphological complexity, and I will take a rather practical view on the topic.
-This is a measure of complexity that affects the building and use of correct
-word-form recognisers in terms of computational and practical resources; there
-are only a few easily measurable factors in this playing field. In linguistics
-they have been studied starting from̃~\citep{greenberg1960qualitative} and up
-to recent times including the endeavour known as world atlas of linguistic
-structures~\citep{wals}.
-The
+morphological features. I will refer to this variety as \emph{morphological
+complexity}, even if this term is sometimes frowned upon with the belief that
+morphologically simple languages like English would be considered less
+valuable---which is not the case.  To substantiate this claim I will first try
+to define what I mean by morphological complexity.  The topic of this thesis is
+not typology nor morphological complexity, and I will take a rather practical
+view on the topic.  This is a measure of complexity that affects the building
+and use of correct word-form recognisers in terms of computational and
+practical resources; there are only a few easily measurable factors in this
+playing field. In linguistics they have been studied starting
+from̃~\citep{greenberg1960qualitative} and up to recent times including the
+endeavour known as world atlas of linguistic structures~\citep{wals}.  The
 morphological complexity of a computational language model is based on, e.g.,
 the complexity of the word forms in terms of \emph{morphs}.  This is measurable
 as the average count of morphs in the word or \emph{morph-to-word}
@@ -482,8 +482,8 @@ productive morph. For example, the English word \emph{cat} has one overt
 morph,\footnote{it is possible to consider the unmarked singular as being made
     of an empty morph as well, which would make the count two instead of one. I
     believe treating empty morphs as not counting towards complexity is in line
-    with how the computational, in either case, it would affect all languages'
-    neutral word-forms in similar manner and retain their relative orderings in
+with how the computational, in either case, it would affect all languages'
+neutral word-forms in similar manner and retain their relative orderings in
 terms of complexity.} and its plural, \emph{cats} has two morphs.  Another
 factor of morphological complexity that is important is the variation that
 creates a set of related morphs, which are encoded in an abstraction called
@@ -540,8 +540,7 @@ been at least one failed attempt to build a spelling-checker using Hunspell
 \citep{pitkanen2006hunspell}, whereas we know from the early days of the
 finite\-/state methods in computational linguistics that Finnish is
 implementable, in fact it has often been suggested that the initial
-presentation of automatic morphological analysis of Finnish in
-\citet{koskenniemi1983twolevel} is one of the main factors in the popularity of
+presentation of automatic morphological analysis of Finnish by~\citet{koskenniemi1983twolevel} is one of the main factors in the popularity of
 finite\-/state methods among many of the related languages. Many of the
 languages with similar morphological features however have been implemented
 also in the Hunspell formalism, indeed as even the name suggests, the formalism
@@ -564,31 +563,135 @@ measurement in the morphological complexity of languages in the context of
 computational applications. That is, the size of the dictionary when it is in
 the memory of the computer, whatever may be the method of encoding it or
 compressing it; this is easily measurable and a very important factor for any
-practical application.  For example for a word-list approach, even
-uncompressed the word-list of a million words with average word length of $N$
-is just $N$ megabytes, storing the list in finite\-/state automaton, suffix
-trie or hash, considerably less. While even most word-list based software do
-store the data in one of the more advanced data structures, it is the
-limitations of hunspell like affix limit, that will force major parts of
-word-form lists to be included in inefficient format on disk, and it will
-greatly hinder the speed of hunspell operation in practive. With derivation and
-compounding the memory requirements tend to go up rapidly, even with
-finite-state approaches, so there is a practical correlation measure between
-the complexity of the language defined in theoretical terms earlier; in a worst
-case scenario this is obviously a limiting factor, e.g. some versions of my
-Greenlandic experiment with finite-state auotmata took up almost 3 gigabytes of
-memory, which is clearly unacceptable for a spelling checker in an average 2013
-end-user computer system.
+practical application.  For example for a word-list approach, even uncompressed
+the word-list of a million words with average word length of $N$ is just $N$
+megabytes, storing the list in finite\-/state automaton, suffix trie or hash,
+considerably less. While even most word-list based software do store the data
+in one of the more advanced data structures, it is the limitations of hunspell
+such as the two-affix limit, that will force major parts of word-form lists to
+be included in inefficient format on disk, and it will greatly hinder the speed
+of hunspell operation in practise. With derivation and compounding the memory
+requirements tend to go up rapidly, even with finite-state approaches, so there
+is a practical correlation measure between the complexity of the language
+defined in theoretical terms earlier; in a worst case scenario this is
+obviously a limiting factor, e.g. some versions of my Greenlandic experiment
+with finite-state automata took up almost 3 gigabytes of memory, which is
+clearly unacceptable for a spelling checker in an average 2013 end-user
+computer system.
 
-\subsection{On Infinity of Lexicon}
+\subsection{On Infinity of Dictionary}
 \label{subsec:infinity}
 
 While I've tried my best to avoid highly volatile debated aspects of
 morphological complexity, there is one that is the central differentiating
 factor between the finite-state approaches and word-list approaches to
 language I cannot avoid, and that is the expression power capable of
-predicting infinite amount of word-forms.  is mentioned numerous times in the
-articles of the thesis, that is, the expressive power of cyclic automata that
+predicting infinite amount of word-forms. The fact that cyclic automata
+encode infinite lexicons is mentioned numerous times in the articles of the 
+thesis and few of them specifically deal with problems arising, I provide here
+some rationale for as to why we consider that infinity a necessary feature.
+
+Now, the concept of infinity in itself, as a abstraction is quite hard to grasp
+on many cases, especially if you have not studied mathematics of transfinite
+numbers. The basic example used in school mathematics is the set of numbers,
+for example, there is an infinite amount of non-negative integers $\mathbb{N}_+
+= 0, 1, 2, 3, \ldots$, and this is uncontested. Intuitively, it is also
+somewhat easy to grasp, for example, for any given number you can read out
+loud, there's always going to be larger numbers, which you can create by adding
+$1$ to it, or any other positive integer for that matter (but not $0$, adding
+zero will not make a larger number). Now, in Finnish language, numbers are
+written as compounds, that is, without spaces in between of the number words.
+For example, 3 is `kolme', 33 is `kolmekymmentäkolme', and 33333 is
+`kolmekymmentäkolmetuhattakolmesataakolmekymmentäkolme'. So, we have a mapping
+from non-negative integers to words that belong to a dictionary of the Finnish
+language, and we therefore have proven that the size of Finnish language
+dictionary is at least equal to the size of the non-negative number
+set.$\blacksquare$
+
+In practice, it is still debated, even when using the definition of words and
+word-forms that we must allow all space separated strings to be such, whether
+this infinity is really needed. The main argument here is that, even if there
+was a theoretical infinity of these words, we can encode certain finite subset
+of them, and always get a virtual 100\% coverage of all words that actual
+people use in real-world texts. And this is a very good argument, and one with
+which I wholly agree with. However, especially considering our number example,
+what is the subset of numbers we can select and be sure that no one will pick a
+number outside that set and write that as a word? Style guides will usually
+suggest something along the lines of writing words that have up to five
+compound parts. However, this is also an infinite set, since only the digits
+that are non-zero are read as numbers in Finnish, e.g.,
+3,000,000,000,000,000,000,003 is `kolmetriljardiakolme'. After that, we can
+probably trust non-malicious writers to stick with reasonably small number, say
+under one centillion, that is a number that has one, and six hundred zeroes
+after it.\footnote{Finnish uses long scale system where systemic large numerals
+are made of the latin prefix, \emph{mi}, \emph{bi}, \emph{tri}, \ldots,
+\emph{centi}, \ldots, and either \emph{-(i)llion} or \emph{-(i)lliard} suffix
+to it.} Even with these, quite reasonable limitations, the amount of common
+words to list gets quite large, and we haven't even touched the tricky topic
+that Finnish numeral compounds have case agreement in
+inflection~\citep{karttunen2006numbers}! This is one of the places where
+cyclic, infinite finite-state lexicons really show their power, in my opinion.
+If you encode these number words as finite-state network and allow compounds of
+up to five components, you need to create five copies of the network, making it
+five times the size all the numeral words as individual components need.
+However, if you make that network cyclic, allowing any amount of combinations
+of the number words, even infinite, the size of the network is almost exactly
+the same as the network that allows only one number word without
+compounding.\footnote{There is one arc added for the cycle, but if you consider
+Finnish specifically, also some constraints are needed to control inflection of
+compounds, these are detailed in~\citet{karttunen2006numbers}.}
+
+Numerals are not very interesting as a linguistic example, and maybe also a bit
+suspicious as it is easy to come up with new numbers. However, non-number word
+compounding is not very different in practice. We have a set of words, in
+Finnish that is all nominals, that can be compounded together, and we have to
+at least predict which combinations user might use. Speakers of language come
+up with new \emph{ad hoc} compounds every day, making good guesses or limits to
+this creativity would be potentially very difficult task. As a good
+experimental example, in my implementation of Finnish morphology,\footnote{Open
+Source Morphology of Finnish, \url{http://code.google.com/p/omorfi/}}, I have
+opted to encode all compounds that are attested as ``known'' compounds. If I
+pick up today the first article on Finnish news
+site,\footnote{\url{http://yle.fi/uutiset/miksi_keva_kokousti_kuusi_tuntia_en_kerro_vaikka_kuinka_tenttaat/6950229}},
+I still get on compound that has not been encoded as such, even after scraping
+large corpora like Wikipedia for compounds: ``toimitus+johtaja+sopimus'' (CEO's
+contract). The logic of trying to predict such forms is not very easy and
+statistics won't help either. We could again make some approximations to cover
+most of the expected cases, e.g. five total words and maybe encode some
+semantics. This is a good approach, however, it requires a lot of manual work
+and the resulting size of dictionary will be massive, including all
+combinations of five arbitrary nominals requires $\mathrm{nominals}^5$, where
+$nominals$ is the count of nominals in lexicon, and even as finite-state
+network this is 5 times the size of nominal network, or, indeed, nominal
+network with infinitely long compounds. So all in all, the decision to support
+infinitely long compounds is based on the fact that it does have better
+predictive powers and takes up less space, and is easier to implement in terms
+of work required. It is not maximally ideal for spelling correction, a problem
+we deal with later in this dissertation.
+
+One argument against the infinity of lexicon is that it is an artefact of
+writing system. And this I wholeheartedly agree with, the Finnish example even
+shows it explicitly. Considering agreeing inflection of numerals, we have
+inflection patterns like: ``kolme+sataa+kolme'' : ``kolme-lle+sada-lle+kolme-lle'' :
+``kolme-ksi+sada-ksi+kolme-ksi'', (303, singular nominative, allative and translative forms) it is not different from noun phrases of
+Finnish, written with space ``vihreä uni'' : ``vihreä-lle une-lle'' :
+``vihreä-ksi une-ksi'' (green dream, same forms as before), exactly same
+agreement feature and structure of word combinations, different written form.
+It would make sense to handle both cases the same way, and by extension,
+all morphology the same way regardless of writing system, which may or may
+not use whitespace and punctuation to delimit morphological units. This is also
+a feature I argue for in some of my articles included in this thesis as well.
+However, the fact stays that contemporary software does not let us work
+on units of text like that, and especially interfaces for spell-checking in
+popular real world software rely on spell-checking to be dealing with space
+and punctuation separated strings, it is something that cannot be changed
+during preparation of one doctoral dissertation, thus I am left with task of
+dealing with the problems that arise from infinite compounds and derivation
+that arise from the writing systems not using spaces or punctuation to
+separate morphological units. I have, for the most part, attempted to formulate
+the systems in a manner that will be usable if in the future we get systems
+and frameworks in place that let us handle texts as succession of linguistic
+units rather than chunks separated by whitespace. 
 
 \section{Finite-State Technology in Natural Language Processing}
 \label{sec:finite-state-technology-in-nlp}
@@ -2814,13 +2917,13 @@ This introduction is published under \emph{Creative Commons
 Attribution–NonCommercial-NoDerivs 3.0 Unported} licence, which can be found in
 Appendix~\ref{appendix:licence}. The articles that are included
 here in the print version, reproduced without changes from their originals are
-copyrighted property of their respective publishers. The viewers of electric
+copyrighted property of their respective publishers. The viewers of electronic
 version of the dissertation are instructed to visit my
 homepage\footnote{\url{http://www.helsinki.fi/\%7etapirine/publications}} or
         search the articles using Google
         Scholar.\footnote{\url{http://scholar.google.com}}
 
-\iftrue
+\iffalse
 \section{Original Articles}
 \label{appendix:articles}
 
