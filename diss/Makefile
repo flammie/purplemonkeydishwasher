@@ -4,6 +4,7 @@
 
 TEX=xelatex
 BIB=bibtex
+MAKEGLOSSARIES=makeglossaries
 HT2F=hfst-fst2txt
 
 DISS=Pirinen-2013-dissertation.pdf
@@ -19,6 +20,7 @@ presentations: $(PRESENTATIONS)
 $(DISS): Pirinen-2013-dissertation.tex diss.bib $(GRAPHIX)
 	$(TEX) $<
 	$(BIB) Pirinen-2013-dissertation
+	$(MAKEGLOSSARIES) Pirinen-2013-dissertation
 	$(TEX) $<
 	$(TEX) $<
 	$(TEX) $<
