@@ -10,6 +10,7 @@ HT2F=hfst-fst2txt
 DISS=Pirinen-2013-dissertation.pdf
 PRESENTATIONS=diss-seminar-2013-02-14.pdf
 GRAPHIX=edit1-ab-unw.pdf edit-weighted.pdf diss-structure-uml-ish.pdf
+LICENCES=cc-by-nc-nd-unported-3.tex cc-by-nc-nd-unported-3-deed.tex
 
 all: $(DISS)
 
@@ -17,7 +18,7 @@ presentations: $(PRESENTATIONS)
 
 # edit1-ab-unw.pdf edit-weighted.pdf
 
-$(DISS): Pirinen-2013-dissertation.tex diss.bib $(GRAPHIX)
+$(DISS): Pirinen-2013-dissertation.tex diss.bib $(LICENCES) $(GRAPHIX)
 	$(TEX) $<
 	$(BIB) Pirinen-2013-dissertation
 	$(MAKEGLOSSARIES) Pirinen-2013-dissertation

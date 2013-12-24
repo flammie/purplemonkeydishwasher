@@ -1,6 +1,10 @@
 \documentclass[officiallayout]{unihelcompling}
 %\documentclass[officiallayout,draft]{unihelcompling}
 
+\newif\ifprintversion
+\printversiontrue
+%\printversionfalse
+
 \usepackage{amssymb}
 
 % hacking citations
@@ -22,6 +26,7 @@
 \usepackage{hyperref}
 \usepackage[obeyDraft]{todonotes}
 
+\setcounter{tocdepth}{1}
 
 \usepackage{multirow}
 
@@ -49,9 +54,9 @@
 
 \setmainfont[Mapping=tex-text]{Liberation Serif}
 
-%\linespread{1.3} % 1.5 spacing for paper pub
+\linespread{1.3} % 1.5 spacing for paper pub
 %\linespread{1.6} % double-spacing for proofreader
-\linespread{2.1} % triple-spacing for proofreader
+%\linespread{2.1} % triple-spacing for proofreader
 
 \title{Weighted Finite-State Methods for 
     %\misspelt{
@@ -60,23 +65,23 @@ Spell-Checking
 and Correction
 %\footnote{Not a draft anymore}
 }
-\author{Tommi A \misspelt{Pirinen}}
+\author{Tommi A Pirinen}
 
 
 \authorcontact{\url{tommi.pirinen@helsinki.fi}\par
   \url{http://www.helsinki.fi/\%7etapirine}}
-\pubtime{August}{2013}
+\pubtime{February}{2014}
 \reportno{0}
 \isbnpaperback{978-952-10-9694-5}
 \isbnpdf{978-952-10-9695-2}
-\issn{0000-0000}
-\printhouse{Unigrafia}
+%\issn{0000-0000}
+%\printhouse{Unigrafia}
 \pubpages{98} % --- remember to update this!
 \supervisorlist{Krister Lindén, Helsingin yliopisto, Finland}
-\preexaminera{Prof. Mikel L. Forcada, Universitat d' Alacant, Spain}
+\preexaminera{Prof. Mikel L. Forcada, Universitat d'Alacant, Spain}
 \preexaminerb{Prof. Lars Borin, Göteborgs universitet, Sweden}
 \opponent{Prof. Lars Borin, Göteborgs universitet, Sweden}
-\custos{Prof. Arto Mustajoki, University of Helsinki, Finland}
+\custos{Prof. Arto Mustajoki, Helsingin yliopisto, Finland}
 \generalterms{thesis, finite-state, spell-checking, language model,
   morphology}
 \additionalkeywords{statistical language models, morphologically complex
@@ -104,8 +109,10 @@ Faculty of Arts at the University of Helsinki in ---, on the --- at ---.
 
 \begin{abstract} 
     \input{Pirinen-2013-dissertation-abstract.tex}
+    
+    %\newpage
 
-    \textbf{Abstrakti}\par
+    \textbf{Tiivistelmä}\par
 
     \textfinnish{
     \input{Pirinen-2013-dissertation-abstrakti.tex}
@@ -1071,6 +1078,9 @@ to work nicely; catching up with the quality and speed of the spell-checkers
 for languages like English. My articles, in chronological order are presented
 in an unnumbered Chapter \emph{Original Papers} on page~\pageref{chap:papers}.
 
+\subsection{Chronological Order}
+\label{subsec:chronological}
+
 The development shown in the articles is easy to follow in the
 \textbf{chronological order}, it almost tells its own story. In the beginning
 we have a Finnish morphological analyser \citep{pirinen2008suomen}, which
@@ -1111,6 +1121,9 @@ the finite\-/state language models (in the leftmost package) were
 conceptualised after the statistical weighting schemes of morphologically
 complex language (in the middle package) and the resulting combinations were
 evaluated on a larger scale (in the rightmost package).
+
+\subsection{Division of Labour}
+\label{subsec:division-of-labour}
 
 The \textbf{division of labour} within those articles, also quite naturally
 follows from the chronological development.
@@ -1158,6 +1171,9 @@ doubt that there is an abundance of minor ideas regarding engineering of the
 software, evaluation setup and article writeup that are the creation of
 collective brainstorming as well.
 
+\subsection{My Contributions}
+\label{subsec:contributions}
+
 \textbf{My contributions} to the co-authored articles can be broken down as
 follow: In article \citepalias{pirinen2009weighted}, I implemented a
 proof-of-concept version of finite-state lexicon compiler with weighting
@@ -1202,32 +1218,37 @@ log\footnote{\url{http://sourceforge.net/p/hfst/code/HEAD/tree/trunk/articles/}}
 and for newer articles also git
 commitlog.\footnote{\url{https://github.com/flammie/purplemonkeydishwasher}}
 
+\subsection{Research Questions}
+\label{subsec:questions}
+
 Another way to conceptualise the thesis is under the following \textbf{research
 questions}: How to implement reasonable statistical language models for
 finite\-/state spell\-/checking, how to implement a finite-state equivalent of
-state-of-the-art non-finite-state spell\-/checking, how to develop and maintain a
-language model for finite\-/state spell\-/checking, what is the quality of
-finite\-/state spell\-/checking compared with a string-algorithm approach, what is the
-speed of the finite\-/state spell\-/checking compared with other software
-based-approach, what are the limitations of the finite\-/state-based approaches
-compared with string-algorithm spell\-/checking---and doing all of this with
-morphologically complex languages that are lesser-resourced ones.
+state-of-the-art non-finite-state spell\-/checking, how to develop and maintain
+a language model for finite\-/state spell\-/checking, what is the quality of
+finite\-/state spell\-/checking compared with a string-algorithm approach, what
+is the speed of the finite\-/state spell\-/checking compared with other
+software based-approach, what are the limitations of the finite\-/state-based
+approaches compared with string-algorithm spell\-/checking---and doing all of
+this with morphologically complex languages that are lesser-resourced ones.
+
+\subsection{Chapter Structure}
 
 The rest of the thesis is \textbf{organised} by topic \textbf{into chapters} as
-follows: In Chapter̃~\ref{chap:background} I will attempt to summarise the whole prior
-research of spell\-/checking and correction, as well as describe the
+follows: In Chapter̃~\ref{chap:background} I will attempt to summarise the whole
+prior research of spell\-/checking and correction, as well as describe the
 development of the actual in-use spell-checkers to the best of my knowledge. I
 will then describe the previous research specifically on finite\-/state
 approaches to spell\-/checking, and describe the theory of finite\-/state
 spell\-/checking in terms of our specific implementation. The
 Chapters~\ref{chap:language-models}---\ref{chap:efficiency} contain the
-research papers of the thesis sorted under four headings that match the original
-goals of this thesis.  In Chapter~\ref{chap:language-models} I go through the
-existing spell\-/checking and other language models and their use as part of
-the spell\-/checking system, and introduce the finite\-/state point of view to
-the language models that initially were string-algorithm.
-In~\ref{chap:statistical-models} I describe some weighted finite\-/state methods
-to bring statistics to the language and error models.
+research papers of the thesis sorted under four headings that match the
+original goals of this thesis.  In Chapter~\ref{chap:language-models} I go
+through the existing spell\-/checking and other language models and their use
+as part of the spell\-/checking system, and introduce the finite\-/state point
+of view to the language models that initially were string-algorithm.
+In~\ref{chap:statistical-models} I describe some weighted finite\-/state
+methods to bring statistics to the language and error models.
 In~\ref{chap:error-models} I study the finite\-/state formulations of error
 modelling and contrast my implementations with the others that have been used.
 Finally, in~\ref{chap:efficiency}, I fully evaluate these systems on both speed
@@ -3261,37 +3282,55 @@ evaluation of the current approach shows that this is plausible.
 
 This introduction is published under \emph{Creative Commons
 Attribution–NonCommercial-NoDerivs 3.0 Unported} licence, which can be found in
-Appendix~\ref{appendix:licence}. The articles that are included
-here in the print version, reproduced without changes from their originals are
-copyrighted property of their respective publishers. The viewers of electronic
-version of the dissertation are instructed to visit my
+Appendix~\ref{appendix:licence}. 
+\ifprintversion
+The articles included
+in this print version, reproduced without changes from their originals are
+copyrighted property of their respective publishers.
+\else
+The viewers of this electronic
+version of the dissertation should obtain the articles refered from my
 homepage\footnote{\url{http://www.helsinki.fi/\%7etapirine/publications}} or
         search the articles using Google
         Scholar.\footnote{\url{http://scholar.google.com}}
+\fi
 
-\iffalse
 \section{Original Articles}
 \label{appendix:articles}
+
+\ifprintversion
+This print version contains original articles reproduced verbatim from print
+versions available from their respective publishers. Original copyrights apply.
 
 \includepdfset{pagecommand={}}
 \includepdf[scale=0.9,pages=-]{pirinen2009weighted.pdf}
 \includepdf[scale=0.9,pages=-]{pirinen2009weighting.pdf}
 \includepdf[scale=0.9,pages={17-21}]{pirinen2010finitestate.pdf}
-\includepdf[scale=0.9,pages=-]{pirinen2010building.pdf}
-\includepdf[scale=0.9,pages=-]{pirinen2010creating.pdf}
+\includepdf[scale=0.8,pages=-]{pirinen2010building.pdf}
+\includepdf[scale=0.8,pages=-]{pirinen2010creating.pdf}
 \includepdf[scale=0.9,pages=-]{pirinen2011modularisation.pdf}
-\includepdf[scale=0.9,pages=-]{pirinen2012compiling.pdf}
+\includepdf[scale=0.8,pages=-]{pirinen2012compiling.pdf}
 \includepdf[scale=0.9,pages={13-21}]{pirinen2012effects.pdf}
 \includepdf[scale=0.9,pages=-]{pirinen2012improving.pdf}
 \includepdf[scale=0.9,pages=-]{pirinen2013quality.pdf}
 
 
+\else
+This electronic publication does not contain reproductions of the original
+articles.
 \fi
 
 \section{Licence}
 \label{appendix:licence}
+\ifprintversion
+
+\input{cc-by-nc-nd-unported-3-deed.tex}
+
+\else
 
 \input{cc-by-nc-nd-unported-3.tex}
+
+\fi
 
 \end{document}
 % vim: set spell:
