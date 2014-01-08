@@ -94,8 +94,8 @@ A Report for the University of Helsinki Department of Modern Languages]
   \ifx\tktla@issn\@undefined\relax\else
     ISSN \tktla@issn\par
   \fi
-  \ifx\tktla@isgnpaperback\@undefined\relax\else
-    ISBN \tktla@isbnpaperback{} (paperback)\par
+  \ifx\tktla@isbnpaperback\@undefined\relax\else
+    ISBN \tktla@isbnpaperback{} (printed)\par
   \fi
   \ifx\tktla@isbnpdf\@undefined\relax\else
     ISBN \tktla@isbnpdf{} (PDF)\par

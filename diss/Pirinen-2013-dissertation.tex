@@ -1,4 +1,4 @@
-\documentclass[officiallayout]{unihelcompling}
+\documentclass[officiallayout,final]{unihelcompling}
 %\documentclass[officiallayout,draft]{unihelcompling}
 
 \newif\ifprintversion
@@ -54,7 +54,8 @@
 
 \setmainfont[Mapping=tex-text]{Liberation Serif}
 
-\linespread{1.3} % 1.5 spacing for paper pub
+% no linespread for print version because it's too expensive
+%\linespread{1.3} % 1.5 spacing for paper pub
 %\linespread{1.6} % double-spacing for proofreader
 %\linespread{2.1} % triple-spacing for proofreader
 
@@ -75,13 +76,17 @@ and Correction
 \isbnpaperback{978-952-10-9694-5}
 \isbnpdf{978-952-10-9695-2}
 %\issn{0000-0000}
-%\printhouse{Unigrafia}
-\pubpages{98} % --- remember to update this!
+\printhouse{Pica-Set}
+\ifprintversion
+\pubpages{196} % --- remember to update this!
+\else
+\pubpages{94}
+\fi
 \supervisorlist{Krister Lindén, Helsingin yliopisto, Finland}
 \preexaminera{Prof. Mikel L. Forcada, Universitat d'Alacant, Spain}
 \preexaminerb{Prof. Lars Borin, Göteborgs universitet, Sweden}
 \opponent{Prof. Lars Borin, Göteborgs universitet, Sweden}
-\custos{Prof. Arto Mustajoki, Helsingin yliopisto, Finland}
+\custos{Prof. Lauri Carlson, Helsingin yliopisto, Finland}
 \generalterms{thesis, finite-state, spell-checking, language model,
   morphology}
 \additionalkeywords{statistical language models, morphologically complex
@@ -94,7 +99,8 @@ languages}
 }
 \permissionnotice{
 Academic dissertation to be publicly discussed, by due permission of the
-Faculty of Arts at the University of Helsinki in ---, on the --- at ---.
+Faculty of Arts at the University of Helsinki in auditorium XII (in lecture
+room PIII), on the $28^{th}$ of February at 12 o'clock.
 }
 
 
@@ -1515,58 +1521,61 @@ search, or finite-state algebra with full expressive power of regular grammars.
 Other differences are in the implementation and efficiency of the
 spelling correction or error-tolerant search.
 
-\begin{table}
-    \centering
-    \begin{tabular}{|l|r|l|l|l|}
+\begin{longtable}{|l|r|l|l|}
         \hline
-        \bf Name & Year & Error Models & Language Models & Note \\
-(Authors) & & & & \\
+        \bf Name & Year & Error Models & Language Models \\
+(Authors)        &      &              & \\
         \hline
-        \multicolumn{5}{|c|}{\bf SPELL --- Unix --- FLOSS branch (*spell) }\\
+        \multicolumn{4}{|c|}{\bf SPELL --- Unix --- FLOSS branch (*spell) }\\
         \hline
-             SPELL, & 1971 & Edit-Distance 1* & Word-list, & Edit distance \\
-        \citep{gorin1971spell} &  & (ED 1) & English affixes & limited to \\
-                                  &  & &              & 2 first letters \\
-        ITS SPELL, & 1978 &  & Affix rules & full ED \\
-     (Bill Ackerman) & & & & \\
-        international ispell & 1988 & & & Non-English \\
-              (Geoff Kuenning) & & & & \\
+             SPELL,            & 1971 & ED1          & Word-list,    \\
+        \citep{gorin1971spell} &      & (for partial & English affixes \\
+                               &      &  word list)  &              \\
+        ITS SPELL,             & 1978 & ED1          & Affix rules \\
+     (Bill Ackerman)           &      & unrestricted &  \\
+        international ispell   & 1988 &              & Non-English \\
+              (Geoff Kuenning) &      &              & support \\
         \hline
-        kspell, & 1998 & Metaphone 1 & Affix rules & \\
-        GNU aspell & 2002 & Rule-weighted ED & Compounding & ED is avgd \\
-    (Kevin Atkins) & & & (dropped) & w/ soundslike \\
+        kspell,                & 1998 & Metaphone 1 & Affix rules \\
+        GNU aspell             & 2002 & Rule-weighted ED & Compounding \\
+    (Kevin Atkins)             &      & soundslike & (dropped)  \\
         \hline
-        myspell & 2000 & weighted ED & 2 affixes & OpenOffice 1 \\
+        myspell & 2000 & weighted ED & 2 affixes \\
         \hline
-        Hunspell & 2005 & weighted ED & 2 affixes & Configurable \\
-                 &      & Confusables & Compounds & edits \\
+        Hunspell & 2005 & weighted ED & 2 affixes  \\
+                 &      & Confusables & Compounds  \\
         \hline
-        \multicolumn{5}{|c|}{\bf Academic projects etc.} \\
+        \multicolumn{4}{|c|}{\bf Academic projects etc.} \\
         \hline
-        correct & 1991 & Prob. ED 1 & Prob. word-list & Reranker \\
-        \citep{church1991probability} & & & & \\
+        correct & 1991 & Probabilistic & Probalistic \\
+        \citep{church1991probability} & & ED & word-list \\
         \hline
-        bayspell  & 1995 & & & Bayesian \\
-        \citep{golding1995bayesian} & & & & \\
+        bayspell  & 1995 & Bayesian & Bayesian \\
+        \citep{golding1995bayesian} & & & \\
         \hline
-        WinSpell & 1999 & & & Winnow \\
-        \citep{golding1999winnow} & & & & \\
+        WinSpell & 1999 & & Winnow \\
+        \citep{golding1999winnow} & & & \\
         \hline
-        \multicolumn{5}{|c|}{\bf Finite-State} \\
+        \multicolumn{4}{|c|}{\bf Finite-State} \\
         \hline
-      \citep{oflazer1996errortolerant} & 1996 & ED & FSA & Fuzzy search\\
-\citep{agata2002typographical} & 2002 & ED & FSA & Automata algebra \\
-      \citep{schulz2002fast} & 2002 & ED & FSA & Levenshtein automata \\
-        \citep{mohri2003edit} & 2003 & ED & WFSA & Automata algebra \\
-    \citep{otero2007contextual} & 2007 & FSA & FSA & Contextual \\
-      \citep{hulden2009fast} & 2009 & FSA Eqv & FSA & A* search, context \\
-\citepalias{pirinen2010finitestate} & 2010 & WFSA & WFSA & Automata algebra \\
+      \citep{oflazer1996errortolerant} & 1996 & ED using & FSA \\
+                                       &      & error-tolerant & \\
+                                       &      & search & \\
+\citep{agata2002typographical} & 2002 & ED using & FSA \\
+                               &      & FSA algebra &  \\
+      \citep{schulz2002fast} & 2002 & ED using         & FSA  \\
+                             &      & pre-composed FSA & \\
+        \citep{mohri2003edit} & 2003 & ED using & WFSA \\
+                              &      & WFSA algebra &  \\
+    \citep{otero2007contextual} & 2007 & FSA & FSA  \\
+      \citep{hulden2009fast} & 2009 & FSA using & FSA \\
+                                &   & search algorithm & \\
+\citep{pirinen2010finitestate} & 2010 & WFSA & WFSA \\
         \hline
-    \end{tabular}
     \caption{History of spell-checker applications. Abbreviation ED stands for
     edit distance and (W)FSA for weighted finite-state automata
     \label{table:history-apps}}
-\end{table}
+\end{longtable}
 
 \section{Related Subfields and Research Results}
 \label{sec:related}
@@ -1868,6 +1877,8 @@ and \TeX\ Hyphenators as Finite-State Automata} by myself and Krister Lindén.
 In this article we present finite\-/state formulations of existing spell\-/checking
 language and error models.
 
+\subsection{Motivation}
+
 The \textbf{motivation} for this piece of engineering is far-reaching both on
 the technical and theoretical level. We set out to prove that the existing
 methods for spell\-/checking are truly a subset of the finite\-/state methods.
@@ -1878,6 +1889,8 @@ motivation for the work is that the chances for any new spell\-/checking system
 to survive are rather limited, unless it is capable of using the existing
 Hunspell dictionaries without major difficulties.
 
+\subsection{Related Works}
+
 In \textbf{related works}, there has, to my knowledge, only been, the following
 attempt to use Hunspell data as automata: a master's thesis project partially
 guided by Hunspell maintainers~\citep{greenfield2010open}.
@@ -1887,6 +1900,8 @@ guided by Hunspell maintainers~\citep{greenfield2010open}.
 The
 original Hunspell has been dealt with in an academic context 
 by~\citet{tron2005hunmorph}.
+
+\subsection{Results}
 
 There is a number of meaningful \textbf{results} in our article. It
 is a central part of the thesis in that it provides the empirical proof that
@@ -1983,10 +1998,6 @@ the existing spell\-/checking dictionary formalisms are insufficient to write a
 Hungarian dictionary efficiently. Similar systems were written for many of the
 more morphologically complex languages. 
 
-%For the language coverage in language
-%models however the compilation of e.g. Hunspell dictionaries here could be
-%read as a good evidence on more general applicability conversion.
-
 As the implementation framework for context restrictions and deletions for the
 Hunspell affix morphotactics we used twol rules~\citep{karttunen1992two}. Twol
 rules are a generic way of defining valid contexts of character pairs in a
@@ -2018,12 +2029,16 @@ this engineering oriented article we experiment with the existing language
 models used for machine translation as a part of the finite\-/state
 spell\-/checking system.
 
+\subsection{Motivation}
+
 The main \textbf{motivation} for doing this experiment was to see how well we
 can re-use the vast amounts of existing dictionaries from other projects as
 finite\-/state automata in completely unrelated language technology systems.
 This is especially interesting from my computer science background, since
 the re-usability of code and data is something that I feel is lacking in
 computational linguistics even now in 2010s.
+
+\subsection{Related Works}
 
 As this experiment was built on an existing, partially finite\-/state-based
 system, the \textbf{related works} already consist of a specific algorithm for
@@ -2039,6 +2054,8 @@ short as a technical contribution. The simple generalisation here is notable
 however, as the computational side is based on a solid standardised XML
 format for dictionary representation and interchange, it makes it optimal
 for future experiments.
+
+\subsection{Results}
 
 The main \textbf{results} shown in the paper are the improvement on text
 processing time, which is in line with previous
@@ -2125,6 +2142,8 @@ morphological analyser} by myself. This short paper is mainly an opinion
 piece style article, but it is included here as it ties together the
 aspect of maintainable language models for spell\-/checking applications.
 
+\subsection{Motivation}
+
 One of the main \textbf{motivations} for writing this article was the
 realisation after some years of work on the finite\-/state language model
 compilation and harvesting different computational dictionaries and
@@ -2149,6 +2168,7 @@ for anyone fluent in the language. While producing easy access to some
 low-hanging fruits in dictionary building, the research of crowd-sourcing
 lexicography is still a new topic in science and very much a work in progress.
 
+\subsection{Related Works}
 
 Looking into the \textbf{related works}, I soon realised that I was not
 totally, though admittedly mostly, alone in my feeling that the finite\-/state
@@ -2172,6 +2192,8 @@ and documented programs---as that is what computational language models really
 are, rather than just data. And the whole object-oriented programming movement,
 for encapsulation, abstraction and management of the data for re-usability and
 other principled purposes.
+
+\subsection{Results}
 
 The main \textbf{results} of this paper are seen on the continuity of the
 Finnish language model and its relatively good amount of repurposing over the
@@ -2307,12 +2329,16 @@ Finnish Inflection and Compounding} \citepalias{pirinen2009weighted} by Krister
 Lindén and myself, introduced the statistical models of a morphologically
 complex language with an infinite lexicon.
 
+\subsection{Motivation}
+
 The original \textbf{motivation} for this research was to implement the
 compound segmentation for Finnish given the ambiguous compounding of the
 previous implementation~\citep{pirinen2008suomen}. In the article we
 established that Finnish as a morphologically complex language requires special
 statistical handling for its language models to be in the same ballpark as
 simpler statistical models for morphologically simpler languages.
+
+\subsection{Related Works}
 
 In \textbf{related works}, the first approaches to compound segmentation
 problem that have been used are non-lexical, grapheme n-gram
@@ -2328,6 +2354,8 @@ firstly, the learning can be made from running unanalysed texts, which is
 crucial, because the lack of good materials for most of the lesser-resourced
 languages, and secondly, the application of basic statistical formulas to
 morphologically complex languages was an important generalisation.
+
+\subsection{Results}
 
 The \textbf{results}, as stated in the motivation are that, the experiment
 framed in article was built on disambiguation of the compound boundaries,
@@ -2357,6 +2385,8 @@ using HFST tools} by Krister Lindén and myself. In this article we set out
 to provide a generic formulation of statistical training of finite\-/state
 language models regardless of complexity.
 
+\subsection{Motivation}
+
 The \textbf{motivation} of this piece of research was to streamline and generalise
 the process of creation of the statistical finite\-/state language models, as the
 experiment in the previous article \citepalias{pirinen2009weighted} was built
@@ -2364,6 +2394,8 @@ in a very \emph{ad hoc} manner. The intention of the new method for training the
 language models is to get all the existing language models trainable regardless
 of how they are built; this makes the process of training a language model very
 similar to what it has been in all non-finite\-/state software to date.
+
+\subsection{Related Works}
 
 In \textbf{related works} there is the whole field of literature of statistical
 language models per se. The concept of having good language model and using
@@ -2374,6 +2406,8 @@ forth.  The existing work on training infinite dictionaries is more rare, as it
 is not needed for English. For German this is dealt with
 by~\citet{schiller2006german}, who also uses finite\-/state technology in its
 implementation.
+
+\subsection{Results}
 
 As an initial \textbf{result} in the article, I replicated the earlier compound
 segmentation task from~\citepalias{pirinen2009weighted}, to show that the generalised formula works.
@@ -2426,6 +2460,8 @@ weighted versions of finite\-/state Hunspell automata. This is also the main
 article introducing the weighted finite\-/state spell\-/checking for the first time
 on a larger scale.
 
+\subsection{Motivation}
+
 The main \textbf{motivation} for this experiment was to work on extending the
 previously verified results for weighting finite\-/state language models to newly
 created formulations of Hunspell language models as finite\-/state automata. The
@@ -2433,10 +2469,14 @@ functionality of this approach could be counted as further motivation for
 moving from a Hunspell's non-finite-state approach to weighted finite\-/state automata with
 the added expressive powers and efficiency.
 
+\subsection{Related Works}
+
 In \textbf{related works} describing probabilistic or otherwise preferential
 language models for spell\-/checking, the main source for current version of 
 context-insensitive spelling correction using statistical models comes
 from~\citet{church1991probability}.
+
+\subsection{Results}
 
 The main \textbf{results} in the article were measured from a large range of
 Hunspell languages for precision, showing improvement of quality across the
@@ -2467,6 +2507,8 @@ North Saami for the first time to show the limitedness of freely-available
 open-source language resources for spell-checking for a real lesser-resourced
 non-national language.
 
+\subsection{Motivation}
+
 The \textbf{motivation} for this article was to write a publication that
 explicitly explores the difficulties that morphologically complex and
 lesser-resourced languages face when trying to pursue statistical language
@@ -2476,6 +2518,8 @@ kind of solution for all problems ignoring the scarcity of resources on the
 other hand and the much higher requirement of unannotated resources for
 morphologically complex languages on the other.
 
+\subsection{Related Works}
+
 In \textbf{related works}, the concept of lesser-resourced languages in
 computational linguistics has come into focus in recent years. Particularly I
 followed Anssi Yli-Jyrä's recent work on African
@@ -2484,6 +2528,8 @@ of the Speech and Language Technology for Minority Languages workshop, where I
 presented this paper.  The concept of using Wikipedia as a basis for a
 statistical language model was likewise a new common theme in the LREC
 conferences.
+
+\subsection{Results}
 
 The most central \textbf{results} of this work show that the Wikipedias for
 small language communities will give some gains in spelling correction, when
@@ -2672,6 +2718,8 @@ In this article We have formulated the Hunspell's string-algorithm algorithms fo
 error correction and their specific optimisation tricks in terms of
 finite\-/state automata.
 
+\subsection{Motivation}
+
 The main \textbf{motivation} for this research was to reimplement Hunspell's
 spell\-/checking in a finite\-/state form. In terms of the  error modelling it
 basically consists of modifications of edit distance for speed gains. 
@@ -2680,6 +2728,8 @@ into account when considering the replacement type of errors. Another addition
 is to sort and limit the alphabet used for other error types. Finally Hunspell
 allows the writer of the spell\-/checking dictionary to define specific
 string-to-string mutations for common errors.
+
+\subsection{Results}
 
 The finite\-/state formulation of these errors is a combination of limitations
 and modifications to the edit distance automaton, disjuncted with a simple
@@ -2732,12 +2782,16 @@ with part of speech \(n\)-grams} by myself, Miikka Silfverberg, and Krister
 Lindén. In this article I have made an attempt to cover spelling correction
 of morphologically complexer languages with finite\-/state technology.
 
+\subsection{Motivation}
+
 The \textbf{motivation} for this article was to show that a finite\-/state
 version of spell\-/checking is also usable for a context-aware form, and
 secondarily to explore the limitations and required changes for the
 context-based language models that are needed for more morphologically complex
 languages to get similar results as are attained with simple statistical
 context models for morphologically poor languages.
+
+\subsection{Related Works}
 
 The \textbf{related works} include the well-known results on English for the
 same task implemented in non-finite-state approaches.  In general, the baseline of the
@@ -2754,6 +2808,8 @@ also the part-of-speech analyses to rank the suggestion lists for a
 spell-checker. In my article~\citepalias{pirinen2012improving} we reimplemented
 a finite\-/state system very similar to the one used for Spanish, originally
 unaware of these parallel results.
+
+\subsection{Results}
 
 \textbf{Results}---given in Table~\ref{table:repro-2012-cicling} reproduced
 from \citepalias{pirinen2012improving}---show that the regular \(n\)-grams, which
@@ -2928,6 +2984,8 @@ this article we set out to prove that finite\-/state spell\-/checking is an
 efficient solution and document how builders of the spellers can tune the
 parameters of their models.
 
+\subsection{Motivation}
+
 The \textbf{motivation} for the article was practical, in discussions with
 people building alternative spelling checkers, as well as with alpha testers of
 our more complex spell-checkers it was commonly noted that the speed might be
@@ -2950,6 +3008,8 @@ by~\citet{silfverberg2009hfst}. The central evaluation and optimisation was
 therefore performed on the error correction part which varies both with the
 language model and the error model selected.
 
+\subsection{Related Works}
+
 In the article we study different \textbf{related} optimisation schemes from
 non-finite\-/state spell\-/checking and evaluate the how different error models and
 parameters affect the speed of finite\-/state the spell\-/checking. We also ran the
@@ -2963,7 +3023,9 @@ related to problems with the finite\-/state formulation of the error models (i.e
 the generated duplicate correction paths in the edit distance models larger
 than 1 edits long, and limitation of result set size during traversal).
 
-The results of the evaluation---reproduced in
+\subsection{Results}
+
+The \textbf{results} of the evaluation---reproduced in
 Table~\ref{table:fsmnlp-2012-repro} from the
 article~\citepalias{pirinen2012effects}---are enlightening. Basically the main
 finding of the article is that the disallowing of the change of initial letter
@@ -3034,6 +3096,8 @@ evaluation of all the language and error models and testing approaches we have
 developed in the past years of research and compare them with the existing
 results on real systems.
 
+\subsection{Motivation}
+
 The \textbf{motivation} for this article was to perform a larger survey of all
 the finite\-/state spelling methods that have been implemented in my thesis
 project. In the paper I aim to show that the current state-of-the-art for
@@ -3045,6 +3109,8 @@ models. In order for these optimisations to be usable for end-users I needed to
 show that the quality degradation caused by the optimisation schemes that
 remove a part of the search space is not disproportionately big for the error
 models that are effective enough to be used in the real world systems.
+
+\subsection{Results}
 
 When measuring the quality of spelling error correction, the basic finding is
 that the simple edit-distance measure at length one will usually cover the
@@ -3287,12 +3353,6 @@ Appendix~\ref{appendix:licence}.
 The articles included
 in this print version, reproduced without changes from their originals are
 copyrighted property of their respective publishers.
-\else
-The viewers of this electronic
-version of the dissertation should obtain the articles refered from my
-homepage\footnote{\url{http://www.helsinki.fi/\%7etapirine/publications}} or
-        search the articles using Google
-        Scholar.\footnote{\url{http://scholar.google.com}}
 \fi
 
 \section{Original Articles}
@@ -3317,7 +3377,11 @@ versions available from their respective publishers. Original copyrights apply.
 
 \else
 This electronic publication does not contain reproductions of the original
-articles.
+articles. The viewers of this electronic
+version of the dissertation should obtain the articles refered from my
+homepage\footnote{\url{http://www.helsinki.fi/\%7etapirine/publications}} or
+        search the articles using Google
+        Scholar.\footnote{\url{http://scholar.google.com}}
 \fi
 
 \section{Licence}
