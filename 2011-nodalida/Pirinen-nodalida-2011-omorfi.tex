@@ -1,15 +1,14 @@
-\documentclass[11pt]{article}
-\usepackage{eacl2009}
-\usepackage{times}
+\documentclass[postprint]{flammie}
 \usepackage{url}
 \usepackage{latexsym}
-\usepackage{xltxtra}
 
 %\setlength\titlebox{6.5cm}    % You can expand the title box if you
 % really have to
 
 \title{Modularisation of Finnish Finite-State Language Description---Towards
-Wide Collaboration in Open Source Development of Morphological Analyser}
+Wide Collaboration in Open Source Development of Morphological 
+Analyser\footnotepubrights{Published originally in Nodalida 2011 in Rīga.
+Official version may be at \url{http://dspace.utlib.ee/dspace/handle/10062/16955}.}}
 
 %\author{Tommi A Pirinen\\
 %  University of Helsinki\\
@@ -59,7 +58,7 @@ In this paper we describe a new implementation of the Finnish language
 description called omorfi\footnote{http://home.gna.org/omorfi}, made to support
 large variety of NLP applications and different audiences.  While the
 background theory for implementing finite-state description of Finnish was laid
-out already in \newcite{koskenniemi/1983}, and morphophonological system
+out already in \cite{koskenniemi/1983}, and morphophonological system
 doesn't have significant changes, the actual system was rewritten from the
 scratch. The rewriting was originally done by single linguist as usual, in a
 master's thesis project~\cite{pirinen/2008}, but afterwards it has been
@@ -72,7 +71,7 @@ finite-state analysers.
 
 The projects that have used and use omorfi as language description include
 spell checking and correction~\cite{pirinen/2010/lrec}, lemmatizing for IR
-applications (e.g.~\newcite{kurola/2010}), named entity recognition, rule-based
+applications (e.g.~\cite{kurola/2010}), named entity recognition, rule-based
 machine translation (e.g. Finnish---Northern
 Sámi\footnote{\url{http://apertium.svn.sourceforge.net/viewvc/apertium/incubator/apertium-sme-fin/}})
 and syntactic disambiguation and analysis. The demands for even the basic
@@ -101,9 +100,9 @@ as much as possible.
 The modularisation scheme we ended up with in finite-state description of
 Finnish has grown organically around rather standard description of
 finite-state morphology not significantly different from the work of
-\newcite{koskenniemi/1983}. The further developments of modularisation more or
+\cite{koskenniemi/1983}. The further developments of modularisation more or
 less have followed from development of finite-state technology along years
-from initial implementation of omorfi at publication of \newcite{pirinen/2008}
+from initial implementation of omorfi at publication of \cite{pirinen/2008}
 to its current open source community developed version.
 
 In figure~\ref{fig:modules} we give a hierarchical list of abstract
@@ -171,7 +170,7 @@ system\footnote{\url{http://home.gna.org/omorfi/}}. The system
 implementation is harnessing the autotools framework and unix style tools of
 HFST to incrementally build the finite-state automata using finite-state
 algebra, such as composition to extend them, originally noted even in
-\newcite{beesley/2003}. The crucial thing for this modular approach is that it
+\cite{beesley/2003}. The crucial thing for this modular approach is that it
 can be applied incrementally, each module can be replaced or disabled entirely
 at needs of end application, and with autotools framework all this
 can be performed by simple command-line switch to \verb|./configure|.
@@ -214,7 +213,7 @@ produce lexical automaton. This is compose-intersected with morphophonology
 descriptions to produce the analyser already; as these parts rarely need
 changes beyond bug-fixes and are unlikely to benefit from open source
 cooperation beyond initial linguist work, they are still in same form as
-traditional finite-state morphology by \newcite{beesley/2003}, even if it was
+traditional finite-state morphology by \cite{beesley/2003}, even if it was
 deemed monolithic and fragile for such collaboration.
 
 \subsection{Analysis Formats and Sets}
@@ -296,7 +295,7 @@ What we did not address here is the easy way of coupling up-to-date
 documentation with our modularised language description. The next step to
 research is to see into integrating the notion of literate programming in this
 framework. This topic has already been widely researched by
-\newcite{maxwell/2008}, specifically in case of finite-state language
+\cite{maxwell/2008}, specifically in case of finite-state language
 descriptions.
 
 %\section*{Acknowledgements}

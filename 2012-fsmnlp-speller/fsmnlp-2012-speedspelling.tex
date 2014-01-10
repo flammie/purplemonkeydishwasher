@@ -1,22 +1,15 @@
-\documentclass[11pt]{article}
+\documentclass[free]{flammie}
 
-\usepackage{times}
 \usepackage{latexsym}
 \usepackage{amsmath}
 \usepackage{multirow}
-\usepackage{hyperref}
-\usepackage{url}
 \usepackage{algpseudocode}
 \DeclareMathOperator*{\argmax}{arg\,max}
 
-\usepackage{ifpdf}
-
-\ifpdf
-\pdfinfo{}
-\fi
-
 \title{Effect~of~Language~and~Error~Models on Efficiency~of~Finite-State
-Spell-Checking~and~Correction*}
+Spell-Checking~and~Correction\footnotepubrights{Originally published in
+FSMNLP 2012 in Donostia. Official version available from ACL anthology:
+\url{http://aclweb.org/anthology//sigfsm.html}}}
 
 \author{
 Tommi A Pirinen\\
@@ -31,7 +24,7 @@ FI-00014 Univ. of Helsinki, PO box 24\\
 {\tt sam.hardwick@helsinki.fi} \\
 }
 
-\date{\today (draft)}
+\date{Last modified: \today}
 
 \begin{document}
 
@@ -56,8 +49,7 @@ complexity, is a difficult task for non-finite-state approaches.
 \section{Introduction}
 \label{sec:introduction}
 
-\footnote{This is author's pre-print draft and it may differ from the final
-publication.} In most applications of spell-checking, efficiency is a limiting
+In most applications of spell-checking, efficiency is a limiting
 factor for selecting or discarding spell-checking solutions. In the case of
 finite-state spell-checking it is known that finite-state language models can
 efficiently encode dictionaries of natural languages~\cite{beesley/2003}, even

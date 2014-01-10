@@ -1,32 +1,8 @@
-\documentclass[a4paper,conference]{IEEEtran}
+\documentclass[postprint]{flammie}
 
 
-\IEEEoverridecommandlockouts
-
-\ifCLASSINFOpdf
-% \usepackage[pdftex]{graphicx}
-% declare the path(s) where your graphic files are
-% \graphicspath{{../pdf/}{../jpeg/}}
-% and their extensions so you won't have to specify these with
-% every instance of \includegraphics
-% \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
-\else
-% or other class option (dvipsone, dvipdf, if not using dvips). graphicx
-% will default to the driver specified in the system graphics.cfg if no
-% driver is specified.
-% \usepackage[dvips]{graphicx}
-% declare the path(s) where your graphic files are
-% \graphicspath{{../eps/}}
-% and their extensions so you won't have to specify these with
-% every instance of \includegraphics
-% \DeclareGraphicsExtensions{.eps}
-\fi
-
-\usepackage{hyperref}
-\usepackage{url}
 \usepackage{algorithm}
 \usepackage{algorithmic}[2]
-\usepackage{fontenc}
 \usepackage{listings}
 \usepackage[cmex10]{amsmath}
 
@@ -35,16 +11,19 @@
 \begin{document}
 
 \title{Building and Using Existing Hunspell Dictionaries and \TeX\ Hyphenators
-  as Finite-State Automata}
+  as Finite-State Automata\footnotepubrights{The official publication was in
+  Computational Linguistics -- Applications 2010 in Wis\l a, Poland.
+  \url{https://fedcsis.org/2010/pg/395/305}.}}
 
-\author{\IEEEauthorblockN{Tommi A Pirinen, Krister Lind\'{e}n}
-  \IEEEauthorblockA{University of Helsinki,\\
+\author{Tommi A Pirinen \and Krister Lind\'{e}n\\
+  University of Helsinki,\\
     Department of Modern Languages\\
     Unionkatu 40, FI-00014 University of Helsinki, Finland\\
     Email: \{tommi.pirinen,krister.linden\}@helsinki.fi}
-}
 
-\IEEEspecialpapernotice{(Authors' pre-print draft version)}
+
+\date{Last modification: \today}
+
 % make the title area
 \maketitle
 
@@ -64,7 +43,7 @@
 \section{Introduction}
 \label{sec:introduction}
 
-\IEEEPARstart{C}{urrently} there is a wide range of different free open-source
+Currently there is a wide range of different free open-source
 solutions for spell-checking and hyphenation by computer. For
 hyphenation the ubiquitous solution is the original \TeX\ algorithm
 described in \cite{liang/1983}.  The most popular of the spelling

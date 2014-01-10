@@ -1,20 +1,14 @@
-<<<<<<< Makefile
 HLEXC=hfst-lexc
 HLEXC_FLAGS=-t
 HTWOLC=hfst-twolc
-=======
-HLEXC=/usr/local/bin/hfst-lexc-sfcm-2009
-HLEXC_FLAGS=-O multichar-parser-none -t
-HTWOLC=~mpsilfve/bin/hfst-twolc-static
->>>>>>> 1.10
 HTWOLC_FLAGS = --resolve --no-report
 HIC=hfst-compose-intersect
 CSV2HLEXC = python csv2lexc.py
 SAXON=saxon-xslt
 
-LATEX		= latex
+LATEX		= xelatex
 LATEXFLAGS	= 
-PDFLATEX	= pdflatex
+PDFLATEX	= xelatex
 PDFLATEXFLAGS	= 
 DVIPS		= dvips
 DVIPSFLAGS	= -Pps -Ptype1 
@@ -41,6 +35,8 @@ DOCSOURCES = hfst-sfcm.tex
 DOCTARGETS = hfst-sfcm.pdf hfst-sfcm.ps
 
 DISTBALLS = sfcm-2009-data.tar.bz2 sfcm-2009-article.tar.bz2
+
+Pirinen-sfcm-2009.pdf: Pirinen-sfcm-2009.tex
 
 all: docs bins dist
 

@@ -1,42 +1,38 @@
-\documentclass[10pt,a4paper]{article}
-\usepackage{lrec2006}
-\usepackage{url}
-\usepackage{times}
+\documentclass[free]{flammie}
 \usepackage{latexsym}
-\usepackage[small,bf]{caption}
-\usepackage{xltxtra}
-
-% lrec2006 seems borked so here's the margins again:
-\usepackage[margin=1.9cm,top=2.5cm]{geometry}
 
 %\setlength\titlebox{6.5cm}    % You can expand the title box if you
 % really have to
 
 \title{Compiling Apertium morphological dictionaries with HFST and using them
-in HFST applications}
+in HFST applications\footnotepubrights{This article was published in saltmil
+workshop in LREC 2011 in Malta. Original version 
+\url{http://ixa2.si.ehu.es/saltmil/}.}}
 
-\name{Tommi A Pirinen, Francis M. Tyers}
-\address{University of Helsinki,
+\author{Tommi A Pirinen, Francis M. Tyers\\
+University of Helsinki,
  Universitat d'Alacant\\
- FI-00014 University of Helsinki Finland,
- E-03071 Alacant Spain \\
+FI-00014 University of Helsinki Finland,
+E-03071 Alacant Spain \\
 \url{tommi.pirinen@helsinki.fi}, \url{ftyers@dlsi.ua.es}\\}
 
-\date{\today}
+\date{Last modifications: \today}
 
-\abstract{
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
 In this paper we aim to improve interoperability and re-usability of the
 morphological dictionaries of Apertium machine translation system by
 formulating a generic finite-state compilation formula that is implemented in
 HFST finite-state system to compile Apertium dictionaries into general purpose
 finite-state automata. We demonstrate the use of the resulting automaton in
 FST-based spell-checking system.\\
-\Keywords{finite-state, dictionary, spell-checking}
-}
+Keywords: finite-state, dictionary, spell-checking
+\end{abstract}
 
-\begin{document}
-
-\maketitleabstract
 
 \section{Introduction}
 
@@ -387,7 +383,7 @@ language technology tools.
 We thank the HFST and Apertium contributors for fruitful internet relayed chats,
 and the two anonymous reviewers for their helpful suggestions.
 
-\bibliographystyle{lrec2006}
+\bibliographystyle{unsrt}
 \bibliography{lrec2011}
 
 
