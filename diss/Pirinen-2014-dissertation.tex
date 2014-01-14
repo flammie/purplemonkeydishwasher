@@ -151,7 +151,7 @@ very obvious and motivating incentive for a doctoral dissertation. While the
 hard science behind the thesis is, in my opinion, delightfully simple, I
 believe the findings are interesting for anyone working in computational
 linguistics, or even natural language engineering, especially when it concerns
-languages different from English, in terms of thesis complexity, availability
+languages different from English, in terms of their complexity, availability
 of resources, and so on.
 
 The improvements on, and methods for, spell\-/checking and correction presented
@@ -176,7 +176,7 @@ On the academic level, there is an endless number of colleagues and
 acquaintances met in numerous conferences, workshops and other academic events
 throughout the world who have contributed to the thesis by giving ideas,
 challenging my theories and writing supporting or rivalling software and
-method., I am grateful to each and every one. What follows is a list of
+methods. I am grateful to each and everyone. What follows is a list of
 specific contributions I can recall at the moment, by no means an exhaustive
 list of thanks, and in no particular order.  The first obvious contribution for
 the whole thesis project comes from the research group and other colleagues at
@@ -389,18 +389,16 @@ project.\footnote{\url{http://svn.code.sf.net/p/hfst/code/trunk/articles/}}
     name={language model},
     description={is any software implementation or formal language capable of
         describing whether a given word form \emph{s} is correct in terms
-        of spell-checking or not. Furthermore it may contain additional
-        information of the word form, such as the probability of being correct
-        or linguistic information. This usage differs slightly from established
-        usage in natural language engineering, where the language model refers
-        to a statistical \(n\)-gram model, which is just one sub-class of
-    my usage}
+        of spell-checking or not. This usage differs slightly from
+        established usage in natural language engineering, where the language
+        model refers to a statistical \(n\)-gram model, which is just one
+        sub-class of my usage}
 }
 
 \newglossaryentry{error model}{
     name={error model},
     description={is any software implementation or formal language capable of
-        enumerating a sorted list a correctly spelled word-forms
+        enumerating a sorted list of correctly spelled word-forms
     given a potentially misspelled word-form}
 }
 
@@ -412,8 +410,8 @@ project.\footnote{\url{http://svn.code.sf.net/p/hfst/code/trunk/articles/}}
 
 \newglossaryentry{morphological complexity}{
     name={morphological complexity},
-    description={is used in this dissertation in very limited sense of
-        complexity of a language, that is relevant to spell-checking and
+    description={is used in this dissertation in a very limited sense of
+        complexity of a language that is relevant to spell-checking and
         correction and manifested in terms of the number and predictability of
         word forms the
     language contains}
@@ -1016,7 +1014,7 @@ are mainly forced to work with the orthographic concept of space-separated
 tokens as word forms. Secondly, in finite-state structures it is typically more
 efficient to work with unbounded combinations.  Thirdly, the art of picking and
 choosing the finite good combinations of compound parts and derivations is
-lifetime's work in lexicography (cf. the Greenlandic lexicon's history
+a lifetime's work in lexicography (cf. the Greenlandic lexicon's history
 mentioned earlier in Footnote \ref{footnote:greenlandic}) to reach a sufficient
 coverage for a spell-checker.  For these reasons, and because it seemed
 sensible for my own work with my Finnish dictionary, I chose to investigate the
@@ -1024,7 +1022,7 @@ intriguing problematics of infinite lexicons in finite-state spell-checkers as
 one major part of my dissertation. I believe I have managed to formulate the
 research in a manner that will be sustainable even if the world of
 spell-checking and language technology change to support different definitions
-of word a and its parts.
+of a word and its parts.
 
 \section{Finite-State Technology in Natural Language Processing}
 \label{sec:finite-state-technology-in-nlp}
@@ -1533,9 +1531,23 @@ implementation and efficiency of the spelling correction or error-tolerant
 search.
 
 \begin{longtable}[ht]{|l|r|l|l|}
-        \hline
-        \bf Name & Year & Error Models & Language Models \\
+    \hline
+    \textbf{Name} & \textbf{Year} & \textbf{Error Models} & \textbf{Language Models} \\
 (Authors)        &      &              & \\
+    \hline
+    \hline
+    \endfirsthead
+    \multicolumn{4}{c}%
+{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+    \textbf{Name} & \textbf{Year} & \textbf{Error Models} & \textbf{Language Models} \\
+    \hline
+    \hline
+    \endhead
+
+    \multicolumn{4}{c}{{\bfseries Continued on next page}} \\
+\endfoot
+
+\endlastfoot
         \hline
         \multicolumn{4}{|c|}{\bf SPELL -- Unix -- FLOSS branch (*spell) }\\
         \hline
@@ -1755,7 +1767,7 @@ straight-forward, but relatively simple. For most things we calculate
     P(x) = \frac{f(x)}{\sum_{z \in \mathcal{D}} f(z)},
 \end{equation}
 
-where $x$ is the event, $f()$ is the frequency of the event, and
+\noindent where $x$ is the event, $f()$ is the frequency of the event, and
 \gls{collection} the collection of all events, so the probability of $x$ is
 counted as the proportion of the event $x$ in all events $z$ of
 \gls{collection}. For example, for a simple language model, $x$ could be a word
@@ -1800,7 +1812,7 @@ here the estimated probability for an event $x$ is seen as
     P(\hat{x}) = \frac{f(x) + \alpha}{\sum_{z \in \mathcal{D}}(f(z) + \alpha)}
 \end{equation}
 
-that is, each frequency is incremented by $\alpha$ and this mass
+\noindent that is, each frequency is incremented by $\alpha$ and this mass
 of increments is added to the divisor to keep the distribution in probabilistic
 bounds -- this has the effect that all unseen tokens are considered to have been
 seen $\alpha$ times and all others $\alpha$ more times than they have been seen
@@ -2739,10 +2751,10 @@ distance, as the application of an infinite edit measure is expectedly slow.
 \begin{figure}
     \includegraphics[width=\textwidth]{edit-weighted}
     \caption{A Weighted automaton for measuring arbitrary edit distance where
-        $\Sigma = {\mathrm{a}, \mathrm{b}, 0}$ and uniform weights of $1.00$ per
+        $\Sigma = {\mathrm{a}, \mathrm{b}, \varepsilon}$ and uniform weights of $1$ per
         edit. The states $q_1$ and $q_2$ are used as a memory for
         the swaps of \emph{ab} to \emph{ba} and \emph{ba} to \emph{ab} to
-        keep them at the weight of $1.00$. \label{fig:edit-weighted}}
+        keep them at the weight of $1$. \label{fig:edit-weighted}}
 \end{figure}
 
 \citet{mohri2003edit} describes the mathematical background of implementing a
@@ -2955,7 +2967,7 @@ is the same set of string pairs with weights of
     w(x:y) = -\log\frac{f(x:y) + \alpha}{\mathcal{D}_\mathrm{errors} + \alpha},
 \end{equation}
 
-where $x, y \subset \Sigma^\star$ are error string pairs $x:y$ in a collection
+\noindent where $x, y \subset \Sigma^\star$ are error string pairs $x:y$ in a collection
 of all errors $\mathcal{D}_\mathrm{errors}$.
 
 \section{Conclusions}
@@ -3347,11 +3359,11 @@ automatic spelling correction than before.\footnote{As a case in point, there
 systems, on the internet, see e.g., \url{http://www.damnyouautocorrect.com/}.}
 This point will slightly affect the considerations of the practical evaluations
 of the speed of spell\-/checking; new spelling correctors coupled with
-predictive entry methods need to be called for after each input event instead
+predictive entry methods need to be invoked after each input event instead
 of only when correction is required.
 
 On the engineering and software management side, one practical, even
-foreseeable, development would be to see these methods being adapted into use
+foreseeable, development would be to see these methods being adopted into use
 in real-world spell-checkers. The actual implementation has been done with the
 help of spell\-/checking systems like voikko, and enchant. The morphologically
 complex languages that are represented in my thesis lack basic language
@@ -3383,8 +3395,8 @@ such a system is the lack of error corpora with real-word spelling errors.
 As a theoretically interesting development, it would be nice to have formal
 proof that the finite\-/state spell\-/checking and correction models are a
 proper superset of the Hunspell spell\-/checking methods, as my quantitative
-evaluation and existing conversion algorithm of current implementation shows
-that this is plausible and even likely.
+evaluation and existing conversion algorithm for the current implementation
+shows that this is plausible and even likely.
 
 
 

@@ -30,8 +30,10 @@ $(DISS): Pirinen-2014-dissertation.tex diss.bib $(LICENCES) $(GRAPHIX)
 	dia -e $*.eps -t eps $<
 	epstopdf $*.eps
 
-%.pdf: %.tsv
+%.dot: %.tsv
 	hfst-txt2fst -f openfst $< | $(HT2F) -f dot -o $*.dot
+
+%.pdf: %.dot
 	dot -Tpdf $*.dot -o$@
 
 clean:
