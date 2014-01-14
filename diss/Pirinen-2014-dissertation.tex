@@ -398,8 +398,8 @@ project.\footnote{\url{http://svn.code.sf.net/p/hfst/code/trunk/articles/}}
 \newglossaryentry{error model}{
     name={error model},
     description={is any software implementation or formal language capable of
-        enumerating a sorted list of correctly spelled word-forms
-    given a potentially misspelled word-form}
+        enumerating a sorted list of correctly spelled word forms
+    given a potentially misspelled word form}
 }
 
 \newglossaryentry{morphology}{
@@ -451,8 +451,8 @@ project.\footnote{\url{http://svn.code.sf.net/p/hfst/code/trunk/articles/}}
     name={\ensuremath{\mathcal{D}}},
     description={is a collection of data, such as a set of word forms, morphs,
     typing errors. I use subscript indices to describe the collection.
-    E.g., $\mathcal{D}_\mathrm{word-forms}$ for all
-    word-forms in a text corpus, $\mathcal{D}_\mathrm{errors}$ for all typing
+    E.g., $\mathcal{D}_\mathrm{word forms}$ for all
+    word forms in a text corpus, $\mathcal{D}_\mathrm{errors}$ for all typing
     errors in an error corpus, $\mathcal{D}_\mathrm{morphs}$ for all morphs
     in a natural language},
     sort={zzzd}
@@ -466,13 +466,13 @@ project.\footnote{\url{http://svn.code.sf.net/p/hfst/code/trunk/articles/}}
 
 \newglossaryentry{grammar-checker}{
     name={grammar-checker},
-    description={is software capable of detecting grammar errors in word-forms
+    description={is software capable of detecting grammar errors in word forms
     and their combinations, and their relation to whole sentences}
 }
 
 \newglossaryentry{spell-checking}{
     name={spell-checking},
-    description={is the task of verifying that the word-forms of the text are 
+    description={is the task of verifying that the word forms of the text are 
         correctly
     written word forms in the language of the spell-checker. Spell-checker
     can, however, refer to software capable of both spell-checking and
@@ -645,7 +645,7 @@ for each of them can be quite freely mixed and matched.  While there are
 systems that use the same methods and approaches for both, this is not by any
 means a necessity. A practical system giving suggestions usually does not have
 access to the context of the word form it is correcting and to the criteria by
-which the word-form was chosen. These are relevant constraints in some of the
+which the word form was chosen. These are relevant constraints in some of the
 approaches I present in the thesis and for some of the concepts I present in
 this section.
 
@@ -657,7 +657,7 @@ Traditionally, the isolated error detection has been based on lookup from
 word form lists to check if the word form is valid. The only additional notion
 I have in terms of this thesis, talking about finite\-/state spell\-/checking,
 is that our \emph{dictionaries} are systems which are capable of representing an infinite
-number of word-forms, i.e., they contain not only the dictionary words, but
+number of word forms, i.e., they contain not only the dictionary words, but
 also the derivations and compounds necessary to reasonably spell-check a
 morphologically complex language. Sometimes, this spell\-/checking is backed up
 with statistical information about words: the words that are in a dictionary,
@@ -752,7 +752,7 @@ One theme of my thesis was to bring effective and high-quality spell\-/checking
 and correction to languages that are of varying \gls{morphological complexity}.
 To substantiate this claim I will first try to define what I mean by
 morphological complexity. There is a measure of complexity that affects the
-building and use of correct word-form recognisers in terms of computational and
+building and use of correct word form recognisers in terms of computational and
 practical resources, and there are only a few easily measurable factors in this
 playing field. In linguistics studies began
 with~\citet{greenberg1960quantitative} and continued up to the contemporary
@@ -767,8 +767,8 @@ practically used in the language description -- that is, a productive morph.
 Another factor of morphological complexity that is important is the variation
 that creates a set of related morphs. This variation can be realised in terms
 of the number of \emph{morphemes} per language or \emph{morphs-per-morpheme}.
-Since a spell-checker's main task is to predict all correct word-forms, both
-the number of potential word-forms created by morph chains and the amount of
+Since a spell-checker's main task is to predict all correct word forms, both
+the number of potential word forms created by morph chains and the amount of
 variation within these morphs are good indicators to estimate the computational
 complexity of that particular spell-checker.
 
@@ -785,7 +785,7 @@ able to reach satisfying results, and other approaches are in fact necessary.
 
 Perhaps the most important form of morphological complexity relevant to the
 topic of this thesis, and one that is often ignored, is the rate of productive
-derivation and compounding that produces new \emph{ad hoc} words and word-forms
+derivation and compounding that produces new \emph{ad hoc} words and word forms
 that are difficult to predict using finite word lists or even simple finite
 combinations of words and morphs pasted together.  For a language where these
 processes are common, spell\-/checking greatly benefits from a dictionary
@@ -888,7 +888,7 @@ language, and therefore the size of a Finnish language dictionary is at least
 equal to the size of the non-negative number set.
 
 In practice, this is still debated, even when using the definition of words and
-word-forms that only includes space-separated strings, whether this infinity is
+word forms that only includes space-separated strings, whether this infinity is
 really needed. The main argument here is that, even if there was a theoretical
 infinity of these words, we can encode a certain finite subset of them, and
 always get a virtual 100\% coverage of all words that actual people use in
@@ -1005,7 +1005,7 @@ from \emph{känny + irkki + -ata + -illa + -u}, literally mobile phone + IRC +
 suffix to verb nouns with + suffix marking frequent or habitual doing + suffix
 for making nouns from verbs). This example exhibited a noun neologism derived
 into a verb, derived into another verb derived into a noun.  This kind of
-creativity is not easily predicted by just concatenating word-forms or morphs.
+creativity is not easily predicted by just concatenating word forms or morphs.
 
 To summarise, I have opted to enable the possibility of infinite compounds and
 derivations in word forms of dictionaries used in spell-checking in this
@@ -1037,7 +1037,7 @@ the infinite dictionaries of the kind mentioned in the previous section.  It is
 commonly thought that the extents of finite-state technologies are sufficient
 to cover most of the natural languages' word forms found in the running text,
 that is, a spell-checker's dictionary implemented with these technologies could
-know all correctly written word-forms without technology being the limiting
+know all correctly written word forms without technology being the limiting
 factor. There are some counter-arguments to this, e.g.,
 \citet{culy1987complexity} presents features of Bambara vocabulary that would
 require expressive powers beyond regular and even context-free grammars to
@@ -1609,7 +1609,7 @@ set of research problems within computational linguistics can be formulated in
 some frames that are directly relevant to the issues of spell\-/checking and
 correction, as most of them require a basic component from a language model and
 very often another one from an error model. The language model of
-spell\-/checking predicts how correct a word-form is, and in a linguistic
+spell\-/checking predicts how correct a word form is, and in a linguistic
 analyser it predicts the analysis and its likelihood. The error model of a
 spelling corrector predicts what is meant based on what is written assuming an
 error somewhere in the process of typing. Some of the error sources, such as
@@ -1683,7 +1683,7 @@ of the automata, and the wild-card symbol $?$ that matches any one symbol of
 $\Sigma$ during any application of the automaton.  When talking of transducers,
 it merely means that the alphabet is of the form $\Sigma^2$. Practically this
 can be thought of so that the \gls{finite-state acceptor} accepts e.g., correct
-wordforms and the \gls{fst}, e.g., rewrites misspelled word-forms into one or
+wordforms and the \gls{fst}, e.g., rewrites misspelled word forms into one or
 more corrected forms.  The weighted \glspl{fsa} discussed throughout the thesis
 are using the \gls{tropical semi-ring}~\citep{mohri1997finitestate} weight
 structure $(\mathbb{R}_+ \cup \infty, \min, +)$; this is the so-called penalty
@@ -2180,7 +2180,7 @@ the morphs of a language.
 It should also be noted that the common baseline approaches using word-form
 lists or such spell\-/checking corpora, such as~\citet{norvig2010howto}, are
 even easier to formulate as the whole language model is just a disjunction of
-the surface word-forms.
+the surface word forms.
 
 \section{Maintenance of the Language Models}
 \label{sec:maintenance}
@@ -2324,7 +2324,7 @@ usually the best approach in terms of precision, and in the majority of cases
 this leads to a correct suggestion. This is formalised in weighted
 finite\-/state form by a simple probability formula: $w(x) = -\log P(x)$, where
 $w$ is a weight in the tropical semi-ring structure and $P(x)$ is the probability
-of word-form $x$.  Morphologically complex languages' models are thought to be
+of word form $x$.  Morphologically complex languages' models are thought to be
 more difficult to learn because the number of the different word forms is much
 larger than for morphologically simple languages, which leads to decreased
 discriminative capabilities for the probability calculations, as the number of
@@ -2704,7 +2704,7 @@ end-users developing language models.
 The implication of the fully weighted finite\-/state framework for
 spell\-/checking is that we can e.g. apply statistics to all parts of the
 process, i.e., the probability of the input, the conditional probability of a
-specific combination of errors and the probability of the resulting word-form
+specific combination of errors and the probability of the resulting word form
 in context. 
 
 \section{Edit Distance Measures}
@@ -2859,7 +2859,7 @@ by~\citet{wilcox-ohearn2008realword}, and has usually been found to be
 beneficial for the languages that have been studied. The examples I have found
 are all of the morphologically poor languages such as English or Spanish. In my
 research I have tried to replicate these results for Finnish, but the results
-have not been as successful as with English or Spanish .  The basic word-form
+have not been as successful as with English or Spanish .  The basic word form
 \(n\)-grams were not seen as an efficient method for Spanish by
 e.g.~\citet{otero2007contextual}, instead the method was extended by studying
 also the part-of-speech analyses to rank the suggestion lists for a
