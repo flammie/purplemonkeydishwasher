@@ -32,8 +32,13 @@
 
 \usepackage[normalem]{ulem}
 
+\ifprintversion
+\newcommand\misspelt{\bgroup\markoverwith
+{\lower3.5pt\hbox{\sixly \char58}}\ULon}
+\else
 \newcommand\misspelt{\bgroup\markoverwith
 {\textcolor{red}{\lower3.5pt\hbox{\sixly \char58}}}\ULon}
+\fi
 
 % hacking the images
 \usepackage{graphicx}
@@ -79,7 +84,7 @@ and Correction
 \isbnpaperback{978-952-10-9694-5}
 \isbnpdf{978-952-10-9695-2}
 %\issn{0000-0000}
-\printhouse{Pica-Set}
+\printhouse{Picaset Oy}
 \ifprintversion
 \pubpages{196} % --- remember to update this!
 \else
@@ -720,7 +725,7 @@ are indistinguishable from typos.
 structure of a word form. A \emph{\gls{word form}}, for the purposes of this
 dissertation, is defined as a segment of a text that is separated by whitespace
 symbols or other similar orthographic conventions. While from a linguistic
-point o -view this definition is not without problems, it is one that today's
+point of view this definition is not without problems, it is one that today's
 spell-checking software has to cope with. In fact, many spell-checkers today
 are restricted to handling word forms that some other software has decided are
 word forms like this. To give one example, in English `cat' is a word form, as
