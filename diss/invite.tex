@@ -1,0 +1,130 @@
+\documentclass[officiallayout,final]{unihelcompling}
+%\documentclass[officiallayout,draft]{unihelcompling}
+
+\newif\ifprintversion
+\printversiontrue
+%\printversionfalse
+
+\usepackage{amssymb}
+
+% hacking citations
+\usepackage{natbib}
+
+\usepackage{polyglossia}
+
+% for "= hacks
+\usepackage[shortcuts]{extdash}
+
+\setdefaultlanguage{english}
+\setotherlanguages{finnish,russian}
+
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage[obeyDraft]{todonotes}
+
+\setcounter{tocdepth}{1}
+
+\usepackage{multirow}
+
+\usepackage[normalem]{ulem}
+
+\ifprintversion
+\newcommand\misspelt{\bgroup\markoverwith
+{\lower3.5pt\hbox{\sixly \char58}}\ULon}
+\else
+\newcommand\misspelt{\bgroup\markoverwith
+{\textcolor{red}{\lower3.5pt\hbox{\sixly \char58}}}\ULon}
+\fi
+
+% hacking the images
+\usepackage{graphicx}
+\usepackage{geometry}
+
+% long tables
+\usepackage{longtable}
+
+% articles in print version
+\usepackage{pdfpages}
+
+% Glossary suggested by preexaminer
+\usepackage[toc,nonumberlist,acronym]{glossaries}
+
+% preventing hyphenation in glossary texts
+\usepackage{hyphenat}
+
+\renewcommand*{\glstextformat}[1]{\emph{#1}}
+
+\makeglossaries
+
+\setmainfont[Mapping=tex-text]{Liberation Serif}
+
+% no linespread for print version because it's too expensive
+%\linespread{1.3} % 1.5 spacing for paper pub
+%\linespread{1.6} % double-spacing for proofreader
+%\linespread{2.1} % triple-spacing for proofreader
+
+\title{Invitation to Post-Doctoral Party}
+
+\author{Tommi A Pirinen}
+
+
+\authorcontact{\url{tommi.pirinen@helsinki.fi}\par
+  \url{http://www.helsinki.fi/\%7etapirine}}
+\pubtime{January}{2014}
+%\reportno{0}
+\isbnpaperback{978-952-10-9694-5}
+\isbnpdf{978-952-10-9695-2}
+%\issn{0000-0000}
+\printhouse{Picaset Oy}
+\ifprintversion
+\pubpages{196} % --- remember to update this!
+\else
+\pubpages{94}
+\fi
+\supervisorlist{Krister Lindén, Helsingin yliopisto, Finland}
+\preexaminera{Prof. Mikel L. Forcada, Universitat d'Alacant, Spain}
+\preexaminerb{Prof. Lars Borin, Göteborgs universitet, Sweden}
+\opponent{Prof. Lars Borin, Göteborgs universitet, Sweden}
+\custos{Prof. Lauri Carlson, Helsingin yliopisto, Finland}
+\generalterms{thesis, finite-state, spell-checking, language model,
+  morphology}
+\additionalkeywords{statistical language models, morphologically complex
+languages}
+\crcshort{F.1.1, I.2.7, I.7.1}
+\crclong{
+\item[F.1.1] Finite-State Automata
+\item[I.3.1] Natural Language Processing
+\item[I.7.1] Spelling
+}
+\permissionnotice{
+Academic dissertation to be publicly discussed, by due permission of the
+Faculty of Arts at the University of Helsinki in auditorium XII (in lecture
+room PIII), on the $28^{th}$ of February at 12 o'clock.
+
+The post-doctoral party will be held at \emph{Domus Gaudium} on the $28^{th}$
+of February at 18 o'clock. Further instructions provided at
+\url{http://www.helsinki.fi/\%7etapirine/phd-defence.html} and on the back side
+    of this invite.
+
+    Dresscode: Smart casual, tailcoats or evening dresses are not required.
+
+    RSVP: by the $21^{st}$ of February via email to
+    \url{tommi.pirinen+diss@helsinki.fi}
+}
+
+
+
+\date{\today}
+
+\begin{document}
+
+\frontmatter
+
+\maketitle
+
+\end{document}
+% vim: set spell:
