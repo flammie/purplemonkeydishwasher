@@ -26,6 +26,12 @@ $(DISS): Pirinen-2014-dissertation.tex diss.bib $(LICENCES) $(GRAPHIX)
 	$(TEX) $<
 	$(TEX) $<
 
+invite.pdf: invite.tex
+	$(TEX) $<
+	mv -v $@ .$@.2p
+	pdfseparate -f 1 -l 1 .$@.2p $@
+	rm -f .$@.2p
+
 %.pdf: %.dia
 	dia -e $*.eps -t eps $<
 	epstopdf $*.eps
