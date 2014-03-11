@@ -1,0 +1,216 @@
+\documentclass{beamer}
+
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{url}
+\usepackage{textpos}
+\usepackage{xspace}
+\usepackage{array}
+
+\graphicspath{{./fig/}}
+
+
+\title{Weighted FSTs as a bridging technology between rule-based and statistical
+    language models\\
+\scriptsize{in Dublin, 2014}}
+\author{Tommi A Pirinen \scriptsize \guilsinglleft{}tommi.pirinen@helsinki.fi\guilsinglright{}}
+\institute{Dublin City University\\Abu-matran}
+\date{\today}
+
+\begin{document}
+
+\selectlanguage{english}
+
+\maketitle
+
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Outline}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\section{Introduction}
+
+\begin{frame}
+    \frametitle{About myself}
+    \begin{itemize}
+        \item BSc in CS from U Joensuu (now UEF.fi) 2004, 
+            MA in Comp Ling from U Helsinki 2008
+            and PhD in Comp Ling from U Helsinki 2014
+        \item CL projects such as:
+            open source morphology of Finnish,
+            giellatekno comp ling repo,
+            HFST,
+            apertium (fin-eng fin-hun etc.)
+        \item Other FLOSS projects:
+            Gentoo Linux,
+            Finnish localisation,
+            probably more
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Finite-State automata in language processing}
+    \begin{itemize}
+        \item Encodes regular languages, i.e. expression power limited to e.g.,
+            below infinite balanced bracketing language $a^n b^n$
+        \item lookup ``is word $W$ in language $L$ encoded by automaton
+            $\mathcal{M}$'' of linear time complexity to length $|W|$
+        \item Using more than 1 tape in automaton can encode regular relations,
+            e.g. wordforms$\leftrightarrow$analysis, noisy channel model,
+            \ldots: same complexity and speed
+        \item Weighted automata can attach a value from any semi-ring algebra to
+            any component of automaton; e.g., likelihood of word-form (with
+            analysis), of next character, of given spelling error(s), \ldots
+            (typical algebras are probabilities $[0, 1], + \times$ or
+            penalty weights $\mathbb{R}_+, \min, +$ (e.g. log prob))
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{A language model as an FST}
+    \includegraphics[height=2.0in]{demo-lm}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Finite-State Error Model as an FST}
+    \includegraphics[height=3in]{errm-ed1}
+\end{frame}
+
+\begin{frame}
+    \frametitle{(Weighted) finite-state spell-checking graphically}
+    From this misspelled word as automaton:\\
+    \includegraphics[height=0.6in]{cta}\\
+    Applying this very specific error (correction) model:\\
+\includegraphics[height=0.6in]{cta2cat}\\
+    We can compose or intersect with a word in this dictionary:\\
+\includegraphics[height=0.6in]{catses}\\
+\end{frame}
+
+
+\section{Language Models}
+
+\begin{frame}
+    \frametitle{Easy baseline for language model---a word-list}
+    \begin{itemize}
+        \item The most basic language model for checking if word is correctly
+            written is a word-form list: \texttt{abacus, \ldots, zygotes}, 
+        \item Fast way to build such word-list: grab an online text
+            collection and separate it to a words
+        \item Doing it like this, we also get: probabilities!
+            $P(w) = \frac{c(w)}{CS}$
+        \item In the end we'd probably mangle the probabilities into
+            tropical logprobs that our wfst's use by default, say:
+            $-\log P(w)$
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Morphologically complexer language models}
+    \begin{itemize}
+        \item A word-form list is only good for very basic demoing for mostly
+            isolating languages
+        \item Some traditional ways to build finite-state language models:
+            \begin{itemize}
+                \item Xerox style morphologies (lexc, twolc, xfst)
+                    compiled with foma or hfst tools
+                \item apertium dictionaries
+                \item hunspell dictionaries + conversion scripts
+            \end{itemize}
+        \item Morphologically complex languages tend to have infinite
+            dictionaries where the statistics of word and morpheme combinations
+            need to be handled with care
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Basic idea behind most of morphologically complex FSTs}
+    \begin{enumerate}
+        \item Take all the morphs in the language {cat, walk, \ldots, -s, -ing}
+        \item arrange all combinations {cat, catwalk, cats, cating \ldots}
+        \item remove illegal combinations {\alert{cating}}
+        \item add phonetic variations as needed (e.g. stop-ing -> stopping)
+        \item (add frequencies from corpus data as weights)
+    \end{enumerate}
+\end{frame}
+
+
+\section{Error Models}
+
+\begin{frame}
+   \frametitle{Building error models from scratch}
+   \begin{itemize}
+       \item one of the neat things with FSTs is that they're closed
+           under finite-state algebra with operations like union (disjunction),
+           concatenation, and intersection (conjunction), so building error
+           (or language) models from smaller components is easy
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Basic component 1: Run of correctly spelled characters}
+    We assume most misspelled words will have most of the letters correct,
+    to account these parts we need the identity automaton:\\
+    \includegraphics[height=2.5in]{anystar}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Basic component 2: Typing error}
+    A single typing error, as in popular Levenshtein measure, is
+    a) removal, b) addition or c) change of a character, using fixed alphabet
+    for example with a and b, and let's say this error is less unlikely than
+    any other for all combinations ( = 10):\\
+    \includegraphics[height=1.6in]{edit1-ab10}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Edit distance automata}
+    \begin{itemize}
+        \item Combining the correctly written parts and a single edit gets us
+            a nice baseline error model: 
+        \item Since it's just an automaton, all regular tricks of FST algebra
+            just work, particularly n-concatenation or composition of edit 
+            distance 1 twice will give edit distance 2 and so forth
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Common orthography-based competence errors}
+    English orthography sometimes leads to errors that are not
+    easily solvable by basic edit distance, so we can extend the
+    edit distance errors by set of commonly confused substrings:\\
+    \includegraphics[height=0.8in]{en-orth}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Confusion set of words}
+    Very simple, yet very important piece of error model, common word-specific
+    mistakes, of course compiled from a list of mistakes:\\
+    \includegraphics[height=0.5in]{en-confusables}
+\end{frame}
+
+\begin{frame}
+    \frametitle{URLs and references}
+    \begin{itemize}
+        \item \url{tommi.pirinen@helsinki.fi}
+        \item \url{http://www.helsinki.fi/~tapirine/publications/}
+        \item \url{http://www.github.com/flammie/purplemonkeydishwasher/}
+        \item \url{http://hfst.sf.net}
+    \end{itemize}
+\end{frame}
+
+\end{document}
+% vim: set spell:
