@@ -28,18 +28,15 @@ all: abumatran-weighted-fst.pdf
 	hfst-fst2txt -f dot $< -o $@
 
 %.hfst: %.strings
-	hfst-strings2fst -j $< -o $@
+	hfst-strings2fst -j $< |\
+		hfst-minimize -o $@
 
 %.hfst: %.txt
-	hfst-txt2fst $< -o $@
+	hfst-txt2fst $< |\
+		hfst-minimize -o $@
 
 edit1+en-orth.hfst: edit1-ab10.hfst en-orth.hfst
 	hfst-disjunct edit1-ab10.hfst en-orth.hfst -o $@
-
-errm-ed1.hfst: edit1-ab10.hfst anystar.hfst
-	hfst-concatenate anystar.hfst edit1-ab10.hfst |\
-		hfst-concatenate - anystar.hfst |\
-		hfst-minimize -o $@
 
 errm.edit1+en-orth.hfst: edit1+en-orth.hfst anystar.hfst
 	hfst-concatenate anystar.hfst edit1+en-orth.hfst |\
