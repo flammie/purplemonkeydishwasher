@@ -13,7 +13,8 @@ TUTORIAL_GRAPHICS=anystar.pdf cat.pdf catses.pdf cta2cat.pdf \
 				  cta.pdf demo-lm.pdf edit1-ab10.pdf \
 				  edit1+en-orth.pdf edit1swap-ab10.pdf \
 				  en-confusables.pdf en-orth.pdf \
-				  errm-ed1.pdf errm.edit1+en-orth.pdf
+				  errm-ed1.pdf errm.edit1+en-orth.pdf \
+				  errm-ed2.pdf errm-ed7.pdf
 
 %.dot: %.hfst
 	hfst-fst2txt -f dot $< -o $@
@@ -24,6 +25,14 @@ TUTORIAL_GRAPHICS=anystar.pdf cat.pdf catses.pdf cta2cat.pdf \
 
 %.hfst: %.txt
 	hfst-txt2fst $< |\
+		hfst-minimize -o $@
+
+errm-ed7.hfst: errm-ed1.hfst
+	hfst-repeat -f 1 -t 7 $< |\
+		hfst-minimize -o $@
+
+errm-ed2.hfst: errm-ed1.hfst
+	hfst-repeat -f 1 -t 2 $< |\
 		hfst-minimize -o $@
 
 edit1+en-orth.hfst: edit1-ab10.hfst en-orth.hfst
