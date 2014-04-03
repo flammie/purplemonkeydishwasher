@@ -1,0 +1,187 @@
+\documentclass[t,12pt]{beamer}
+
+\usepackage{fontspec}
+
+\usepackage{xunicode}
+\usepackage{xltxtra}
+
+\usepackage{polyglossia}
+
+\setmainfont{Liberation Serif}
+\newfontfamily\devanagarifont{Lohit Nepali}
+
+\setmainlanguage{english}
+\setotherlanguages{sanskrit}
+
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{url}
+\usepackage{textpos}
+\usepackage{xspace}
+\usepackage{array}
+\usepackage{ulem}
+
+\graphicspath{{./fig/}}
+
+% theme options: hy/ml/hum, rovio/sinetti, hiit
+% default: hy,rovio
+
+%\usetheme[hy]{HY}
+%\usetheme[hy,sinetti]{HY}
+\usetheme[hum,rovio]{HY}
+%\usetheme[ml,rovio]{HY}
+%\usetheme[ml,rovio,hiit]{HY}
+
+
+\title{State-of-the-art in Weighted Finite-State Spell-Checking\\
+\scriptsize{CICLING 2014, Kathmandu}}
+
+\author{Tommi A Pirinen \scriptsize \guilsinglleft{}tommi.pirinen@helsinki.fi\guilsinglright{}}
+\institute{University of Helsinki\\Department of Modern Languages}
+\date{\today}
+
+\begin{document}
+
+\selectlanguage{english}
+
+\HyTitle
+%\maketitle
+
+\begin{frame}
+    \frametitle{Outline}
+    \tableofcontents
+\end{frame}
+
+
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Outline}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\section{Introduction}
+       
+\begin{frame}
+    \frametitle{Spell-Checking}
+    \begin{itemize}
+        \item Spell-Checking is everywhere: browsers, office software, mobile
+            phones, \ldots
+        \item Three tasks / steps: for each word \begin{enumerate}
+                \item detect if word is correctly written / how likely the
+                    written word is what was meant (language modelling
+                    for error detection)
+                \item if not, what modifications can be made to find more
+                    likely correct word (error modelling)
+                \item rank corrections in order of likelihood
+                    (language modelling for error correction)
+            \end{enumerate}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Spell-Checking and State-of-the-Art}
+    \begin{itemize}
+        \item Spell-Checking is everywhere: browsers, office software, mobile
+            phones, \ldots
+        \item State of the art in software we know and use: hunspell (limited
+            edit distance, no statistics)
+        \item State of the art in science: correct, bayspell, etc. (statistics,
+            linguistic analysis)
+        \item State of the art we don't know: mobile phones, closed software
+            (word-form lists?)
+        \item 
+            \only<1>{grammar checkers: LanguageTool, ... (context-based \(n\) grame
+            models, programmatic rules)}
+            \only<2>{\sout{grammar checkers: LanguageTool, ... (context-based \(n\) grame
+            models, programmatic rules)}}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Weighted Finite-State Spell-Checking Graphically}
+    From this misspelled word as automaton:\\
+    \includegraphics[height=0.6in]{cta}\\
+    Applying this very specific error (correction) model:\\
+\includegraphics[height=0.6in]{cta2cat}\\
+    We can compose or intersect with a word in this dictionary:\\
+\includegraphics[height=0.6in]{catses}\\
+\end{frame}
+
+
+\section{Finite-State Models}
+
+\begin{frame}
+    \frametitle{Language Models}
+    \begin{itemize}
+        \item language models are 1 tape finite-state machines where weight may
+            map e.g. probabilities of the word-forms
+        \item word-list and frequencies can be compiled into of path automatons,
+            trie, etc.
+        \item morpheme combinations and cycles done with FST description
+            languages like Xerox finite-state morphology, SFST-PL, apertium
+        \item weights can be trained using raw text corpora
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{A language model as a FST}
+    Resulting language model should look like this:
+    \includegraphics[height=2.0in]{demo-lm}
+\end{frame}
+
+\begin{frame}
+   \frametitle{Error models}
+   \begin{itemize}
+       \item Error models are two-tape automata that map misspelled word-forms
+           into a correctly spelled one
+       \item Levenshtein--Damerau edit distance errors are essentially single
+           arcs in automaton disjuncted between correctly written cycles
+       \item Confusion sets are string-pair disjunctions
+       \item Full error models are made by combining these with FSA algebra
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Edit distance automaton graphically}
+    \includegraphics[width=\textwidth]{errm-ed1}
+\end{frame}
+
+\section{Comparison}
+
+\begin{frame}
+    \frametitle{Why is this state-of-the-art}
+    \tiny{Besides the fact that it's the only available open source WFSA speller
+        for variety of platforms\hyperlink{links}{\beamergotobutton{Links}}}\\
+        \begin{table}
+            \begin{tabular}{l|rrr}
+                \textbf{Language} & foo & bar & baz \\
+                \hline
+                English & & & \\
+                Finnish & & & \\
+                North Saami & & & \\
+                Greenlandic & & & \\
+            \end{tabular}
+        \end{table}
+\end{frame}
+
+\begin{frame}[label=links]
+    \frametitle{Links and references}
+    \begin{itemize}
+        \item LibreOffice extensions for Mac OS X and Windows:
+            \url{http://divvun.no/libreofficeoxt.html}
+        \item LO, enchant, etc. sources, for Linux:
+            \url{https://sourceforge.net/projects/hfst/files/spell-transducers/}
+        \item Previous research \url{http://www.helsinki.fi/\%7etapirine/publications/}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Obligatory thanks \& questions slide}
+    Thank you\\ kiitos\\\devanagarifont{ धेरै धेरै धन्यबाद। }
+\end{frame}
+
+\end{document}
+% vim: set spell:
