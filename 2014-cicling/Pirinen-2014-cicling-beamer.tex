@@ -22,6 +22,10 @@
 \usepackage{array}
 \usepackage{ulem}
 
+\newcommand\misspelt{\bgroup\markoverwith
+{\textcolor{red}{\lower3.5pt\hbox{\sixly \char58}}}\ULon}
+
+
 \graphicspath{{./fig/}}
 
 % theme options: hy/ml/hum, rovio/sinetti, hiit
@@ -37,7 +41,8 @@
 \title{State-of-the-art in Weighted Finite-State Spell-Checking\\
 \scriptsize{CICLING 2014, Kathmandu}}
 
-\author{Tommi A Pirinen \scriptsize \guilsinglleft{}tommi.pirinen@helsinki.fi\guilsinglright{}}
+\author{Tommi A Pirinen \and Krister Lindén
+\scriptsize \guilsinglleft{}firstname.lastname@helsinki.fi\guilsinglright{}} 
 \institute{University of Helsinki\\Department of Modern Languages}
 \date{\today}
 
@@ -63,6 +68,19 @@
 }
 
 \section{Introduction}
+
+\begin{frame}[label=links]
+    \frametitle{Reproducible and usable spell-checking}
+    \begin{itemize}
+        \item Get it for LibreOffice (Mac OS X and Windows):
+            \url{http://divvun.no/libreofficeoxt.html}
+        \item Compile it for LibreOffice, enchant (works on nearly all
+            reasonable Linux software):
+            \url{https://sourceforge.net/projects/hfst/files/spell-transducers/}
+        \item Reproduce experiments, try it out for your language, \ldots:
+            \url{https://github.com/flammie/purplemonkeydishwasher/tree/master/2014-cicling}
+    \end{itemize}
+\end{frame}
        
 \begin{frame}
     \frametitle{Spell-Checking}
@@ -78,119 +96,95 @@
                 \item rank corrections in order of likelihood
                     (language modelling for error correction)
             \end{enumerate}
+        \item Example: 1) cta 2) swap adjacent letters 3) Did you mean: cat?
     \end{itemize}
 \end{frame}
 
 \begin{frame}
     \frametitle{Spell-Checking and State-of-the-Art}
     \begin{itemize}
-        \item Spell-Checking is everywhere: browsers, office software, mobile
-            phones, \ldots
-        \item State of the art in software we know and use: hunspell (limited
-            edit distance, no statistics)
-        \item State of the art in science: correct, bayspell, etc. (statistics,
-            linguistic analysis)
-        \item State of the art we don't know: mobile phones, closed software
-            (word-form lists?)
-        \item 
-            \only<1>{grammar checkers: LanguageTool, ... (context-based \(n\) grame
+        \item State of the art as we know it: in used software hunspell (limited
+            edit distance, no statistics) commercial products (frequency word-form lists?); in science: correct, bayspell, etc. (statistics, linguistic analysis)
+        \only<1>{grammar checkers: LanguageTool, ... (context-based \(n\) grame
             models, programmatic rules)}
-            \only<2>{\sout{grammar checkers: LanguageTool, ... (context-based \(n\) grame
+        \only<2>{\sout{grammar checkers: LanguageTool, ... (context-based \(n\) grame
             models, programmatic rules)}}
+        \item Three tests to prove this point: \begin{enumerate}
+                \item coverage of the dictionary
+                \item accuracy of corrections
+                \item speed of spelling and correcting
+            \end{enumerate}
     \end{itemize}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Weighted Finite-State Spell-Checking Graphically}
-    From this misspelled word as automaton:\\
-    \includegraphics[height=0.6in]{cta}\\
-    Applying this very specific error (correction) model:\\
-\includegraphics[height=0.6in]{cta2cat}\\
-    We can compose or intersect with a word in this dictionary:\\
-\includegraphics[height=0.6in]{catses}\\
-\end{frame}
-
-
-\section{Finite-State Models}
-
-\begin{frame}
-    \frametitle{Language Models}
+    \frametitle{Test Data and Methods}
     \begin{itemize}
-        \item language models are 1 tape finite-state machines where weight may
-            map e.g. probabilities of the word-forms
-        \item word-list and frequencies can be compiled into of path automatons,
-            trie, etc.
-        \item morpheme combinations and cycles done with FST description
-            languages like Xerox finite-state morphology, SFST-PL, apertium
-        \item weights can be trained using raw text corpora
+        \item All tests were tested on Wikipedia data, it is the only free
+            open source corpus source for many languages
+        \item The size and quality of Wikipedias varies: English data is
+            huge, Finnish is large-ish and Greenlandic tiny and low-quality
+            (written by non-native students)
+
+        \item We scraped some spelling error with right corrections using
+            Wikipedia change logs
     \end{itemize}
 \end{frame}
 
-\begin{frame}
-    \frametitle{A language model as a FST}
-    Resulting language model should look like this:
-    \includegraphics[height=2.0in]{demo-lm}
-\end{frame}
+\section{The State-of-the-Artness Tests}
 
 \begin{frame}
-   \frametitle{Error models}
-   \begin{itemize}
-       \item Error models are two-tape automata that map misspelled word-forms
-           into a correctly spelled one
-       \item Levenshtein--Damerau edit distance errors are essentially single
-           arcs in automaton disjuncted between correctly written cycles
-       \item Confusion sets are string-pair disjunctions
-       \item Full error models are made by combining these with FSA algebra
-   \end{itemize}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Edit distance automaton graphically}
-    \includegraphics[width=\textwidth]{errm-ed1}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Edit distance automaton graphically 2}
-    \includegraphics[width=\textwidth]{errm-ed2}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Edit distance automaton graphically 7}
-    \includegraphics[width=\textwidth]{errm-ed7}
-\end{frame}
-
-\section{Comparison}
-
-\begin{frame}
-    \frametitle{Why is this state-of-the-art}
-    {\tiny Besides the fact that it's the only available open source WFSA speller
-        for variety of platforms\hyperlink{links}{\beamergotobutton{Links}}}\\
-        \begin{table}
-            \begin{tabular}{l|rrr}
-                \textbf{Language} & foo & bar & baz \\
-                \hline
-                English & & & \\
-                Finnish & & & \\
-                North Saami & & & \\
-                Greenlandic & & & \\
-            \end{tabular}
-        \end{table}
-\end{frame}
-
-\begin{frame}[label=links]
-    \frametitle{Links and references}
+    \frametitle{Coverage}
     \begin{itemize}
-        \item LibreOffice extensions for Mac OS X and Windows:
-            \url{http://divvun.no/libreofficeoxt.html}
-        \item LO, enchant, etc. sources, for Linux:
-            \url{https://sourceforge.net/projects/hfst/files/spell-transducers/}
-        \item Previous research \url{http://www.helsinki.fi/\%7etapirine/publications/}
+        \item Finite-state methods are well established in morphological
+            dictionary writing / language modelling (cf. 
+            Koskenniemi (1984); Karttunen and Beesley (2003), \ldots)
+        \item Naive coverage tests presented in the paper shows greatly
+            larger coverage for Finnish
+        \item Greenlandic has not been show with non-finite state methods
+            beyond some 25 \% coverage (according to my colleagues at
+            \url{oqaaserpassualeriffik.org})
     \end{itemize}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Obligatory thanks \& questions slide}
-    Thank you\\ kiitos\\\devanagarifont{ धेरै धेरै धन्यबाद। }
+    \frametitle{Quality}
+    \begin{itemize}
+        \item Tested on the wikipedia's errors as logged by real users with
+            some conventional comment
+        \item Only solvable errors (target word-form in dictionary)
+        \item Improvement in 1st guess correct and cumulative corrections
+            for all langauges
+        \item Likely because of addition of word form frequency statistics
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Speed}
+    \begin{itemize}
+        \item Easy measure, fed wikipedia data to command line spell-checkers
+            and measured throughput
+        \item Two test sets: all data (real world speed) and only known
+            misspellings (correction speed)
+        \item Beats Hunspell on all measures, aspell is still fastest though
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Conclusion}
+    \begin{itemize}
+        \item Our WFST spell-checking beats de facto standard open source
+            systems on speed, accuracy and and coverage
+        \item We have available usable spell-checkers for numerous languages
+            and can generate more given a corpus or dictionary data in some
+            palatable format
+    \end{itemize}
+\end{frame}
+
+\section{The last slide section}
+
+\begin{frame}
+    \frametitle{Thanks kiitos \devanagarifont{ धेरै धेरै धन्यबाद} and Questions doge}
 \end{frame}
 
 \end{document}
