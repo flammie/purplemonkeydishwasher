@@ -20,10 +20,11 @@
 \usepackage{textpos}
 \usepackage{xspace}
 \usepackage{array}
-\usepackage{ulem}
+\usepackage[normalem]{ulem}
 
 \newcommand\misspelt{\bgroup\markoverwith
 {\textcolor{red}{\lower3.5pt\hbox{\sixly \char58}}}\ULon}
+\DeclareRobustCommand{\fuuuuu}[1]{\texorpdfstring{\misspelt{#1}}{#1}}
 
 
 \graphicspath{{./fig/}}
@@ -39,9 +40,9 @@
 
 
 \title{State-of-the-art in Weighted Finite-State Spell-Checking\\
-\scriptsize{CICLING 2014, Kathmandu}}
+\scriptsize{CICLING 2014, \devanagarifont{काठमाडौं}}}
 
-\author{Tommi A Pirinen \and Krister Lindén
+\author{\fuuuuu{Tommi A Pirinen} \and Krister Lindén
 \scriptsize \guilsinglleft{}firstname.lastname@helsinki.fi\guilsinglright{}} 
 \institute{University of Helsinki\\Department of Modern Languages}
 \date{\today}
@@ -69,25 +70,13 @@
 
 \section{Introduction}
 
-\begin{frame}[label=links]
-    \frametitle{Reproducible and usable spell-checking}
-    \begin{itemize}
-        \item Get it for LibreOffice (Mac OS X and Windows):
-            \url{http://divvun.no/libreofficeoxt.html}
-        \item Compile it for LibreOffice, enchant (works on nearly all
-            reasonable Linux software):
-            \url{https://sourceforge.net/projects/hfst/files/spell-transducers/}
-        \item Reproduce experiments, try it out for your language, \ldots:
-            \url{https://github.com/flammie/purplemonkeydishwasher/tree/master/2014-cicling}
-    \end{itemize}
-\end{frame}
        
 \begin{frame}
     \frametitle{Spell-Checking}
     \begin{itemize}
         \item Spell-Checking is everywhere: browsers, office software, mobile
             phones, \ldots
-        \item Three tasks / steps: for each word \begin{enumerate}
+        \item Three tasks: for each word \begin{enumerate}
                 \item detect if word is correctly written / how likely the
                     written word is what was meant (language modelling
                     for error detection)
@@ -103,13 +92,11 @@
 \begin{frame}
     \frametitle{Spell-Checking and State-of-the-Art}
     \begin{itemize}
-        \item State of the art as we know it: in used software hunspell (limited
-            edit distance, no statistics) commercial products (frequency word-form lists?); in science: correct, bayspell, etc. (statistics, linguistic analysis)
-        \only<1>{grammar checkers: LanguageTool, ... (context-based \(n\) grame
-            models, programmatic rules)}
-        \only<2>{\sout{grammar checkers: LanguageTool, ... (context-based \(n\) grame
-            models, programmatic rules)}}
-        \item Three tests to prove this point: \begin{enumerate}
+        \item State of the art as we know it: software: hunspell (limited
+            edit distance, no statistics) commercial products (frequency word-form lists?); science: correct, bayspell, etc. (statistics, linguistic analysis)
+        grammar checkers: LanguageTool, ... (context-based \(n\) gram
+            models, programmatic rules)
+        \item Three tests to prove: \begin{enumerate}
                 \item coverage of the dictionary
                 \item accuracy of corrections
                 \item speed of spelling and correcting
@@ -131,14 +118,28 @@
     \end{itemize}
 \end{frame}
 
-\section{The State-of-the-Artness Tests}
+\begin{frame}[label=links]
+    \frametitle{Reproducible and usable spell-checking}
+    \begin{itemize}
+        \item Get it for LibreOffice (Mac OS X and Windows):
+            \url{http://divvun.no/libreofficeoxt.html}
+        \item Compile it for LibreOffice, enchant (works on nearly all
+            reasonable Linux software):
+            \url{https://sourceforge.net/projects/hfst/files/spell-transducers/}
+        \item Reproduce experiments, try it out for your language, \ldots:
+            \url{https://github.com/flammie/purplemonkeydishwasher/tree/master/2014-cicling}
+    \end{itemize}
+\end{frame}
+
+\section{Tests for the State-of-the-Art}
 
 \begin{frame}
     \frametitle{Coverage}
     \begin{itemize}
         \item Finite-state methods are well established in morphological
-            dictionary writing / language modelling (cf. 
-            Koskenniemi (1984); Karttunen and Beesley (2003), \ldots)
+            dictionary writing / language modelling (cf. \emph{Two-level
+            morphology} Koskenniemi (1983); \emph{Finite-State Morphology}
+            Karttunen and Beesley (2003), \ldots)
         \item Naive coverage tests presented in the paper shows greatly
             larger coverage for Finnish
         \item Greenlandic has not been show with non-finite state methods
@@ -148,7 +149,18 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Quality}
+    \frametitle{Coverage Results}
+    Naive coverage = proportion of tokens with > 0 analyses
+    \begin{tabular}{l|rrrrrrr}
+        Model & English aspell & English FSA & Finnish FSA & North Sámi Hunspell & North Sámi FSA & Greenlandic FSA \\
+    Coverage & 22.7 & 80.1 & 64.8 & 34.4 & 48.5 & 25.3 \\
+    \end{tabular}
+    The naive coverage figures give some idea of the starting point for
+    spelling corrector and the corpus data quality.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Accuracy}
     \begin{itemize}
         \item Tested on the wikipedia's errors as logged by real users with
             some conventional comment
@@ -157,6 +169,21 @@
             for all langauges
         \item Likely because of addition of word form frequency statistics
     \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Accuracy Results}
+    Quality = Proportion of correct suggestions at given position
+    \begin{tabular}{l|rr}
+        Language Model & $1^{st}$ & $2^{nd}$ \\
+        English aspell &55.7 & 5.7 \\
+        English Hunspell &59.3 & 5.8 \\
+        English WFSA &66.7 & 7.0 \\
+ \hline 
+ Finnish aspell & 21.1 & 5.8 \\ 
+ Finnish WFSA  & 54.8 & 19.0 \\
+\end{tabular}
+Less resourced languages' scarce error data is further discussed in the paper
 \end{frame}
 
 \begin{frame}
@@ -171,11 +198,32 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Speed Results}
+    Speed = tokens processed per second (raw data), Memory = peak resident stack
+    size
+    \begin{tabular}{l|rr}
+        Language Model & Words per Second & Memory in MB\\
+        \hline
+       English Hunspell & 74 & 7.5 \\
+       English aspell & 20,000 & 1.3 \\
+       English WFSA & 5,721 & 7.0 \\
+        \hline
+        North Saami Hunspell & 3 & 151.0 \\
+       North Saami WFSA & 5,025 & 31.4 \\
+        \hline
+        Greenlandic WFSA & 85 & 300.4 \\
+    \end{tabular}
+\end{frame}
+
+\begin{frame}
     \frametitle{Conclusion}
     \begin{itemize}
         \item Our WFST spell-checking beats de facto standard open source
-            systems on speed, accuracy and and coverage
+            systems on speed, accuracy and coverage
+        \item It is a speed to quality trade-off, this experiment shows we can
+            tune the parameters to optimise all aspects
         \item We have available usable spell-checkers for numerous languages
+        (\hyperlink{links}{\beamergotobutton{Links}})
             and can generate more given a corpus or dictionary data in some
             palatable format
     \end{itemize}
@@ -184,7 +232,8 @@
 \section{The last slide section}
 
 \begin{frame}
-    \frametitle{Thanks kiitos \devanagarifont{ धेरै धेरै धन्यबाद} and Questions doge}
+    \frametitle{Thanks kiitos \devanagarifont{ धेरै धेरै धन्यबाद}}
+    Questions?
 \end{frame}
 
 \end{document}
