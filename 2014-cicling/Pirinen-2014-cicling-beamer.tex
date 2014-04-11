@@ -54,19 +54,6 @@
 \HyTitle
 %\maketitle
 
-\begin{frame}
-    \frametitle{Outline}
-    \tableofcontents
-\end{frame}
-
-
-\AtBeginSection[]
-{
-  \begin{frame}<beamer>
-    \frametitle{Outline}
-    \tableofcontents[currentsection]
-  \end{frame}
-}
 
 \section{Introduction}
 
@@ -92,11 +79,14 @@
 \begin{frame}
     \frametitle{Spell-Checking and State-of-the-Art}
     \begin{itemize}
-        \item State of the art as we know it: software: hunspell (limited
-            edit distance, no statistics) commercial products (frequency word-form lists?); science: correct, bayspell, etc. (statistics, linguistic analysis)
-        grammar checkers: LanguageTool, ... (context-based \(n\) gram
+        \item State of the art as we know it: \begin{itemize}
+                \item non-commercial use: hunspell (limited edit distance, no statistics)
+                     correct, bayspell, etc. (statistics, linguistic analysis)
+                \item commercial products (frequency word-form lists?);
+                \item grammar checkers: LanguageTool, ... (context-based \(n\) gram
             models, programmatic rules)
-        \item Three tests to prove: \begin{enumerate}
+    \end{itemize}
+        \item Three tests to measure and motivate this: \begin{enumerate}
                 \item coverage of the dictionary
                 \item accuracy of corrections
                 \item speed of spelling and correcting
@@ -109,11 +99,14 @@
     \begin{itemize}
         \item All tests were tested on Wikipedia data, it is the only free
             open source corpus source for many languages
+        \item The language models / dictionaries are from internet free open
+            source repository in \url{http://giellatekno.uit.no} except English
+            which is from P. Norvig
         \item The size and quality of Wikipedias varies: English data is
-            huge, Finnish is large-ish and Greenlandic tiny and low-quality
-            (written by non-native students)
+            huge, Finnish is large-ish and North Saami tiny and low-quality
+            (written by non-native students) and Greenlandic even more so
 
-        \item We scraped some spelling error with right corrections using
+        \item We scraped some spelling errors with corrections from
             Wikipedia change logs
     \end{itemize}
 \end{frame}
@@ -142,21 +135,28 @@
             Karttunen and Beesley (2003), \ldots)
         \item Naive coverage tests presented in the paper shows greatly
             larger coverage for Finnish
-        \item Greenlandic has not been show with non-finite state methods
-            beyond some 25 \% coverage (according to my colleagues at
+        \item Greenlandic has not been shown with non-finite state methods
+            beyond some 25 \% coverage (from newspaper text,
+            according to my colleagues at
             \url{oqaaserpassualeriffik.org})
     \end{itemize}
 \end{frame}
 
 \begin{frame}
     \frametitle{Coverage Results}
-    Naive coverage = proportion of tokens with > 0 analyses
-    \begin{tabular}{l|rrrrrrr}
-        Model & English aspell & English FSA & Finnish FSA & North Sámi Hunspell & North Sámi FSA & Greenlandic FSA \\
-    Coverage & 22.7 & 80.1 & 64.8 & 34.4 & 48.5 & 25.3 \\
-    \end{tabular}
+    Naive coverage = proportion of tokens with > 0 analyses\\
+    \begin{tabular}{l|r}
+        Language Model & Coverage \\
+        English aspell & 22.7 \\
+        English WFSA & 80.1 \\
+        Finnish WFSA & 64.8 \\
+        North Saami Hunspell & 34.4 \\
+        North Saami WFSA & 48.5 \\
+        Greenlandic WFSA & 25.3 \\
+    \end{tabular}\\
     The naive coverage figures give some idea of the starting point for
-    spelling corrector and the corpus data quality.
+    spelling checker and the corpus data quality. Note that Wikipedia tokens
+    has a lot of rubbish for spelling correction.
 \end{frame}
 
 \begin{frame}
@@ -173,7 +173,7 @@
 
 \begin{frame}
     \frametitle{Accuracy Results}
-    Quality = Proportion of correct suggestions at given position
+    Quality = Proportion of correct suggestions at given position\\
     \begin{tabular}{l|rr}
         Language Model & $1^{st}$ & $2^{nd}$ \\
         English aspell &55.7 & 5.7 \\
@@ -182,7 +182,7 @@
  \hline 
  Finnish aspell & 21.1 & 5.8 \\ 
  Finnish WFSA  & 54.8 & 19.0 \\
-\end{tabular}
+\end{tabular}\\
 Less resourced languages' scarce error data is further discussed in the paper
 \end{frame}
 
@@ -200,9 +200,9 @@ Less resourced languages' scarce error data is further discussed in the paper
 \begin{frame}
     \frametitle{Speed Results}
     Speed = tokens processed per second (raw data), Memory = peak resident stack
-    size
+    size\\
     \begin{tabular}{l|rr}
-        Language Model & Words per Second & Memory in MB\\
+        Language Model & WPS & Memory in MB\\
         \hline
        English Hunspell & 74 & 7.5 \\
        English aspell & 20,000 & 1.3 \\
@@ -211,8 +211,8 @@ Less resourced languages' scarce error data is further discussed in the paper
         North Saami Hunspell & 3 & 151.0 \\
        North Saami WFSA & 5,025 & 31.4 \\
         \hline
-        Greenlandic WFSA & 85 & 300.4 \\
-    \end{tabular}
+        Greenlandic WFSA & 85 & 300.7 \\
+    \end{tabular}\\
 \end{frame}
 
 \begin{frame}
@@ -223,9 +223,16 @@ Less resourced languages' scarce error data is further discussed in the paper
         \item It is a speed to quality trade-off, this experiment shows we can
             tune the parameters to optimise all aspects
         \item We have available usable spell-checkers for numerous languages
-        (\hyperlink{links}{\beamergotobutton{Links}})
+        (
+        \iffalse
+        \hyperlink{links}{\beamergotobutton{Links}}
+        \fi
+        \iftrue
+        cf. links slide
+        \fi)
             and can generate more given a corpus or dictionary data in some
-            palatable format
+            palatable format (e.g. Beesley Karttunen FSM, freq. lists,
+            hunspell, apertium monodix...)
     \end{itemize}
 \end{frame}
 
@@ -234,6 +241,20 @@ Less resourced languages' scarce error data is further discussed in the paper
 \begin{frame}
     \frametitle{Thanks kiitos \devanagarifont{ धेरै धेरै धन्यबाद}}
     Questions?
+    \includegraphics[width=\textwidth]{questions-doge}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Reproducible and usable spell-checking}
+    \begin{itemize}
+        \item Get it for LibreOffice (Mac OS X and Windows):
+            \url{http://divvun.no/libreofficeoxt.html}
+        \item Compile it for LibreOffice, enchant (works on nearly all
+            reasonable Linux software):
+            \url{https://sourceforge.net/projects/hfst/files/spell-transducers/}
+        \item Reproduce experiments, try it out for your language, \ldots:
+            \url{https://github.com/flammie/purplemonkeydishwasher/tree/master/2014-cicling}
+    \end{itemize}
 \end{frame}
 
 \end{document}
