@@ -64,7 +64,8 @@
 \RequirePackage{fancyhdr}
 \pagestyle{fancy}
 
-\fancyfoot[EC,OC]{
+\fancyhead[LO,RE]{\thepage}
+\fancyfoot[C]{
 \ifx\flammie@version\@undefined%{
         Unpublished draft
 \else\ifcase\flammie@version% 0 = private
