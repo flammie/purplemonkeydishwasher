@@ -7,7 +7,7 @@ XELATEX=xelatex
 BIBTEX=bibtex
 
 # article
-articles: Pirinen-2014-cicling-beamer.pdf
+articles: Pirinen-2014-cicling.pdf Pirinen-2014-cicling-beamer.pdf
 
 TUTORIAL_GRAPHICS=anystar.pdf cat.pdf catses.pdf cta2cat.pdf \
 				  cta.pdf demo-lm.pdf edit1-ab10.pdf \
@@ -46,6 +46,12 @@ errm.edit1+en-orth.hfst: edit1+en-orth.hfst anystar.hfst
 
 %.pdf: %.dot
 	dot -Tpdf -o$@ $<
+
+Pirinen-2014-cicling.pdf: Pirinen-2014-cicling.tex cicling2014.bib
+	$(XELATEX) $<
+	$(BIBTEX) Pirinen-2014-cicling
+	$(XELATEX) $<
+	$(XELATEX) $<
 
 Pirinen-2014-cicling-beamer.pdf: Pirinen-2014-cicling-beamer.tex $(TUTORIAL_GRAPHICS)
 	$(XELATEX) $<
