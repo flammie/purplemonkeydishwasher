@@ -1,5 +1,8 @@
 \documentclass[a4paper,12pt]{article}
 
+\newif\iffinal
+\finalfalse
+
 \usepackage{fontspec}
 \usepackage{xunicode}
 \usepackage{xltxtra}
@@ -11,631 +14,420 @@
 \usepackage[margin=3cm]{geometry}
 
 \usepackage{natbib}
-
+\setlength{\bibsep}{0pt}
 \linespread{1.3}
 
 \defaultfontfeatures{Mapping=tex-text}
 \setmainfont{Times New Roman}
 
-\title{Omorfi---The New Old of Computational Morphological Analysis of Finnish
-Language}
-\iffalse
-\author{Tommi A Pirinen}
+\title{Omorfi---Open-Source Weighted Finite-State Morphological Analysis of
+Finnish}
+\iffinal
+\author{Tommi A Pirinen \\
+    Dublin City University\\
+    Centre of Next Gen. Localisation}
 \fi
 \date{}
 \begin{document}
 
 \maketitle
-\iffalse
 \begin{abstract}
 
-    This squib describes a contemporary system for computational analysis of
-    morphology of Finnish word-forms. The system we present is at its core a
+    This squib describes a contemporary system for the computational analysis of
+    the morphology of Finnish word-forms. The system we present is at its core a
     finite-state morphology, just like other popular systems for computational
     Finnish morphology have been since 1983.  The purpose of this squib is to
-    describe the key differences and new approaches improving the previous
-    versions of the analysers. Firstly an extended classification was made nto
-    accommodate computational semi-automatic classification of new words and
-    fine-tune the inflectional variants, and to systematically go through the
-    synchronic variations in morphophonology of Finnish on the grapheme level.
-    Secondly we pursue some of the recent developments in the field of
-    statistical computational linguistics.  We show how we have adapted
-    statistical approaches into a traditional rule-based approach that was used
-    with Finnish morphology. Thirdly, our system is based fully on free and
-    open source systems and approaches. A practical benefit of this approach is
-    shown with the use of crowd-sourced dictionary Wiktionary as one additional
-    of lexical data.  To evaluate our analyser, we have analysed large text
-    corpora on the system and verified that only 1~\% of the word-forms remains
-    unknown to the system.  We have also made some rudimentary quality and
-    speed comparisons against results of the systems currently in use to show
-    that we have a faster system that still recreates the main results of other
-    systems faithfully if needed.
+    describe the key differences against the earlier analysers.  We have used
+    some of the recent ideas from the field of statistical computational
+    linguistics to create the first full-fledged hybrid rule-based and
+    statistical finite-state system for morphological analysis.
 
+    Our system is based fully on free and open source data and methods. This
+    brings in focus some new approaches to the lexicographical data collection
+    using crowd\-sour\-ced dictionary Wiktionary, as well as statistical
+    component from the Wikipedia data.
+
+    To evaluate our analyser, we have processed large text corpora with it
+    and verified that only 1~\% of the word-forms remains unknown to the
+    system. We also show that omorfi can be tuned to match the FinnTreeBank 3.1
+    standard at 85~\% faithfulness for interoperability.
 \end{abstract}
-\fi
 \section{Introduction}
 
 Computational morphological analysis is a central component for most of the
 computational applications of linguistic analysis. Computational morphological
 analysis of Finnish language was first described some 30 years
-ago~\citep{koskenniemi1983twolevel}. The aim of this paper is to examine the
-differences of our current approach to traditional systems which are used for
-the task and to highlight some of the new development. The new development that
-we discuss are mainly in line with the recent trends in the field of
-computational linguistics. In the recent years, there has been a sharply rising
-interest in the statistical methods for computational linguistics. However, a
-morphologically complex language like Finnish does not lend itself easily for
-statistical treatment, so we try to bring into focus the modifications to the
-basic statistical approaches that we have applied to combine statistical data
-with Finnish morphological analysis.
+ago~\citep{koskenniemi1983twolevel}. The aim of this paper is to present the
+newest approach to the task and examine the differences of our current approach
+to traditional systems, and to highlight some of the new development. The
+new development that we discuss is mainly in line with the recent trends in
+the field of computational linguistics.
 
 One of the main goals of this paper is to act as the central scientific
 documentation of our current morphological analyser, and we have made an
 attempt to highlight the long-term design goals of the system instead of
 transitional and volatile features of a fast-moving computer software that is
-developed by a base of open source and language enthusiasts.
+developed by a base of open-source and language enthusiasts. On the other hand,
+this is also a scientific squib, so we describe shortly the most recent
+modifications made to the hybrid rule-based and statistical model of Finnish
+language on, and the additions in the dictionary data model we made to
+accommodate the semi-automatic crowd-sourced lexicography using Wiktionary as a
+lexical data source.  We also refer to further use of omorfi by numerous
+researchers for various tasks, such as
+spell-checking~\citep{pirinen2014weighted}, language
+generation~\citep{toivanen2012corpus} and statistical
+models~\citep{haverinen2013building,bohnet2013joint}. We consider this
+as additional evidence of usability of hybrid statistical and rule-based
+approaches for weighted finite-state morphological analysis.
 
-In computational linguistics, the beginning of the 2000's was focused into
-statistical language models and engineering. It is commonly argued that
-statistical models are not as easily suitable for morphologically complex
-languages like Finnish as they are for mostly isolating languages like English.
-Our analyser is based on the same assumption, and it is similar rule-based
-analyser as described in the earlier research of Finnish analysis. In this
-squib we show how we have integrated statistical features with a traditional
-rule-based morphological analyser of Finnish language. The system we use for
-the development is based on one that has been developed earlier at the
-University of Helsinki~\citep{pirinen2008suomen}. We furthermore demonstrate a
-full-fledged version of named system with large scale dictionaries, as opposed
-to the earlier which seems to be principally a proof of concept for noun and
-verb inflectional morphology.
+The statistical approach to language modeling has been popular throughout
+2000's, however, with morphologically complex languages it brings additional
+challenges since data is scarce and requirement for word-forms to get
+discriminative probabilities is higher.\footnote{We assume here that
+morphological complexity necessarily means more word-forms per word, while this
+may not always be the case, it is true for Finnish} In omorfi we have used a
+hybrid approach where the morphological analyser is defined in the traditional
+manner using inflection paradigm classified dictionary and rules in style
+of~\citet{koskenniemi1983twolevel}, and the result is trained using frequencies
+of word-forms found in the corpus. We show some combinations of contemporary
+methods of combining the rule-based analysers with statistical data, such as
+ones described by~\citet{pirinen2009weighted} and~\citet{pirinen2012improving}.
+In fact, one of the main contributions of the system is the possibility to pick
+and mix combinations of statistical methods used in contemporary research. That
+is, in this article we do not go into details of optimising parameters but
+rather present a system that has parameter tuning capabilities.
+
 
 Another recent development in the computational language models is the concept
 of \emph{maintainability} of these computational systems, e.g.
-in~\cite{maxwell2008joint,pirinen2011modularisation}. Specifically we will show
+by~\cite{maxwell2008joint,pirinen2011modularisation}. Specifically we will show
 how we use the power of \emph{crowd-sourcing} to keep up with the new words,
-neologisms and other rare words missing from dictionary. In particular we study
-the use of the popular online dictionary Wiktionary as a source of additional
-lexical data. The crowd-sourcing as well as a few newer morphological phenomena
-in the language have implications to lexicographical structure of the data as
-well, so we try to describe in this article some of the newest findings based
-on the word data we have added to lexical resources of our systems. An example
-of such recent addition to morphophonological variations is introduction of
-quantitative consonant gradation of voiced stops~\cite[§ 41]{visk}. This
-required some new additions to existing classifications. Furthermore we have
-re-analysed the generalisations of old lexicographical classifications in
-assumption that resulting system is more favorable for computational systems as
-well as human classifiers to make educated guesses when classifying and
-verifying new lexical entries.
+neologisms and other rare words missing from dictionaries. In particular we
+study the use of the popular online dictionary Wiktionary as a source of
+additional lexical data. To support semi-automatic use of Wiktionary data we
+have devised a morph-based formulation of the finite-state morphology of
+Finnish which we test in conjunction with basic classification schemes to help
+users to classify words.
 
-The basic framework of the computational system we present here is largely
-unchanged from the one introduced in~\citet{koskenniemi1983twolevel}. 
-The finite-state automata remain the state-of-the-art for morphological analysis
-of morphologically complex languages. The main
-technological difference is that we are now using weighted finite-state 
-automata~\citep{openfst}. In practice this means that we have a capability to
-express statistics or preference relations in our morphological dictionaries.
-In this squib we show how we have used existing statistical methods with
-our Finnish morphological analyser.
-
-One notable practical distinction in our system is licensing policy. Omorfi
-analyser is a free and open source product\footnote{All data available in
-\url{http://code.google.com/p/omorfi/}}.  In contemporary computational
+One notable practical distinction in our system is its licensing policy. Omorfi
+analyser is a free and open source product.\footnote{
+\url{http://code.google.com/p/omorfi/}}  In contemporary computational
 linguistics, freeness of systems and data is rightly seen as a cornerstone of
 properly conducted science, as it fulfills the requirement of repeatability by
 not setting unnecessary fences for the repetition of the scientific results.
-This also means that it can be downloaded to any home computer and modified to
-each end user application at will. There is a large base of recent research
-supporting this, specifically for Finnish the latest is
-by~\citet{koskenniemi2008build}.
+There is a large base of recent research supporting this, specifically for
+Finnish the latest is by~\citet{koskenniemi2008build}. For computer-savvy end
+users, such as language technologists, this means that the tools necessary to
+perform linguistic analysis with omorfi can be downloaded to any average PC,
+and for the rest of the scientists we co-maintain a usable installation at
+CSC.\footnote{\url{http://www.csc.fi/english/research/sciences/linguistics}, 
+for universities outside Finland you may be able to convince your local data
+center to install accessible version.}
 
-On the linguistic side, one of the central design decisions in Omorfi is to be
-an analyser that captures the scientific consensus of contemporary
-\emph{linguistic knowledge}.  This means that the system is built to create
-analyses that have been accepted by linguistic community. Specifically we try
-to avoid making analysis decisions based on ad hoc needs of certain types of
-computational linguistics software: ideally all analyses should be traceable to
-grammar descriptions such as~\citet{visk} or scientific papers.
+To summarise, this article is an overview of a new Finnish morphological
+analyser.  It consists of the methodological advances found from past years
+research of finite-state morphologies and computational linguistics, and
+contrasts the resulting system to the previous state-of-the-art in
+morphological analysis of Finnish. It also shows some recent uses of a
+morphological analyser in real world applications. We also show how
+crowd-sourced lexicography can be used as a part of the system.
 
-To summarise, this article is an overview of a Finnish morphological analyser.
-It consists of the methodological advances found from past years research of
-finite-state morphologies and computational linguistics, and contrasts the
-resulting system to the previous state-of-the-art in morphological analysis of
-Finnish.
-
-The paper is organised as follows: In section~\ref{sec:background}, we go
-through the basic concepts of Finnish morphology, modern finite-state
-technology and the management of lexicographical data that is relatively
-central to the new system. In section~\ref{sec:data} we describe the various
-sources of lexical data that are used in building of the morphological
-dictionary and demonstrate some engineering aspects that were needed to manage
-vast amounts of variously annotated dictionaries. In
-section~\ref{sec:evaluation} we measure the analyser's suitability for common
-tasks by performing various corpus annotation tasks and comparing our results
-to other systems currently in use. In section~\ref{sec:discussion} we go
-through some practical implications of our system in field of computational
-linguistics as well as research of Finnish linguistics by computer. Finally, in
-section~\ref{sec:conclusion} we summarise the findings.
-
-\section{Background}
-\label{sec:background}
-
-Finnish inflectional morphology has been widely documented for a long time now,
-from \citet{setala1920suomen} to \citet{hakulinen1968suomen} and
-\citet{karlsson1982suomen} to the most recent points in \citet{visk}. This
-groundwork in morphological documentation is important basis to keep in mind,
-even when considering computational analysis of morphology, since
-we believe that the point of computational morphological analyser is primarily
-to capture contemporary linguistic knowledge about word-forms as accurately as
-possible.  Therefore we have made an attempt to follow the written research of
-Finnish morphology wherever possible.
+\section{Methods}
+\label{sec:methods}
 
 There have been numerous implementations of computational morphological
 analysis of Finnish along the years. These  can be dated back to at least
 1980's, including~\citet{koskenniemi1983twolevel}, which is among the more
-influential works in the field of computational morphology.  More recent works
-have used e.g. a fully statistical approach for approximating a morphological
-segmentation of Finnish~\citep{creutz2005unsupervised}.
-In~\citet{ranta2008predictable}, Ranta presents a morphological analysis of
-Finnish based on \emph{smart paradigm} system. The treatment of Finnish
-lexicography in the smart paradigm system is useful reference for our work,
-since it contains some important notes about the paradigmatic system of Finnish
-inflection that we have used.  Otherwise, the implementation of our analyser
+influential works in the field of computational morphology. 
+Otherwise, the implementation of our analyser
 follows the traditional works on finite-state morphology
-by~\citet{koskenniemi1983twolevel,beesley2003finite}.
+by~\citet{beesley2003finite}. On top of that we
+have applied recent extensions from the research of finite-state morphology,
+such as weighted finite-state methods~\citep{openfst,hfst2012}. This brings the
+traditional rule-based language analyser towards the statistical language
+analysers that are widely popular in the handling of morphologically less
+complex languages.
 
-The practical way how finite-state machines work in morphological analysers has
-some implications to the low-level output result of the system. In
-figure~\ref{fig:output-example} we give an example of one specific output
-formatting scheme. The example is result of analysing the beginning sentence of
-the universal declaration of human rights. The same example is represented in
-standard linguistic gloss in example~\ref{ex:undhr}. We have omitted the
-part-of-speech classes and other lexical information in the glosses; the main
-points to note are the ambiguity of the compound \emph{tasavertaisina}, which
-is found in the dictionary as lexicalised word `equal' as well as productive
-compound of \emph{tasa} `even' and vertainen `peer' (noun) / `equal'
-(adjective), and how the systematic ambiguity of the third person possessive is
-represented. The order of results in figure~\ref{fig:output-example} is
-important, the analyser prefers the reading with lexicalised word-form over the
-productively compounded ones.
+A rule-based analyser is implemented based on the classification of the words
+by their inflectional patterns. The patterns in Finnish are based on two parts:
+stem variations and suffix allomorphs. The classified dictionary words are
+stripped of their varying stem parts, and then concatenated with the variations
+and then stems by means of standard finite-state morphology. E.g. dictionary
+word \emph{vesi} `water' has stem variation in \emph{-si} $\sim$ \emph{-te-}
+$\sim$ \emph{-de-} $\sim$ \emph{-t-}, and respectively suffixes $\emptyset$
+(nominative) $\sim$ \emph{-nä} (essive, `as water') $\sim$ \emph{-ssä}
+(inessive `in water')  $\sim$ \emph{-tä} (partitive, roughly `of water'), which
+is arranged in morpheme sublexicons as in \emph{Finite State
+Morphology}~\citep{beesley2003finite}. Shortly said, such finite-state
+formulation of morphotactics is a set of disjunctions of paths in the automaton
+representing the morphs. The morphs are extended by their classifications, and
+the morphotactic rules over classifications are enforced using composition
+operation, such as: noun root morphs are followed by case morphs and then
+optionally possessives and clitics~\citep{hfst2012}.
 
-\ex
-\begingl
-\gla Kaikki ihmise-t synty-vät vapa-i-na ja tasa=vertais-i-na arvo-lta-an ja oikeuks-i-lta-an//
-\glb All.{\sc Sg.Nom} human-{\sc Pl.Nom} born-{\sc Ind.Pres.Sg3} free-{\sc Pl-Ess} and.{\sc Conj} equal=value-{\sc Pl-Ess} worth-{\sc Sg.Ela-Sg3/Pl3} and.{\sc Conj} right-{\sc Pl-Ela-Sg3/Pl3}//
-\glft `All human beings are born free and equal in dignity and rights.' \label{ex:undhr}//
-\endgl
-\xe
+A common way to apply statistical methods for morphological analysis is
+straight-forward; to get the likelihood $P(w)$ for the surface form $w$, we
+calculate the amount of word-forms $f(w)$ in a corpus and divide it by the
+number of word-forms in the whole corpus $CS$: $P(w) = \frac{f(w)}{CS}$.  To
+get around the problems with the probability of $0$ for unseen word-forms, we
+use additive smoothing~\citep{chen1999empirical}, which estimates likelihood of
+each type as $1$ larger than it is and size of corpus as number of types
+larger. The acquired likelihoods can be combined to the rule-based
+morphological analyser using basic finite-state operations such as composition
+of the weighted disjuncted word-form paths.
 
+Another method from the recent research on training of the compounding language
+models~\citep{pirinen2009weighting} we use is the estimation of the compound
+words by their parts. This means that given unseen compound \emph{banaaniovi},
+the estimated likelihood is $P(\mathrm{banaani}) \times P(\mathrm{ovi})$,
+rather than $P(\mathrm{banaaniovi})$. One of the non-apparent results of such
+training is that in case of ambiguous compounds, the analyser will
+systematically prefer the ones with least words.
 
-In practice, a finite-state analyser is a system that maps a string
-representing a word-form in text to a set of string comprising the potential
-analyses and vice versa. In addition, contemporary systems like ours assign a
-numeric value to each string pair. This can be used to rank the possible
-readings.  The system Omorfi is using for implementing the ranking is based on
-an algebraic structure called \emph{tropical semiring} which describes how the
-values are to be interpreted. What it practically means is that we use
-numerical weights that are combined together using regular addition and the
-ranking is done in ascending order of values. For this reason it is commonly
-called a penalty weighting scheme: the bigger the weight the more likely the
-analysis is, and to reduce the ranking of an analysis in the result set, we
-simply add weight to it. In a statistical system this value is directly derived
-from the probability of the analysis using formula $W(wf) = -\log(P(wf)$, where
-W is the weight function and P is the probability function of word-form $wf$.
-The weight function can be determined separately for the word-forms and the
-analyses.  If there is not enough statistical data, however, the system can be
-easily extended with hand-written weighting procedures. For Finnish this means
-that, when there is not available a corpus of morphological analyses, it can be
-substituted with estimations of likelihoods of specific analyses. Omorfi has
-one implementation of this based on \citet[§ 1227]{visk} for cases. Rest of the
-analyses were scaled based on the case values and estimated on a short manually
-disambiguated text, but these are subject to vary between different versions of
-analyser as more data becomes available, and in practice should often be
-tailored towards the use of each application.
-
-
-\begin{figure}
-    \begin{scriptsize}
-\begin{verbatim}
-Kaikki  [WORD_ID=kaikki][POS=PRONOUN][SUBCAT=QUANTOR][NUM=SG][CASE=NOM]
-
-ihmiset [WORD_ID=ihminen][POS=NOUN][NUM=PL][CASE=NOM]
-
-syntyvät        [WORD_ID=syntyä][POS=VERB][VOICE=ACT][DRV=VA][PCP=VA][NUM=PL][CASE=NOM]
-syntyvät        [WORD_ID=syntyä][POS=VERB][VOICE=ACT][MOOD=INDV][TENSE=PRESENT][PERS=PL3]
-
-vapaina [WORD_ID=vapaa][POS=ADJECTIVE][NUM=PL][CASE=ESS]
-vapaina [WORD_ID=vapaa][POS=NOUN][NUM=PL][CASE=ESS]
-
-ja      [WORD_ID=ja][POS=PARTICLE][SUBCAT=CONJUNCTION]
-
-tasavertaisina  [WORD_ID=tasavertainen][POS=ADJECTIVE][NUM=PL][CASE=ESS]
-tasavertaisina  [WORD_ID=tasa][POS=NOUN][NUM=SG][CASE=NOM][GUESS=COMPOUND]
-    [WORD_ID=vertainen][POS=ADJECTIVE][NUM=PL][CASE=ESS]
-tasavertaisina  [WORD_ID=tasa][POS=NOUN][NUM=SG][CASE=NOM][GUESS=COMPOUND]
-    [WORD_ID=vertainen][POS=NOUN][NUM=PL][CASE=ESS]
-
-arvoltaan       [WORD_ID=arvo][POS=NOUN][NUM=SG][CASE=ABL][POSS=PL3]
-arvoltaan       [WORD_ID=arvo][POS=NOUN][NUM=SG][CASE=ABL][POSS=SG3]
-
-ja      [WORD_ID=ja][POS=PARTICLE][SUBCAT=CONJUNCTION]
-
-oikeuksiltaan   [WORD_ID=oikeus][POS=NOUN][NUM=PL][CASE=ABL][POSS=PL3]
-oikeuksiltaan   [WORD_ID=oikeus][POS=NOUN][NUM=PL][CASE=ABL][POSS=SG3]
-
-.       [WORD_ID=.][SUBCAT=PUNCTUATION][BOUNDARY=SENTENCE]
-\end{verbatim}
-    \end{scriptsize}
-    \caption{Example of Omorfi output in analysis mode with the default
-        long analysis style \label{fig:output-example}}
-\end{figure}
-
-One of the main building blocks fora  rule based analysis of morphology is the
-lexicographical data. In order to correctly inflect a word, a root and some
-classification to determine inflection is needed. Without the classification,
-it is only possible to somewhat guess the inflectional patterns of the word.
-For most of the Finnish words, guessing a correct pattern is quite reliable,
-but for purposes where high precision is required, such as spell-checking, a
-manually verified lexicon is necessary.  Also, the task of classification is
-only needed once per word, and does not necessarily require expert skills
-beyond native-like language understanding.  Therefore, the main analyser
-provided for use only uses known words and forms, and the guessers are used
-to extend the lexicon and classifying new words.
-
-The requirement for large amounts of lexicographical data is very apparent in
-applications like spell-checking. In spell-checking and correction it is
-required to know how suitable a word-form is, for standard written Finnish.
-For example for compound words---a potentially infinite class of words in
-Finnish---a compound that is known to exist and has been attested in a number
-of texts is a better word than a compound that can be created by morphological
-combination of nominals' forms.
+To help the collection of new lexical data, we have used some automatic
+classification methods, such as longest common suffix search from the
+morphological dictionary.  The way it works is that given a new word-form, it
+can go through the dictionary to find a longest suffix it has in common with
+some existing word-form. For example  given a new word-form \emph{googlella}
+`with google', the system can guess that it might be like \emph{nallella} `with
+a teddy bear', or \emph{puolella} `with a half' (common suffix of 5
+characters), and using the classification then suggest the end user or corpus
+harvester to study forms like: \emph{googlen, googlea, googleen, googlet,
+googlejen, \ldots} versus \emph{googlen, ${}^\star$googlta, googleen, googlet,
+${}^\star$googlten, \ldots} to decide on the classification of the new word. To
+help this semi-automatic classification we have reformulated morpheme-based and
+phonologically expanded finite-state morphologies as plain morph-based
+morphology.
 
 \section{Data}
 \label{sec:data}
 
 There are a few freely available open resources for lexicographical data of
 Finnish. The first one  we used is based on a dictionary maintained by Research
-institute of languages in Finland. The lexicographical data of the dictionary
-has been available under free software licence since 2007 as \emph{Nykysuomen
-sanalista}\footnote{\url{http://kaino.kotus.fi/sanat/nykysuomi}}).  This data
-consists of some 90,000 words.  The classification is detailed in their web
-site and in the published dictionary.  It uses 80 numeric classes, which freely
-combine with 14 alphabetic classes for the stem consonant gradation.  This
-means theoretically 1,120 classes, though not all combinations are possible or
-used. 
-
-The lexical data Nykysuomen sanalista is conservative and does not
-update often, so it has been necessary to seek for other sources of lexical
-data. This is required to overcome the lack of number of classes of words that
-were missing but are important in practical applications. This includes large
-classes like neologisms, jargon, proper nouns and abbreviations.
-
-The second source of lexical data we acquired from the internet is a free, open
-source database named
-Joukahainen\footnote{\url{http://joukahainen.puimula.org}}. In this database,
-the words are classified with a different classifying scheme.
-
-For another source of lexical data we are using the power of crowd-sourcing. In
-this case, we selected the popular Wiktionary project.  Wiktionary is a
-dictionary that is built in the Wikipedia style, where everyone can freely add
-and edit its data. This has some implications to the quality and reliability of
-the data. It needs to be verified more carefully before adding to the live
-analyser. The classification of Wiktionary words varies between the official
-dictionary classification to none to custom ad hoc classes that Wiktionary
-contributors have come up with.
-
-Finally, we have used data that has been produced for various projects at
-university of Helsinki, including other lexical projects, such as FinnWordNet,
-as well as projects and experiments to collect and classify proper nouns, named
-entities and so forth. 
-
-All the new sets of lexical data have been further classified using
-semi-automatic computational methods. For the needs of this classifications, we
-have further developed a new classification, as well as computational methods
-to help the workers to classify and verify the data.
+institute of languages in Finland (RILF). The lexicographical data of the
+dictionary has been available under free software licence LGPL since 2007 as
+\emph{Nykysuomen
+sanalista.}\footnote{\url{http://kaino.kotus.fi/sanat/nykysuomi}}.  The second
+source of lexical data we acquired from the internet is a free, open source
+database named
+\emph{Joukahainen.}\footnote{\url{http://joukahainen.puimula.org}}  For another
+source of lexical data we use the popular crowd-sourced \emph{Wiktionary}
+project.  Finally, we have used data that has been produced for various
+projects at university of Helsinki, including other lexical projects, such as
+FinnWordNet~\citep{linden2010finnwordnet}.\footnote{The primary sources for
+lexical data used in these projects include europarl corpus and English
+wordnet, but not any of the corpora we have used for evaluations: Wikipedia,
+JRC acquis or Gutenberg.} The classification scheme and precision between
+these sources vary, so the semi-automatic classification method specified in
+section~\ref{sec:methods} has been useful, as evidenced first
+by~\citet{listenmaa2009combining} and numerous contributors thereafter.
 
 The full lexical data used in the current version of our analyser consists of
 396,673 classified lexemes, the classification is roughly summarised by word's
-classes and their origin in table~\ref{table:lexical}. The columns are the
-lexical sources used: Nykysuomen sanalista in column titled \emph{Kotus}
-(RILF), \emph{Joukahainen}, \emph{Wiktionary}, terms harvested in various
-research project in University of Helsinki in column titled \emph{UH}, and a
-total sum in the last column. The rows represent coarse morphological
-classification, with proper nouns separated into their own row. On the
-\emph{others} row are the adverbs, adpositions and such words with defective
-paradigms. These words in current dictionaries have one entry per inflectional
-ending.
+classes and their origin in table~\ref{table:lexical}. 
 
 \begin{table}
+    \begin{scriptsize}
   \centering
     \begin{tabular}{|l|r|r|r|r||r|}
         \hline
         \bf Database: & Kotus & Joukahainen & Wiktionary & UH & \bf Total \\
         \bf Class   & & & & & \\
         \hline
-        Adjectives     & 10,537 & 652 & 59 & 6,368 & 17,616 \\
-        Nouns          & 67,608 & 2,945 & 1,133 & 1,589 & 73,275\\
-        (Proper nouns) & 20 & 5,394 & 70 & 262,330 & 267,814\\
-        Verbs          & 9,685 & 476 & 12 & 499 & 10,672\\
-        Others         & 6620 & 5 & 12 & 25,536 & 32,173 \\
+        Adjectives     & 10,537 & 652   & 59    & 6,368   & 17,616  \\
+        Nouns          & 67,608 & 2,945 & 1,133 & 1,589   & 73,275  \\
+        (Proper nouns) & 20     & 5,394 & 70    & 262,330 & 267,814 \\
+        Verbs          & 9,685  & 476   & 12    & 499     & 10,672  \\
+        Others         & 6620   & 5     & 12    & 25,536  & 32,173  \\
         \hline
         \bf Total      & 94,290 & 9,472 & 1,286 & 296,322 & 396,637 \\
         \hline
     \end{tabular}
-  \caption{Lexical data used in the analyser
+  \caption{Lexical data used in the analyser.  The columns are the lexical
+      sources used: Nykysuomen sanalista in column titled \emph{Kotus} (RILF),
+      \emph{Joukahainen}, \emph{Wiktionary}, terms harvested in various
+      research project in University of Helsinki in column titled \emph{UH},
+      and a total sum in the last column. The rows represent coarse
+      morphological classification, with proper nouns separated into their own
+      row. On the \emph{others} row are the adverbs, adpositions and such words
+      with defective paradigms. These words in current dictionaries have one
+      entry per inflectional ending.
   \label{table:lexical}}
+  \end{scriptsize}
 \end{table}
 
-\section{Methods}
+For measurements we use only freely available corpora. The size of these is
+detailed in table~\ref{table:corpora}. The corpora are following: ebooks of project
+Gutenberg\footnote{\url{http://gutenberg.org}}, the data of Finnish
+Wikipedia\footnote{\url{http://fi.wikipedia.org}}, and the JRC acquis
+corpus\footnote{\url{http://ipsc.jrc.ec.europa.eu/index.php?id=198}}. For
+downloading and preprocessing these corpora we use freely available
+scripts~\footnote{\url{https://github.com/flammie/bash-corpora}}. The scripts
+retain most of the punctuation and white-space without touching. The resulting
+token counts are given in~\ref{table:corpora}. Some further tests were made
+with fully tokenised and analysed
+FinnTreeBank~\citep{voutilainen2012specifying} version 3.1.  The scripts used
+for evaluation are part of omorfi source code.
 
-The system presented uses established techniques, such as finite state
-morphology~\cite{beesley2003finite}. In this section we describe some specific
-details of our finite-state implementation and the lexical data classification
-in the analyser briefly. For further engineering details it is suggested to
-read the up-to-date documentation and source code in the project's web
-site~\footnote{\url{http://code.google.com/p/omorfi/}}.
-
-\subsection{Implementation of the Analyser}
-
-The core computational methodology for the implementation of the analyser is
-finite-state technology, as introduced
-in~\cite{koskenniemi1983twolevel,beesley2003finite}. On top of that we
-have applied recent extensions from the research of finite-state morphology,
-such as weighted finite-state methods~\cite{openfst,hfst2012}. This brings the
-traditional rule-based language analyser towards the statistical language
-analysers that are widely popular in handling of morphologically less
-complex languages.
-
-A naive way to apply statistical methods for morphological analysis is
-straight-forward; to get the likelihood of word-form $P(w)$ as a surface form
-$w$, we calculate the amount of word-forms $f(w)$ in a corpus and divide it by
-the number of word-forms in the whole corpus $CS$. This is shown in formula:
-
-$$
-P(w) = \frac{f(w)}{CS}
-$$
-
-For a morphologically complex language with relatively little corpora, the
-frequency of most of the word-forms is $0$. To handle this gracefully, we need
-to estimate the probability of unseen words and offset a part of the
-probability mass among them. A basic schoolbook approach to this is
-\emph{additive discounting}, where we simply assume that all unseen words have
-appeared in the corpus $\alpha$ times, and we increase the corpus size by
-$\alpha$ per each type $T$ in the corpus. This is shown in formula:
-
-$$
-P_{ADD\alpha}(w) = \frac{f(w) + \alpha}{CS + T \times \alpha}
-$$
-
-Another consideration that we used from recent research findings on training
-compounding language models~\citep{pirinen2009weighting} is the estimation of
-the compound words by their parts. This means that given unseen compound
-\emph{banaaniovi}, the estimated likelihood is $P(\mathrm{banaani}) \times
-P(\mathrm{ovi})$, rather than $P_{ADD\alpha}(\mathrm{\hat banaaniovi})$. One of
-the non-apparent results of such training is that in case of ambiguous
-compounds, the analyser will systematically prefer the ones with least words.
-
-\subsection{Classification and Its Use}
-
-The lexical data that is used in the analyser comes from variety of sources,
-with different quality, classification schemes (or lack of thereof).
-To maintain the data we have rethought the classification scheme by
-systematically analysing the word-forms of each paradigm on character level such
-that for each stem variation and each suffix, the word is considered to be in
-the same class iff each character of the each stem's corresponding varying part
-and each character in each suffix allomorph variant is the same. 
-
-To contrast our classification with the existing classification we get, for
-example, two separate classes for each class by the difference in vowel
-harmony: this is evident because for inessive suffix \emph{ssä} and \emph{ssa}
-are not the same on the character level. Similarly we get four classes instead
-of one for the non-alternating nominal stems since the singular illatives
-\emph{on}, \emph{un}, \emph{yn}, \emph{ön} are not the same on character level.
-Since there is a number of minor details in Finnish morphophonology that
-results combinatorically in quite many classes, we provide the whole table with
-mappings to existing other systems in our wiki
-page\footnote{\url{https://code.google.com/p/omorfi/wiki/InflectionClassTables}}.
-
-This classification scheme can have some implications also to the
-implementation of the resulting grammar. With the classification it is
-essentially possible to build the analyser using naive concatenative morphology
-systems without any additional variation schemes. For example, the stem
-variation present in nominals ending in \emph{-nen}, can be built using the
-stem without the \emph{-nen} part, by selecting one of \emph{nen}, \emph{se} or
-\emph{s} to create the nominative stem, the singular vowel stem and the plural
-stem respectively.
-
-To help the collection of new lexical data, we have used some naive
-automatic classification methods, such as longest common suffix search from the
-morphological dictionary.  The way it works is that given a new word-form, it
-can go through the dictionary to find a longest suffix it has in common with
-some existing word-form. For example  given a new word-form \emph{googlella}
-`with google', the system can guess that it might be like \emph{naḷ̣lella} `with
-a teddy bear', or \emph{puolella} `with a half', and using the classification
-then suggest the end user or corpus harvester to study forms like:
-\emph{googlen, googlea, googleen, googlet, googlejen, \ldots} versus
-\emph{googlen, googlta, googleen, googlet, googlten, \ldots}
-to decide on the classification of the new word.
+\begin{table}
+    \begin{scriptsize}
+  \centering
+    \begin{tabular}{|l|r|r|}
+        \hline
+        \bf Feature: & Tokens     & Types     \\
+        \bf Corpus   &            &           \\
+        \hline
+        Gutenberg    & 36,743,872 & 1,590,642 \\
+        Wikipedia    & 55,435,341 & 3,223,985 \\
+        JRC Acquis   & 42,265,615 & 1,425,532 \\
+        FTB          & 76,369,439 & 1,648,420 \\
+        \hline
+    \end{tabular}
+  \caption{Corpora used for evaluations. Tokens are all strings extracted from
+      corpus and types are unique strings, both include punctuation and some
+      codified expressions like URLs, addresses etc.
+  \label{table:corpora}}
+  \end{scriptsize}
+\end{table}
 
 \section{Evaluation}
 \label{sec:evaluation}
 
-In this section we evaluate our analyser using the traditional approaches to
-evaluating a morphological analyser. Firstly, we measure a naive coverage by
+In this section we evaluate our analyser using very basic methods of
+evaluation and free open source data. Firstly, we measure a naive coverage by
 trying to analyse large corpora and see the proportion of word-forms that can
 be analysed at all. Then we measure the quality of analysis as compared to
-reference corpora of morphologically analysed and disambiguated texts. Finally
-we measure the speed of our system in terms of throughput of the words per
-second to give an impression of the tasks that the system might be suitable
-for.
+reference corpora of morphologically analysed and disambiguated texts. To
+match omorfi analyses with other analyser's output we used a python script
+that basically does naive string matching. The version of omorfi we used
+was 
+\verb|a1321fab6a80|\footnote{\url{https://code.google.com/p/omorfi/source/detail?r=a1321fab6a80}} 
+configured with default settings.
 
-\subsection{Dictionary Coverage}
 
-First we measure how many of the word-forms in the material are
+First we measure how big proportion of data in the material are
 out-of-vocabulary items. This gives us naive coverage, formally defined as
-$\mathrm{Coverage} = \frac{\mathrm{Analysed}}{\mathrm{Corpus size}}$. For
-coverage measurements we use three freely available corpora, the ebooks of
-project Gutenberg, the data of Finnish Wikipedia, and the Europarl corpus. For
-downloading and preprocessing the corpora we used scripts freely available from
-an internet site~\footnote{\url{https://github.com/flammie/bash-corpora}}. The
-results are presented in table~\ref{table:coverage}. 
+$\mathrm{Coverage} = \frac{\mathrm{Analysed}}{\mathrm{Corpus size}}$.
+The results are presented in table~\ref{table:coverage}. 
 
 \begin{table}
+    \begin{scriptsize}
     \centering
-    \begin{tabular}{|l|r|r|}
+    \begin{tabular}{|l|r|r|r|r|}
         \hline
-        \bf System: & Omorfi & FINTWOL \\
+        Corpus:            & \bf Gutenberg & \bf Wiki & \bf JRC acquis & \bf FTB \\
         \hline
-        \bf Corpus & & \\
-        \hline
-        Gutenberg & 98.3~\% & 93.0~\%   \\
-        Wikipedia & 98.4~\% & 92.7~\% \\
-        Europarl  & 99.3~\% & 93.6~\% \\
+        Coverage (tokens): & 98.2~\%       & 97.6~\%  & 98.6~\%        & 99.4~\% \\
+        Coverage (types):  & 61.1~\%       & 59.0~\%  & 55.5~\%        & 70.8~\% \\
         \hline
     \end{tabular}
     \caption{Naive coverages when analysing common corpora
     \label{table:coverage}}
+  \end{scriptsize}
 \end{table}
 
-\subsection{Analysis Recall Compared to Old Systems}
-
-The correctness of analysis was measured using the analyses of Finnish text
-collection corpora~\citep{ftc}. From there we picked the \emph{Helsingin
-sanomat} corpus from the year 1995. In context of morphological analysis,
-recall is measured as a proportion of correct results in all results, or
-formally $\mathrm{Recall} = \frac{\mathrm{Correct}}{\mathrm{Correct} +
-\mathrm{Missing}}$. In table~\ref{table:quality} we show the results for our
-system with random selection of the results, and then with the selection based
-on unigram probabilities and estimated analysis weights. The reference corpus
-is based on other system's output so we assume its results are around 100~\%
-and have not shown it in the table.
+Faithfulness is measured as a proportion of correct results in all results, or
+formally $\mathrm{Faithfulness} = \frac{\mathrm{Correct}}{\mathrm{Correct} +
+\mathrm{Missing}}$. In table~\ref{table:quality} we show the results first
+by proportion of all tokens in data then by unique tokens.
 
 \begin{table}
+    \begin{scriptsize}
     \centering
-    \begin{tabular}{|l|r|r|r|}
+    \begin{tabular}{|l|r|r|}
         \hline
-        \bf Measure & Recall at 1 & Recall at 1---5 & Recall 1---$\infty$  \\
+        \bf Corpus & \bf Faithfulness \\
         \hline
-        \bf Syatem & & & \\
-        \hline
-        Baseline & 26.3~\% & 76.7~\% & 90.5~\%\\
-        With weights & 27.7~\% & 79.8~\% & 90.5~\%\\
+        FTB (tokens) & 83.6~\% \\
+        FTB (types)  & 48.0~\% \\
         \hline
     \end{tabular}
     \caption{Quality of the analyser measured as equality to results of
         another analyser \label{table:quality}}
+  \end{scriptsize}
 \end{table}
 
-\subsection{Processing Speed}
-
-To measure the processing speed we simply measured analysis time of 10,000,000
-first word-forms of Finnish Wikipedia averaged over five runs. The results in
-table~\ref{table:speed} are given in full word-forms per second rounded down.
-
-\begin{table}
-    \centering
-    \begin{tabular}{|l|r|r|r|r|}
-        \hline
-        \bf System & Omorfi & fintwol & textmorfo & fifdg \\
-        \hline
-        \bf Corpus &        &         &           & \\
-        \hline
-        Wikipedia & 56,179  & 14,705  & 2,010 & 2,584 \\
-        \hline
-    \end{tabular}
-    \caption{Quality of the analyser measured as equality to results of
-        another analyser \label{table:speed}}
-\end{table}
-
-\section{Discussion}
+\section{Discussion and Future Work}
 \label{sec:discussion}
 
-Morphological analysis of Finnish with computational methods and finite-state
-automata is a 30 year old topic. In this paper we attempted to study the
-similarities and differences that our current analyser has to those developed
-in the years between. One feature that is new compared to most of the systems,
-is the possibility of statistical and similar values. The resulting analyser is
-currently capable of basic baseline quality morphological disambiguation, which
-can be usable for information extraction and similar applications where the
-accuracy requirement for top results is not so crucial. This should also be
-usable as baseline for systems that perform morphological disambiguation based
-on full syntactic analysis, like constraint or dependency
-grammars~\citep{karlsson1995constraint} For future research, it should be
-interesting to see more advanced statistical methods applied as well as
-combinations with other rule-based systems..
+Our weighted finite-state analyser combines rule-based approach with statistics
+and is currently capable of basic morphological disambiguation.  For future
+research, it should be interesting to see more advanced statistical methods
+applied as well as combinations with other rule-based systems such as
+constraint grammar~\citep{karlsson1995constraint}.
 
 To get the lexical data organised and the analyser implemented we have extended
-the lexical classification using very strict, systematic and naive approach to
-synchronic morphophonology. There are a couple of reasons for this meticulous
-re-classification of paradigms. One is that by systematically resorting to
-synchronic character level knowledge, we could get the most simple naive
-morphological description that lends itself to automatic classification of out
-of vocabulary words. For example, the longest suffix classification works quite
-well in guessing the paradigms, however, if you are using the old
-classification scheme, trying to find evidence that word belongs to class 1 by
-the fact that we try to find illatives of form \emph{Vn} or inessives of form
-\emph{ssA} is slightly harder task than finding the wordforms with suffix
-exactly e.g.  \emph{on} and \emph{ssa}. To that aspect, the system is not
-useful only for guessing, as the lexical data comes from various sources,
-including freely editable dictionary, we can also use the automatic
-classification schemes to ensure that the word data coming from such sources is
-classified to our expectations.
-
-One of the implications of the systematic classification schemes is that it
-allows for implementations based on poorer computational morphology
-implementations to be made. This means that the lexical data could be used in
-systems without morphophonology support, such as
+the lexical classification using a simple morph-based approach to synchronic
+morphophonology.  One of the implications of the systematic classification
+schemes is that it allows for implementations based on poorer computational
+morphology implementations to be made. This means that the lexical data could
+be used in systems without morphophonology support, such as
 hunspell~\citep{tron2005hunmorph} or apertium~\citep{apertium}, which are
 popular enough to be considered the de facto standard systems for computational
-linguistics in fields of spell checking and machine translation respectively. 
+linguistics in fields of spell checking and machine translation respectively.
+It would be greatly useful to see the system formulated under these formalisms.
 
-The coverage of the analyser is systematically around 99~\%, this is virtually
+The coverage of the analyser is systematically around 98~\%, this is virtually
 at the upper limits of reasonable results with the given corpora. This can be
 noticed by analysing the errors or the out-of-vocabulary word-forms left in the
 current corpora. For Wikipedia, we get word-forms like: \emph{Lä}, \emph{of},
-\emph{The}, \emph{amp}, \emph{the}, \emph{HMS}, \emph{New},
-\emph{and}, \emph{jpg}, that is, mainly code notations, foreign words and
-abbreviations. In the Gutenberg corpus, we get, among some missing proper
-nouns, forms like: \emph{nämät}, \emph{kauvan}, \emph{sitte} and other
-dialectal, spoken or otherwise non-standard forms. Of course these are all
-plausible additions for morphological analyser as well.
+\emph{The}, \emph{amp}, \emph{HMS}, \emph{and}, \emph{jpg}, that is, mainly
+code notations, foreign words and abbreviations. In the Gutenberg corpus, we
+get, among some missing proper nouns, forms like: \emph{nämät}, \emph{kauvan},
+\emph{sitte} and other dialectal, spoken, archaic or otherwise non-standard
+forms. Of course these are all plausible additions for morphological analyser
+as well.
 
-The measurements of recall we used in the evaluation section are based on a
-``gold standard'' which is merely a result of another automatic analyser. This
-is not necessarily a representative of correctly analysed Finnish. For this
-effect, it is better to read the precision and recall scores as
-\emph{faithfulness} scores of our system being a re-implementation of the
-reference system; for this reason, higher recall measures have not been
-considered as a crucial design goal for Omorfi analyser.
+The measurements of faithfulness we used in the evaluation section are based on
+a ``gold standard'' which is merely a result of another automatic analyser.
+This is not necessarily a representative of correctly analysed Finnish and thus
+we have not regarded getting maximal faithfulness as a priority. As an example
+of mismatched analyses right now: top wrong word-forms \emph{oli} `was',
+\emph{olivat} `were' are analysed as present tense in the gold standard, we
+feel this is incorrect and have opted not to match that analyses. A large part
+of mismatches comes from analysis of compounds and derivations, whether they
+are lexicalised or still treated as combinations of the root words. Finally,
+minor differences in participle analyses may account for around
+fifth\footnote{This was estimated by counting all participles in subset of
+errors and sampling manually, some of these may be different errors
+nevertheless.} of the analysis differences by token count at the moment (that
+is, FTB considering participle as a part of speech with root being an inflected
+form of verb where omorfi includes it in verbal analyses with verb infinitive
+as root).
 
-The speed of our analyser is at the range where it is not of practical concern
-for most end applications anymore, we can basically analyse quite large corpora
-in few minutes of batch processing, and online processing is possible for
-virtually all practical interactive applications.  It is also noteworthy that
-the speed of our analyser is not directly comparable to \texttt{textmorfo} and
-\texttt{fi-fdg}, which perform full morphosyntactic analysis, whereas Omorfi
-only does isolated morphological analysis. It is possible to extend Omorfi with
-some syntactic analysis capabilities using Karlsson's Finnish CG available as
-free/open source implementation in University of Tromsa's open source
-computational linguistics
-repository~\footnote{\url{http://giellatekno.uit.no}}. The modifications
-required to match the analyses with the system's expectations are minimal and
-quite a bit of the work has already been done in the referred repository.
-
+It is noteworthy that in an open source project with multiple active
+developers, importance of the evaluations is somewhat diminished by the
+relatively active development pace. That is, if there are some missing analyses
+or low score is a problem, it will likely be improved or fixed in a short
+time-frame. For example, the faithfulness measure has been varying in range of
+80---93̃~\% during the preparations of this article.
 
 \section{Conclusion}
 \label{sec:conclusion}
 
 In this article we set out to show some features of the newest edition of our
-Finnish morphological analyser. We have showed that it gives reasonably good
-results for basic analysis tasks with much higher coverage, precision and recall
-than other systems currently in use. We studied the usefulness of systematic
-re-classification of Finnish inflectional paradigms based on synchronic
-orthographical evidence, and found that it provides some benefits for tasks
-like automatic classification and verification of new lexical data.
+Finnish morphological analyser. We confirm that it is full-fledged analyser
+system by measuring coverage of multiple texts of different types and from
+different times.  We studied the usefulness of systematic re-classification of
+Finnish inflectional paradigms based on synchronic orthographical evidence, and
+found that it provides some benefits for tasks like automatic classification
+and verification of new lexical data.
 
 % apalike with underscores???
 \bibliographystyle{apalike}
 \bibliography{omorfi2013}
-
+\iffinal
+\newpage
+\begin{small}
+    \noindent Contact Information:\\
+\\
+    Tommi A Pirinen\\
+    Dublin City University\\
+    Glasnevin\\
+    Dublin 9\\
+    Ireland\\
+    e-mail: \url{Tommi.Pirinen@computing.dcu.ie}\\
+\end{small}
+\fi
 \end{document}
 % vim: set spell:
