@@ -105,8 +105,14 @@
 \or% = kindle
         This version is optimised for small screen readers.
 \fi\fi
+        This version uses only free fonts if possible.
     #1}
 }
+
+\newcommand{\springerpostprintdoi}[1]{The final publication is available at
+Springer via \url{http://dx.doi.org/#1}. For more information on Springer's
+self-archiving policy, visit
+\url{http://www.springer.com/gp/open-access/authors-rights/self-archiving-policy/2124}.}
 
 % My packages
 \RequirePackage{polyglossia}
