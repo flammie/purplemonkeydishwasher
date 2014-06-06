@@ -1,0 +1,97 @@
+\documentclass[b5paper]{article}
+
+\usepackage{polyglossia}
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{expex}
+
+
+\setmainfont[Mapping=tex-text]{Liberation Serif}
+
+\begin{document}
+
+\title{Template for FIWCLUL 2015 Workshop Proceedings}
+
+\author{First Author\\
+University or Affiliation\\
+Department or School\\
+(Optionally Post Address)\\
+\url{first.author@example.com} \and
+Second Author\\
+University or Affiliation\\
+Department or School\\
+(Optionally Post Address)\\
+\url{second.author@example.com} 
+}
+
+\date{\today}
+
+\maketitle
+
+\begin{abstract}
+    Abstract can be between 150 and 300 words long and it needs to market
+    the article. Separate keywords are not used.
+\end{abstract}
+
+\section{Introduction}
+
+This template is for authors submitting papers to First International Workshop
+on Computational Linguistics for Uralic Languages. The papers to be submitted
+should be in PDF format made using \XeLaTeX{} and this template. The
+proceedings are designed for viewing on screen but for-print versions may be
+produced.  Authors who are unable to use freely available \texttt{xelatex}
+should contact the conference organisers for other options. Additional
+information and recent updates to this template are available from
+\url{http://gtweb.uit.no/iwclul2015/}. The submissions are handled using
+easychair.
+
+\section{Formatting Instructions}
+
+Follow common English typographical standards.The \emph{emphasis} is used for
+sentence level highlights and \textbf{strong emphasis} for paragraph level
+highlights. Linguistic glosses should follow Leipzig Glossing rules
+\url{}, see \nextx.
+
+\ex
+\begingl
+\gla talo-i-ssa-ni //
+\glb house-{\sc pl}-{\sc ine}-{sc 1sg} //
+\glft `in my houses' //
+\endgl
+\xe
+
+For inline examples, use italics and parentheses \emph{talossasi} (in your
+house).
+
+Tables like~\ref{table:example}. should have caption underneath and borders.
+
+\begin{table}
+    \center
+    \begin{tabular}{|l|r|}
+        \hline
+        \bf Header & \bf Header \\
+        \hline
+        \bf Header & Data \\
+        \hline
+    \end{tabular}
+    \caption{The rows are things and columns stuff and data is in percent units
+    \label{table:example}}
+\end{table}
+
+Citations are made using bibtex: WALS~\cite{haspelmath2005world} is a good book.
+
+
+Use a splel-checker before submitting your texts.
+
+\section*{Acknowledgments}
+
+Acknowledgments should be un-numbered last section.
+
+\bibliographystyle{unsrt}
+\bibliography{fiwclul2015}
+
+\end{document}
+
