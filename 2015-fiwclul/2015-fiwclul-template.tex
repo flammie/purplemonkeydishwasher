@@ -9,7 +9,7 @@
 \usepackage{expex}
 
 
-\setmainfont[Mapping=tex-text]{Liberation Serif}
+\setmainfont[Mapping=tex-text]{Linux Libertine O}
 
 \begin{document}
 
@@ -32,33 +32,40 @@ Department or School\\
 \maketitle
 
 \begin{abstract}
-    Abstract can be between 150 and 300 words long and it needs to market
-    the article. Separate keywords are not used.
+    Abstract can be between 150 and 300 words long. Separate keywords are not
+    used. Reviewers use abstract to decide which articles to review and readers
+    will use abstract to decide which articles to read, so make it informative
+    and interesting.
 \end{abstract}
 
 \section{Introduction}
 
 This template is for authors submitting papers to First International Workshop
 on Computational Linguistics for Uralic Languages. The papers to be submitted
-should be in PDF format made using \XeLaTeX{} and this template. The
-proceedings are designed for viewing on screen but for-print versions may be
-produced.  Authors who are unable to use freely available \texttt{xelatex}
-should contact the conference organisers for other options. Additional
-information and recent updates to this template are available from
-\url{http://gtweb.uit.no/iwclul2015/}. The submissions are handled using
-easychair.
+should be in PDF format made using \XeLaTeX{} and this template; that is
+documentclass article with b5paper option. The standard xelatex packages
+including polyglossia should be loaded for all papers.  Use Linux Libertine as
+freely available font with good range of unicode support, and small-caps for
+Leipzig glossing. The proceedings are designed for viewing on screen but
+for-print versions may be produced.  Authors who are unable to use freely
+available \texttt{xelatex} should contact the conference organisers for other
+options. Additional information and recent updates to this template are
+available from \url{http://gtweb.uit.no/iwclul2015/}. The submissions are
+handled using easychair. Required tex packages should be in your texlive
+distribution, for ubuntu use: \texttt{sudo apt-get install
+texlive-\{xetex,latex-recommended,fonts-recommended\} fonts-linux-libertine}.
 
 \section{Formatting Instructions}
 
 Follow common English typographical standards.The \emph{emphasis} is used for
 sentence level highlights and \textbf{strong emphasis} for paragraph level
 highlights. Linguistic glosses should follow Leipzig Glossing rules
-\url{}, see \nextx.
+\url{}, see (\nextx).
 
 \ex
 \begingl
 \gla talo-i-ssa-ni //
-\glb house-{\sc pl}-{\sc ine}-{sc 1sg} //
+\glb house-{\sc Pl}-{\sc Ine}-{\sc 1sg} //
 \glft `in my houses' //
 \endgl
 \xe
@@ -82,7 +89,12 @@ Tables like~\ref{table:example}. should have caption underneath and borders.
 \end{table}
 
 Citations are made using bibtex: WALS~\cite{haspelmath2005world} is a good book.
+It is possible to cite Russians using plain unicode, such as the original 
+version of Levenshtein algorithm~\cite{levenshtein1965}.
+Use bibliographystyle unsrt.
 
+Code examples, program listings and shell sessions can be shown as figures,
+pseudo-code may be formatted using one of the relevant \LaTeX{} packages.
 
 Use a splel-checker before submitting your texts.
 
