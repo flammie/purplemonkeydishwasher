@@ -8,12 +8,20 @@
 \usepackage{hyperref}
 \usepackage{expex}
 
+\makeatletter
+\def\blfootnote{\gdef\@thefnmark{}\@footnotetext}
+\makeatother
 
 \setmainfont[Mapping=tex-text]{Linux Libertine O}
 
 \begin{document}
 
-\title{Template for FIWCLUL 2015 Workshop Proceedings}
+\title{Template for FIWCLUL 2015 Workshop Proceedings\blfootnote{
+    This work is licensed under a Creative Commons Attribution–NoDerivatives
+    4.0 International Licence.  Licence details:
+    \url{http://creativecommons.org/licenses/by-nd/4.0/}
+}
+}
 
 \author{First Author\\
 University or Affiliation\\
@@ -54,6 +62,11 @@ available from \url{http://gtweb.uit.no/iwclul2015/}. The submissions are
 handled using easychair. Required tex packages should be in your texlive
 distribution, for ubuntu use: \texttt{sudo apt-get install
 texlive-\{xetex,latex-recommended,fonts-recommended\} fonts-linux-libertine}.
+
+To ease the work with licences and permissions, all submissions should retain
+a footnote acknowledging that work is to be published under Creative
+Commons Attribution-NoDerivatives 4.0 International Licence. This way we do not
+need additional copyright forms.
 
 \section{Formatting Instructions}
 
