@@ -58,6 +58,9 @@ AM_PATH_PYTHON([3.2])
 AC_PATH_PROG([JAVA], [java], [false])
 AC_PATH_PROG([WGET], [wget], [false])
 AC_PATH_PROGS([TAR], [gnutar gtar tar], [false])
+AC_PATH_PROG([APERTIUM], [apertium], [false])
+AC_PATH_PROG([APERTIUM_DESTXT], [apertium-destxt], [cat])
+AC_PATH_PROG([APERTIUM_RETXT], [apertium-retxt], [cat])
 
 #tex
 AC_PATH_PROG([XELATEX], [xelatex], [false])
@@ -97,6 +100,8 @@ AC_PATH_PROG([GIZA_MKCLS], [mkcls], [false], [$PATH$PATH_SEPARATOR$with_giza_too
 AS_IF([test -z $with_giza_tools], [AC_MSG_ERROR([giza tools must be copied to a directory and specified --with-giza-tools=DIR])])
 AC_SUBST([GIZA_TOOLDIR], [$with_giza_tools])
 AS_IF([test x$MGIZA != xfalse], [AC_SUBST([MGIZA_FLAGS], ["-mgiza -mgiza-cpus 2"])])
+
+PKG_CHECK_MODULES([APERTIUM_FIN_ENG], [apertium-fin-eng])
 
 # 
 AC_CONFIG_FILES([Makefile])

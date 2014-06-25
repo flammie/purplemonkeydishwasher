@@ -3,6 +3,8 @@
 ## This is Makefile for mt marathon 2014 experiments by Flammie and all.
 ## run make to reproduce.
 
+# to make official PDF version you need to fetch PBML zip from MTM 2014 site
+
 #.PRECIOUS: 
 .PHONY: corpora segments translations evaluations
 
@@ -10,7 +12,6 @@
 
 MOSES_BASELINE_FI=europarl-v7.fi-en.btm.fi-en
 MOSES_BASELINE_FI_DIR=europarl-v7.fi-en.fi-en
-RBMT_BASELINE_FI=fin-eng.mode
 
 # segment (As preproc?)
 MORFESSOR_FI=europarl-v7.fi-en.fi.train.morfessor
@@ -19,7 +20,6 @@ FST_FI=europarl-v7.fi-en.fi.weighted.hfst
 
 MOSES_BASELINE_EN=europarl-v7.fi-en.btm.en-fi
 MOSES_BASELINE_EN_DIR=europarl-v7.fi-en.en-fi
-RBMT_BASELINE_EN=eng-fin.mode
 
 # join (as postproc?)
 TEDDYBEARS_FI=
@@ -213,10 +213,15 @@ segments: $(SEGMENTS)
 translations:  $(TRANSLATIONS)
 
 
-%.baseline-moses.en-fi.text: %.true.en $(MOSES_BASELINE)
+%.baseline-moses.en-fi.text: %.true.en $(MOSES_BASELINE_FI)
 	$(MOSES) -f $(MOSES_BASELINE_DIR)/model/moses.ini < $< |\
 		$(MOSES_DETRUECASE) |\
 		$(MOSES_DETOKENIZER) > $@
+
+%.baseline-apertium.en-fi.text: %.en.text $(RBMT_BASELINE_FI)
+	$(APERTIUM_DESTXT) < $< |\
+		$(APERTIUM) eng-fin |\
+		$(APERTIUM_RETXT) > $@
 
 # }}}
 
