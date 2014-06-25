@@ -1,0 +1,20 @@
+#! /bin/sh
+
+# Common PBS variables
+#PBS -l nodes=1:ppn=4:cores4:min48GB
+#PBS -M @PBS_MAIL@
+#PBS -m eba
+#PBS -r n
+#PBS -l walltime=00:10:00
+
+source ${HOME}/.bashrc
+
+WORK="@abs_top_builddir@"
+
+cd ${WORK}/
+
+make -j 4 models
+
+make -j 4 translations
+
+make -j 4 evaluations
