@@ -3,6 +3,8 @@
 ## This is Makefile for mt marathon 2014 experiments by Flammie and all.
 ## run make to reproduce.
 
+# to make official version you need to fetch PBML zip from MTM 2014 site
+
 all: 2014-mtm-fin-eng.pdf
 
 %.pdf: %.tex
