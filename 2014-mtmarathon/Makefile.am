@@ -113,19 +113,22 @@ models: $(MODELS)
 	$(MOSES_TRAIN_MODEL) -root-dir $*.fi-en -corpus $*.clean -f fi -e en \
 		-alignment grow-diag-final-and -reordering msd-bidirectional-fe \
 		-lm 0:3:`pwd`/$*.blm.en:8 $(MGIZA_FLAGS) -external-bin-dir \
-		$(GIZA_TOOLDIR) -snt2cooc snt2cooc.pl
+		$(GIZA_TOOLDIR) $(SNT2COOC_FLAG)
 	touch $@
 
 %.tm.en-fi: %.clean.en %.clean.fi %.blm.fi
 	$(MOSES_TRAIN_MODEL) -root-dir $*.en-fi -corpus $*.clean -f en -e fi \
 		-alignment grow-diag-final-and -reordering msd-bidirectional-fe \
 		-lm 0:3:`pwd`/$*.blm.fi:8  $(MGIZA_FLAGS) -external-bin-dir \
-		$(GIZA_TOOLDIR) -snt2cooc snt2cooc.pl
+		$(GIZA_TOOLDIR) $(SNT2COOC_FLAG)
 	touch $@
 
 ### FIXME: tuning
 
 %.btm.fi-en: %.tm.fi-en
+	if test ! -d $*.binarised.fi-en ; then \
+		$(MKDIR_P) $*.binarised.fi-en ;\
+	fi
 	$(MOSES_PROCESS_PHRASE_TABLE) -ttable 0 0 $*.fi-en/model/phrase-table.gz \
 		-nscores 5 -out $*.binarised.fi-en/phrase-table
 	$(MOSES_PROCESS_LEXICAL_TABLE) -in $*.fi-en/model/reordering-table.wbe-msd-bidirectional-fe.gz -out $*.binarised.fi-en/reordering-table
@@ -136,6 +139,9 @@ models: $(MODELS)
 	touch $@
 
 %.btm.en-fi: %.tm.en-fi
+	if test ! -d $*.binarised.fi-en ; then \
+		$(MKDIR_P) $*.binarised.fi-en ;\
+	fi
 	$(MOSES_PROCESS_PHRASE_TABLE) -ttable 0 0 $*.en-fi/model/phrase-table.gz \
 		-nscores 5 -out $*.binarised.en-fi/phrase-table
 	$(MOSES_PROCESS_LEXICAL_TABLE) -in $*.en-fi/model/reordering-table.wbe-msd-bidirectional-fe.gz -out $*.binarised.en-fi/reordering-table
