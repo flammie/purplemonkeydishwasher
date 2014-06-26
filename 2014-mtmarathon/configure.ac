@@ -97,9 +97,12 @@ AC_SUBST([IRSTLM_DIR], [$with_irstlm])
 AC_PATH_PROG([MGIZA], [mgiza], [false], [$PATH$PATH_SEPARATOR$with_giza_tools/])
 AC_PATH_PROG([GIZAPP], [GIZA++], [false], [$PATH$PATH_SEPARATOR$with_giza_tools/])
 AC_PATH_PROG([GIZA_MKCLS], [mkcls], [false], [$PATH$PATH_SEPARATOR$with_giza_tools/])
+AC_PATH_PROG([GIZA_SNT2COOC], [snt2cooc], [false], [$PATH$PATH_SEPARATOR$with_giza_tools/])
+AC_PATH_PROG([MGIZA_SNT2COOC], [snt2cooc.pl], [false], [$PATH$PATH_SEPARATOR$with_giza_tools/])
 AS_IF([test -z $with_giza_tools], [AC_MSG_ERROR([giza tools must be copied to a directory and specified --with-giza-tools=DIR])])
 AC_SUBST([GIZA_TOOLDIR], [$with_giza_tools])
 AS_IF([test x$MGIZA != xfalse], [AC_SUBST([MGIZA_FLAGS], ["-mgiza -mgiza-cpus 2"])])
+AS_IF([test x$MGIZA_SNT2COOC != xfalse], [AC_SUBST([SNT2COOC_FLAG], ["-snt2cooc snt2cooc.pl"])])
 
 PKG_CHECK_MODULES([APERTIUM_FIN_ENG], [apertium-fin-eng])
 
