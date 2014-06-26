@@ -112,15 +112,17 @@ models: $(MODELS)
 %.tm.fi-en: %.clean.fi %.clean.en %.blm.en
 	$(MOSES_TRAIN_MODEL) -root-dir $*.fi-en -corpus $*.clean -f fi -e en \
 		-alignment grow-diag-final-and -reordering msd-bidirectional-fe \
-		-lm 0:3:`pwd`/$*.blm.en:8 $(MGIZA_FLAGS) -external-bin-dir \
-		$(GIZA_TOOLDIR) $(SNT2COOC_FLAG)
+		-lm 0:3:`pwd`/$*.blm.en:8 $(MGIZA_FLAGS) \
+		-sort-batch-size 253 -sort-compress gzip \
+		-external-bin-dir $(GIZA_TOOLDIR) $(SNT2COOC_FLAG)
 	touch $@
 
 %.tm.en-fi: %.clean.en %.clean.fi %.blm.fi
 	$(MOSES_TRAIN_MODEL) -root-dir $*.en-fi -corpus $*.clean -f en -e fi \
 		-alignment grow-diag-final-and -reordering msd-bidirectional-fe \
-		-lm 0:3:`pwd`/$*.blm.fi:8  $(MGIZA_FLAGS) -external-bin-dir \
-		$(GIZA_TOOLDIR) $(SNT2COOC_FLAG)
+		-lm 0:3:`pwd`/$*.blm.fi:8  $(MGIZA_FLAGS) \
+		-sort-batch-size 253 -sort-compress gzip \
+		-external-bin-dir $(GIZA_TOOLDIR) $(SNT2COOC_FLAG)
 	touch $@
 
 ### FIXME: tuning
