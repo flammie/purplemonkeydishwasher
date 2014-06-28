@@ -10,21 +10,21 @@
 
 # {{{ SETTINGS
 
-MOSES_BASELINE_FI=europarl-v7.fi-en.btm.fi-en
-MOSES_BASELINE_FI_DIR=europarl-v7.fi-en.fi-en
+MOSES_BASELINE_FI_EN=europarl-v7.fi-en.btm.fi-en
+MOSES_BASELINE_FI_EN_DIR=europarl-v7.fi-en.fi-en
 
 # segment (As preproc?)
 MORFESSOR_FI=europarl-v7.fi-en.fi.train.morfessor
 FST_FI_UNWEIGHTED=compounds.hfst
 FST_FI=europarl-v7.fi-en.fi.weighted.hfst
 
-MOSES_BASELINE_EN=europarl-v7.fi-en.btm.en-fi
-MOSES_BASELINE_EN_DIR=europarl-v7.fi-en.en-fi
+MOSES_BASELINE_EN_FI=europarl-v7.fi-en.btm.en-fi
+MOSES_BASELINE_EN_FI_DIR=europarl-v7.fi-en.en-fi
 
 # join (as postproc?)
 TEDDYBEARS_FI=
 
-MODELS=$(MOSES_BASELINE_FI) $(MOSES_BASELINE_EN)
+MODELS=$(MOSES_BASELINE_FI_EN) $(MOSES_BASELINE_EN_FI)
 
 PAPER=2014-mtm-fin-eng.pdf
 # }}}
@@ -48,7 +48,7 @@ europarl-v7.fi-en.fi.text: fi-en.tgz
 
 europarl-v7.fi-en.en.text: fi-en.tgz
 	$(TAR) zxvf $<
-	mv europarl-v7.fi-en.fi $@
+	mv europarl-v7.fi-en.en $@
 	touch $@
 
 # }}}
@@ -152,6 +152,7 @@ models: $(MODELS)
 		-e "s:$*.en-fi/model/reordering-table.wbe-msd-bidirectional-fe.gz:$*.binarised.en-fi/reordering-table:"\
 		$*.en-fi/model/moses.ini 
 	touch $@
+
 # morfessor train
 %.morfessor: %.text
 	morfessor-train $< -s $@
@@ -221,8 +222,8 @@ segments: $(SEGMENTS)
 translations:  $(TRANSLATIONS)
 
 
-%.baseline-moses.en-fi.text: %.true.en $(MOSES_BASELINE_FI)
-	$(MOSES) -f $(MOSES_BASELINE_DIR)/model/moses.ini < $< |\
+%.baseline-moses.en-fi.text: %.true.en $(MOSES_BASELINE_EN_FI)
+	$(MOSES) -f $(MOSES_BASELINE_EN_FI_DIR)/model/moses.ini < $< |\
 		$(MOSES_DETRUECASE) |\
 		$(MOSES_DETOKENIZER) > $@
 
