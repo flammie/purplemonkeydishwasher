@@ -141,8 +141,8 @@ models: $(MODELS)
 	touch $@
 
 %.btm.en-fi: %.tm.en-fi
-	if test ! -d $*.binarised.fi-en ; then \
-		$(MKDIR_P) $*.binarised.fi-en ;\
+	if test ! -d $*.binarised.en-fi ; then \
+		$(MKDIR_P) $*.binarised.en-fi ;\
 	fi
 	$(MOSES_PROCESS_PHRASE_TABLE) -ttable 0 0 $*.en-fi/model/phrase-table.gz \
 		-nscores 5 -out $*.binarised.en-fi/phrase-table
@@ -240,6 +240,13 @@ evaluations: $(EVALUATIONS)
 
 
 # {{{ paper
+pbml.cls:
+	$(WGET) http://ufal.mff.cuni.cz/pbml/pbml-4_0-flat.zip
+	unzip pbml-4_0-flat.zip
+	@echo you also need to install gyre pagella font and some texliverecommended
+
+2014-mtm-fin-eng.pdf: 2014-mtm-fin-eng.tex pbml.cls
+
 %.pdf: %.tex
 	$(XELATEX) $<
 	$(BIBTEX) $*
