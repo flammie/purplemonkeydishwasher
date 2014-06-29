@@ -5,11 +5,13 @@
 
 # to make official PDF version you need to fetch PBML zip from MTM 2014 site
 
-#.PRECIOUS: 
+# all secondary
+.SECONDARY:
 .PHONY: corpora segments translations evaluations
 
 # {{{ SETTINGS
 
+MOSES_BASELINE_FI=europarl-v7-fi-en.blm.fi
 MOSES_BASELINE_FI_EN=europarl-v7.fi-en.btm.fi-en
 MOSES_BASELINE_FI_EN_DIR=europarl-v7.fi-en.fi-en
 
@@ -18,13 +20,15 @@ MORFESSOR_FI=europarl-v7.fi-en.fi.train.morfessor
 FST_FI_UNWEIGHTED=compounds.hfst
 FST_FI=europarl-v7.fi-en.fi.weighted.hfst
 
+MOSES_BASELINE_EN=europarl-v7.fi-en.blm.en
 MOSES_BASELINE_EN_FI=europarl-v7.fi-en.btm.en-fi
 MOSES_BASELINE_EN_FI_DIR=europarl-v7.fi-en.en-fi
 
 # join (as postproc?)
 TEDDYBEARS_FI=
 
-MODELS=$(MOSES_BASELINE_FI_EN) $(MOSES_BASELINE_EN_FI)
+MODELS=$(MOSES_BASELINE_FI) $(MOSES_BASELINE_FI_EN)\
+	   $(MOSES_BASELINE_EN) $(MOSES_BASELINE_EN_FI)
 
 PAPER=2014-mtm-fin-eng.pdf
 # }}}
@@ -113,6 +117,7 @@ models: $(MODELS)
 	$(MOSES_TRAIN_MODEL) -root-dir $*.fi-en -corpus $*.clean -f fi -e en \
 		-alignment grow-diag-final-and -reordering msd-bidirectional-fe \
 		-lm 0:3:`pwd`/$*.blm.en:8 $(MGIZA_FLAGS) \
+		$(PARALLEL_FLAGS) \
 		-sort-batch-size 253 -sort-compress gzip \
 		-external-bin-dir $(GIZA_TOOLDIR) $(SNT2COOC_FLAG)
 	touch $@
@@ -121,8 +126,9 @@ models: $(MODELS)
 	$(MOSES_TRAIN_MODEL) -root-dir $*.en-fi -corpus $*.clean -f en -e fi \
 		-alignment grow-diag-final-and -reordering msd-bidirectional-fe \
 		-lm 0:3:`pwd`/$*.blm.fi:8  $(MGIZA_FLAGS) \
+		$(PARALLEL_FLAGS) \
 		-sort-batch-size 253 -sort-compress gzip \
-		-external-bin-dir $(GIZA_TOOLDIR) $(SNT2COOC_FLAG)
+		-external-bin-dir $(GIZA_TOOLDIR) $(SNT2COOC_FLAG) 
 	touch $@
 
 ### FIXME: tuning
