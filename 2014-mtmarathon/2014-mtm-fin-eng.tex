@@ -39,7 +39,8 @@
 % AFTER \begin{document}. Note that \subtitle is not allowed anymore due to
 % problems with indexing in science databases. If needed use colon in the title.
 
-\title{Some Experiments in Finnish English MT\titlelinebreak{} with a Forced Linebreak}
+\title{Unseen Teddy-Bears and Morphological Segments in SMT and RBMT\titlelinebreak{}
+an Experiment in Morphological Joining and Splitting with English-Finnish MT systems}
 
 
 % Now put the affiliated institutes first, then author names and the labels
@@ -105,7 +106,8 @@
 % part of the article. PLEASE, do not use your own macros in abstract, if possible.
 
 \begin{abstract}
-Concrete
+
+
 \end{abstract}
 
 \section{Introduction}
@@ -118,18 +120,42 @@ Concrete
 
 % In addition to the \cite command, you can use natbib style of citations.
 % PLEASE, use \citet instead of \cite if the author names are part of the sentence.
-\citet{PDT2} show \ldots \\ % This renders as "Hajič et al. (2006) show" instead of "(Hajič et al., 2006) show".
-\ldots tree-based annotation (e.g.~\citealp{PDT2}).
+
+Compound joining is an important part of the machine translation when dealing
+with translation from morphologically less productive language in the
+compounding department to a language where compounding is productive and
+common. \citet{cap2014produce} has described a method for combining CRF-based
+(conditional random field) statistical compound joiner to German-Russian
+statistical machine translation.
+
+The inverse process, compound segmentation, as well as any other
+morphologically relevant segmentation of semantic units, is required when
+translating to direction of morphologically rich language to one that uses
+syntactic and lexical means for expressing the concepts.
+\citet{fishel2010linguistically} has shown that for Estonian to English the
+morphological segmentation shows promising increase in scores.
+
+In this paper we study the state-of-the-art methods of morphological splitting
+and joining when combined with baseline statistical and rule-based machine
+translation systems using Finnish and English as the experiment pair. For the
+baseline in SMT we have selected moses, and the language models specified on
+their baseline
+documentation\footnote{\url{http://www.statmt.org/moses/?n=moses.baseline}},
+the corpus used is europarl~\citep{koehn2005europarl} as in the example, for
+tuning XXX???  For RBMT we use apertium~\citep{forcada2011apertium} and the
+Finnish---English translation pair̃\footnote{\url{SVN URL}} we have built
+earlier. The experiments we make and data needed for reproducing the results
+are available freely in our github repository\footnote{\url{}}.
 
 
 % For figures and tables always use "figure" resp. "table" floating environments
 % and always supply a caption. See the paragraph about color images below.
-\begin{figure}
- \begin{center}
-  \includegraphics[width=\textwidth]{example_figure}
-  \caption{Example figure}\label{fig:example}
- \end{center}
-\end{figure}
+%\begin{figure}
+% \begin{center}
+%  \includegraphics[width=\textwidth]{example_figure}
+%  \caption{Example figure}\label{fig:example}
+% \end{center}
+%\end{figure}
 
 \section*{Acknowledgements}
 This research is supported by \ldots
@@ -201,3 +227,5 @@ This research is supported by \ldots
 % When loading the file you must use a relative path, never the full path.
 % Load the images by \includegraphics
 % and other files by \input, never use \include.
+
+% vim: set spell:

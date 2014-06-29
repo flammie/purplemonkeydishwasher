@@ -10,4 +10,5 @@ all: 2015-fiwclul-template.pdf
 	xelatex $<
 	xelatex $<
 
-
+clean:
+	-rm -f *.log *.bbl *.aux 2015-fiwclul-template.pdf
