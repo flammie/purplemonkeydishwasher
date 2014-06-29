@@ -10,21 +10,21 @@
 
 # {{{ SETTINGS
 
-MOSES_BASELINE_FI=europarl-v7.fi-en.btm.fi-en
-MOSES_BASELINE_FI_DIR=europarl-v7.fi-en.fi-en
+MOSES_BASELINE_FI_EN=europarl-v7.fi-en.btm.fi-en
+MOSES_BASELINE_FI_EN_DIR=europarl-v7.fi-en.fi-en
 
 # segment (As preproc?)
 MORFESSOR_FI=europarl-v7.fi-en.fi.train.morfessor
 FST_FI_UNWEIGHTED=compounds.hfst
 FST_FI=europarl-v7.fi-en.fi.weighted.hfst
 
-MOSES_BASELINE_EN=europarl-v7.fi-en.btm.en-fi
-MOSES_BASELINE_EN_DIR=europarl-v7.fi-en.en-fi
+MOSES_BASELINE_EN_FI=europarl-v7.fi-en.btm.en-fi
+MOSES_BASELINE_EN_FI_DIR=europarl-v7.fi-en.en-fi
 
 # join (as postproc?)
 TEDDYBEARS_FI=
 
-MODELS=$(MOSES_BASELINE_FI) $(MOSES_BASELINE_EN)
+MODELS=$(MOSES_BASELINE_FI_EN) $(MOSES_BASELINE_EN_FI)
 
 PAPER=2014-mtm-fin-eng.pdf
 # }}}
@@ -48,7 +48,7 @@ europarl-v7.fi-en.fi.text: fi-en.tgz
 
 europarl-v7.fi-en.en.text: fi-en.tgz
 	$(TAR) zxvf $<
-	mv europarl-v7.fi-en.fi $@
+	mv europarl-v7.fi-en.en $@
 	touch $@
 
 # }}}
@@ -111,19 +111,26 @@ models: $(MODELS)
 
 %.tm.fi-en: %.clean.fi %.clean.en %.blm.en
 	$(MOSES_TRAIN_MODEL) -root-dir $*.fi-en -corpus $*.clean -f fi -e en \
-		-alignment grow-diag-final-and -reordering -msd-bidirectional-fe \
-		-lm 0:3:`pwd`/$*.blm.en:8 -external-bin-dir $(GIZA_TOOLDIR)
+		-alignment grow-diag-final-and -reordering msd-bidirectional-fe \
+		-lm 0:3:`pwd`/$*.blm.en:8 $(MGIZA_FLAGS) \
+		-sort-batch-size 253 -sort-compress gzip \
+		-external-bin-dir $(GIZA_TOOLDIR) $(SNT2COOC_FLAG)
 	touch $@
 
 %.tm.en-fi: %.clean.en %.clean.fi %.blm.fi
 	$(MOSES_TRAIN_MODEL) -root-dir $*.en-fi -corpus $*.clean -f en -e fi \
-		-alignment grow-diag-final-and -reordering -msd-bidirectional-fe \
-		-lm 0:3:`pwd`/$*.blm.fi:8 -external-bin-dir $(GIZA_TOOLDIR)
+		-alignment grow-diag-final-and -reordering msd-bidirectional-fe \
+		-lm 0:3:`pwd`/$*.blm.fi:8  $(MGIZA_FLAGS) \
+		-sort-batch-size 253 -sort-compress gzip \
+		-external-bin-dir $(GIZA_TOOLDIR) $(SNT2COOC_FLAG)
 	touch $@
 
 ### FIXME: tuning
 
 %.btm.fi-en: %.tm.fi-en
+	if test ! -d $*.binarised.fi-en ; then \
+		$(MKDIR_P) $*.binarised.fi-en ;\
+	fi
 	$(MOSES_PROCESS_PHRASE_TABLE) -ttable 0 0 $*.fi-en/model/phrase-table.gz \
 		-nscores 5 -out $*.binarised.fi-en/phrase-table
 	$(MOSES_PROCESS_LEXICAL_TABLE) -in $*.fi-en/model/reordering-table.wbe-msd-bidirectional-fe.gz -out $*.binarised.fi-en/reordering-table
@@ -134,6 +141,9 @@ models: $(MODELS)
 	touch $@
 
 %.btm.en-fi: %.tm.en-fi
+	if test ! -d $*.binarised.en-fi ; then \
+		$(MKDIR_P) $*.binarised.en-fi ;\
+	fi
 	$(MOSES_PROCESS_PHRASE_TABLE) -ttable 0 0 $*.en-fi/model/phrase-table.gz \
 		-nscores 5 -out $*.binarised.en-fi/phrase-table
 	$(MOSES_PROCESS_LEXICAL_TABLE) -in $*.en-fi/model/reordering-table.wbe-msd-bidirectional-fe.gz -out $*.binarised.en-fi/reordering-table
@@ -142,6 +152,7 @@ models: $(MODELS)
 		-e "s:$*.en-fi/model/reordering-table.wbe-msd-bidirectional-fe.gz:$*.binarised.en-fi/reordering-table:"\
 		$*.en-fi/model/moses.ini 
 	touch $@
+
 # morfessor train
 %.morfessor: %.text
 	morfessor-train $< -s $@
@@ -211,8 +222,8 @@ segments: $(SEGMENTS)
 translations:  $(TRANSLATIONS)
 
 
-%.baseline-moses.en-fi.text: %.true.en $(MOSES_BASELINE_FI)
-	$(MOSES) -f $(MOSES_BASELINE_DIR)/model/moses.ini < $< |\
+%.baseline-moses.en-fi.text: %.true.en $(MOSES_BASELINE_EN_FI)
+	$(MOSES) -f $(MOSES_BASELINE_EN_FI_DIR)/model/moses.ini < $< |\
 		$(MOSES_DETRUECASE) |\
 		$(MOSES_DETOKENIZER) > $@
 
@@ -230,6 +241,13 @@ evaluations: $(EVALUATIONS)
 
 
 # {{{ paper
+pbml.cls:
+	$(WGET) http://ufal.mff.cuni.cz/pbml/pbml-4_0-flat.zip
+	unzip pbml-4_0-flat.zip
+	@echo you also need to install gyre pagella font and some texliverecommended
+
+2014-mtm-fin-eng.pdf: 2014-mtm-fin-eng.tex pbml.cls
+
 %.pdf: %.tex
 	$(XELATEX) $<
 	$(BIBTEX) $*

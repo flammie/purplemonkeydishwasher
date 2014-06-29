@@ -72,6 +72,8 @@ AC_PATH_PROG([MOSES_TRAIN_MODEL], [train-model.perl], [false], [$PATH$PATH_SEPAR
 AC_PATH_PROG([MOSES_TOKENIZER], [tokenizer.perl], [false], [$PATH$PATH_SEPARATOR$with_moses/scripts/tokenizer/])
 AC_PATH_PROG([MOSES_TRAIN_TRUECASER], [train-truecaser.perl], [false], [$PATH$PATH_SEPARATOR$with_moses/scripts/recaser/])
 AC_PATH_PROG([MOSES_TRUECASE], [truecase.perl], [false], [$PATH$PATH_SEPARATOR$with_moses/scripts/recaser/])
+AC_PATH_PROG([MOSES_DETOKENIZER], [detokenizer.perl], [false], [$PATH$PATH_SEPARATOR$with_moses/scripts/tokenizer/])
+AC_PATH_PROG([MOSES_DETRUECASE], [detruecase.perl], [false], [$PATH$PATH_SEPARATOR$with_moses/scripts/recaser/])
 AC_PATH_PROG([MOSES_CLEAN_CORPUS_N], [clean-corpus-n.perl], [false], [$PATH$PATH_SEPARATOR$with_moses/scripts/training/])
 AC_PATH_PROG([MOSES_BUILD_BINARY], [build_binary], [false], [$PATH$PATH_SEPARATOR$with_moses/bin/])
 AC_PATH_PROG([MOSES_MERT], [mert-moses.pl], [false], [$PATH$PATH_SEPARATOR$with_moses/training/])
@@ -94,10 +96,16 @@ AS_IF([test x$IRSTLM_COMPILE_LM = xfalse], [AC_MSG_ERROR([irstlm not found, try 
 AC_SUBST([IRSTLM_DIR], [$with_irstlm])
 
 # Argh giza tools
+AC_PATH_PROG([MGIZA], [mgiza], [false], [$PATH$PATH_SEPARATOR$with_giza_tools/])
 AC_PATH_PROG([GIZAPP], [GIZA++], [false], [$PATH$PATH_SEPARATOR$with_giza_tools/])
 AC_PATH_PROG([GIZA_MKCLS], [mkcls], [false], [$PATH$PATH_SEPARATOR$with_giza_tools/])
+AC_PATH_PROG([GIZA_SNT2COOC], [snt2cooc], [false], [$PATH$PATH_SEPARATOR$with_giza_tools/])
+AC_PATH_PROG([MGIZA_SNT2COOC], [snt2cooc.pl], [false], [$PATH$PATH_SEPARATOR$with_giza_tools/])
+AC_PATH_PROG([MGIZA_SNT2COOCRMP], [snt2coocrmp], [false], [$PATH$PATH_SEPARATOR$with_giza_tools/])
 AS_IF([test -z $with_giza_tools], [AC_MSG_ERROR([giza tools must be copied to a directory and specified --with-giza-tools=DIR])])
 AC_SUBST([GIZA_TOOLDIR], [$with_giza_tools])
+AS_IF([test x$MGIZA != xfalse], [AC_SUBST([MGIZA_FLAGS], ["-mgiza -mgiza-cpus 2"])])
+AS_IF([test x$MGIZA_SNT2COOC != xfalse], [AC_SUBST([SNT2COOC_FLAG], ["-snt2cooc snt2cooc.pl"])])
 
 PKG_CHECK_MODULES([APERTIUM_FIN_ENG], [apertium-fin-eng])
 
@@ -113,7 +121,10 @@ cat <<EOF
   * moses: $with_moses_path $MOSES ...
     * $MOSES_TRAIN_MODEL
   * irstlm: $IRSTLM_DIR $IRSTLM_BUILD_LM ...
-  * giza: $GIZA_TOOLDIR $GIZAPP $GIZA_MKCLS ...
+  * giza: $GIZA_TOOLDIR
+    * $GIZAPP
+    * $MGIZA $MGIZA_FLAGS
+      $GIZA_MKCLS ...
   * xelatex: $XELATEX
   * bibtex: $BIBTEX
 
