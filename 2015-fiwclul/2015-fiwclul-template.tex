@@ -70,10 +70,12 @@ need additional copyright forms.
 
 \section{Formatting Instructions}
 
-Follow common English typographical standards.The \emph{emphasis} is used for
+Follow common English typographical standards. The \emph{emphasis} is used for
 sentence level highlights and \textbf{strong emphasis} for paragraph level
-highlights. Linguistic glosses should follow Leipzig Glossing rules
-\url{}, see (\nextx).
+highlights. 
+
+Linguistic glosses should follow Leipzig Glossing rules
+\url{http://www.eva.mpg.de/lingua/resources/glossing-rules.php}, see (\nextx).
 
 \ex
 \begingl
@@ -83,10 +85,11 @@ highlights. Linguistic glosses should follow Leipzig Glossing rules
 \endgl
 \xe
 
-For inline examples, use italics and parentheses \emph{talossasi} (in your
-house).
+For inline examples, use emphasis for original and parentheses for translation
+\emph{talossasi} (in your house).
 
-Tables like~\ref{table:example}. should have caption underneath and borders.
+Tables like table~\ref{table:example}. should have caption underneath and
+borders.
 
 \begin{table}
     \center
@@ -104,10 +107,35 @@ Tables like~\ref{table:example}. should have caption underneath and borders.
 Citations are made using bibtex: WALS~\cite{haspelmath2005world} is a good book.
 It is possible to cite Russians using plain unicode, such as the original 
 version of Levenshtein algorithm~\cite{levenshtein1965}.
-Use bibliographystyle unsrt.
+Use bibliographystyle unsrt. If you get your bibtex snippets from google
+scholar, don't forget to double check the data and add missing parts.
 
 Code examples, program listings and shell sessions can be shown as figures,
-pseudo-code may be formatted using one of the relevant \LaTeX{} packages.
+e.g. figure~\ref{code:analysis}.
+Pseudo-code may be formatted using one of the relevant \LaTeX{} packages, e.g.,
+\texttt{algorithm}.
+
+\begin{figure}
+    \center
+    \begin{verbatim}
+    $ hfst-lookup src/morphology.ftb3.hfst
+    > talossani
+    talossani talo+N+Sg+Ine+PxSg1
+    \end{verbatim}
+    \caption{Analysing Finnish from command-line with \texttt{hfst-lookup}
+    \label{code:analysis}}
+\end{figure}
+
+Inline formulas should use standard tex environment: $P(\mathrm{is}) >
+P(\mathrm{unlikely})$. Pay attention to the use of roman font for text examples
+and multicharacter variables and indexes. Long formulas should be numbered in
+equation block:
+
+\begin{equation}
+    P(\hat x) = \frac{x+\alpha}{y+\alpha\times z}
+\end{equation}
+
+Remember to describe each function, variable and notation you use.
 
 Use a splel-checker before submitting your texts.
 
