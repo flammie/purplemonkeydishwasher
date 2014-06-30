@@ -113,6 +113,15 @@ AS_IF([test x$MGIZA_SNT2COOC != xfalse], [AC_SUBST([SNT2COOC_FLAG], ["-snt2cooc 
 
 PKG_CHECK_MODULES([APERTIUM_FIN_ENG], [apertium-fin-eng])
 
+# some oses are broken
+AC_PATH_PROGS_FEATURE_CHECK([SED], [gnused sed],
+              [[m4out=`echo aaa | $ac_path_SED 's/a/\n/g | wc -l`
+                test "x$m4out" eq 4\
+                && ac_cv_path_SED=$ac_path_SED ac_path_SED_found=:]],
+              [AC_MSG_ERROR([could not find sed that supports new line])])
+AC_SUBST([SED], [$ac_cv_path_M4])
+
+
 # 
 AC_CONFIG_FILES([Makefile])
 AS_IF([test x$with_pbs_mail != xno],
