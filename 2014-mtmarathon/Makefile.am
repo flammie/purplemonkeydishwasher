@@ -11,7 +11,7 @@
 
 # {{{ SETTINGS
 
-MOSES_BASELINE_FI=europarl-v7-fi-en.blm.fi
+MOSES_BASELINE_FI=europarl-v7.fi-en.blm.fi
 MOSES_BASELINE_FI_EN=europarl-v7.fi-en.btm.fi-en
 MOSES_BASELINE_FI_EN_DIR=europarl-v7.fi-en.fi-en
 
@@ -163,8 +163,8 @@ models: $(MODELS)
 %.morfessor: %.text
 	morfessor-train $< -s $@
 
-%.words: %.text
-	tr -d '.,?!:;"'"'" < $< | tr -s ' ' '\n' > $@
+%.fi.words: %.tok.fi
+	tr -s ' ' '\n' < $< > $@
 
 %.freqs: %.words
 	sort < $< | uniq -c | sort -nr > $@
@@ -180,36 +180,38 @@ models: $(MODELS)
 
 # FIXME: ideal would be to calc weight from training data e.g.
 # alpha / |CORPUS| + alpha * |DICTIONARY|
-%.fi.wordseparator.hfst:
+%.wordseparator.hfst: %.freqs %.words
 	echo -e " \t17.09" | hfst-strings2fst -f openfst -o $@
 
-%.fi.compoundloop.hfst: %.fi.train.hfst %.fi.wordseparator.hfst
-	hfst-concatenate $*.fi.wordseparator.hfst $*.fi.train.hfst |\
+%.compoundloop.hfst: %.hfst %.wordseparator.hfst
+	hfst-concatenate $*.wordseparator.hfst $*.hfst |\
 		hfst-minimize |\
-		hfst-repeat -f 1 |\
+		hfst-repeat -f 0 |\
 		hfst-minimize -o $@
 
-%.fi.weights.hfst: %.fi.train.hfst %.fi.compoundloop.hfst
-	hfst-concatenate $*.fi.train.hfst $*.fi.compoundloop.hfst |\
+%.weights.hfst: %.hfst %.compoundloop.hfst
+	hfst-concatenate $*.hfst $*.compoundloop.hfst |\
 		hfst-minimize -o $@
 
 # FIXME replace this with real calculation too
-%.maxw.hfst: %.freqs %.words $(FST_FI_UNWEIGHTED)
+%.fi.unseen.hfst: %.fi.freqs %.fi.words $(FST_FI_UNWEIGHTED)
 	echo "?* ;	17.09" | hfst-regexp2fst -f openfst |\
 		hfst-compose -F $(FST_FI_UNWEIGHTED) |\
 		hfst-minimize -o $@
 
-%.fi.weighted.hfst: %.fi.weights.hfst %.fi.maxw.hfst $(FST_FI_UNWEIGHTED)
+%.fi.weighted.hfst: %.fi.weights.hfst %.fi.unseen.hfst $(FST_FI_UNWEIGHTED)
 	hfst-compose -F $(FST_FI_UNWEIGHTED) $*.fi.weights.hfst|\
 		hfst-minimize |\
-		hfst-disjunct $*.fi.maxw.hfst |\
+		hfst-disjunct $*.fi.unseen.hfst |\
 		hfst-fst2fst -f olw -o $@
 
 # from omorfi repo
-compounds.hfst: morphology.segments.hfst omorfi-segments.relabel
+$(FST_FI_UNWEIGHTED): morphology.segments.hfst omorfi-segments.relabel
 	hfst-fst2fst -f openfst < $< | hfst-substitute -F omorfi-segments.relabel |\
 		hfst-minimize -o $@
 
+morphology.segments.hfst: $(OMORFI_PREFIX)/share/hfst/fi/morphology.segments.hfst
+	cp -v $< $@
 
 # }}}
 #

@@ -111,12 +111,17 @@ AC_SUBST([GIZA_TOOLDIR], [$with_giza_tools])
 AS_IF([test x$MGIZA != xfalse], [AC_SUBST([MGIZA_FLAGS], ["-mgiza -mgiza-cpus 4"])])
 AS_IF([test x$MGIZA_SNT2COOC != xfalse], [AC_SUBST([SNT2COOC_FLAG], ["-snt2cooc snt2cooc.pl"])])
 
+# external language models nicely
+AC_PATH_PROG([PKGCONFIG], [pkg-config pkgconf], 
+             [AC_MSG_ERROR([pkg-config is crucial for even configure to work])])
 PKG_CHECK_MODULES([APERTIUM_FIN_ENG], [apertium-fin-eng])
+PKG_CHECK_MODULES([OMORFI], [omorfi])
+AC_SUBST([OMORFI_PREFIX], [`pkg-config --variable prefix omorfi`])
 
 # some oses are broken
 AC_PATH_PROGS_FEATURE_CHECK([SED], [gnused sed],
-              [[m4out=`echo aaa | $ac_path_SED 's/a/\n/g | wc -l`
-                test "x$m4out" eq 4\
+              [[m4out=`echo aaa | $ac_path_SED 's/a/\n/g' | wc -l`
+                test "x$m4out" = x4\
                 && ac_cv_path_SED=$ac_path_SED ac_path_SED_found=:]],
               [AC_MSG_ERROR([could not find sed that supports new line])])
 AC_SUBST([SED], [$ac_cv_path_M4])
@@ -142,5 +147,7 @@ cat <<EOF
   * bibtex: $BIBTEX
 
 to make experiments or article say make.
+(Some parts of this make process may download large files and take up to 50
+ hours using 7 gigs of ram, on average laptop)
 
 EOF
