@@ -236,9 +236,7 @@ translations:  $(TRANSLATIONS)
 		$(MOSES_DETOKENIZER) > $@
 
 %.baseline-moses.en-fi.5best: %.true.en $(MOSES_BASELINE_EN_FI)
-	$(MOSES) -f $(MOSES_BASELINE_EN_FI_DIR)/model/moses.ini < $< |\
-		$(MOSES_DETRUECASE) |\
-		$(MOSES_DETOKENIZER) > $@
+	$(MOSES) -f $(MOSES_BASELINE_EN_FI_DIR)/model/moses.ini < $< > $@
 
 %.baseline-apertium.en-fi.text: %.en.text $(RBMT_BASELINE_FI)
 	$(APERTIUM_DESTXT) < $< |\
