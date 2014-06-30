@@ -92,6 +92,7 @@ AC_PATH_PROG([QSUB], [qsub], [false])
 
 # irstlm
 AC_PATH_PROG([IRSTLM_ADD_START_END], [add-start-end.sh], [false], [$PATH$PATH_SEPARATOR$with_irstlm/bin/])
+AC_PATH_PROG([IRSTLM_RM_START_END], [rm-start-end.sh], [false], [$PATH$PATH_SEPARATOR$with_irstlm/bin/])
 AC_PATH_PROG([IRSTLM_BUILD_LM], [build-lm.sh], [false], [$PATH$PATH_SEPARATOR$with_irstlm/bin/])
 AC_PATH_PROG([IRSTLM_COMPILE_LM], [compile-lm], [false], [$PATH$PATH_SEPARATOR$with_irstlm/bin/])
 

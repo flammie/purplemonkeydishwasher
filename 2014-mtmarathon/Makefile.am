@@ -216,12 +216,14 @@ compounds.hfst: morphology.segments.hfst omorfi-segments.relabel
 # {{{SEGMENTing
 segments: $(SEGMENTS)
 
-%.fi.morfessed.text: %.fi.test.text $(MORFESSOR_FI)
+%.fi.morfessed.text: %.text.fi $(MORFESSOR_FI)
 	morfessor-segment $< -l $(MORFESSOR) > $@
 
-%.fi.fsted.text: %.fi.test.text $(FST_FI)
-	apertium-destxt < $< | hfst-proc $(FST_FI) | sed -e 's/$$^/\n/g' | sed -e 's:/:   :' -e 's/^[[:space:]]*$$//' -e 's/$$\[\]//' > $@
-
+%.fi.fst.1best.text: %.tok.fi $(FST_FI)
+	$(IRSTLM_ADD_START_END) < $< | tr ' ' '\n' |\
+		$(HFST_LOOKUP) -q $(FST_FI) | tr '\n' '@' | $(SED) -e 's/\@@/\n/g' |\
+		cut -f 2 | tr '\n' ' ' | sed -e 's/s>+?/s>/g' -e 's:</s>:\0\n:g' |\
+		$(IRSTLM_RM_START_END) > $@
 # }}}
 
 # {{{TRANSLATEing
@@ -229,6 +231,11 @@ translations:  $(TRANSLATIONS)
 
 
 %.baseline-moses.en-fi.text: %.true.en $(MOSES_BASELINE_EN_FI)
+	$(MOSES) -f $(MOSES_BASELINE_EN_FI_DIR)/model/moses.ini < $< |\
+		$(MOSES_DETRUECASE) |\
+		$(MOSES_DETOKENIZER) > $@
+
+%.baseline-moses.en-fi.5best: %.true.en $(MOSES_BASELINE_EN_FI)
 	$(MOSES) -f $(MOSES_BASELINE_EN_FI_DIR)/model/moses.ini < $< |\
 		$(MOSES_DETRUECASE) |\
 		$(MOSES_DETOKENIZER) > $@
