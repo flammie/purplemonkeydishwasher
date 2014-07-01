@@ -15,6 +15,10 @@ MOSES_BASELINE_FI=europarl-v7.fi-en.blm.fi
 MOSES_BASELINE_FI_EN=europarl-v7.fi-en.btm.fi-en
 MOSES_BASELINE_FI_EN_DIR=europarl-v7.fi-en.fi-en
 
+MOSES_FST1BEST_FI=europarl-v7.fi-en.fst.1best.blm.fi
+MOSES_FST1BEST_FI_EN=europarl-v7.fi-en.fst.1best.btm.fi-en
+MOSES_FST1BEST_FI_EN_DIR=europarl-v7.fi-en.fst.1best.fi-en
+
 # segment (As preproc?)
 MORFESSOR_FI=europarl-v7.fi-en.fi.train.morfessor
 FST_FI_UNWEIGHTED=compounds.hfst
@@ -28,7 +32,7 @@ MOSES_BASELINE_EN_FI_DIR=europarl-v7.fi-en.en-fi
 TEDDYBEARS_FI=
 
 MODELS=$(MOSES_BASELINE_FI) $(MOSES_BASELINE_FI_EN)\
-	   $(MOSES_BASELINE_EN) $(MOSES_BASELINE_EN_FI)
+	   $(MOSES_FST1BEST_FI_EN)
 
 PAPER=2014-mtm-fin-eng.pdf
 # }}}
@@ -221,11 +225,17 @@ segments: $(SEGMENTS)
 %.fi.morfessed.text: %.text.fi $(MORFESSOR_FI)
 	morfessor-segment $< -l $(MORFESSOR) > $@
 
-%.fi.fst.1best.text: %.tok.fi $(FST_FI)
+%.fst.1best.tok.fi: %.tok.fi $(FST_FI)
 	$(IRSTLM_ADD_START_END) < $< | tr ' ' '\n' |\
 		$(HFST_LOOKUP) -q $(FST_FI) | tr '\n' '@' | $(SED) -e 's/\@@/\n/g' |\
 		cut -f 2 | tr '\n' ' ' | sed -e 's/+?//g' -e 's:</s>:\0\n:g' |\
 		$(IRSTLM_RM_START_END) > $@
+
+# for translation model: copy en - en for tokenising
+
+%.fst.1best.tok.en: %.tok.en
+	cp -v $< $@
+
 # }}}
 
 # {{{TRANSLATEing
@@ -238,7 +248,7 @@ translations:  $(TRANSLATIONS)
 		$(MOSES_DETOKENIZER) > $@
 
 %.baseline-moses.en-fi.5best: %.true.en $(MOSES_BASELINE_EN_FI)
-	$(MOSES) -f $(MOSES_BASELINE_EN_FI_DIR)/model/moses.ini < $< > $@
+	$(MOSES) -f $(MOSES_BASELINE_EN_FI_DIR)/model/moses.ini -nbest-list 5 < $< > $@
 
 %.baseline-apertium.en-fi.text: %.en.text $(RBMT_BASELINE_FI)
 	$(APERTIUM_DESTXT) < $< |\
