@@ -195,8 +195,8 @@ models: $(MODELS)
 
 # FIXME replace this with real calculation too
 %.fi.unseen.hfst: %.fi.freqs %.fi.words $(FST_FI_UNWEIGHTED)
-	echo "?* ;	17.09" | hfst-regexp2fst -f openfst |\
-		hfst-compose -F $(FST_FI_UNWEIGHTED) |\
+	hfst-reweight -S " " -a 34.18 $(FST_FI_UNWEIGHTED) |\
+		hfst-reweight -e -a 17.09 - |\
 		hfst-minimize -o $@
 
 %.fi.weighted.hfst: %.fi.weights.hfst %.fi.unseen.hfst $(FST_FI_UNWEIGHTED)
