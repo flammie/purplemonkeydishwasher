@@ -117,6 +117,7 @@ AC_PATH_PROG([PKGCONFIG], [pkg-config pkgconf],
 PKG_CHECK_MODULES([APERTIUM_FIN_ENG], [apertium-fin-eng])
 PKG_CHECK_MODULES([OMORFI], [omorfi])
 AC_SUBST([OMORFI_PREFIX], [`pkg-config --variable prefix omorfi`])
+AC_PATH_PROGS([HFST_LOOKUP], [hfst-lookup])
 
 # some oses are broken
 AC_PATH_PROGS_FEATURE_CHECK([SED], [gnused sed],
@@ -124,7 +125,7 @@ AC_PATH_PROGS_FEATURE_CHECK([SED], [gnused sed],
                 test "x$m4out" = x4\
                 && ac_cv_path_SED=$ac_path_SED ac_path_SED_found=:]],
               [AC_MSG_ERROR([could not find sed that supports new line])])
-AC_SUBST([SED], [$ac_cv_path_M4])
+AC_SUBST([SED], [$ac_cv_path_SED])
 
 
 # 

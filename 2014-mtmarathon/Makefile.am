@@ -224,7 +224,7 @@ segments: $(SEGMENTS)
 %.fi.fst.1best.text: %.tok.fi $(FST_FI)
 	$(IRSTLM_ADD_START_END) < $< | tr ' ' '\n' |\
 		$(HFST_LOOKUP) -q $(FST_FI) | tr '\n' '@' | $(SED) -e 's/\@@/\n/g' |\
-		cut -f 2 | tr '\n' ' ' | sed -e 's/s>+?/s>/g' -e 's:</s>:\0\n:g' |\
+		cut -f 2 | tr '\n' ' ' | sed -e 's/+?//g' -e 's:</s>:\0\n:g' |\
 		$(IRSTLM_RM_START_END) > $@
 # }}}
 
