@@ -57,7 +57,7 @@ AC_SUBST([PBS_EMAIL], [$with_pbs_mail])
 
 
 # Programs
-AM_PATH_PYTHON([3.2])
+#AM_PATH_PYTHON([3.2])
 AC_PATH_PROG([JAVA], [java], [false])
 AC_PATH_PROG([WGET], [wget], [false])
 AC_PATH_PROGS([TAR], [gnutar gtar tar], [false])
