@@ -57,7 +57,7 @@ AC_SUBST([PBS_EMAIL], [$with_pbs_mail])
 
 
 # Programs
-AM_PATH_PYTHON([3.2])
+#AM_PATH_PYTHON([3.2])
 AC_PATH_PROG([JAVA], [java], [false])
 AC_PATH_PROG([WGET], [wget], [false])
 AC_PATH_PROGS([TAR], [gnutar gtar tar], [false])
@@ -112,12 +112,15 @@ AS_IF([test x$MGIZA != xfalse], [AC_SUBST([MGIZA_FLAGS], ["-mgiza -mgiza-cpus 4"
 AS_IF([test x$MGIZA_SNT2COOC != xfalse], [AC_SUBST([SNT2COOC_FLAG], ["-snt2cooc snt2cooc.pl"])])
 
 # external language models nicely
-AC_PATH_PROG([PKGCONFIG], [pkg-config pkgconf], 
+AC_PATH_PROGS([PKGCONFIG], [pkg-config pkgconf], 
              [AC_MSG_ERROR([pkg-config is crucial for even configure to work])])
-PKG_CHECK_MODULES([APERTIUM_FIN_ENG], [apertium-fin-eng])
-PKG_CHECK_MODULES([OMORFI], [omorfi])
-AC_SUBST([OMORFI_PREFIX], [`pkg-config --variable prefix omorfi`])
-AC_PATH_PROGS([HFST_LOOKUP], [hfst-lookup])
+PKG_CHECK_MODULES([APERTIUM_FIN_ENG], [apertium-fin-eng],, 
+                  [AC_MSG_WARN([pkg-config did not find fin-eng make sure apertium command does])])
+PKG_CHECK_MODULES([OMORFI], [omorfi], 
+                  [AC_SUBST([OMORFI_PREFIX], [`pkg-config --variable prefix omorfi`])],
+                  [AC_MSG_WARN([pkg-config did not find omorfi ensure that morphology.segments.hfst is in work dir])
+                  AC_SUBST([OMORFI_PREFIX], [`pwd`])])
+AC_PATH_PROG([HFST_LOOKUP], [hfst-lookup], [false])
 
 # some oses are broken
 AC_PATH_PROGS_FEATURE_CHECK([SED], [gnused sed],
