@@ -11,28 +11,30 @@
 
 # {{{ SETTINGS
 
+# English - Finnish
 MOSES_BASELINE_FI=europarl-v7.fi-en.blm.fi
-MOSES_BASELINE_FI_EN=europarl-v7.fi-en.btm.fi-en
-MOSES_BASELINE_FI_EN_DIR=europarl-v7.fi-en.fi-en
+MOSES_BASELINE_EN_FI=europarl-v7.fi-en.btm.en-fi
+MOSES_BASELINE_EN_FI_DIR=europarl-v7.fi-en.en-fi
 
 MOSES_FST1BEST_FI=europarl-v7.fi-en.fst.1best.blm.fi
-MOSES_FST1BEST_FI_EN=europarl-v7.fi-en.fst.1best.btm.fi-en
-MOSES_FST1BEST_FI_EN_DIR=europarl-v7.fi-en.fst.1best.fi-en
+MOSES_FST1BEST_EN_FI=europarl-v7.fi-en.fst.1best.btm.en-fi
+MOSES_FST1BEST_EN_FI_DIR=europarl-v7.fi-en.fst.1best.en-fi
 
-# segment (As preproc?)
+# truecasing
+TRUECASE_BASELINE_FI=europarl-v7.fi-en.truecaser.fi
+TRUECASE_BASELINE_EN=europarl-v7.fi-en.truecaser.en
+
+# segment Finnish
 MORFESSOR_FI=europarl-v7.fi-en.fi.train.morfessor
 FST_FI_UNWEIGHTED=compounds.hfst
 FST_FI=europarl-v7.fi-en.fi.weighted.hfst
 
-MOSES_BASELINE_EN=europarl-v7.fi-en.blm.en
-MOSES_BASELINE_EN_FI=europarl-v7.fi-en.btm.en-fi
-MOSES_BASELINE_EN_FI_DIR=europarl-v7.fi-en.en-fi
-
 # join (as postproc?)
 TEDDYBEARS_FI=
 
-MODELS=$(MOSES_BASELINE_FI) $(MOSES_BASELINE_FI_EN)\
-	   $(MOSES_FST1BEST_FI_EN)
+MODELS=$(TRUECASE_BASELINE_FI) $(TRUECASE_BASELINE_EN) \
+	   $(MOSES_BASELINE_FI) $(MOSES_BASELINE_EN_FI) \
+	   $(MOSES_FST1BEST_FI) $(MOSES_FST1BEST_EN_FI)
 
 PAPER=2014-mtm-fin-eng.pdf
 # }}}
@@ -79,10 +81,10 @@ models: $(MODELS)
 %.truecaser.en: %.tok.en
 	$(MOSES_TRAIN_TRUECASER) --model $@ --corpus $<
 
-%.true.fi: %.tok.fi %.truecaser.fi
+%.true.fi: %.tok.fi $(BASELINE_TRUECASE_FI)
 	$(MOSES_TRUECASE) --model $*.truecaser.fi < $< > $@
 
-%.true.en: %.tok.en %.truecaser.en
+%.true.en: %.tok.en $(BASELINE_TRUECASE_EN)
 	$(MOSES_TRUECASE) --model $*.truecaser.en < $< > $@
 
 %.clean.fi: %.true.fi %.true.en
