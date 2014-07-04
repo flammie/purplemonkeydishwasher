@@ -11,9 +11,13 @@
 
 # {{{ SETTINGS
 
-MOSES_BASELINE_FI=europarl-v7-fi-en.blm.fi
+MOSES_BASELINE_FI=europarl-v7.fi-en.blm.fi
 MOSES_BASELINE_FI_EN=europarl-v7.fi-en.btm.fi-en
 MOSES_BASELINE_FI_EN_DIR=europarl-v7.fi-en.fi-en
+
+MOSES_FST1BEST_FI=europarl-v7.fi-en.fst.1best.blm.fi
+MOSES_FST1BEST_FI_EN=europarl-v7.fi-en.fst.1best.btm.fi-en
+MOSES_FST1BEST_FI_EN_DIR=europarl-v7.fi-en.fst.1best.fi-en
 
 # segment (As preproc?)
 MORFESSOR_FI=europarl-v7.fi-en.fi.train.morfessor
@@ -28,7 +32,7 @@ MOSES_BASELINE_EN_FI_DIR=europarl-v7.fi-en.en-fi
 TEDDYBEARS_FI=
 
 MODELS=$(MOSES_BASELINE_FI) $(MOSES_BASELINE_FI_EN)\
-	   $(MOSES_BASELINE_EN) $(MOSES_BASELINE_EN_FI)
+	   $(MOSES_FST1BEST_FI_EN)
 
 PAPER=2014-mtm-fin-eng.pdf
 # }}}
@@ -163,8 +167,8 @@ models: $(MODELS)
 %.morfessor: %.text
 	morfessor-train $< -s $@
 
-%.words: %.text
-	tr -d '.,?!:;"'"'" < $< | tr -s ' ' '\n' > $@
+%.fi.words: %.tok.fi
+	tr -s ' ' '\n' < $< > $@
 
 %.freqs: %.words
 	sort < $< | uniq -c | sort -nr > $@
@@ -180,47 +184,57 @@ models: $(MODELS)
 
 # FIXME: ideal would be to calc weight from training data e.g.
 # alpha / |CORPUS| + alpha * |DICTIONARY|
-%.fi.wordseparator.hfst:
+%.wordseparator.hfst: %.freqs %.words
 	echo -e " \t17.09" | hfst-strings2fst -f openfst -o $@
 
-%.fi.compoundloop.hfst: %.fi.train.hfst %.fi.wordseparator.hfst
-	hfst-concatenate $*.fi.wordseparator.hfst $*.fi.train.hfst |\
+%.compoundloop.hfst: %.hfst %.wordseparator.hfst
+	hfst-concatenate $*.wordseparator.hfst $*.hfst |\
 		hfst-minimize |\
-		hfst-repeat -f 1 |\
+		hfst-repeat -f 0 |\
 		hfst-minimize -o $@
 
-%.fi.weights.hfst: %.fi.train.hfst %.fi.compoundloop.hfst
-	hfst-concatenate $*.fi.train.hfst $*.fi.compoundloop.hfst |\
+%.weights.hfst: %.hfst %.compoundloop.hfst
+	hfst-concatenate $*.hfst $*.compoundloop.hfst |\
 		hfst-minimize -o $@
 
 # FIXME replace this with real calculation too
-%.maxw.hfst: %.freqs %.words $(FST_FI_UNWEIGHTED)
-	echo "?* ;	17.09" | hfst-regexp2fst -f openfst |\
-		hfst-compose -F $(FST_FI_UNWEIGHTED) |\
+%.fi.unseen.hfst: %.fi.freqs %.fi.words $(FST_FI_UNWEIGHTED)
+	hfst-reweight -S " " -a 34.18 $(FST_FI_UNWEIGHTED) |\
+		hfst-reweight -e -a 17.09 - |\
 		hfst-minimize -o $@
 
-%.fi.weighted.hfst: %.fi.weights.hfst %.fi.maxw.hfst $(FST_FI_UNWEIGHTED)
+%.fi.weighted.hfst: %.fi.weights.hfst %.fi.unseen.hfst $(FST_FI_UNWEIGHTED)
 	hfst-compose -F $(FST_FI_UNWEIGHTED) $*.fi.weights.hfst|\
 		hfst-minimize |\
-		hfst-disjunct $*.fi.maxw.hfst |\
+		hfst-disjunct $*.fi.unseen.hfst |\
 		hfst-fst2fst -f olw -o $@
 
 # from omorfi repo
-compounds.hfst: morphology.segments.hfst omorfi-segments.relabel
+$(FST_FI_UNWEIGHTED): morphology.segments.hfst omorfi-segments.relabel
 	hfst-fst2fst -f openfst < $< | hfst-substitute -F omorfi-segments.relabel |\
 		hfst-minimize -o $@
 
+morphology.segments.hfst: $(OMORFI_PREFIX)/share/hfst/fi/morphology.segments.hfst
+	cp -v $< $@
 
 # }}}
 #
 # {{{SEGMENTing
 segments: $(SEGMENTS)
 
-%.fi.morfessed.text: %.fi.test.text $(MORFESSOR_FI)
+%.fi.morfessed.text: %.text.fi $(MORFESSOR_FI)
 	morfessor-segment $< -l $(MORFESSOR) > $@
 
-%.fi.fsted.text: %.fi.test.text $(FST_FI)
-	apertium-destxt < $< | hfst-proc $(FST_FI) | sed -e 's/$$^/\n/g' | sed -e 's:/:   :' -e 's/^[[:space:]]*$$//' -e 's/$$\[\]//' > $@
+%.fst.1best.tok.fi: %.tok.fi $(FST_FI)
+	$(IRSTLM_ADD_START_END) < $< | tr ' ' '\n' |\
+		$(HFST_LOOKUP) -q $(FST_FI) | tr '\n' '@' | $(SED) -e 's/\@@/\n/g' |\
+		cut -f 2 | tr '\n' ' ' | sed -e 's/+?//g' -e 's:</s>:\0\n:g' |\
+		$(IRSTLM_RM_START_END) > $@
+
+# for translation model: copy en - en for tokenising
+
+%.fst.1best.tok.en: %.tok.en
+	cp -v $< $@
 
 # }}}
 
@@ -232,6 +246,9 @@ translations:  $(TRANSLATIONS)
 	$(MOSES) -f $(MOSES_BASELINE_EN_FI_DIR)/model/moses.ini < $< |\
 		$(MOSES_DETRUECASE) |\
 		$(MOSES_DETOKENIZER) > $@
+
+%.baseline-moses.en-fi.5best: %.true.en $(MOSES_BASELINE_EN_FI)
+	$(MOSES) -f $(MOSES_BASELINE_EN_FI_DIR)/model/moses.ini -nbest-list 5 < $< > $@
 
 %.baseline-apertium.en-fi.text: %.en.text $(RBMT_BASELINE_FI)
 	$(APERTIUM_DESTXT) < $< |\
