@@ -36,6 +36,14 @@ MODELS=$(TRUECASE_BASELINE_FI) $(TRUECASE_BASELINE_EN) \
 	   $(MOSES_BASELINE_FI) $(MOSES_BASELINE_EN_FI) \
 	   $(MOSES_FST1BEST_FI) $(MOSES_FST1BEST_EN_FI)
 
+# translations
+TRANSLATIONS=undhr.baseline-moses.en-fi.translated.fi \
+			 undhr.baseline-apertium.en-fi.translated.fi 
+
+# evaluations
+EVALUATIONS=undhr.baseline-moses.en-fi.bleu.fi \
+			undhr.baseline-apertium.en-fi.bleu.fi
+
 PAPER=2014-mtm-fin-eng.pdf
 # }}}
 
@@ -67,7 +75,7 @@ europarl-v7.fi-en.en.text: fi-en.tgz
 models: $(MODELS)
 
 # Baseline from http://www.statmt.org/moses/?n=moses.baseline
-# europarl for fi-en
+# europarl for en-fi
 
 %.tok.fi: %.fi.text
 	$(MOSES_TOKENIZER) -l fi < $< > $@
@@ -81,11 +89,11 @@ models: $(MODELS)
 %.truecaser.en: %.tok.en
 	$(MOSES_TRAIN_TRUECASER) --model $@ --corpus $<
 
-%.true.fi: %.tok.fi $(BASELINE_TRUECASE_FI)
-	$(MOSES_TRUECASE) --model $*.truecaser.fi < $< > $@
+%.true.fi: %.tok.fi $(TRUECASE_BASELINE_FI)
+	$(MOSES_TRUECASE) --model $(TRUECASE_BASELINE_FI) < $< > $@
 
-%.true.en: %.tok.en $(BASELINE_TRUECASE_EN)
-	$(MOSES_TRUECASE) --model $*.truecaser.en < $< > $@
+%.true.en: %.tok.en $(TRUECASE_BASELINE_EN)
+	$(MOSES_TRUECASE) --model $(TRUECASE_BASELINE_EN) < $< > $@
 
 %.clean.fi: %.true.fi %.true.en
 	$(MOSES_CLEAN_CORPUS_N) $*.true fi en $*.clean 1 80
@@ -119,15 +127,6 @@ models: $(MODELS)
 %.blm.en: %.arpa.en
 	$(MOSES_BUILD_BINARY) -i $< $@
 
-%.tm.fi-en: %.clean.fi %.clean.en %.blm.en
-	$(MOSES_TRAIN_MODEL) -root-dir $*.fi-en -corpus $*.clean -f fi -e en \
-		-alignment grow-diag-final-and -reordering msd-bidirectional-fe \
-		-lm 0:3:`pwd`/$*.blm.en:8 $(MGIZA_FLAGS) \
-		$(PARALLEL_FLAGS) \
-		-sort-batch-size 253 -sort-compress gzip \
-		-external-bin-dir $(GIZA_TOOLDIR) $(SNT2COOC_FLAG)
-	touch $@
-
 %.tm.en-fi: %.clean.en %.clean.fi %.blm.fi
 	$(MOSES_TRAIN_MODEL) -root-dir $*.en-fi -corpus $*.clean -f en -e fi \
 		-alignment grow-diag-final-and -reordering msd-bidirectional-fe \
@@ -138,19 +137,6 @@ models: $(MODELS)
 	touch $@
 
 ### FIXME: tuning
-
-%.btm.fi-en: %.tm.fi-en
-	if test ! -d $*.binarised.fi-en ; then \
-		$(MKDIR_P) $*.binarised.fi-en ;\
-	fi
-	$(MOSES_PROCESS_PHRASE_TABLE) -ttable 0 0 $*.fi-en/model/phrase-table.gz \
-		-nscores 5 -out $*.binarised.fi-en/phrase-table
-	$(MOSES_PROCESS_LEXICAL_TABLE) -in $*.fi-en/model/reordering-table.wbe-msd-bidirectional-fe.gz -out $*.binarised.fi-en/reordering-table
-	sed -i -e 's/PhraseDictionaryMemory/PhraseDictionaryBinary/' \
-		-e "s:$*.fi-en/model/phrase-table.gz:$*.binarised.fi-en/phrase-table:"\
-		-e "s:$*.fi-en/model/reordering-table.wbe-msd-bidirectional-fe.gz:$*.binarised.fi-en/reordering-table:"\
-		$*.fi-en/model/moses.ini 
-	touch $@
 
 %.btm.en-fi: %.tm.en-fi
 	if test ! -d $*.binarised.en-fi ; then \
@@ -244,24 +230,37 @@ segments: $(SEGMENTS)
 translations:  $(TRANSLATIONS)
 
 
-%.baseline-moses.en-fi.text: %.true.en $(MOSES_BASELINE_EN_FI)
+%.baseline-moses.en-fi.translated.fi: %.true.en $(MOSES_BASELINE_EN_FI)
 	$(MOSES) -f $(MOSES_BASELINE_EN_FI_DIR)/model/moses.ini < $< |\
 		$(MOSES_DETRUECASE) |\
 		$(MOSES_DETOKENIZER) > $@
 
-%.baseline-moses.en-fi.5best: %.true.en $(MOSES_BASELINE_EN_FI)
-	$(MOSES) -f $(MOSES_BASELINE_EN_FI_DIR)/model/moses.ini -nbest-list 5 < $< > $@
+%.baseline-moses.en-fi.5best.fi: %.true.en $(MOSES_BASELINE_EN_FI)
+	$(MOSES) -f $(MOSES_BASELINE_EN_FI_DIR)/model/moses.ini -n-best-list - 5 < $< > $@
 
-%.baseline-apertium.en-fi.text: %.en.text $(RBMT_BASELINE_FI)
+%.baseline-apertium.en-fi.translated.fi: %.en.text 
 	$(APERTIUM_DESTXT) < $< |\
 		$(APERTIUM) eng-fin |\
 		$(APERTIUM_RETXT) > $@
 
+
+%.fst-moses.en-fi.translated.fi: %.true.en $(MOSES_FST1BEST_EN_FI)
+	$(MOSES) -f $(MOSES_FST1BEST_EN_FI_DIR)/model/moses.ini < $< |\
+		$(MOSES_DETRUECASE) |\
+		$(MOSES_DETOKENIZER) > $@
+
+%.fst-moses.en-fi.5best.fi: %.true.en $(MOSES_FST2BEST_EN_FI)
+	$(MOSES) -f $(MOSES_FST1BEST_EN_FI_DIR)/model/moses.ini -n-best-list 5 < $< > $@
 # }}}
 
 # {{{EVALUATIONS
 evaluations: $(EVALUATIONS)
 
+%.baseline-moses.en-fi.bleu.fi: %.baseline-moses.en-fi.translated.fi %.fi.text
+	$(MOSES_MULTI_BLEU) -lc $*.fi.text < $*.baseline-moses.en-fi.translated.fi > $@
+
+%.baseline-apertium.en-fi.bleu.fi: %.baseline-apertium.en-fi.translated.fi %.fi.text
+	$(MOSES_MULTI_BLEU) -lc $*.fi.text < $*.baseline-apertium.en-fi.translated.fi > $@
 # }}}
 
 

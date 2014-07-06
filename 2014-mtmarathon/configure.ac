@@ -84,6 +84,7 @@ AC_PATH_PROG([MOSES_PROCESS_PHRASE_TABLE], [processPhraseTable], [false], [$PATH
 AC_PATH_PROG([MOSES_PROCESS_LEXICAL_TABLE], [processLexicalTable], [false], [$PATH$PATH_SEPARATOR$with_moses/bin/])
 AC_PATH_PROG([MOSES_FILTER_MODEL_GIVEN_INPUT], [filter-model-given-input.pl], [false], [$PATH$PATH_SEPARATOR$with_moses/training/])
 AC_PATH_PROG([MOSES_OOV], [oov.pl], [false], [$PATH$PATH_SEPARATOR$with_moses/scripts/analysis/])
+AC_PATH_PROG([MOSES_MULTI_BLEU], [multi-bleu.perl], [false], [$PATH$PATH_SEPARATOR$with_moses/scripts/generic/])
 
 AS_IF([test x$MOSES = xfalse], [AC_MSG_ERROR([moses not found, try --with-moses=PATH_TO_MOSES with downloaded mosesdecoder git src dir])])
 
