@@ -69,6 +69,31 @@ europarl-v7.fi-en.en.text: fi-en.tgz
 	mv europarl-v7.fi-en.en $@
 	touch $@
 
+# split to train / dev / test in 8 / 1 / 1 if no tuning corpora
+%.train.en.text: %.en.text
+	split -d -l `wc -l < $< | sed -e 's/$$/\/10/' | bc`  $< $*.split.en.
+	cat $*.split.en.00 $*.split.en.01 $*.split.en.02 $*.split.en.03 \
+		$*.split.en.04 $*.split.en.05 $*.split.en.06 $*.split.en.07 \
+		>> $@
+
+%.dev.en.text: %.train.en.text
+	cp -v $*.split.en.08 $@
+
+%.test.en.text: %.train.en.text
+	cp -v $*.split.en.09 $@
+
+%.train.fi.text: %.fi.text
+	split -d -l `wc -l < $< | sed -e 's/$$/\/10/' | bc` $< $*.split.fi.
+	cat $*.split.fi.00 $*.split.fi.01 $*.split.fi.02 $*.split.fi.03 \
+		$*.split.fi.04 $*.split.fi.05 $*.split.fi.06 $*.split.fi.07 \
+		>> $@
+
+%.dev.fi.text: %.train.fi.text
+	cp -v $*.split.fi.08 $@
+
+%.test.fi.text: %.train.fi.text
+	cp -v $*.split.fi.09 $@
+
 # }}}
 #
 # {{{TRAINING
@@ -137,6 +162,13 @@ models: $(MODELS)
 	touch $@
 
 ### FIXME: tuning
+
+%.tuned.en-fi: %.train.tm.en-fi %.dev.true.en %.dev.true.fi
+	$(MOSES_MERT) $*.dev.true.en $*.dev.true.fi \
+		--working-dir $*.en-fi.tuning \
+		$(MOSES) $*.train.en-fi/model/moses.ini \
+		--mertdir `dirname $(MOSES)` $(MOSES_MERT_FLAGS)
+	touch $@
 
 %.btm.en-fi: %.tm.en-fi
 	if test ! -d $*.binarised.en-fi ; then \
@@ -250,7 +282,7 @@ translations:  $(TRANSLATIONS)
 		$(MOSES_DETOKENIZER) > $@
 
 %.fst-moses.en-fi.5best.fi: %.true.en $(MOSES_FST2BEST_EN_FI)
-	$(MOSES) -f $(MOSES_FST1BEST_EN_FI_DIR)/model/moses.ini -n-best-list 5 < $< > $@
+	$(MOSES) -f $(MOSES_FST1BEST_EN_FI_DIR)/model/moses.ini -n-best-list - 5 < $< > $@
 # }}}
 
 # {{{EVALUATIONS
