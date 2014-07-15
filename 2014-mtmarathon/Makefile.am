@@ -20,12 +20,20 @@ MOSES_FST1BEST_FI=europarl-v7.fi-en.fst.1best.blm.fi
 MOSES_FST1BEST_EN_FI=europarl-v7.fi-en.fst.1best.btm.en-fi
 MOSES_FST1BEST_EN_FI_DIR=europarl-v7.fi-en.fst.1best.en-fi
 
+MOSES_FST1BESTMORPHS_FI=europarl-v7.fi-en.fst.1best-mor.blm.fi
+MOSES_FST1BESTMORPHS_EN_FI=europarl-v7.fi-en.fst.1best-mor.btm.en-fi
+MOSES_FST1BESTMORPHS_EN_FI_DIR=europarl-v7.fi-en.fst.1best-mor.en-fi
+
 # truecasing
 TRUECASE_BASELINE_FI=europarl-v7.fi-en.truecaser.fi
 TRUECASE_BASELINE_EN=europarl-v7.fi-en.truecaser.en
 
 # segment Finnish
 MORFESSOR_FI=europarl-v7.fi-en.fi.train.morfessor
+
+FST_FI_MORPHS_UNWEIGHTED=morphs-unweighted.hfst
+FST_FI_MORPHS=morphs.hfst
+
 FST_FI_UNWEIGHTED=compounds.hfst
 FST_FI=europarl-v7.fi-en.fi.weighted.hfst
 
@@ -35,6 +43,7 @@ TEDDYBEARS_FI=
 MODELS=$(TRUECASE_BASELINE_FI) $(TRUECASE_BASELINE_EN) \
 	   $(MOSES_BASELINE_FI) $(MOSES_BASELINE_EN_FI) \
 	   $(MOSES_FST1BEST_FI) $(MOSES_FST1BEST_EN_FI)
+	   $(MOSES_FST1BESTMORPHS_FI) $(MOSES_FST1BESTMORPHS_EN_FI)
 
 # translations
 TRANSLATIONS=undhr.baseline-moses.en-fi.translated.fi \
@@ -55,9 +64,6 @@ corpora: fi-en.tgz de-en.tgz
 
 fi-en.tgz:
 	$(WGET) http://www.statmt.org/europarl/v7/fi-en.tgz
-
-de-en.tgz:
-	$(WGET) http://www.statmt.org/europarl/v7/de-en.tgz
 
 europarl-v7.fi-en.fi.text: fi-en.tgz
 	$(TAR) zxvf $<
@@ -161,8 +167,6 @@ models: $(MODELS)
 		-external-bin-dir $(GIZA_TOOLDIR) $(SNT2COOC_FLAG) 
 	touch $@
 
-### FIXME: tuning
-
 %.tuned.en-fi: %.train.tm.en-fi %.dev.true.en %.dev.true.fi
 	$(MOSES_MERT) $*.dev.true.en $*.dev.true.fi \
 		--working-dir $*.en-fi.tuning \
@@ -229,13 +233,23 @@ models: $(MODELS)
 		hfst-disjunct $*.fi.unseen.hfst |\
 		hfst-fst2fst -f olw -o $@
 
-# from omorfi repo
+# FIXME: TEMPORARY
+$(FST_FI_MORPHS): $(FST_FI_MORPHS_UNWEIGHTED)
+	hfst-fst2fst -f olw -o $@ < $<
+
 $(FST_FI_UNWEIGHTED): morphology.segments.hfst omorfi-segments.relabel
 	hfst-fst2fst -f openfst < $< | hfst-substitute -F omorfi-segments.relabel |\
 		hfst-minimize -o $@
 
+$(FST_FI_MORPHS_UNWEIGHTED): morphology.segments.hfst omorfi-morphs.relabel
+	hfst-fst2fst -f openfst < $< | hfst-substitute -F omorfi-morphs.relabel |\
+		hfst-minimize -o $@
+
+# from omorfi repo
 morphology.segments.hfst: $(OMORFI_PREFIX)/share/hfst/fi/morphology.segments.hfst
 	cp -v $< $@
+
+
 
 # }}}
 #
@@ -248,6 +262,12 @@ segments: $(SEGMENTS)
 %.fst.1best.tok.fi: %.tok.fi $(FST_FI)
 	$(IRSTLM_ADD_START_END) < $< | tr ' ' '\n' |\
 		$(HFST_LOOKUP) -q $(FST_FI) | tr '\n' '@' | $(SED) -e 's/\@@/\n/g' |\
+		cut -f 2 | tr '\n' ' ' | sed -e 's/+?//g' -e 's:</s>:\0\n:g' |\
+		$(IRSTLM_RM_START_END) > $@
+
+%.fst.1best-morphs.tok.fi: %.tok.fi $(FST_FI_MORPHS)
+	$(IRSTLM_ADD_START_END) < $< | tr ' ' '\n' |\
+		$(HFST_LOOKUP) -q $(FST_FI_MORPHS) | tr '\n' '@' | $(SED) -e 's/\@@/\n/g' |\
 		cut -f 2 | tr '\n' ' ' | sed -e 's/+?//g' -e 's:</s>:\0\n:g' |\
 		$(IRSTLM_RM_START_END) > $@
 
@@ -281,7 +301,7 @@ translations:  $(TRANSLATIONS)
 		$(MOSES_DETRUECASE) |\
 		$(MOSES_DETOKENIZER) > $@
 
-%.fst-moses.en-fi.5best.fi: %.true.en $(MOSES_FST2BEST_EN_FI)
+%.fst-moses.en-fi.5best.fi: %.true.en $(MOSES_FST1BEST_EN_FI)
 	$(MOSES) -f $(MOSES_FST1BEST_EN_FI_DIR)/model/moses.ini -n-best-list - 5 < $< > $@
 # }}}
 
