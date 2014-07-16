@@ -42,13 +42,14 @@ TEDDYBEARS_FI=
 
 MODELS=$(TRUECASE_BASELINE_FI) $(TRUECASE_BASELINE_EN) \
 	   $(MOSES_BASELINE_FI) $(MOSES_BASELINE_EN_FI) \
-	   $(MOSES_FST1BEST_FI) $(MOSES_FST1BEST_EN_FI)
+	   $(MOSES_FST1BEST_FI) $(MOSES_FST1BEST_EN_FI) \
 	   $(MOSES_FST1BESTMORPHS_FI) $(MOSES_FST1BESTMORPHS_EN_FI)
 
 # translations
 TRANSLATIONS=undhr.baseline-moses.en-fi.translated.fi \
 			 undhr.baseline-apertium.en-fi.translated.fi \
-			 undhr.fst-moses.en-fi.translated.fi
+			 undhr.fst-moses.en-fi.translated.fi \
+			 undhr.fst-morphses.en-fi.translated.fi
 
 # evaluations
 EVALUATIONS=undhr.baseline-moses.en-fi.bleu.fi \
@@ -271,7 +272,7 @@ segments: $(SEGMENTS)
 		cut -f 2 | tr '\n' ' ' | sed -e 's/+?//g' -e 's:</s>:\0\n:g' |\
 		$(IRSTLM_RM_START_END) > $@
 
-%.fst.1best-morphs.tok.fi: %.tok.fi $(FST_FI_MORPHS)
+%.fst.1best-mor.tok.fi: %.tok.fi $(FST_FI_MORPHS)
 	$(IRSTLM_ADD_START_END) < $< | tr ' ' '\n' |\
 		$(HFST_LOOKUP) -q $(FST_FI_MORPHS) | tr '\n' '@' | $(SED) -e 's/\@@/\n/g' |\
 		cut -f 2 | tr '\n' ' ' | sed -e 's/+?//g' -e 's:</s>:\0\n:g' |\
@@ -280,6 +281,9 @@ segments: $(SEGMENTS)
 # for translation model: copy en - en for tokenising
 
 %.fst.1best.tok.en: %.tok.en
+	cp -v $< $@
+
+%.fst.1best-mor.tok.en: %.tok.en
 	cp -v $< $@
 
 # }}}
@@ -310,6 +314,12 @@ translations:  $(TRANSLATIONS)
 
 %.fst-moses.en-fi.5best.fi: %.true.en $(MOSES_FST1BEST_EN_FI)
 	$(MOSES) -f $(MOSES_FST1BEST_EN_FI_DIR)/model/moses.ini -n-best-list - 5 < $< > $@
+
+%.fst-morphses.en-fi.translated.fi: %.true.en $(MOSES_FST1BESTMORPHS_EN_FI)
+	$(MOSES) -f $(MOSES_FST1BESTMORPHS_EN_FI_DIR)/model/moses.ini < $< |\
+		$(MOSES_DETRUECASE) |\
+		$(MOSES_DETOKENIZER) > $@
+
 # }}}
 
 # {{{EVALUATIONS
