@@ -352,9 +352,10 @@ evaluations: $(EVALUATIONS)
 %.baseline-apertium.en-fi.nistbleu.fi: %.baseline-apertium.en-fi.translated.fi.sgml %.fi.sgml %.en.sgml
 	$(NIST_BLEU13A) -s $*.en.sgml -r $*.fi.sgml -t $*.baseline-apertium.en-fi.translated.fi.sgml > $@
 
-
-%.baseline-moses.en-fi.oov.fi: %.baseline-moses.en-fi.translated.fi
-	$(MOSES_OOV) $< > $@
+if CAN_TER
+%.baseline-moses.en-fi.ter.fi: %.baseline-moses.en-fi.translated.fi.sgml %.fi.sgml %.en.sgml
+	$(JAVA) -jar $(TERJAR) -r $*.fi.sgml -h $*.baseline-moses.en-fi.translated.fi.sgml > $@
+endif
 
 # }}}
 
@@ -377,4 +378,4 @@ pbml.cls:
 CLEANFILES=2014-mtm-fin-eng.pdf 2014-mtm-fin-eng.aux 2014-mtm-fin-eng.log \
 			2014-mtm-fin-eng.bbl 2014-mtm-fin-eng.blg
 # }}}
-
+# vim: set foldmethod=marker:

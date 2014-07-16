@@ -55,6 +55,11 @@ AC_ARG_WITH([pbs-mail],
             [with_pbs_mail=no])
 AC_SUBST([PBS_EMAIL], [$with_pbs_mail])
 
+AC_ARG_WITH([tercom-path],
+            [AS_HELP_STRING([--with-tercom-path],
+                            [path to tercom.7.25.jar @<:@default=@>:@])],
+            [with_tercom_path=$withval],
+            [with_tercom_path=no])
 
 # Programs
 #AM_PATH_PYTHON([3.2])
@@ -114,6 +119,12 @@ AS_IF([test x$MGIZA_SNT2COOC != xfalse], [AC_SUBST([SNT2COOC_FLAG], ["-snt2cooc 
 
 # NIST eval tools
 AC_PATH_PROG([NIST_BLEU13A], [mteval-v13a.pl], [false])
+
+# TER eval tool
+AC_CHECK_FILE([$with_tercom_path/tercom.7.25.jar],
+              [AC_SUBST([TERJAR], [$with_tercom_path/tercom.7.25.jar])],
+              [AC_MSG_WARN([point --with-tercom-path to dir of tercom.7.25.jar for TER tests])])
+AM_CONDITIONAL([CAN_TER], [test x$TERJAR != xno])
 
 # XML wrapping for eval
 AC_PATH_PROG([WRAP_XML], [wrap-xml.prompsit-version.sh], [false])
