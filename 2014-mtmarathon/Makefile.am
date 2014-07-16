@@ -47,12 +47,16 @@ MODELS=$(TRUECASE_BASELINE_FI) $(TRUECASE_BASELINE_EN) \
 
 # translations
 TRANSLATIONS=undhr.baseline-moses.en-fi.translated.fi \
-			 undhr.baseline-apertium.en-fi.translated.fi 
+			 undhr.baseline-apertium.en-fi.translated.fi \
+			 undhr.fst-moses.en-fi.translated.fi
 
 # evaluations
 EVALUATIONS=undhr.baseline-moses.en-fi.bleu.fi \
 			undhr.baseline-apertium.en-fi.bleu.fi \
-			undhr.baseline-moses.en-fi.nistbleu.fi
+			undhr.fst-moses.en-fi.bleu.fi \
+			undhr.baseline-moses.en-fi.nistbleu.fi \
+			undhr.baseline-apertium.en-fi.nistbleu.fi \
+			undhr.fst-moses.en-fi.nistbleu.fi
 
 
 PAPER=2014-mtm-fin-eng.pdf
@@ -295,6 +299,7 @@ translations:  $(TRANSLATIONS)
 %.baseline-apertium.en-fi.translated.fi: %.en.text 
 	$(APERTIUM_DESTXT) < $< |\
 		$(APERTIUM) eng-fin |\
+		tr -d '*#@' |\
 		$(APERTIUM_RETXT) > $@
 
 
@@ -313,6 +318,9 @@ evaluations: $(EVALUATIONS)
 %.baseline-moses.en-fi.bleu.fi: %.baseline-moses.en-fi.translated.fi %.fi.text
 	$(MOSES_MULTI_BLEU) -lc $*.fi.text < $*.baseline-moses.en-fi.translated.fi > $@
 
+%.fst-moses.en-fi.bleu.fi: %.fst-moses.en-fi.translated.fi %.fi.text
+	$(MOSES_MULTI_BLEU) -lc $*.fi.text < $*.fst-moses.en-fi.translated.fi > $@
+
 %.baseline-apertium.en-fi.bleu.fi: %.baseline-apertium.en-fi.translated.fi %.fi.text
 	$(MOSES_MULTI_BLEU) -lc $*.fi.text < $*.baseline-apertium.en-fi.translated.fi > $@
 
@@ -327,6 +335,13 @@ evaluations: $(EVALUATIONS)
 
 %.baseline-moses.en-fi.nistbleu.fi: %.baseline-moses.en-fi.translated.fi.sgml %.fi.sgml %.en.sgml
 	$(NIST_BLEU13A) -s $*.en.sgml -r $*.fi.sgml -t $*.baseline-moses.en-fi.translated.fi.sgml > $@
+
+%.fst-moses.en-fi.nistbleu.fi: %.fst-moses.en-fi.translated.fi.sgml %.fi.sgml %.en.sgml
+	$(NIST_BLEU13A) -s $*.en.sgml -r $*.fi.sgml -t $*.fst-moses.en-fi.translated.fi.sgml > $@
+
+%.baseline-apertium.en-fi.nistbleu.fi: %.baseline-apertium.en-fi.translated.fi.sgml %.fi.sgml %.en.sgml
+	$(NIST_BLEU13A) -s $*.en.sgml -r $*.fi.sgml -t $*.baseline-apertium.en-fi.translated.fi.sgml > $@
+
 
 %.baseline-moses.en-fi.oov.fi: %.baseline-moses.en-fi.translated.fi
 	$(MOSES_OOV) $< > $@
