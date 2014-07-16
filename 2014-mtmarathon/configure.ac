@@ -112,6 +112,12 @@ AC_SUBST([GIZA_TOOLDIR], [$with_giza_tools])
 AS_IF([test x$MGIZA != xfalse], [AC_SUBST([MGIZA_FLAGS], ["-mgiza -mgiza-cpus 4"])])
 AS_IF([test x$MGIZA_SNT2COOC != xfalse], [AC_SUBST([SNT2COOC_FLAG], ["-snt2cooc snt2cooc.pl"])])
 
+# NIST eval tools
+AC_PATH_PROG([NIST_BLEU13A], [mteval-v13a.pl], [false])
+
+# XML wrapping for eval
+AC_PATH_PROG([WRAP_XML], [wrap-xml.prompsit-version.sh], [false])
+
 # external language models nicely
 AC_PATH_PROGS([PKGCONFIG], [pkg-config pkgconf], 
              [AC_MSG_ERROR([pkg-config is crucial for even configure to work])])

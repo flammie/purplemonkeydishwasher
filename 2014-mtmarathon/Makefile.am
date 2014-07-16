@@ -51,7 +51,9 @@ TRANSLATIONS=undhr.baseline-moses.en-fi.translated.fi \
 
 # evaluations
 EVALUATIONS=undhr.baseline-moses.en-fi.bleu.fi \
-			undhr.baseline-apertium.en-fi.bleu.fi
+			undhr.baseline-apertium.en-fi.bleu.fi \
+			undhr.baseline-moses.en-fi.nistbleu.fi
+
 
 PAPER=2014-mtm-fin-eng.pdf
 # }}}
@@ -313,6 +315,22 @@ evaluations: $(EVALUATIONS)
 
 %.baseline-apertium.en-fi.bleu.fi: %.baseline-apertium.en-fi.translated.fi %.fi.text
 	$(MOSES_MULTI_BLEU) -lc $*.fi.text < $*.baseline-apertium.en-fi.translated.fi > $@
+
+%.en.sgml: %.en.text
+	$(WRAP_XML) src en fi $< | grep -v "<seg id[^>]*></seg>" > $@
+
+%.fi.sgml: %.fi.text
+	$(WRAP_XML) ref en fi $< | grep -v "<seg id[^>]*></seg>" > $@
+
+%.translated.fi.sgml: %.translated.fi
+	$(WRAP_XML) tst en fi $< | grep -v "<seg id[^>]*></seg>" > $@
+
+%.baseline-moses.en-fi.nistbleu.fi: %.baseline-moses.en-fi.translated.fi.sgml %.fi.sgml %.en.sgml
+	$(NIST_BLEU13A) -s $*.en.sgml -r $*.fi.sgml -t $*.baseline-moses.en-fi.translated.fi.sgml > $@
+
+%.baseline-moses.en-fi.oov.fi: %.baseline-moses.en-fi.translated.fi
+	$(MOSES_OOV) $< > $@
+
 # }}}
 
 
