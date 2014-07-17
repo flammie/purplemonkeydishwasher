@@ -55,13 +55,17 @@ TRANSLATIONS=undhr.baseline-moses.en-fi.translated.fi \
 EVALUATIONS=undhr.baseline-moses.en-fi.bleu.fi \
 			undhr.baseline-apertium.en-fi.bleu.fi \
 			undhr.fst-moses.en-fi.bleu.fi \
+			undhr.fst-morphses.en-fi.bleu.fi \
 			undhr.baseline-moses.en-fi.nistbleu.fi \
 			undhr.baseline-apertium.en-fi.nistbleu.fi \
-			undhr.fst-moses.en-fi.nistbleu.fi
+			undhr.fst-moses.en-fi.nistbleu.fi \
+			undhr.fst-morphses.en-fi.nistbleu.fi
 
 if CAN_TER
 EVALUATIONS+=undhr.baseline-moses.en-fi.ter.fi\
-			 undhr.baseline-apertium.en-fi.bleu.fi
+			 undhr.baseline-apertium.en-fi.bleu.fi \
+			 undhr.fst-moses.en-fi.ter.fi \
+			 undhr.fst-morphses.en-fi.ter.fi
 endif
 
 PAPER=2014-mtm-fin-eng.pdf
