@@ -59,6 +59,10 @@ EVALUATIONS=undhr.baseline-moses.en-fi.bleu.fi \
 			undhr.baseline-apertium.en-fi.nistbleu.fi \
 			undhr.fst-moses.en-fi.nistbleu.fi
 
+if CAN_TER
+EVALUATIONS+=undhr.baseline-moses.en-fi.ter.fi\
+			 undhr.baseline-apertium.en-fi.bleu.fi
+endif
 
 PAPER=2014-mtm-fin-eng.pdf
 # }}}
@@ -355,6 +359,9 @@ evaluations: $(EVALUATIONS)
 if CAN_TER
 %.baseline-moses.en-fi.ter.fi: %.baseline-moses.en-fi.translated.fi.sgml %.fi.sgml %.en.sgml
 	$(JAVA) -jar $(TERJAR) -r $*.fi.sgml -h $*.baseline-moses.en-fi.translated.fi.sgml > $@
+
+%.baseline-apertium.en-fi.ter.fi: %.baseline-apertium.en-fi.translated.fi.sgml %.fi.sgml %.en.sgml
+	$(JAVA) -jar $(TERJAR) -r $*.fi.sgml -h $*.baseline-apertium.en-fi.translated.fi.sgml > $@
 endif
 
 # }}}
