@@ -29,10 +29,10 @@ TRUECASE_BASELINE_FI=europarl-v7.fi-en.truecaser.fi
 TRUECASE_BASELINE_EN=europarl-v7.fi-en.truecaser.en
 
 # segment Finnish
-MORFESSOR_FI=europarl-v7.fi-en.fi.train.morfessor
+MORFESSOR_FI=europarl-v7.fi-en.train.fi.morfessor
 
 FST_FI_MORPHS_UNWEIGHTED=morphs-unweighted.hfst
-FST_FI_MORPHS=morphs.hfst
+FST_FI_MORPHS=europarl-v7.fi-en.fi.morphweighted.hfst
 
 FST_FI_UNWEIGHTED=compounds.hfst
 FST_FI=europarl-v7.fi-en.fi.weighted.hfst
@@ -204,8 +204,9 @@ models: $(MODELS)
 
 # morfessor train
 %.morfessor: %.text
-	morfessor-train $< -s $@
+	$(MORFESSOR_TRAIN)  $< -s $@
 
+# word counts for word segment model
 %.fi.words: %.tok.fi
 	tr -s ' ' '\n' < $< > $@
 
@@ -248,9 +249,50 @@ models: $(MODELS)
 		hfst-disjunct $*.fi.unseen.hfst |\
 		hfst-fst2fst -f olw -o $@
 
-# FIXME: TEMPORARY
-$(FST_FI_MORPHS): $(FST_FI_MORPHS_UNWEIGHTED)
-	hfst-fst2fst -f olw -o $@ < $<
+# morph count for morph segment model
+%.fi.morphs: %.morfessed.text.fi
+	tr -s ' ' '\n' < $< > $@
+
+%.morphfreqs: %.morphs
+	sort < $< | uniq -c | sort -nr > $@
+
+%.morphtropical: %.morphfreqs %.morphs  tropicalize-uniq-c-add-smoothing.awk
+	awk -f tropicalize-uniq-c-add-smoothing.awk \
+		--assign=CS=`wc -l < $*.words` --assign=LS=`wc -l < $*.freqs` \
+		< $*.freqs > $@
+
+%.morphfst: %.morphtropical
+	hfst-strings2fst -j -f openfst $< -o $@
+
+# FIXME: ideal would be to calc weight from training data e.g.
+# alpha / |CORPUS| + alpha * |DICTIONARY|
+%.morphseparator.hfst: %.morphfreqs %.morphs
+	echo -e " \t17.09" | hfst-strings2fst -f openfst -o $@
+
+%.morphloop.hfst: %.hfst %.morphseparator.hfst
+	hfst-concatenate $*.morphseparator.hfst $*.hfst |\
+		hfst-minimize |\
+		hfst-repeat -f 0 |\
+		hfst-minimize -o $@
+
+%.morphweights.hfst: %.hfst %.morphloop.hfst
+	hfst-concatenate $*.hfst $*.morphloop.hfst |\
+		hfst-minimize -o $@
+
+# FIXME replace this with real calculation too
+%.fi.unseenmorphs.hfst: %.fi.morphfreqs %.fi.morphs $(FST_FI_UNWEIGHTED)
+	hfst-reweight -S " " -a 34.18 $(FST_FI_UNWEIGHTED) |\
+		hfst-reweight -e -a 17.09 - |\
+		hfst-minimize -o $@
+
+%.fi.morphweighted.hfst: %.fi.morphweights.hfst %.fi.unseenmorphs.hfst $(FST_FI_MORPHS_UNWEIGHTED)
+	hfst-compose -F $(FST_FI_MORPHS_UNWEIGHTED) $*.fi.morphweights.hfst|\
+		hfst-minimize |\
+		hfst-disjunct $*.fi.unseenmorphs.hfst |\
+		hfst-fst2fst -f olw -o $@
+
+
+# originals with segmentation added
 
 $(FST_FI_UNWEIGHTED): morphology.segments.hfst omorfi-segments.relabel
 	hfst-fst2fst -f openfst < $< | hfst-substitute -F omorfi-segments.relabel |\
@@ -271,8 +313,8 @@ morphology.segments.hfst: $(OMORFI_PREFIX)/share/hfst/fi/morphology.segments.hfs
 # {{{SEGMENTing
 segments: $(SEGMENTS)
 
-%.fi.morfessed.text: %.text.fi $(MORFESSOR_FI)
-	morfessor-segment $< -l $(MORFESSOR) > $@
+%.morfessed.text.fi: %.fi.text $(MORFESSOR_FI)
+	$(MORFESSOR_SEGMENT)  $< -l $(MORFESSOR) > $@
 
 %.fst.1best.tok.fi: %.tok.fi $(FST_FI)
 	$(IRSTLM_ADD_START_END) < $< | tr ' ' '\n' |\
@@ -339,6 +381,9 @@ evaluations: $(EVALUATIONS)
 %.fst-moses.en-fi.bleu.fi: %.fst-moses.en-fi.translated.fi %.fi.text
 	$(MOSES_MULTI_BLEU) -lc $*.fi.text < $*.fst-moses.en-fi.translated.fi > $@
 
+%.fst-morphses.en-fi.bleu.fi: %.fst-morphses.en-fi.translated.fi %.fi.text
+	$(MOSES_MULTI_BLEU) -lc $*.fi.text < $*.fst-morphses.en-fi.translated.fi > $@
+
 %.baseline-apertium.en-fi.bleu.fi: %.baseline-apertium.en-fi.translated.fi %.fi.text
 	$(MOSES_MULTI_BLEU) -lc $*.fi.text < $*.baseline-apertium.en-fi.translated.fi > $@
 
@@ -357,12 +402,21 @@ evaluations: $(EVALUATIONS)
 %.fst-moses.en-fi.nistbleu.fi: %.fst-moses.en-fi.translated.fi.sgml %.fi.sgml %.en.sgml
 	$(NIST_BLEU13A) -s $*.en.sgml -r $*.fi.sgml -t $*.fst-moses.en-fi.translated.fi.sgml > $@
 
+%.fst-morphses.en-fi.nistbleu.fi: %.fst-morphses.en-fi.translated.fi.sgml %.fi.sgml %.en.sgml
+	$(NIST_BLEU13A) -s $*.en.sgml -r $*.fi.sgml -t $*.fst-morphses.en-fi.translated.fi.sgml > $@
+
 %.baseline-apertium.en-fi.nistbleu.fi: %.baseline-apertium.en-fi.translated.fi.sgml %.fi.sgml %.en.sgml
 	$(NIST_BLEU13A) -s $*.en.sgml -r $*.fi.sgml -t $*.baseline-apertium.en-fi.translated.fi.sgml > $@
 
 if CAN_TER
 %.baseline-moses.en-fi.ter.fi: %.baseline-moses.en-fi.translated.fi.sgml %.fi.sgml %.en.sgml
 	$(JAVA) -jar $(TERJAR) -r $*.fi.sgml -h $*.baseline-moses.en-fi.translated.fi.sgml > $@
+
+%.fst-moses.en-fi.ter.fi: %.fst-moses.en-fi.translated.fi.sgml %.fi.sgml %.en.sgml
+	$(JAVA) -jar $(TERJAR) -r $*.fi.sgml -h $*.fst-moses.en-fi.translated.fi.sgml > $@
+
+%.fst-morphses.en-fi.ter.fi: %.fst-morphses.en-fi.translated.fi.sgml %.fi.sgml %.en.sgml
+	$(JAVA) -jar $(TERJAR) -r $*.fi.sgml -h $*.fst-morphses.en-fi.translated.fi.sgml > $@
 
 %.baseline-apertium.en-fi.ter.fi: %.baseline-apertium.en-fi.translated.fi.sgml %.fi.sgml %.en.sgml
 	$(JAVA) -jar $(TERJAR) -r $*.fi.sgml -h $*.baseline-apertium.en-fi.translated.fi.sgml > $@
