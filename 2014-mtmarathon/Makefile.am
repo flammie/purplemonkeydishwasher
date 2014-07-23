@@ -247,6 +247,7 @@ models: $(MODELS)
 	hfst-compose -F $(FST_FI_UNWEIGHTED) $*.fi.weights.hfst|\
 		hfst-minimize |\
 		hfst-disjunct $*.fi.unseen.hfst |\
+		hfst-substitute -f ' ' -t '→ ←' |\
 		hfst-fst2fst -f olw -o $@
 
 # morph count for morph segment model
@@ -269,7 +270,7 @@ models: $(MODELS)
 %.morphseparator.hfst: %.morphfreqs %.morphs
 	echo -e " \t17.09" | hfst-strings2fst -f openfst -o $@
 
-%.morphloop.hfst: %.hfst %.morphseparator.hfst
+%.morphloop.hfst: %.morphfst %.morphseparator.hfst
 	hfst-concatenate $*.morphseparator.hfst $*.hfst |\
 		hfst-minimize |\
 		hfst-repeat -f 0 |\
@@ -280,15 +281,16 @@ models: $(MODELS)
 		hfst-minimize -o $@
 
 # FIXME replace this with real calculation too
-%.fi.unseenmorphs.hfst: %.fi.morphfreqs %.fi.morphs $(FST_FI_UNWEIGHTED)
-	hfst-reweight -S " " -a 34.18 $(FST_FI_UNWEIGHTED) |\
-		hfst-reweight -e -a 17.09 - |\
+%.fi.unseenmorphs.hfst: %.fi.morphfreqs %.fi.morphs $(FST_FI_MORPHS_UNWEIGHTED)
+	hfst-reweight -S " " -a 54.18 $(FST_FI_MORPHS_UNWEIGHTED) |\
+		hfst-reweight -e -a 27.09 - |\
 		hfst-minimize -o $@
 
 %.fi.morphweighted.hfst: %.fi.morphweights.hfst %.fi.unseenmorphs.hfst $(FST_FI_MORPHS_UNWEIGHTED)
 	hfst-compose -F $(FST_FI_MORPHS_UNWEIGHTED) $*.fi.morphweights.hfst|\
 		hfst-minimize |\
 		hfst-disjunct $*.fi.unseenmorphs.hfst |\
+		hfst-substitute -f ' ' -t '→ ←' |\
 		hfst-fst2fst -f olw -o $@
 
 
@@ -314,18 +316,22 @@ morphology.segments.hfst: $(OMORFI_PREFIX)/share/hfst/fi/morphology.segments.hfs
 segments: $(SEGMENTS)
 
 %.morfessed.text.fi: %.fi.text $(MORFESSOR_FI)
-	$(MORFESSOR_SEGMENT)  $< -l $(MORFESSOR) > $@
+	$(MORFESSOR_SEGMENT) -l $(MORFESSOR_FI)  $<  > $@
 
 %.fst.1best.tok.fi: %.tok.fi $(FST_FI)
 	$(IRSTLM_ADD_START_END) < $< | tr ' ' '\n' |\
-		$(HFST_LOOKUP) -q $(FST_FI) | tr '\n' '@' | $(SED) -e 's/\@@/\n/g' |\
-		cut -f 2 | tr '\n' ' ' | sed -e 's/+?//g' -e 's:</s>:\0\n:g' |\
+		$(HFST_LOOKUP) -q -P $(FST_FI) | sed -e 's/^$$//' | tr '\n' '@' |\
+		tr  '\n' |\
+		cut -f 2 | tr '\n' ' ' | $(SED) -e 's/+?//g' -e 's:</s>:\0\n:g' |\
+		head -n -1 |\
 		$(IRSTLM_RM_START_END) > $@
 
 %.fst.1best-mor.tok.fi: %.tok.fi $(FST_FI_MORPHS)
 	$(IRSTLM_ADD_START_END) < $< | tr ' ' '\n' |\
-		$(HFST_LOOKUP) -q $(FST_FI_MORPHS) | tr '\n' '@' | $(SED) -e 's/\@@/\n/g' |\
-		cut -f 2 | tr '\n' ' ' | sed -e 's/+?//g' -e 's:</s>:\0\n:g' |\
+		$(HFST_LOOKUP) -q -P $(FST_FI_MORPHS) | sed -e 's/^$$//' | tr '\n' '@' |\
+		tr  '\n' |\
+		cut -f 2 | tr '\n' ' ' | $(SED) -e 's/+?//g' -e 's:</s>:\0\n:g' |\
+		head -n -1 |\
 		$(IRSTLM_RM_START_END) > $@
 
 # for translation model: copy en - en for tokenising
@@ -357,15 +363,21 @@ translations:  $(TRANSLATIONS)
 		$(APERTIUM_RETXT) > $@
 
 
-%.fst-moses.en-fi.translated.fi: %.true.en $(MOSES_FST1BEST_EN_FI)
+%.fst-moses.en-fi.translated-segments.fi: %.true.en $(MOSES_FST1BEST_EN_FI)
 	$(MOSES) -f $(MOSES_FST1BEST_EN_FI_DIR)/model/moses.ini < $< |\
 		$(MOSES_DETRUECASE) |\
 		$(MOSES_DETOKENIZER) > $@
 
+# baseline desegmentation
+%.translated.fi: %.translated-segments.fi
+	sed -e 's/→ ←//g' \
+		-e 's/←[^[:space:].,?!()"]*//g' \
+		-e 's/[^[:space:].,?!()"]*→//g' < $< > $@
+
 %.fst-moses.en-fi.5best.fi: %.true.en $(MOSES_FST1BEST_EN_FI)
 	$(MOSES) -f $(MOSES_FST1BEST_EN_FI_DIR)/model/moses.ini -n-best-list - 5 < $< > $@
 
-%.fst-morphses.en-fi.translated.fi: %.true.en $(MOSES_FST1BESTMORPHS_EN_FI)
+%.fst-morphses.en-fi.translated-segments.fi: %.true.en $(MOSES_FST1BESTMORPHS_EN_FI)
 	$(MOSES) -f $(MOSES_FST1BESTMORPHS_EN_FI_DIR)/model/moses.ini < $< |\
 		$(MOSES_DETRUECASE) |\
 		$(MOSES_DETOKENIZER) > $@
