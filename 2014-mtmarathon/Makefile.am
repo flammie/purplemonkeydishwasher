@@ -12,24 +12,27 @@
 # {{{ SETTINGS
 
 # English - Finnish
-MOSES_BASELINE_FI=europarl-v7.fi-en.blm.fi
-MOSES_BASELINE_EN_FI=europarl-v7.fi-en.btm.en-fi
-MOSES_BASELINE_EN_FI_DIR=europarl-v7.fi-en.en-fi
+MOSES_BASELINE_FI=europarl-v7.fi-en.train.blm.fi
+MOSES_BASELINE_EN_FI=europarl-v7.fi-en.train.btm.en-fi
+MOSES_BASELINE_EN_FI_DIR=europarl-v7.fi-en.train.en-fi
 
-MOSES_FST1BEST_FI=europarl-v7.fi-en.fst.1best.blm.fi
-MOSES_FST1BEST_EN_FI=europarl-v7.fi-en.fst.1best.btm.en-fi
-MOSES_FST1BEST_EN_FI_DIR=europarl-v7.fi-en.fst.1best.en-fi
+MOSES_FST1BEST_FI=europarl-v7.fi-en.train.fst.1best.blm.fi
+MOSES_FST1BEST_EN_FI=europarl-v7.fi-en.train.fst.1best.btm.en-fi
+MOSES_FST1BEST_EN_FI_DIR=europarl-v7.fi-en.train.fst.1best.en-fi
 
-MOSES_FST1BESTMORPHS_FI=europarl-v7.fi-en.fst.1best-mor.blm.fi
-MOSES_FST1BESTMORPHS_EN_FI=europarl-v7.fi-en.fst.1best-mor.btm.en-fi
-MOSES_FST1BESTMORPHS_EN_FI_DIR=europarl-v7.fi-en.fst.1best-mor.en-fi
+MOSES_FST1BESTMORPHS_FI=europarl-v7.fi-en.train.fst.1best-mor.blm.fi
+MOSES_FST1BESTMORPHS_EN_FI=europarl-v7.fi-en.train.fst.1best-mor.btm.en-fi
+MOSES_FST1BESTMORPHS_EN_FI_DIR=europarl-v7.fi-en.train.fst.1best-mor.en-fi
 
 # truecasing
 TRUECASE_BASELINE_FI=europarl-v7.fi-en.truecaser.fi
 TRUECASE_BASELINE_EN=europarl-v7.fi-en.truecaser.en
 
 # segment Finnish
-MORFESSOR_FI=europarl-v7.fi-en.train.fi.morfessor
+MORFESSOR_FI=europarl-v7.fi-en.fi.morfessor
+MORFESSOR_HALF_FI=europarl-v7.fi-en.half.fi.morfessor
+MORFESSOR_QUARTER_FI=europarl-v7.fi-en.quarter.fi.morfessor
+MORFESSOR_EIGHTH_FI=europarl-v7.fi-en.eighth.fi.morfessor
 
 FST_FI_MORPHS_UNWEIGHTED=morphs-unweighted.hfst
 FST_FI_MORPHS=europarl-v7.fi-en.fi.morphweighted.hfst
@@ -41,6 +44,8 @@ FST_FI=europarl-v7.fi-en.fi.weighted.hfst
 TEDDYBEARS_FI=
 
 MODELS=$(TRUECASE_BASELINE_FI) $(TRUECASE_BASELINE_EN) \
+	   $(MORFESSOR_FI) $(MORFESSOR_HALF_FI) \
+	   $(MORFESSOR_QUARTER_FI) $(MORFESSOR_EIGHTH_FI) \
 	   $(MOSES_BASELINE_FI) $(MOSES_BASELINE_EN_FI) \
 	   $(MOSES_FST1BEST_FI) $(MOSES_FST1BEST_EN_FI) \
 	   $(MOSES_FST1BESTMORPHS_FI) $(MOSES_FST1BESTMORPHS_EN_FI)
@@ -49,7 +54,11 @@ MODELS=$(TRUECASE_BASELINE_FI) $(TRUECASE_BASELINE_EN) \
 TRANSLATIONS=undhr.baseline-moses.en-fi.translated.fi \
 			 undhr.baseline-apertium.en-fi.translated.fi \
 			 undhr.fst-moses.en-fi.translated.fi \
-			 undhr.fst-morphses.en-fi.translated.fi
+			 undhr.fst-morphses.en-fi.translated.fi \
+			 europarl-v7.fi-en.test.baseline-apertium.en-fi.translated.fi \
+			 europarl-v7.fi-en.test.baseline-moses.en-fi.translated.fi \
+			 europarl-v7.fi-en.test.fst-moses.en-fi.translated.fi \
+			 europarl-v7.fi-en.test.fst-morphses.en-fi.translated.fi
 
 # evaluations
 EVALUATIONS=undhr.baseline-moses.en-fi.bleu.fi \
@@ -59,13 +68,22 @@ EVALUATIONS=undhr.baseline-moses.en-fi.bleu.fi \
 			undhr.baseline-moses.en-fi.nistbleu.fi \
 			undhr.baseline-apertium.en-fi.nistbleu.fi \
 			undhr.fst-moses.en-fi.nistbleu.fi \
-			undhr.fst-morphses.en-fi.nistbleu.fi
+			undhr.fst-morphses.en-fi.nistbleu.fi \
+			europarl-v7.fi-en.test.baseline-apertium.en-fi.nistbleu.fi \
+			europarl-v7.fi-en.test.baseline-moses.en-fi.nistbleu.fi \
+			europarl-v7.fi-en.test.fst-moses.en-fi.nistbleu.fi \
+			europarl-v7.fi-en.test.fst-morphses.en-fi.nistbleu.fi
 
 if CAN_TER
 EVALUATIONS+=undhr.baseline-moses.en-fi.ter.fi\
-			 undhr.baseline-apertium.en-fi.bleu.fi \
+			 undhr.baseline-apertium.en-fi.ter.fi \
 			 undhr.fst-moses.en-fi.ter.fi \
-			 undhr.fst-morphses.en-fi.ter.fi
+			 undhr.fst-morphses.en-fi.ter.fi \
+			 europarl-v7.fi-en.test.baseline-apertium.en-fi.ter.fi \
+			 europarl-v7.fi-en.test.baseline-moses.en-fi.ter.fi \
+			 europarl-v7.fi-en.test.fst-moses.en-fi.ter.fi \
+			 europarl-v7.fi-en.test.fst-morphses.en-fi.ter.fi
+
 endif
 
 PAPER=2014-mtm-fin-eng.pdf
@@ -80,19 +98,31 @@ corpora: fi-en.tgz de-en.tgz
 fi-en.tgz:
 	$(WGET) http://www.statmt.org/europarl/v7/fi-en.tgz
 
-europarl-v7.fi-en.fi.text: fi-en.tgz
+europarl-v7.fi-en.dupes.fi.text: fi-en.tgz
 	$(TAR) zxvf $<
 	mv europarl-v7.fi-en.fi $@
 	touch $@
 
-europarl-v7.fi-en.en.text: fi-en.tgz
+europarl-v7.fi-en.dupes.en.text: fi-en.tgz
 	$(TAR) zxvf $<
 	mv europarl-v7.fi-en.en $@
 	touch $@
 
+%.fi.text: %.dupes.en.text %.dupes.fi.text
+	paste $* dupes.en.text $*.dupes.fi.text |\
+		sort |\
+		uniq |\
+		cut -f 1 > $@
+
+%.en.text: %.dupes.fi.text %.dupes.en.text
+	paste $*.dupes.fi.text $*.dupes.en.text |\
+		sort |\
+		uniq |\
+		cut -f 1 > $@
+
 # split to train / dev / test in 8 / 1 / 1 if no tuning corpora
 %.train.en.text: %.en.text
-	split -d -l `wc -l < $< | sed -e 's/$$/\/10/' | bc`  $< $*.split.en.
+	split -d -l `wc -l < $< | $(SED) -e 's/$$/\/10/' | bc`  $< $*.split.en.
 	cat $*.split.en.00 $*.split.en.01 $*.split.en.02 $*.split.en.03 \
 		$*.split.en.04 $*.split.en.05 $*.split.en.06 $*.split.en.07 \
 		>> $@
@@ -104,7 +134,7 @@ europarl-v7.fi-en.en.text: fi-en.tgz
 	cp -v $*.split.en.09 $@
 
 %.train.fi.text: %.fi.text
-	split -d -l `wc -l < $< | sed -e 's/$$/\/10/' | bc` $< $*.split.fi.
+	split -d -l `wc -l < $< | $(SED) -e 's/$$/\/10/' | bc` $< $*.split.fi.
 	cat $*.split.fi.00 $*.split.fi.01 $*.split.fi.02 $*.split.fi.03 \
 		$*.split.fi.04 $*.split.fi.05 $*.split.fi.06 $*.split.fi.07 \
 		>> $@
@@ -115,6 +145,30 @@ europarl-v7.fi-en.en.text: fi-en.tgz
 %.test.fi.text: %.train.fi.text
 	cp -v $*.split.fi.09 $@
 
+%.half.en.text: %.en.text
+	split -d -l `wc -l < $< | $(SED) -e 's/$$/\/2/' | bc`  $< $*.halves.en.
+	cp -v $*.halves.en.00 $@
+
+%.quarter.en.text: %.en.text
+	split -d -l `wc -l < $< | $(SED) -e 's/$$/\/4/' | bc`  $< $*.quarters.en.
+	cp -v $*.quarters.en.00 $@
+
+%.eighth.en.text: %.en.text
+	split -d -l `wc -l < $< | $(SED) -e 's/$$/\/4/' | bc`  $< $*.eighths.en.
+	cp -v $*.eighths.en.00 $@
+
+
+%.half.fi.text: %.fi.text
+	split -d -l `wc -l < $< | $(SED) -e 's/$$/\/2/' | bc`  $< $*.halves.fi.
+	cp -v $*.halves.fi.00 $@
+
+%.quarter.fi.text: %.fi.text
+	split -d -l `wc -l < $< | $(SED) -e 's/$$/\/4/' | bc`  $< $*.quarters.fi.
+	cp -v $*.quarters.fi.00 $@
+
+%.eighth.fi.text: %.fi.text
+	split -d -l `wc -l < $< | $(SED) -e 's/$$/\/4/' | bc`  $< $*.eighths.fi.
+	cp -v $*.eighths.fi.00 $@
 # }}}
 #
 # {{{TRAINING
@@ -196,7 +250,7 @@ models: $(MODELS)
 	$(MOSES_PROCESS_PHRASE_TABLE) -ttable 0 0 $*.en-fi/model/phrase-table.gz \
 		-nscores 5 -out $*.binarised.en-fi/phrase-table
 	$(MOSES_PROCESS_LEXICAL_TABLE) -in $*.en-fi/model/reordering-table.wbe-msd-bidirectional-fe.gz -out $*.binarised.en-fi/reordering-table
-	sed -i -e 's/PhraseDictionaryMemory/PhraseDictionaryBinary/' \
+	$(SED) -i -e 's/PhraseDictionaryMemory/PhraseDictionaryBinary/' \
 		-e "s:$*.en-fi/model/phrase-table.gz:$*.binarised.en-fi/phrase-table:"\
 		-e "s:$*.en-fi/model/reordering-table.wbe-msd-bidirectional-fe.gz:$*.binarised.en-fi/reordering-table:"\
 		$*.en-fi/model/moses.ini 
@@ -320,7 +374,7 @@ segments: $(SEGMENTS)
 
 %.fst.1best.tok.fi: %.tok.fi $(FST_FI)
 	$(IRSTLM_ADD_START_END) < $< | tr ' ' '\n' |\
-		$(HFST_LOOKUP) -q -P $(FST_FI) | sed -e 's/^$$//' | tr '\n' '@' |\
+		$(HFST_LOOKUP) -q -P $(FST_FI) | $(SED) -e 's/^$$//' | tr '\n' '@' |\
 		tr  '\n' |\
 		cut -f 2 | tr '\n' ' ' | $(SED) -e 's/+?//g' -e 's:</s>:\0\n:g' |\
 		head -n -1 |\
@@ -328,7 +382,7 @@ segments: $(SEGMENTS)
 
 %.fst.1best-mor.tok.fi: %.tok.fi $(FST_FI_MORPHS)
 	$(IRSTLM_ADD_START_END) < $< | tr ' ' '\n' |\
-		$(HFST_LOOKUP) -q -P $(FST_FI_MORPHS) | sed -e 's/^$$//' | tr '\n' '@' |\
+		$(HFST_LOOKUP) -q -P $(FST_FI_MORPHS) | $(SED) -e 's/^$$//' | tr '\n' '@' |\
 		tr  '\n' |\
 		cut -f 2 | tr '\n' ' ' | $(SED) -e 's/+?//g' -e 's:</s>:\0\n:g' |\
 		head -n -1 |\
@@ -370,7 +424,7 @@ translations:  $(TRANSLATIONS)
 
 # baseline desegmentation
 %.translated.fi: %.translated-segments.fi
-	sed -e 's/→ ←//g' \
+	$(SED) -e 's/→ ←//g' \
 		-e 's/←[^[:space:].,?!()"]*//g' \
 		-e 's/[^[:space:].,?!()"]*→//g' < $< > $@
 
