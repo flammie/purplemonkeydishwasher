@@ -55,9 +55,14 @@ AC_ARG_WITH([pbs-mail],
             [with_pbs_mail=no])
 AC_SUBST([PBS_EMAIL], [$with_pbs_mail])
 
+AC_ARG_WITH([tercom-path],
+            [AS_HELP_STRING([--with-tercom-path],
+                            [path to tercom.7.25.jar @<:@default=@>:@])],
+            [with_tercom_path=$withval],
+            [with_tercom_path=no])
 
 # Programs
-#AM_PATH_PYTHON([3.2])
+AM_PATH_PYTHON([2.7])
 AC_PATH_PROG([JAVA], [java], [false])
 AC_PATH_PROG([WGET], [wget], [false])
 AC_PATH_PROGS([TAR], [gnutar gtar tar], [false])
@@ -111,6 +116,21 @@ AS_IF([test -z $with_giza_tools], [AC_MSG_ERROR([giza tools must be copied to a 
 AC_SUBST([GIZA_TOOLDIR], [$with_giza_tools])
 AS_IF([test x$MGIZA != xfalse], [AC_SUBST([MGIZA_FLAGS], ["-mgiza -mgiza-cpus 4"])])
 AS_IF([test x$MGIZA_SNT2COOC != xfalse], [AC_SUBST([SNT2COOC_FLAG], ["-snt2cooc snt2cooc.pl"])])
+
+AC_PATH_PROG([MORFESSOR_TRAIN], [morfessor-train], [false])
+AC_PATH_PROG([MORFESSOR_SEGMENT], [morfessor-segment], [false])
+
+# NIST eval tools
+AC_PATH_PROG([NIST_BLEU13A], [mteval-v13a.pl], [false])
+
+# TER eval tool
+AC_CHECK_FILE([$with_tercom_path/tercom.7.25.jar],
+              [AC_SUBST([TERJAR], [$with_tercom_path/tercom.7.25.jar])],
+              [AC_MSG_WARN([point --with-tercom-path to dir of tercom.7.25.jar for TER tests])])
+AM_CONDITIONAL([CAN_TER], [test x$TERJAR != xno])
+
+# XML wrapping for eval
+AC_PATH_PROG([WRAP_XML], [wrap-xml.prompsit-version.sh], [false])
 
 # external language models nicely
 AC_PATH_PROGS([PKGCONFIG], [pkg-config pkgconf], 

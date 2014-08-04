@@ -12,20 +12,31 @@
 # {{{ SETTINGS
 
 # English - Finnish
-MOSES_BASELINE_FI=europarl-v7.fi-en.blm.fi
-MOSES_BASELINE_EN_FI=europarl-v7.fi-en.btm.en-fi
-MOSES_BASELINE_EN_FI_DIR=europarl-v7.fi-en.en-fi
+MOSES_BASELINE_FI=europarl-v7.fi-en.train.blm.fi
+MOSES_BASELINE_EN_FI=europarl-v7.fi-en.train.btm.en-fi
+MOSES_BASELINE_EN_FI_DIR=europarl-v7.fi-en.train.en-fi
 
-MOSES_FST1BEST_FI=europarl-v7.fi-en.fst.1best.blm.fi
-MOSES_FST1BEST_EN_FI=europarl-v7.fi-en.fst.1best.btm.en-fi
-MOSES_FST1BEST_EN_FI_DIR=europarl-v7.fi-en.fst.1best.en-fi
+MOSES_FST1BEST_FI=europarl-v7.fi-en.train.fst.1best.blm.fi
+MOSES_FST1BEST_EN_FI=europarl-v7.fi-en.train.fst.1best.btm.en-fi
+MOSES_FST1BEST_EN_FI_DIR=europarl-v7.fi-en.train.fst.1best.en-fi
+
+MOSES_FST1BESTMORPHS_FI=europarl-v7.fi-en.train.fst.1best-mor.blm.fi
+MOSES_FST1BESTMORPHS_EN_FI=europarl-v7.fi-en.train.fst.1best-mor.btm.en-fi
+MOSES_FST1BESTMORPHS_EN_FI_DIR=europarl-v7.fi-en.train.fst.1best-mor.en-fi
 
 # truecasing
 TRUECASE_BASELINE_FI=europarl-v7.fi-en.truecaser.fi
 TRUECASE_BASELINE_EN=europarl-v7.fi-en.truecaser.en
 
 # segment Finnish
-MORFESSOR_FI=europarl-v7.fi-en.fi.train.morfessor
+MORFESSOR_FI=europarl-v7.fi-en.fi.morfessor
+MORFESSOR_HALF_FI=europarl-v7.fi-en.half.fi.morfessor
+MORFESSOR_QUARTER_FI=europarl-v7.fi-en.quarter.fi.morfessor
+MORFESSOR_EIGHTH_FI=europarl-v7.fi-en.eighth.fi.morfessor
+
+FST_FI_MORPHS_UNWEIGHTED=morphs-unweighted.hfst
+FST_FI_MORPHS=europarl-v7.fi-en.fi.morphweighted.hfst
+
 FST_FI_UNWEIGHTED=compounds.hfst
 FST_FI=europarl-v7.fi-en.fi.weighted.hfst
 
@@ -33,16 +44,47 @@ FST_FI=europarl-v7.fi-en.fi.weighted.hfst
 TEDDYBEARS_FI=
 
 MODELS=$(TRUECASE_BASELINE_FI) $(TRUECASE_BASELINE_EN) \
+	   $(MORFESSOR_FI) $(MORFESSOR_HALF_FI) \
+	   $(MORFESSOR_QUARTER_FI) $(MORFESSOR_EIGHTH_FI) \
 	   $(MOSES_BASELINE_FI) $(MOSES_BASELINE_EN_FI) \
-	   $(MOSES_FST1BEST_FI) $(MOSES_FST1BEST_EN_FI)
+	   $(MOSES_FST1BEST_FI) $(MOSES_FST1BEST_EN_FI) \
+	   $(MOSES_FST1BESTMORPHS_FI) $(MOSES_FST1BESTMORPHS_EN_FI)
 
 # translations
 TRANSLATIONS=undhr.baseline-moses.en-fi.translated.fi \
-			 undhr.baseline-apertium.en-fi.translated.fi 
+			 undhr.baseline-apertium.en-fi.translated.fi \
+			 undhr.fst-moses.en-fi.translated.fi \
+			 undhr.fst-morphses.en-fi.translated.fi \
+			 europarl-v7.fi-en.test.baseline-apertium.en-fi.translated.fi \
+			 europarl-v7.fi-en.test.baseline-moses.en-fi.translated.fi \
+			 europarl-v7.fi-en.test.fst-moses.en-fi.translated.fi \
+			 europarl-v7.fi-en.test.fst-morphses.en-fi.translated.fi
 
 # evaluations
 EVALUATIONS=undhr.baseline-moses.en-fi.bleu.fi \
-			undhr.baseline-apertium.en-fi.bleu.fi
+			undhr.baseline-apertium.en-fi.bleu.fi \
+			undhr.fst-moses.en-fi.bleu.fi \
+			undhr.fst-morphses.en-fi.bleu.fi \
+			undhr.baseline-moses.en-fi.nistbleu.fi \
+			undhr.baseline-apertium.en-fi.nistbleu.fi \
+			undhr.fst-moses.en-fi.nistbleu.fi \
+			undhr.fst-morphses.en-fi.nistbleu.fi \
+			europarl-v7.fi-en.test.baseline-apertium.en-fi.nistbleu.fi \
+			europarl-v7.fi-en.test.baseline-moses.en-fi.nistbleu.fi \
+			europarl-v7.fi-en.test.fst-moses.en-fi.nistbleu.fi \
+			europarl-v7.fi-en.test.fst-morphses.en-fi.nistbleu.fi
+
+if CAN_TER
+EVALUATIONS+=undhr.baseline-moses.en-fi.ter.fi\
+			 undhr.baseline-apertium.en-fi.ter.fi \
+			 undhr.fst-moses.en-fi.ter.fi \
+			 undhr.fst-morphses.en-fi.ter.fi \
+			 europarl-v7.fi-en.test.baseline-apertium.en-fi.ter.fi \
+			 europarl-v7.fi-en.test.baseline-moses.en-fi.ter.fi \
+			 europarl-v7.fi-en.test.fst-moses.en-fi.ter.fi \
+			 europarl-v7.fi-en.test.fst-morphses.en-fi.ter.fi
+
+endif
 
 PAPER=2014-mtm-fin-eng.pdf
 # }}}
@@ -56,22 +98,31 @@ corpora: fi-en.tgz de-en.tgz
 fi-en.tgz:
 	$(WGET) http://www.statmt.org/europarl/v7/fi-en.tgz
 
-de-en.tgz:
-	$(WGET) http://www.statmt.org/europarl/v7/de-en.tgz
-
-europarl-v7.fi-en.fi.text: fi-en.tgz
+europarl-v7.fi-en.dupes.fi.text: fi-en.tgz
 	$(TAR) zxvf $<
 	mv europarl-v7.fi-en.fi $@
 	touch $@
 
-europarl-v7.fi-en.en.text: fi-en.tgz
+europarl-v7.fi-en.dupes.en.text: fi-en.tgz
 	$(TAR) zxvf $<
 	mv europarl-v7.fi-en.en $@
 	touch $@
 
+%.fi.text: %.dupes.en.text %.dupes.fi.text
+	paste $* dupes.en.text $*.dupes.fi.text |\
+		sort |\
+		uniq |\
+		cut -f 1 > $@
+
+%.en.text: %.dupes.fi.text %.dupes.en.text
+	paste $*.dupes.fi.text $*.dupes.en.text |\
+		sort |\
+		uniq |\
+		cut -f 1 > $@
+
 # split to train / dev / test in 8 / 1 / 1 if no tuning corpora
 %.train.en.text: %.en.text
-	split -d -l `wc -l < $< | sed -e 's/$$/\/10/' | bc`  $< $*.split.en.
+	split -d -l `wc -l < $< | $(SED) -e 's/$$/\/10/' | bc`  $< $*.split.en.
 	cat $*.split.en.00 $*.split.en.01 $*.split.en.02 $*.split.en.03 \
 		$*.split.en.04 $*.split.en.05 $*.split.en.06 $*.split.en.07 \
 		>> $@
@@ -83,7 +134,7 @@ europarl-v7.fi-en.en.text: fi-en.tgz
 	cp -v $*.split.en.09 $@
 
 %.train.fi.text: %.fi.text
-	split -d -l `wc -l < $< | sed -e 's/$$/\/10/' | bc` $< $*.split.fi.
+	split -d -l `wc -l < $< | $(SED) -e 's/$$/\/10/' | bc` $< $*.split.fi.
 	cat $*.split.fi.00 $*.split.fi.01 $*.split.fi.02 $*.split.fi.03 \
 		$*.split.fi.04 $*.split.fi.05 $*.split.fi.06 $*.split.fi.07 \
 		>> $@
@@ -94,6 +145,30 @@ europarl-v7.fi-en.en.text: fi-en.tgz
 %.test.fi.text: %.train.fi.text
 	cp -v $*.split.fi.09 $@
 
+%.half.en.text: %.en.text
+	split -d -l `wc -l < $< | $(SED) -e 's/$$/\/2/' | bc`  $< $*.halves.en.
+	cp -v $*.halves.en.00 $@
+
+%.quarter.en.text: %.en.text
+	split -d -l `wc -l < $< | $(SED) -e 's/$$/\/4/' | bc`  $< $*.quarters.en.
+	cp -v $*.quarters.en.00 $@
+
+%.eighth.en.text: %.en.text
+	split -d -l `wc -l < $< | $(SED) -e 's/$$/\/4/' | bc`  $< $*.eighths.en.
+	cp -v $*.eighths.en.00 $@
+
+
+%.half.fi.text: %.fi.text
+	split -d -l `wc -l < $< | $(SED) -e 's/$$/\/2/' | bc`  $< $*.halves.fi.
+	cp -v $*.halves.fi.00 $@
+
+%.quarter.fi.text: %.fi.text
+	split -d -l `wc -l < $< | $(SED) -e 's/$$/\/4/' | bc`  $< $*.quarters.fi.
+	cp -v $*.quarters.fi.00 $@
+
+%.eighth.fi.text: %.fi.text
+	split -d -l `wc -l < $< | $(SED) -e 's/$$/\/4/' | bc`  $< $*.eighths.fi.
+	cp -v $*.eighths.fi.00 $@
 # }}}
 #
 # {{{TRAINING
@@ -161,8 +236,6 @@ models: $(MODELS)
 		-external-bin-dir $(GIZA_TOOLDIR) $(SNT2COOC_FLAG) 
 	touch $@
 
-### FIXME: tuning
-
 %.tuned.en-fi: %.train.tm.en-fi %.dev.true.en %.dev.true.fi
 	$(MOSES_MERT) $*.dev.true.en $*.dev.true.fi \
 		--working-dir $*.en-fi.tuning \
@@ -177,7 +250,7 @@ models: $(MODELS)
 	$(MOSES_PROCESS_PHRASE_TABLE) -ttable 0 0 $*.en-fi/model/phrase-table.gz \
 		-nscores 5 -out $*.binarised.en-fi/phrase-table
 	$(MOSES_PROCESS_LEXICAL_TABLE) -in $*.en-fi/model/reordering-table.wbe-msd-bidirectional-fe.gz -out $*.binarised.en-fi/reordering-table
-	sed -i -e 's/PhraseDictionaryMemory/PhraseDictionaryBinary/' \
+	$(SED) -i -e 's/PhraseDictionaryMemory/PhraseDictionaryBinary/' \
 		-e "s:$*.en-fi/model/phrase-table.gz:$*.binarised.en-fi/phrase-table:"\
 		-e "s:$*.en-fi/model/reordering-table.wbe-msd-bidirectional-fe.gz:$*.binarised.en-fi/reordering-table:"\
 		$*.en-fi/model/moses.ini 
@@ -185,8 +258,9 @@ models: $(MODELS)
 
 # morfessor train
 %.morfessor: %.text
-	morfessor-train $< -s $@
+	$(MORFESSOR_TRAIN)  $< -s $@
 
+# word counts for word segment model
 %.fi.words: %.tok.fi
 	tr -s ' ' '\n' < $< > $@
 
@@ -227,33 +301,99 @@ models: $(MODELS)
 	hfst-compose -F $(FST_FI_UNWEIGHTED) $*.fi.weights.hfst|\
 		hfst-minimize |\
 		hfst-disjunct $*.fi.unseen.hfst |\
+		hfst-substitute -f ' ' -t '→ ←' |\
 		hfst-fst2fst -f olw -o $@
 
-# from omorfi repo
+# morph count for morph segment model
+%.fi.morphs: %.morfessed.text.fi
+	tr -s ' ' '\n' < $< > $@
+
+%.morphfreqs: %.morphs
+	sort < $< | uniq -c | sort -nr > $@
+
+%.morphtropical: %.morphfreqs %.morphs  tropicalize-uniq-c-add-smoothing.awk
+	awk -f tropicalize-uniq-c-add-smoothing.awk \
+		--assign=CS=`wc -l < $*.words` --assign=LS=`wc -l < $*.freqs` \
+		< $*.freqs > $@
+
+%.morphfst: %.morphtropical
+	hfst-strings2fst -j -f openfst $< -o $@
+
+# FIXME: ideal would be to calc weight from training data e.g.
+# alpha / |CORPUS| + alpha * |DICTIONARY|
+%.morphseparator.hfst: %.morphfreqs %.morphs
+	echo -e " \t17.09" | hfst-strings2fst -f openfst -o $@
+
+%.morphloop.hfst: %.morphfst %.morphseparator.hfst
+	hfst-concatenate $*.morphseparator.hfst $*.hfst |\
+		hfst-minimize |\
+		hfst-repeat -f 0 |\
+		hfst-minimize -o $@
+
+%.morphweights.hfst: %.hfst %.morphloop.hfst
+	hfst-concatenate $*.hfst $*.morphloop.hfst |\
+		hfst-minimize -o $@
+
+# FIXME replace this with real calculation too
+%.fi.unseenmorphs.hfst: %.fi.morphfreqs %.fi.morphs $(FST_FI_MORPHS_UNWEIGHTED)
+	hfst-reweight -S " " -a 54.18 $(FST_FI_MORPHS_UNWEIGHTED) |\
+		hfst-reweight -e -a 27.09 - |\
+		hfst-minimize -o $@
+
+%.fi.morphweighted.hfst: %.fi.morphweights.hfst %.fi.unseenmorphs.hfst $(FST_FI_MORPHS_UNWEIGHTED)
+	hfst-compose -F $(FST_FI_MORPHS_UNWEIGHTED) $*.fi.morphweights.hfst|\
+		hfst-minimize |\
+		hfst-disjunct $*.fi.unseenmorphs.hfst |\
+		hfst-substitute -f ' ' -t '→ ←' |\
+		hfst-fst2fst -f olw -o $@
+
+
+# originals with segmentation added
+
 $(FST_FI_UNWEIGHTED): morphology.segments.hfst omorfi-segments.relabel
 	hfst-fst2fst -f openfst < $< | hfst-substitute -F omorfi-segments.relabel |\
 		hfst-minimize -o $@
 
+$(FST_FI_MORPHS_UNWEIGHTED): morphology.segments.hfst omorfi-morphs.relabel
+	hfst-fst2fst -f openfst < $< | hfst-substitute -F omorfi-morphs.relabel |\
+		hfst-minimize -o $@
+
+# from omorfi repo
 morphology.segments.hfst: $(OMORFI_PREFIX)/share/hfst/fi/morphology.segments.hfst
 	cp -v $< $@
+
+
 
 # }}}
 #
 # {{{SEGMENTing
 segments: $(SEGMENTS)
 
-%.fi.morfessed.text: %.text.fi $(MORFESSOR_FI)
-	morfessor-segment $< -l $(MORFESSOR) > $@
+%.morfessed.text.fi: %.fi.text $(MORFESSOR_FI)
+	$(MORFESSOR_SEGMENT) -l $(MORFESSOR_FI)  $<  > $@
 
 %.fst.1best.tok.fi: %.tok.fi $(FST_FI)
 	$(IRSTLM_ADD_START_END) < $< | tr ' ' '\n' |\
-		$(HFST_LOOKUP) -q $(FST_FI) | tr '\n' '@' | $(SED) -e 's/\@@/\n/g' |\
-		cut -f 2 | tr '\n' ' ' | sed -e 's/+?//g' -e 's:</s>:\0\n:g' |\
+		$(HFST_LOOKUP) -q -P $(FST_FI) | $(SED) -e 's/^$$//' | tr '\n' '@' |\
+		tr  '\n' |\
+		cut -f 2 | tr '\n' ' ' | $(SED) -e 's/+?//g' -e 's:</s>:\0\n:g' |\
+		head -n -1 |\
+		$(IRSTLM_RM_START_END) > $@
+
+%.fst.1best-mor.tok.fi: %.tok.fi $(FST_FI_MORPHS)
+	$(IRSTLM_ADD_START_END) < $< | tr ' ' '\n' |\
+		$(HFST_LOOKUP) -q -P $(FST_FI_MORPHS) | $(SED) -e 's/^$$//' | tr '\n' '@' |\
+		tr  '\n' |\
+		cut -f 2 | tr '\n' ' ' | $(SED) -e 's/+?//g' -e 's:</s>:\0\n:g' |\
+		head -n -1 |\
 		$(IRSTLM_RM_START_END) > $@
 
 # for translation model: copy en - en for tokenising
 
 %.fst.1best.tok.en: %.tok.en
+	cp -v $< $@
+
+%.fst.1best-mor.tok.en: %.tok.en
 	cp -v $< $@
 
 # }}}
@@ -273,16 +413,29 @@ translations:  $(TRANSLATIONS)
 %.baseline-apertium.en-fi.translated.fi: %.en.text 
 	$(APERTIUM_DESTXT) < $< |\
 		$(APERTIUM) eng-fin |\
+		tr -d '*#@' |\
 		$(APERTIUM_RETXT) > $@
 
 
-%.fst-moses.en-fi.translated.fi: %.true.en $(MOSES_FST1BEST_EN_FI)
+%.fst-moses.en-fi.translated-segments.fi: %.true.en $(MOSES_FST1BEST_EN_FI)
 	$(MOSES) -f $(MOSES_FST1BEST_EN_FI_DIR)/model/moses.ini < $< |\
 		$(MOSES_DETRUECASE) |\
 		$(MOSES_DETOKENIZER) > $@
 
-%.fst-moses.en-fi.5best.fi: %.true.en $(MOSES_FST2BEST_EN_FI)
+# baseline desegmentation
+%.translated.fi: %.translated-segments.fi
+	$(SED) -e 's/→ ←//g' \
+		-e 's/←[^[:space:].,?!()"]*//g' \
+		-e 's/[^[:space:].,?!()"]*→//g' < $< > $@
+
+%.fst-moses.en-fi.5best.fi: %.true.en $(MOSES_FST1BEST_EN_FI)
 	$(MOSES) -f $(MOSES_FST1BEST_EN_FI_DIR)/model/moses.ini -n-best-list - 5 < $< > $@
+
+%.fst-morphses.en-fi.translated-segments.fi: %.true.en $(MOSES_FST1BESTMORPHS_EN_FI)
+	$(MOSES) -f $(MOSES_FST1BESTMORPHS_EN_FI_DIR)/model/moses.ini < $< |\
+		$(MOSES_DETRUECASE) |\
+		$(MOSES_DETOKENIZER) > $@
+
 # }}}
 
 # {{{EVALUATIONS
@@ -291,8 +444,50 @@ evaluations: $(EVALUATIONS)
 %.baseline-moses.en-fi.bleu.fi: %.baseline-moses.en-fi.translated.fi %.fi.text
 	$(MOSES_MULTI_BLEU) -lc $*.fi.text < $*.baseline-moses.en-fi.translated.fi > $@
 
+%.fst-moses.en-fi.bleu.fi: %.fst-moses.en-fi.translated.fi %.fi.text
+	$(MOSES_MULTI_BLEU) -lc $*.fi.text < $*.fst-moses.en-fi.translated.fi > $@
+
+%.fst-morphses.en-fi.bleu.fi: %.fst-morphses.en-fi.translated.fi %.fi.text
+	$(MOSES_MULTI_BLEU) -lc $*.fi.text < $*.fst-morphses.en-fi.translated.fi > $@
+
 %.baseline-apertium.en-fi.bleu.fi: %.baseline-apertium.en-fi.translated.fi %.fi.text
 	$(MOSES_MULTI_BLEU) -lc $*.fi.text < $*.baseline-apertium.en-fi.translated.fi > $@
+
+%.en.sgml: %.en.text
+	$(WRAP_XML) src en fi $< | grep -v "<seg id[^>]*></seg>" > $@
+
+%.fi.sgml: %.fi.text
+	$(WRAP_XML) ref en fi $< | grep -v "<seg id[^>]*></seg>" > $@
+
+%.translated.fi.sgml: %.translated.fi
+	$(WRAP_XML) tst en fi $< | grep -v "<seg id[^>]*></seg>" > $@
+
+%.baseline-moses.en-fi.nistbleu.fi: %.baseline-moses.en-fi.translated.fi.sgml %.fi.sgml %.en.sgml
+	$(NIST_BLEU13A) -s $*.en.sgml -r $*.fi.sgml -t $*.baseline-moses.en-fi.translated.fi.sgml > $@
+
+%.fst-moses.en-fi.nistbleu.fi: %.fst-moses.en-fi.translated.fi.sgml %.fi.sgml %.en.sgml
+	$(NIST_BLEU13A) -s $*.en.sgml -r $*.fi.sgml -t $*.fst-moses.en-fi.translated.fi.sgml > $@
+
+%.fst-morphses.en-fi.nistbleu.fi: %.fst-morphses.en-fi.translated.fi.sgml %.fi.sgml %.en.sgml
+	$(NIST_BLEU13A) -s $*.en.sgml -r $*.fi.sgml -t $*.fst-morphses.en-fi.translated.fi.sgml > $@
+
+%.baseline-apertium.en-fi.nistbleu.fi: %.baseline-apertium.en-fi.translated.fi.sgml %.fi.sgml %.en.sgml
+	$(NIST_BLEU13A) -s $*.en.sgml -r $*.fi.sgml -t $*.baseline-apertium.en-fi.translated.fi.sgml > $@
+
+if CAN_TER
+%.baseline-moses.en-fi.ter.fi: %.baseline-moses.en-fi.translated.fi.sgml %.fi.sgml %.en.sgml
+	$(JAVA) -jar $(TERJAR) -r $*.fi.sgml -h $*.baseline-moses.en-fi.translated.fi.sgml > $@
+
+%.fst-moses.en-fi.ter.fi: %.fst-moses.en-fi.translated.fi.sgml %.fi.sgml %.en.sgml
+	$(JAVA) -jar $(TERJAR) -r $*.fi.sgml -h $*.fst-moses.en-fi.translated.fi.sgml > $@
+
+%.fst-morphses.en-fi.ter.fi: %.fst-morphses.en-fi.translated.fi.sgml %.fi.sgml %.en.sgml
+	$(JAVA) -jar $(TERJAR) -r $*.fi.sgml -h $*.fst-morphses.en-fi.translated.fi.sgml > $@
+
+%.baseline-apertium.en-fi.ter.fi: %.baseline-apertium.en-fi.translated.fi.sgml %.fi.sgml %.en.sgml
+	$(JAVA) -jar $(TERJAR) -r $*.fi.sgml -h $*.baseline-apertium.en-fi.translated.fi.sgml > $@
+endif
+
 # }}}
 
 
@@ -316,4 +511,4 @@ pbml.cls:
 CLEANFILES=2014-mtm-fin-eng.pdf 2014-mtm-fin-eng.aux 2014-mtm-fin-eng.log \
 			2014-mtm-fin-eng.bbl 2014-mtm-fin-eng.blg
 # }}}
-
+# vim: set foldmethod=marker:
