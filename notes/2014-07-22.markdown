@@ -1,0 +1,26 @@
+1. Compare segmentation algoritms both ways
+    - Morfessor MAP, ML, baseline, fst-morphs, fst-words
+    - 10 eval targets
+    -> finalise the paper for mtm
+    - verify unique sent pairs with paste | sort | uniq
+
+Makefile has: morphs, words (from comps), bleu, ter, morfessor baseline
+    needs oov
+
+2. Scale morfessor training data 
+    - size 25 %
+     -> Makefile + split n 4
+
+4. Scale TM training data size:
+    - 12.5 % 25 % 50 %
+    - plot segments advantage towards small data
+
+3. Combining segmentations
+    - intersections of segmentation points
+    - n-best segmentations to lattice for decoding
+    - tm training with n-best from 1.
+    - weight setting: distribute evenly, find morfessors internals, 
+    
+--
+hbs-eng later at workshop
+
