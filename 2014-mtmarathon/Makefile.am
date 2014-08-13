@@ -492,6 +492,8 @@ endif
 
 
 # {{{ paper
+paper: $(PAPER)
+
 pbml.cls:
 	$(WGET) http://ufal.mff.cuni.cz/pbml/pbml-4_0-flat.zip
 	unzip pbml-4_0-flat.zip

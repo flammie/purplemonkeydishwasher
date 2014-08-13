@@ -1,0 +1,22 @@
+# Irish-English RBMT
+
+1. Converting current irish fst to new infras
+    - apertium
+    - giellatekno
+    - maintainability
+    - automatic testing
+    - other tools
+2. SMT vs. RBMT
+    - both baselines must be built (e.g. to write an article)
+    - hybrid systems
+3. Abumatrany parts
+    - Lexicon extension e.g. Mikel's eamt, hfst-guessers
+    - Chunker (t1x) induction
+    - lexical selection
+    - other rules, reordering?
+    - segmentation to morph. analysis -> morph smt
+4. Apertium extensions (about the masters thesis)
+    - collect an inventory of phrases and disjoints
+    - e.g. transfer4
+    - allow ? + * in t?x
+    - dependencies

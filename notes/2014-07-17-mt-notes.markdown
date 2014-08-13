@@ -1,0 +1,44 @@
+# Statistical machine translation components for morphologica complexity
+
+Basic assumptions:
+- Morphologically complex languages have potentially infinite vocabulary
+- all languages have (mostly) finite amount of morphs
+- morphs have relations to other language morphs in terms of translation,
+  i.e., you can draw connections (1:1, 1:n, n:1 n=0,...) between
+- e.g., semantic cases in slavic, uralic,...
+- e.g., post-position to suffix, possessive to personal pronoun
+- cases where cases are syntactic are determined by close context so smt pbmt
+  should do well
+- e.g., object case, object case bound to specific verb or structure (have it
+  on you, 
+
+From morphologically poor to rich language:
+- segment rich corpora as pre-processing
+- target lm, tm based on segments
+- joining as post-processing
+- standard moses baseline otherwise
+- segmenters: rules, automatic mdl, combinations
+- training data for segmenters (size, quality)
+- features for segment joining
+- parameters for experiments so {segmenter, segment-training-data, training-corpus, joiner}
+
+
+Other direction:
+- segment rich corpora as pre-processing
+- tm based on segments
+- translation input segmented as pre-processing
+- standard moses baseline, lattices etc. structures for stuff
+- building lattices, getting weights right and all
+- training data
+- segmenters
+- experiments: {training-data-size, corpus, n-bests}
+
+Scripts / Projects to that:
+- train fst segmenters, combine fst / mdl segmenters, weights
+- fst, mdl -> lattice
+- 
+
+Other things:
+- AMTA workshops
+- IWSLT
+- MTM workshops 

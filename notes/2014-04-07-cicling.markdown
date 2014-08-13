@@ -1,0 +1,93 @@
+CICLING 2014
+------------
+
+Sentiment mining
+================
+
+* Data mining people always want to have mining attached
+* Linguists have NEVER done anything with this, no exceptions
+* it's a classification problem1
+* blackouts yay
+* considering sarcasm etc, is actually always hard
+
+Readability
+===========
+
+* vocabulary (-word frequency probability)
+* `<->` morphological complexity of Bangla? 
+* Why is Bangla not suitable for classical features 
+
+Posters
+=======
+
+* Compound Terms and their Multi-Word Variants
+* Role of paraphrases in SMT
+* Spelling Correction for Kazakh ( Aibek Makazhanov, Olzhas Makhambetov, Islam Sabyrgaliyev and Zhandos Yessenbayev.)
+
+
+Unsupervised NLP
+================
+
+* learning morphology of lots of small classes with variations (I suppose
+    you can cluster rare variations of stems and all)
+* do we get anything from morph(eme) variation here?
+* two-level rules are human readable
+* why why why
+* spending dozens of years to come up with unsupervised method is so much
+  faster than just writing the rules in few months
+* lot of sentences with the word x suddenly appear
+
+bil extraction from comparable corpora
+======================================
+
+* combined similarity scoring over stuffs at 
+    http://orchid.kuee.kyoto-u.ac.jp/~cju/code/iBiLexExtractor.tgz
+* 10k WP docs w/ interlanguage links ?~100k noun bils
+
+Nepal's languages encoding issues
+=================================
+
+* yeah it's a complex script
+* Sikkim Herald
+
+Some Challenges in lrls
+=======================
+
+* (poor countries like Finland will have a lot of underresourced languages)
+* what with Piraha and recording cultural institutions (dan everett)
+* loosing their language
+
+Grammar checking
+================
+* it's non-word spelling if no context
+
+Standardisation
+================
+* character-based smt for remind ape 
+* twitterese !!
+* yay for building lexicon
+
+Unsupervised dependency parsing
+===============================
+* Burdened by linguistic rules!
+* Can be tuned ==> must be tweaked with for ten years before they work
+* dependency trees must be projective trees
+
+Inferring paraphrases
+=====================
+* English has the snow words people just don't know / use them
+* check if source
+
+Bishnupriya Manipuri FST
+=========================
+* get it, compile it, spell-checkerise
+
+* Sentiment lexicon generation, email for scriptsit
+
+Commonsense knowledge
+=====================
+* lots of classical decision networks and logic
+
+Argumentation analysis
+======================
+* bad service -> good grade in other services than this
