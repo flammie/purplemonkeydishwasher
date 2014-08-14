@@ -1,9 +1,14 @@
 
 XELATEX=xelatex
+GRAPHICS=lattice.pdf alignments.pdf 
+#formspertokens.pdf
 
 .PHONY: all
 
 all: abumatran-workshop.pdf
+
+%.pdf: %.dia
+	dia $< -e $@
 
 %.pdf: %.dot
 	dot -Tpdf -o$@ $<
