@@ -20,6 +20,44 @@ kamusi:
 - Cannot do anything with linguini
 - fidget widget
 
-Tuesday
-=======
+Tuesday: saltmill
+=================
 
+- Zulu is agglutinative i.e., morphologically complex
+- Zulu morfessor? (syllables)
+- Syllable alignment is just as good as just taking random letters and use them
+
+- sse was not inessive stem but genitive
+
+Wednesday
+=========
+
+Opening:
+- <http://www.resourcebook.eu/shareyourlr/#>
+
+HFST tokenisation meeting:-i
+- `words [punct|space]*`
+    - words <= analyser tokens
+    - which punct are good where? punct are analyser tokens too
+    - which chars are space
+    - n.b. `(word [space | punct])*`
+- casing
+- (equivs /acx)
+- cjk, thai etc. langs w/o space
+- bugs: 
+    - https://sourceforge.net/p/hfst/bugs/153/
+    - https://sourceforge.net/p/hfst/bugs/141/
+    - https://sourceforge.net/p/hfst/bugs/96/
+    - https://sourceforge.net/p/hfst/bugs/63/
+    - https://sourceforge.net/p/hfst/bugs/31/
+    - https://sourceforge.net/p/hfst/bugs/19/
+- Tokenise by automata (c.f.
+  <https://github.com/flammie/pyhfst-tools/blob/master/hfst-tokenise.py>)
+  greedy LRLF (or weight order missing from repo now)
+- Create tokenisation automaton by hand <https://code.google.com/p/omorfi/source/browse/src/Makefile.am#146>
+- Examples and test cases!
+
+Thursday
+========
+
+- Nothing much
