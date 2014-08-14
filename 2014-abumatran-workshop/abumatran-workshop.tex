@@ -15,6 +15,7 @@
 \usepackage{xspace}
 \usepackage{array}
 
+
 \graphicspath{{./fig/}}
 
 
@@ -67,11 +68,26 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Motivation / Use cases}
+    i.e., what is it good for:
+    \begin{itemize}
+        \item Morphology-aware terminology management in localisation
+            applications
+        \item there's practically very little localisation software that
+            handles morphology with terms, names etc. well
+        \item e.g., software localisation I've seen so far doesn't quite allow
+            for morphology at all (gettext etc.)
+        \item e.g., translation memories will fuzzy match copy the most common
+            forms forcing translators to post editorially inflect all terms
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
     \frametitle{Morphological segmentation}
     \begin{itemize}
         \item For MT: ideally break wordform down to morphs that would translate
             to words in the other language
-        \item e.g. talo : talo/ssa : talo\_i/hin : puu/talo etc. for house : in house : to house\_s : wooden house
+        \item e.g. talo : talo/ssa : talo\_i/hin : puu/talo etc. for house : in house : to house\_s : wooden house (Finnish and English share plural as suffix)
         \item segmentation can be ambiguous, e.g. katos/ta \textasciitilde{}
             kato/sta (between katto and katos)
         \item with rulebased morphology we can select these rather easily
@@ -80,7 +96,8 @@
             minimize number of unique morphs in whole data; may need tuning
             and data selection
         \item N.B. alternative to morphological segmentation would be to use
-            factored models with morphological analyses
+            factored models with morphological analyses and lemmatization or
+            stemming
     \end{itemize}
 \end{frame}
 
@@ -106,7 +123,7 @@
         \item as per \url{http://www.statmt.org/moses/?n=Moses.Baseline}
         \item Split corpus, tokenize, truecase, clean
         \item train Language models
-        \item align, train tm
+        \item align, train translation model
         \item tuning
         \item test set is tokenised, truecased, translated, and compared
     \end{itemize}
@@ -131,6 +148,21 @@ Translating \emph{from} morphologically complex language (e.g., Fin $\rightarrow
 \end{frame}
 
 \begin{frame}
+    \frametitle{Morph lattices}
+    Ambiguous segmentations and statistical n-best segmentations can be fed to
+    moses as if they were word lattices:
+    \only<1>{
+    \includegraphics[width=\textwidth]{lattice}\\
+    (from morfessor's 2-best segmentation; morphologically correct:
+    ``Kaikki ihmise/t synty/vät vapa/i/na ja tasa/vertais/i/na arvo/lta/an ja
+    oikeuks/i/lta/an'')
+}
+\only<2>{
+    \includegraphics[trim=400 0 600 0,clip,width=\textwidth]{lattice}\\
+}
+\end{frame}
+
+\begin{frame}
     \frametitle{Morphological segmentations and statistics}
     \begin{itemize}
         \item Rule-based segmentation needs either analyser trained with
@@ -144,16 +176,6 @@ Translating \emph{from} morphologically complex language (e.g., Fin $\rightarrow
 \end{frame}
 
 \begin{frame}
-    \frametitle{Morph lattices}
-    Ambiguous segmentations and statistical n-best segmentations can be fed to
-    moses as if they were word lattices:
-    \includegraphics[width=\textwidth]{lattice}\\
-    (from morfessor's 2-best segmentation; morphologically correct:
-    ``Kaikki ihmise/t synty/vät vapa/i/na ja tasa/vertais/i/na arvo/lta/an ja
-    oikeuks/i/lta/an''
-\end{frame}
-
-\begin{frame}
     \frametitle{The Experiments}
     Writing comparison of results with different parameters:
     \begin{itemize}
@@ -163,6 +185,64 @@ Translating \emph{from} morphologically complex language (e.g., Fin $\rightarrow
             partitions (full, half, quarter, eighth)
         \item Different size of training data for translation model:
             same europarl partitions
+        \item Joining algorithms
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The Results}
+    \begin{tiny}
+    WIP as of \today: \\
+    English to Finnish\\
+        \begin{tabular}{|l|r|r||r|r|}
+            \hline
+            Score: & \bf BLEU & \bf TER  & \bf BLEU  & \bf TER   \\
+            Model  & (in dom) & (in dom) & (out dom) & (out dom) \\ 
+            \hline
+            \bf Apertium Baseline      & 0.03 & & 0.01 & 0.96 \\
+            \hline
+            \bf Moses Baseline         & 0.15 & & 0.18 & 0.71 \\
+            \hline
+            \bf Moses 1-Best Compounds (FSA) & 0.15 & & 0.17 & 0.70 \\
+            \hline
+            \bf Moses 1-Best Morphs (FSA + Morfessor) & 0.14 & & 0.10 & 0.74 \\
+            \hline
+            \bf Moses 1-Best Morphs (Morfessor) & & & &  \\
+            \hline
+        \end{tabular}
+    \end{tiny}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The Results}
+    \begin{tiny}
+    WIP as of \today: \\
+    Finnish to English\\
+        \begin{tabular}{|l|r|r||r|r|}
+            \hline
+            Score: & \bf BLEU & \bf TER  & \bf BLEU  & \bf TER   \\
+            Model  & (in dom) & (in dom) & (out dom) & (out dom) \\ 
+            \hline
+            \bf Apertium Baseline      & & & &  \\
+            \hline
+            \bf Moses Baseline         & & & &  \\
+            \hline
+            \bf Moses 1-Best Compounds (FSA) & & & &  \\
+            \hline
+            \bf Moses 1-Best Morphs (FSA + Morfessor) & & & & \\
+            \hline
+            \bf Moses 1-Best Morphs (Morfessor) & & & &  \\
+            \hline
+        \end{tabular}
+    \end{tiny}
+\end{frame}
+\begin{frame}
+    \frametitle{Future World}
+    \begin{itemize}
+        \item Include more languages in tests: South Slavic, 
+        \item Limit segmentation to selected words instead of all
+        \item Error analysis should reveal some interesting things
+        \item \ldots (suggestions welcome)
     \end{itemize}
 \end{frame}
 
@@ -175,6 +255,8 @@ Translating \emph{from} morphologically complex language (e.g., Fin $\rightarrow
         \item SVN at redmine repo mt-development
     \end{itemize}
 \end{frame}
+
+\bibliography{morph-segments}
 
 \end{document}
 % vim: set spell:
