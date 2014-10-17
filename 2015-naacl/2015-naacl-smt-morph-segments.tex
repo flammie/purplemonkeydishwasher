@@ -2,12 +2,18 @@
 \usepackage{naaclhlt2015}
 \usepackage{times}
 \usepackage{latexsym}
+\usepackage{url}
+
 \setlength\titlebox{6.5cm}    % Expanding the titlebox
 
 \title{Morphological segmentation and de-segmentation for statistical machine
     translation\Thanks{This is an unpublished
-authors draft}}}
+authors draft}}
 
+\newif\ifpublished
+\publishedfalse
+
+\ifpublished
 \author{Tommi A Pirinen\\
     Ollscoil Chathair Bhaile Átha Cliath\\
     CNGL---School of Computing\\
@@ -15,6 +21,7 @@ authors draft}}}
     Dublin, Ireland\\
     {\tt tommi.pirinen@computing.dcu.ie}
 }
+\fi
 
 \begin{document}
 \maketitle
@@ -35,17 +42,68 @@ authors draft}}}
 \section{Introduction}
 \label{sec:introduction}
 
+It is a well-established fact that translation between morphologically complex
+and simple languages pose problems for most state-of-the-art statistical
+machine translation approaches. There are multiple causes for this: for one,
+the morphological richness is a source of large, potentially infinite
+vocabulary of word-forms, whereas statistical approaches strongly rely on
+having seen the specific word-forms before to be able to use it in
+translations. The large vocabulary also contributes to the scarceness of the
+statistical data: word-forms seen only a handful of times will not have
+distinct probabilities in statistical models. For mildly morphologically
+complex languages, the suggested solution is to collect more data, however,
+with languages where morphological complexity is greater, this becomes
+unrealistic.
 
+There have been various attempts to cope with morphological complexity to level
+out the playing field: the raw word-form data can be extended by additional
+alternative forms, e.g. lemma, part-of-speech and morphosyntactic analyses of
+the word-forms, and translation can be selected and generated based on these
+factors̃~\cite{koehn2007factored}. Another approach is to treat the word-forms of the
+morphologically complex language as combination of morphs, that are used for
+translation~\cite{clifton2011combining}. There has also been various
+combinations of these~\cite{luong2010hybrid,degispert2009minimum}. A common
+feature for all this research, however, is lack of any improvement, or at most
+very modest improvement under current evaluation schemes.
+
+What we propose here is the following components of the smt pipeline:
+
+\begin{itemize}
+    \item Rulebased and statistical methods for segmentation,
+    \item supervised and unsupervised methods of selecting ideal segmentations
+        for training, and
+    \item rule-based and statistical method for determining correct
+        recombinations of morphs from the segmented translation.
+\end{itemize}
+
+The article is structured as follows: in section~\ref{sec:methods} we describe
+our implementations of various parts of smt pipeline, in section~\ref{sec:data}
+we describe the corpora used for training and evaluation, in
+section~\ref{sec:evaluation}we evaluate our method combinations against
+baseline and the state-of-the-art, in section~\ref{sec:discussion} we examine
+the errors and differences between our translations, references and the
+state-of-the-art, and in section~\ref{sec:conclusion} we conclude the
+findings.
 
 \section{Methods}
+\label{sec:methods}
+
+In this article we have assumed standard baseline machine 
+translation.\footnote{\url{}} 
+A statistical machine translation is composed of following components:
+lexical translation, re-ordering, scoring of target. 
 
 \section{Data}
+\label{sec:data}
 
 \section{Evaluation}
+\label{sec:evaluation}
 
 \section{Discussion}
+\label{sec:discussion}
 
 \section{Conclusion}
+\label{sec:conclusion}
 
 \section*{Acknowledgments}
 
