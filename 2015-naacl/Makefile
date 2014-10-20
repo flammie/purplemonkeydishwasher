@@ -11,4 +11,4 @@ all: 2015-naacl-smt-morph-segments.pdf
 	xelatex $<
 
 clean:
-	-rm -f *.log *.bbl *.aux 2015-fiwclul-template.pdf
+	-rm -f *.log *.bbl *.aux 
