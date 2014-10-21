@@ -59,12 +59,17 @@ There have been various attempts to cope with morphological complexity to level
 out the playing field: the raw word-form data can be extended by additional
 alternative forms, e.g. lemma, part-of-speech and morphosyntactic analyses of
 the word-forms, and translation can be selected and generated based on these
-factors̃~\cite{koehn2007factored}. Another approach is to treat the word-forms of the
-morphologically complex language as combination of morphs, that are used for
-translation~\cite{clifton2011combining}. There has also been various
+factors̃~\cite{koehn2007factored}. Another approach is to treat the word-forms
+of the morphologically complex language as combination of morphs, that are used
+for translation~\cite{clifton2011combining}. There has also been various
 combinations of these~\cite{luong2010hybrid,degispert2009minimum}. A common
 feature for all this research, however, is lack of any improvement, or at most
-very modest improvement under current evaluation schemes.
+very modest improvement under current evaluation schemes. One feature that
+seems to be commonly shown in the experiments is that of either use of
+linguistically motivated morphological segmentation is either too cumbersome to
+be of general use, or even detrimental to the quality of overall system in
+general as opposed to statistically motivated ones̃,
+e.g.~\cite{mesmer2010unsupervised,creutz2007...}.
 
 What we propose here is the following components of the smt pipeline:
 
