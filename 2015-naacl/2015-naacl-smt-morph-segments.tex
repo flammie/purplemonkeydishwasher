@@ -98,8 +98,29 @@ translation.\footnote{\url{}}
 A statistical machine translation is composed of following components:
 lexical translation, re-ordering, scoring of target. 
 
+To train the corpus we need to segment the text and to pic the best
+segnentation. There are many approaches to this. 
+
+
+
 \section{Data}
 \label{sec:data}
+
+The gold standard for segmentation was hand-annotated from the sentence-aligned
+europarl corpus using the following criteria:
+
+\begin{itemize}
+    \item if word doesn't have any seemingly translation equivalent in
+        English, choose unsegmented (e.g., )
+    \item if suffixes or word segments have English word as translation
+        equivalent, choose segmented form (e.g., \emph{kysymykse+ni} = `my
+        question', \emph{halua+isi+n} = `I would like'), even when same segment
+        would be aligned twice or more (e.g., \emph{erää+seen seikka+an} = `to
+        something')
+    \item if a suffix does not have a translated word, choose unsegmented (e.g.,
+        \emph{liitty+y} = `relates')
+    \item when some of the segments match to words and some don't, choose one
+        with the highest proportion of matches
 
 \section{Evaluation}
 \label{sec:evaluation}
