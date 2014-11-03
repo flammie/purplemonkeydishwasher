@@ -69,7 +69,13 @@ seems to be commonly shown in the experiments is that of either use of
 linguistically motivated morphological segmentation is either too cumbersome to
 be of general use, or even detrimental to the quality of overall system in
 general as opposed to statistically motivated ones̃,
-e.g.~\cite{mesmer2010unsupervised,creutz2007...}.
+e.g.~\cite{mesmer2010unsupervised,creutz2007...}. 
+
+Most of the works in SMT oriented segmentation deals with unsupervised or very
+specialised and language specific approaches. In this article we take advantage
+of generic theoretic framework of weighted finite-state automata to formulate
+a solution that is usable with either unsupervised or rule-based segmentations
+methods.
 
 What we propose here is the following components of the smt pipeline:
 
@@ -98,8 +104,45 @@ translation.\footnote{\url{}}
 A statistical machine translation is composed of following components:
 lexical translation, re-ordering, scoring of target. 
 
-To train the corpus we need to segment the text and to pic the best
-segnentation. There are many approaches to this. 
+To train the corpus we need to segment the text and to measure usefulness of
+the segmentations for translation task. This is less obvious and
+straight-forward task than it sounds for multiple reasons. Considering
+segmentation as a task restricted to morphology of the language, the parameters
+that effect the segmentations include ambiguity (one word-form can have several
+readings with different segmentation, e.g., \emph{teillä} = ``on you (pl.)'' as
+\emph{tei llä} or ``on roads'' as \emph{te i llä}), productivity of the
+morphological processes and lexicalisation (morphs considered derivational and
+compounds considered semantically opaque may not be segmented, e.g.,
+\emph{maailma} ``world'' rather than \emph{maa ilma} ``earth air'', or
+\emph{lyhyesti} ``briefly'' rather than \emph{lyhye sti} ``short ly'') and
+morph combinatorics (e.g., should number + case constitute one or two morphs
+i.e., \emph{talo issa} o \emph{talo i ssa} ``in houses'' etc.).  The task is
+further complicated by the fact that linguistically and etymologically sound
+segmentation may or may not be the most useful for statistical machine
+translation; in principle we are trying to maximise the usefulness of
+co-occurrence statistics which makes ideal segmentation one that would provide
+best alignments over statistical models used in the learning process. Such
+finding of ideal segmentations given target translation is no longer
+straightforward even for trained linguist so defining some metrics to
+automatically find them for training data is necessary.
+\cite{mermer2010unsupervised} presents some methods for automatically selecting
+the optimal segmentation by em algorithm for model one in parallel with
+unsupervised morphological segmentation. 
+
+Our formulation of the process bases on same idea of using model 1 and lexical
+probabilities to optimise segmentations given target sentence, but we use the
+standard model1 calculation and the resulting scores to optimise the
+segmentation using weighted finite-state models for the optimisation as
+follows: the segmentations of source langauge sentence are turned into a
+weighted lattice (which is an acyclic, deterministic finite-state automaton).
+The model1 lexical probabilities is modeled as 1 state automaton that simply
+acts as a lookup table for the probabilities and the target. The target
+sentence is a path automaton. This models 1:1 alignments, and given model1 has
+the NULL symbol acting as real epsilon, any of the found NULL alignments. To
+account for re-ordering, the sentence automata can be turned into permutations
+of segments, this however gets unfeasible as number of words increases. A
+better solution is to turn either side into cyclic one-state automaton as well,
+to allow arbitrary n:m alignments between source and target.
 
 
 
