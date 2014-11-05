@@ -3,6 +3,7 @@
 \usepackage{times}
 \usepackage{latexsym}
 \usepackage{url}
+\usepackage{graphicx}
 
 \setlength\titlebox{6.5cm}    % Expanding the titlebox
 
@@ -69,7 +70,20 @@ seems to be commonly shown in the experiments is that of either use of
 linguistically motivated morphological segmentation is either too cumbersome to
 be of general use, or even detrimental to the quality of overall system in
 general as opposed to statistically motivated ones̃,
-e.g.~\cite{mesmer2010unsupervised,creutz2007...}. 
+e.g.~\cite{mermer2010unsupervised,virpioja2007morphology}. 
+
+The application of morphological segmentation for improvement of statistical
+machine translation in morphologically complex languages is based on two
+assumptions of what is happening in translation mistakes: out of vocabulary
+components that can be translated when tokenised, such as not having seen
+word-form \emph{Strasbourgista} where \emph{Strasbourg} and \emph{-(i)sta}
+suffix have been seen and identified to translate e.g. ``from Strasbourg''.
+Secondly, for non-OOV tokens to form better components for machine translation,
+than word-forms. The former is likely and can be seen from quick sampling of
+the OOV tokens in data, but is usually rather marginal in improvement. The
+latter is not at all obvious and requires attention. In this article we show
+an approach to evaluate both factors from the statistical machine translation
+system that is built.
 
 Most of the works in SMT oriented segmentation deals with unsupervised or very
 specialised and language specific approaches. In this article we take advantage
@@ -77,7 +91,7 @@ of generic theoretic framework of weighted finite-state automata to formulate
 a solution that is usable with either unsupervised or rule-based segmentations
 methods.
 
-What we propose here is the following components of the smt pipeline:
+What we evaluate here is the following components of the smt pipeline:
 
 \begin{itemize}
     \item Rulebased and statistical methods for segmentation,
@@ -91,7 +105,7 @@ The article is structured as follows: in section~\ref{sec:methods} we describe
 our implementations of various parts of smt pipeline, in section~\ref{sec:data}
 we describe the corpora used for training and evaluation, in
 section~\ref{sec:evaluation}we evaluate our method combinations against
-baseline and the state-of-the-art, in section~\ref{sec:discussion} we examine
+baseline and the state-of-the-art, in section~\ref{sec:error-analysis} we examine
 the errors and differences between our translations, references and the
 state-of-the-art, and in section~\ref{sec:conclusion} we conclude the
 findings.
@@ -102,7 +116,7 @@ findings.
 In this article we have assumed standard baseline machine 
 translation.\footnote{\url{}} 
 A statistical machine translation is composed of following components:
-lexical translation, re-ordering, scoring of target. 
+lexical translation, re-ordering, scoring of target.
 
 To train the corpus we need to segment the text and to measure usefulness of
 the segmentations for translation task. This is less obvious and
@@ -131,23 +145,63 @@ unsupervised morphological segmentation.
 
 Our formulation of the process bases on same idea of using model 1 and lexical
 probabilities to optimise segmentations given target sentence, but we use the
-standard model1 calculation and the resulting scores to optimise the
+standard model 1 calculation until it converges, and the resulting scores to optimise the
 segmentation using weighted finite-state models for the optimisation as
-follows: the segmentations of source langauge sentence are turned into a
+follows. The segmentations of source language sentence are turned into a
 weighted lattice (which is an acyclic, deterministic finite-state automaton).
-The model1 lexical probabilities is modeled as 1 state automaton that simply
+The model 1 lexical probabilities is modeled as 1 state automaton that simply
 acts as a lookup table for the probabilities and the target. The target
-sentence is a path automaton. This models 1:1 alignments, and given model1 has
+sentence is a path automaton. Now, the composition $\mathcal{M}_{\mathrm{f}} \circ
+\mathcal{M}_{\mathrm{M1}} \circ \mathcal{M}_{\mathrm{e}}$, where
+$\mathcal{M}_{\mathrm{f}}$ is the Finnish segmentations lattice, 
+$\mathcal{M}_{\mathrm{M1}}$ is the Model 1 transducer and $\mathcal{M}_{\mathrm{e}}$ the
+English sentence automaton, gives us synchronous N-best mapping of Finnish
+segments to English word-forms, as pictured in figure~\ref{fig:model-1-fsa}.
+This models 1:1 alignments, and given model 1 has
 the NULL symbol acting as real epsilon, any of the found NULL alignments. To
-account for re-ordering, the sentence automata can be turned into permutations
-of segments, this however gets unfeasible as number of words increases. A
-better solution is to turn either side into cyclic one-state automaton as well,
-to allow arbitrary n:m alignments between source and target.
+consider various possibilities we have made experimented the following
+modifications to the automata: model 1 automaton can be changed to allow
+one source symbol to multiple words in target by splitting lookup states into
+per word cycles, where probability of mapping one segment $f$ into
+two target segments $e_1, e_2$ will be the product of their model 1
+probabilities $P(e_1|f) P(e_2|f)$. The target sentence can be turned into a
+single state automaton accepting any words from the sentence in any order,
+limiting the ideal segmentation only by the vocabulary of target sentence,
+or creating an all permutations automaton from the segments (of each path) of
+target sentence. The permutation automaton can further be modified to allow
+missing words with a penalty by turning non-final states final with penalty
+equal to combined penalties of the words not used. The permutation automaton
+combined with the 1-to-many model 1, with the output null words already
+present in the original model 1 can already account for quite a large number
+of imaginable alignments --- with some obvious speed and size limitations.
 
 
+The use of finite-state models for finding the optimal alignments for the
+training process has few advantages over hand-built decoding process: both
+source sentence and target sentence can be arbitrary weighted finite-state
+automata, meaning that either can be n-best segmentation list or analysis
+network and either can have weights derived from language model included.
+
+\begin{figure}
+    \includegraphics[width=0.4\textwidth]{examplesegs}
+    \includegraphics[width=0.4\textwidth]{examplemodel1}
+    \includegraphics[width=0.4\textwidth]{examplesents}
+    \includegraphics[width=0.4\textwidth]{examplesegs2sents}
+    \caption{\label{fig:fsa-nbest} Finite-state n-best segmentation1 selection
+    for an example sentence pair}
+\end{figure}
 
 \section{Data}
 \label{sec:data}
+
+The data used for statistical machine translation is the version 7 of typical
+europarl corpus~\cite{europarl} commonly used for statistical machine
+translation for European languages. So far as we know the latest evaluation
+data for Finnish---English is the one published in WMT 05~\cite{wmt2005shared},
+while we use this for our evaluation too it is noteworthy that our baseline is
+not comparable to those published in e.g., machine translation matrix\footnote{\url{}}
+since they are trained on the version 3 of the europarl and using the
+pre-processing and evaluation that differs. 
 
 The gold standard for segmentation was hand-annotated from the sentence-aligned
 europarl corpus using the following criteria:
@@ -161,15 +215,99 @@ europarl corpus using the following criteria:
         would be aligned twice or more (e.g., \emph{erää+seen seikka+an} = `to
         something')
     \item if a suffix does not have a translated word, choose unsegmented (e.g.,
-        \emph{liitty+y} = `relates')
+        \emph{liitty+y} = `relates' vs. ``he relates'')
     \item when some of the segments match to words and some don't, choose one
         with the highest proportion of matches
+\end{itemize}
+
+The gold-standard is published with free and open licence alongside our packaged
+system.\footnote{\url{}}
 
 \section{Evaluation}
 \label{sec:evaluation}
 
-\section{Discussion}
+We perform following evaluations on the system: the evaluation of the segmentation
+methods against our hand-selected best segments for translation, and the
+standard evaluations for the default statistical machine translation systems
+built on the data. 
+
+For segmentation task we measure the precision\@1, because 1-best is what is
+used resulting system.
+
+\begin{table}
+    \begin{center}
+        \begin{tabular}{|l|rr|}
+            \hline
+            \bf Segmenter & \bf Precision & \bf Foo \\
+            \hline
+            Pick first & & \\
+            Model1, no alignment, no weights & & \\
+            Model1, permute & & \\
+            Model1, LM weights & & \\
+            \hline
+        \end{tabular}
+    \end{center}
+\caption{\label{table:segment-evaluation} Segmentation evaluations against 
+    hand-written gold-standard, 100 sentences, precision in \% units}
+\end{table}
+
+For the translation task we measure BLEU, TER and METEOR scores for the
+translations.
+
+\begin{table}
+    \begin{center}
+        \begin{tabular}{|l|rrrr|}
+            \hline
+            \bf System & \bf BLEU & \bf TER & \bf METEOR & \bf OOV \\
+            \hline
+            Baseline (wordforms) & & & & \\
+            Pick first segmentation & & & & \\
+            Best segmentation & & & & \\
+            \hline
+        \end{tabular}
+    \end{center}
+    \caption{\label{table:translation-evaluation-fin-eng} Translation
+        evaluation for WMT 05 task Finnish to English, OOV in \% units
+    and other scores as given by scoring scripts}
+\end{table}
+
+\begin{table}
+    \begin{center}
+        \begin{tabular}{|l|rrrrr|}
+            \hline
+            \bf System & \bf BLEU & \bf TER & \bf METEOR & \bf OOV & m-BLEU \\
+            \hline
+            Baseline (wordforms) & & & & \\
+            Pick first segmentation & & & & \\
+            Best segmentation & & & & \\
+            \hline
+        \end{tabular}
+    \end{center}
+    \caption{\label{table:translation-evaluation-fin-eng} Translation
+        evaluation for WMT 05 task English to Finnish, OOV in \% units
+    and other scores as given by scoring scripts}
+\end{table}
+
+
+\section{Error Analysis}
+\label{sec:error-analysis}
+
+To get an idea of short-comings of the method we have done something.
+
+We also evaluated the maximum potential of the method from samples.
+
+It appears that for the current corpora, it's impossible to improve without
+generating re-phrasings and including additional world knowledge: e.g.,
+
+\section{Related Work}
 \label{sec:discussion}
+
+Morphological segmentation for machine translation has been tried often for a
+solution to morphologically complex languages. We have presented evaluation
+of a combination of different state of the art components for morphological
+segmentation in machine translation for Finnish and English.
+
+
 
 \section{Conclusion}
 \label{sec:conclusion}
@@ -182,4 +320,4 @@ europarl corpus using the following criteria:
 
 \end{document}
 
-
+% vim: set spell:
