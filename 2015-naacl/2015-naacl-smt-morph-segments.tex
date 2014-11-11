@@ -1,0 +1,185 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage{naaclhlt2015}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{url}
+
+\setlength\titlebox{6.5cm}    % Expanding the titlebox
+
+\title{Morphological segmentation and de-segmentation for statistical machine
+    translation\Thanks{This is an unpublished
+authors draft}}
+
+\newif\ifpublished
+\publishedfalse
+
+\ifpublished
+\author{Tommi A Pirinen\\
+    Ollscoil Chathair Bhaile Átha Cliath\\
+    CNGL---School of Computing\\
+    Dublin City University, Glasnevin, D9\\
+    Dublin, Ireland\\
+    {\tt tommi.pirinen@computing.dcu.ie}
+}
+\fi
+
+\begin{document}
+\maketitle
+\begin{abstract}
+    Statistical machine translation works well when working between languages
+    with poor or moderately poor morphology, but typically fail if one
+    of the languages is much richer in morphology than other. In this article
+    we present an experiment on Finnish-English statistical machine translation
+    using segmentation and de-segmentation of morphs as pre- and post-processing
+    step to the standard statistical phrase based machine translation scheme
+    as presented by moses. We compare the use of statistical and rule-based
+    morphological segmenters and different approaches to pick up the
+    ideal segmentations at different phases of translation process as well
+    as different methods of de-segmentation. We note that the best system
+    improves the BLEU score by 0.001 points.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:introduction}
+
+It is a well-established fact that translation between morphologically complex
+and simple languages pose problems for most state-of-the-art statistical
+machine translation approaches. There are multiple causes for this: for one,
+the morphological richness is a source of large, potentially infinite
+vocabulary of word-forms, whereas statistical approaches strongly rely on
+having seen the specific word-forms before to be able to use it in
+translations. The large vocabulary also contributes to the scarceness of the
+statistical data: word-forms seen only a handful of times will not have
+distinct probabilities in statistical models. For mildly morphologically
+complex languages, the suggested solution is to collect more data, however,
+with languages where morphological complexity is greater, this becomes
+unrealistic.
+
+There have been various attempts to cope with morphological complexity to level
+out the playing field: the raw word-form data can be extended by additional
+alternative forms, e.g. lemma, part-of-speech and morphosyntactic analyses of
+the word-forms, and translation can be selected and generated based on these
+factors̃~\cite{koehn2007factored}. Another approach is to treat the word-forms
+of the morphologically complex language as combination of morphs, that are used
+for translation~\cite{clifton2011combining}. There has also been various
+combinations of these~\cite{luong2010hybrid,degispert2009minimum}. A common
+feature for all this research, however, is lack of any improvement, or at most
+very modest improvement under current evaluation schemes. One feature that
+seems to be commonly shown in the experiments is that of either use of
+linguistically motivated morphological segmentation is either too cumbersome to
+be of general use, or even detrimental to the quality of overall system in
+general as opposed to statistically motivated ones̃,
+e.g.~\cite{mesmer2010unsupervised,creutz2007...}. 
+
+Most of the works in SMT oriented segmentation deals with unsupervised or very
+specialised and language specific approaches. In this article we take advantage
+of generic theoretic framework of weighted finite-state automata to formulate
+a solution that is usable with either unsupervised or rule-based segmentations
+methods.
+
+What we propose here is the following components of the smt pipeline:
+
+\begin{itemize}
+    \item Rulebased and statistical methods for segmentation,
+    \item supervised and unsupervised methods of selecting ideal segmentations
+        for training, and
+    \item rule-based and statistical method for determining correct
+        recombinations of morphs from the segmented translation.
+\end{itemize}
+
+The article is structured as follows: in section~\ref{sec:methods} we describe
+our implementations of various parts of smt pipeline, in section~\ref{sec:data}
+we describe the corpora used for training and evaluation, in
+section~\ref{sec:evaluation}we evaluate our method combinations against
+baseline and the state-of-the-art, in section~\ref{sec:discussion} we examine
+the errors and differences between our translations, references and the
+state-of-the-art, and in section~\ref{sec:conclusion} we conclude the
+findings.
+
+\section{Methods}
+\label{sec:methods}
+
+In this article we have assumed standard baseline machine 
+translation.\footnote{\url{}} 
+A statistical machine translation is composed of following components:
+lexical translation, re-ordering, scoring of target. 
+
+To train the corpus we need to segment the text and to measure usefulness of
+the segmentations for translation task. This is less obvious and
+straight-forward task than it sounds for multiple reasons. Considering
+segmentation as a task restricted to morphology of the language, the parameters
+that effect the segmentations include ambiguity (one word-form can have several
+readings with different segmentation, e.g., \emph{teillä} = ``on you (pl.)'' as
+\emph{tei llä} or ``on roads'' as \emph{te i llä}), productivity of the
+morphological processes and lexicalisation (morphs considered derivational and
+compounds considered semantically opaque may not be segmented, e.g.,
+\emph{maailma} ``world'' rather than \emph{maa ilma} ``earth air'', or
+\emph{lyhyesti} ``briefly'' rather than \emph{lyhye sti} ``short ly'') and
+morph combinatorics (e.g., should number + case constitute one or two morphs
+i.e., \emph{talo issa} o \emph{talo i ssa} ``in houses'' etc.).  The task is
+further complicated by the fact that linguistically and etymologically sound
+segmentation may or may not be the most useful for statistical machine
+translation; in principle we are trying to maximise the usefulness of
+co-occurrence statistics which makes ideal segmentation one that would provide
+best alignments over statistical models used in the learning process. Such
+finding of ideal segmentations given target translation is no longer
+straightforward even for trained linguist so defining some metrics to
+automatically find them for training data is necessary.
+\cite{mermer2010unsupervised} presents some methods for automatically selecting
+the optimal segmentation by em algorithm for model one in parallel with
+unsupervised morphological segmentation. 
+
+Our formulation of the process bases on same idea of using model 1 and lexical
+probabilities to optimise segmentations given target sentence, but we use the
+standard model1 calculation and the resulting scores to optimise the
+segmentation using weighted finite-state models for the optimisation as
+follows: the segmentations of source langauge sentence are turned into a
+weighted lattice (which is an acyclic, deterministic finite-state automaton).
+The model1 lexical probabilities is modeled as 1 state automaton that simply
+acts as a lookup table for the probabilities and the target. The target
+sentence is a path automaton. This models 1:1 alignments, and given model1 has
+the NULL symbol acting as real epsilon, any of the found NULL alignments. To
+account for re-ordering, the sentence automata can be turned into permutations
+of segments, this however gets unfeasible as number of words increases. A
+better solution is to turn either side into cyclic one-state automaton as well,
+to allow arbitrary n:m alignments between source and target.
+
+
+
+\section{Data}
+\label{sec:data}
+
+The gold standard for segmentation was hand-annotated from the sentence-aligned
+europarl corpus using the following criteria:
+
+\begin{itemize}
+    \item if word doesn't have any seemingly translation equivalent in
+        English, choose unsegmented (e.g., )
+    \item if suffixes or word segments have English word as translation
+        equivalent, choose segmented form (e.g., \emph{kysymykse+ni} = `my
+        question', \emph{halua+isi+n} = `I would like'), even when same segment
+        would be aligned twice or more (e.g., \emph{erää+seen seikka+an} = `to
+        something')
+    \item if a suffix does not have a translated word, choose unsegmented (e.g.,
+        \emph{liitty+y} = `relates')
+    \item when some of the segments match to words and some don't, choose one
+        with the highest proportion of matches
+
+\section{Evaluation}
+\label{sec:evaluation}
+
+\section{Discussion}
+\label{sec:discussion}
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+\section*{Acknowledgments}
+
+
+\bibliographystyle{naaclhlt2015}
+\bibliography{naacl2015}
+
+\end{document}
+
+
