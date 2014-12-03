@@ -1,0 +1,102 @@
+\documentclass{beamer}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{url}
+
+\makeatletter
+\newcommand\listofframes{\@starttoc{lbf}}
+\makeatother
+
+\addtobeamertemplate{frametitle}{}{%
+  \addcontentsline{lbf}{section}{\protect\makebox[2em][l]{%
+    \protect\usebeamercolor[fg]{structure}\insertframenumber\hfill}%
+  \insertframetitle\par}%
+}
+
+
+\title{FIWCLUL Conclusion / Business Meeting / Future Plans\\
+\scriptsize{in Tromsø, 2015}}
+\author{Tommi A Pirinen \scriptsize \guilsinglleft tommi.pirinen@computing.dcu.ie \guilsinglright }
+\institute{DCU, CNGL}
+\date{\today}
+
+\begin{document}
+
+\selectlanguage{english}
+
+\maketitle
+
+\begin{frame}
+    \frametitle{Agenda}
+    \listofframes
+\end{frame}
+
+\begin{frame}
+    \frametitle{Organising meeting}
+    \begin{itemize}
+        \item Free beer
+        \item Decide how to organise meeting
+        \item Modify agenda
+        \item Stuff
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Overview of this year}
+    \begin{itemize}
+        \item 14 papers, 12 accepted
+        \item variety of topics: Lexicography, OCR, Web-based interfaces,
+            \ldots
+        \item potential co-operations, interactions at the workshop,
+            maybe methods and platforms to concentrate efforts
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Next events}
+    \begin{itemize}
+        \item (FU conference is in Oulu in Autumn)
+        \item future IWCLULs: yearly or less? co-located with bigger
+            conferences?
+        \item Suggested: Veroika et al. organise in Hungary, possibly
+            co-locate with magyar számítógépes nyelvészeti konferencia XI.?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Organising ourselves}
+    \begin{itemize}
+        \item Mailing list? (We already have a bunch unused...)
+        \item would ACL SIG be a good way to organise efforts?
+            \begin{itemize}
+                \item possibility to have workshops at ACL conferences,
+                    with some financial backing from ACL
+                \item requires bureaucracy: a board, an org, members,
+                    ACL business meetings etc.
+            \end{itemize}
+        \item N.B. budget this year was ad hoc made up with good help
+            of giellatekno and uit
+        \item other options?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Any Other Business (AOB)}
+    \begin{itemize}
+        \item open floor
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Adjourn---Social Event}
+    \begin{itemize}
+        \item We will meet in the pub in couple of hours, the social
+            event is optional but recommended.
+    \end{itemize}
+\end{frame}
+
+\end{document}
