@@ -1,11 +1,11 @@
 
 .PHONY: all
 
-all: 2015-fiwclul-template.pdf
+all: 2015-fiwclul-template.pdf 2015-fiwclul-proceedings.pdf
 
 %.pdf: %.tex
 	xelatex $<
-	bibtex $*
+	-bibtex $*
 	xelatex $<
 	xelatex $<
 	xelatex $<
