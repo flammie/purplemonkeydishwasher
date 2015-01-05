@@ -11,10 +11,17 @@
 \usepackage{geometry}
 \usepackage{pdfpages}
 
+\usepackage{color}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\fancyhf{}
+\chead{\tiny\color{blue} Proceedings of 1st International Workshop in Computational
+    Linguistics for Uralic Languages (IWCLUL 2015); SOME URL [page \thepage{} of \pageref{LastPage}.}
+
 \setmainfont[Mapping=tex-text]{Linux Libertine O}
 
 \begin{document}
-
 \frontmatter
 
 \cleardoublepage
@@ -34,7 +41,8 @@
 
 This work is licensed under a Creative Commons Attribution–NoDerivatives
 4.0 International Licence.  Licence details:
-\url{http://creativecommons.org/licenses/by-nd/4.0/}
+\url{http://creativecommons.org/licenses/by-nd/4.0/}. Page numbering and
+footers have been added by the editors.
 
 WWW address
 
@@ -42,27 +50,52 @@ ISBN number
 
 \clearpage
 
-\section*{Preface}
+\pagestyle{fancy}
 
-Intent
+\chapter*{Preface}
 
-Submissions
+The uralic languages are an interesting group of language from computational
+linguistics perspective. They share large parts of morphophonological
+complexity that is not present in the indo-european group which has
+traditionally dominated the computational linguistics research. This can be
+seen for example in number of word-forms-per-word, which in indo-european
+languages is in range of 1's to 10's whereas for uralics languages it is
+in range of 100's and 1000's. Furthermore, uralic language share a lot
+of geo-political aspects: the national languages of the group---Finnish,
+Estonian and Hungarian---are minor languages and only moderately resourced
+in terms of computational linguistics resources while being stable and
+not in threat of extinction, the recognised minority languages of western
+European states---such as North Saami and Võro---are clearly in category
+of lesser resourced and more threatened, whereas the majority of uralic
+languages in the east Europe and Russia are close to extinction. Commonly
+to all rapid development of more advanced computational linguistics methods
+is required for continued vitality of the languages in everyday life, to
+enable archiving and use of the languages with computers and other devices
+such as mobile applications.
 
-Resolution
+The research of computational linguistics and uralistics is been carried out
+in a handful of Universities, research institutes and other sites by
+relatively few researchers. Our intent for organising this conference is to
+gather these researchers together in order to share ideas and resources, and
+avoid duplicating efforts in gathering and enriching these scarce resources,
+and hopefully to found an ongoing tradition of concentrated effort in
+collecting and improving language resources and technologies for survival
+of the uralic languages.
 
-Future
+For the conference we received 14 high-quality submissions about topics
+including computational lexicography, language documentation, optical character
+recognisition, web-as-corpus and automatic and rule-based morphological
+analysis methods.  These are all very important for preservation and
+development of uralic languages. The coverage of languages in the submissions
+is also very good: North Saami, Khanty, Mansi, Udmurt, Erzya, Moksha, Finnish
+and Estonian. 
 
-Tommi A Pirinen, Francis M. Tyers, Trond Trosterud,\\
+\noindent ---Tommi A Pirinen, Francis M. Tyers, Trond Trosterud,\\
 Conference organisers,\\
 2015, Tromsø
 
-\section*{Conference Organisers}
 
-Tommi A Pirinen, Francis M. Tyers, Trond Trosterud
-
-\section*{Programme Committee}
-
-\section*{Organisers}
+\chapter*{Organisers}
 
 \begin{itemize}
     \item Tommi A. Pirinen, Ollscoil Chathair Bhaile Átha Cliath
@@ -70,7 +103,7 @@ Tommi A Pirinen, Francis M. Tyers, Trond Trosterud
     \item Trond Trosterud, UiT Norgga árktalaš universitehta
 \end{itemize}
 
-\section*{Programme committee}
+\chapter*{Programme committee}
 
 \begin{itemize}
     \item Тимофей Архангельский, Национальный исследовательский университет "Высшая школа экономики"
@@ -82,7 +115,7 @@ Tommi A Pirinen, Francis M. Tyers, Trond Trosterud
     \item Heiki-Jaan Kaalep, Tartu ülikool
     \item András Kornai, Budapesti Műszaki és Gazdaságtudományi Egyetem
     \item Krister Lindén, Helsingin yliopisto
-    \item Tommi A. Pirinen, Dublin City University
+    \item Tommi A. Pirinen, Ollscoil Chathair Bhaile Átha Cliath
     \item Gabór Prószéky, Pázmány Péter Katolikus Egyetem
     \item Aarne Ranta, Chalmers tekniska högskola
     \item Jack Rueter, Helsingin yliopisto
@@ -91,32 +124,56 @@ Tommi A Pirinen, Francis M. Tyers, Trond Trosterud
     \item Sami Virpioja, Aalto-yliopisto
     \item Anssi Yli-Jyrä, Helsingin yliopisto
 \end{itemize}
+
 \tableofcontents
 
 \mainmatter
 
-\section*{Invited speech}
+\chapter{Invited speech}
+\section{That stuff about twol and stuff}
 
-Few words about invited speech.
+Kimmo Koskenniemi: Few words about invited speech.
 
-\includepdfset{pagecommand{}}
+%\includepdfset{pagecommand{}}
 
-\section*{Tutorials}
+\chapter{Tutorials}
 
-\includepdf[scale=0.9,pages=-]{iwclul2015_submission_3.pdf}
-\includepdf[scale=0.9,pages=-]{iwclul2015_submission_13.pdf}
+\includepdf[scale=0.9,addtotoc={
+1,section,2,Grammatical Framework Tutorial with a Focus on Fenno-Ugric Languages,sec:gf-tutorial},
+clip,trim=0 40mm 0 0,pagecommand={\thispagestyle{fancy}},pages=-]{iwclul2015_submission_3.pdf}
+\includepdf[scale=0.9,addtotoc={
+1,section,2,Language Documentation meets Language Technology,sec:tutorial-2},
+clip,trim=0 40mm 0 0,pagecommand={\thispagestyle{fancy}},pages=-]{iwclul2015_submission_13.pdf}
 
-\section*{Accepted Papers}
+\chapter{Accepted Papers}
 
-\includepdf[scale=0.9,pages=-]{iwclul2015_submission_4.pdf}
-\includepdf[scale=0.9,pages=-]{iwclul2015_submission_5.pdf}
-\includepdf[scale=0.9,pages=-]{iwclul2015_submission_6.pdf}
-\includepdf[scale=0.9,pages=-]{iwclul2015_submission_8.pdf}
-\includepdf[scale=0.9,pages=-]{iwclul2015_submission_14.pdf}
-\includepdf[scale=0.9,pages=-]{iwclul2015_submission_2.pdf}
-\includepdf[scale=0.9,pages=-]{iwclul2015_submission_1.pdf}
-\includepdf[scale=0.9,pages=-]{iwclul2015_submission_7.pdf}
-\includepdf[scale=0.9,pages=-]{iwclul2015_submission_9.pdf}
-\includepdf[scale=0.9,pages=-]{iwclul2015_submission_11.pdf}
+\includepdf[scale=0.9,addtotoc={
+1,section,2,Low-Resource Active Learning of North Sámi Morphological Segmentation,sec:paper-1},
+clip,trim=0 40mm 0 0,pagecommand={\thispagestyle{fancy}},pages=-]{iwclul2015_submission_4.pdf}
+\includepdf[scale=0.9,addtotoc={
+1,section,2,Compiling the Uralic Dataset for NorthEuraLex a Lexicostatistical Database of Northern Eurasia,sec:paper-2},
+clip,trim=0 40mm 0 0,pagecommand={\thispagestyle{fancy}},pages=-]{iwclul2015_submission_5.pdf}
+\includepdf[scale=0.9,addtotoc={
+1,section,2,Can Morphological Analyzers Improve the Quality of Optical Character Recognition?,sec:paper-3},
+clip,trim=0 40mm 0 0,pagecommand={\thispagestyle{fancy}},pages=-]{iwclul2015_submission_6.pdf}
+\includepdf[scale=0.9,addtotoc={
+1,section,1,Corpus.mari-language.com: A Rudimentary Corpus Searchable by Syntactic and Morphological Patterns,sec:paper-4},
+clip,trim=0 40mm 0 0,pagecommand={\thispagestyle{fancy}},pages=-]{iwclul2015_submission_8.pdf}
+\includepdf[scale=0.9,addtotoc={
+1,section,1,Infinite Monkeys of Babel --- Crowdsourcing for the betterment of OCR language material,sec:paper-5},
+clip,trim=0 40mm 0 0,pagecommand={\thispagestyle{fancy}},pages=-]{iwclul2015_submission_14.pdf}
+\includepdf[scale=0.9,addtotoc={
+1,section,1,Multilingual Semantic MediaWiki for Finno-Ugric dictionaries,sec:paper-6},
+clip,trim=0 40mm 0 0,pagecommand={\thispagestyle{fancy}},pages=-]{iwclul2015_submission_2.pdf}
+\includepdf[scale=0.9,addtotoc={
+1,section,1,The Finno-Ugric Languages and The Internet project,sec:paper-7},
+clip,trim=0 40mm 0 0,pagecommand={\thispagestyle{fancy}},pages=-]{iwclul2015_submission_1.pdf}
+\includepdf[scale=0.9,addtotoc={
+1,section,1,On the Road to a Dialect Dictionary of Khanty Postpositions,sec:paper-8},clip,trim=0 40mm 0 0,pagecommand={\thispagestyle{fancy}},pages=-]{iwclul2015_submission_7.pdf}
+\includepdf[scale=0.9,addtotoc={
+1,section,1,FinUgRevita: Developing Language Technology Tools for Udmurt and Mansi,sec:paper-9},clip,trim=0 40mm 0 0,pagecommand={\thispagestyle{fancy}},pages=-]{iwclul2015_submission_9.pdf}
+\includepdf[scale=0.9,addtotoc={
+1,section,1,Automatic creation of bilingual dictionaries for Finno-Ugric languages,sec:paper-10},
+clip,trim=0 40mm 0 0,pagecommand={\thispagestyle{fancy}},pages=-]{iwclul2015_submission_11.pdf}
 
 \end{document}
