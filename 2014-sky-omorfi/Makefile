@@ -4,9 +4,9 @@
 TEX=xelatex
 BIB=bibtex
 
-all: omorfi-2013.pdf
+all: 2015-sky-omorfi.pdf
 
-%.pdf: %.tex omorfi2013.bib
+%.pdf: %.tex skyomorfi2015.bib
 	$(TEX) $<
 	$(BIB) $*
 	$(TEX) $<
@@ -14,7 +14,7 @@ all: omorfi-2013.pdf
 	$(TEX) $<
 
 clean:
-	-rm -f omorfi-2013.pdf omorfi-2013.aux omorfi-2013.bbl omorfi-2013.log
+	-rm -f 2015-sky-omorfi.pdf 2015-sky-omorfi.aux 2015-sky-omorfi.bbl 2015-sky-omorfi.log
 
 # fetch and clean texts
 undhr.fi.html:
