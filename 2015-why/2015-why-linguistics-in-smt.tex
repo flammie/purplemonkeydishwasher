@@ -1,0 +1,59 @@
+\documentclass[preprint]{flammie}
+
+
+
+\title{Role of Linguistics in Improving Statistical Machine Translation as
+Scientific Field and as End-Result}
+
+\iffalse
+\author{Tommi A Pirinen\\
+Dublin City University\\
+ADAPT Centre-School of Computing\\
+\url{tommi.pirinen@computing.dcu.ie}}
+\date{Last Modification: \today}
+\fi
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    In statistical machine translation (SMT), the main objective of the most of
+    the work is on improving the translation quality along well-known metrics,
+    such as BLEU, METEOR or TER. The purpose of the metrics is ideally to
+    provide figures that correlates with the quality of the texts when measured
+    again large bodies of professionally translated texts, however, a mere race
+    for tiny improvements in these metrics has not proven to be useful for the
+    actual quality of machine translation. This seems to be especially true for
+    some of the non-IE languages. One example of this is reflected in the
+    state-of-the-art of the machine translation of Finnish-English pair, which
+    has not been improved upon in the past decade in terms of these metrics.
+    Metrics however, are based on simple string comparisons and substitutions,
+    and as is argued in the papers published on this language pair that show little to no
+    improvement~\cite{clifton2011combining,luong2010hybrid,virpioja2007morphology},
+    the metric may not be ideal for morphologically complex language such as
+    Finnish. We believe that more linguistically motivated measure for the
+    metrics would be more apparent, for example, simple compounding mistake or
+    substitution of total object case with partial object case is penalised
+    heavily while the fluency and meaning in the translation is mostly
+    retained. For example combination of morphologically relevant version of
+    BLEU (m-BLEU~\cite{luong2010hybrid}) and word-form-based one might show important insight on the
+    conspicuous lack of advance in SMT for this pair. 
+
+    Apart from the non-linguistic metrics used in the evaluation of SMT---from
+    a meta-analysis of the state-of-the-art in Finnish-English SMT---we have
+    identified two parts of the process that would greatly benefit from
+    linguistical view being introduced to the process: the initial hypothesis
+    when building a new SMT system and in the final error analysis of the
+    result; in fact it appears that in majority of the paper the experimental
+    setup is not motivated by any linguistically relevant means and the errors
+    of the results have not been looked at at all, let alone in linguistic
+    detail that would be necessary for future work to improve upon what is been
+    shown.
+\end{abstract}
+
+
+\bibliographystyle{unsrt}
+\bibliography{why2015}
+
+\end{document}
