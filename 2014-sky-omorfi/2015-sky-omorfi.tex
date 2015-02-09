@@ -44,7 +44,7 @@
     describe the key differences against the earlier analysers, and present
     a new baseline system for researchers of Finnish. We have experimented with
     some of the recent ideas from the field of statistical computational
-    linguistics to make way for a full-fledged hybrid rule-based and
+    linguistics to pave a road for a full-fledged hybrid rule-based and
     statistical finite-state system for morphological modeling. We also present
     a selection of real-world use cases for the morphological analysers that
     have affected the development of omorfi.
@@ -234,8 +234,7 @@ analysis strings, or part of them in similar manner to create a baseline
 disambiguating analyser. It is also entirely possible to build models with more
 advanced statistical methods, such
 as~\citet{opengrm}.\footnote{\url{http://opengrm.org}} The version being
-documented here that is released and available
-today~\footnote{\url{https://code.google.com/p/omorfi/source/list?name=omorfi-20141014}---it is likely not newest by the time the journal is published},
+documented here that is released and available~\footnote{\url{https://code.google.com/p/omorfi/source/list?name=omorfi-20141014}---it may not be the newest by the time of publication.},
 includes only surface form unigram model with additive smoothing and simple
 rule-based disambiguation logic, as that was sufficient to implement current
 end-applications, such as spell-checking and non-disambiguating analyser. It is
@@ -248,9 +247,9 @@ classification methods, such as longest common suffix search from the
 morphological dictionary.  The way it works is that given a new word-form, it
 can go through the dictionary to find a longest suffix it has in common with
 some existing word-form. For example  given a new word-form \emph{googlella}
-`with google', the system can guess that it might be like \emph{nallella} `with
+`with google', the system can guess that it might inflect like \emph{nallella} `with
 a teddy bear', or \emph{puolella} `with a half' (common suffix of 5
-characters), and using the classification then suggest the end user or corpus
+characters), and following our classification then suggest the end user or corpus
 harvester to study forms like: \emph{googlen, googlea, googleen, googlet,
 googlejen, \ldots} versus \emph{googlen, ${}^\star$googlta, googleen, googlet,
 ${}^\star$googlten, \ldots} to decide on the classification of the new word. To
@@ -316,7 +315,7 @@ classes and their origin in table~\ref{table:lexical}.
 \end{table}
 
 
-For measurements we use only freely available corpora. The size of these is
+For evaluation we use only freely available corpora. The size of these is
 detailed in table~\ref{table:corpora}. The corpora are following: ebooks of project
 Gutenberg\footnote{\url{http://gutenberg.org}}, the data of Finnish
 Wikipedia\footnote{\url{http://fi.wikipedia.org}}, and the JRC acquis
@@ -376,8 +375,8 @@ The results are presented in table~\ref{table:coverage}.
         \hline
         Corpus:            & \bf Gutenberg & \bf Wiki & \bf JRC acquis & \bf FTB \\
         \hline
-        Coverage (tokens): & 98.2~\%       & 97.6~\%  & 98.6~\%        & 99.4~\% \\
-        Coverage (types):  & 61.1~\%       & 59.0~\%  & 55.5~\%        & 70.8~\% \\
+        Coverage (tokens): & 96.4~\%       & 91.7~\%  & 93.4~\%        & 96.5~\% \\
+        Coverage (types):  & 72.2~\%       & 60.8~\%  & 59.4~\%        & 72.2~\% \\
         \hline
     \end{tabular}
     \caption{Naive coverages when analysing common corpora
@@ -397,7 +396,7 @@ by proportion of all tokens in data then by unique tokens.
         \hline
         \bf Corpus & \bf Faithfulness \\
         \hline
-        FTB (tokens) & 83.6~\% \\
+        FTB (tokens) & 90.1~\% \\
         FTB (types)  & 48.0~\% \\
         \hline
     \end{tabular}
