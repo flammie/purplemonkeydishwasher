@@ -1,7 +1,8 @@
 
 .PHONY: all
 
-all: 2015-fiwclul-template.pdf 2015-fiwclul-proceedings.pdf
+all: 2015-fiwclul-template.pdf 2015-fiwclul-proceedings.pdf \
+	2015-fiwclul-business-meating-beamer.pdf
 
 %.pdf: %.tex
 	xelatex $<
