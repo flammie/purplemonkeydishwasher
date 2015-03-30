@@ -9,8 +9,8 @@
 \special{papersize=210mm,297mm} % to avoid having to use "-t a4" with dvips
 %\setlength\titlebox{6.cm} % You can expand the title box if you really have to
 
-\title{Disambiguation considered harmful---do we have resources to let time flies
-like arrows already?}
+\title{Using weighted finite state morphology with VISL CG-3? Some experiments
+    with free open source Finnish resources}
 
 \newif\ifpublished
 \publishedfalse
@@ -31,12 +31,39 @@ Dublin City University, Dublin 9\\
 
 \maketitle
 \begin{abstract}
-    In this paper we experiment with the concept of non-discarding constraint
-    grammar as a part of machine translation chain in conjunction with a
-    statistical analyser and stuff.
+    Traditionally, the coupling of finite state morphology and constraint
+    grammar has been strictly in the realm of rule-based, binary distinction
+    between allowed and disallowed readings, however, in the recent years much
+    of the research in the finite state morphologies has adapted the
+    contemporary paradigm of statistically weighted analysis. This is reflected
+    in current versions of free and open source morphology of Finnish, omorfi, in
+    the finite state morphology part. In this paper we examine two strategies
+    of making use of the weights as a part of visl cg 3 pipeline: pre- and
+    post-processing, and the numeric operator feature of recent versions of cg
+    3. We evaluate the results intrinsically on small sample of analyses we
+    have disambiguated by hand ourselves, and extrinsically on the effect it
+    has to the rule-based machine translation of that text using freely
+    available open source translator, apertium-fin-eng. 
 \end{abstract}
 
 \section{Introduction}
+
+In the recent years, use of statistical information in computational
+linguistics has gained much interest, with systems like hunpos, moses etc.
+being the main points of interest of most research in the field. In finite
+state morphology as well as constraint grammars, extensions to handle
+probabilities are recent and scarcely
+documented~\cite{pirinen2009weighting,bick2009introducing}.  In this paper we
+experiment on using an existing weighted finite state morphology of
+Finnish~\cite{pirinen2011modularisation}\footnote{\url{https://github.com/flammie/omorfi/}}
+both by using the VISL CG-3 feature to handle integer numbers and by a
+pre-processing and post-processing scheme turning weights of finite-state
+analysis into tags and results of CG application back into weights again. For
+CG implementation we use a subset of freely available Finnish CG grammar by
+Fred Karlsson~\cite{}, that we have manually converted for this experiment and
+to match the analyses produced by omorfi.
+
+
 
 \bibliographystyle{acl}
 \bibliography{nodalida2015}
