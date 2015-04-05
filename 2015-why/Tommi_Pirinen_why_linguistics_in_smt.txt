@@ -1,73 +1,71 @@
-Role of Linguistics in Improving Statistical Machine Translation as Scientific Field and as End-Result
+The Role of Linguistics in Improving Statistical Machine Translation as Scientific Field and as End-Result 
 
-Tommi A Pirinen
-Antonio Toral
-Dublin City University
+Tommi A Pirinen 
+Antonio Toral 
+Dublin City University 
 
-In statistical machine translation (SMT), the main goal behind most of the re-
-search work to date is to improve translation quality as measured by automatic
-evaluation metrics (e.g. BLEU, METEOR, TER). These metrics are cheap as they
-are fully automatic and they are useful in that they (are supposed to)
-correlate with human translation evaluation when measured on large bodies of
-professionally translated texts. That said, a mere race for tiny improvements
-in these metrics (i.e.  there is a common type of paper in the field that (i)
-adds some novel functionality to the overall SMT pipeline and (ii) reports a
-statistically significant improvement in terms of BLEU as evidence of its
-usefulness, without additional human evaluation nor in-depth analysis) has
-not been overly successful with all of the SMT language pairs.
+In statistical machine translation (SMT), the main goal behind most of the re- 
+search work to date is to improve translation quality as measured by automatic 
+evaluation metrics (e.g. BLEU, METEOR, TER). These metrics are cheap as they 
+are fully automatic and they are useful in that they (are supposed to) 
+correlate with human translation evaluation when measured on large bodies of 
+professionally translated texts. That said, a mere race for tiny improvements 
+in these metrics (i.e.  there is a common type of paper in the field that (i) 
+adds some novel functionality to the overall SMT pipeline and (ii) reports a 
+statistically significant improvement in terms of BLEU as evidence of its 
+usefulness, without additional human evaluation nor in-depth analysis) has 
+not been overly successful with all of the SMT language pairs. 
 
-This seems to be especially the case for some of the non Indo-European lan-
-guages, e.g. Finnish or Turkish. An example of this is reflected in the
-state-of-the-art of machine translation for the Finnish-English language pair,
-which has not advanced in the past decade in terms of these metrics. These
-metrics however, are based on simple string comparisons and substitutions, and
-as it is argued in the papers published on this language pair that show little
-to no improvement[1, 2, 3], these metrics may not be ideal for a
-morphologically complex language like Uralic or Turkic ones.
+This seems to be especially the case for some of the non Indo-European lan- 
+guages, e.g. Finnish or Turkish. An example of this is reflected in the 
+state-of-the-art of machine translation for the Finnish–English language pair, 
+which has not advanced in the past decade in terms of these metrics. These 
+metrics are based on simple string comparisons and substitutions, and 
+as it is argued in the papers published on this language pair that show little 
+to no improvement[1, 2, 3], these metrics may not be ideal for 
+morphologically complex languages like those of the Uralic or Turkic families. 
+For example, a simple compounding mistake 
+or a wrong allomorph for case suffix is severely penalised by BLEU (basically, a word 
+matches or does not match the reference) while the fluency and meaning in the 
+translation is mostly retained. 
 
-We believe that using metrics that include linguistically-motivated measures
-(e.g. MEANT[4]) would be more appropriate, especially in the morphologically
-complex language as target setting. For example, a simple compounding mistake
-or a wrong allomorph for case suffix is penalised by BLEU (basically, a word
-matches or does not match the reference) while the fluency and meaning in the
-translation is mostly retained.
+We believe that using metrics that include linguistically-motivated measures 
+(e.g. MEANT [4]) would be more appropriate, especially when translating into the morphologically 
+complex language. In addition, we propose to use metrics that combine 
+matching at word and sub-word levels. In this regard, taking the most 
+widely-used automatic metric, BLEU, we suggest to combine its original 
+implementation (i.e.  word level) with its proposed implementation at morpheme 
+level (m-BLEU[2]). 
 
-A possible way forward could lie in the combination of metrics that combine
-matching at word and sub-word levels. In this regard, taking the most
-widely-used automatic metric, BLEU, we suggest to combine its original
-implementations (i.e.  word level) with its proposed implementation at morpheme
-level (m-BLEU[2]) level.
+Apart from the issue of non-linguistic automatic evaluation metrics, we deem equally 
+crucial to analyse the output of the SMT system in sufficient detail to 
+explain the scores achieved by the system. From a meta-analysis of the 
+state-of-the-art in English–Finnish SMT that we have conducted, we identify two 
+parts of the process that would greatly benefit from introducing a linguistic 
+view, namely (i) the initial hypothesis when devising a new SMT system and 
+(ii) the final error analysis of the MT output. In fact, in most  papers 
+(i) the experimental set-up is not motivated by any relevant linguistic means 
+and (ii) error analysis is not conducted at all, let alone in linguistic 
+detail. These, we argue, would be necessary to design future work aimed at improving 
+current results in terms of real translation quality. 
 
-Apart from the issue of non-linguistic evaluation metrics, it is equally
-crucial, to look at the results of the SMT system in sufficient detail to
-explain the scores gained by the system. From a meta-analysis of the
-state-of-the-art in English-Finnish SMT that we have conducted we identify two
-parts of the process that would greatly benefit from introducing a linguistic
-view, namely (i) the initial hypothesis when devising a new SMT system and
-(ii) the final error analysis of the MT output. In fact, in most of the papers
-(i) the experimental set-up is not motivated by any relevant linguistic means
-and (ii) error analysis is not conducted at all, let alone in linguistic
-detail, which would be necessary to design future work aimed at improving
-current results in terms of translation quality.
-
-References
-[1] Ann Clifton and Anoop Sarkar. Combining morpheme-based machine translation
-with post-processing morpheme prediction. In Proceedings of the 49th Annual
-Meeting of the Association for Computational Linguistics: Human Language Tech-
-nologies - Volume 1, HLT '11, pages 32--42, Stroudsburg, PA, USA, 2011. Associ-
-ation for Computational Linguistics.
-[2] Minh-Thang Luong, Preslav Nakov, and Min-Yen Kan. A hybrid morpheme-word
-representation for machine translation of morphologically rich languages. In
-Proceedings of the 2010 Conference on Empirical Methods in Natural Language
-Processing, EMNLP '10, pages 148--157, Stroudsburg, PA, USA, 2010.
-Association for Computational Linguistics.
-[3] Sami Virpioja, Jaakko J. Väyrynen, Mathias Creutz, and Markus Sadeniemi.
-Morphology-aware statistical machine translation based on morphs induced in an
-unsupervised manner. In Proceedings of the Machine Translation Summit XI, pages
-491--498, Copenhagen, Denmark, September 2007.
-[4] Chi-kiu Lo and Dekai Wu. Meant: An inexpensive, high-accuracy,
-semi-automatic metric for evaluating translation utility via semantic frames.
-In Proceedings of the 49th Annual Meeting of the Association for Computational
-Linguistics: Human Language Technologies-Volume 1, pages 220--229. Association
-for Computational Linguistics, 2011.
-
+References 
+[1] Ann Clifton and Anoop Sarkar. Combining morpheme-based machine translation 
+with post-processing morpheme prediction. In Proceedings of the 49th Annual 
+Meeting of the Association for Computational Linguistics: Human Language Tech- 
+nologies - Volume 1, HLT '11, pages 32--42, Stroudsburg, PA, USA, 2011. Associ- 
+ation for Computational Linguistics. 
+[2] Minh-Thang Luong, Preslav Nakov, and Min-Yen Kan. A hybrid morpheme-word 
+representation for machine translation of morphologically rich languages. In 
+Proceedings of the 2010 Conference on Empirical Methods in Natural Language 
+Processing, EMNLP '10, pages 148--157, Stroudsburg, PA, USA, 2010. 
+Association for Computational Linguistics. 
+[3] Sami Virpioja, Jaakko J. Väyrynen, Mathias Creutz, and Markus Sadeniemi. 
+Morphology-aware statistical machine translation based on morphs induced in an 
+unsupervised manner. In Proceedings of the Machine Translation Summit XI, pages 
+491--498, Copenhagen, Denmark, September 2007. 
+[4] Chi-kiu Lo and Dekai Wu. Meant: An inexpensive, high-accuracy, 
+semi-automatic metric for evaluating translation utility via semantic frames. 
+In Proceedings of the 49th Annual Meeting of the Association for Computational 
+Linguistics: Human Language Technologies-Volume 1, pages 220--229. Association 
+for Computational Linguistics, 2011. 
