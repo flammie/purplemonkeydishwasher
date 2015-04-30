@@ -1,11 +1,11 @@
 
 .PHONY: all
 
-all: 2015-why-linguistics-in-smt.pdf
+all: 2015-why-linguistics-in-smt.pdf Pirinen-2015-why-linguistics-in-smt.pdf
 
 %.pdf: %.tex why2015.bib
 	xelatex $<
-	bibtex $*
+	-bibtex $*
 	xelatex $<
 	xelatex $<
 	xelatex $<

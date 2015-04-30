@@ -1,0 +1,109 @@
+\documentclass{beamer}
+
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{url}
+\usepackage{textpos}
+\usepackage{xspace}
+\usepackage{array}
+
+
+\graphicspath{{./fig/}}
+
+
+\title{Why Linguistics in Statistical Machine Translation (SMT)?\\
+\scriptsize{in Tarto, 2015}}
+\author{Tommi A Pirinen \scriptsize \guilsinglleft{}tommi.pirinen@computing.dcu.ie\guilsinglright{}}
+\institute{DCU, ADAPT--CNGL\\Abumatran}
+\date{\today}
+
+\begin{document}
+
+\selectlanguage{english}
+
+\maketitle
+
+\section{Introduction}
+
+\begin{frame}
+    \frametitle{Statistical Machine Translation (SMT) in nutshell}
+    \begin{itemize}
+        \item feed parallel texts to computer
+        \item computer learns / memorises probable translations
+        \item translate new text
+        \item compare to reference translation to get scores, using automatic
+            evaluation metrics
+        \item rarely: ask humans to either read the translations or fix them,
+            and measure times for that, etc.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Statistical Machine Translation ``research''}
+    \begin{itemize}
+        \item need to improve scores; either:
+            \begin{itemize}
+                \item add more data
+                \item try new (statistical) algorithms blindly to see what sticks
+            \end{itemize}
+        \item instead of:
+            \begin{enumerate}
+                \item analyse what is wrong in the translations
+                \item hypothesize what may fix the problem
+                \item experiment
+                \item profit
+            \end{enumerate}
+    \end{itemize}
+\end{frame}
+
+\section{State of the Art}
+
+\begin{frame}
+    \frametitle{State of the Art in Finnish-English SMT}
+    Some table of results, variance, stuff
+\end{frame}
+
+\begin{frame}
+    \frametitle{State of the Art in Finnish-English SMT cont'd}
+    Table of results ref. approach
+\end{frame}
+
+\begin{frame}
+    \frametitle{WMT 2015 results, linguistics-based approaches highlighted}
+    statmt matrix w/ omorfi systems highlighted
+\end{frame}
+
+\section{Automatic metrics vs. linguistic intuition}
+
+\begin{frame}
+    \frametitle{Automatic metrics and linguistics}
+    \begin{itemize}
+        \item automatic metrics have been designed to correlate with human
+            evaluation on e.g., fluency
+        \item however, ...
+        \item
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Examples}
+    \begin{itemize}
+        \item (to be taken with a grain of salt; automatic metrics work on
+            masses of texts (and references) rather than single sentences)
+        \item negation mismatch
+        \item direct object case flaws
+        \item etc.
+    \end{itemize}
+\end{frame}
+
+
+\end{document}
+% vim: set spell:
