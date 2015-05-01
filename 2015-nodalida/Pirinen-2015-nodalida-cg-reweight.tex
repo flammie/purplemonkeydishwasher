@@ -1,0 +1,71 @@
+\documentclass{beamer}
+
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{url}
+\usepackage{textpos}
+\usepackage{xspace}
+\usepackage{array}
+
+
+\graphicspath{{./fig/}}
+
+
+\title{Combining WFST morphology and VISL CG-3\\
+\scriptsize{in CG workshop, Vilnius, 2015}}
+\author{Tommi A Pirinen \scriptsize \guilsinglleft{}tommi.pirinen@computing.dcu.ie\guilsinglright{}}
+\institute{DCU, ADAPT--CNGL\\Abumatran}
+\date{\today}
+
+\begin{document}
+
+\selectlanguage{english}
+
+\maketitle
+
+\section{Introduction}
+
+\begin{frame}
+Traditional disambiguation is error propagation.
+
+Stuff.
+
+Maybe example from apertium world.
+\end{frame}
+
+\begin{frame}
+    \frametitle{WFST morphology}
+    \begin{itemize}
+        \item Finite State Morphology, e.g., using HFST lexc or apertium
+        \item weights added to analyser ... 
+            set in tropical semiring weight structure i.e., as penalties
+            per path = analysis
+        \item Statistical weights from analysed, disambiguated reference
+            corpora as $-\log P(w)$, where $w$ is word-form
+        \item Linguist-defined weights based on the morphology, e.g.,
+            for each compound boundary or derivation add 123
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Weights in VISL CG-3}
+    \begin{itemize}
+        \item numeric tags
+        \item SELECT <MIN>
+        \item trace
+        \item post-processing
+    \end{itemize}
+\end{frame}
+
+
+
+\end{document}
+% vim: set spell:
