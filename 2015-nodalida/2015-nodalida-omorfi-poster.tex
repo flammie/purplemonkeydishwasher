@@ -1,42 +1,116 @@
-\documentclass{beamer}
+\documentclass[final,hyperref={pdfpagelabels}]{beamer}
 
 \usepackage{fontspec}
+\usepackage[absolute,overlay]{textpos}
 
 \usepackage{amsmath,amsthm, amssymb, latexsym}
 \boldmath
- 
+
+\usepackage{array,booktabs,tabularx}
+
 \mode<presentation>
 {
   \usetheme{Abumatran}
 }
 \usepackage[orientation=portrait,size=a0,scale=1.4]{beamerposter}
  
-\title[Omorfi]{Omorfi---Open morphological lexical database of Finnish}
-\author[tommi.pirinen@computing.dcu.ie]{Tommi A Pirinen}
-\institute[DCU]{Ollscoil Chathair Bhaile Átha Cliath}
+\title[Omorfi]{{\huge Omorfi---Open morphological lexical database of Finnish}\\
+\url{https://github.com/flammie/omorfi/}}
+\author[tommi.pirinen@computing.dcu.ie]{Tommi A Pirinen$^\star$ \and Omorfi Contributors}
+\institute[DCU]{$^\star$ Ollscoil Chathair Bhaile Átha Cliath,ADAPT Centre---School of Computing, Dublin, Ireland}
 \date{\today}
  
 %\logo{\includegraphics[height=7.5cm]{AbumatranLogo}}
 
+\newlength{\columnheight}
+\setlength{\columnheight}{105cm}
+
 
 \begin{document}
 
-  \begin{frame}{}
-      \maketitle
-    \vfill
-    \begin{block}{\large Fontsizes}
-      \centering
-      {\tiny tiny}\par
-      {\scriptsize scriptsize}\par
-      {\footnotesize footnotesize}\par
-      {\normalsize normalsize}\par
-      {\large large}\par
-      {\Large Large}\par
-      {\LARGE LARGE}\par
-      {\veryHuge veryHuge}\par
-      {\VeryHuge VeryHuge}\par
-      {\VERYHuge VERYHuge}\par
-    \end{block}
-    \vfill
+  \begin{frame}
+      %\maketitle
+      %\vfill
+      \begin{columns}
+      \begin{column}{.49\textwidth}
+      \begin{beamercolorbox}[center,wd=\textwidth]{postercolumn}
+          \begin{minipage}[T]{.95\textwidth}  % tweaks the width, makes a new \textwidth
+          \parbox[t][\columnheight]{\textwidth}{ % must be some better way to set t
+        \begin{block}{Database contents}
+            master
+            attributes
+            statistics
+        \end{block}
+
+        \begin{block}{Database to application data}
+            som text
+        \end{block}
+
+        \begin{block}{Application pipelines}
+
+        \end{block}
+
+        \begin{block}{Rule-based machine translation}
+
+        \end{block}
+
+        \begin{block}{Statistical machine translation}
+
+        \end{block}
+         }
+        \end{minipage}
+      \end{beamercolorbox}
+    \end{column}
+    %\end{textblock}
+
+    %\begin{textblock}{60}{0.1,1.6}
+   \begin{column}{.49\textwidth}
+      \begin{beamercolorbox}[center,wd=\textwidth]{postercolumn}
+        \begin{minipage}[T]{.95\textwidth} % tweaks the width, makes a new \textwidth
+          \parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
+        \begin{block}{Morphological analysis}
+
+        \end{block}
+
+        \begin{block}{Disambiguation}
+
+        \end{block}
+
+        \begin{block}{Lexical translation}
+
+        \end{block}
+
+        \begin{block}{Morphological generation}
+
+        \end{block}
+
+        \begin{block}{Other applications}
+
+        \end{block}
+
+        \begin{block}{Acknowledgements}
+            The research leading to these results has received
+            funding from the European Union Seventh Framework
+            Programme FP7/2007-2013 under grant agreement
+            PIAP-GA-2012-324414 (Abu-MaTran).
+
+            Omorfi consists of a large body of work from numerous academic and
+            open source contributors, including: Inari Listenmaa, Francis M.
+            Tyers, Ryan Johnson, and Juha Kuokkala, and number of others
+            who have not added themselves to AUTHOR list or made commits
+            to version control system.
+    \includegraphics{dcu} 
+    % \includegraphics{helsinki}
+            
+      \end{block}
+    %\end{textblock}
+         }
+          % ---------------------------------------------------------%
+          % end the column
+        \end{minipage}
+      \end{beamercolorbox}
+    \end{column}
+  \end{columns}
+
   \end{frame}
 \end{document}
