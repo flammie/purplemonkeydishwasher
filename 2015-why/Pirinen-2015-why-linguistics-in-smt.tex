@@ -39,6 +39,35 @@
 \section{Introduction}
 
 \begin{frame}
+    \frametitle{Why linguistics in SMT: a motivational comparison from
+    WMT 2015 shared task}
+    \tiny{
+                    \begin{tabular}{|l|r|r|}
+                        \hline
+    \bf System & \bf BLEU & \bf TER \\
+    \hline
+    English to Finnish \\
+    \bf \em abumatran-enfi-uncons-combo & \bf 15.5 & \bf 0.777 \\
+    UU-enfi-unconstrained  & 13.7 & 0.796 \\
+    \hline
+    \bf \em abumatran-enfi-combo  & \bf 12.7 & 0.804 \\
+    CMU.fi-en  & 12.5 & \bf 0.798 \\
+    \bf abumatran-enfi-hfstcomp & 11.6 & 0.830 \\
+    \em AaltoMorphsRescored & 11.6 & 0.808 \\
+Finnish to English \\
+    \hline
+    uedin-syntax-fi-en & \bf 17.9 & 0.738 \\
+    \bf \em abumatran-fien-combo  & 17.6 & \bf 0.727 \\
+    UU-fien$\dagger$ & 16.4 & 0.749 \\
+    abumatran-fien & 15.9 & 0.764 \\
+    \bf \em UIUC fi-en omorfi & 15.7 & 0.764 \\
+    \bf abumatran-fien-hfstmorph & 15.3 & 0.782 \\
+    \hline
+\end{tabular}
+    }
+\end{frame}
+
+\begin{frame}
     \frametitle{Statistical Machine Translation (SMT) in nutshell}
     \begin{itemize}
         \item feed parallel texts to computer
@@ -52,7 +81,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Statistical Machine Translation ``research''}
+    \frametitle{Statistical Machine Translation research}
     \begin{itemize}
         \item need to improve scores; either:
             \begin{itemize}
@@ -64,7 +93,8 @@
                 \item analyse what is wrong in the translations
                 \item hypothesize what may fix the problem
                 \item experiment
-                \item profit
+                \item fixes something, breaks something else
+                \item salvage pieces
             \end{enumerate}
     \end{itemize}
 \end{frame}
