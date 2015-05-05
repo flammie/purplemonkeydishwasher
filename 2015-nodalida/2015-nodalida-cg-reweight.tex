@@ -16,7 +16,7 @@
     with free open source Finnish resources}
 
 \newif\ifpublished
-\publishedfalse
+\publishedtrue
 
 
 \ifpublished
@@ -44,14 +44,15 @@ Dublin City University, Dublin 9\\
     of making use of the weights as a part of VISL CG-3 pipeline.
     We evaluate the results intrinsically on small sample of analyses we
     have disambiguated by hand ourselves, and extrinsically on the effect it
-    has to the rule-based machine translation of that text using freely
+    has on the rule-based machine translation of that text using the freely
     available open source translator, apertium-fin-eng. 
 \end{abstract}
 
 \section{Introduction}
 
 In the recent years, use of statistical information in computational
-linguistics has gained much interest, with systems like hunpos, moses etc.
+linguistics has gained much interest, with systems like hunpos~\cite{hunpos},
+moses~\cite{moses} etc.
 being the main points of interest of most research in the field. In finite
 state morphology as well as constraint grammars, extensions to handle
 probabilities are recent and scarcely
@@ -96,8 +97,8 @@ We use the default
 setting which is based on approximated tag likelihoods. Since VISL CG 3 does
 not support floating point numbers, our python-based analysis script, which
 outputs CG-compatible format, multiplies the weights by a 100 before rounding
-them down and turning into a tag of form \texttt{<W=\emph{weight}>}, where
-\emph{weight} weight is the multiplied weight. This is sufficient for the
+them down and turning into a tag of the form \texttt{<W=\emph{weight}>}, where
+\emph{weight} is the multiplied weight. This is sufficient for the
 coarse weights that default analyser produces.
 
 \section{Experimental Setup}
@@ -106,19 +107,20 @@ For analysis we use the python API to omorfi version 20150326, to turn the
 analyses into the format understood by VISL CG 3. We use a version Fred
 Karlsson's Finnish CG found in apertium's
 repository.\footnote{\url{http://sourceforge.net/p/apertium/svn/HEAD/tree/nursery/apertium-fin-eng/apertium-fin-eng.fin-eng.rlx}},
-with the tag set manually converted to match omorfi's,\footnote{URL hidden for
-reviews} howeve, given the amount of ambiguous names of tags and sets and lists
-in the grammar, there may be some conversion errors left.  The system is tested
-with VISL CG 3 version 0.9.8.10063.
+with the tag set manually converted to match
+omorfi's,\footnote{\url{https://github.com/flammie/omorfi/tree/master/src/vislcg3}}
+however, given the amount of ambiguous names of tags and sets and lists in the
+grammar, there may be some conversion errors left.  The system is tested with
+VISL CG 3 version 0.9.8.10063.
 
-To test the functionality of the our combination of weighted
+To test the functionality of our combination of weighted
 finite-state analyser and VISL CG-3, we analyse a short text that we have
 manually disambiguated and measure the quality of analyses. The source of the
 text is found in the apertium's SVN
 repository.\footnote{\url{http://sourceforge.net/p/apertium/svn/HEAD/tree/nursery/apertium-fin-eng/texts/tarina.fin.text}}
 For the purpose of this experiment, we have manually tokenised the text
 before processing it with omorfi.
-In addition of analysis we use the results of analyses in apertium's
+In addition to analysis we use the results of analyses in apertium's
 Finnish-English machine translator, and measure the translation quality. This
 way we can ensure that the gold annotation has not been selected to best fit
 our results but is actually the semantically most fitting one.
@@ -137,6 +139,13 @@ analysis of Finnish language and tested that it works combined with VISL CG-3.
 We have successfully included this combination as a part of apertium machine
 translation pipeline. We note that weighted finite-state analysis can be
 easily combined with VISL CG 3 and results in an increased accuracy.
+
+\section*{Acknowledgments}
+
+The research leading to these results has received
+funding from the European Union Seventh Framework
+Programme FP7/2007-2013 under grant agreement
+PIAP-GA-2012-324414 (Abu-MaTran).
 
 
 \bibliographystyle{acl}
