@@ -28,7 +28,7 @@
 
 \begin{document}
 
-  \begin{frame}
+\begin{frame}
       %\maketitle
       %\vfill
       \begin{columns}
@@ -37,30 +37,84 @@
           \begin{minipage}[T]{.95\textwidth}  % tweaks the width, makes a new \textwidth
           \parbox[t][\columnheight]{\textwidth}{ % must be some better way to set t
         \begin{block}{Database contents}
-            master
-            attributes
-            statistics
+            \begin{itemize}
+                \item Master database of root lexemes: 424,229 (contains: 
+                    \emph{lemma}, \emph{homonym number}, \emph{paradigm}, origin)
+            \end{itemize}
+            \begin{tabular}{|l|r|}
+                \hline
+                \bf Part-of-speech & \bf Lexeme count \\
+                \hline
+                Nouns & 380,296 \\
+                (of which Proper nouns) & 273,612 \\
+                Adjectives & 18790 \\
+                Verbs & 10946 \\
+                Particles & 9,639 \\
+                Acronyms & 3,502 \\
+                Numerals & 901 \\
+                Pronouns & 85 \\
+                Miscellaneous & 67 \\
+                \hline
+                \bf Total & 424,229 \\
+                \hline
+            \end{tabular}
+            \begin{itemize}
+                \item database joins per lexeme: 382,181 (contains: \emph{lemma},
+                    \emph{homonym number}, lexical attribute)
+                \item database joins per paradigms: 4,928 (contains: \emph{paradigm},
+                    lexical attribute)
+                \item morphotactic joins: 28,540 (contains: paradigm, suffixes, 
+                    annotations, lexical data)
+            \end{itemize}
         \end{block}
 
         \begin{block}{Database to application data}
-            som text
+            \begin{itemize}
+                \item Database is converted to various application formats for
+                    efficient compilation of morphological applications:
+                    HFST lexc, apertium, \ldots (currently using python)
+            \end{itemize}
+            \includegraphics[width=.95\textwidth]{omorfidbproc}
         \end{block}
 
         \begin{block}{Application pipelines}
-
+            \begin{itemize}
+                \item Rule-based machine translation (apertium):
+                    \begin{enumerate}
+                        \item Morphological analysis (omorfi)
+                        \item disambiguation (VISL CG 3 / HFST weighted)
+                        \item lexical translation (apertium / finnwordnet)
+                        \item structural translation (apertium)
+                        \item morphological generation (omorfi)
+                    \end{enumerate}
+                \item Statistical machine translation (moses):
+                    \begin{enumerate}
+                        \item analysis (factors) or preprocessing (morphs)
+                        \item training (moses / GIZA)
+                        \item decoding (moses / GIZA)
+                    \end{enumerate}
+                \item Spell-checking:
+                    \begin{enumerate}
+                        \item language modeling: correctly written or not
+                        \item + error modeling: find closest correctly written
+                            word in dictionary
+                    \end{enumerate}
+                \item OCR
+                \item \ldots
+            \end{itemize}
+        \end{block}
+        
+        \begin{block}{TODO list / contributors wanted}
+            \begin{itemize}
+                \item FLOSS statistical parser data
+                \item more data, more applications
+            \end{itemize}
         \end{block}
 
-        \begin{block}{Rule-based machine translation}
-
-        \end{block}
-
-        \begin{block}{Statistical machine translation}
-
-        \end{block}
          }
         \end{minipage}
       \end{beamercolorbox}
-    \end{column}
+  \end{column}
     %\end{textblock}
 
     %\begin{textblock}{60}{0.1,1.6}
@@ -68,25 +122,69 @@
       \begin{beamercolorbox}[center,wd=\textwidth]{postercolumn}
         \begin{minipage}[T]{.95\textwidth} % tweaks the width, makes a new \textwidth
           \parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
-        \begin{block}{Morphological analysis}
 
+        \begin{block}{Rule-based machine translation}
+            \includegraphics[width=.95\textwidth,height=10cm]{omorfi-rbmt}
         \end{block}
 
-        \begin{block}{Disambiguation}
-
-        \end{block}
-
-        \begin{block}{Lexical translation}
-
-        \end{block}
-
-        \begin{block}{Morphological generation}
-
+        \begin{block}{Statistical machine translation}
+            \includegraphics[width=.95\textwidth,height=10cm]{omorfi-smt-segmented}
         \end{block}
 
         \begin{block}{Other applications}
+            \begin{itemize}
+                \item Spell-checking and correction
+                \item Language modeling
+                \item Morphological analysis
+            \end{itemize}
+        \end{block}
+
+        \begin{block}{Some Quality Measurements}
+            \begin{itemize}
+                \item Machine translation in WMT 2015 shared task 
+                    (\textbf{bold-faced} based on omorfi):
+                \item cf. \url{http://matrix.statmt.org}
+            \end{itemize}
+                    \begin{tabular}{|l|r|r|}
+                        \hline
+    \bf System & \bf BLEU & \bf TER \\
+    \hline
+    English to Finnish \\
+    \bf abumatran-enfi-uncons-combo & \bf 15.5 & \bf 0.777 \\
+    abumatran-enfi-uncons  & 14.9 & 0.803 \\
+    UU-enfi-unconstrained  & 13.7 & 0.796 \\
+    uedin-pbt-wmt15-en-fi  &  13.4 & 0.803 \\
+    \hline
+    \bf abumatran-enfi-combo  & \bf 12.7 & \bf 0.804 \\
+    CMU.fi-en  & 12.5 & 0.798 \\
+    uedin-syntax-en-fi  & 12.3 & 0.809 \\
+    \bf abumatran-enfi-hfstcomp & 11.6 & 0.830 \\
+    \em AaltoMorphsRescored & 11.6 & 0.808 \\
+    \hline
+    GF Wide-coverage system & 4.6 & 1.135 \\
+    \bf apertium-fin-eng-unconstrained  & 2.9 & 1.074 \\
+    \hline
+Finnish to English \\
+    \hline
+    uedin-pbt-wmt15-fi-en & \bf 19.7 & \bf 0.717 \\
+    \hline
+    uedin-syntax-fi-en & \bf 17.9 & 0.738 \\
+    \bf abumatran-fien-combo  & 17.6 & \bf 0.727 \\
+    UU-fien$\dagger$ & 16.4 & 0.749 \\
+    abumatran-fien & 15.9 & 0.764 \\
+    \bf UIUC fi-en omorfi & 15.7 & 0.764 \\
+    \bf abumatran-fien-hfstmorph & 15.3 & 0.782 \\
+    \hline
+    \bf apertium-fin-eng-unconstrained-fien  & 6.9 & 0.829 \\
+    \hline
+\end{tabular}
+\\
+$\dagger$ factored with morphology but doesn't say which morphology.
+
 
         \end{block}
+
+
 
         \begin{block}{Acknowledgements}
             The research leading to these results has received
@@ -94,14 +192,16 @@
             Programme FP7/2007-2013 under grant agreement
             PIAP-GA-2012-324414 (Abu-MaTran).
 
+            \includegraphics{AbumatranLogo}
+            \includegraphics{dculogo}
+
             Omorfi consists of a large body of work from numerous academic and
-            open source contributors, including: Inari Listenmaa, Francis M.
-            Tyers, Ryan Johnson, and Juha Kuokkala, and number of others
-            who have not added themselves to AUTHOR list or made commits
-            to version control system.
-    \includegraphics{dcu} 
-    % \includegraphics{helsinki}
-            
+            open source contributors, including: Tommi A Pirinen, Inari
+            Listenmaa, Francis M. Tyers, Ryan Johnson, and Juha Kuokkala,
+            and many others.
+
+            \includegraphics{helsinkilogo}
+
       \end{block}
     %\end{textblock}
          }
