@@ -9,13 +9,17 @@
 \title{Role of Linguistics in Improving Statistical Machine Translation as
 Scientific Field and as End-Result}
 
-\iffalse
 \author{Tommi A Pirinen\\
 Dublin City University\\
 ADAPT Centre-School of Computing\\
-\url{tommi.pirinen@computing.dcu.ie}}
+\url{tommi.pirinen@computing.dcu.ie}
+\and
+Antonio Toral
+Dublin City University\\
+ADAPT Centre-School of Computing\\
+\url{tommi.pirinen@computing.dcu.ie}
+}
 \date{Last Modification: \today}
-\fi
 
 \begin{document}
 
@@ -37,7 +41,7 @@ ADAPT Centre-School of Computing\\
 
     This seems to be especially the case for some of the non Indo-European
     languages, e.g. Finnish or Turkish.  An example of this is reflected in the
-    state-of-the-art of machine translation for the Finnish–English language
+    state-of-the-art of machine translation for the Finnish-English language
     pair, which has not advanced in the past decade in terms of these metrics.
     These metrics however, are based on simple string comparisons and
     substitutions, and as it is argued in the papers published on this language
@@ -47,22 +51,25 @@ ADAPT Centre-School of Computing\\
     Uralic or Turkic ones.
 
     We believe that using metrics that include linguistically-motivated
-    measures (e.g. MEANT\cite{lo2011meant}) would be more appropriate. For example, a simple
-    compounding mistake or a wrong allomorph for case suffix is penalised by
-    BLEU (basically, a word matches or does not match the reference) while the
-    fluency and meaning in the translation is mostly retained.
+    measures (e.g. MEANT\cite{lo2011meant}) would be more appropriate,
+    especially in the morphologically complex language as target setting.  For
+    example, a simple compounding mistake or a wrong allomorph for case suffix
+    is penalised by BLEU (basically, a word matches or does not match the
+    reference) while the fluency and meaning in the translation is mostly
+    retained.
 
     A possible way forward could lie in the combination of metrics that combine
     matching at word and sub-word levels. In this regard, taking the most
     widely-used automatic metric, BLEU, we suggest to combine its original
     implementations (i.e. word level) with its proposed implementation at
-    morpheme level (m-BLEU\cite{luong2010hybrid}) level. At the very least,
-    such a metric should shed light on the conspicuous lack of advance in SMT
-    for this language pair.
+    morpheme level (m-BLEU\cite{luong2010hybrid}) level.
 
-    Apart from the issue of non-linguistic evaluation metrics, a meta-analysis
-    of the state-of-the-art in Finnish-English SMT that we have conducted
-    identifies two parts of the process that would greatly benefit from
+    Apart from the issue of non-linguistic evaluation metrics, it is equally
+    crucial, to look at the results of the SMT system in sufficient detail to
+    explain the scores gained by the system. From
+    a meta-analysis
+    of the state-of-the-art in English-Finnish SMT that we have conducted
+    we identify two parts of the process that would greatly benefit from
     introducing a linguistic view, namely (i) the initial hypothesis when
     devising a new SMT system and (ii) the final error analysis of the MT
     output. In fact, in most of the papers (i) the experimental set-up is not

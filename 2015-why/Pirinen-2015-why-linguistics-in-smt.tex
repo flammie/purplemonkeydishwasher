@@ -25,9 +25,10 @@
 
 
 \title{Why Linguistics in Statistical Machine Translation (SMT)?\\
-\scriptsize{in Tarto, 2015}}
+\scriptsize{in Tartu, 2015}}
 \author{Tommi A Pirinen \scriptsize \guilsinglleft{}tommi.pirinen@computing.dcu.ie\guilsinglright{}}
-\institute{DCU, ADAPT--CNGL\\Abumatran}
+\institute{Ollscoil Chathair Bhaile Átha Cliath, ADAPT Centre\\
+EU Marie Curie Abu-MaTran project}
 \date{\today}
 
 \begin{document}
@@ -36,10 +37,19 @@
 
 \maketitle
 
-\section{Introduction}
+\begin{frame}
+    \frametitle{Contents}
+    \begin{itemize}
+        \item SMT, SMT research and using linguistics
+        \item automatic measures of SMT quality,
+            and linguistic
+        \item linguistic approaches in SMT systems
+    \end{itemize}
+\end{frame}
+
 
 \begin{frame}
-    \frametitle{Statistical Machine Translation (SMT) in nutshell}
+    \frametitle{SMT in a nutshell}
     \begin{itemize}
         \item feed parallel texts to computer
         \item computer learns / memorises probable translations
@@ -47,68 +57,189 @@
         \item compare to reference translation to get scores, using automatic
             evaluation metrics
         \item rarely: ask humans to either read the translations or fix them,
-            and measure times for that, etc.
+            and measure times for that. E.g., when
+            working with translators, 
     \end{itemize}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Statistical Machine Translation ``research''}
+    \frametitle{SMT \emph{research} in another nutshell}
     \begin{itemize}
-        \item need to improve scores; either:
+        \item need to improve scores, so either:
             \begin{itemize}
                 \item add more data
                 \item try new (statistical) algorithms blindly to see what sticks
+                \item no improvement; give up.
             \end{itemize}
         \item instead of:
             \begin{enumerate}
                 \item analyse what is wrong in the translations
                 \item hypothesize what may fix the problem
                 \item experiment
-                \item profit
+                \item realise that fix breaks something else
+                \item salvage the scraps
             \end{enumerate}
     \end{itemize}
 \end{frame}
 
-\section{State of the Art}
-
 \begin{frame}
-    \frametitle{State of the Art in Finnish-English SMT}
-    Some table of results, variance, stuff
+    \frametitle{Why linguistics in SMT: motivational results from
+    WMT 2015 shared tasks (competition) Finnish$\leftrightarrow$English}
+    \begin{columns}
+        \begin{column}{.40\textwidth}
+    \tiny{
+                   \begin{tabular}{|l|r|r|}
+                        \hline
+    \bf System & \bf BLEU & \bf TER \\
+    \hline
+    English to Finnish \\
+    \bf \em abumatran-enfi-uncons-combo & \bf 15.5 & \bf 0.777 \\
+    \em abumatran-enfi-uncons  & 14.9 & 0.803 \\
+    UU-enfi-unconstrained  & 13.7 & 0.796 \\
+    \hline
+    \bf \em abumatran-enfi-combo  & \bf 12.7 & 0.804 \\
+    CMU.fi-en  & 12.5 & \bf 0.798 \\
+    \bf abumatran-enfi-hfstcomp & 11.6 & 0.830 \\
+    \em AaltoMorphsRescored & 11.6 & 0.808 \\
+    \hline
+Finnish to English \\
+    \hline
+    uedin-syntax-fi-en & \bf 17.9 & 0.738 \\
+    \bf \em abumatran-fien-combo  & 17.6 & \bf 0.727 \\
+    UU-fien & 16.4 & 0.749 \\
+    \em abumatran-fien & 15.9 & 0.764 \\
+    \bf UIUC fi-en omorfi & 15.7 & 0.764 \\
+    \bf abumatran-fien-hfstmorph & 15.3 & 0.782 \\
+    \hline
+\end{tabular}
+    }
+    \end{column}
+    \begin{column}{.59\textwidth}
+        \begin{itemize}
+            \item N.B. BLEU bigger is better, TER lower is better
+        \item The \textbf{bold-face} systems are based on linguistic
+            morphology
+        \item The \emph{emphasized} systems are based on unsupervised
+            segmentation
+        \item both is both, neither is unknown
+        \item \ldots but what's the point? 
+        \end{itemize}
+    \end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{State of the Art in Finnish-English SMT cont'd}
-    Table of results ref. approach
-\end{frame}
-
-\begin{frame}
-    \frametitle{WMT 2015 results, linguistics-based approaches highlighted}
-    statmt matrix w/ omorfi systems highlighted
-\end{frame}
-
-\section{Automatic metrics vs. linguistic intuition}
-
-\begin{frame}
-    \frametitle{Automatic metrics and linguistics}
+    \frametitle{More details on linguistics vs statistical segmentation}
     \begin{itemize}
-        \item automatic metrics have been designed to correlate with human
-            evaluation on e.g., fluency
-        \item however, ...
-        \item
+        \item segmentation for SMT chops words into
+            pieces
+        \item linguistic morphology into stems and affixes
+        \item statistical segmentation into e.g., most likely
+            letter sequences
+        \item in our tests, plain linguistic segmentation
+            is better than statistical in majority
+            of the cases English to Finnish
+        \item Finnish to English, scores are unclearer, though manual evaluation shows that unknown
+            words do get translated in more cases
     \end{itemize}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Examples}
+    \frametitle{A bit more about the automatic metrics of translation quality}
     \begin{itemize}
-        \item (to be taken with a grain of salt; automatic metrics work on
-            masses of texts (and references) rather than single sentences)
-        \item negation mismatch
-        \item direct object case flaws
-        \item etc.
+        \item roughly speaking, in BLEU, reference translation is compared
+            word by word to find matching words,
+            longer sequences of words get more points
+        \item works quite neatly with strict word order languages without
+            much inflection
+        \item TER measures roughly the moves, insertions and deletions of
+            words
+        \item in practice, \emph{most} statistical machine translation is research of
+            optimising these values
+        \item as an example, missing negation is not
+            penalised much in these measurements!
     \end{itemize}
 \end{frame}
 
+
+
+\begin{frame}
+    \frametitle{Why (not) automatic metrics}
+    \begin{itemize}
+        \item cheap
+        \item to correlate with human
+            evaluation on e.g., fluency, and on a large scale
+        \item the reference may be high quality but machine translatability
+            is low (added / removed information to take target audience into
+            account, etc.)
+        \item increase/decrease captures some changes
+            but non-change in score doesn't mean no
+            changes in translation (quality)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Automatic metrics of linguistic systems: Finnish-English case}
+    When people have tried linguistic approaches to improve SMT for Finnish
+    \begin{itemize}
+        \item morphological segmentation: most publications give no or very little improvement in BLEU
+        \item morphological factors: no improvements that I've read of
+        \item so: linguistics may not improve Finnish SMT
+        \item however: looking at results, the methods fix what they should, usually
+        \item can further linguistic analysis tell us how to keep
+            the improvements while not messing up anything else?
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{So, what should linguists measure besides the BLEUs and TERs}
+    \begin{itemize}
+        \item it depends.
+        \item if you aim to fix agreement, measure agreement errors
+        \item if you are fixing negation problems, measure negations, etc.
+        \item see what the fix breaks:
+        \item evaluate what you fixed (based on the starting point)
+            and what you broke (based on the results); requires reading the
+            translations and thinking (linguistically)
+        \item there are generic linguistic metrics too
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example of linguistic evaluation in SMT}
+    From Clifton et al. (2011), error analysis:
+    \begin{enumerate}
+        \item  explicitly marked noun forms,
+        \item noun-adjective case agreement,
+        \item subject-verb person/number agreement
+        \item transitive object case marking
+        \item postpositions,
+        \item possession.
+    \end{enumerate}
+    Lower BLEU score leads to higher F-score on
+    most linguistic phenomena.
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Inconclusion}
+    Linguistics in SMT is good for:
+    \begin{itemize}
+        \item Winning WMT
+        \item Finding problems
+        \item Solving some problems
+        \item Error analysis
+        \item Salvaging good things of improved
+            systems despite decreased score
+        \item ...
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Questions?}
+    Thanks, aitäh.
+\end{frame}
 
 \end{document}
 % vim: set spell:
