@@ -1,0 +1,155 @@
+\documentclass[11pt]{article}
+%\documentclass{flammie}
+\usepackage{nodalida2015}
+%\usepackage{times}
+\usepackage{mathptmx}
+%\usepackage{txfonts}
+\usepackage{url}
+\usepackage{latexsym}
+
+\usepackage{fontspec}
+
+\special{papersize=210mm,297mm} % to avoid having to use "-t a4" with dvips
+%\setlength\titlebox{6.cm} % You can expand the title box if you really have to
+
+\title{Using weighted finite state morphology with VISL CG-3---Some experiments
+    with free open source Finnish resources}
+
+\newif\ifpublished
+\publishedtrue
+
+
+\ifpublished
+\author{Tommi A Pirinen\\
+Ollscoil Chathair Bhaile Átha Cliath\\
+CNGL---School of Computing\\
+Dublin City University, Dublin 9\\
+{\tt tommi.pirinen@computing.dcu.ie}
+}
+\fi
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+    Traditionally, the coupling of finite state morphology and constraint
+    grammar has been strictly  rule-based, making binary distinctions
+    between allowed and disallowed readings, however, in the recent years much
+    of the research in the finite state morphologies has adapted the
+    contemporary paradigm of statistically weighted analysis. This is reflected
+    in current versions of free and open source morphology of Finnish, omorfi, in
+    the finite state morphology part. In this paper we examine two strategies
+    of making use of the weights as a part of VISL CG-3 pipeline.
+    We evaluate the results intrinsically on small sample of analyses we
+    have disambiguated by hand ourselves, and extrinsically on the effect it
+    has on the rule-based machine translation of that text using the freely
+    available open source translator, apertium-fin-eng. 
+\end{abstract}
+
+\section{Introduction}
+
+In the recent years, use of statistical information in computational
+linguistics has gained much interest, with systems like hunpos~\cite{hunpos},
+moses~\cite{moses} etc.
+being the main points of interest of most research in the field. In finite
+state morphology as well as constraint grammars, extensions to handle
+probabilities are recent and scarcely
+documented~\cite{pirinen2009weighting,bick2009introducing}.  In this paper we
+experiment with an existing weighted finite state morphology of
+Finnish~\cite{pirinen2011modularisation}\footnote{\url{https://github.com/flammie/omorfi/}}
+with VISL CG-3. For CG we have adapted Fred Karlsson's Finnish CG rules to
+omorfi's tag set, however, the rules were written for completely different
+analyser, which results in relatively low quality and high level of ambiguity
+at the current level. We estimate that salvaging these rules for the current
+version of analysis would require a substantial re-writing effort. In the
+meanwhile, there are a lot of easy targets that correctly trained statistical
+analyser can already deal with without extra effort. E.g., one large 
+difference we assume between the analyser these CG rules were written for and
+omorfi's are that omorfi contains a huge number of proper nouns, dialectal
+and sub-standard forms, and rare language, animal etc. names, that are left
+ambiguous. It is obvious for a human reader that these words are very
+unlikely and given most corpora we expect them to be highly penalised as
+well.
+
+The main goal of this experiment is to create a functional
+pipeline out of weighted finite-state analysis and current version of the
+constraint grammar. There are obvious conflicts between the statistically
+driven ranked hypotheses approach and the strictly deleting approach of the
+current constraint grammar, which may limit usefulness of our current method
+of combining these two information sources. 
+
+\section{Methods}
+
+The probabilities in omorfi are provided by the underlying system as a floating
+point number based on the finite-state implementation of a tropical semiring.
+This weight can be based on negative logarithms of probabilities of the
+word-forms, lemmas, analyses etc., as well as linguist-defined arbitrary
+values. The typical method to get probabilities for the analyses is to
+count the probabilities as the proportion of the analyses among all analysed
+tokens in the corpus. 
+
+%however the calculation of probabilities of
+%the analyses and lemmas would require a high quality freely available gold
+%corpus, which we do not currently have. For this reason,
+We use the default
+setting which is based on approximated tag likelihoods. Since VISL CG 3 does
+not support floating point numbers, our python-based analysis script, which
+outputs CG-compatible format, multiplies the weights by a 100 before rounding
+them down and turning into a tag of the form \texttt{<W=\emph{weight}>}, where
+\emph{weight} is the multiplied weight. This is sufficient for the
+coarse weights that default analyser produces.
+
+\section{Experimental Setup}
+
+For analysis we use the python API to omorfi version 20150326, to turn the
+analyses into the format understood by VISL CG 3. We use a version Fred
+Karlsson's Finnish CG found in apertium's
+repository.\footnote{\url{http://sourceforge.net/p/apertium/svn/HEAD/tree/nursery/apertium-fin-eng/apertium-fin-eng.fin-eng.rlx}},
+with the tag set manually converted to match
+omorfi's,\footnote{\url{https://github.com/flammie/omorfi/tree/master/src/vislcg3}}
+however, given the amount of ambiguous names of tags and sets and lists in the
+grammar, there may be some conversion errors left.  The system is tested with
+VISL CG 3 version 0.9.8.10063.
+
+To test the functionality of our combination of weighted
+finite-state analyser and VISL CG-3, we analyse a short text that we have
+manually disambiguated and measure the quality of analyses. The source of the
+text is found in the apertium's SVN
+repository.\footnote{\url{http://sourceforge.net/p/apertium/svn/HEAD/tree/nursery/apertium-fin-eng/texts/tarina.fin.text}}
+For the purpose of this experiment, we have manually tokenised the text
+before processing it with omorfi.
+In addition to analysis we use the results of analyses in apertium's
+Finnish-English machine translator, and measure the translation quality. This
+way we can ensure that the gold annotation has not been selected to best fit
+our results but is actually the semantically most fitting one.
+
+\section{Evaluation}
+
+We evaluated the resulting analysers by analysing the text of the story and
+measuring the proportion of correct guesses from all analyses that were left.
+For unweighted test the results show 73 \% precision while the weighted test
+gives us 77 \%, giving a boost of 4 \% units.
+
+\section{Conclusion}
+
+We have implemented a VISL CG-3 output on top of existing weighted finite-state
+analysis of Finnish language and tested that it works combined with VISL CG-3.
+We have successfully included this combination as a part of apertium machine
+translation pipeline. We note that weighted finite-state analysis can be
+easily combined with VISL CG 3 and results in an increased accuracy.
+
+\section*{Acknowledgments}
+
+The research leading to these results has received
+funding from the European Union Seventh Framework
+Programme FP7/2007-2013 under grant agreement
+PIAP-GA-2012-324414 (Abu-MaTran).
+
+
+\bibliographystyle{acl}
+\bibliography{nodalida2015}
+
+\end{document}
+% vim: set spell:
