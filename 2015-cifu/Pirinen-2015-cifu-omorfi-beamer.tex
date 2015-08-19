@@ -49,111 +49,96 @@ EU Marie Curie Abu-MaTran project}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Omorfi}
+    \frametitle{What's omorfi}
     \begin{itemize}
         \item omorfi (open morphology of Finnish) has grown to be a mature
             computational language description
-        \item majority of basic lexical information comes from high quality
-            dictionaries (Nykysuomen sanalista)
-        \item however, the need for lexical data is an open-ended task; you
-            can never have too much information on any given word-form
-        \item also, new lexemes come and go all the time, cannot wait for
-            kotus to release a new word list to get us selfies
+        \item useful stuff with omorfi that I've been involved with past years
+            \begin{enumerate}
+                \item morphological analysis (2008)
+                \item spell-checking and correction (2014)
+                \item rule-based machine translation (2016?)
+                \item statistical machine translation (2015)
+                \item morphosyntactic disambiguation (2015)
+            \end{enumerate}
+        \item lot of it is not new in any way though, and others have done
+            more innovative stuffs
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Uses of Crowd-Sourcing in omorfi}
+\begin{frame}
+    \frametitle{So why am I here}
     \begin{itemize}
-        \item get new words asap
-        \item semantics: is it (can it be) human, sentient, edible, female,
-            location, corporation, mass nouns
+        \item lot of omorfi work is about lexical data management, even
+            building new apps is more so
+        \item there's an endless amount of new data to gather, missing, etc.
+        \item after all, most new apps and research questions start with
+            reading and scraping word lists, examples and other data
+        \item it'd be more nicely doable with crowds of people? After all,
+            Finnish is well-resourced and all
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{What data do I need}
+    \begin{itemize}
+        \item get new words. Neither spell-checker nor machine
+            translation can be good without `selfies' and sticks and whatnot
+        \item semantics for lexemes: genders, animacies,
+            locations, entities are very useful
         \item popularity: common word, rare, obscure
         \item style and usage: dialects, curse words, academic, computer,
             medicine
-        \item \ldots approx. every new application built of omorfi needs
-            more data than was in the lexical database before
+        \item people usually know a whole lot, we just need to write it down
+            (it's not a lot of effort, I do it all the time)
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Issues in Crowd-Sourcing Lexicographies}
-    \begin{enumerate}
-        \item Using data (long) after it has been built by harvesting, scraping,
-            etc. requires lots of work
-        \item Inputting well-structured data in system not designed for it is
-            cumber-some and error prone
-        \item That is, wiktionary is really just an attempt of using something
-            designed for writing encyclopedic prose in structured dictionaries
-        \item Wiktionaries are never stable, trying to use data from outside
-            the system requires tracking changes in conventions
-        \item Newer systems attempted to bridge the gaps have not been 
-            successful either (Omegawiki, ...)
-    \end{enumerate}
-\end{frame}
 
-
-\begin{frame}[fragile]{And its Source...}
-    \begin{verbatim}
-===Verbi===
-{{fi-verbi|as|ettaa|muistaa|C}}
-
-# [[laittaa]], [[panna]], [[sijoittaa]] paikalleen
-#:''Hän asetti maljakon pöydälle.''
-# [[määrätä]], [[määrittää]]
-...
-====Käännökset====
-{{kohta|1|laittaa, panna, sijoittaa paikalleen|
-*englanti: [[put]], [[place]], [[set]], move into position, [[locate]]
-*hollanti: [[aanbrengen]]
-\end{verbatim}
-\end{frame}
-
-\begin{frame}{Scraping the Data From Wiktionary}
-    \begin{enumerate}
-        \item find section for Finnish words
-        \item find each definition
-        \item find and translate something like
-            \texttt{fi-verbi|as|ettaa|muistaa|C}
-                into \texttt{asettaa V\_MUISTAA VERB 53 C\ldots}
-    \end{enumerate}
+\begin{frame}{Where do we get that}
     \begin{itemize}
-        \item e.g., when I last wrote the script for scraping this data,
-            \texttt{fi-verbi|as|ettaa|muistaa|C} was \texttt{fi-verb|53|C}
+        \item Published dictionaries (Nykysuomen sanalista was a kind of a beginning for omorfi)
+        \item Academia, University of Helsinki research has produced lots of good lexical data
+        \item Traditional crowd-sourcing suspects: Wiktionary is what I have
+            tried so far, with some tests with OmegaWiki for translations,
+        \item some less crowd-sourcy things: tatoeba for sentence translations,
+            twitter for short messages, even Web as Corpora harvested,
+            for examples and statistics. Known good words and sentences are
+            a very good thing.
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Example 2: Omegawiki}
+\begin{frame}{Issues with wiktionary}
     \begin{itemize}
-        \item database approach for storing data in well structured form
-        \item getting data would be easier and more consistent
-        \item still quite cumbersome to edit
-        \item lacks some central pieces of information for Finnish and most
-            other langs than English, e.g., inflection classification
+        \item Data formatting can be very problematic (broken, unreadable)
+        \item Data quality can be anything really (vandalised, non-native learner's mistakes)
+        \item The information you are specifically wanting to get is usually missing
+        \item ... and there's no way to get it into,``official article
+            format''
+        \item and the article format will change again tomorrow
+        \item E.g. for morphological analyser new words would need correct
+            paradigm numbers but wiktionary has usable ones in around 15~\%
     \end{itemize}
 \end{frame}
 
-
-\begin{frame}{Quality Issues in Crowd-Sourcing}
+\begin{frame}{Others}
     \begin{itemize}
-        \item people know lots of their native languages but not always enough
-        \item some contributors are language learners
-        \item vandalism
-        \item Two ways currently used to cope with this: python scripts, regexes
-            etc. to check some sanity
-        \item Automatic tests with the final software and free texts: do new
-            additions work somewhat like old words, etc.
-        \item In the end it all falls down to expert reviews again
+        \item issues with wiktionary apply to others more or less
+        \item Low traffic / usage rate (e.g. omegawiki)
+        \item 
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Conclusions (questions): How to Proceed?}
+\begin{frame}{Where I would want to get / ideas}
     \begin{itemize}
-        \item How to combine popularity of Wiktionary with forms and structure
-            of Omegawiki?
-        \item Improve user interfaces?
-        \item Better access to wiki data?
-        \item Feedback from databases to Wiktionary?
-        \item Answers? Questions? 
+        \item more casual contributors
+        \item web pages specific to add lexical data
+        \item games?
     \end{itemize}
+\end{frame}
+
+\begin{frame}{Thanks}
+    Kiitos, aitäh, köszönöm etc.\\
+    Questions, ideas?
 \end{frame}
 
 \end{document}
