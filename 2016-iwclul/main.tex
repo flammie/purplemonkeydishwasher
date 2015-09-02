@@ -1,0 +1,143 @@
+\documentclass[b5paper]{article}
+
+%\usepackage{polyglossia}
+\usepackage{fontspec}
+%\usepackage{xunicode}
+%\usepackage{xltxtra}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{expex}
+
+\usepackage{todonotes}
+
+\makeatletter
+\def\blfootnote{\gdef\@thefnmark{}\@footnotetext}
+\makeatother
+
+\setmainfont[Mapping=tex-text]{Linux Libertine O}
+
+\newif\ifcamready
+\camreadyfalse
+
+\title{The state of the art in machine translation for Finnish\blfootnote{
+    This work is licensed under a Creative Commons Attribution–NoDerivatives
+    4.0 International Licence.  Licence details:
+    \url{http://creativecommons.org/licenses/by-nd/4.0/}}
+}
+
+\author{Tommi A. Pirinen\\
+Ollscoil Chathair Bhaile Átha Cliath\\
+ADAPT Centre---School of Computing\\
+\url{tommi.pirinen@computing.dcu.ie}
+\and Francis M. Tyers \\
+HSL-fakultetet \\
+UiT Norgga árktalaš universitehta \and 
+more authors}
+
+\date{\today}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Finnish machine translation is very advanced these days.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:introduction}
+
+\todo[inline]{NB that it's only 10 pages}
+Finnish is a very language to translate automatically.
+
+The morphological complexity is higher than any IE language really.
+
+The different approaches to solving morphological complexity and its mismatch between languages.
+
+We use following tools: moses, omorfi, morfessor, flatcat, apertium, GF.
+We use the following techniques: PBSMT, morph segmentation, RBMT, GF stuff, system comb.
+Languages: English, Swedish, North Sámi.
+Experiments both ways. 
+
+This article is organised as follows:
+
+% something about translation directions
+
+%% into Finnish / out of Finnish
+
+% related stuffs like translating between finnishes :D
+
+% something table/matrix about pairs and systems
+
+\section{Resources}
+
+Finnish is a moderately well-resourced language~\cite{whitepaper}.
+In this section we describe the corpora, the \textit{natural language processing} (NLP) systems and the MT toolkits available for free and open source machine translation work for Finnish.
+
+\subsection{Parallel corpora}
+
+We use: WMT 2015 data (incl. europarl, newsfoo), fiwac and fienwac, 
+
+\subsection{Machine translation systems}
+
+\begin{table}
+
+\begin{tabular}{lccc}
+\hline
+\textbf{Language} & \textbf{to Finnish} & \textbf{from Finnish} & \\
+English &  ..          &              & \\
+Swedish &            &              & \\
+Croatian & & & \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\section{Methods}
+\label{sec:methods}
+
+\subsection{Statistical MT methods}
+
+\subsubsection{Moses}
+
+\subsubsection{Commercial Online Translators}
+
+We use online translators from commercial companies as a reference point to state-of-the-art in industry:
+Google translate,
+Bing,
+Sunda,
+Yandex.
+
+\subsection{Rule-based MT methods}
+
+\subsubsection{Apertium}
+
+\subsubsection{Grammatical Framework}
+
+\subsection{Language Modeling and Pre-processing}
+
+\subsubsection{Morfessor}
+
+\subsubsection{Omorfi}
+
+\subsection{System combination}
+
+
+\section{Experimental setup}
+\label{sec:experimental-setup}
+
+\section{Evaluation}
+\label{sec:evaluation}
+
+\section{Discussion}
+\label{sec:discussion}
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+\bibliographystyle{unsrt}
+\bibliography{iwclul2016}
+
+
+\end{document}
