@@ -1,0 +1,145 @@
+\documentclass{beamer}
+
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{url}
+\usepackage{textpos}
+\usepackage{xspace}
+\usepackage{array}
+
+\mode<presentation>
+{
+  \usetheme{Abumatranpres}
+}
+
+
+\graphicspath{{./fig/}}
+
+
+\title{Omorfi experiences with crowds and sourcings\\
+\scriptsize{CIFU XII Oulu, 2015}}
+\author{Tommi A Pirinen \scriptsize \guilsinglleft{}tommi.pirinen@computing.dcu.ie\guilsinglright{}}
+\institute{Ollscoil Chathair Bhaile Átha Cliath, ADAPT Centre\\
+EU Marie Curie Abu-MaTran project}
+\date{\today}
+
+\begin{document}
+
+\selectlanguage{english}
+
+\maketitle
+
+\begin{frame}
+    \frametitle{Contents}
+    \begin{itemize}
+        \item omorfi backgrounds
+        \item crowd sources
+        \item current datasets
+        \item issues
+        \item (no MT here this time...)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{What's omorfi}
+    \begin{itemize}
+        \item omorfi (open morphology of Finnish) has grown to be a mature
+            computational language description
+        \item useful stuff with omorfi that I've been involved with past years
+            \begin{enumerate}
+                \item morphological analysis (2008)
+                \item spell-checking and correction (2014)
+                \item rule-based machine translation (2016?)
+                \item statistical machine translation (2015)
+                \item morphosyntactic disambiguation (2015)
+            \end{enumerate}
+        \item lot of it is not new in any way though, and others have done
+            more innovative stuffs
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{So why am I here}
+    \begin{itemize}
+        \item lot of omorfi work is about lexical data management, even
+            building new apps is more so
+        \item there's an endless amount of new data to gather, missing, etc.
+        \item after all, most new apps and research questions start with
+            reading and scraping word lists, examples and other data
+        \item it'd be more nicely doable with crowds of people? After all,
+            Finnish is well-resourced and all
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{What data do I need}
+    \begin{itemize}
+        \item get new words. Neither spell-checker nor machine
+            translation can be good without `selfies' and sticks and whatnot
+        \item semantics for lexemes: genders, animacies,
+            locations, entities are very useful
+        \item popularity: common word, rare, obscure
+        \item style and usage: dialects, curse words, academic, computer,
+            medicine
+        \item people usually know a whole lot, we just need to write it down
+            (it's not a lot of effort, I do it all the time)
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Where do we get that}
+    \begin{itemize}
+        \item Published dictionaries (Nykysuomen sanalista was a kind of a beginning for omorfi)
+        \item Academia, University of Helsinki research has produced lots of good lexical data
+        \item Traditional crowd-sourcing suspects: Wiktionary is what I have
+            tried so far, with some tests with OmegaWiki for translations,
+        \item some less crowd-sourcy things: tatoeba for sentence translations,
+            twitter for short messages, even Web as Corpora harvested,
+            for examples and statistics. Known good words and sentences are
+            a very good thing.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Issues with wiktionary}
+    \begin{itemize}
+        \item Data formatting can be very problematic (broken, unreadable)
+        \item Data quality can be anything really (vandalised, non-native learner's mistakes)
+        \item The information you are specifically wanting to get is usually missing
+        \item ... and there's no way to get it into,``official article
+            format''
+        \item and the article format will change again tomorrow
+        \item E.g. for morphological analyser new words would need correct
+            paradigm numbers but wiktionary has usable ones in around 15~\%
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Others}
+    \begin{itemize}
+        \item issues with wiktionary apply to others more or less
+        \item Low traffic / usage rate (e.g. omegawiki)
+        \item 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Where I would want to get / ideas}
+    \begin{itemize}
+        \item more casual contributors
+        \item web pages specific to add lexical data
+        \item games?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Thanks}
+    Kiitos, aitäh, köszönöm etc.\\
+    Questions, ideas?
+\end{frame}
+
+\end{document}
+% vim: set spell:

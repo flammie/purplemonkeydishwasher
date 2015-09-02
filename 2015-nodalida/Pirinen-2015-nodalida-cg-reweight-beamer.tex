@@ -1,0 +1,203 @@
+\documentclass{beamer}
+
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{url}
+\usepackage{textpos}
+\usepackage{xspace}
+\usepackage{array}
+
+\mode<presentation>
+{
+  \usetheme{Abumatranpres}
+}
+
+
+\graphicspath{{./fig/}}
+
+
+\title{From WFST to VISL-CG 3? Some
+    experiments\\
+\scriptsize{in Vilnius CG workshop}}
+\author{Tommi A Pirinen \scriptsize \guilsinglleft{}tommi.pirinen@computing.dcu.ie\guilsinglright{}}
+\institute{Ollscoil Chathair Bhaile Átha Cliath, ADAPT Centre\\
+EU Marie Curie Abu-MaTran project}
+\date{\today}
+
+\begin{document}
+
+\selectlanguage{english}
+
+\maketitle
+
+\begin{frame}
+    \frametitle{Contents}
+    \begin{itemize}
+        \item weighted FSTs
+        \item example use cases
+        \item current experiments
+        \item issues
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Why did I do it? A little background}
+    \begin{itemize}
+        \item omorfi (open morphology of Finnish) has grown to be a mature
+            description
+        \item Fred Karlsson agreed to release Finnish CG rules open source
+        \item however, tag sets and analyses don't quite agree
+        \item it appears that CG rules built for morphology with smaller
+            lexicon and less ambiguity don't work as well with bigger lexicon
+            (we have 100,000's new proper nouns and some neologisms, dialects
+            and stuff)
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Weighted finite-state morphological analysis}
+    \begin{itemize}
+        \item traditional finite-state morphology from Beesley \& Karttunen
+            with HFST for weight handling
+        \item weights can be added surface : analysis pairs by three methods
+        \begin{itemize}
+            \item train analysis (or lemmas etc.)
+            from gold corpora that happens to have tags
+            that match yours... e.g., $P('N Sg Nom') > P('N Pl Ins PxSg1 Kin')$
+            \item or approximate probabilities using linguistic skills
+            \item train surface probabilities from plain text corpora, e.g. 
+            $P('\mathrm{on}') > P('\mathrm{morfologia}')$ (doesn't matter in
+            CG application)
+        \end{itemize}
+        \item and number of variations and combinations of above
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example with toy weights}
+    \emph{Löysin sinut}
+    \begin{tabular}{llr}
+        Löysin & löysä ADJECTIVE SUP SG NOM & 0,000000 \\
+Löysin & löytää VERB ACT INDV PAST SG1 & 0,000000 \\
+Löysin & löysä ADJECTIVE PL INS & 2,000000 \\
+Löysin & löysä NOUN PL INS & 2,000000 \\
+Löysin & Löysä NOUN PROPER PL INS & 2,000000 \\
+
+sinut & sinut ADVERB & 0,000000 \\
+sinut & sinä PRONOUN PERSONAL SG2 PL NOM & 1,000000 \\
+sinut & sinä PRONOUN PERSONAL SG2 SG ACC & 0,000000 \\
+    \end{tabular}
+    ``I found you''
+\end{frame}
+
+\begin{frame}
+    \frametitle{Translations depending on disam}
+    most I've seen in apertium during recoding of the CG...
+    \begin{itemize}
+        \item I found you
+        \item loosest you
+        \item with looses you
+        \item with Löysäs you
+        \item I found even
+        \item I found yous
+        \item etc.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Why weights in CG}
+    \begin{itemize}
+        \item Tie-break decisions in spots that the rules don't yet
+        \item most pipelines (outside FSM tradition) operate on n-best
+            lists with weights
+        \item Binary disambiguation leads to worse error propagation
+        \item removing readings that are needed further down the pipeline
+            may not be a good idea
+        \item they seem to fill in nicely when rewriting external cg for
+            another system by hand
+        \item statistics are a good source of information for rules too
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{How weights in CG}
+    \begin{itemize}
+        \item CG has support for integer tags that has been already
+            used for such (\texttt{<W=1>}) -> move FSM weights into
+            that tag
+        \item \texttt{SELECT (<W=MIN>)} is equivalent to baseline
+            weighted finite-state algorithm
+        \item turn disambiguations into weight adding by post-processing
+            the traces,
+        \item Problems? iterative cg process is not very ideal for weighting as is.
+            the values used for additional weights need to be selected
+            somehow (line number, keyword named rules?)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example converted to VISL-CG 3 with weights}
+    \begin{tabular}{ll}
+"<Löysin>" & \\
+ "Löysä" & NOUN PROPER PL INS <W=200> \\
+ "löysä" & <*> ADJECTIVE SUP SG NOM <W=0> \\
+ "löytää" & <*> VERB ACT INDV PAST SG1 <W=0> \\
+ "löysä" & <*> ADJECTIVE PL INS <W=200> \\
+ "löysä" & <*> NOUN PL INS <W=200> \\
+ "löysä" & <*> ADJECTIVE SUP SG NOM <W=0> \\
+"<sinut>" & \\
+ "sinut" & ADVERB <W=0> \\
+ "sinä" & PRONOUN PERSONAL SG2 PL NOM <W=100> \\
+ "sinä" & PRONOUN PERSONAL SG2 SG ACC <W=0> \\
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example of disambiguation trace}
+    \small
+    \begin{tabular}{ll}
+        "<Löysin>" & \\
+        "löytää" & VBLEX ACT INDV PAST SG1 <W=0> SELECT:2620:SURELY-vfin \\
+        ;	"Löysä" & NOUN PROPER TOP PL INS <W=200> REMOVE:797 \\
+        ;	"löysä" & ADJECTIVE POS PL INS <W=200> SELECT:2620:SURELY-vfin \\
+        ;	"löysä" & ADJECTIVE SUP SG NOM <W=0> SELECT:2620:SURELY-vfin \\
+        ;	"löysä" & NOUN PL INS <W=200> SELECT:2620:SURELY-vfin \\
+        "<sinut>" & \\
+"sinä" & PRONOUN PERSONAL SG2 SG ACC <W=0> \\
+        "sinä" & PRONOUN PERSONAL SG2 PL NOM <W=100> \\
+        ;	"sinut" & ADVERB <W=0> REMOVE:2631:RARELY-sinut \\
+    \end{tabular}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Join traces back to weights and reorder }
+    \begin{tabular}{llr}
+löysin & löytää VERB ACT INDV PAST SG1 & 0,000000 \\
+Löysin & Löysä NOUN PROPER PL INS & 2,079700 \\
+löysin & löysä ADJECTIVE SUP SG NOM & 10,262000 \\
+löysin & löysä ADJECTIVE PL INS & 12,262000 \\
+löysin & löysä NOUN PL INS & 12,262000 \\
+
+sinut & sinä PRONOUN PERSONAL SG2 SG ACC & 0,000000 \\
+sinut & sinä PRONOUN PERSONAL SG2 PL NOM & 1,000000 \\
+sinut & sinut ADVERB & 1,2631000 \\
+    \end{tabular}
+    $W=W_{\mathrm{original}} + W_{\mathrm{KEYWORD}} + W_{\mathrm{line number}}$
+\end{frame}
+
+\begin{frame}
+    \frametitle{Questions, suggestions?}
+    Thanks, Ačiū
+\end{frame}
+
+\end{document}
+% vim: set spell:
