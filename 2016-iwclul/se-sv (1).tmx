@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<tmx version="1.4">
+<header creationdate="Fri Aug 15 12:49:36 2014"
+          srclang="se"
+          adminlang="se"
+          o-tmf="unknown"
+          segtype="sentence"
+          creationtool="Uplug"
+          creationtoolversion="unknown"
+          datatype="PlainText" />
+  <body>
+    <tu>
+      <tuv xml:lang="se"><seg>sisttisdoallat Gmail, Google Docs, Google+, YouTube ja Picasa</seg></tuv>
+      <tuv xml:lang="sv"><seg>Inkluderar Gmail, Google Docs, Google+, YouTube och Picasa</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>Namma</seg></tuv>
+      <tuv xml:lang="sv"><seg>Namn</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>Ii gávdno válddahus</seg></tuv>
+      <tuv xml:lang="sv"><seg>Ingen beskrivning tillgänglig</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>Odne, %H:%M</seg></tuv>
+      <tuv xml:lang="sv"><seg>Idag, %H.%M</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>Ikte, %H:%M</seg></tuv>
+      <tuv xml:lang="sv"><seg>Igår, %H.%M</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>%e %B %Y, %H:%M</seg></tuv>
+      <tuv xml:lang="sv"><seg>%e %B%Y, %H.%M</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>Ale goassege</seg></tuv>
+      <tuv xml:lang="sv"><seg>Aldrig</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>Sáddejeaddji:</seg></tuv>
+      <tuv xml:lang="sv"><seg>Från:</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>Vuostáiváldi:</seg></tuv>
+      <tuv xml:lang="sv"><seg>Till:</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>%d %B %Y</seg></tuv>
+      <tuv xml:lang="sv"><seg>%d %B %Y</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>7zip</seg></tuv>
+      <tuv xml:lang="sv"><seg>7zip</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>ACE</seg></tuv>
+      <tuv xml:lang="sv"><seg>ACE</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>RAR</seg></tuv>
+      <tuv xml:lang="sv"><seg>RAR</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>Unity 2D</seg></tuv>
+      <tuv xml:lang="sv"><seg>Unity 2d</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>Apport</seg></tuv>
+      <tuv xml:lang="sv"><seg>Apport</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>Čájet bienaid</seg></tuv>
+      <tuv xml:lang="sv"><seg>Visa information</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>Joatkke</seg></tuv>
+      <tuv xml:lang="sv"><seg>Fortsätt</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>Sádde</seg></tuv>
+      <tuv xml:lang="sv"><seg>Skicka</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>(%i stávvala)</seg></tuv>
+      <tuv xml:lang="sv"><seg>(%i byte)</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>(binára dáhtaid)</seg></tuv>
+      <tuv xml:lang="sv"><seg>(binär data)</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>Gaskkalduhtte</seg></tuv>
+      <tuv xml:lang="sv"><seg>&amp;Avbryt</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>&amp;Nanne</seg></tuv>
+      <tuv xml:lang="sv"><seg>&amp;Bekräfta</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>Meattáhus: %s</seg></tuv>
+      <tuv xml:lang="sv"><seg>Fel: %s</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>&amp;Geargan</seg></tuv>
+      <tuv xml:lang="sv"><seg>&amp;Färdig</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>ii mihkkige</seg></tuv>
+      <tuv xml:lang="sv"><seg>inget</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>Meattáhus</seg></tuv>
+      <tuv xml:lang="sv"><seg>Fel</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>Ii beasa deikke</seg></tuv>
+      <tuv xml:lang="sv"><seg>Åtkomst nekad</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="se"><seg>y</seg></tuv>
+      <tuv xml:lang="sv"><seg>du behöver antingen göra en lokal åtgärd (-s, -g, -o) eller ange en autentiseringsfil (--auth); se --help för en kort hjälpy</seg></tuv>
+    </tu>
+  </body>
+</tmx>

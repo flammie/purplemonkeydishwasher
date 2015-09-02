@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<tmx version="1.4">
+<header creationdate="Wed Aug 20 19:36:20 2014"
+          srclang="et"
+          adminlang="et"
+          o-tmf="unknown"
+          segtype="sentence"
+          creationtool="Uplug"
+          creationtoolversion="unknown"
+          datatype="PlainText" />
+  <body>
+    <tu>
+      <tuv xml:lang="et"><seg>Hõlbustaja</seg></tuv>
+      <tuv xml:lang="sv"><seg>Accerciser</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Testi oma rakenduse abistava tehnika tuge</seg></tuv>
+      <tuv xml:lang="sv"><seg>Ge ditt program en omgång hjälpmedelsfunktioner</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Hõlbustaja - abistava tehnika sirvija</seg></tuv>
+      <tuv xml:lang="sv"><seg>Hjälpmedelsutforskaren Accerciser</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Alumise paneeli pluginate vaikimisi paigutus</seg></tuv>
+      <tuv xml:lang="sv"><seg>Standardlayouten för insticksmoduler för nederpanelen</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Ülemise paneeli pluginate vaikimisi paigutus</seg></tuv>
+      <tuv xml:lang="sv"><seg>Standardlayouten för insticksmoduler för överpanelen</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Vaikimisi keelatud pluginate loend</seg></tuv>
+      <tuv xml:lang="sv"><seg>En lista över insticksmoduler som är inaktiverade som standard</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Esiletõstmise kestus</seg></tuv>
+      <tuv xml:lang="sv"><seg>Markeringslängd</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Hõlbustuste valimisel esiletõstmise kestus</seg></tuv>
+      <tuv xml:lang="sv"><seg>Längden för markeringsrutan när hjälpmedelsnoder markeras</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Esiletõstmise äärise värvus</seg></tuv>
+      <tuv xml:lang="sv"><seg>Färg för markeringsram</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Esiletõstmise kasti äärise värvus ja katvus.</seg></tuv>
+      <tuv xml:lang="sv"><seg>Färg och opacitet för markeringsramen.</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Esiletõstmise täitevärvus</seg></tuv>
+      <tuv xml:lang="sv"><seg>Färg för markeringsfyllnad</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Esiletõstmise kasti täitevärvus ja selle katvus.</seg></tuv>
+      <tuv xml:lang="sv"><seg>Färg och opacitet för markeringsfyllnad.</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>API sirvija</seg></tuv>
+      <tuv xml:lang="sv"><seg>API-bläddrare</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Selle juurdepääsuvahendi erinevate meetodite sirvimine</seg></tuv>
+      <tuv xml:lang="sv"><seg>Bläddra bland olika metoder för aktuell hjälpmedelsfunktion</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Privaatrekvisiidid on peidus</seg></tuv>
+      <tuv xml:lang="sv"><seg>Dölj privata attribut</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Meetod</seg></tuv>
+      <tuv xml:lang="sv"><seg>Metod</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Omadus</seg></tuv>
+      <tuv xml:lang="sv"><seg>Egenskap</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Väärtus</seg></tuv>
+      <tuv xml:lang="sv"><seg>Värde</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>IPython'i konsool</seg></tuv>
+      <tuv xml:lang="sv"><seg>IPython-konsoll</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Interaktiivne konsool hetkel valitud hõlbustusega toimetamiseks</seg></tuv>
+      <tuv xml:lang="sv"><seg>Interaktiv konsoll för manipulering av aktuell markerad hjälpmedelsfunktion</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Sündmuste jälgija</seg></tuv>
+      <tuv xml:lang="sv"><seg>Händelseövervakare</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Sündmuste _jälgimine</seg></tuv>
+      <tuv xml:lang="sv"><seg>_Övervaka händelser</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>_Puhasta valik</seg></tuv>
+      <tuv xml:lang="sv"><seg>Tö_m markering</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Kõik</seg></tuv>
+      <tuv xml:lang="sv"><seg>Allting</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Valitud rakendus</seg></tuv>
+      <tuv xml:lang="sv"><seg>Markerat program</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Valitud hõlbustus</seg></tuv>
+      <tuv xml:lang="sv"><seg>Markerad hjälpmedelsfunktion</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Allikas</seg></tuv>
+      <tuv xml:lang="sv"><seg>Källa</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Sündmuste näitamine nagu need esinevad valitud liikides ja allikates</seg></tuv>
+      <tuv xml:lang="sv"><seg>Visar händelser när de inträffar från markerade typer och källor</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Viimase sündmuse kirje esiletõstmine</seg></tuv>
+      <tuv xml:lang="sv"><seg>Markera senaste händelsepost</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Sündmuste lindistamise alustamine või lõpetamine</seg></tuv>
+      <tuv xml:lang="sv"><seg>Starta/stoppa händelseinspelning</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Sündmuste logi puhtastamine</seg></tuv>
+      <tuv xml:lang="sv"><seg>Töm händelselogg</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Laste arv</seg></tuv>
+      <tuv xml:lang="sv"><seg>Antal barn</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>(kirjeldus puudub)</seg></tuv>
+      <tuv xml:lang="sv"><seg>(ingen beskrivning)</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Kirjeldus</seg></tuv>
+      <tuv xml:lang="sv"><seg>Beskrivning</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Olekud</seg></tuv>
+      <tuv xml:lang="sv"><seg>Tillstånd</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Näita</seg></tuv>
+      <tuv xml:lang="sv"><seg>Visa</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Suhted</seg></tuv>
+      <tuv xml:lang="sv"><seg>Relationer</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Rekvisiidid</seg></tuv>
+      <tuv xml:lang="sv"><seg>Attribut</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>_Ligipääsetav</seg></tuv>
+      <tuv xml:lang="sv"><seg>_Hjälpmedelsfunktion</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Tegevuse sooritamine</seg></tuv>
+      <tuv xml:lang="sv"><seg>Genomför åtgärd</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>_Tegevus</seg></tuv>
+      <tuv xml:lang="sv"><seg>Åtgä_rd</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>ID</seg></tuv>
+      <tuv xml:lang="sv"><seg>ID</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Tööriistad</seg></tuv>
+      <tuv xml:lang="sv"><seg>Verktygslåda</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Versioon</seg></tuv>
+      <tuv xml:lang="sv"><seg>Version</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>_Rakendus</seg></tuv>
+      <tuv xml:lang="sv"><seg>_Program</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>_Teek</seg></tuv>
+      <tuv xml:lang="sv"><seg>Sam_ling</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>0, 0</seg></tuv>
+      <tuv xml:lang="sv"><seg>0, 0</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Suhteline asukoht</seg></tuv>
+      <tuv xml:lang="sv"><seg>Relativ position</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Suurus</seg></tuv>
+      <tuv xml:lang="sv"><seg>Storlek</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>VIDIN</seg></tuv>
+      <tuv xml:lang="sv"><seg>WIDGET</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Kiht</seg></tuv>
+      <tuv xml:lang="sv"><seg>Lager</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>MDI-Z-järjekord</seg></tuv>
+      <tuv xml:lang="sv"><seg>MDI-Z-ordning</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Alfa</seg></tuv>
+      <tuv xml:lang="sv"><seg>Alfa</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Absoluutasukoht</seg></tuv>
+      <tuv xml:lang="sv"><seg>Absolut position</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>_Komponent</seg></tuv>
+      <tuv xml:lang="sv"><seg>Ko_mponent</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>_Töölaud</seg></tuv>
+      <tuv xml:lang="sv"><seg>S_krivbord</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Lokaat:</seg></tuv>
+      <tuv xml:lang="sv"><seg>Lokal:</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>_Dokument</seg></tuv>
+      <tuv xml:lang="sv"><seg>_Dokument</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Hüperlink</seg></tuv>
+      <tuv xml:lang="sv"><seg>Hyperlänk</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>_Hüpertekst</seg></tuv>
+      <tuv xml:lang="sv"><seg>H_ypertext</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Asukoht</seg></tuv>
+      <tuv xml:lang="sv"><seg>Position</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Lokaat</seg></tuv>
+      <tuv xml:lang="sv"><seg>Lokal</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>_Pilt</seg></tuv>
+      <tuv xml:lang="sv"><seg>_Bild</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>_Sisselogimise abiline</seg></tuv>
+      <tuv xml:lang="sv"><seg>Inlo_ggningshjälpare</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Vali kõik</seg></tuv>
+      <tuv xml:lang="sv"><seg>Markera allt</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>_Valik</seg></tuv>
+      <tuv xml:lang="sv"><seg>_Markering</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>_Voogedastatav sisu</seg></tuv>
+      <tuv xml:lang="sv"><seg>St_römmande innehåll</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Pealdis:</seg></tuv>
+      <tuv xml:lang="sv"><seg>Text:</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Kokkuvõte:</seg></tuv>
+      <tuv xml:lang="sv"><seg>Sammandrag:</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Valitud tulbad</seg></tuv>
+      <tuv xml:lang="sv"><seg>Markerade kolumner</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Valitud read</seg></tuv>
+      <tuv xml:lang="sv"><seg>Markerade rader</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Tulbad</seg></tuv>
+      <tuv xml:lang="sv"><seg>Kolumner</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Read</seg></tuv>
+      <tuv xml:lang="sv"><seg>Rader</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Tabeli andmed</seg></tuv>
+      <tuv xml:lang="sv"><seg>Tabellinformation</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>nimi (x,y)</seg></tuv>
+      <tuv xml:lang="sv"><seg>namn (x,y)</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Päis:</seg></tuv>
+      <tuv xml:lang="sv"><seg>Rubrik:</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Ulatus:</seg></tuv>
+      <tuv xml:lang="sv"><seg>Områden:</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Rida</seg></tuv>
+      <tuv xml:lang="sv"><seg>Rad</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Tulp</seg></tuv>
+      <tuv xml:lang="sv"><seg>Kolumn</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Valitud lahter</seg></tuv>
+      <tuv xml:lang="sv"><seg>Markerad cell</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>_Tabel</seg></tuv>
+      <tuv xml:lang="sv"><seg>_Tabell</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Tekst</seg></tuv>
+      <tuv xml:lang="sv"><seg>Text</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Nihe</seg></tuv>
+      <tuv xml:lang="sv"><seg>Offset</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Vaikimisi väärtuste kaasamine</seg></tuv>
+      <tuv xml:lang="sv"><seg>Inkludera standardvärden</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Algus: 0</seg></tuv>
+      <tuv xml:lang="sv"><seg>Start: 0</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Lõpp: 0</seg></tuv>
+      <tuv xml:lang="sv"><seg>Slut: 0</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Te_kst</seg></tuv>
+      <tuv xml:lang="sv"><seg>Te_xt</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Praegune väärtus</seg></tuv>
+      <tuv xml:lang="sv"><seg>Aktuellt värde</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Vähim kasv</seg></tuv>
+      <tuv xml:lang="sv"><seg>Minimal ökning</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Suurim vääruts</seg></tuv>
+      <tuv xml:lang="sv"><seg>Maximalt värde</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Vähim väärtus</seg></tuv>
+      <tuv xml:lang="sv"><seg>Minimalt värde</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>_Väärtus</seg></tuv>
+      <tuv xml:lang="sv"><seg>Vä_rde</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>tundmatu</seg></tuv>
+      <tuv xml:lang="sv"><seg>okänd</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Liidesenäitaja</seg></tuv>
+      <tuv xml:lang="sv"><seg>Gränssnittsvisare</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Liidese omaduste vaatamise lubamine</seg></tuv>
+      <tuv xml:lang="sv"><seg>Tillåter visning av olika gränssnittsegenskaper</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>(pole veel teostatud)</seg></tuv>
+      <tuv xml:lang="sv"><seg>(inte implementerad)</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Nimi</seg></tuv>
+      <tuv xml:lang="sv"><seg>Namn</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>URI</seg></tuv>
+      <tuv xml:lang="sv"><seg>URI</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Algus</seg></tuv>
+      <tuv xml:lang="sv"><seg>Start</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Lõpp</seg></tuv>
+      <tuv xml:lang="sv"><seg>Slut</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Liiga palju valitavaid lapsi</seg></tuv>
+      <tuv xml:lang="sv"><seg>För många valbara barn</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>(muudetav)</seg></tuv>
+      <tuv xml:lang="sv"><seg>(Redigerbar)</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Kiirmärkimine</seg></tuv>
+      <tuv xml:lang="sv"><seg>Snabbväljare</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Hõlbustuste kiirvalimise meetodite plugin.</seg></tuv>
+      <tuv xml:lang="sv"><seg>Insticksmodul med olika metoder för att välja hjälpmedelsfunktioner snabbt.</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Viimati fokuseeritud hõlbustuse läbivaatus</seg></tuv>
+      <tuv xml:lang="sv"><seg>Inspektera senaste fokuserad hjälpmedelsfunktion</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Hiire all oleva hõlbustuse läbivaatus</seg></tuv>
+      <tuv xml:lang="sv"><seg>Inspektera hjälpmedelsfunktion under muspekare</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Natiivne</seg></tuv>
+      <tuv xml:lang="sv"><seg>Original</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Dogtail</seg></tuv>
+      <tuv xml:lang="sv"><seg>Dogtail</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>LDTP</seg></tuv>
+      <tuv xml:lang="sv"><seg>LDTP</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Skripti liik</seg></tuv>
+      <tuv xml:lang="sv"><seg>Skripttyp</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Skripti lindistaja</seg></tuv>
+      <tuv xml:lang="sv"><seg>Skriptinspelare</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Loob dogtail keeles skripti</seg></tuv>
+      <tuv xml:lang="sv"><seg>Skapar dogtail-liknande skript</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Praegune skript läheb kaotsi.</seg></tuv>
+      <tuv xml:lang="sv"><seg>Det aktuella skriptet kommer att förloras.</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Kustutamise kinnitus</seg></tuv>
+      <tuv xml:lang="sv"><seg>Bekräfta tömning</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>S_keem:</seg></tuv>
+      <tuv xml:lang="sv"><seg>Sche_ma:</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Vali_deeri</seg></tuv>
+      <tuv xml:lang="sv"><seg>V_alidera</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Jõude</seg></tuv>
+      <tuv xml:lang="sv"><seg>Overksam</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Kirjeldus puudub</seg></tuv>
+      <tuv xml:lang="sv"><seg>Ingen beskrivning</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>AT-SPI validaator</seg></tuv>
+      <tuv xml:lang="sv"><seg>AT-SPI-validerare</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Rakenduse ligipääsetavuse valideerimine</seg></tuv>
+      <tuv xml:lang="sv"><seg>Validerar hjälpmedel i program</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Tase</seg></tuv>
+      <tuv xml:lang="sv"><seg>Nivå</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Roll</seg></tuv>
+      <tuv xml:lang="sv"><seg>Roll</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Salvestamine</seg></tuv>
+      <tuv xml:lang="sv"><seg>Sparar</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Valideerimine</seg></tuv>
+      <tuv xml:lang="sv"><seg>Validerar</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>ERAND</seg></tuv>
+      <tuv xml:lang="sv"><seg>UNDANTAG</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>VIGA</seg></tuv>
+      <tuv xml:lang="sv"><seg>FEL</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>HOIATUS</seg></tuv>
+      <tuv xml:lang="sv"><seg>VARNING</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>TEAVE</seg></tuv>
+      <tuv xml:lang="sv"><seg>INFO</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>SILUMINE</seg></tuv>
+      <tuv xml:lang="sv"><seg>FELSÖKNING</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Põhiline</seg></tuv>
+      <tuv xml:lang="sv"><seg>Grundläggande</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>GUI rakenduse põhiliste hõlbustuste testimine</seg></tuv>
+      <tuv xml:lang="sv"><seg>Testar grundläggande hjälpmedel i grafiska program</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>roll "%s" pole ei fokuseeritav ega ka märgitav</seg></tuv>
+      <tuv xml:lang="sv"><seg>åtgärdningsbara %s är inte fokusbar eller valbar</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>interaktiivsel rollil "%s" puudub tegevus</seg></tuv>
+      <tuv xml:lang="sv"><seg>interaktiva %s är inte åtgärdningsbar</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>rohkem kui üks fokuseeritud vidin</seg></tuv>
+      <tuv xml:lang="sv"><seg>fler än en fokuserad widget</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>rollil "%s" puudub tekstiliides</seg></tuv>
+      <tuv xml:lang="sv"><seg>%s har inget textgränssnitt</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>%s vanema indeks ei kattu lapse indeksiga</seg></tuv>
+      <tuv xml:lang="sv"><seg>%s index i förälder matchar inte barnindex</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Puudub %s pöördsuhe</seg></tuv>
+      <tuv xml:lang="sv"><seg>Saknar mottagare för %s-förhållande</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>rollil "%s" puudub nimi või silt</seg></tuv>
+      <tuv xml:lang="sv"><seg>%s saknar namn eller etikett</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>fokuseeritaval %s-l on tabeli liides, aga pole valimise liidestbutton has focused state without focusable state</seg></tuv>
+      <tuv xml:lang="sv"><seg>fokusbar %s har tabellgränssnitt, inget valgränssnittbutton has focused state without focusable state</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>%s-l on %s olek ilma %s olekuta</seg></tuv>
+      <tuv xml:lang="sv"><seg>%s har tillståndet %s utan tillståndet %s</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>%s ei kuulu ühtegi komplekti</seg></tuv>
+      <tuv xml:lang="sv"><seg>%s tillhör inte en uppsättning</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>rolli "%(rolename)s" indeks %(num)d pole ühegi rea ega veeruga vastavusesparent indexrow and column index</seg></tuv>
+      <tuv xml:lang="sv"><seg>%(rolename)s index %(num)d matchar inte rad och kolumnparent indexrow and column index</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>%(rolename)s vanema indeks %(num1)d ei kattu rea ja tulba indeksiga %(num2)d</seg></tuv>
+      <tuv xml:lang="sv"><seg>%(rolename)s föräldraindex %(num1)d matchar inte rad- och kolumnindex %(num2)d</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>rollil "%s" pole nime või kirjeldust</seg></tuv>
+      <tuv xml:lang="sv"><seg>%s har inget namn eller beskrivning</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>_Eelistused...</seg></tuv>
+      <tuv xml:lang="sv"><seg>_Inställningar...</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>_Sisu</seg></tuv>
+      <tuv xml:lang="sv"><seg>_Innehåll</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Hõlbustaja ei näe sinu töölaual olevaid rakendusi. Selle vea kõrvaldamiseks tuleb lubada abistav tehnika. Kas tahad selle kohe lubada?</seg></tuv>
+      <tuv xml:lang="sv"><seg>Accerciser kunde inte se programmen på ditt skrivbord. Du måste aktivera hjälpmedelsfunktioner för skrivbordet för att rätta till det här problemet. Vill du aktivera den nu?</seg></tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="et"><seg>Märkus: see rakendub alles pärast väljalogimist.</seg></tuv>
+      <tuv xml:lang="sv"><seg>Observera: Eventuella ändringar blir aktiverade efter utloggning.</seg></tuv>
+    </tu>
+  </body>
+</tmx>
