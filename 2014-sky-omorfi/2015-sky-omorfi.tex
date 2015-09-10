@@ -179,59 +179,53 @@ basic unigram probabilities of word-forms composed\footnote{using the
 likelihood-based automata} over the analyser from a corpus.  This brings the
 traditional rule-based language analyser towards the statistical language
 analysers that are widely popular in the handling of morphologically less
-complex languages.
+complex languages. A diagram of the combination is shown in 
+figure~\ref{fig:combo}, the figure is much simplified version of real
+implementation to show how few forms of select words interact in the system, the
+statistical component also omits the existence of known compounds to simplify
+the presentation. The flow of the system is following: from database we generate
+a rule based analyser, which is created as a finite.state automaton using
+standard \textit{Finite State Morphology}~\citep{beesley2003finite}. The
+statistical data is counted from the corpora, and applied over the automaton
+using the formula by~\cite{pirinen}.
 
-A rule-based analyser is implemented based on the classification of the words
-by their inflectional patterns. The patterns in Finnish are based on two parts:
-stem variations and suffix allomorphs. The classified dictionary words are
-stripped of their varying stem parts, and then concatenated with the variations
-and then stems by means of standard finite-state morphology. E.g. dictionary
-word \emph{vesi} `water' has stem variation in \emph{-si} $\sim$ \emph{-te-}
-$\sim$ \emph{-de-} $\sim$ \emph{-t-}, and respectively suffixes $\emptyset$
-(nominative) $\sim$ \emph{-nä} (essive, `as water') $\sim$ \emph{-ssä}
-(inessive `in water')  $\sim$ \emph{-tä} (partitive, roughly `of water')
-arranged in morph sublexicons\footnote{the word morph is used here on purpose
-    as opposed to morpheme because the default implementation has no
-morphophonemic level whatsoever} as in \emph{Finite State
-Morphology}~\citep{beesley2003finite}. Shortly said, such finite-state
-formulation of morphotactics is a set of disjunctions of paths in the automaton
-representing the morphs. The morphs are extended by their classifications, and
-the morphotactic rules over classifications are enforced using composition
-operation, such as: noun root morphs are followed by case morphs and then
-optionally possessives and clitics~\citep{hfst2012}. The practical
-implementation is thus based on a database of morphs (including root morphs)
-and their combinatorics, converted into lexc~\citep{beesley2003finite}
-structure, and combiled with \texttt{hfst-lexc} into a finite-state automaton.
-No morphophonology or variation rules are applied in the process, while
-database has some morphophonological representations available, there has not
-been seen a need to use them with current set of applications as the simple
-morph-concatenations seem to describe the system accurately.
+The implementation of finite-state morphology in omorfi is based on arrangement
+of stems, stem variations and suffix morphs, without intermediate
+morphographemic processing. This relies on word classification to include data
+about stem patterns and vowel harmony for example. The classified dictionary
+words are stripped of their varying stem parts, and then concatenated with the
+variations and then stems by means of standard finite-state morphology. E.g.
+in figure~\ref{fig:combo} we have a dictionary word 
+\emph{vesi} `water' with stem variation in \emph{-si} $\sim$
+\emph{-de-}, and respectively suffixes
+$\emptyset$ (nominative) $\sim$ \emph{-n} (genitive, `water's') $\sim$
+\emph{-ssä} (inessive `in water')  $\sim$ \emph{-stä} (elative, ´from
+water').
 
-The baseline statistical methods for morphological models are applied here in a
-straight-forward manner; get the likelihood $P(w)$ for the surface form $w$, by
-counting the amount of word-forms $f(w)$ in a corpus and divide it by the
-number of word-forms in the whole corpus $CS$: $P(w) = \frac{f(w)}{CS}$.  To
-get around the problems with the probability of $0$ for unseen word-forms, we
-use additive smoothing~\citep{chen1999empirical}, which estimates likelihood of
-each type as $1$ larger than it is and size of corpus as number of types
-larger. The acquired likelihoods are combined to the rule-based morphological
-analyser using basic finite-state composition of the weighted disjuncted
-word-form paths over the surface side of the analyser. Possible extension to
-that comes from the recent research on training of the compounding language
-models~\citep{pirinen2009weighting} to use the estimation of the compound words
-by their parts. This means that given unseen compound \emph{banaaniovi} `banana
-door', the estimated likelihood is $P(\mathrm{banaani}) \times
-P(\mathrm{ovi})$, rather than $P(\mathrm{banaaniovi})$. One of the slightly
-surprising results of such training is that in case of ambiguous compounds, the
-analyser will systematically prefer the ones with least words. The current
-version provides an application of surface weights like these as an option,
-given a suitable corpus is provided during compilation. Similarly given a
-corpus of disambiguated analyses, the same form of probabilities could be
-applied on the analyser for the full analysis strings, or part of them in
-similar manner to create a baseline disambiguating analyser. The inclusion of
-statistically weighted analyses in omorfi versions may be dependent on user
-obtaining suitable training corpus, by default, the current version of the time
-of writing provides rough hand-calculated estimations.
+The baseline statistical methods for morphological models are applied over the
+finite-state formulation within the same framework as shown in the example in
+figure~\ref{fig:combo}.  The formulation is
+schoolbook unigram training (c.f.~\cite{manning}): get the likelihood $P(w)$
+for the surface form $w$, by counting the amount of word-forms $f(w)$ in a
+corpus and divide it by the number of word-forms in the whole corpus $CS$:
+$P(w) = \frac{f(w)}{CS}$.  To get around the problems with the probability of
+$0$ for unseen word-forms, we use additive smoothing~\citep{chen1999empirical},
+which estimates likelihood of each type as $1$ larger than it is and size of
+corpus as number of types larger. The acquired likelihoods are combined to the
+finite-state morphological analyser producing a weighted finite-state
+morphological analyser capable of producing both analyses and their likelihoods
+as shown in the last frame of figure~\ref{fig:combo}.
+
+The current version of omorfi at the time of writing provides an application of
+surface weights like these as an option, given a suitable corpus is provided
+during compilation. Similarly given a corpus of disambiguated analyses, the
+same form of probabilities could be applied on the analyser for the full
+analysis strings, or part of them in similar manner to create a baseline
+disambiguating analyser. The inclusion of statistically weighted analyses in
+omorfi versions may be dependent on user obtaining suitable training corpus, by
+default, the current version of the time of writing provides rough
+hand-calculated estimations. With both methods, the analysis can be
+disambiguated using likelihood-aware constraint grammars~\cite{}.
 
 \section{Data}
 \label{sec:data}
