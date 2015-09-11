@@ -40,3 +40,11 @@ fiwiki-$(FIWIKIDATE)-pages-articles.xml.bz2:
 
 %.omors: %.text
 	apertium-destxt < $< | hfst-proc morphology.omor.hfst --xerox > $@
+
+
+%.pdf: %.dia
+	dia $< -e $@
+
+%-crop.pdf: %.pdf
+	pdfcrop --margins "0 0 0 300" -clip $< $@
+
