@@ -27,7 +27,7 @@
 
 
 \title{Development and Use of Computational Morphology of Finnish in
-the Open Source and Open Science Era---Case Study of omorfi}
+the Open Source, Crowd-Sourced Era}
 \iffinal
 \author{Tommi A Pirinen \\
     Dublin City University\\
@@ -95,7 +95,7 @@ documentation of technical kind, the project web site is the place to go:
 The scientific advances within development of various features and facets of
 omorfi has been documented in scientific publications in various fora. The
 main advance to previous systems is the introduction of statistical language
-parsing component (c.f.~\citet[for basic introduction]{manning}). This has
+parsing component (c.f.~\citet[for basic introduction]{manning1999foundations}). This has
 some interesting implications to the analyses, especially as it is coupled
 with the large coverage lexicon, e.g. while previously manual effort has
 been spend to avoid productive compounding from creating non-sensical
@@ -127,19 +127,20 @@ unrelated and written from the scratch, omorfi was created in the context of
 University of Helsinki, parallel to a project to update, open-source and
 maintain similar software as the one used in
 FITWOL~\citep{hfst2012}.\footnote{\url{http://hfst.sf.net}} Omorfi started  as
-a master's thesis project~\citep{pirinen2008} based on newly released open
-source word list from kotus.\footnote{Nykysuomen sanalista,
+a master's thesis project~\citep{pirinen2008suomen} based on the newly released
+open source word list from kotus at the time.\footnote{Nykysuomen sanalista,
 \url{http://kaino.kotus.fi/sanat/nykysuomi}} Many of scientific advances made
 by research groups in language technology department of University of Heĺsinki
 have directly or indirectly affected omorfi. The research on sub-word
-\(n\)-gram models~\citep{pirinen,} has been transferred to omorfi compound
-disambiguation schemes. The methodology for semi-automatic lexical data
-harvesting~\citep{linden} has been largely influential on gathering of the huge
-lexical database in omorfi. The work on software-engineering aspects of
-maintenance of computational linguistics software~\cite{} is based on
-experiences with omorfi. Finally, the work on coupling statistical and
-rule-based approaches for disambiguation~\citep{} was based on grammar and
-parsing approach by~\citet{}, and is included in the recent versions of omorfi.
+\(n\)-gram models~\citep{pirinen2009weighted,pirinen2009weighting} has been
+transferred to omorfi compound disambiguation schemes. The methodology for
+semi-automatic lexical data harvesting, e.g.
+by~\citep{linden2008probabilistic}, has been largely influential on gathering
+of the huge lexical database in omorfi. Finally, the work on coupling
+statistical and rule-based approaches for
+disambiguation~\citep{pirinen2015using}, based on a grammar and a parsing
+approach by~\citet{karlsson1995constraint}, and is included in the recent
+versions of omorfi.
 
 There have been competing and complementary approaches to computational
 parsing of Finnish. For example, in machine learning,
@@ -159,25 +160,25 @@ paradigms. For this reason, it is hard to directly compare these two
 approaches, at all. On the other hand, statistical language parsing systems
 have been built on top of omorfi that go far and beyond the language parsing
 capabilities of a morphological parser, such as the universal dependency
-parser of Finnish̃~\cite{UDfinnishnodalida}.
+parser of Finnish̃~\cite{pyysalo2015universal}.
 
-One source of development in related works is the applications, omorfi has
-been used in many real-world scientific applications to handle Finnish
-language.  For example spell-checking~\citep{pirinen2014weighted}, language
+One source of development in related works is the applications, omorfi has been
+used in many real-world scientific applications to handle Finnish language.
+For example spell-checking~\citep{pirinen2014weighted}, language
 generation~\citep{toivanen2012corpus}, machine
-translation~\citep{clifton2011combining,toral2015abumatran}, and statistical
+translation~\citep{clifton2011combining,rubino2015abumatran}, and statistical
 language modelling~\citep{haverinen2013building,bohnet2013joint}. On top of
-adding lexical data and statistical models, the vast array of applications
-has necessitated for omorfi to take strong software engineering best common
-practices in use, in order to keep different end-applications usable. This
-is one of the key developments we wish to highlight in this article, the
-concept of continuous development by cooperation of computer scientists,
-linguists and common crowds via crowd-sourcing is as far as we know unique
-and underdocumented for such a long-term free and open-source project as
-omorfi is.  Some of the prior notes to this mode of development with
-computational linguistics has been documented by~\citet{maxwell}, and
-we have done our best to adapt and extend it to large open source
-development setting described in this article.
+adding lexical data and statistical models, the vast array of applications has
+necessitated for omorfi to take strong software engineering best common
+practices in use, in order to keep different end-applications usable. This is
+one of the key developments we wish to highlight in this article, the concept
+of continuous development by cooperation of computer scientists, linguists and
+common crowds via crowd-sourcing is as far as we know unique and
+underdocumented for such a long-term free and open-source project as omorfi is.
+Some of the prior notes to this mode of development with computational
+linguistics has been documented by~\citet{maxwell2008joint}, and we have done
+our best to adapt and extend it to large open source development setting
+described in this article.
 
 
 
@@ -202,10 +203,10 @@ the presentation. The flow of the system is following: from database we generate
 a rule based analyser, which is created as a finite.state automaton using
 standard \textit{Finite State Morphology}~\citep{beesley2003finite}. The
 statistical data is counted from the corpora, and applied over the automaton
-using the formula by~\cite{pirinen}.
+using the formula by~\cite{pirinen2009weighted}.
 
 \begin{figure}[tb!]
-    \includegraphics[scale=0.9,clip,trim=0 333 0 0]{combo-crop}
+    \includegraphics[scale=0.9,clip,trim=0 300 0 0]{combo-crop}
     \caption{Diagram of omorfi technology showing one word example for
         database, analyser and statistical training. In finite-state
         representation, the double circle marks the end state, and the arrow
@@ -235,7 +236,7 @@ new words for compounding where applicable.
 The baseline statistical methods for morphological models are applied over
 the finite-state formulation within the same framework, as is shown in the
 example in figure~\ref{fig:combo}.  The formulation we use is the schoolbook
-unigram training (c.f.~\cite{manning}): get the likelihood $P(w)$ for the
+unigram training (c.f.~\cite{manning1999foundations}): get the likelihood $P(w)$ for the
 surface form $w$, by counting the amount of word-forms $f(w)$ in a corpus
 and divide it by the number of word-forms in the whole corpus $CS$: $P(w) =
 \frac{f(w)}{CS}$.  To get around the problems with the probability of $0$
@@ -257,7 +258,7 @@ analyses in omorfi versions may be dependent on user obtaining suitable
 training corpus, by default and in the experiments of this article, omorfi
 includes rough manually estimated likelihoods. With both methods, the
 analysis can be disambiguated using likelihood-aware constraint
-grammars~\cite{pirinen2014}.
+grammars~\cite{pirinen2015using}.
 
 \section{Data}
 \label{sec:data}
@@ -458,7 +459,7 @@ course these are all plausible additions for morphological analyser as well.
 This shows a well-known effect of Zipfian distribution of language data:
 since rare word-forms and phenomena get exponentially rarer, the effect of
 collecting and classifying further lexemes will be insignificantly small
-(see also~\cite{manning?}). For applications requiring higher, potentially
+(compare to~\cite{manning2011part}). For applications requiring higher, potentially
 100~\% coverage, using guessing techniques, e.g. \citet{}, should be
 investigated.
 
