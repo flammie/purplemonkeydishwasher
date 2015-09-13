@@ -4,9 +4,11 @@
 TEX=xelatex
 BIB=bibtex
 
+FIGS=combo-crop.pdf
+
 all: 2015-sky-omorfi.pdf
 
-%.pdf: %.tex skyomorfi2015.bib
+%.pdf: %.tex skyomorfi2015.bib $(FIGS)
 	$(TEX) $<
 	$(BIB) $*
 	$(TEX) $<
