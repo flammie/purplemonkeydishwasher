@@ -24,6 +24,7 @@
 \usepackage{titlesec}
 
 \titleformat*{\section}{\bfseries}
+\titleformat*{\subsection}{\bfseries}
 
 
 \title{Development and Use of Computational Morphology of Finnish in
@@ -69,21 +70,27 @@ Development}
 
 \section{Introduction}
 
-Computational morphological models are a central component for most of the
-computational applications of linguistic analysis. Computational morphology
-of the Finnish language was first described some 30 years
-ago~\citep{koskenniemi1983twolevel}. The aim of this article is to present
-omorfi\footnote{
-\url{https://github.com/flammie/omorfi/}} as a matured scientific project involving contributions from
-scientific community as well as crowd-sourced lexicographical additions, as
-a full-fledged project for managing lexicographical database on one hand and
-its natural language parser on the other hand. We will discuss our approach
-to the task and examine the differences of our current approach to
-traditional systems, and highlight some of the new development in the
-parser, especially in the point of view of a system that is usable for
-linguists and end-users. The new development that we discuss is mainly in
-line with the recent trends in the field of computational linguistics. We
-also present some of the current use-cases of the system.
+Computational morphological models are a central
+component for most of the computational applications
+of linguistic analysis. Computational morphology of
+the Finnish language was first described some 30
+years ago~\citep{koskenniemi1983twolevel}. The aim
+of this article is to present omorfi\footnote{
+\url{https://github.com/flammie/omorfi/}} as a
+matured scientific project involving contributions
+from scientific community as well as crowd-sourced
+lexicographical additions, as a full-fledged project
+for managing lexicographical database on one hand
+and its natural language parser on the other hand.
+We will discuss our approach to the task and examine
+the differences of our current approach to
+traditional systems, and highlight some of the new
+development in the parser, especially in the point
+of view of a system that is usable for linguists and
+end-users. The new development that we bring to
+focus im this article consists of two items: the
+inter-operation of statistical and rule-based
+parsing methods and the open development model.
 
 This article is also a scientific documentation of the state-of-the-art
 morphological analysis of Finnish. To that goal, we have made an attempt to
@@ -93,17 +100,21 @@ by a base of open-source and language enthusiasts.\footnote{for up-to-date
 documentation of technical kind, the project web site is the place to go:
 \url{https://github.com/flammie/omorfi/wiki}}.
 
-The scientific advances within development of various features and facets of
-omorfi has been documented in scientific publications in various fora. The
-main advance to previous systems is the introduction of statistical language
-parsing component (c.f.~\citet[for basic introduction]{manning}). This has
-some interesting implications to the analyses, especially as it is coupled
-with the large coverage lexicon, e.g. while previously manual effort has
-been spend to avoid productive compounding from creating non-sensical
-readings, we now rely more on statistics to discount them. Omorfi's lexical
-database has been partially made possible by another new development aspect,
-that is, \textit{crowd-sourcing} lexicography via sites like
-Wiktionary.\footnote{\url{http://fi.wiktionary.org}}
+The scientific advances within the development of
+the various features of omorfi have been documented
+in scientific publications in various fora. The main
+advance to previous systems is the introduction of
+statistical language parsing component
+(c.f.~\citet[for basic
+introduction]{manning1999foundations}), including
+it's combination with traditional rule-based model.
+To another point, this is, to our knowledge, one of
+the only on-going, mature, high-coverage
+statistical-rule based finite-state natural language
+parser, developed and used jointly by scientists,
+engineers and open source contributors via
+crowd-sourcing.
+
 
 One notable practical distinction in our system is its licensing policy. Omorfi
 analyser is a free and open source product.  In contemporary computational
@@ -113,34 +124,48 @@ not setting unnecessary fences for the repetition of the scientific results.
 There is a large base of recent research supporting this, specifically for
 Finnish the latest is by~\citet{koskenniemi2008build}. For computer-savvy end
 users this means that the tools necessary to perform linguistic analysis with
-omorfi can be downloaded to and used on any average PC. We have also one
+omorfi can be downloaded to and used on any average PC. There is an
 installation in the data centers of CSC maintained by CSC
-staff,\footnote{\url{http://www.csc.fi/english/research/sciences/linguistics}},
-that is usable for researchers by application.
+staff,\footnote{\url{http://www.csc.fi/english/research/sciences/linguistics}}
+that is available for researchers.
 
 \section{Prior and Related Work}
 \label{sec:prior-work}
 
-Omorfi is based on solid tradition of writing rule-based computational
-descriptions for Finnish. The theoretical framework was laid out by
-\citet{koskenniemi1983twolevel}, and while the implementation is completely
-unrelated and written from the scratch, omorfi was created in the context of
-University of Helsinki, parallel to a project to update, open-source and
-maintain similar software as the one used in
-FITWOL~\citep{hfst2012}.\footnote{\url{http://hfst.sf.net}} Omorfi started  as
-a master's thesis project~\citep{pirinen2008} based on newly released open
-source word list from kotus.\footnote{Nykysuomen sanalista,
-\url{http://kaino.kotus.fi/sanat/nykysuomi}} Many of scientific advances made
-by research groups in language technology department of University of Heĺsinki
-have directly or indirectly affected omorfi. The research on sub-word
-\(n\)-gram models~\citep{pirinen,} has been transferred to omorfi compound
-disambiguation schemes. The methodology for semi-automatic lexical data
-harvesting~\citep{linden} has been largely influential on gathering of the huge
-lexical database in omorfi. The work on software-engineering aspects of
-maintenance of computational linguistics software~\cite{} is based on
-experiences with omorfi. Finally, the work on coupling statistical and
-rule-based approaches for disambiguation~\citep{} was based on grammar and
-parsing approach by~\citet{}, and is included in the recent versions of omorfi.
+Omorfi is based on the tradition of finite-state
+morphologies, a theoretical framework laid out by
+\citet{koskenniemi1983twolevel}. While our
+implementation is not directly related and was
+written from the scratch, omorfi was created in the
+context of University of Helsinki, parallel to a
+project to update, open-source and maintain
+software, similar to the one used in FITWOL and its
+followups~\citep{hfst2012}.\footnote{\url{http://hfst.sf.net}}
+Omorfi roots are in a master's thesis
+project~\citep{pirinen2008suomen} based on the newly
+released open source word list from kotus at the
+time.\footnote{Nykysuomen sanalista,
+\url{http://kaino.kotus.fi/sanat/nykysuomi}} From a
+typical single-author project of that time, omorfi
+has  been developed large coverage multi-author
+project with crowd-sourced lexical data sources.
+
+Many of scientific advances made by research groups
+in language technology department of University of
+Helsinki have directly or indirectly affected
+omorfi. The research on sub-word \(n\)-gram
+models~\citep{pirinen2009weighted,pirinen2009weighting}
+has been transferred to omorfi compound
+disambiguation schemes. The methodology for
+semi-automatic lexical data harvesting, e.g.
+by~\citep{linden2008probabilistic}, has been largely
+influential on gathering of the huge lexical
+database in omorfi. Finally, the work on coupling
+statistical and rule-based approaches for
+disambiguation~\citep{pirinen2015using}, based on a
+grammar and a parsing approach
+by~\citet{karlsson1995constraint}, and is included
+in the recent versions of omorfi.
 
 There have been competing and complementary approaches to computational
 parsing of Finnish. For example, in machine learning,
@@ -150,7 +175,7 @@ learning from Wiktionary data will create an analyser with recall in
 prediction of inflected word-forms in the ballpark of 83---87~\%, However,
 their goal was to learn to predict Wiktionary's example inflection table's
 28 forms per noun and 53 forms per verb, and they only performed intrinsic
-evaluation on held-out Wiktionary pages. Our approach to usage of Wiktionary
+evaluation on held-out Wiktionary pages. Our approach to the usage of Wiktionary
 data is to collect the lexemes and their inflectional patterns already
 confirmed and written down by human language users,\footnote{in our opinion,
 trying to machine learn data that is already available and verified by
@@ -160,25 +185,33 @@ paradigms. For this reason, it is hard to directly compare these two
 approaches, at all. On the other hand, statistical language parsing systems
 have been built on top of omorfi that go far and beyond the language parsing
 capabilities of a morphological parser, such as the universal dependency
-parser of Finnish̃~\cite{UDfinnishnodalida}.
+parser of Finnish~\cite{pyysalo2015universal}.
 
-One source of development in related works is the applications, omorfi has
-been used in many real-world scientific applications to handle Finnish
-language.  For example spell-checking~\citep{pirinen2014weighted}, language
+One source of development in related works is the
+applications, omorfi has been used in many
+real-world scientific applications to handle Finnish
+language.  For example
+spell-checking~\citep{pirinen2014weighted}, language
 generation~\citep{toivanen2012corpus}, machine
-translation~\citep{clifton2011combining,toral2015abumatran}, and statistical
-language modelling~\citep{haverinen2013building,bohnet2013joint}. On top of
-adding lexical data and statistical models, the vast array of applications
-has necessitated for omorfi to take strong software engineering best common
-practices in use, in order to keep different end-applications usable. This
-is one of the key developments we wish to highlight in this article, the
-concept of continuous development by cooperation of computer scientists,
-linguists and common crowds via crowd-sourcing is as far as we know unique
-and underdocumented for such a long-term free and open-source project as
-omorfi is.  Some of the prior notes to this mode of development with
-computational linguistics has been documented by~\citet{maxwell}, and
-we have done our best to adapt and extend it to large open source
-development setting described in this article.
+translation~\citep{clifton2011combining,rubino2015abumatran},
+and statistical language
+modelling~\citep{haverinen2013building,bohnet2013joint}.
+On top of adding lexical data and statistical
+models, the vast array of applications has
+necessitated for omorfi to take strong software
+engineering best common practices in use, in order
+to keep different end-applications usable. This is
+one of the key developments we wish to highlight in
+this article, the concept of continuous development
+by cooperation of computer scientists, linguists and
+common crowds via crowd-sourcing is as far as we
+know unique and underdocumented for such a long-term
+free and open-source project as omorfi is.  The
+development by linguists and language technologists
+has been studied, e.g. by~\citet{maxwell2008joint},
+and we have done our best to adapt and extend it to
+large open source development setting described in
+this article.
 
 
 
@@ -186,34 +219,49 @@ development setting described in this article.
 \section{Methods}
 \label{sec:methods}
 
-The implementation of our analyser follows the traditional works on finite-state
-morphology by~\citet{beesley2003finite}. On top of that we have applied recent
-extensions from the research of finite-state morphology, such as weighted
-finite-state methods~\citep{openfst,hfst2012}. What this means in practice is
-basic unigram probabilities of word-forms composed\footnote{using the
-    finite-state algebra operation composition that is well-defined in terms of
-likelihood-based automata} over the analyser from a corpus.  This brings the
-traditional rule-based language analyser towards the statistical language
-analysers that are widely popular in the handling of morphologically less
-complex languages. A diagram of the combination is shown in 
-figure~\ref{fig:combo}, the figure is much simplified version of real
-implementation, just to show how few forms of select words interact in the system, the
-statistical component also omits the existence of known compounds to simplify
-the presentation. The flow of the system is following: from database we generate
-a rule based analyser, which is created as a finite.state automaton using
-standard \textit{Finite State Morphology}~\citep{beesley2003finite}. The
-statistical data is counted from the corpora, and applied over the automaton
-using the formula by~\cite{pirinen}.
+The implementation of our analyser follows the
+traditional works on \textit{Finite State
+Morphology} by~\citet{beesley2003finite}. On top of
+that we have applied recent extensions from the
+research of finite-state morphology, such as
+weighted finite-state
+methods~\citep{openfst,hfst2012}. What this means in
+practice is basic unigram probabilities of
+word-forms composed\footnote{using the finite-state
+algebra operation composition that is well-defined
+in terms of weighted automata} over the analyser
+from a corpus.  Finally, probabilities are used in
+conjunction with constraint grammar rules to
+disambiguate.  This brings the traditional
+rule-based language analyser towards the statistical
+language analysers that are widely popular in the
+handling of morphologically less complex languages.
+A diagram of the combination is shown in
+figure~\ref{fig:combo}, the figure is much
+simplified version of real implementation, just to
+show how few forms of select words interact in the
+system, the statistical component also omits the
+existence of known compounds to simplify the
+presentation. The flow of the system is following:
+from database we generate a rule based analyser. The
+statistical data is counted from the corpora, and
+applied over the automaton using the formula
+by~\cite{pirinen2009weighted}. The resulting
+automaton is used to analyse word-forms and the
+sentence context is used by constraint grammar to
+further select the best analyses.
 
 \begin{figure}[tb!]
-    \includegraphics[scale=0.9,clip,trim=0 333 0 0]{combo-crop}
-    \caption{Diagram of omorfi technology showing one word example for
-        database, analyser and statistical training. In finite-state
-        representation, the double circle marks the end state, and the arrow
-        leading away from the figure is cropped out of the example. The
-        letter automata format is combined to longer strings to compact
-        the representation.
-    \label{fig:combo}}
+    \includegraphics[scale=0.9,clip,trim=0 300 0 0]{combo-crop}
+    \caption{Diagram of omorfi technology showing a
+        few example words and forms in the database,
+        analyser and statistical training. In
+        finite-state representation, the double
+        circle marks the end state, and the arrow
+        leading away from the figure is cropped out
+        of the example. The substrings in automaton
+        are compacted to single transitions where
+    possible. \label{fig:combo}}
 \end{figure}
 
 The implementation of finite-state morphology in omorfi is based on
@@ -236,7 +284,7 @@ new words for compounding where applicable.
 The baseline statistical methods for morphological models are applied over
 the finite-state formulation within the same framework, as is shown in the
 example in figure~\ref{fig:combo}.  The formulation we use is the schoolbook
-unigram training (c.f.~\cite{manning}): get the likelihood $P(w)$ for the
+unigram training (c.f.~\cite{manning1999foundations}): get the likelihood $P(w)$ for the
 surface form $w$, by counting the amount of word-forms $f(w)$ in a corpus
 and divide it by the number of word-forms in the whole corpus $CS$: $P(w) =
 \frac{f(w)}{CS}$.  To get around the problems with the probability of $0$
@@ -258,61 +306,31 @@ analyses in omorfi versions may be dependent on user obtaining suitable
 training corpus, by default and in the experiments of this article, omorfi
 includes rough manually estimated likelihoods. With both methods, the
 analysis can be disambiguated using likelihood-aware constraint
-grammars~\cite{pirinen2014}.
+grammars~\cite{pirinen2015using}.
 
 \section{Data}
 \label{sec:data}
 
 There are a few freely available open resources for lexicographical data of
-Finnish. The first one  we used is based on a dictionary maintained by
-(Research) institute of languages in Finland (RILF). The lexicographical data
-of the dictionary has been available under free software licence LGPL since
-2007 as \textit{Nykysuomen
-sanalista.}\footnote{\url{http://kaino.kotus.fi/sanat/nykysuomi}}.  The second
-source of lexical data we acquired from the internet is a free, open source
-database named
-\textit{Joukahainen.}\footnote{\url{http://joukahainen.puimula.org}}  For another
-source of lexical data we use the popular crowd-sourced \textit{Wiktionary}
-project.  Finally, we have used data that has been produced for various
-projects at university of Helsinki, including other lexical projects, such as
-FinnWordNet~\citep{linden2010finnwordnet}.\footnote{The primary sources for
-lexical data used in these projects include Europarl corpus and English
-Wordnet.  The overlap between this and our experimental evaluation data is
-minimal.} 
+Finnish. The first one we used is based on lexicographical data of the
+dictionary from institute of languages of Finland, that has been available
+under free software licence GNU LGPL since 2007, in a column titled
+\textit{Kotus}\footnote{\url{http://kaino.kotus.fi/sanat/nykysuomi}}.  The
+second source of lexical data we acquired from the internet is a free, open
+source database named
+\textit{Joukahainen.}\footnote{\url{http://joukahainen.puimula.org}} For
+another source of lexical data we use the popular crowd-sourced
+\textit{Wiktionary} project.  We have used data from
+\textit{FinnWordNet}~\citep{linden2010finnwordnet}, as well as gathered data
+from students and various yet unpublished projecst of University of Helsinki,
+and finally a number of contributors within project have added word-forms and
+attributes specifically for \textit{omorfi} using semi-automatic and manual
+approaches. The current dictionary includes 424,259 lexemes, classified in over
+17 categories, including semantic features like biological gender, proper noun
+categories as well as morphosyntactic features like argument structures and
+defective paradigms.\footnote{figures change nearly weekly, up-to-date
+information is on the project web site}
 
-The full lexical data used in the current version of our analyser consists of
-396,673 classified lexemes, the classification is roughly summarised by word's
-classes and their origin in table~\ref{table:lexical}. 
-
-\begin{table}
-    \begin{scriptsize}
-  \centering
-    \begin{tabular}{|l|r|r|r|r||r|}
-        \hline
-        \bf Database: & Kotus & Joukahainen & Wiktionary & UH & \bf Total \\
-        \bf Class   & & & & & \\
-        \hline
-        Adjectives     & 10,537 & 652   & 59    & 6,368   & 17,616  \\
-        Nouns          & 67,608 & 2,945 & 1,133 & 1,589   & 73,275  \\
-        (Proper nouns) & 20     & 5,394 & 70    & 262,330 & 267,814 \\
-        Verbs          & 9,685  & 476   & 12    & 499     & 10,672  \\
-        Others         & 6620   & 5     & 12    & 25,536  & 32,173  \\
-        \hline
-        \bf Total      & 94,290 & 9,472 & 1,286 & 296,322 & 396,637 \\
-        \hline
-    \end{tabular}
-  \caption{Lexical data used in the analyser.  The columns are the lexical
-      sources used: Nykysuomen sanalista in column titled \textit{Kotus} (RILF),
-      \textit{Joukahainen}, \textit{Wiktionary}, terms harvested in various
-      research project in University of Helsinki in column titled \textit{UH},
-      and a total sum in the last column. The rows represent coarse
-      morphological classification, with proper nouns separated into their own
-      row. On the \textit{others} row are the adverbs, adpositions and such words
-      with defective paradigms. These other words in current dictionaries have
-      one entry per inflectional ending.
-  \label{table:lexical}}
-  \end{scriptsize}
-\end{table}
 
 
 \section{Experimental Setup and Evaluation}
@@ -366,16 +384,20 @@ corpora we have.
     \centering
     \begin{tabular}{|l|r|r|r|r|}
         \hline
-        Corpus:            & \bf Gutenberg & \bf Wiki & \bf JRC acquis & \bf FTB \\
+        Corpus:            & \bf Gutenberg & \bf Wiki & \bf JRC acquis & \bf FTB 3.1 \\
         \hline
-        Coverage (tokens): & 96.4~\%       & 91.7~\%  & 93.4~\%        & 96.5~\% \\
-        Coverage (types):  & 72.2~\%       & 60.8~\%  & 59.4~\%        & 72.2~\% \\
+        Coverage (tokens): & 97.2~\%       & 93.3~\%  & 92.2~\%        & 96.8~\% \\
+        Coverage (types):  & 90.9~\%       & 87.6~\%  & 82.9~\%        & 87.6~\% \\
         \hline
     \end{tabular}
     \caption{Naive coverages when analysing common corpora
     \label{table:coverage}}
   \end{scriptsize}
 \end{table}
+
+% Europarl		Fiwiki		Gutenberg		JRC Acquis		FTB 3.1	
+% Tokens	Types	Tokens	Types	Tokens	Types	Tokens	Types	Tokens	Types
+%  99.11	95.84	93.26	87.6	97.23	90.85	94.24	82.91	96.81	87.57
 
 Faithfulness is measured as a proportion of equal analyses, formally $\mathrm{Faithfulness} =
 \frac{\mathrm{Matched}}{\mathrm{Correct} + \mathrm{Missing}}$. In
@@ -389,8 +411,8 @@ analyses, first by proportion of all tokens in data then by unique tokens.
         \hline
         \bf Corpus & \bf Faithfulness \\
         \hline
-        FTB (tokens) & 90.1~\% \\
-        FTB (types)  & 48.0~\% \\
+        FTB (tokens) & 93.3~\% \\
+        FTB (types)  & 77.0~\% \\
         \hline
     \end{tabular}
     \caption{The amount of FTB3.1 analyses omorfi can analyse with exact
@@ -400,7 +422,7 @@ analyses, first by proportion of all tokens in data then by unique tokens.
 
 The sizes and processing speeds for automata built from the data described in
 table~\ref{table:lexical} using Debian packaged HFST software
-version~3.8.2\footnote{\url{http://wiki.apertium.org/wiki/Prerequisites_for_Debian}}
+version~3.8.3\footnote{\url{http://wiki.apertium.org/wiki/Prerequisites_for_Debian}}
 on a Dell XPS 13 laptop are given in table~\ref{table:size-speed}. The speed
 was averaged over three runs using 1 million first tokens from europarl.
 
@@ -411,12 +433,12 @@ was averaged over three runs using 1 million first tokens from europarl.
             \hline
             \bf Feature & \bf Value \\
             \hline
-            Size & 52M \\
-            Speed & 955 wps\\
+            Size & 22M \\
+            Speed & 11,099 wps\\
             \hline
         \end{tabular}
         \caption{Size of omorfi analyser as measured by \texttt{ls -lh}, speed
-        of analysis using hfst-lookup in words per second \label{table:size-speed}}
+        of analysis using hfst-lookup in words per second \label{table:size-speed} averaged over three runs}
     \end{scriptsize}
 \end{table}
 
@@ -426,74 +448,75 @@ automata in natural language processing by~\citet{silfverberg2009hfst}.
 \section{Discussion and Future Work}
 \label{sec:discussion}
 
-The techniques of statistical language parsing in omorfi are quite modest at
-modern standards, while successful combination of statistical parsing and
-rule-based disambiguation is state-of-the-art, it would be interesting to
-see the effects of more representative corpora used with different methods
-to parsing quality of omorfi.  In particular, it would be interesting to see
-some development on an end-user application that necessitates a use of
-high-quality disambiguated morphological analyses. We expect that
-development towards universally recognised and comparable linguistic
-resources by projects like UPOS and UD will be crucial to future development
-of omorfi to the direction of state-of-the-art language processing.
+We have showed mature, jointly developed open source
+natural language analyser using both rule-based and
+statistical analysis approaches, and crowd-sourced
+lexicography development.The techniques of
+statistical language parsing in omorfi are quite
+modest at modern standards, while successful
+combination of statistical parsing and rule-based
+disambiguation is shown to be usable for a range of
+NLP applications, it would be interesting to see the
+effects of more representative corpora used with
+different methods to parsing quality of omorfi.  In
+particular, it would be interesting to see some
+development on an end-user application that
+necessitates a use of high-quality disambiguated
+morphological analyses.  We expect that development
+towards universally recognised and comparable
+linguistic resources by projects like Universal dependencies
+will be crucial to future development of omorfi to
+the direction of state-of-the-art language
+processing.
 
-One of the key components to recent success of omorfi that this article also
-outlines is its adaptability and usefulness over various end uses.  While it
-seems from the number of end users that it is in fact possible for
-independent researchers to use and develop omorfi, it would be interesting
-to see how more linguists and lexicographers using omorfi might benefit the
-description as well as end applications.
+One of the key components to recent success of
+omorfi that this article also outlines is its
+adaptability and usefulness over various end uses.
+While it seems from the number of end users that it
+is in fact possible for independent researchers to
+use and develop omorfi, it would be interesting to
+see how more linguists and lexicographers using
+omorfi might improve the description as well as end
+application quality.
 
 \subsection{Error Analysis}
 
 The coverage of the analyser is systematically around 98~\%, this is
 virtually at the upper limits of reasonable results with the given corpora.
 This can be noticed by analysing the errors or the out-of-vocabulary
-word-forms left in the current corpora. For Wikipedia, we get word-forms
-like: \textit{Lä}, \textit{of}, \textit{The}, \textit{amp}, \textit{HMS},
-\textit{and}, \textit{jpg}, that is, mainly code notations, foreign words
-and abbreviations. In the Gutenberg corpus, we get, among some missing
-proper nouns, forms like: \textit{nämät}, \textit{kauvan}, \textit{sitte}
-and other dialectal, spoken, archaic or otherwise non-standard forms. Of
-course these are all plausible additions for morphological analyser as well.
-This shows a well-known effect of Zipfian distribution of language data:
-since rare word-forms and phenomena get exponentially rarer, the effect of
-collecting and classifying further lexemes will be insignificantly small
-(see also~\cite{manning?}). For applications requiring higher, potentially
-100~\% coverage, using guessing techniques, e.g. \citet{}, should be
+word-forms left in the current corpora. For Wikipedia, we get word-forms codes like
+\textit{Lä}, \textit{amp}, English like \textit{of}, \textit{The}, and so forth. In the Gutenberg corpus, we get, among some missing
+proper nouns, archaic and dialectal forms like: \textit{nämät}, \textit{kauvan}, \textit{sitte}.
+While these can be added to the analyser quite easily,
+the  examples will show what is known as \textit{Zipfian distribution} of language data:
+rare word-forms and phenomena get exponentially rarer, thus the effect of
+collecting and classifying further lexemes will become insignificantly small
+(compare to~\cite{manning2011part}). For applications requiring higher, potentially
+100~\% coverage, using guessing techniques, e.g. \citet{mikheev1997automatic}, should be
 investigated.
 
-The measurements of faithfulness we used in the evaluation section are based on
-a ``gold standard'' which is merely a result of another automatic analyser.
-This is not necessarily a representative of correctly analysed Finnish and thus
-we have not regarded getting maximal faithfulness as a priority. As an example
-of mismatched analyses right now: top wrong word-forms \textit{oli} `was',
-\textit{olivat} `were' are analysed as present tense in the gold standard, we
-feel this is incorrect and have opted not to match that analyses. A large part
-of mismatches comes from analysis of compounds and derivations, whether they
-are lexicalised or still treated as combinations of the root words, this can be
-fixed by developing the lexicon.  Also, if one wishes to obtain 100~\%
-faithfulness of FTB 3.1, the easiest path is to compile all the analyses from
-the corpus into secondary automaton and use that along omorfi, although it is
-unclear what the use case would be, beyond reproducing the mistakes contained
-within that corpus.
-
-It is noteworthy that in an open source project with multiple active
-developers, importance of the evaluations is somewhat diminished by the
-relatively active development pace. That is, if there are some missing analyses
-or low score is a problem, it will likely be improved or fixed in a short
-time-frame. For example, the faithfulness measure has been varying in range of
-80---93~\% during the preparations of this article.
+The faithfulness evaluations are currently based on
+comparison against an unknown closed source
+commercial tagger of FTB3.1, as such we have not
+aspired to match analyses what we view as bugs in
+the corpus. As an example of mismatched analyses
+right now: top wrong word-forms \textit{oli} `was',
+\textit{olivat} `were' are analysed as present tense
+in their annotations. We feel this is incorrect and
+does not warrant such analysis. In near future we
+will use human-verified reference corpora instead,
+such as UD Finnish~\cite{pyysalo2015universal}, for
+better analysis quality.
 
 
 \section{Conclusion}
 \label{sec:conclusion}
 
-In this squib we set out to present a new fully open source Finnish
+In this article we present a new fully open source Finnish
 morphological lexicon. We confirm that it is full-fledged and mature lexical
 database that can be used as a baseline morphological analyser with large
 coverage, suitable for linguistic research, as well as in external applications
-such as spelling correction and rule-based machine translation. We have shown
+such as spelling correction and machine translation. We have shown
 some approaches that make available use of modern natural language processing
 techniques like statistics in conjunction with analysers built from our data
 and paved a way forward for researchers interested those topics. We also
