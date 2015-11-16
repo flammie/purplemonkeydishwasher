@@ -196,49 +196,39 @@ to large open source development setting described in this article.
 \section{Methods}
 \label{sec:methods}
 
-The implementation of our analyser follows the
-traditional works on \textit{Finite State
-Morphology} by~\citet{beesley2003finite}. On top of
-that we have applied recent extensions from the
-research of finite-state morphology, such as
-weighted finite-state
-methods~\citep{openfst,hfst2012}. What this means in
-practice is basic unigram probabilities of
-word-forms composed\footnote{using the finite-state
-algebra operation composition that is well-defined
-in terms of weighted automata} over the analyser
-from a corpus.  Finally, probabilities are used in
-conjunction with constraint grammar rules to
-disambiguate.  This brings the traditional
-rule-based language analyser towards the statistical
-language analysers that are widely popular in the
-handling of morphologically less complex languages.
-A diagram of the combination is shown in
-figure~\ref{fig:combo}, the figure is much
-simplified version of real implementation, just to
-show how few forms of select words interact in the
-system, the statistical component also omits the
-existence of known compounds to simplify the
-presentation. The flow of the system is following:
-from database we generate a rule based analyser. The
-statistical data is counted from the corpora, and
-applied over the automaton using the formula
-by~\cite{pirinen2009weighted}. The resulting
-automaton is used to analyse word-forms and the
-sentence context is used by constraint grammar to
-further select the best analyses.
+The implementation of our analyser follows the traditional works on
+\textit{Finite State Morphology} by~\citet{beesley2003finite}. On top of
+that we have applied recent extensions from the research of finite-state
+morphology, such as weighted finite-state methods~\citep{openfst,hfst2012}.
+What this means in practice is basic unigram probabilities of word-forms
+composed\footnote{using the finite-state algebra operation composition that
+is well-defined in terms of weighted automata} over the analyser from a
+corpus.  Finally, probabilities are used in conjunction with constraint
+grammar rules~\cite{karlsson1995constraint} to disambiguate.  This brings
+the traditional rule-based language analyser towards the statistical
+language analysers that are widely popular in the handling of
+morphologically less complex languages.  A diagram of the combination is
+shown in figure~\ref{fig:combo}, the figure is much simplified version of
+real implementation, just to show how few forms of select words interact in
+the system, the statistical component also omits the existence of known
+compounds to simplify the presentation. The flow of the system is following:
+from database we generate a rule based analyser. The statistical data is
+counted from the corpora, and applied over the automaton using the formula
+by~\cite{pirinen2009weighted}. The resulting automaton is used to analyse
+word-forms and the sentence context is used by constraint grammar to further
+select the best analyses.
 
 \begin{figure}[tb!]
     \includegraphics[scale=0.9,clip,trim=0 300 0 0]{combo-crop}
-    \caption{Diagram of Omorfi technology showing a
-        few example words and forms in the database,
-        analyser and statistical training. In
-        finite-state representation, the double
-        circle marks the end state, and the arrow
-        leading away from the figure is cropped out
-        of the example. The substrings in automaton
-        are compacted to single transitions where
-    possible. \label{fig:combo}}
+    \caption{Diagram of Omorfi technology showing a few example words (vesi
+    'water', and käsi 'hand') and forms in the database, analyser and
+statistical training. Not shown in the automaton but used are also words
+putous 'fall' and jakaja 'divider' used to demonstrate compound formation
+and probablity calculations for vesiputous 'waterfall' and vedenjakaja
+'watershed'. In finite-state representation, the double circle marks the end
+state, and the arrow leading away from the figure is cropped out of the
+example. The sub-strings in automaton drawing were compacted to single
+transitions where possible. \label{fig:combo}}
 \end{figure}
 
 The implementation of finite-state morphology in Omorfi is based on
