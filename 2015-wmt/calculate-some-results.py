@@ -11,6 +11,7 @@ if len(argv) < 2:
 
 judges = dict()
 rankcounts = {"-4": {}, "-3": {}, "-2": {}, "-1": {}, "0": {}, "1": {}, "2": {}, "3": {}, "4": {}}
+ranksbyseg = dict()
 with open(argv[1]) as csvfile:
     csvreader = csv.DictReader(csvfile)
     for csvrow in csvreader:
@@ -31,6 +32,9 @@ with open(argv[1]) as csvfile:
 ##                theirsworst[csvrow['segmentId']] = 0
 ##            theirsworst[csvrow['segmentId']] += 1
         judges[judge].append(int(rank))
+        if not seg in ranksbyseg:
+            ranksbyseg[seg] = {"-4": 0, "-3": 0, "-2": 0, "-1": 0, "0": 0, "1": 0, "2": 0, "3": 0, "4": 0}
+        ranksbyseg[seg][rank] +=1
 
 for judge,ranks in judges.items():
     ranktotal = 0
@@ -45,3 +49,10 @@ for rd in ['4', '3', '2', '1', '0', '-1', '-2', '-3', '-4']:
     print("Rankdiffs", rd)
     for segment, times in rankcounts[rd].items():
         print(segment, times)
+
+for seg, ranks in ranksbyseg.items():
+    print(seg, ranks['4'], ranks['3'], ranks['2'], ranks['1'], ranks['0'], ranks['-1'], ranks['-2'], ranks['-3'], ranks['-4'])
+    if ((ranks['4'] > 0) or (ranks['3'] > 0)) and ((ranks['-4'] > 0) or (ranks['-3'] > 0)):
+        print(seg, "4 ×", ranks['4'], "3 ×", ranks['3'],
+                "-3 ×", ranks['-3'], "-4 ×", ranks['-4'])
+
