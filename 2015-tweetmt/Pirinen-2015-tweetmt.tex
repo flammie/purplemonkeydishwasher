@@ -1,0 +1,741 @@
+\documentclass[postprint]{flammie}
+%\usepackage[dvips]{graphicx}
+%\usepackage[spanish,es-nosectiondot, es-tabla, es-noindentfirst]{babel}
+%\usepackage[english]{babel}
+%\input epsf
+
+%\usepackage[color=yellow]{todonotes} %added by AT
+%\usepackage{color} %added by AT, to emphasise changes
+\usepackage{url,multirow,scrextend}
+
+\usepackage{cleveref}
+
+%\setlength\titlebox{4in} %esto por defecto
+%\setlength\titlebox{5in} %AT more space so it all fits
+
+\title{Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights{
+The real publication is in TweetMT 2015. in SEPLN 2015.
+The version you see here does not include the Spanish translations.}}%\thanks{
+%This research is supported by the European Union Seventh Framework Programme FP7/2007-2013 under grant agreement PIAP-GA-2012-324414 (Abu-MaTran).
+%We would like to thank Mikel L. Forcada and Iacer Calixto for their advice on normalising tweets for Basque and Portuguese, respectively, and Gorka Labaka, for his help with Matxin's API.
+%}}
+
+
+\author {
+Antonio Toral, Xiaofeng Wu, Tommi Pirinen,\\
+Zhengwei Qiu, Ergun Bicici, Jinhua Du\\
+ADAPT Centre, School of Computing, Dublin City University, Ireland\\
+\{atoral, xwu, tpirinen, zhengwei.qiu2, ebicici, jdu\}@computing.dcu.ie}
+
+
+%\seplntranstitle{Dublin City University en la tarea TweetMT 2015}
+
+%\seplnkey{machine translation, tweets, morph segmentation, data selection}
+
+
+%\seplnclave{traducción automática, tuits, segmentación de morfemas, selección de datos}
+
+%\seplnresumen{
+%%Describimos nuestra participación en TweetMT para tres pares de lenguas en ambas direcciones: castellano hacia/desde catalán, euskera y portugués.
+%%Hacemos uso de varias técnicas: traducción automática estadística y basada en reglas, segmentación de morfemas, selección de datos con ParFDA y combinación de sistemas.
+%%En cuanto a recursos, adquirimos grandes cantidades de tuits para llevar a cabo una adaptación de dominio monolingüe.
+%%Nuestro sistema ha sido el mejor de todos los enviados para cinco de los seis pares de lenguas.
+%}
+
+%\firstpageno{1}
+
+
+\begin{document}
+
+% la siguiente instrucción sólo se debe usar si el abstract sobrescribe el texto
+% la longitud variará según se necesite
+
+%\setlength\titlebox{20cm} % se aumenta el tamaño del espacio reservado para datos de título
+
+
+\label{firstpage} \maketitle
+
+%\begin{abstract}
+%Resumen del artículo con una sangría a izquierda y derecha de 0.32
+%cm, justificado por ambos lados, con tamaño de fuente 11.
+%
+%\end{abstract}
+
+\begin{abstract}
+We describe our participation in TweetMT for three language pairs in both directions: Spanish from/to Catalan, Basque and Portuguese.
+We used a range of techniques: statistical and rule-based MT, morph segmentation, data selection with ParFDA and system combination.
+As for resources, our focus was on crawling vast amounts of tweets to perform monolingual domain adaptation.
+Our system was the best of all systems submitted for five out of the six language directions.
+\end{abstract}
+
+
+
+
+\section{Introduction and Objectives}
+
+While statistical machine translation (SMT) can be considered a mature technology nowadays, one of its requirements is the availability of considerable amounts of parallel text for the language pair of interest.
+Ideally, the parallel text to train an SMT system should come from the same domain and genre as the text the system is going to be applied to.
+Thus, using MT to translate types of text for which no parallel data is available constitutes a challenge.
+This is the case for tweets and social media in general, the target text of the TweetMT shared task.
+
+The main objective of our participation in the TweetMT 2015 shared task was to build the best MT systems for tweets we could with a clear constraint, i.e. it had to be done in a very short period and, to a large extent, be limited to available resources.
+We have taken part for three language pairs in both directions: Spanish (ES) from/to Catalan (CA), Basque (EU) and Portuguese (PT).
+
+We decided to focus on making the best possible use of available techniques, tools and resources.
+Regarding techniques and tools, we rely on state-of-the-art SMT, morph segmentation for morphologically rich languages (EU), data selection with ParFDA for fast development of accurate SMT systems~\cite{Bicici:FDA54FDA:WMT15} and domain adaptation~\cite{BiciciPBML2015}, the use of available open-source rule-based systems and, finally, system combination to take advantage of the strengths of the different systems we built.
+As for resources, we crawl vast amounts of tweets to perform monolingual domain adaptation and complement this with publicly available general-domain monolingual and parallel corpora.
+
+The rest of the paper is organised as follows.
+Sections \ref{s:architecture} and \ref{sec:resources} detail the systems built and the resources used, respectively.
+Section \ref{s:eval} presents the evaluation and, finally, Section \ref{s:conclusion} outlines conclusions and lines of future work.
+
+
+\section{Architecture and Components of the System}\label{s:architecture}
+
+Here we describe the components used in our translation pipeline.
+First, we pre-process the datasets (Section \ref{sec:data_preprocessing}), then we use a set of MT systems (Section \ref{sec:mt_systems}) that can incorporate additional functionality (Sections \ref{sec:morph_seg} and \ref{sec:fda}).
+Finally, we combine MT systems (Section \ref{sec:sys_combo}).
+
+\subsection{Data Preprocessing}\label{sec:data_preprocessing}
+
+Prior to be used, all the datasets used in our systems are preprocessed, as follows:
+%(i) punctuation normalisation, with Moses'~\cite{Koehn:2007:MOS:1557769.1557821} script;
+%(ii) sentence splitting and tokenisation, with Freeling~\cite{padro12};
+%(iii) normalisation (only for tweets);\footnote{We sort the vocabulary of a tweet corpus by word frequency and inspect the words that occur in at least 0.5\% of the tweets, creating rules to convert informal words to their formal equivalent.
+%This leads to just a handful of rules. E.g. in Spanish, ``q'', occurring in 2.62\% of the tweets, is converted to its formal equivalent ``que''.}% and `` x $\rightarrow$ por ''.} 
+%(iv) truecasing, with a modified version of Moses' script.\footnote{We added a set of start-of-sentence characters commonly used in Spanish: "-", "—", "¿", "“" and "‘".}
+
+\begin{enumerate}
+\item Punctuation normalisation, with Moses'~\cite{Koehn:2007:MOS:1557769.1557821} script.
+\item Sentence splitting and tokenisation, with Freeling~\cite{padro12}.
+\item Normalisation (only for tweets). We sort the vocabulary of a tweet corpus by word frequency and inspect the words that occur in at least 0.5\% of the tweets, creating rules to convert informal words to their formal equivalent.
+This leads to just a handful of rules. E.g. in Spanish, ``q'', occurring in 2.62\% of the tweets, is converted to its formal equivalent ``que''.% and `` x $\rightarrow$ por ''.} 
+\item Truecasing, with a modified version of Moses' script. We added a set of start-of-sentence characters commonly used in Spanish: "-", "—", "¿", "“" and "‘".
+\end{enumerate}
+
+\subsection{MT Systems}\label{sec:mt_systems}%\todo{XW, ZQ Is this complete?}
+
+We build SMT systems using two paradigms: phrase-based with Moses~\cite{Koehn:2007:MOS:1557769.1557821} and hierarchical with cdec~\cite{cdec}.
+In both cases we use default settings.
+We also use off-the-shelf open-source rule-based MT (RBMT) systems.
+Namely, Apertium~\cite{forcada11a} for ES$\leftrightarrow$CA, ES$\leftrightarrow$PT and EU$\rightarrow$ES,\footnote{Revisions 60356, 60384, and 60356, respectively.} and Matxin~\cite{DBLP:journals/mt/MayorASLLS11} for ES$\rightarrow$EU.\footnote{API at \url{http://ixa2.si.ehu.es/glabaka/Matxin.xml}}
+
+The SMT systems use 5-gram LMs with Knesser-Ney smoothing~\cite{kneser1995improved} except for ParFDA Moses SMT systems, which use LMs of order 8 to 10.
+We build LMs on individual monolingual corpora (cf. Section \ref{monolingualcorpora}) and interpolate them with SRILM~\cite{stolcke2002srilm} to minimise the perplexity on the dev set.
+Each target language and its corpora used to build LMs together with their interpolation weights are shown in Table \ref{t:mono}.
+We observe that tweets are given very high weights even if they are not the biggest corpora in the mixes.
+
+
+% \begin{table}[t]
+% \centering
+% % \hspace*{-0.5cm}
+% \begin{minipage}{\linewidth}
+% {
+% \begin{tabular}{
+% c | c | c c | c | c | c c
+% }
+
+% \multicolumn{2}{c|}{Corpora} & S & W &
+% \multicolumn{2}{|c|}{Corpora} & S & W \\
+
+
+
+% \hline
+% \multirow{3}{*}{CA} & \tiny{News}   & \tiny{1.2G} & \tiny{.07} & \multirow{3}{*}{ES} & \tiny{News}   & \tiny{24G} & \tiny{.21} \\
+%                     & \tiny{Web}    & \tiny{29G} & \tiny{.33} &                     & \tiny{Europal}& \tiny{3.7G} & \tiny{.04} \\
+%                     & \tiny{Tweets} & \tiny{2.3G} & \tiny{.60} &                     & \tiny{Tweets} & \tiny{9G} & \tiny{.75} \\
+% \hline
+% \multirow{3}{*}{EU} & \tiny{News}   & \tiny{1.2G} & \tiny{.07} & \multirow{3}{*}{PT} & \tiny{News}   & \tiny{24G} & \tiny{.21} \\
+%                     & \tiny{Web}    & \tiny{29G} & \tiny{.33} &                     & \tiny{Europal}& \tiny{3.7G} & \tiny{.04} \\
+%                     & \tiny{Tweets} & \tiny{2.3G} & \tiny{.60} &                     & \tiny{Tweets} & \tiny{9G} & \tiny{.75} \\
+% \end{tabular}
+% }\caption{LM Sizes and Weights Comparison.}
+% \label{LMSizeNWeights}
+% \end{minipage}
+% \end{table}
+
+
+
+
+\subsection{Morphological Segmentation}\label{sec:morph_seg}
+Morphological segmentation is a popular method to deal with SMT for morphologically differing languages by simply splitting words into sub-word units.
+The main benefits of morphological segmentation are to reduce the out-of-vocabulary (OOV) rate and to increase the percentage of 1 to 1 word alignments between morphosyntactically different languages; e.g. in our case, by matching inflectional suffixes in EU to syntactic prepositions in ES, we expect to improve the MT quality for the EU--ES language pair. The segmentation and de-segmentation is able to create word-forms not present in the training data by matching a translated stem with a correct suffix.
+
+In our participation, morphological segmentation was only used for EU--ES on the EU side, since EU's morphology is significantly more complex than that of ES. For the remaining languages of the shared task, there is no such big difference in morphology complexity (all of them are closely-related as they belong to the same family) so the expected gains do not outweigh the added complexity of segmentation.
+
+%For segmentation 
+We use unsupervised statistical segmentation as provided by Morfessor 2.0 Baseline~\cite{morfessor}.\footnote{\url{http://www.cis.hut.fi/projects/morpho/morfessor2.shtml}} The basic setup for segmentation is the same as in the Abu-MaTran project submission to the WMT 2015 translation task~\cite{abumatran2015wmt}.
+However, some minor Twitter-related pre-processing has been added in order to keep URLs and hashtags intact. The parameters used for Morfessor training are the default of version 2.0.2-alpha and the data for training is the EU side of the ES--EU parallel training data (cf. Section \ref{ss:parallel_corpora}).
+
+To gauge the effects of our method as well as the morphological complexity of EU as compared to ES we show in Table \ref{table:morphs} the OOV rates and vocabulary sizes of the ES and EU sides of the ES--EU training corpus, and EU corpora after morphological segmentation.
+Segmentation reduces the type-to-token ratio by a factor of 6 and the OOV rate by almost a factor of 10.
+
+{\small
+\begin{table}[t]
+\begin{tabular}{lccr}
+\hline\rule{-2pt}{15pt}
+\bf Corpora & \bf Tokens & \bf Types & \bf OOV \\
+\hline\rule{-4pt}{10pt}
+ES & 30,532,489 & 296,612 & 14.5 \% \\
+EU & 24,966,862 & 605,207 & 25.4 \% \\
+EU morphs & 35,293,220 & 100,990 & 2.6 \% \\
+\hline
+\end{tabular}
+\caption{Size of ES--EU training corpus in word tokens (ES and EU sides) and in morph tokens (EU).
+\label{table:morphs}}
+\end{table}
+}
+
+%% $ tr ' ' '\n' < tweetmt-OpenSubtitles2013-corpus_from_tmx.es-eu.tok.es | wc -l
+%% 30532489
+%% $ tr ' ' '\n' < tweetmt-OpenSubtitles2013-corpus_from_tmx.es-eu.tok.eu | wc -l
+%% 24966862
+%% $ tr ' ' '\n' < tweetmt-OpenSubtitles2013-corpus_from_tmx.es-eu.tok.eu | sort | uniq | wc -l
+%% 605207
+%% $ tr ' ' '\n' < tweetmt-OpenSubtitles2013-corpus_from_tmx.es-eu.tok.es | sort | uniq | wc -l
+%% 296612
+%% $ tr ' ' '\n' < tweetmt-OpenSubtitles2013-corpus_from_tmx.es-eu.morfessor.1best.true.eu | wc -l
+%% 35293220
+%% $ tr ' ' '\n' < tweetmt-OpenSubtitles2013-corpus_from_tmx.es-eu.morfessor.1best.true.eu | sort | uniq | wc -l
+%% 100990
+%% $ ~/Koodit/mosesdecoder/scripts/analysis/oov.pl tweetMT-test_es-eu.es.norm.tok.true.es < tweetmt-OpenSubtitles2013-corpus_from_tmx.es-eu.true.es 
+%% OOV 1-grams types	1122	17.1 %
+%% OOV 1-grams tokens	4425	14.5 %
+%% $ ~/Koodit/mosesdecoder/scripts/analysis/oov.pl tweetMT-test_es-eu.eu.norm.tok.true.eu < tweetmt-OpenSubtitles2013-corpus_from_tmx.es-eu.true.eu
+%% OOV 1-grams types	1766	23.2 %
+%% OOV 1-grams tokens	6458	25.4 %
+%% $ ~/Koodit/mosesdecoder/scripts/analysis/oov.pl tweetMT-test_es-eu.eu.norm.tok.morfessor.1best.true.eu < tweetmt-OpenSubtitles2013-corpus_from_tmx.es-eu.morfessor.1best.true.eu 
+
+%% OOV 1-grams types	649	8.6 %
+%% OOV 1-grams tokens	1103	2.6 %
+
+
+
+
+%\todo[inline]{TP, can you provide some figures on how more morph complex Basque is compared to Spanish? e.g. (i) how many word-forms are there for EU and ES in the parallel training data (there should be way more for EU) and what reduction is attained by Morfessor (how many distinct morphs are produced).
+%These may be combined with other tables if needed.}
+
+%Used for Basque, morphologically rich language, reduce sparsity, etc.
+
+
+\begin{table}[t]
+\centering
+% \hspace*{-0.5cm}
+\begin{minipage}{\linewidth}
+{\footnotesize
+\begin{tabular}{@{\hspace{0.0cm}}l@{\hspace{0.075cm}}|@{\hspace{0.075cm}}c@{\hspace{0.15cm}}
+c@{\hspace{0.15cm}}c@{\hspace{0.15cm}}l@{\hspace{0.075cm}}|@{\hspace{0.075cm}}l@{\hspace{0.15cm}}l@{\hspace{0.15cm}}l@{
+\hspace{0.15cm}}l@{\hspace{0.0cm}}}
+% |l@{\hspace{0.2cm}}l@{\hspace{0.2cm}}l@{\hspace{0.2cm}}|l@{\hspace{0.2cm}}l@{\hspace{0.2cm}}
+% l@{\hspace{0.0cm}}}
+\hline
+$5$-gram & \multicolumn{4}{c|@{\hspace{0.075cm}}}{OOV} & \multicolumn{4}{c}{perplexity} \\
+% & \multicolumn{3}{c|}{avg $\log$ probability} & \multicolumn{3}{c}{\texttt{<unk>} $\log$ probability} \\
+$S$$\rightarrow$$T$ & $\stackrel{\mbox{C}}{\mbox{train}}$ & $\stackrel{\mbox{FDA}}{\mbox{train}}$ & 
+$\stackrel{\mbox{FDA}}{\mbox{LM}}$ & \%red & $\stackrel{\mbox{C}}{\mbox{train}}$ & 
+$\stackrel{\mbox{FDA}}{\mbox{train}}$ & $\stackrel{\mbox{FDA}}{\mbox{LM}}$ & \%red \\
+% & $\stackrel{\mbox{C}}{\mbox{train}}$ & 
+% $\stackrel{\mbox{FDA}}{\mbox{train}}$ & 
+% $\stackrel{\mbox{FDA}}{\mbox{LM}}$ & $\stackrel{\mbox{C}}{\mbox{train}}$ & 
+% $\stackrel{\mbox{FDA}}{\mbox{train}}$ & 
+% $\stackrel{\mbox{FDA}}{\mbox{LM}}$ \\
+\hline
+CA--ES & 2948 & 2957 & 2324 & .21 & 332 & 336 & 294 & .11 \\
+%& -2.77 & -2.78 & -2.66 & -4.29& -4.6 & -4.19 \\
+EU--ES & 3021 & 3046 & 2443 & .19 & 462 & 483 & 546 & -.18 \\
+% & -2.98 & -3.0 & -2.99 &  -4.01 & -4.47 & -5.72 \\
+PT--ES & 2871 & 2896 & 1951 & \textbf{.32} & 633 & 623 & 486 & .23 \\
+% & -3.24 & -3.23 & -2.96 & -6.38  & -6.69 & -5.28 \\
+\hline
+ES--CA & 3338 & 3345 & 2890 & .13 & 325 & 330 & 338 & -.04 \\ 
+% & -2.81 & -2.82 & -2.79 &  -4.28 & -4.58 & -4.74 \\
+ES--EU & 4110 & 4129 & 3349 & .19 & 745 & 761 & 637\footnote{\label{es-eu_LM}ES--EU LM is recomputed after the task, 
+removing duplicates, which slightly decrease BLEU, increase NIST.} & .15\footref{es-eu_LM} \\
+% & -3.47 & -3.49 &  -3.26\footref{es-eu_LM} & -4.02 & -4.25 & -3.46\footref{es-eu_LM} \\
+ES--PT & 3087 & 3117 & 2216 & .28 & 993 & 941 & 746 & \textbf{.25} \\
+% & -3.56 & -3.54 & -3.24 &  -6.29 & -6.43 & -4.98 \\
+\hline
+\end{tabular}
+}\caption{LM comparison built from training corpus (C train), ParFDA
+selected training data (FDA train), ParFDA selected LM data (FDA LM). $\%$red is reduction proportion.
+}
+\label{LMPerplexityComparison}
+\end{minipage}
+\end{table}
+
+\subsection{ParFDA}\label{sec:fda}
+
+ParFDA parallelizes instance selection with an optimized parallel implementation of FDA5 and significantly reduces the 
+time to deploy accurate SMT systems especially in the presence of large training data and still achieve state-of-the-art SMT performance~\cite{Bicici:FDA54FDA:WMT15,BiciciYuret:FDA5:TASLP}.
+Detailed composition of the available corpora, which is referred to as constrained (C), are provided in \Cref{sec:resources}.
+For ES, we also included LDC Gigaword corpora~\cite{LDCGigawordSpanish}.
+The size of the LM corpora includes both the LDC and the monolingual LM corpora provided.
+ParFDA selected training and LM data obtains accurate
+translation outputs with the selected LM data reducing the number of OOV tokens by up to $32\%$ and the perplexity by up to $25\%$ and allows us to model higher order dependencies (\Cref{LMPerplexityComparison}).
+
+\subsection{System Combination}\label{sec:sys_combo}
+
+For each language direction we have built up to five systems, as detailed in Sections \ref{sec:mt_systems} to \ref{sec:fda}:
+(i) phrase-based and (ii) hierarchical SMT, (iii) phrase-based with morph segmentation, (iv) phrase-based with ParFDA and (v) RBMT.
+We hypothesise these systems to have complementary strengths, and thus we decide to perform system combination.
+To that end we use MEMT~\cite{heafield2010combining}, with default settings, except for the parameter \texttt{length}, for which we use its default (7) for all directions except for ES$\rightarrow$EU, for which we use 5 according to empirical results on the development set.
+
+
+
+\section{Resources Employed}
+\label{sec:resources}
+
+\subsection{Parallel Corpora}\label{ss:parallel_corpora}
+
+Ideally, we would use data in the same domain and genre as the test set, i.e. tweets.
+We have access to parallel tweets provided by the task for ES--CA and ES--EU (4,000 parallel tweets for each language pair, we use 1,000 for dev and the remaining 3,000 for training).
+For ES--PT we have access to 999 parallel tweets (we use them for dev) from Brazilator,\footnote{\url{http://www.cngl.ie/brazilator}} a recent project by DCU and Microsoft to translate tweets from the 2014 soccer World Cup across 24 language directions.
+
+As the availability of parallel tweets for the language pairs of TweetMT 2015 is rather limited (at most we have 4,000 per language pair), we use additional sources of parallel data.
+For ES--CA we use elPeriodico (eP)\footnote{\url{http://catalog.elra.info/product_info.php?products_id=1122}} and a selection of contemporary novels.
+For ES--EU, translation memories (TMs) provided by the shared task\footnote{\url{http://komunitatea.elhuyar.org/tweetmt/resources/}}
+and two corpora from Opus~\cite{TIEDEMANN12.463}:\footnote{\url{http://opus.lingfil.uu.se/}} Open subtitles 2013 and Tatoeba.
+Finally, for ES--PT we use Europarl v7\footnote{\url{http://www.statmt.org/europarl/}} and two corpora from Opus: news-commentary and Tatoeba.
+Table \ref{t:parallel_data} provides details on these corpora.
+
+
+%TODO Table data sizes
+% lines, words
+
+% ES--EU
+%  161784  1248406 es-eu/train/OpenSubtitles2013.es-eu.es.norm.tok.true.es
+%  161784  1070029 es-eu/train/OpenSubtitles2013.es-eu.eu.norm.tok.true.eu
+%     902     6685 es-eu/train/Tatoeba.es-eu.es.norm.tok.true.es
+%     902     5496 es-eu/train/Tatoeba.es-eu.eu.norm.tok.true.eu
+%    3000    41795 es-eu/train/tweetmt.train.eues.es.norm.tok.true.es
+%    3000    37860 es-eu/train/tweetmt.train.eues.eu.norm.tok.true.eu
+    
+% ES--PT
+%  1918962  53837494 es-pt/train/train.1-80.es-pt.es
+%  1918962  52946901 es-pt/train/train.1-80.es-pt.pt
+%  3837924 106784395 total
+
+%/scratch/atoral/tweet\_mt/data
+
+
+{\small
+\begin{table} [t]
+\centering
+%\begin{center}
+\begin{tabular} {clrr}
+  \hline\rule{-2pt}{15pt}
+  \bf Pair & \bf Corpus & \bf \# s. & \bf \# tokens\\
+  \hline
+  \multirow{3}{*}{ES--CA} & tweets & 3K& 48k, 48k\\
+  & eP & 0.6M & 13.5M, 14M \\
+  & novels & 47K & .78M, .86M\\
+  \hline
+
+  \multirow{4}{*}{ES--EU} & tweets & 3K& 42K, 38K\\
+%  & TMs & 0.2M & 1M, 1M\\
+  & TMs & 1.1M & 28.9M, 23.5M\\
+  & OpenSubs & 0.16M &1.2M, 1.0M\\
+  & Tatoeba & 902 &6.7K, 5.5K\\
+  \hline
+
+  \multirow{3}{*}{ES--PT} & EU & 1.9M& 54M, 53M\\
+  & NC & 9K & .26M, .25M\\
+  & Tatoeba & 53K& .42M, .41M\\
+%  \hline\rule{-4pt}{10pt}
+  \hline
+\end{tabular}
+%\end{center}
+\caption{\label{t:parallel_data}Parallel corpora used for training.
+For each corpus we provide its number of sentence pairs (\# s.) and tokens on both sides (\# tokens).}
+\end{table}
+}
+
+
+
+
+
+\subsection{\label{monolingualcorpora}Monolingual Corpora}
+
+%\todo[inline]{AT will finish this section by EOB today (20/7)}
+
+Our main source of monolingual data is in-domain and comes from crawled tweets.
+We use TweetCat~\cite{ljubesic14-tweetcat} and crawl tweets for all the target languages (CA, ES, EU and PT) during March and April 2015.
+
+For each language we create two lists of words as required by the crawler:
+(i) most common discriminating words (up to 100), these are words that are unique to the language and they are used to seed the crawler so that it can find candidate tweets;
+and (ii) most common words of the language (200), these are used to determine the language of crawled tweets.
+These two lists are derived from a list of the most common words found in a corpus of subtitles.\footnote{\url{https://onedrive.live.com/?cid=3732e80b128d016f&id=3732E80B128D016F!3584}}
+
+The tweets crawled are post-processed with langid\footnote{\url{https://github.com/saffsd/langid.py}} to identify their language.
+We keep the tweets whose langid's confidence score is above a certain threshold, which is set empirically at 0.7 by inspecting tweets.
+
+In addition to crawled tweets, we use the target sides of the parallel corpora (cf. Section \ref{ss:parallel_corpora} and a set of monolingual corpora as follows.
+For CA we use caWaC~\cite{LJUBEI14.841}, a corpus crawled from the \texttt{.cat} top level domain.
+For ES, news crawl and news-commentary from WMT'13.\footnote{\url{http://www.statmt.org/wmt13/}}
+For EU, a dump from Wikipedia (20150407).
+For PT, the news sources CETEMPublico,\footnote{\url{http://www.linguateca.pt/cetempublico/}} and CETENFolha,\footnote{\url{http://www.linguateca.pt/cetenfolha/}} and a dump from Wikipedia (20150510).
+
+Table \ref{t:mono} shows details on these corpora including their interpolation weights (cf. Section \ref{sec:mt_systems}).
+
+
+
+%zcat es/tweets_es.gz.norm.tok.split.es.gz.true.es.gz | wc -lw
+%9346806 129233047
+%zcat eu/tweets_eu.gz.norm.tok.split.eu.gz.true.eu.gz | wc -lw
+%1004517 11332521
+
+{\small
+\begin{table} [t]
+\centering
+%\begin{center}
+\begin{tabular} {clrrr}
+  \hline\rule{-2pt}{15pt}
+  \bf Lang & \bf Corpus  & \bf \# tokens & \bf Weights \\
+  \hline
+  \multirow{3}{*}{CA} & tweets & 29M & 0.60 \\
+  & caWaC & 0.5G & 0.33 \\
+  
+  & eP & 14M & 0.07 \\
+  \hline
+
+  \multirow{3}{*}{ES} & tweets & 129.2M & 0.75 \\
+  & news & 0.4G & 0.21\\
+  & europarl & 60M & 0.04 & \\
+  \hline
+
+  \multirow{3}{*}{EU} & tweets & 11.3M & 0.97 \\
+  & Wikipedia & 11.5M &0.01\\
+  & TMs & 23M & 0.02 \\
+  \hline
+  \multirow{3}{*}{PT} & tweets & 33M& 0.93 \\
+  & Wikipedia &166M & 0.02\\
+  & Others & 286M & 0.05 \\
+  
+  \hline\rule{-4pt}{10pt}
+%  \hline\rule{-2pt}{10pt}
+%  {\bf Total}  & {\bf 577}\\
+%  \hline
+\end{tabular}
+%\end{center}
+\caption{\label{t:mono}Monolingual corpora used for training.
+For each corpus we show its number of tokens (\# tokens) and its weight in LM interpolation.}
+\end{table}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Evaluation}\label{s:eval}
+
+
+We report our results on the development set (all systems built) and then on the test set (systems submitted).
+
+
+\subsection{Evaluation on Development Data}
+
+Table \ref{t:res_dev} presents the results obtained on the devset by the individual systems and a set of combinations
+for the three language pairs we covered: ES--CA, ES--EU and ES--PT.
+The scores were obtained on raw MT output (i.e. tokenised and truecased) as calculated by us with BLEU~\cite{papineni2002bleu} (multibleu cased as included in Moses version 3) and TER~\cite{snover2006study} (as implemented in TERp version 0.1). Due to time constraints not all the possible combinations were tried.
+The scores of the best individual system and combination are shown in bold.
+
+
+%Results extracted from https://docs.google.com/spreadsheets/d/1_1barDfeaJ4iDIrub8TT2w2SIuBuuM98u--7IVS_obE/edit#gid=0
+{\small
+\begin{table} [hbtp]
+\centering
+\begin{tabular} {llrr}
+  \hline\rule{-2pt}{15pt}
+  & \bf System & \bf BLEU & \bf TER\\
+  \hline
+  \multirow{7}{*}{\rotatebox[origin=c]{90}{ES$\rightarrow$CA}} & Moses (1) &	82.21	&0.1102\\
+  &cdec (2)  &	81.45	&0.1128\\
+  &ParFDA (3)&		\bf 82.37	&\bf 0.1062\\
+  &Apertium (4)&	78.17	&0.1310\\
+  \cline{2-4}
+  &1+2		&81.71	&0.1102\\
+  &1+4		&\bf 82.37	&\bf 0.1057\\
+  &1+2+4	&81.93	&0.1085\\
+  \hline
+  \multirow{8}{*}{\rotatebox[origin=c]{90}{CA$\rightarrow$ES}} & Moses (1)	&\bf 82.52	&0.1086\\
+  & cdec (2)	&81.76	&0.1118\\
+  & ParFDA (3)	&82.16	&\bf 0.1063\\
+  & Apertium (4) &77.96	&0.1329\\
+  \cline{2-4}
+  & 1+2		&82.38	&0.1088\\
+  & 1+4		&\bf 82.58	&0.1077\\
+  & 1+2+4		&82.38	&0.1083\\
+  & 1+3+4		&82.45	&\bf 0.1074\\
+  \hline
+  \multirow{10}{*}{\rotatebox[origin=c]{90}{ES$\rightarrow$EU}}
+  &  Moses (1) &	22.57&	0.6116\\
+  &cdec (2) &	\bf 23.7&	\bf 0.5863\\
+  &ParFDA (3)&	21.59&	0.6181\\
+  &Matxin (4)&	12.66&	0.7436\\
+%  &morph (5)&	0.85&	1.2255\\ %AT suspiciously low!!!
+  &Morph (5)& 5.20&	0.8812\\ %new results (system retrained by Tommi after the shared task)
+  \cline{2-4}
+  &1+2	&23.18	&0.5796\\
+  &1+4	&18.36	&0.6112\\
+  &1+2+4 &23.58	&0.5771\\
+  &1+2+4+5&24.07	&\bf 0.5741\\
+  %pb.cdec.maxtin.seg (modified by tommi)	0.4186	23.67	0.5803\\ WORST THAN WITHOUT MODIFICATION!
+  &1+2+3+4+5&\bf 24.42	&0.5777\\
+  \hline
+  \multirow{9}{*}{\rotatebox[origin=c]{90}{EU$\rightarrow$ES}}
+  &Moses (1)		&24.21	&0.6228\\
+  &cdec (2)  	&\bf 24.65	&\bf 0.5911\\
+  &ParFDA (3)	&22.25	&0.6346\\
+  &Apertium (4)	&18.36	&0.6918\\
+%  &Morph (5)		&8.99	&1.0951\\
+  &Morph (5)		&11.25	&0.9655\\
+  \cline{2-4}
+  &1+2			&24.18	&0.5883\\
+  &1+4			&24.33	&0.6076\\
+  &1+2+4			&24.94	&0.5831\\
+  &1+2+4+5		&\bf 25.21	&\bf 0.5792\\
+  \hline
+  \multirow{7}{*}{\rotatebox[origin=c]{90}{ES$\rightarrow$PT}}
+  &Moses (1)		&\bf 29.21	&0.6052\\
+  &cdec (2)		&28.14	&\bf 0.5962\\
+  &ParFDA (3)	&27.74	&0.6164\\
+  &Apertium (4)	&24.96	&0.6272\\
+  \cline{2-4}
+  &1+2			&\bf 28.76	&0.5891\\
+  &1+4			&26.58	&0.6082\\
+  &1+2+4			&27.00		&\bf 0.5878\\
+  \hline
+  \multirow{7}{*}{\rotatebox[origin=c]{90}{PT$\rightarrow$ES}}
+  &Moses (1) 	&\bf 30.47	&0.5267\\
+  &cdec (2)		&29.42	&\bf 0.5254\\
+  &ParFDA (3)	&29.63	&0.5338\\
+  &Apertium (4)	&27.52	&0.5335\\
+  \cline{2-4}
+  &1+2			&\bf 29.9	&0.5230\\
+  &1+4			&30.01	&0.5131\\
+  &1+2+4			&29.89	&\bf 0.5089\\
+  \hline
+\end{tabular}
+\caption{\label{t:res_dev}Results on the dev set.}
+\end{table}
+}
+
+
+
+
+%\todo[inline]{Comment results: which individual systems are strong, how combinations add up value of individual systems...}
+
+At least one of the combinations obtains better scores (both in terms of BLEU and TER) than the best individual system (except for ES$\leftrightarrow$PT with BLEU and for CA$\rightarrow$ES with TER), supporting our hypothesis that the individual systems built are complementary.
+Although SMT systems outperform RBMT systems for all directions,\footnote{When interpreting the results, it should be taken into account that automatic metrics are known to be biased towards statistical MT approaches~\cite{E06-1032}.} the addition of RBMT in system combinations has a positive impact (except for ES$\leftrightarrow$PT).
+Phrase-based SMT outperforms hierarchical SMT for related language pairs (ES--CA and ES--PT), but the opposite is true for the unrelated language pair ES--EU. We hypothesise this is due to the fact that ES and EU follow different word orders (SVO and SOV, respectively), and this leads to pervasive long reorderings in translation, that are better modelled with a hierarchical approach.
+
+\subsection{Evaluation on Test Data}
+
+Table \ref{t:res_test} presents the results on the test set of the systems we submitted.
+The scores shown are the ones reported by the organisers (case-insensitive BLEU and TER) on post-processed MT outputs (detokenised and detruecased).
+For each language direction we submitted the three systems that obtained the best performance on the dev set.
+The scores of the best submitted system are shown in bold.
+
+
+
+{\small
+\begin{table}[t]
+\centering
+\begin{tabular} {llll}
+  \hline\rule{-2pt}{15pt}
+  & \bf System & \bf BLEU & \bf TER\\
+  \hline
+  \multirow{3}{*}{\rotatebox[origin=c]{90}{{\footnotesize ES$\rightarrow$CA}}}
+  &DCU1 (1+4)	&0.7669		&0.1740\\
+  &DCU2 (1)		&\bf 0.7899$^\dagger$		&\bf 0.1626$^\dagger$\\
+  &DCU3 (1+2+4)	&0.7630		&0.1738\\
+%BLEU-c	BLEU	NIST-c	NIST	TER	METEOR
+%DCU.sys1	0.7437	0.7669	11.7899	12.0642	0.1740	-
+%DCU.sys2	0.7696	0.7899	11.8878	12.1020	0.1626	-
+%DCU.sys3	0.7393	0.7630	11.7793	12.0723	0.1738	-
+%UPC	0.7770	0.7832	12.0146	12.0549	0.2330	-
+
+  \hline
+  \multirow{3}{*}{\rotatebox[origin=c]{90}{{\footnotesize CA$\rightarrow$ES}}}
+  &DCU1 (1+4)	&0.7826		&0.1506\\
+  &DCU2 (1+2+4)	&0.7816		&0.1500\\
+  &DCU3 (1+3+4)	&\bf 0.7943$^\dagger$	&\bf 0.1431$^\dagger$\\
+%DCU.sys1	0.7606	0.7826	12.0696	12.3053	0.1506	0.8350
+%DCU.sys2	0.7607	0.7816	12.0783	12.2935	0.1500	0.8342
+%DCU.sys3	0.7700	0.7943	12.1403	12.3973	0.1431	0.8416
+%UPC	0.6769	0.6825	11.0804	11.1083	0.2253	0.7693
+%UPC1	0.6293	0.6351	10.8535	10.8757	0.2609	0.7407  \hline
+\hline
+  \multirow{3}{*}{\rotatebox[origin=c]{90}{{\footnotesize ES$\rightarrow$EU}}}
+  &DCU1 (1+2+4)		&0.2455					&0.6533\\
+  &DCU2 (1+2+3+4+5)	&\bf 0.2636$^\dagger$	&\bf 0.6469$^\dagger$\\
+  &DCU3 (1+2+4+5)	&0.2493					&0.6553\\
+%DCU.sys1	0.2205	0.2455	6.0201	6.5611	0.6533	-
+%DCU.sys2	0.2347	0.2636	6.2262	6.7847	0.6469	-
+%DCU.sys3	0.2235	0.2493	6.0522	6.5950	0.6553	-
+%EHU-RBMT	0.1891	0.2089	5.4024	5.7755	0.7377	-
+%EHU-SMT	0.2401	0.2635	6.2920	6.7714	0.6550	-
+  \hline
+  \multirow{3}{*}{\rotatebox[origin=c]{90}{{\footnotesize EU$\rightarrow$ES}}}
+  &DCU1 (2)			&0.2687	&0.6512\\
+  &DCU2 (1+2+4)		&0.2698	&0.6406\\
+  &DCU3 (1+2+4+5)	&\bf 0.2728	&\bf 0.6363\\
+%DCU.sys1	0.2490	0.2687	6.4587	6.8745	0.6512	0.3760
+%DCU.sys2	0.2490	0.2698	6.5389	6.9691	0.6406	0.3775
+%DCU.sys3	0.2509	0.2728	6.5729	7.0290	0.6363	0.3801
+%EHU-SMT	0.2826	0.3109	6.9641	7.4827	0.6153	0.4301
+
+  \hline
+  \multirow{3}{*}{\rotatebox[origin=c]{90}{{\footnotesize ES$\rightarrow$PT}}}
+  &DCU1 (1)		&0.3595					&0.5290\\
+  &DCU2 (1+2)	&\bf 0.3711$^\dagger$	&\bf 0.5157$^\dagger$\\
+  &DCU3 (1+2+4)	&0.3687					&0.5163\\
+%  DCU.sys1	0.3331	0.3595	7.3111	7.6727	0.5290	0.4566
+%DCU.sys2	0.3440	0.3711	7.5050	7.8834	0.5157	0.4605
+%DCU.sys3	0.3415	0.3687	7.5013	7.8899	0.5163	0.4589
+  \hline
+  \multirow{3}{*}{\rotatebox[origin=c]{90}{{\footnotesize PT$\rightarrow$ES}}}
+  &DCU1 (1)		&0.4465					&0.5767\\
+  &DCU2 (1+2)	&0.4467					&0.5627\\
+  &DCU3 (1+2+4)	&\bf 0.4524$^\dagger$	&\bf 0.5403$^\dagger$\\
+%  DCU.sys1	0.4197	0.4465	8.6093	8.9854	0.5767	0.5724
+%DCU.sys2	0.4221	0.4467	8.6415	9.0019	0.5627	0.5751
+%DCU.sys3	0.4266	0.4524	8.7233	9.0821	0.5403	0.5823
+
+  \hline
+\end{tabular}
+\caption{\label{t:res_test}Results on the test set.}
+\end{table}
+}
+
+
+Out of six directions, our best submission is the top performing system for five of them (indicated with $\dagger$).
+For most directions, the addition of a RBMT system leads to better performance.
+Similarly, for the directions where we have used segmentation (ES$\leftrightarrow$EU) and ParFDA (CA$\rightarrow$ES and ES$\rightarrow$EU), the addition of systems based on these techniques had a positive impact on the results.
+
+We now delve deeper into the results obtained by SMT systems based on ParFDA (cf. Section \ref{sec:fda}).
+Although ParFDA systems were submitted to the shared task only as part of system combinations, we have evaluated \textit{a posteriori} the performance of this technique by means of standalone systems on the test set.
+ParFDA Moses SMT system obtains top results in CA$\rightarrow$ES and ES$\rightarrow$CA and close to top results in other language pairs with  $1.21$ BLEU points average difference to the top (\Cref{ParFDA_TranslationResults}).
+An interesting feature of ParFDA regards its ability to build and deploy SMT systems in a quick manner. In the specific case of TweetMT,
+ParFDA took about 8 hours to build for ES$\rightarrow$CA and 28 hours for PT$\rightarrow$ES taking about 11 GB and 27 GB disk space in total, respectively. 
+
+
+\begin{table}[t]
+\centering
+%\hspace*{-0.75cm}
+{%\small
+\begin{tabular}{@{\hspace{0.0cm}}l|lll@{\hspace{0.0cm}}}
+\hline
+TweetMT & CA--ES & EU--ES & PT--ES \\
+\hline
+ParFDA & \textbf{.8012} & .2713 & .4374 \\
+Top & .7942 & .3109 & .4519 \\
+diff & -.007 & .0396 & .0145 \\
+LM order & 8 & 8 & 8 \\
+\hline
+%\hline
+ & ES--CA & ES--EU & ES--PT \\
+\cline{2-4}
+ParFDA & \textbf{.7926} & .2482 & .3589 \\
+Top & .7907 & .2636 & .3711 \\
+diff & -.0019 & .0154 & .0122 \\
+LM order & 8 & 10 & 8 \\
+%ParFDA & \textbf{.8012} & .2713 & .4369 \\
+%Top & .7942 & .3109 & .4519 \\
+%diff & -.007 & .0396 & .015 \\
+%LM order & 8 & 8 & 8 \\
+%\hline
+%%\hline
+% & ES--CA & ES--EU & ES--PT \\
+%\cline{2-4}
+%ParFDA & \textbf{.7933} & .2482 & .3589 \\
+%Top & .7907 & .2636 & .3711 \\
+%diff & -.0026 & .0154 & .0122 \\
+%LM order & 8 & 10 & 8 \\
+\hline
+\end{tabular}
+}\caption{BLEU results for ParFDA standalone systems on the test set, their difference to the top, and ParFDA LM order used. 
+ParFDA obtains top results in CA$\rightarrow$ES and ES$\rightarrow$CA and $1.21$ BLEU points average difference.}
+\label{ParFDA_TranslationResults}
+\end{table}
+
+%\todo[inline]{Comment results: is the best system on test the same that was the best on dev or are there inconsistencies?}
+
+
+\section{Conclusions and Future Work}\label{s:conclusion}
+
+This paper has described our participation in the TweetMT 2015 shared task.
+Our focus has been on rapid development of MT systems adapted to tweets by making the best possible use of available techniques, tools and resources.
+Our best submissions have been the ones that combine different MT systems (except for ES$\rightarrow$CA), supporting our hypothesis that the techniques we have used are complementary.
+
+As for future work, we consider several possible avenues.
+First, we would like to analyse in detail the translations produced by our systems in order to derive findings beyond the ones we can extract from the automatic evaluation metrics used in the task.
+Second, most of the tweets in the test set use formal language,\footnote{This is due to the fact that they are extracted from twitter accounts that publish tweets in multiple languages, and such accounts belong, to a large extent, to institutions that use formal language.} and thus we would like to test our systems in a more representative set of tweets where informal language would be expected to be more pervasive.
+
+\section*{Acknowledgments}
+
+This research is supported by the EU 7th Framework Programme FP7/2007-2013 under grant agreement PIAP-GA-2012-324414 (Abu-MaTran),
+by SFI as part of the
+ADAPT research center (07/CE/I1142) at Dublin City University and
+the project ``Monolingual and Bilingual Text Quality Judgments with Translation Performance Prediction'' (13/TIDA/I2740).
+We also thank the SFI/HEA Irish Centre for High-End Computing (ICHEC) for the
+provision of computational facilities and support.
+Finally, we would like to thank Mikel L. Forcada and Iacer Calixto for their advice on normalising tweets for Basque and Portuguese, respectively, and Gorka Labaka for his help with Matxin's API.
+
+\bibliographystyle{unsrt}
+\bibliography{paper_dcu_tweetmt15}
+
+
+\end{document}
+
+
+
+
+
+
+
+%\begin{table} [h]
+%\begin{center}
+%\begin{tabular} {|l|c|}
+%  \hline\rule{-2pt}{15pt}
+%  {\bf Descripción} & {\bf Cantidad}\\
+%  \hline\rule{-4pt}{10pt}
+%  Peras & 330\\
+%  Manzanas & 70\\
+%  Naranjas &  88\\
+%  Limones & 16\\
+%  Sandías & 73\\
+%  \hline\rule{-2pt}{10pt}
+%  {\bf Total}  & {\bf 577}\\
+%  \hline
+%\end{tabular}
+%\end{center}
+%\caption{\label{tabla1}Descripción}
+%\end{table}
+
+
+%\begin{figure}[h]
+%  \centering
+%  \includegraphics[width=5cm,clip]{ejem1.eps}
+%  \caption{Descripción}
+%  \label{figura1}
+%\end{figure}
+
+
+%\cite{Allen97}...
+%\namecite{allen2000}.
+
+%\begin{equation}
+%\sum (a_n*b_n) \label{formula1}
+%\end{equation}
+
+%\begin{example}
+%Este es un ejemplo hecho utilizando el formato de los ejemplos.
+%\label{ejemplo1}
