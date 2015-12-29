@@ -1,0 +1,478 @@
+\documentclass[postprint]{flammie}
+
+\usepackage{booktabs}
+\usepackage{microtype}
+%\setlength\titlebox{8cm}
+\usepackage{color} %added by AT
+%\usepackage[font=small,skip=0pt]{caption}
+%\usepackage[skip=0pt]{caption} %AT reduce space to fit in 6 pages!
+%\setlength{\belowcaptionskip}{-5pt}
+
+\title{Abu-MaTran at WMT 2015 Translation Task:\\Morphological Segmentation and Web Crawling
+\footnotepubrights{The official publication was in WMT 2015 workshop, in
+EMNLP 2015, and published version can be found in 
+\url{http://statmt.org/wmt15/papers.html} 
+or ACL anthology.}}
+%\thanks{The research leading to these results has received funding from the European Union Seventh Framework Programme FP7/2007-2013 under grant agreement PIAP-GA-2012-324414 (Abu-MaTran).
+%We would like to thank Kenneth Heafield for his help to our questions re MEMT.}
+%}
+
+%
+
+%TODO I made the email addresses \small to make the paper fit. May not be ideal!
+\author{Raphael Rubino$^{\star}$, Tommi Pirinen$^{\dag}$, 
+Miquel Esplà-Gomis$^{\ddag}$, Nikola Ljubešić$^{\gamma}$,\\
+Sergio Ortiz-Rojas$^{\star}$, Vassilis Papavassiliou$^{\natural}$,
+Prokopis Prokopidis$^{\natural}$, Antonio Toral$^{\dag}$\vspace*{.2cm}\\
+$^{\star}$ Prompsit Language Engineering, S.L., Elche, Spain\\
+\small{\texttt{\{rrubino,sortiz\}@prompsit.com}}\\
+$^\dag$ NCLT, School of Computing, Dublin City University, Ireland\\
+\small{\texttt{\{atoral,tpirinen\}@computing.dcu.ie}}\\
+$^\ddag$ Dep. Llenguatges i Sistemes Informàtics, Universitat d’Alacant, Spain\\
+\small{\texttt{mespla@dlsi.ua.es}}\\
+$^\gamma$ Department of Information and Communication Sciences, University of Zagreb, Croatia\\
+\small{\texttt{nljubesi@ffzg.hr}}\\
+$^{\natural}$ Institute for Language and Speech Processing, Athena Research and Innovation Center, Greece\\
+\small{\texttt{\{vpapa, prokopis\}@ilsp.gr}}}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+%This paper presents the Statistical Machine Translation (SMT) systems submitted by the Abu-MaTran team for the WMT 2015 translation task, focusing on the Finnish--English language pair. We tackle the low resources and complex morphology of the Finnish language by crawling data from the Web and investigating four morphological segmenation methods. Several SMT approaches are evaluated and combined to obtain our final submission.
+This paper presents the machine translation systems submitted by the Abu-MaTran project for the Finnish--English language pair at the WMT 2015 translation task.
+We tackle the lack of resources and complex morphology of the Finnish language by (i) crawling parallel and monolingual data from the Web and (ii) applying rule-based and unsupervised methods for morphological segmentation.
+Several statistical machine translation approaches are evaluated and then combined to obtain our final submissions \textcolor{green}{which are ranked amongst the top systems on both automatic and manual evaluation.}
+%, which were the top performing English-to-Finnish unconstrained (all \textcolor{blue}{automatic} metrics) and constrained (BLEU), and Finnish-to-English constrained (TER) systems.
+\end{abstract}
+
+
+\section{Introduction}
+\label{section:introduction}
+%
+This paper presents the statistical machine translation (SMT) systems submitted by the Abu-MaTran project for the WMT 2015 translation task. The language pair concerned is Finnish--English with a strong focus on the English-to-Finnish direction. The Finnish language is newly introduced this year as a particular translation challenge due to its rich morphology and to the lack of resources available, compared to e.g. English or French. 
+%
+
+Morphologically rich languages, and especially Finnish, are known to be difficult to translate using phrase-based SMT systems mainly because of the large diversity of word forms leading to data scarcity~\cite{koehn2005europarl}. We assume that data acquisition and morphological segmentation should contribute to decrease the out-of-vocabulary rate and thus improve the performance of SMT. To gather additional data, we decide to build on previous work conducted in the Abu-MaTran project and crawl the Web looking for monolingual and parallel corpora~\cite{toral2014extrinsic}. In addition, morphological segmentation of Finnish is used in our systems as pre- and post-processing steps. Four segmentation methods are proposed in this paper, two unsupervised and two rule-based.
+%
+
+Both constrained and unconstrained translation systems are submitted for the shared task. The former ones are trained on the data provided by the shared task, while the latter ones benefit from crawled data. For both settings, we evaluate the impact of the different SMT approaches and morphological segmentation methods. Finally, the outputs of individually trained systems are combined to obtain our primary submissions for the translation tasks.
+%
+
+This paper is structured as follows: the methods for data acquisition from the Web are described in Section~\ref{section:web_crawling}. Morphological segmentation is presented in Section~\ref{section:morphological_segmentation}. The data and tools used in our experiments are detailed in Section~\ref{section:datasets_and_tools}. Finally, the results of our experiments are shown in Section~\ref{section:results}, followed by a conclusion in Section~\ref{section:conclusion}.
+%
+\section{Web Crawling}
+\label{section:web_crawling}
+
+In this section we describe the process we followed to collect monolingual and parallel data through Web crawling. Both types of corpora are gathered through one web crawl of the Finnish \emph{.fi} top-level domain (TLD) with the \textsc{SpiderLing} crawler\footnote{\url{http://nlp.fi.muni.cz/trac/spiderling}}~\cite{suchomel2012efficient}. Since the \textsc{SpiderLing} crawler performs language identification during the crawling process, it allows simultaneous multilingual crawling. The whole unconstrained dataset gathered from the Web is built in 40 days using 16 threads. Documents written in Finnish and English are collected during the crawl.
+
+\subsection{Monolingual Data}
+\label{subsection:monolingual_data}
+%
+The amount of Finnish and English data collected during the crawl amounts to, after processing (which includes removing near-duplicates), $5.6M$ and $3.9M$ documents, containing $1.7B$ and $2.0B$ words for Finnish and English respectively. Interestingly, the amount of Finnish and English data on the Finnish TLD is quite similar. For comparison, on the Croatian domain only 10\% of the data is written in English~\cite{ljubesic14-bs}. While the Finnish data is used in further steps for building the target-language %LM
+model, both datasets are used in the task of searching for parallel data described in the next subsection.
+%
+%
+%\begin{table}
+%	\center{
+%	\small{
+%	\begin{tabular}{lcc}
+%		\toprule
+%		language & documents & words \\
+%		\midrule
+%		Finnish & 5,620,667 & 1,716,628,059 \\
+%        English & 3,859,694 & 1,996,307,353 \\
+%		\bottomrule
+%	\end{tabular}
+%	\caption{Amount of data obtained with the TLD crawl (after processing).}
+%	\label{table:data_mono}
+%	}}
+%\end{table}
+%
+\subsection{Parallel Data}
+\label{subsection:parallel_data}
+%
+The process of searching for parallel segments among the English and Finnish crawled data is performed by adapting the \textsc{Bitextor}\footnote{\url{http://sf.net/p/bitextor/}} tool to process already crawled data. \textsc{Bitextor} is a free/open-source tool for harvesting bitexts from multilingual websites. This tool downloads a complete website, processes it, extracts parallel documents and aligns their sentences. In this paper \textsc{Bitextor} is used to detect parallel documents from a collection of downloaded and pre-processed websites. The pre-processing performed by \textsc{SpiderLing} includes language detection, boilerplate removal, and HTML format cleaning. Therefore, the only modules of \textsc{Bitextor} used for this task are those performing document and segment alignment, relying on \textsc{hunalign}\footnote{\url{http://mokk.bme.hu/resources/hunalign}} \cite{varga2007parallel} and an English--Finnish bilingual lexicon.\footnote{\url{http://sf.net/p/bitextor/files/bitextor/bitextor-4.1/dictionaries/}} Confidence scores for aligned segments are computed thanks to these two resources.
+%
+
+From the $12,183$ web domains containing both Finnish and English documents, \textsc{Bitextor} is able to identify potentially parallel data on $10,656$ domains, i.e. $87.5\%$. From these domains, $2.1M$ %$2,083,431$ 
+segment pairs are extracted without any additional restrictions, and $1.2M$ %$1,243,320$ 
+when additional restrictions on the document pairing are set. Namely, these restrictions discard (i) document pairs where less than 5 segments are aligned; and (ii) those with an alignment score lower than $0.2$ according to \textsc{hunalign}. The first collection can be considered recall-oriented and the second one precision-oriented.
+%
+
+In this first step, a large amount of potentially parallel data is obtained by post-processing data collected with a TLD crawl, which is not primarily aimed at finding parallel data. To make use of this resource in a more efficient way, we re-crawl some of the most promising web sites (we call them \textit{multilingual hotspots}) with the \textsc{ILSP-FC} crawler specialised in locating parallel documents during crawling. According to \cite{espla14-comparing}, \textsc{Bitextor} and \textsc{ILSP-FC} have shown to be complementary, and combining both tools leads to a larger amount of parallel data.
+%
+
+\textsc{ILSP-FC}~\cite{papavassiliou-prokopidis-thurmair:2013:BUCC} is an open-source modular crawling system allowing to easily acquire domain-specific and generic corpora from the Web.\footnote{\url{http://nlp.ilsp.gr/redmine/projects/ilsp-fc}}
+%Depending on user-defined configuration, the crawler employs processing workflows for the creation of either monolingual or bilingual corpora.
+The modules integrated in \textsc{ILSP-FC} include a de-duplicator that checks each document against all others and identifies near-duplicates by comparing the quantised word frequencies and the paragraphs of each pair of candidate duplicate documents and a pair detector that examines each document against all others and identifies pairs of documents that could be considered parallel. The main methods used by the pair detector are URL similarity, co-occurrences of images with the same filename in two documents, and the documents' structural similarity.
+%
+
+In order to identify the \textit{multilingual hotspots}, we process the output of the Finnish TLD and generate a list containing the websites which have already been crawled and the number of stored English and Finnish webpages for each website. Assuming that a website with comparable numbers of webpages for each language is likely to contain bitexts of good quality, we keep the websites with Finnish to English ratio over 0.9. Then, \textsc{ILSP-FC} processes the $1,000$ largest such websites, considered the most bitext-productive multilingual websites, in order to detect parallel documents. We identify a total of $58,839$ document pairs ($8,936$, $17,288$ and $32,615$ based on URL similarity, co-occurrences of images and structural similarity, respectively). Finally, \textsc{Hunalign} is applied on these document pairs, resulting in $1.2M$ %$1,220,306$ 
+segment pairs after duplicate removal.
+
+The parallel corpus used in our experiments is the result of joining the biggest corpora acquired by \textsc{Bitextor} and \textsc{ILSP-FC} and removing duplicates.
+This amounts to $2.8M$ %$2,755,413$ 
+segment pairs.
+
+%TODO shall we mention somewhere here or in Section 4 that from crawled data we removed some parts as they were in the dev set?
+
+
+%
+\section{Morphological Segmentation}
+\label{section:morphological_segmentation}
+
+Morphological segmentation is a method of analysis of word-forms in order to reduce morphological complexity. There are few variations on how to define morphological segmentation, we use the most simple definition: a morphological segmentation of a word is defined by 0 or more segmentation points from where the word can be split into segments. The letter sequences between segmentation points are not modified, i.e. no lemmatisation or segment analysis is performed (or retained) in the actual SMT data.
+%AT I don't understand the following sentence and it doesn't seem to add much. Uncomment if you don't agree
+%Some selection is performed for segmentation points to get various segmentation models. 
+An example of a linguistically derived morphological segmentation of an English word-form \textit{cats} would be \texttt{cat$\rightarrow$ $\leftarrow$s}, where $\rightarrow$ $\leftarrow$ denotes the segmentation point,\footnote{we follow this arrow notation throughout the paper as well as in the actual implementation} and \texttt{cat} and \texttt{s} are the segments.
+
+
+We use four segmentation approaches that can be divided in two categories: (i) rule-based, based on morphological dictionaries and weighted finite-state technology \textsc{HFST}~\cite{hfst}\footnote{\url{http://hfst.sf.net}}, further detailed in subsection~\ref{subsection:rule_based}, and (ii) statistical, based on unsupervised learning of morphologies, %from data 
+%using two \textsc{Morfessor} algorithms: Baseline 2.0~\cite{morfessor} and \textsc{Flatcat}~\cite{flatcat}, 
+further detailed in subsection~\ref{subsection:unsupervised}. All segments are used as described in subsection~\ref{subsection:segments_pipeline}.
+
+\subsection{Rule-based Segmentation}
+\label{subsection:rule_based}
+%
+Rule-based morphological segmentation is based on linguistically motivated computational descriptions of the morphology by dividing the word-forms into \textit{morphs} (minimal segments carrying semantic or syntactic meaning). The rule-based approach to morphological segmentation uses a morphological dictionary of words and an implementation of the morphological grammar to analyse word-forms. In our case, we use \textsc{omorfi}~\cite{pirinen2015omorfi}, an %freely available 
+open-source implementation of the Finnish morphology.\footnote{\url{http://github.com/flammie/omorfi/}} \textsc{omorfi}'s segmentation produces named segment boundaries: stem, inflection, derivation, compound-word and other etymological. The two variants of rule-based segmentation we use are based on selection of the boundary points: \textit{compound segmentation} uses compound segments and discards the rest (referred in tables and figures to as \texttt{HFST Comp}), and \textit{morph segmentation} uses compound and inflectional morph segments (\texttt{HFST Morph} in tables and figures). In cases of ambiguous segments, the weighted finite-state automata 1-best search is used with default weights.\footnote{For details of implementation and reproducibility, the code is available in form of automake scriptlets at \url{http://github.com/flammie/autostuff-moses-smt/}.} %The segmentations to moses pipeline is implemented in shell scripts using the \textsc{HFST} tools.
+%
+For example, the words \textit{kuntaliitoksen selvitt\"amisess\"a} (``examining annexation'') is segmented by \texttt{hfst-comp} as `kunta$\rightarrow \leftarrow$liitoksen selvitt\"amisess\"a' and \texttt{hfst-morph} as `kunta$\rightarrow \leftarrow$liitokse$\rightarrow \leftarrow$n selvitt\"amise$\rightarrow \leftarrow$ss\"a'.
+
+\subsection{Unsupervised Segmentation}
+\label{subsection:unsupervised}
+%
+Unsupervised morphological segmentation is based on a statistical model trained by minimising the number of different character sequences observed in a training corpus. We use two different algorithms: \textsc{Morfessor} Baseline 2.0~\cite{morfessor} and \textsc{Flatcat}~\cite{flatcat}.
+The segmentation models are trained using the Europarl v8 corpus. Both systems are used with default settings. However, with \textsc{Flatcat} we discard the non-morph boundaries and we have not used semi-supervised features.
+For example, the phrase given in previous sub-section:  \texttt{morfessor} produces 1-best segmentation: and `Kun$\rightarrow \leftarrow$ta$\rightarrow \leftarrow$liito$\rightarrow \leftarrow$ksen selvitt\"a$\rightarrow \leftarrow$misess\"a' and \texttt{flatcat} `Kun$\rightarrow \leftarrow$tali$\rightarrow \leftarrow$itoksen selvitt\"amis$\rightarrow \leftarrow$ess\"a'
+
+%
+\subsection{Segments in the SMT Pipeline}
+\label{subsection:segments_pipeline}
+%
+The segmented data is used exactly as the word-form-based data during training, tuning and testing of the SMT systems,\footnote{The parameters of the word alignment, phrase extraction and decoding algorithms have not been modified to take into account the nature of the segmented data.} except during the pre-processing and post-processing steps.
+For pre-processing, the Finnish side is segmented prior to use. 
+In segmented-Finnish-to-English the post-processing was performed by removing the boundary markers. In English-to-segmented-Finnish translation, there are basically two types of tokens with boundary markers: \textit{matching} arrows \texttt{a$\rightarrow$ $\leftarrow$b} and \textit{stray} arrows \texttt{a$\rightarrow$ x} or \texttt{x $\leftarrow$b}. In the former case, we replace \texttt{$\rightarrow$ $\leftarrow$} with an empty string to join the morphs. In the latter case, we delete the morphs with the stray arrows.
+
+%
+\section{Datasets and Tools}
+\label{section:datasets_and_tools}
+%
+This section presents the tools and the monolingual and parallel data used to train our SMT systems. All the corpora are pre-processed prior to training the language and translation models. We rely on the scripts included in the \textsc{Moses} toolkit~\cite{koehn2007moses} and perform the following operations: punctuation normalisation, tokenisation, true-casing and escaping of problematic characters. The truecaser is lexicon-based, trained on all the monolingual and parallel data. In addition, we remove sentence pairs from the parallel corpora where either side is longer than $80$ tokens.
+%
+
+\subsection{Translation Models}
+\label{subsection:translation_model}
+%
+Previous studies in MT involving Finnish do not show a clear advantage of one particular approach compared to another, and thus we decide to empirically evaluate several types of SMT systems: phrase-based SMT~\cite{och2004alignment} trained on word forms or morphs as described in Section~\ref{section:morphological_segmentation}, Factored Models~\cite{koehn2007factored} including morphological and suffix information as provided by \textsc{omorfi},\footnote{using the script \texttt{omorfi-factorise.py}} in addition to surface forms, and finally hierarchical phrase-based SMT~\cite{chiang2005hierarchical} as an unsupervised tree-based model. All the systems are trained with \textsc{Moses}, relying on \textsc{MGIZA}~\cite{gao2008parallel} for word alignment
+and MIRA~\cite{watanabe-EtAl:2007:EMNLP-CoNLL2007} for tuning. This tuning algorithm was shown to be faster and as efficient as MERT for model core features, as well as a better stability with larger numbers of features~\cite{hasler2011margin}.
+%
+
+In order to compare the individually trained SMT systems, we use the same parallel data for each model, as well as the provided development set to tune the systems. The phrase-based SMT system is augmented with additional features: an Operation Sequence Model (OSM)~\cite{durrani2011joint} and a Bilingual Neural Language Model (BiNLM)~\cite{devlin2014binlm}, both trained on the parallel data used to learn the phrase-table. All the translation systems also benefit from two additional reordering models, namely a phrase-based model with three different orientations (monotone, swap and discontinuous) and a hierarchical model with four orientations (non merged discontinuous left and right orientations), both trained in a bidirectional way~\cite{koehn2005edinburgh,galley2008simple}.
+%
+
+\begin{figure}
+\centering
+%\includegraphics[width=0.42\textwidth]{uniq-segments}
+\includegraphics[width=0.48\textwidth]{figures/uniqtokens.pdf}
+	\caption{Effects of segmentation to unique token counts in Finnish data.
+	\label{figure:segmentation_effects}
+	}
+\end{figure}
+%
+
+Our constrained systems are trained on the data available for the shared task, while unconstrained systems are trained with two additional sets of parallel data, the \textsc{FiEnWaC} crawled dataset (cf. Section ~\ref{subsection:parallel_data})
+%following the method described in Subsection~\ref{subsection:parallel_data})
+and Open Subtitles, henceforth \textsc{osubs}.\footnote{\url{http://opus.lingfil.uu.se/}} The details about the corpora used to train %, tune and test %TODO tuning and test data are not in the Table
+the translation models are presented in Table~\ref{table:data_tm}.  Figure~\ref{figure:segmentation_effects} shows how different segmentation methods affect the vocabulary size; given that linguistic segmentation have larger vocabularies as statistical their contribution to translation models may be at least partially complementary.
+%
+
+%AT: here all the numbers (number of sentence pairs and words) for unconstrained parallel datasets.
+%in case we want to put them in more detail than i've put them in the table below
+%seg sentences wordsFI wordsEN wordsFI+EN
+%fienwac.I 640131 9231460 13584155 22815615
+%fienwac.ot 838945 12467914 18067964 30535878
+%fienwac.ob 838945 13882728 18139043 32021771
+%osubs.I 492191 3584349 5604060 9188409
+%osubs.ot 1169592 8794713 14372350 23167063
+%osubs.ob 1169592  7838021 13046693 20884714
+\begin{table}
+	\center{
+	\small{
+	\begin{tabular}{lrrr}
+   		\toprule
+    	& & \multicolumn{2}{c}{Words (M)} \\
+		Corpus & Sentences (k) & Finnish & English\\
+		\midrule
+		& \multicolumn{3}{c}{\textit{Constrained System}} \\
+        Europarl v8 & 1,901.1 & 36.5 & 50.9 \\
+		& \multicolumn{3}{c}{\textit{Unconstrained System}} \\
+		fienwac.in  & 640.1 & 9.2 & 13.6 \\
+		fienwac.outt & 838.9 & 12.5 & 18.1 \\
+		fienwac.outb & 838.9 & 13.9 & 18.1 \\
+		osubs.in & 492.2 & 3.6 & 5.6 \\
+		osubs.outt & 1,169.6 & 8.8 & 14.4 \\
+		osubs.outb & 1,169.6 & 7.8 & 13.0 \\
+		\bottomrule
+	\end{tabular}
+	\caption{Parallel data used to train the translation models, after pre-processing.}
+	\label{table:data_tm}
+	}}
+\end{table}
+%
+
+%AT the bit on data selection. It may not need a section on its own.
+The two unconstrained parallel datasets are split into three subsets: pseudo in-domain, pseudo out-of-domain top and pseudo out-of-domain bottom, henceforth \texttt{in}, \texttt{outt} and \texttt{outb}.
+We rank the sentence pairs according to bilingual cross-entropy difference on the devset~\cite{axelrod2011domain} and calculate the perplexity on the devset of LMs trained on different portions of the top ranked sentences (the top 1/64, 1/32 and so on).
+The subset for which we obtain the lowest perplexities is kept as \texttt{in} (this was 1/4 for \texttt{fienwac} (403.89 and 3610.95 for English and Finnish, respectively), and 1/16 for \texttt{osubs} (702.45 and 7032.2).
+The remaining part of each dataset is split in two sequential parts in ranking order of same number of lines, which are kept as \texttt{outt} and \texttt{outb}.
+
+The out-of-domain part of \texttt{osubs} is further processed with vocabulary saturation~\cite{lewis2013dramatically} in order to have a more efficient and compact system~\cite{rubino-EtAl:2014:W14-33}.
+We traverse the sentence pairs in the order they are ranked and filter out those for which we have seen already each 1-gram at least 10 times.
+This results in a reduction of 3.2x on the number of sentence pairs (from $7.3M$ to $2.3M$) and 2.6x on the number of words (from $114M$ to $44M$).
+
+The resulting parallel datasets ($7$ in total: Europarl and 3 sets for each \texttt{fienwac} and \texttt{osubs}) are used individually to train translation and reordering models before being combined by linear interpolation based on perplexity minimisation on the development set.~\cite{sennrich2012perplexity}
+%
+\subsection{Language Models}
+\label{subsection:language_model}
+%
+All the Language Models (LM) used in our experiments are $5$-grams modified Kneser-Ney smoothed LMs trained using KenLM~\cite{heafield2013estimate}. For the constrained setup, the Finnish and the English LMs are trained following two different approaches. The English LM is trained on the concatenation of all available corpora while the Finnish LM is obtained by linearly interpolating individually trained LMs based on each corpus. The weights given to each individual LM is calculated by minimising the perplexity obtained on the development set. For the unconstrained setup, the Finnish LM is trained on the concatenation of all constrained data plus the additional monolingual crawled corpora (noted \textit{FiWaC}). The data used to train the English and Finnish LMs are presented in Table~\ref{table:data_en_lm} and Table~\ref{table:data_fi_lm} respectively.
+%
+
+\begin{table}
+	\center{
+	\small{
+	\begin{tabular}{lrr}
+		\toprule
+		Corpus & Sentences (k) & Words (M) \\
+		\midrule
+		Europarl v8 & 2,218.2 & 59.9 \\ %TODO check i changed v7 for v8. Is that correct?
+		News Commentary v10 & 344.9 & 8.6 \\
+		\multicolumn{3}{l}{News Shuffled} \\
+		~ 2007 & 3\,782.5 & 90.2 \\
+		~ 2008 & 12\,954.5 & 308.1 \\
+		~ 2009 & 14\,680.0 & 347.0 \\
+		~ 2010 & 6\,797.2 & 157.8 \\
+		~ 2011 & 15\,437.7 & 358.1 \\
+		~ 2012 & 14\,869.7 & 345.5 \\
+		~ 2013 & 21\,688.4 & 495.2 \\
+		~ 2014 & 28\,221.3 & 636.6 \\
+		Gigaword 5th & 28,178.1 & 4,831.5 \\
+		\bottomrule
+	\end{tabular}
+	\caption{English monolingual data, after pre-processing, used to train the constrained language model.}
+	\label{table:data_en_lm}
+	}}
+\end{table}
+%
+
+\begin{table}
+	\center{
+	\small{
+	\begin{tabular}{lrr}
+		\toprule
+		Corpus & Sentences (k) & Words (M) \\
+		\midrule
+		\multicolumn{3}{c}{\textit{Constrained System}} \\ %TODO Europarl is missing in this table!
+		News Shuffle 2014 & 1,378.8 & 16.5 \\
+		\multicolumn{3}{c}{\textit{Unconstrained System}} \\
+		FiWaC & 146,557.4 & 1,996.3 \\
+		\bottomrule
+	\end{tabular}
+	\caption{Finnish monolingual data, after pre-processing, used to train the language models.}
+	\label{table:data_fi_lm}
+	}}
+\end{table}
+%
+%
+%\subsection{Language Models}
+%\label{subsection:constrained_language_models}
+%%
+%The number of $n$-grams ($n \in [1;5]$) are presented in Table~\ref{table:ngrams_lm}.
+%%
+%\begin{table}
+%	\center{
+%	\small{
+%	\begin{tabular}{lrrrrr}
+%		\toprule
+%		Order & $1$ & $2$ & $3$ & $4$ & $5$ \\
+%		\midrule
+%		\multicolumn{6}{c}{\textit{Constrained}} \\
+%		Finnish & 1,4 & 14.9 & 30.7 & 39.3 & 41.4 \\
+%		English & 14.8 & 216.5 & 1,127.0 & 2,732.5 & 4,207.4 \\
+%		\multicolumn{6}{c}{\textit{Unconstrained}} \\
+%		Finnish & & & & & \\
+%		\bottomrule
+%	\end{tabular}
+%	\caption{Number of $n$-grams in millions for the English and Finnish word-forms language models.}
+%	\label{table:ngrams_lm}
+%	}}
+%\end{table}
+
+%Finnish interpolate
+%ngram 1=1399780
+%ngram 2=14862980
+%ngram 3=30717601
+%ngram 4=39304818
+%ngram 5=41442238
+
+%English
+%ngram 1=14794221
+%ngram 2=216545499
+%ngram 3=1126979358
+%ngram 4=2732471448
+%ngram 5=4207415248
+%
+%\subsection{System Combination}
+%\label{subsection:system_combination}
+%
+
+%\subsection{Segmented Data}
+%\label{subsection:segmentation_effects}
+
+%A motivation to perform segmentation on morphologically complex language data is to reduce the %vocabulary size. Figure~\ref{table:segmentation_effects} shows the unique token counts of the %data with different segmentation algorithms.
+
+
+%\begin{table}
+%	\center{
+%	\small{
+%	\begin{tabular}{lccccc}
+%		\toprule
+%		corpus            & baseline & hfst-comp    & hfst-morph      & flatcat & morfessor \\
+%		\midrule
+%		Europarl v8       & 758,736   & 446,528     & 208,408    & 159,632 & 139,764 \\
+%       FiEnWac           & 902,973   & 596,865     & 355,587    & 251,987 & 125,587\\
+%     OpenSubs          & 337,287   & 289,718     & 164,439    & 136,784 & 96,067\\
+%   \midrule
+%		News Shuffle 2014 & 948,834	  & 637,007     & 375,275    & 257,625 & 125,097 \\
+%        FiWaC             & 35274926          & 19,278,031  & 16,295,739 &         & 231,949 \\
+%		\bottomrule
+%	\end{tabular}
+%	\caption{Effects of segmentation to unique token counts in Finnish data. Word-forms is unsegmented data, compounds using rule-based segmentation with only compound segmentation points, morph with compound and inflectional morph segmentation points, flatcat using Morfessor Flatcat and morfessor using Morfessor Baseline 2.0. Numbers are absolute values of unique token counts.}
+%	\label{table:segmentation_effects}
+%	}}
+%\end{table}
+
+\section{Results}
+\label{section:results}
+%
+In this section we present the results obtained for the constrained and unconstrained tasks.
+%The results obtained for the constrained and unconstrained tasks are presented in this Section. 
+We tackled the English-to-Finnish direction in the unconstrained task, while both directions are presented for the constrained task. The diversity of the translation systems and morphological segmentation approaches motivates the combination of the individual translation outputs. We assume that they have complementary strengths and we perform system combination using MEMT~\cite{heafield2010combining}. Default settings are used, except for the beam size (set to $1,500$) and radius (5 for Finnish and 7 for English), following empirical results obtained on the development set.
+%
+\subsection{Constrained Results}
+\label{section:constrained_results}
+%
+
+Individual systems trained on the provided data are evaluated before being combined. The results obtained for the English-to-Finnish direction are presented in Table~\ref{table:constrained_results_enfi}.\footnote{We use NIST mteval v13 and TERp v0.1, both with default parameters.} The \textsc{BLEU}~\cite{papineni2002bleu} and \textsc{TER}~\cite{snover2006study} scores obtained by the system trained on compound-segmented data (\textit{HFST Comp}) show a positive impact of this method on SMT according to the development set, compared to the other individual systems. The unsupervised segmentation methods do not improve over phrase-based SMT, while the hierarchical model shows an interesting reduction of the \textsc{TER} score compared to a classic phrase-based approach. On the test set, the use of inflectional morph segments as well as compounds (\textit{HFST Morph}) leads to the best results for the individual systems on both evaluation metrics. The combination of these $7$ systems improves substantially over the best individual system for the development and the test sets. %TODO we do not combine hi for en->fi. We need the results for combo all-hierarchical. For camera-ready we can show two combination rows (all and all-hierarchical).
+
+\begin{table}
+	\center{
+	\small{
+	\begin{tabular}{lrrrr}
+		\toprule
+        & \multicolumn{2}{c}{Dev} & \multicolumn{2}{c}{Test} \\
+		System & BLEU & TER & BLEU & TER \\
+		\midrule
+        Phrase-Based & 13.51 & 0.827 & 12.33 & 0.843 \\
+        Factored Model & 13.08 & 0.827 & 11.89 & 0.847 \\
+        Hierarchical & 13.05 & 0.822 & 12.11& 0.830 \\
+        HFST Comp & {\bf 13.57} & {\bf0.814} & 12.66 & 0.828 \\
+        HFST Morph & 13.19 & 0.818 & {\bf12.77} & {\bf0.819} \\
+        Morfessor & 12.21 & 0.860 & 11.58 & 0.864 \\
+        Flatcat & 12.67 & 0.844 & 12.05 & 0.849 \\
+        \midrule
+        Combination & 14.61 & 0.786 & 13.54 & 0.801 \\
+		\bottomrule
+	\end{tabular}
+		\caption{Results obtained on the development and test sets for the constrained English-to-Finnish translation task. Best individual system in bold.}
+	\label{table:constrained_results_enfi}
+	}}
+\end{table}
+%
+
+The results for the other translation direction (Finnish to English) are shown in Table~\ref{table:constrained_results_fien} and follow the same trend as observed with Finnish as target: the morphologically segmented data helps improving over classic SMT approaches. The two metrics indicate better performances of \textit{HFST Morph} on the development set, while \textit{Flatcat} reaches the best scores on the test set. The results obtained with the segmented data on the two translation directions and the different segmentation approaches are fluctuating and do not indicate which method is the best.
+% I've commented the next sentence since Flatcat is based on Morfessor and obtains the best score in the testset!
+%However, the rule-based approaches lead to better results compared to the unsupervised segmentation method \textit{Morfessor}. 
+Again, the combination of all the systems results in a substantial improvement over the best individual system across both evaluation metrics.
+
+%Looking more closely at individual system results through, e.g. TER edit categories one can see some tendencies in that e.g., morfessor-based systems that linguistically judging over-segment the text will have higher rate of insertions needed when translating into Finnish, but more detailed evaluation will require further research.
+%
+\begin{table}
+	\center{
+	\small{
+	\begin{tabular}{lrrrr}
+		\toprule
+		& \multicolumn{2}{c}{Dev} & \multicolumn{2}{c}{Test} \\
+		System & BLEU & TER & BLEU & TER \\
+		\midrule
+        Phrase-Based & 17.19 & 0.762 & 16.90 & 0.759 \\
+        Hierarchical & 16.98 & 0.768 & 15.93 & 0.773 \\
+        HFST Comp & 17.87 & 0.748 & 16.68 & 0.753 \\
+        HFST Morph & {\bf18.64} & {\bf0.735} & 17.22 & 0.752 \\
+        Morfessor & 16.83 & 0.769 & 15.96 & 0.756 \\
+        Flatcat & 16.78 & 0.766 & {\bf17.33} & {\bf0.741} \\
+        \midrule
+        Combination & 19.66 & 0.719 & 18.77 & 0.726 \\
+		\bottomrule
+	\end{tabular}
+	\caption{Results obtained on the development and test sets for the constrained Finnish-to-English translation task.  Best individual system in bold.}
+	\label{table:constrained_results_fien}
+	}}
+\end{table}
+%
+\subsection{Unconstrained Results}
+\label{section:constrained_results_fien}
+%
+
+We present the results obtained on the unconstrained English-to-Finnish translation task in Table~\ref{table:unconstrained_results_enfi}. Two individual systems are evaluated, using word-forms and compound-based data, and show that the segmented data leads to lower TER scores, while higher BLEU are reached by the word-based system.
+The combination of these two systems in addition to the constrained outputs of the remaining systems (hierarchical, factored model, HFST Morph, Morfessor and Flatcat) is evaluated in the last row of the table, and shows $.3$pt BLEU gain on the test set over the phrase-based approach using word forms.
+%
+
+\begin{table}
+	\center{
+	\small{
+	\begin{tabular}{lrrrr}
+		\toprule
+		& \multicolumn{2}{c}{Dev} & \multicolumn{2}{c}{Test} \\
+		System & BLEU & TER & BLEU & TER \\
+		\midrule
+        Phrase-Based & {\bf16.16} & 0.804 & {\bf16.07} & 0.801 \\
+        HFST Comp & 15.80 & {\bf0.796} & 15.06 & {\bf0.800} \\
+        \midrule
+        Combination & 17.25 & 0.776 & 16.38 & 0.779 \\
+		\bottomrule
+	\end{tabular}
+	\caption{Results obtained on the development and test sets for the unconstrained English-to-Finnish translation task. Best individual system in bold.}
+	\label{table:unconstrained_results_enfi}
+	}}
+\end{table}
+%
+\section{Conclusion}
+\label{section:conclusion}
+%
+Our participation in WMT15's translation task has focused on investigating the use of several morphological segmentation methods and Web data acquisition in order to handle the data scarcity and the rich morphology of Finnish. In addition, we have evaluated several SMT approaches.
+Our submission is based on the system combination of SMT systems following different approaches and using different types of morphological segmentation.
+%
+
+Automatic evaluation metrics show the usefulness of morphological segmentation, especially of the rule-based methods, \textcolor{blue}{which lead to a reduction of the vocabulary size and, in most cases, also to better performance, compared to an equivalent SMT system that operates on word forms}.
+The best results are obtained with the system combination approach. %, followed by the morphology-aware systems and a classic phrase-based SMT system on word-forms enhanced with OSM and a bilingual neural LM.
+The acquisition of additional training data improves over the constrained systems and is a successful example of the Abu-MaTran crawling pipeline.
+%
+%As future work, we plan to investigate the impact of morphological segmentation on the performance of word-alignment  as we assume that the vocabulary reduction obtained with segmentation modifies the alignment probabilities of the translation model. Also, the instability observed on the development and test sets, as well as between the different segmentation methods, requires a deeper analysis of the impact of different segmentation methods in SMT.
+
+%
+\section*{Acknowledgments}
+The research leading to these results has received funding from the European Union Seventh Framework Programme FP7/2007-2013 under grant agreement PIAP-GA-2012-324414 (Abu-MaTran).
+We would like to thank Kenneth Heafield for his help to our questions re MEMT.
+%
+\bibliographystyle{unsrt}
+\bibliography{abumatran_wmt15}
+%
+\end{document}
+
+
+
