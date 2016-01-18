@@ -1,7 +1,7 @@
 
 .PHONY: all
 
-all: 2016-iwclul-finnish-mt.pdf
+all: 2016-sigur-meeting-beamer.pdf Pirinen-2016-abumatran-poster-boaster.pdf UD_tutorial.pdf
 
 %.pdf: %.tex
 	xelatex $<
