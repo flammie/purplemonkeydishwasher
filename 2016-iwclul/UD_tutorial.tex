@@ -1,0 +1,521 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+\usepackage{tikz}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{xcolor}
+\usepackage{rotating}
+\usepackage{tikz-dependency}
+\usepackage{gb4e}
+
+\definecolor{cerulean}{rgb}{0.0, 0.48, 0.65}
+
+\mode<presentation> {
+
+\usetheme{Szeged}
+\usecolortheme{whale}
+
+%\useoutertheme{split}
+%\useinnertheme{circles}
+%\usebackgroundtemplate{
+%\begin{sideways}
+%\begin{minipage}{0.7\paperwidth}
+%\vspace{5pt}
+%magyar
+%\tiny \flushleft \textcolor{blue}{SZEGEDI TUDOM\'ANYEGYETEM} \\
+%\textcolor{cerulean}{Nyelvtechnológiai Csoport}
+%angol
+%\tiny \flushleft \textcolor{blue}{UNIVERSITY OF SZEGED} \\
+%\textcolor{cerulean}{Natural Language Processing Group}
+%\end{minipage}
+%\end{sideways}
+%\begin{minipage}[b][0.3\paperheight][b]{0.95\paperwidth}
+%\flushright
+%\tikz\node[opacity=1.0]{\includegraphics[width=0.1\paperwidth,height=0.1\paperheight]{szte_logo_trans.png}};
+%\hfill
+%\end{minipage}
+%
+%}
+
+}
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[UD for Finno-Ugric Languages]{\textbf{Universal Dependencies for Finno-Ugric Languages}} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author[]{Veronika Vincze\\
+Filip Ginter\\
+Tommi Pirinen\\
+Francis Tyers} % Your name
+\institute% Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+[]{
+University of Szeged\\ 
+University of Turku\\
+Dublin City University\\
+University of Troms\o\\% Your institution for the title page
+%\medskip
+\textit{vinczev@inf.u-szeged.hu, figint@utu.fi\\
+tommi.pirinen@computing.dcu.ie, francis.tyers@uit.no \\
+% Your email address
+}}
+\date{20 January 2016} % Date, can be changed to a custom date
+
+%\titlegraphic{{\hspace{80mm}}{\vspace{70mm}}{\includegraphics[width=20mm,height=20mm]{szte_cimer}}}
+
+%\titlegraphic{\includegraphics[width=2cm]{szte_cimer.png}\hspace*{4.75cm}~%
+   %\includegraphics[width=2cm]{logo_rgai.png}}
+	
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview}
+\begin{itemize}
+\item introduction \& motivation
+\item Finnish and Hungarian landscape before UD
+\item the Universal Dependencies project
+\item principles of Universal Morphology
+\item specific morphological features and values for FU languages
+\begin{itemize}
+	\item possessive markers
+	\item object-verb agreement
+\end{itemize}
+\item principles of Universal Dependencies
+\item specific dependency labels and annotation practice for FU languages
+\begin{itemize}
+	\item empty copulas
+	\item multiword named entities
+	\item extended labels
+\end{itemize}
+\item building UD treebanks
+\item how to contribute
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Introduction}
+\textbf{Universal Dependencies:}
+\begin{itemize}
+\item international project (unfunded!)
+\item 33 languages (v1.2)
+\item goal: to develop a ``universal'', i.e.~a language-independent morphological and syntactic representation
+\item multilingual morphological and syntactic parsing
+\item studies on linguistic typology and contrastive linguistics
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Motivation}
+\begin{itemize}
+\item part-of-speech tagging and syntactic parsing have been popular research areas
+\item several shared tasks have been recently organized that aimed at the morphological and syntactic parsing of several languages \cite{seddah-EtAl:2013:SPMRL,seddah-kubler-tsarfaty:2014:SPMRL-SANCL}
+\item comparison of results achieved for different languages is not straightforward
+\item language-specific morphological tagsets
+\item language-specific syntactic labels
+\item language-specific annotation principles
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{The Finnish landscape before UD}
+\begin{itemize}
+\item a number of different commercial analysers, including TWOL-fi, fin-fdg,
+    textmorfo, unitex Finnish (1980s -- mid 2000s) and some open source alternatives
+    thereafter: omorfi, suomi-malaga, Grammatical Framework
+\item similarly, old corpora made with textmorfo, no manual checking, new ones
+    are partially hand-annotated: FinnTreeBanks 1, 2, 3,
+    Turku Dependency Treebank etc... most derive from omorfi tags, often with
+    trivial replacements(?)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{The Hungarian landscape before UD}
+\begin{itemize}
+\item 3 morphological tagsets: HUMOR, MSD, KR
+\item 1 manually annotated corpus: the Szeged Treebank (with MSD codes)
+\item several morphological analyzers and POS-taggers (Humor, hunmorph, hunpos, magyarlanc, purePOS)
+\item \textbf{state-of-the-art results are hard to compare} due to differences in the tagsets used 
+\item 1 dependency annotation scheme
+\item 1 dependency parser (magyarlanc)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Standardized Morphology and Syntax}
+Standardized tagsets have been constantly developed:
+\begin{itemize}
+\item MSD morphological coding system for Eastern European languages \cite{erjavec}
+\item Interset as an interlingua for several morphological coding systems \cite{ZEMAN08.66}
+\item multilingual tagset for part-of-speech (POS) tagging and parsing \cite{rambow:2006:LREC} \item POS tags based on data from the CoNLL-2007 Shared Task \cite{NivreT207} \cite{McDonaldCTE07}
+\item 12 POS tags for 22 languages \cite{petrov-das-mcdonald:2012:LREC}
+\item Stanford dependencies \cite{stanford:dep}
+\item Universal Dependencies and Morphology
+\end{itemize} 
+\end{frame}
+
+\begin{frame}
+\frametitle{Languages in UD}
+\begin{itemize}
+\item 10 languages in January 2015
+\item now 33 languages
+\item several language families and typological classes
+\item Uralic languages:
+\begin{itemize}
+\item Finnish
+\item Hungarian
+\item Estonian
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{UD as tagsets and principles}
+\begin{itemize}
+\item a fixed set of POS tags
+\item feature--value pairs: features are fixed, values can be language specific
+\item lexical features are characteristics of the lemmas 
+\item inflectional features are characteristics of the word forms
+\item layered features
+\item a fixed set of dependency labels (language specific extension possible)
+\item universal annotation principles (constant development)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{POS tags}
+\begin{table}
+\small
+\begin{tabular}{llll}
+\hline\noalign{\smallskip}
+POS & Description & POS & Description \\
+\noalign{\smallskip}\hline\noalign{\smallskip}
+ADJ & adjective & PART & particle\\
+ADV & adverb & PRON & nominal pronoun\\
+ADP & adposition & PROPN & proper noun\\
+AUX & auxiliary & PUNCT & punctuation\\
+CONJ & coordinating conjunction & SCONJ & subordinating conjunction\\
+DET & determiner & SYM & symbol\\
+INTJ & interjection & VERB & verb\\
+NOUN & noun & X & other\\
+NUM & number & & \\
+\noalign{\smallskip}\hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Agreement with number and person of the possessor on the noun}
+\gll h\'azaim\'enak\\
+house-1SGPOSS-PL-POSSD.SG-DAT\\
+\trans to that of my houses\\
+Analysis:\\
+NOUN \\ Case=Dat$\vert$Number=Plur$\vert$Number[psed]=Sing$\vert$\\Number[psor]=Sing$\vert$Person[psor]=1\\
+
+\textbf{Layered features} (Number[psed], Number[psor], Person[psor])
+\end{frame}
+
+\begin{frame}
+\frametitle{Object-verb agreement}
+\gll L\'atom Pistit .\\
+see-1SGOBJ Steve-ACC .\\
+\trans I can see Steve.
+\gll L\'atok egy gyereket az udvaron .\\
+see-1SGSUBJ a kid-ACC the yard-SUP .\\
+\trans I can see a kid in the yard.
+\gll L\'atlak .\\
+see-1SGOBJ2 .\\
+\trans I can see you.\\
+\textbf{Definiteness marked on the verb}\\
+\textbf{New feature value} for 2nd person objects
+\end{frame}
+
+\begin{frame}
+\frametitle{Universal Dependencies}
+\begin{table}
+%TODO: dep labels
+%\caption{Dependency labels.}
+\tiny
+\label{tab:dep}       
+\begin{tabular}{llll}
+\hline\noalign{\smallskip}
+Label & Description & Label & Description \\
+\noalign{\smallskip}\hline\noalign{\smallskip}
+acl & relative clause & expl & expletive\\
+advcl & adverbial clause & foreign & foreign words\\
+advmod & adverbial modifier & goeswith & typo\\
+amod & adjectival modifier & iobj & indirect object\\
+appos & apposition & list & list\\
+aux & auxiliary & mark & subordinating conjunction\\
+auxpass & passive auxiliary & mwe & multiword expression\\
+case & adposition & name & multiword named entity\\
+cc & coordinating conjunction & neg & negation word\\
+ccomp & clausal complement & nmod & nominal modifier\\
+compound & compound & nsubj & subject\\
+conj & coordinated word  & nsubjpass & passive subject\\
+cop & copula & nummod & numeric modifier\\
+csubj & clausal subject & parataxis & parataxis\\
+csubjpass & clausal passive subject &  punct & punct\\
+dep & dependency & remnant & argument in ellipted sentences\\
+det & determiner &  reparandum & repairs\\
+discourse & discourse element & root & root\\
+dislocated & dislocated element & vocative & vocative \\
+dobj & object & xcomp & open clausal complement\\
+\noalign{\smallskip}\hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Empty copulas}
+\begin{columns}
+\column{.5\textwidth}
+\textbf{Present tense, indicative mood, first person singular:
+}\label{sg1}
+\gll \'En tan\'ar vagyok .\\
+I teacher be-1SG .\\
+\trans I am a teacher.\\
+
+\textbf{Present tense, indicative mood, third person singular:
+}
+\gll \H{O} tan\'ar .\\
+he teacher .\\
+\trans He is a teacher.\\
+
+\column{.5\textwidth}
+\textbf{Past tense, indicative mood, third person singular:
+}
+\gll \H{O} tan\'ar volt .\\
+he teacher be-PAST-3SG.\\
+\trans He was a teacher.\\
+
+\textbf{Present tense, imperative mood, third person singular:
+}
+\label{imp}
+\gll \H{O} legyen tan\'ar !\\
+he be-IMP-3SG teacher !\\
+\trans He should be a teacher .
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Function head vs. content head}
+
+\begin{columns}
+\column{0.5\textwidth}
+Original analysis in the Szeged Dependency Treebank:
+
+\begin{figure}%[ht!]
+	\centering
+\begin{dependency}[theme = simple]
+   \begin{deptext}[column sep=0.9em]
+      E \& gondolat \& sem \& VAN \& \'{u}j \& . \\
+   \end{deptext}
+   \deproot{4}{ROOT}
+   \depedge{2}{1}{DET}
+   \depedge{4}{2}{SUBJ}
+	 \depedge{4}{3}{NEG}
+	 \depedge{4}{5}{PRED}
+	 \depedge{4}{6}{PUNCT}
+\end{dependency}
+	%\caption{A function head analysis in the Szeged Dependency Treebank.}
+		\label{kopuladep}
+\end{figure}
+
+\column{0.5\textwidth}
+UD analysis:
+
+\begin{figure}%[ht!]
+	\centering
+\begin{dependency}[theme = simple]
+   \begin{deptext}[column sep=0.9em]
+      E \& gondolat \& sem \& \'{u}j \& .\\
+   \end{deptext}
+   \deproot{4}{root}
+   \depedge{2}{1}{det}
+   \depedge{4}{2}{nsubj}
+	 \depedge{4}{3}{neg}
+	 \depedge{4}{5}{punct}
+\end{dependency}
+	%\caption{A content head analysis in the Hungarian UD treebank.}
+	\label{kopulaud}
+\end{figure}
+\end{columns}
+
+\textit{E gondolat sem \'uj.} (this thought not new) ``This thought is not novel at all.''\\
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiword named entities}
+\begin{itemize}
+\item the head of multiword units is the first element by convention
+\item the last element might be inflected in FU languages:\\
+\emph{Joakim Nivre} -- \emph{Joakim Nivr\'enek} ``for Joakim Nivre''
+\item language-specific solutions
+\end{itemize}
+
+\begin{dependency}[theme = simple]
+   \begin{deptext}[column sep=1em]
+      Joakim \& Nivre \\
+   \end{deptext}
+   \deproot{2}{root}
+   \depedge{2}{1}{name}
+\end{dependency}
+\end{frame}
+
+\begin{frame}
+\frametitle{Language-specific extensions}
+\begin{itemize}
+\item dependency labels extended
+\item language-specific differentiation of subtypes of a relation (e.g.~\texttt{ccomp:dobj}, \texttt{ccomp:iobj})
+\item in Hungarian, light verb constructions are also marked in this way
+\item \emph{A bizotts\'ag \textbf{d\"ont\'est hozott} az \"ul\'esen.} ``The committee made a decision at the meeting.''
+
+\end{itemize}
+
+\begin{dependency}[theme = simple]
+   \begin{deptext}[column sep=1em]
+      A \& bizotts\'ag \& d\"ont\'est \& hozott \& az \& \"ul\'esen \& . \\
+   \end{deptext}
+   \deproot{4}{root}
+   \depedge{4}{2}{nsubj}
+   \depedge{2}{1}{det}
+   \depedge{4}{7}{punct}
+   \depedge{4}{3}{dobj:lvc}
+   \depedge{4}{6}{nmod:obl}
+   \depedge{6}{5}{det}
+\end{dependency}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Building UD treebanks}
+\begin{itemize}
+\item from scratch (languages with no treebanks, FU minority languages)
+\item automatic conversion of existing treebanks (Finnish)
+\item conversion of existing treebanks + manual correction (Hungarian)
+\item various sizes (1K-90K sentences)
+\item universal dependency annotation is necessary
+\item universal morphology is optional (but welcome)
+\item documentation on GitHub
+\item files on LINDAT
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Finno-Ugric UD treebanks}
+\begin{table}
+\centering
+\footnotesize
+	\begin{tabular}{lccc}
+	& \textbf{Token} & \textbf{Lemma/feature/secondary dep} & \textbf{Creation}\\\hline
+	Finnish & 181K & LFD & automatic + manual\\
+	Finnish-FTB & 159K & LF & automatic\\
+	Hungarian & 26K & LF & (automatic +) manual\\
+	Estonian & 9K & LF & automatic\\
+	\end{tabular}
+%	\caption{FU}
+	\label{tab:FU}
+\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Technical issues}
+\begin{itemize}
+\item file format: CoNLL norms
+\item one token - one line
+\item grammatical information on tokens in columns
+\end{itemize}
+
+\tiny
+1	1947.	1947.	ADJ	\_	Case=Nom$\vert$Number=Sing$\vert$Number[psed]=None$\vert$Number[psor]=None$\vert$NumType=Ord$\vert$Person[psor]=None	2	nmod:att	\_	\_ \\
+2	december	december	NOUN	\_	Case=Nom$\vert$Number=Sing$\vert$Number[psed]=None$\vert$Number[psor]=None$\vert$Person[psor]=None	3	nmod:att	\_	\_ \\
+3	6-án	6.	NOUN	\_	Case=Sup$\vert$Number=Sing$\vert$Number[psed]=None$\vert$Number[psor]=Sing$\vert$Person[psor]=3	6	nmod:obl	\_	\_ \\
+4	Tito	Tito	PROPN	\_	Case=Nom$\vert$Number=Sing$\vert$Number[psed]=None$\vert$Number[psor]=None$\vert$Person[psor]=None	6	nsubj	\_	\_ \\
+5	Budapestre	Budapest	PROPN	\_	Case=Sub$\vert$Number=Sing$\vert$Number[psed]=None$\vert$Number[psor]=None$\vert$Person[psor]=None	6	nmod:obl	\_	\_ \\
+6	l\'atogatott	l\'atogat	VERB	\_	Definite=Ind$\vert$Mood=Ind$\vert$Number=Sing$\vert$Person=3$\vert$Tense=Past$\vert$VerbForm=Fin$\vert$Voice=Act	0	root	\_	\_ \\
+7	.	.	PUNCT	\_	\_	6	punct	\_	\_ \\
+
+\end{frame}
+
+\begin{frame}
+\frametitle{A Finnish example}
+\footnotesize
+1	Saavuin	saapua	VERB	V	Mood=Ind$\vert$Number=Sing$\vert$Person=1$\vert$Tense=Past$\vert$VerbForm=Fin$\vert$Voice=Act	0	root	\_	\_ \\
+2	siis	siis	ADV	Adv	\_	1	advmod	\_	\_ \\
+3	kaupunkiin	kaupunki	NOUN	N	Case=Ill$\vert$Number=Sing	1	nmod	\_	\_ \\
+4	kameraryhm\"ani	kamera\#ryhm\"a	NOUN	N	Case=Gen$\vert$Number=Sing$\vert$Number[psor]=Sing$\vert$Person[psor]=1	1	nmod	\_	\_ \\
+5	kanssa	kanssa	ADP	Adp	AdpType=Post	4	case	\_	\_ \\
+6	jo	jo	ADV	Adv	\_	8	advmod	\_	\_ \\
+7	ennen	ennen	ADP	Adp	AdpType=Prep	8	case	\_	\_ \\
+8	yht\"atoista	yksi\#toista	NUM	Num	Case=Par$\vert$Number=Sing$\vert$NumType=Card	1	nmod	\_	\_ \\
+9	.	.	PUNCT	Punct	\_	1	punct	\_	\_ \\
+\end{frame}
+
+\begin{frame}
+\frametitle{Crowdsourcing at CICLING 2015}
+\begin{itemize}
+\item Joakim Nivre's presentation on UD
+\item experiment with 20 sentences containing various syntactic phenomena
+\item sentences were translated to several languages
+\item participants had to provide UD annotation for those
+\item \url{http://weaver.nlplab.org/ud/}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{How to contribute}
+Main steps:
+\begin{itemize}
+\item adapt the tagsets and principles to your language
+\item prepare a treebank with UD annotation
+\item prepare documentation
+\item upload data and documentation on GitHub
+\item validate your data
+\end{itemize}
+For more information, contact Filip and Sampo.
+\end{frame}
+
+\begin{frame}
+\frametitle{Summary}
+\begin{itemize}
+\item main principles behind Universal Morphology and Dependencies presented
+\item specific language phenomena relevant in Finno-Ugric languages discussed
+\item how to contribute to UD
+\end{itemize}
+
+Check this out:
+\url{http://universaldependencies.github.io/docs/}
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+\tiny
+\bibliographystyle{plain}
+\bibliography{eacl}
+\end{frame}
+
+\end{document} 

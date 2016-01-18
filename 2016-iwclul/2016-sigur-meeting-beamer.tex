@@ -1,0 +1,81 @@
+\documentclass{beamer}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{url}
+
+\makeatletter
+\newcommand\listofframes{\@starttoc{lbf}}
+\makeatother
+
+\addtobeamertemplate{frametitle}{}{%
+  \addcontentsline{lbf}{section}{\protect\makebox[2em][l]{%
+    \protect\usebeamercolor[fg]{structure}\insertframenumber\hfill}%
+  \insertframetitle\par}%
+}
+
+
+\title{ACL SIGUR founding business meeting\\
+\scriptsize{in Szeged, 2015}}
+\author{Tommi A Pirinen \scriptsize \guilsinglleft tommi.pirinen@computing.dcu.ie \guilsinglright }
+\institute{DCU, CNGL}
+\date{\today}
+
+\begin{document}
+
+\selectlanguage{english}
+
+\maketitle
+
+\begin{frame}
+    \frametitle{Agenda}
+    \listofframes
+\end{frame}
+
+\begin{frame}
+    \frametitle{Roll-call}
+    \begin{itemize}
+        \item determine that meeting is valid SIG meeting
+        \item determine chair, voting, vote counters, secretary for the meeting
+        \item Review agenda
+        \item 
+            \ldots
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{SIG founding papers}
+    \begin{itemize}
+        \item Time to suggest changes, discuss
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Nominating SIG board}
+    \begin{itemize}
+        \item Two required members:
+            President and secretary (one of who is ACL liaison)
+        \item probably need few more
+        \item roles can be determined after vote informally
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Any Other Business (AOB)}
+    \begin{itemize}
+        \item open floor
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Adjourn---Social Event}
+    \begin{itemize}
+        \item We will go together to XXX
+            event is optional but recommended.
+    \end{itemize}
+\end{frame}
+
+\end{document}
