@@ -1,0 +1,81 @@
+\documentclass{beamer}
+
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{url}
+\usepackage{textpos}
+\usepackage{xspace}
+\usepackage{array}
+
+\mode<presentation>
+{
+  \usetheme{Abumatranpres}
+}
+
+
+\graphicspath{{./fig/}}
+
+
+\title{Statistically Translating to Finnish Morph Segments\\
+\scriptsize{in Szeged IWCLUL workshop}}
+\author{Tommi A Pirinen \scriptsize \guilsinglleft{}tommi.pirinen@computing.dcu.ie\guilsinglright{}}
+\institute{Ollscoil Chathair Bhaile Átha Cliath, ADAPT Centre\\
+EU Marie Curie Abu-MaTran project}
+\date{\today}
+
+\begin{document}
+
+\selectlanguage{english}
+
+\maketitle
+
+\begin{frame}
+    \frametitle{What is it?}
+    \begin{itemize}
+        \item An experiment as a side project of using morphology in statistical
+            machine translation
+        \item A follow-up on annual WMT shared task competition
+        \item Contains collective SMT work from a group of people
+        \item A particularly extensive error analysis including humans looking
+            at the translations and thinking about stuff
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{What's the results, recommendations, future world?}
+    \begin{itemize}
+        \item A well-polished rule-based morphology may be better than
+            unsupervised statistical one
+        \item systems often get better when you combine more of them
+        \item quality of to-Finnish translations is quite atrocious
+        \item rule-based linguistic analysis of quality with $F_1$ measure
+            was inconclusive?
+        \item ...stay tuned for WMT 2016!
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Poster looks like this:}
+    \begin{minipage}[0.2\textheight]{\textwidth}
+\begin{columns}[T]
+\begin{column}{0.8\textwidth}
+    You can get all datas (forthcoming) and scripts \url{https://github.com/flammie/autostuff-moses-smt/}.
+\end{column}
+\begin{column}{0.2\textwidth}
+    \includegraphics[height=0.8\textheight]{poster}
+\end{column}
+\end{columns}
+\end{minipage}
+\end{frame}
+
+\end{document}
+% vim: set spell:
