@@ -1,3 +1,8 @@
+# This file contains bibs for IWCLUL paper
+# Use google scholar citation names (authoryeartitle), sort alphabetically
+# Some conference proceedings can be crossrefed to key conferenceyear.
+# Some software can be crossrefed to by name or nameyear.
+
 @inproceedings{agata2002typographical,
     author = {Savary, Agata},
     title = {Typographical Nearest-Neighbor Search in a Finite-State Lexicon and Its Application to Spelling Correction},
@@ -7,6 +12,7 @@
     pages = {251--260},
     publisher = {Springer-Verlag},
     address = {London, UK},
+    flammie = {spell-checking},
 }
 
 @article{aho1975efficient,
@@ -17,17 +23,18 @@
   number={6},
   pages={333--340},
   year={1975},
-  publisher={ACM}
+  publisher={ACM},
+  flammie = {fsa},
 }
 
 @book{aho2007compilers,
   title={Compilers: principles, techniques, and tools},
   author={Aho, A.V. and Lam, M.S. and Sethi, R. and Ullman, J.D.},
-  pages={1009},
+  volume={1009},
   year={2007},
   edition={second},
-  isbn={0321486811},
-  publisher={Pearson/Addison Wesley}
+  publisher={Pearson/Addison Wesley},
+  flammie = {fsa},
 }
 
 @article{al2006learning,
@@ -36,36 +43,20 @@
   journal={Data Mining and Knowledge Discovery Approaches Based on Rule Induction Techniques},
   pages={597--627},
   year={2006},
-  publisher={Springer}
+  publisher={Springer},
+  flammie = {spell-checking},
 }
 
+@inproceedings{allauzen2007openfst,
+    author = {Cyril Allauzen and Michael Riley and Johan Schalkwyk and Wojciech Skut and Mehryar Mohri},
+    year = {2007},
+    title = {Open{F}st: A General and Efficient Weighted Finite-State Transducer Library},
+    crossref = {ciaa2007},
+    pages = {11--23},
+    url = {http://www.openfst.org},
+}
 @Article{apertium,
-    Author = {Mikel L. Forcada and Mireia Ginestí  Rosell  and Jacob Nordfalk and Jim O'Regan and Sergio Ortíz-Rojas and Juan Antonio Pérez-Ortiz and Gema Ramírez-Sánchez and Felipe Sánchez-Martínez  and Francis M. Tyers},
-    Journal = {Machine Translation},
-    Note = {\textit{to appear}},
-    Title = {Apertium: a free/open-source platform for rule-based machine translation platform},
-    Year = {2010},
-}
-
-@inproceedings{baba2012spelling,
-  author    = {Baba, Yukino  and  Suzuki, Hisami},
-  title     = {How Are Spelling Errors Generated and Corrected? A Study of Corrected and Uncorrected Spelling Errors Using Keystroke Logs},
-  booktitle = {Proceedings of the 50th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)},
-  month     = {July},
-  year      = {2012},
-  address   = {Jeju Island, Korea},
-  publisher = {Association for Computational Linguistics},
-  pages     = {373--377},
-  url       = {http://www.aclweb.org/anthology/P12-2073}
-}
-
-@book{beesley2003finite,
-    title = {Finite State Morphology},
-    year = {2003},
-    author = {Kenneth R Beesley and Lauri Karttunen},
-    pages = {503},
-    publisher = {CSLI publications},
-    isbn = {978-1575864341},
+    crossref = {forcada2010apertium},
 }
 
 @article{attia2013improved,
@@ -77,7 +68,42 @@ author    = {Attia, Mohammed  and  Pecina, Pavel  and  Samih, Younes  and  Shaal
   address   = {Mumbai, India},
   publisher = {The COLING 2012 Organizing Committee},
   pages     = {103--112},
-  url       = {http://www.aclweb.org/anthology/C12-2011}
+  url       = {http://www.aclweb.org/anthology/C12-2011},
+  flammie = {spell-checking},
+}
+@inproceedings{baba2012spelling,
+  author    = {Baba, Yukino  and  Suzuki, Hisami},
+  title     = {How Are Spelling Errors Generated and Corrected? A Study of Corrected and Uncorrected Spelling Errors Using Keystroke Logs},
+  booktitle = {Proceedings of the 50th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)},
+  month     = {July},
+  year      = {2012},
+  address   = {Jeju Island, Korea},
+  publisher = {Association for Computational Linguistics},
+  pages     = {373--377},
+  url       = {http://www.aclweb.org/anthology/P12-2073},
+  flammie = {spell-checking},
+}
+
+@book{beesley2003finite,
+    title = {Finite State Morphology},
+    year = {2003},
+    author = {Kenneth R Beesley and Lauri Karttunen},
+    pages = {503},
+    publisher = {CSLI publications},
+    isbn = {978-1575864341},
+    flammie = {fsa},
+}
+
+@article{attia2013improved,
+  title={Improved Spelling Error Detection and Correction for Arabic},
+  author={Attia, Mohammed and Pecina, Pavel and Samih, Younes and van Genabith, Khaled Shaalan Josef},
+  year = {2013},
+    flammie = {spell-checking},
+}
+
+
+@proceedings{baltichlt2,
+    title = {Proceedings of the Second Baltic Conference on Human Language Technologies},
 }
 
 @inproceedings{beesley1998constraining,
@@ -96,7 +122,7 @@ author    = {Attia, Mohammed  and  Pecina, Pavel  and  Samih, Younes  and  Shaal
   author={Beesley, K.R.},
   booktitle={First Steps in Language Documentation for Minority Languages: Computational Linguistic Tools for Morphology, Lexicon and Corpus Compilation, Proceedings of the SALTMIL Workshop at LREC},
   pages={1--8},
-  year={2004}
+  year={2004},
 }
 
 @inproceedings{beesley2012kleene,
@@ -105,36 +131,38 @@ author    = {Attia, Mohammed  and  Pecina, Pavel  and  Samih, Younes  and  Shaal
     year = {2012},
     booktitle = {FSMNLP 2012},
     crossref = {fsmnlp2012},
-    pages = {55-59}
+    pages = {55-59},
 }
 
 @mastersthesis{bhagat2007spelling,
     author = {Meenu Bhagat},
-    title = {Spelling Error Pattern Analysis of {P}unjabi Typed Text},
+    title = {Spelling Error Pattern Analysis of Punjabi Typed Text},
     school = {Thapar University},
     location = {Patiala, India},
     year = {2007},
     pages = {48},
-    url = {http://hdl.handle.net/123456789/247}
+    url = {http://hdl.handle.net/123456789/247},
+    flammie = {spell-checking},
 }
 
 @phdthesis{bigert2005automatic,
     author = {Johnny Bigert},
     year = {2005},
     title = {Automatic and unsupervised methods in natural language processing},
-    school = {Royal institute of technology {(KTH)}},
-    pages = {120}
+    school = {Royal institute of technolog (KTH)},
+  flammie = {spell-checking},
 }
 
 @Inproceedings{bigert2003autoeval,
     Address = {Reykjavik, Iceland},
     Author = {Johnny Bigert and Linus Ericson and Antoine Solis},
     Booktitle = {Nodalida 2003},
-    Crossref = {conf/nodalida/2003},
-    Title = {Auto{E}val and {M}issplel: Two Generic Tools for Automatic Evaluation},
+    Crossref = {nodalida2003},
+    Title = {AutoEval and Missplel: Two Generic Tools for Automatic Evaluation},
     Year = {2003},
-    pages = {7}
+  flammie = {spell-checking},
 }
+
 @inproceedings{brants2007large,
 author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Franz J.  and  Dean, Jeffrey},
   title     = {Large Language Models in Machine Translation},
@@ -144,19 +172,20 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   address   = {Prague, Czech Republic},
   publisher = {Association for Computational Linguistics},
   pages     = {858--867},
-  url       = {http://www.aclweb.org/anthology/D/D07/D07-1090}
+  url       = {http://www.aclweb.org/anthology/D/D07/D07-1090},
 }
 
 @inproceedings{brill2000improved,
     author = {Brill, Eric and Moore, Robert C.},
     title = {An improved error model for noisy channel spelling correction},
-    booktitle = {{ACL} '00: Proceedings of the 38th Annual Meeting on Association for Computational Linguistics},
+    booktitle = {ACL '00: Proceedings of the 38th Annual Meeting on Association for Computational Linguistics},
     year = {2000},
     pages = {286--293},
     location = {Hong Kong},
     doi = {http://dx.doi.org/10.3115/1075218.1075255},
     publisher = {Association for Computational Linguistics},
     address = {Morristown, NJ, USA},
+  flammie = {spell-checking},
 }
 
 @inproceedings{carlson2001scaling,
@@ -165,23 +194,27 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   booktitle={Proceedings of the Thirteenth Conference on Innovative Applications of Artificial Intelligence Conference},
   pages={45--50},
   year={2001},
-  organization={AAAI Press}
+  organization={AAAI Press},
+  flammie = {spell-checking},
 }
+
 @inproceedings{chaudhuri2002towards,
-  title={Towards {I}ndian language spell-checker design},
+  title={Towards Indian language spell-checker design},
   author={Chaudhuri, B.B.},
   booktitle={Language Engineering Conference, 2002. Proceedings},
   pages={139--146},
   year={2002},
-  organization={IEEE}
+  organization={IEEE},
+  flammie = {spell-checking},
 }
 
 @article{chege2010developing,
-  title={Developing an Open source Spell-checker for {G}ĩkũyũ},
+  title={Developing an Open source Spell-checker for G{\i}kuyu},
   author={Chege, Kamau and Wagacha, Peter and De Pauw, Guy and Muchemi, Lawrence and Ng’ang’a, W},
   journal={AfLaT 2010},
-  pages={31--35},
-  year={2010}
+  pages={31},
+  year={2010},
+  flammie = {spell-checking},
 }
 
 @article{chen1999empirical,
@@ -192,7 +225,7 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   number={4},
   pages={359--393},
   year={1999},
-  publisher={Elsevier}
+  publisher={Elsevier},
 }
 
 @article{church1991probability,
@@ -203,23 +236,58 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   number={2},
   pages={93--103},
   year={1991},
-  publisher={Springer}
+  publisher={Springer},
+  flammie = {spell-checking},
 }
 
 @inproceedings{church2007compressing,
-  title={Compressing trigram language models with {G}olomb coding},
+  title={Compressing trigram language models with Golomb coding},
   author={Church, K. and Hart, T. and Gao, J.},
-  booktitle={Proceedings of the 2007 Joint Conference on Empirical Methods in Natural Language Processing and Computational Natural Language Learning {(EMNLP-CoNLL)}},
+  booktitle={Proceedings of the 2007 Joint Conference on Empirical Methods in Natural Language Processing and Computational Natural Language Learning (EMNLP-CoNLL)},
   pages={199--207},
-  year={2007}
+  year={2007},
 }
+
+@proceedings{ciaa2007,
+    title = {Proceedings of the Ninth International Conference on
+  Implementation and Application of Automata, (CIAA 2007)},
+    volume = {4783},
+    booktitle = {Lecture Notes in Computer Science},
+    publisher = {Springer},
+    year = {2007},
+}
+
+@Proceedings{cicling2008,
+    Editor = {Alexander F. Gelbukh},
+    Publisher = {Springer},
+    Title = {Computational Linguistics and Intelligent Text Processing,
+               9th International Conference, CICLing 2008, Haifa, Israel,
+               February 17-23, 2008, Proceedings},
+    Year = {2008},
+}
+
+@inproceedings{clifton2011combining,
+ author = {Clifton, Ann and Sarkar, Anoop},
+ title = {Combining Morpheme-based Machine Translation with Post-processing Morpheme Prediction},
+ booktitle = {Proceedings of the 49th Annual Meeting of the Association for Computational Linguistics: Human Language Technologies - Volume 1},
+ series = {HLT '11},
+ year = {2011},
+ isbn = {978-1-932432-87-9},
+ location = {Portland, Oregon},
+ pages = {32--42},
+ numpages = {11},
+ url = {http://dl.acm.org/citation.cfm?id=2002472.2002477},
+ acmid = {2002477},
+ publisher = {Association for Computational Linguistics},
+ address = {Stroudsburg, PA, USA},
+ flammie = {smt eng-fin},
+} 
 
 @inproceedings{creutz2005morfessor,
     author = {Mathias Creutz and Krista Lagus and Krister Lindén and Sami Virpioja},
     year = {2005},
-    pages = {6},
-    title = {Morfessor and {H}utmegs: Unsupervised Morpheme Segmentation for Highly-Inflecting and Compounding Languages},
-    crossref = {conf/baltichlt2},
+    title = {Morfessor and Hutmegs: Unsupervised Morpheme Segmentation for Highly-Inflecting and Compounding Languages},
+    crossref = {baltichlt2},
 }
 
 @ARTICLE{damerau1964technique,
@@ -239,7 +307,8 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
  acmid = {363994},
  publisher = {ACM},
  address = {New York, NY, USA},
-} 
+  flammie = {spell-checking},
+}
 
 @article{deorowicz2005correcting,
   title={Correcting spelling errors by modelling their causes},
@@ -249,7 +318,8 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   number={2},
   pages = {275--285},
   year={2005},
-  publisher={UNIVERSITY OF ZIELONA GORA PRESS}
+  publisher={UNIVERSITY OF ZIELONA GORA PRESS}.
+  flammie = {spell-checking},
 }
 
 @misc{earnest2011first,
@@ -258,7 +328,9 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
     year={2011},
     howpublished={personal WWW page},
     url={http://www.stanford.edu/~learnest/spelling.pdf},
-    note={Retrieved 6th of June 2012: \url{http://www.stanford.edu/~learnest/spelling.pdf}; Replaced by next versions on same site}
+    note={Retrieved 6th of June 2012; New version on web site contains slightly
+    less details on the spell checkers following the first},
+  flammie = {spell-checking},
 }
 
 @misc{earnest2012first,
@@ -268,7 +340,9 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
     year={2012},
     howpublished={personal WWW page},
     url={http://www.stanford.edu/~learnest/spelling.htm},
-    note={Retrieved 19th of December 2012: \url{http://www.stanford.edu/~learnest/spelling.html}; Replaced by extended version on same site}
+    note={Retrieved 19th of December 2012; Web page seems to be under active
+        construction by the author},
+  flammie = {spell-checking},
 }
 
 @misc{earnest2013legacies,
@@ -278,15 +352,32 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
     howpublished={personal WWW page},
     url={http://www.stanford.edu/~learnest/legacies.pdf},
     note={Retrieved 1st of June 2013: \url{http://www.stanford.edu/~learnest/legacies.pdf}; Third revision of the document contains
-    a larger set of subjects and links to original documentation}
+    a larger set of subjects and links to original documentation},
+  flammie = {spell-checking},
 }
+
+@inproceedings{eisele2008using,
+ author = {Eisele, Andreas and Federmann, Christian and Saint-Amand, Herv{\'e} and Jellinghaus, Michael and Herrmann, Teresa and Chen, Yu},
+ title = {Using Moses to Integrate Multiple Rule-based Machine Translation Engines into a Hybrid System},
+ booktitle = {Proceedings of the Third Workshop on Statistical Machine Translation},
+ series = {StatMT '08},
+ year = {2008},
+ isbn = {978-1-932432-09-1},
+ location = {Columbus, Ohio},
+ pages = {179--182},
+ numpages = {4},
+ url = {http://dl.acm.org/citation.cfm?id=1626394.1626422},
+ acmid = {1626422},
+ publisher = {Association for Computational Linguistics},
+ address = {Stroudsburg, PA, USA},
+} 
 
 @inproceedings{federico2008irstlm,
   title={{IRSTLM}: an open source toolkit for handling large scale language models.},
   author={Federico, Marcello and Bertoldi, Nicola and Cettolo, Mauro},
   booktitle={Interspeech},
   pages={1618--1621},
-  year={2008}
+  year={2008},
 }
 
 @article{forcada2001corpus,
@@ -295,17 +386,46 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   journal={Procesamiento del lenguaje natural},
   volume={27},
   pages={65--70},
-  year={2001}
+  year={2001},
 }
 
-@misc{gorin1971spell,
-  title={{SPELL}: A spelling checking and correction program},
-  author={Gorin, R E},
+@article{forcada2010apertium,
+    Author = {Mikel L. Forcada and Mireia Ginestí  Rosell  and Jacob Nordfalk and Jim O'Regan and Sergio Ortiz-Rojas and Juan Antonio Pérez-Ortiz and Gema Ramírez-Sánchez and Felipe Sánchez-Martínez  and Francis M. Tyers},
+    Journal = {Machine Translation},
+    Title = {Apertium: a free/open-source platform for rule-based machine translation platform},
+    Year = {2010},
+}
+
+@proceedings{fsmnlp2012,
+    editor = {Iñaki Alegria and Mns Huldén},
+    title = {Pre-proceedings of the 10th International Workshop on Finite State Methods and Natural Language Processing FSMNLP},
+    year = {2012},
+    month = {July 23--25},
+    location = {Donostia-San Sebastián, Spain},
+    publisher = {University of the Basque Country},
+}
+
+@proceedings{fsmnlp2009,
+    editor = {Bruce Watson and Derrick Courie and Loek Cleophas and Pierre Rautenbach},
+    title = {Pre-proceedings of the Eighth International Workshop on Finite-State Methods and Natural Language Processing (FSMNLP 2009), Pretoria, South Africa, July 21st - 24th 2009},
+    howpublished = {Handout CD-ROM containing the accompanying papers for the presentations during the FSMNLP 2009 workshop.  Published by the University of Pretoria, Pretoria, South Africa.},
+    month = {13 July},
+    booktitle = {FSMNLP 2009},
+    publisher = {},
+    series = {},
+    volume = {},
+    year = {2009},
+    isbn = {978-1-86854-743-2},
+}
+
+@article{gorin1971spell,
+  title={SPELL: A spelling checking and correction program},
+  author={Gorin, RE},
   journal={Online documentation for the DEC-10 computer},
   year={1971},
-  howpublished={On-line manual; web page},
   note={Retrieved 1st of August 2013: \url{http://www.saildart.org/}, entries
-      UP, DOC: SPELL.REG}
+      UP, DOC: SPELL.REG}.
+  flammie = {spell-checking},
 }
 
 @inproceedings{golding1995bayesian,
@@ -315,7 +435,8 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   volume={3},
   pages={39--53},
   year={1995},
-  organization={Massachusetts Institute of Technology Cambridge MA}
+  organization={Massachusetts Institute of Technology Cambridge MA},
+  flammie = {spell-checking},
 }
 
 @inproceedings{golding1996combining,
@@ -331,6 +452,7 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
     acmid = {981873},
     publisher = {Association for Computational Linguistics},
     address = {Morristown, NJ, USA},
+  flammie = {spell-checking},
 }
 
 @article{golding1999winnow,
@@ -341,7 +463,8 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   number={1},
   pages={107--130},
   year={1999},
-  publisher={Springer}
+  publisher={Springer},
+  flammie = {spell-checking},
 }
 
 @mastersthesis{greenfield2010open,
@@ -349,9 +472,9 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
     author = {Kara Greenfield and Sarah Judd},
     school = {Worchester Polytechnic Institute},
     year = {2010},
-    pages = {110},
     url = {http://www.wpi.edu/Pubs/E-project/Available/E-project-042810-055257/},
-    urn = {E-project-042810-055257}
+    urn = {E-project-042810-055257},
+  flammie = {spell-checking},
 }
 
 
@@ -362,9 +485,17 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
     booktitle = {Proceedings of the Third International Joint Conference on Natural Language Processing},
     volume = {2},
     location = {Hyderabad, India},
-    pages = {913--918}
+    pages = {913--918},
+  flammie = {spell-checking},
 }
 
+@book{hakulinen2008iso,
+    author = {Auli Hakulinen and Maria Vilkuna and Riitta Korhonen and Vesa Koivisto and Tarja-Riitta Heinonen and Irja Alho},
+    year = {2008},
+    title = {Iso suomen kielioppi},
+    publisher = {Suomalaisen Kirjallisuuden Seura},
+    url = {http://kaino.kotus.fi/visk},
+}
 @article{hedlund2002dictionarybased,
     author = {A Pirkola and T Hedlund and H Keskustalo},
     title = {Dictionary-based cross-language information retrieval: problems, methods and research findings},
@@ -374,59 +505,6 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
     pages = {209--230},
 }
 
-@inproceedings{karttunen1992two,
-  title={Two-level morphology with composition},
-  author={Karttunen, Lauri and Kaplan, Ronald M and Zaenen, Annie and others},
-  booktitle={COLING’92},
-  pages={141--148},
-  year={1992}
-}
-
-@inproceedings{karttunen1995replace,
-  title={The replace operator},
-  author={Karttunen, Lauri},
-  booktitle={Proceedings of the 33rd annual meeting on Association for Computational Linguistics},
-  pages={16--23},
-  year={1995},
-  organization={Association for Computational Linguistics}
-}
-
-@article{karttunen2006numbers,
-  title={Numbers and {F}innish numerals},
-  author={Karttunen, Lauri},
-  journal={SKY Journal of Linguistics},
-  volume={19},
-  pages={407--421},
-  year={2006},
-}
-
-@Inproceedings{linden2009hfst,
-    Author = {Krister Lindén and Miikka Silfverberg and Tommi Pirinen},
-    Booktitle = {sfcm 2009},
-    Crossref = {conf/sfcm/2009},
-    Pages = {28---47},
-    Title = {HFST Tools for Morphology---An Efficient Open-Source Package for Construction of Morphological Analyzers},
-    Year = {2009},
-}
-
-@article{linden2011hfst,
-  title={Hfst—framework for compiling and applying morphologies},
-  author={Lindén, Krister and Axelson, Erik and Hardwick, Sam and Pirinen, Tommi A and Silfverberg, Miikka},
-  journal={Systems and Frameworks for Computational Morphology},
-  pages={67--85},
-  year={2011},
-  publisher={Springer}
-}
-
-@article{haverinen2013building,
-  title={Building the essential resources for Finnish: the Turku Dependency Treebank},
-  author={Haverinen, Katri and Nyblom, Jenna and Viljanen, Timo and Laippala, Veronika and Kohonen, Samuel and Missil{\"a}, Anna and Ojala, Stina and Salakoski, Tapio and Ginter, Filip},
-  journal={Language Resources and Evaluation},
-  pages={1--39},
-  year={2013},
-  publisher={Springer}
-}
-
 @article{hirst1998lexical,
   title={Lexical chains as representations of context for the detection and correction of malapropisms},
   author={Hirst, G. and St-Onge, D.},
@@ -434,7 +512,8 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   volume={305},
   pages={305--332},
   year={1998},
-  publisher={Cambridge}
+  publisher={Cambridge},
+  flammie = {spell-checking},
 }
 
 @article{hulden2009fast,
@@ -444,13 +523,15 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
     journal = {Procesamiento del Lenguaje Natural},
     volume = {43},
     pages = {57--64},
+  flammie = {spell-checking},
 }
 
 @misc{hunspell/man,
     title = {Hunspell Manual},
     author = {László Németh},
     year = {2011},
-    howpublished = {Electronic Software Manual (manpage)}
+    howpublished = {Electronic Software Manual (manpage)},
+  flammie = {spell-checking},
 }
 
 @book{jurafsky2000speech,
@@ -458,13 +539,13 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   author={Jurafsky, D. and Martin, J.H.},
   volume={2},
   year={2000},
+  pages={1024},
   publisher={Prentice Hall New Jersey},
-  pages={1024}
 }
 
 @inproceedings{karlsson1992swetwol,
     author = {Fred Karlsson},
-    title = {SWETWOL: A Comprehensive Morphological Analyser for {S}wedish---in Nordic Journal of Linguistics, 15},
+    title = {SWETWOL: A Comprehensive Morphological Analyser for Swedish---in Nordic Journal of Linguistics, 15},
     booktitle = {Machines in Language Translation---Xerox PARC Working Paper, reprinted in Machine Translation},
     year = {1992},
     pages = {3--23},
@@ -481,13 +562,40 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
     pages = {168--173},
 }
 
+@inproceedings{karttunen1992two,
+  title={Two-level morphology with composition},
+  author={Karttunen, Lauri and Kaplan, Ronald M and Zaenen, Annie and others},
+  booktitle={COLING’92},
+  pages={141--148},
+  year={1992},
+}
+
+@inproceedings{karttunen1995replace,
+  title={The replace operator},
+  author={Karttunen, Lauri},
+  booktitle={Proceedings of the 33rd annual meeting on Association for Computational Linguistics},
+  pages={16--23},
+  year={1995},
+  organization={Association for Computational Linguistics}.
+}
+
+@article{karttunen2006numbers,
+  title={Numbers and {F}innish numerals},
+  author={Karttunen, Lauri},
+  journal={SKY Journal of Linguistics},
+  volume={19},
+  pages={407--421},
+  year={2006},
+}
+
 @inproceedings{kernighan1990spelling,
   title={A spelling correction program based on a noisy channel model},
   author={Kernighan, M.D. and Church, K.W. and Gale, W.A.},
   booktitle={Proceedings of the 13th conference on Computational linguistics-Volume 2},
   pages={205--210},
   year={1990},
-  organization={Association for Computational Linguistics}
+  organization={Association for Computational Linguistics},
+  flammie = {spell-checking},
 }
 
 @book{knuth1973art,
@@ -495,8 +603,7 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   author={Knuth, D.E.},
   volume={3},
   year={1973},
-  pages={800},
-  publisher={Addison-Wesley, Reading, MA}
+  publisher={Addison-Wesley, Reading, MA},
 }
 
 @article{knuth1984literate,
@@ -507,15 +614,16 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   number={2},
   pages={97--111},
   year={1984},
-  publisher={Br Computer Soc}
+  publisher={Br Computer Soc},
 }
 
 @inproceedings{kobus2008normalizing,
-  title={Normalizing {SMS}: are two metaphors better than one},
+  title={Normalizing SMS: are two metaphors better than one},
   author={Kobus, Catherine and Yvon, Fran{\c{c}}ois and Damnati, G{\'e}raldine},
   booktitle={Proceedings of the 22nd International Conference on Computational Linguistics (COLING 2008)},
   pages={441--448},
-  year={2008}
+  year={2008},
+  flammie = {spell-checking},
 }
 
 @article{kornai2002many,
@@ -525,6 +633,7 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   volume={4},
   pages={61--86},
   year={2002},
+  publisher={Citeseer},
 }
 
 @phdthesis{koskenniemi1983twolevel,
@@ -532,7 +641,6 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
     title = {Two-level Morphology: A General Computational Model for Word-Form Recognition and Production},
     school = {University of Helsinki},
     year = {1983},
-    pages = {160},
     url = {http://www.ling.helsinki.fi/koskenni/doc/Two-LevelMorphology.pdf},
 }
 
@@ -554,6 +662,7 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
  publisher = {ACM},
  address = {New York, NY, USA},
  keywords = {spelling correction, telecommunications network for the deaf, text-to-speech synthesis},
+  flammie = {spell-checking},
 }
 
 @article{kukich1992techniques,
@@ -568,6 +677,7 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
     doi = {http://doi.acm.org/10.1145/146370.146380},
     publisher = {ACM},
     address = {New York, NY, USA},
+  flammie = {spell-checking},
 }
 
 @article{levenshtein1965,
@@ -578,6 +688,7 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
     volume = {163},
     number = {4},
     pages = {845–848},
+  flammie = {spell-checking},
 }
 
 @article{levenshtein1966binary,
@@ -586,7 +697,8 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
     journal = {Soviet Physics---Doklady 10, 707–710. Translated from Doklady Akademii Nauk SSSR},
     year = {1966},
     pages = {845--848},
-    note = {Untranslated version 1965}
+    note = {Untranslated version 1965},
+  flammie = {spell-checking},
 }
 
 @phdthesis{liang1983word,
@@ -599,29 +711,61 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
 
 @misc{liberman2012noisily,
     author = {Mark Liberman},
-    title = {Noisily Channeling {C}laude {S}hannon},
+    title = {Noisily Channeling Claude Shannon},
     year = {2012},
     howpublished = {Blog post in Language Log},
     url = {http://languagelog.ldc.upenn.edu/nll/?p=4115},
-    note = {Retrieved 1st of August 2013: \url{http://languagelog.ldc.upenn.edu/nll/?p=4115}}
+    note = {Retrieved 1st of August 2013: \url{http://languagelog.ldc.upenn.edu/nll/?p=4115}},
+  flammie = {spell-checking},
 }
 
-@incollection{linden2013hfst,
-  title={HFST—a System for Creating NLP Tools},
-  author={Lind{\'e}n, Krister and Axelson, Erik and Drobac, Senka and Hardwick, Sam and Kuokkala, Juha and Niemi, Jyrki and Pirinen, Tommi A and Silfverberg, Miikka},
-  booktitle={Systems and Frameworks for Computational Morphology},
-  pages={53--71},
-  year={2013},
-  publisher={Springer}
+@Inproceedings{linden2009hfst,
+    Author = {Krister Lindén and Miikka Silfverberg and Tommi Pirinen},
+    Booktitle = {sfcm 2009},
+    Crossref = {sfcm2009},
+    Pages = {28---47},
+    Title = {HFST Tools for Morphology---An Efficient Open-Source Package for Construction of Morphological Analyzers},
+    Year = {2009},
 }
+
+@article{linden2011hfst,
+  title={Hfst—framework for compiling and applying morphologies},
+  author={Lindén, Krister and Axelson, Erik and Hardwick, Sam and Pirinen, Tommi A and Silfverberg, Miikka},
+  journal={Systems and Frameworks for Computational Morphology},
+  pages={67--85},
+  year={2011},
+  publisher={Springer},
+}
+
+@proceedings{lrec2004,
+    title = {Proceedings of {LREC}-2004},
+    publisher = {Lisbon, Portugal},
+}
+
+@inproceedings{luong2010hybrid,
+ author = {Luong, Minh-Thang and Nakov, Preslav and Kan, Min-Yen},
+ title = {A Hybrid Morpheme-word Representation for Machine Translation of Morphologically Rich Languages},
+ booktitle = {Proceedings of the 2010 Conference on Empirical Methods in Natural Language Processing},
+ series = {EMNLP '10},
+ year = {2010},
+ location = {Cambridge, Massachusetts},
+ pages = {148--157},
+ numpages = {10},
+ url = {http://dl.acm.org/citation.cfm?id=1870658.1870673},
+ acmid = {1870673},
+ publisher = {Association for Computational Linguistics},
+ address = {Stroudsburg, PA, USA},
+ flammie= {smt, eng-fin},
+} 
 
 @inproceedings{mangu1997automatic,
   title={Automatic rule acquisition for spelling correction},
   author={Mangu, L. and Brill, E.},
-  booktitle={machine learning-international workshop},
+  booktitle={machine learning-international workshop then onference-},
   pages={187--194},
   year={1997},
-  organization={morgan kaufmann publishers, inc.}
+  organization={morgan kaufmann publishers, inc.},
+  flammie = {spell-checking},
 }
 
 @book{manning1999foundations,
@@ -629,39 +773,23 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   author={Manning, C.D. and Sch{\"u}tze, H.},
   year={1999},
   pages={620},
-  publisher={MIT Press}
+  publisher={MIT Press},
 }
 
 @techreport{marek2006analysis,
     author = {Torsten Marek},
     year = {2006},
-    title = {Analysis of {G}erman Compounds using Weighted Finite State Transducers},
-    pages = {45},
+    title = {Analysis of German Compounds using Weighted Finite State Transducers},
     publisher = {Eberhard-Karls-Universität Tübingen},
 }
-
-@inproceedings{maxwell2013system,
-    title = {System for Archivable Grammar Documentation},
-    year = {2013},
-    author = {Michael Maxwell},
-    booktitle = {Systems and Frameworks for Computational Morphology–Third International Workshop, SFCM 2013},
-    address = {Berlin, Germany},
-    month = {September},
-    series = {Communications in Computer and Information Science},
-    editor = {Cerstin Mahlow and Michael Piotrowski},
-    publisher = {Springer},
-    issn = {1865-0929},
-    isbn = {978-3-642-40485-6}
-}
-
 
 @inproceedings{maxwell2008joint,
     title = {Joint Grammar Development by Linguists and Computer Scientists},
     author = {Michael Maxwell and Anne David},
     year = {2008},
     booktitle = {Workshop on NLP for Less Privileged Languages, Third International Joint Conference on Natural Language Processing},
+    pages = {27--34},
     address = {Hyderabad, India},
-    pages = {27--34}
 }
 
 @inproceedings{max2010mining,
@@ -675,7 +803,8 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   editor = {Nicoletta Calzolari (Conference Chair) and Khalid Choukri and Bente Maegaard and Joseph Mariani and Jan Odijk and Stelios Piperidis and Mike Rosner and Daniel Tapias},
   publisher = {European Language Resources Association (ELRA)},
   isbn = {2-9517408-6-7},
-  language = {english}
+  language = {english},
+  flammie = {spell-checking},
 }
 
 @article{mays1991context,
@@ -690,15 +819,16 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
     doi = {http://dx.doi.org/10.1016/0306-4573(91)90066-U},
     publisher = {Pergamon Press, Inc.},
     address = {Tarrytown, NY, USA},
+  flammie = {spell-checking},
 }
 
 @mastersthesis{mitankin2005universal,
  author = {Petar Nikolaev Mitankin},
  year = {2005},
- title = {Universal {L}evenshtein Automata. Building and Properties},
+ title = {Universal Levenshtein Automata. Building and Properties},
  school = {University of Sofia},
  url = {http://www.fmi.uni-sofia.bg/fmi/logic/theses/mitankin-en.pdf},
- pages = {77}
+  flammie = {spell-checking},
 }
 
 @article{mitton1987spelling,
@@ -718,6 +848,7 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
  acmid = {33067},
  publisher = {Pergamon Press, Inc.},
  address = {Tarrytown, NY, USA},
+  flammie = {spell-checking},
 }
 
 @article{mitton2009ordering,
@@ -732,6 +863,7 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
     doi = {http://dx.doi.org/10.1017/S1351324908004804},
     publisher = {Cambridge University Press},
     address = {New York, NY, USA},
+  flammie = {spell-checking},
 }
 
 @article{mohri1997finitestate,
@@ -744,14 +876,10 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
 }
 
 
-@inproceedings{mohri2002efficient,
+@misc{mohri2002efficient,
     author = {Mehryar Mohri and Michael Riley},
     title = {An efficient algorithm for the n-best-strings problem},
     year = {2002},
-    pages = {4},
-    booktitle = {Proceedings of the International Conference on Spoken Language
-        Processing 2002},
-    address = {Denver, Colorado}
 }
 
 @article{mohri2003edit,
@@ -761,7 +889,8 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   volume={14},
   number={6},
   pages={957--982},
-  year={2003}
+  year={2003},
+  flammie = {spell-checking},
 }
 
 @article{mohri2009weighted,
@@ -770,36 +899,45 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   journal={Handbook of weighted automata},
   pages={213--254},
   year={2009},
-  publisher={Springer}
+  publisher={Springer},
 }
 
 @article{monson2004data,
-  title={Data Collection and Analysis of {M}apudungun Morphology for Spelling Correction},
+  title={Data Collection and Analysis of Mapudungun Morphology for Spelling Correction},
   author={Monson, C. and Levin, L. and Vega, R.M. and Brown, R.D. and Font-Llitjos, A. and Lavie, A. and Carbonell, J.G. and Ca{\~n}ulef, E. and Huisca, R.},
   journal={Computer Science Department},
   pages={300},
-  year={2004}
-}
-
-@inproceedings{moshagen2013building,
-  Author         = {Moshagen, Sjur N and Pirinen, Tommi A and Trosterud,
-                   Trond},
-  Title          = {Building an open-source development infrastructure for
-                   language technology projects},
-  year = {2013},
-  booktitle = {Proceedings of the 19th Nordic Conference of Computational Linguistics (NODALIDA 2013)},
-  month = {May 22–24},
-  series = {NEALT Proceedings},
-  number = {16},
-  editor = {Stephan Oepen and Kristin Hagen and Janne Bondi Johannessen}
+  year={2004},
 }
 
 @inproceedings{nemeth2004leveraging,
     title={Leveraging the open source ispell codebase for minority language analysis},
     author={Németh, L. and Trón, V. and Halácsy, P. and Kornai, A. and Rung, A. and Szakadát, I.},
-    booktitle={First Steps in Language Documentation for Minority Languages: Computational Linguistic Tools for Morphology, Lexicon and Corpus Compilation, Proceedings of the SALTMIL Workshop at LREC 2004},
+    booktitle={First Steps in Language Documentation for Minority Languages: Computational Linguistic Tools for Morphology, Lexicon and Corpus Compilation, Proceedings of the SALTMIL Workshop at LREC},
     pages={56--59},
-    year={2004}
+    year={2004},
+  flammie = {spell-checking},
+}
+
+@proceedings{nodalida2003,
+    title = {NODALIDA 2003, the 14th Nordic Conference of
+               Computational Linguistics, Reykjavik,
+               May 30-31, 2003, Proceedings},
+    booktitle = {Nodalida '03},
+    year = {2003},
+}
+
+@proceedings{nodalida2009,
+    editor = {Kristiina Jokinen and Eckhard Bick},
+    title = {Proceedings of 17th Nordic Conference of Computational Linguistics,
+      Nodalida 2009, Odense, Denmark, May 14---16 2009, Proceedings},
+    booktitle = {NODALIDA 2009},
+    publisher = {},
+    series = {NEALT Proceedings},
+    volume = {4},
+    year = {2009},
+    isbn = {},
+    uri = {http://hdl.handle.net/10062/9909},
 }
 
 @misc{norvig2010howto,
@@ -809,6 +947,7 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
     note = {retrieved first of November 2011, available \url{http://norvig.com/spell-correct.html}},
     year = {2010},
     url = {http://norvig.com/spell-correct.html},
+  flammie = {spell-checking},
 }
 
 @Article{oflazer1996errortolerant,
@@ -820,15 +959,11 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
                to Morphological Analysis and Spelling Correction},
     Volume = {22},
     Year = {1996},
+  flammie = {spell-checking},
 }
 
 @inproceedings{openfst,
-    author = {Cyril Allauzen and Michael Riley and Johan Schalkwyk and Wojciech Skut and Mehryar Mohri},
-    year = {2007},
-    title = {Open{F}st: A General and Efficient Weighted Finite-State Transducer Library},
-    crossref = {conf/ciaa/2007},
-    pages = {11--23},
-    url = {http://www.openfst.org},
+    crossref= {allauzen2007openfst},
 }
 
 @article{otero2007contextual,
@@ -837,16 +972,18 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   journal={Computer Aided Systems Theory--EUROCAST 2007},
   pages={290--296},
   year={2007},
-  publisher={Springer}
+  publisher={Springer},
+  flammie = {spell-checking},
 }
 
 @article{peterson1980computer,
   title={Computer programs for spelling correction: an experiment in program design},
   author={Peterson, J.},
   journal={Lecture Notes in Computer Science},
-  pages={129},
+  pages={1--129},
   year={1980},
-  publisher={Springer}
+  publisher={Springer},
+  flammie = {spell-checking},
 }
 
 @article{peterson1980computerX,
@@ -857,7 +994,8 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   number={12},
   pages={676--687},
   year={1980},
-  publisher={ACM}
+  publisher={ACM},
+  flammie = {spell-checking},
 }
 
 @article{philips2000double,
@@ -868,7 +1006,8 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   number={6},
   pages={38--43},
   year={2000},
-  publisher={CMP Media LLC}
+  publisher={CMP Media LLC},
+  flammie = {spell-checking},
 }
 
 @article{philips1990hanging,
@@ -876,13 +1015,13 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   author={Philips, L.},
   journal={Computer Language},
   volume={7},
-  pages = {39--44},
-  number={12},
-  year={1990}
+  number={12 (December)},
+  year={1990},
+  flammie = {spell-checking},
 }
 
 @mastersthesis{pirinen2008suomen,
-    title = {Suomen kielen äärellistilainen automaattinen morfologinen analyysi avoimen lähdekoodin menetelmin},
+    title = {Suomen kielen "{a}"{a}rellistilainen automaattinen morfologinen analyysi avoimen l"{a}hdekoodin menetelmin},
     year = {2008},
     author = {Tommi Pirinen},
     school = {Helsingin yliopisto},
@@ -890,11 +1029,126 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
 }
 
 @mastersthesis{pirinen2008automatic,
-    title = {Automatic Finite State Morphological Analysis of {F}innish Language Using Open Source Resources (in {F}innish)},
+    title = {Automatic Finite State Morphological Analysis of Finnish Language Using Open Source Resources (in Finnish)},
     year = {2008},
     author = {Tommi Pirinen},
     school = {University of Helsinki},
     url = {http://www.helsinki.fi/%7Etapirine/gradu/},
+}
+
+@Inproceedings{pirinen2009weighted,
+    Author = {Krister Lindén and Tommi Pirinen},
+    Booktitle = {Nodalida 2009},
+    series = {NEALT Proceedings},
+    volume = {4},
+    editor = {Kristiina Jokinen and Eckhard Bick},
+    Title = {Weighted Finite-State Morphological Analysis of {F}innish Compounds},
+    URL = {http://www.ling.helsinki.fi/klinden/pubs/linden09dnodalida.pdf},
+    Year = {2009},
+    category = {thesis},
+}
+
+@Inproceedings{pirinen2009weighting,
+    Author = {Krister Lindén and Tommi Pirinen},
+    Booktitle = {FSMNLP 2009},
+    editor = {Bruce Watson and Derrick Courie and Loek Cleophas and Pierre Rautenbach},
+    month = {July},
+    isbn = {978-1-86854-743-2},
+    Title = {Weighting Finite-State Morphological Analyzers using {HFST} tools},
+    URL = {http://www.ling.helsinki.fi/klinden/pubs/fsmnlp2009weighting.pdf},
+    Year = {2009},
+    category = {thesis},
+}
+
+@inproceedings{pirinen2010building,
+    author = {Tommi A Pirinen and Krister Lindén},
+    title = {Building and Using Existing {H}unspell Dictionaries and {\TeX } Hyphenators as Finite-State Automata},
+    booktitle = {Proccedings of Computational Linguistics - Applications, 2010},
+    year = {2010},
+    address = {Wis{\l}a, Poland},
+    pages = {25---32},
+    url = {http://www.helsinki.fi/%7Etapirine/publications/Pirinen-cla-2010.pdf},
+    category = {thesis},
+  flammie = {spell-checking},
+}
+
+@InProceedings{pirinen2010finitestate,
+    author = {Tommi A Pirinen and Krister Lindén},
+    title = {Finite-State Spell-Checking with Weighted Language and Error Models},
+    booktitle = {Proceedings of the Seventh SaLTMiL workshop on creation and use of basic lexical resources for less-resourced languagages},
+    year = {2010},
+    address = {Valletta, Malta},
+    pages = {13--18},
+    url = {http://siuc01.si.ehu.es/%7Ejipsagak/SALTMIL2010\_Proceedings.pdf},
+    category = {thesis},
+  flammie = {spell-checking},
+}
+
+@article{pirinen2010creating,
+  title={Creating and Weighting {H}unspell Dictionaries as Finite-State Automata},
+  author={Pirinen, T.A. and Lindén, K. and others},
+  journal={Investigationes Linguisticae},
+  volume={21},
+  year={2010},
+    category = {thesis},
+  flammie = {spell-checking},
+}
+
+@inproceedings{pirinen2011modularisation,
+    author = {Tommi A Pirinen},
+    year = {2011},
+    title = {Modularisation of {F}innish Finite-State Language Description—Towards Wide Collaboration in Open Source Development of Morphological Analyser},
+    booktitle = { Proceedings of Nodalida},
+   volume = {18},
+   series = {NEALT proceedings},
+   url = {http://www.helsinki.fi/\%7etapirine/publications/Pirinen-nodalida-2011-omorfi.pdf},
+    category = {thesis},
+  flammie = {spell-checking},
+}
+
+@article{pirinen2012compiling,
+  title={Compiling {A}pertium morphological dictionaries with {HFST} and using them in {HFST} applications},
+  author={Pirinen, T.A. and Tyers, F.M.},
+  journal={Language Technology for Normalisation of Less-Resourced Languages},
+  pages={25},
+  year={2012},
+    category = {thesis},
+  flammie = {spell-checking},
+}
+
+@inproceedings{pirinen2012effects,
+  author    = {Pirinen, Tommi A  and  Hardwick, Sam},
+  title     = {Effect of Language and Error Models on Efficiency of 
+      Finite-State Spell-Checking and Correction},
+  booktitle = {Proceedings of the 10th International Workshop on Finite State
+      Methods and Natural Language Processing},
+  month     = {July},
+  year      = {2012},
+  address   = {Donostia--San Sebastián},
+  publisher = {Association for Computational Linguistics},
+  pages     = {1--9},
+  url       = {http://www.aclweb.org/anthology/W12-6201},
+    category = {thesis},
+  flammie = {spell-checking},
+}
+
+@conference{pirinen2012improving,
+    title = {Improving Finite-State Spell-Checker Suggestions with Part of Speech N-Grams},
+    author = {Tommi Pirinen and Miikka Silfverberg and Krister Lindén},
+    year = {2012},
+    location = {Delhi, India},
+    booktitle = {IJCLA},
+    category = {thesis},
+  flammie = {spell-checking},
+}
+@article{pirinen2013quality,
+    title = {Quality and Speed Trade-Offs in Weighted Finite-State Spell-Checking},
+    year = {forthcoming},
+    author = {Tommi A Pirinen},
+    journal = {presubmitted},
+    note = {submitted},
+    category = {thesis},
+  flammie = {spell-checking},
 }
 
 
@@ -903,9 +1157,61 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
     title = {Hunspell-in Kes\"{a}koodi 2006: Final report},
     year = {2006},
     url = {http://www.puimula.org/htp/archive/kesakoodi2006-report.pdf},
-    institution = {COSS.fi}
+    institution = {COSS.fi},
+  flammie = {spell-checking},
+}
+@inproceedings{mcdonald2013universal,
+  title={Universal Dependency Annotation for Multilingual Parsing.},
+  author={McDonald, Ryan T and Nivre, Joakim and Quirmbach-Brundage, Yvonne and Goldberg, Yoav and Das, Dipanjan and Ganchev, Kuzman and Hall, Keith B and Petrov, Slav and Zhang, Hao and T{\"a}ckstr{\"o}m, Oscar and others},
+  booktitle={ACL (2)},
+  pages={92--97},
+  year={2013},
+  organization={Citeseer}
 }
 
+@inproceedings{ud-finnish,
+  title={Universal Dependencies for Finnish},
+  author={Pyysalo, Sampo and Kanerva, Jenna and Missil{\"a}, Anna and Laippala, Veronika and Ginter, Filip},
+  booktitle={Nordic Conference of Computational Linguistics NODALIDA 2015},
+  pages={163},
+  year={2015}
+}
+
+@inproceedings{ud-estonian,
+  title={Estonian Dependency Treebank and its annotation scheme},
+  author={Muischnek, Kadri and M{\"u}{\"u}risep, Kaili and Puolakainen, Tiina and Aedmaa, Eleri and Kirt, Riin and S{\"a}rg, Dage},
+  booktitle={Proceedings of 13th Workshop on Treebanks and Linguistic Theories (TLT13)},
+  pages={285--291},
+  year={2014}
+}
+
+@inproceedings{ud-hungarian,
+  title={Hungarian Dependency Treebank.},
+  author={Vincze, Veronika and Szauter, D{\'o}ra and Alm{\'a}si, Attila and M{\'o}ra, Gy{\"o}rgy and Alexin, Zolt{\'a}n and Csirik, J{\'a}nos},
+  booktitle={LREC},
+  year={2010}
+}
+
+@phdthesis{rueter2010adnominal,
+  title={Adnominal person in the morphological system of Erzya},
+  author={Rueter, Jack},
+  year={2010},
+  publisher={Helsingin ylipisto}
+}
+@book{ranta2011grammatical,
+  title={Grammatical framework: Programming with multilingual grammars},
+  author={Ranta, Aarne},
+  year={2011},
+  publisher={CSLI Publications, Center for the Study of Language and Information}
+}
+
+@inproceedings{pirinen2015omorfi,
+  title={{Omorfi--Free and open source morphological lexical database for Finnish}},
+  author={Pirinen, Tommi A},
+  booktitle={Nordic Conference of Computational Linguistics NODALIDA 2015},
+  pages={313},
+  year={2015}
+}
 @article{pollock1984automatic,
  author = {Pollock, Joseph J. and Zamora, Antonio},
  title = {Automatic spelling correction in scientific and scholarly text},
@@ -924,37 +1230,40 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
  publisher = {ACM},
  address = {New York, NY, USA},
  keywords = {dictionary lookup, similarity keys, spelling correction},
+  flammie = {spell-checking},
 } 
 
 @article{raviv1967decision,
-  title={Decision making in {M}arkov chains applied to the problem of pattern recognition},
+  title={Decision making in Markov chains applied to the problem of pattern recognition},
   author={Raviv, J.},
   journal={Information Theory, IEEE Transactions on},
   volume={13},
   number={4},
   pages={536--551},
   year={1967},
-  publisher={IEEE}
+  publisher={IEEE},
+  flammie = {spell-checking},
 }
 
 @article{ristad1998learning,
   title={Learning string-edit distance},
   author={Ristad, E.S. and Yianilos, P.N.},
-  journal={Pattern Analysis and Machine Intelligence, IEEE Transactions},
+  journal={Pattern Analysis and Machine Intelligence, IEEE Transactions on},
   volume={20},
   number={5},
   pages={522--532},
   year={1998},
-  publisher={IEEE}
+  publisher={IEEE},
+  flammie = {spell-checking},
 }
 
 @article{rojas2005construccion,
   title={Construcción y minimización eficiente de transductores de letras a partir de diccionarios con paradigmas},
-  author={Ortíz-Rojas, Sergio and Forcada, Mikel L and Sánchez, Gema Ramírez},
+  author={Rojas, Sergio Ortiz and Forcada, Mikel L and Sánchez, Gema Ramírez},
   journal={Procesamiento del lenguaje natural},
   volume={35},
   pages={51--57},
-  year={2005}
+  year={2005},
 }
 
 @incollection{ruch2001using,
@@ -978,7 +1287,7 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   author={Russell, R. and Odell, M.},
   journal={US Patent},
   volume={1261167},
-  year={1918}
+  year={1918},
 }
 
 @article{schiller2006german,
@@ -987,7 +1296,7 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   journal={Finite-State Methods and Natural Language Processing},
   pages={239--246},
   year={2006},
-  publisher={Springer}
+  publisher={Springer},
 }
 
 @article{schmid2006programming,
@@ -997,6 +1306,7 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   volume={4002},
   pages={308},
   year={2006},
+  publisher={Citeseer},
 }
 
 @ARTICLE{schulz2002fast,
@@ -1006,15 +1316,33 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
     year = {2002},
     volume = {5},
     pages = {67--85},
+  flammie = {spell-checking},
+}
+
+@proceedings{sfcm2009,
+    editor = {Cerstin Mahlow and Michael Piotrowski},
+    title = {Workshop on Systems and Frameworks for Computational Morphology,
+      SFCM 2009, Zürich, Switzerland, September 2009, Proceedings},
+    booktitle = {State of the Art in Computational Morphology},
+    publisher = {Springer},
+    series = {Lecture Notes in Computer Science},
+    volume = {41},
+    year = {2009},
+    isbn = {978-3-642-04130-3},
+}
+
+@article{sfst,
+    crossref = {schmid2006programming},
 }
 
 @article{shannon1948mathematical,
-  title={A mathematical theory of communications, {I} and {II}},
+  title={A mathematical theory of communications, I and II},
   author={Shannon, C.E.},
   journal={Bell Syst. Tech. J},
   volume={27},
   pages={379--423},
-  year={1948}
+  year={1948},
+  flammie = {spell-checking},
 }
 
 @PhdThesis{siivola2007language,
@@ -1027,8 +1355,8 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
 @Inproceedings{silfverberg2009hfst,
     Author = {Miikka Silfverberg and Krister Lindén},
     Booktitle = {FSMNLP 2009},
-    Crossref = {conf/fsmnlp/2009},
-    Title = {{HFST} Runtime Format---A Compacted Transducer Format Allowing for Fast Lookup},
+    Crossref = {fsmnlp2009},
+    Title = {HFST Runtime Format---A Compacted Transducer Format Allowing for Fast Lookup},
     URL = {http://www.ling.helsinki.fi/klinden/pubs/fsmnlp2009runtime.pdf},
     Year = {2009},
 }
@@ -1049,17 +1377,18 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
     author = {Jonas Sjöbergh and Viggo Kann},
     year = {2004},
     title = {Finding the Correct Interpretation of {Swedish} Compounds -- a Statistical Approach},
-    crossref = {conf/lrec/2004},
+    crossref = {lrec2004},
     pages = {899--902},
+  flammie = {spell-checking},
 }
 
 @inproceedings{stolcke2002srilm,
-  title={{SRILM}-an extensible language modeling toolkit},
+  title={SRILM-an extensible language modeling toolkit},
   author={Stolcke, Andreas and others},
   booktitle={Proceedings of the international conference on spoken language processing},
   volume={2},
   pages={901--904},
-  year={2002}
+  year={2002},
 }
 @inproceedings{tron2005hunmorph,
   title={Hunmorph: open source word analysis},
@@ -1067,7 +1396,7 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och, Fr
   booktitle={Proceedings of the Workshop on Software},
   pages={77--85},
   year={2005},
-  organization={Association for Computational Linguistics}
+  organization={Association for Computational Linguistics},
 }
 
 @misc{unicode,
@@ -1083,35 +1412,30 @@ Addison Phillips, Michel Suignard, and Ken Whistler},
     url={http://www.unicode.org/versions/latest/},
     howpublished={WWW page},
     note={Retrieved 1st of August 2013 (unversioned), 
-        refered version 6.2.0; \url{http://www.unicode.org/versions/latest/}}
+        refered version 6.2.0; \url{http://www.unicode.org/versions/latest/}},
 }
 
-@mastersthesis{verberne2002context,
+@article{verberne2002context,
   title={Context-sensitive spell checking based on word trigram probabilities},
   author={Verberne, S.},
-  school={University of Nijmegen},
-  month={February-August},
-  year={2002}
+  journal={Master's thesis, University of Nijmegen, February-August},
+  year={2002},
 }
 
-@misc{visk,
-    author = {Auli Hakulinen and Maria Vilkuna and Riitta Korhonen and Vesa Koivisto and Tarja-Riitta Heinonen and Irja Alho},
-    year = {2008},
-    title = {Iso suomen kielioppi},
-    publisher = {Suomalaisen Kirjallisuuden Seura},
-    url = {http://kaino.kotus.fi/visk},
-    note = {Online version. Retrieved 1st of August 2013: \url{http://kaino.kotus.fi/visk/}}
+@book{visk,
+    crossref = {hakulinen2008iso},
 }
+
 
 @article{watson2003new,
-  title={A new algorithm for the construction of minimal acyclic {DFAs}},
+  title={A new algorithm for the construction of minimal acyclic DFAs},
   author={Watson, B.W.},
   journal={Science of Computer Programming},
   volume={48},
   number={2},
   pages={81--97},
   year={2003},
-  publisher={Elsevier}
+  publisher={Elsevier},
 }
 
 @inproceedings{wilcox-ohearn2008realword,
@@ -1119,12 +1443,12 @@ Addison Phillips, Michel Suignard, and Ken Whistler},
                Graeme Hirst and
                Alexander Budanitsky},
     title = {Real-Word Spelling Correction with Trigrams: A Reconsideration
-               of the {M}ays, {D}amerau, and {M}ercer Model},
-    booktitle = {Proceedings of CICLing 2008},
+               of the Mays, Damerau, and Mercer Model},
+    booktitle = {CICLing},
     year = {2008},
     pages = {605-616},
     ee = {http://dx.doi.org/10.1007/978-3-540-78135-6\_52},
-    crossref = {conf/cicling/2008},
+    crossref = {cicling2008},
     bibsource = {DBLP, http://dblp.uni-trier.de},
 }
 
@@ -1155,220 +1479,565 @@ Addison Phillips, Michel Suignard, and Ken Whistler},
     publisher={Elsevier},
     author={Yannakoudakis, E J and Fawthrop, D},
     year={1983},
-    pages={101--108}
+    pages={101--108},
 }
 
 @article{yli2005toward,
   title={Toward a widely usable finite-state morphology workbench for less studied languages, 1: Desiderata},
   author={Yli-Jyr{\"a}, Anssi and others},
   journal={Nordic Journal of African Studies},
+  year={2005},
+}
+
+
+@inproceedings{otte11,
+   author ={  Pim Otte and Francis M.Tyers},
+   title = {Rapid rule-based machine translation between Dutch and Afrikaans}, 
+   booktitle = {Proceedings of the 15th conference of the European Association for Machine Translation, 30-31 May 2011, Leuven, Belgium},
+   editors = {Mikel L.Forcada and Heidi Depraetere and Vincent Vandeghinste},
+  pages = {153--160},
+  year = 2011
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# This file contains bib citations for article ___
+# Use google scholar citation names (authoryeartitle), sort alphabetically
+# Some conference proceedings can be crossrefed to key conferenceyear.
+# Some software can be crossrefed to by name or nameyear.
+
+@inproceedings{agic2014setimes,
+	Address = {Reykjavik, Iceland},
+	Author = {{\v Z}eljko Agi{\'c} and Nikola Ljube{\v s}i{\'c}},
+	Booktitle = {Proceedings of the Ninth International Conference on Language Resources and Evaluation (LREC'14)},
+	Isbn = {978-2-9517408-8-4},
+	Publisher = {European Language Resources Association (ELRA)},
+	Title = {The {SETimes.HR} Linguistically Annotated Corpus of {C}roatian},
+	Year = {2014}
+}
+
+@book{beesley2003finite,
+  title={Finite state morphology},
+  author={Beesley, Kenneth R and Karttunen, Lauri},
+  year={2003},
+  publisher={Center for the Study of Language and Inf}
+}
+
+@InProceedings{bojar2014findings,
+  author    = {Bojar, Ondrej  and  Buck, Christian  and  Federmann, Christian  and  Haddow, Barry  and  Koehn, Philipp  and  Leveling, Johannes  and  Monz, Christof  and  Pecina, Pavel  and  Post, Matt  and  Saint-Amand, Herve  and  Soricut, Radu  and  Specia, Lucia  and  Tamchyna, Ale\v{s}},
+  title     = {Findings of the 2014 Workshop on Statistical Machine Translation},
+  booktitle = {Proceedings of the Ninth Workshop on Statistical Machine Translation},
+  month     = {June},
+  year      = {2014},
+  address   = {Baltimore, Maryland, USA},
+  pages     = {12--58},
+  url       = {http://www.aclweb.org/anthology/W/W14/W14-3302}
+}
+
+
+@inproceedings{openfst,
+    crossref = {allauzen2007openfst},
+}
+
+@inproceedings{allauzen2007openfst,
+    author = {Cyril Allauzen and Michael Riley and Johan Schalkwyk and Wojciech Skut and Mehryar Mohri},
+    year = {2007},
+    title = {Open{F}st: A General and Efficient Weighted Finite-State Transducer Library},
+    pages = {11--23},
+    url = {http://www.openfst.org},
+}
+
+@inproceedings{meteor,
+    crossref = {banerjee2005meteor},
+}
+
+@inproceedings{banerjee2005meteor,
+  title={{METEOR:} An automatic metric for MT evaluation with improved correlation with human judgments},
+  author={Banerjee, Satanjeev and Lavie, Alon},
+  booktitle={Proceedings of the ACL workshop on intrinsic and extrinsic evaluation measures for machine translation and/or summarization},
+  pages={65--72},
   year={2005}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@proceedings{fsmnlp2012,
-    editor = {Iñaki Alegria and Mns Huldén},
-    title = {Pre-proceedings of the 10th International Workshop on Finite State Methods and Natural Language Processing FSMNLP},
-    year = {2012},
-    month = {July 23--25},
-    location = {Donostia-San Sebastián, Spain},
-    publisher = {University of the Basque Country}
+@inproceedings{bleu,
+    crossref = {papineni2002bleu},
 }
 
-@proceedings{conf/nodalida/2003,
-    title = {NODALIDA 2003, the 14th Nordic Conference of
-               Computational Linguistics, Reykjavik,
-               May 30-31, 2003, Proceedings},
-    booktitle = {Nodalida '03},
-    year = {2003},
+@article{brown1993mathematics,
+  title={The mathematics of statistical machine translation: Parameter estimation},
+  author={Brown, Peter F and Pietra, Vincent J Della and Pietra, Stephen A Della and Mercer, Robert L},
+  journal={Computational linguistics},
+  volume={19},
+  number={2},
+  pages={263--311},
+  year={1993},
+  publisher={MIT Press}
 }
 
-@Proceedings{conf/cicling/2008,
-    Editor = {Alexander F. Gelbukh},
-    Publisher = {Springer},
-    Title = {Computational Linguistics and Intelligent Text Processing,
-               9th International Conference, CICLing 2008, Haifa, Israel,
-               February 17-23, 2008, Proceedings},
-    Year = {2008},
+@inproceedings{cap2014produce,
+  title={How to Produce Unseen Teddy Bears: Improved Morphological Processing of Compounds in SMT},
+  author={Cap, Fabienne and Fraser, Alexander and Weller, Marion and Cahill, Aoife},
+  booktitle={Proceedings of EACL 2014},
+  year={2014}
 }
 
-@proceedings{conf/fsmnlp/2009,
-    editor = {Bruce Watson and Derrick Courie and Loek Cleophas and Pierre Rautenbach},
-    title = {Pre-proceedings of the Eighth International Workshop on Finite-State Methods and Natural Language Processing (FSMNLP 2009), Pretoria, South Africa, July 21st - 24th 2009},
-    howpublished = {Handout CD-ROM containing the accompanying papers for the presentations during the FSMNLP 2009 workshop.  Published by the University of Pretoria, Pretoria, South Africa.},
-    month = {13 July},
-    booktitle = {FSMNLP 2009},
-    publisher = {},
-    series = {},
-    volume = {},
-    year = {2009},
-    isbn = {978-1-86854-743-2},
-}
-@proceedings{conf/nodalida/2009,
-    editor = {Kristiina Jokinen and Eckhard Bick},
-    title = {Proceedings of 17th Nordic Conference of Computational Linguistics,
-      Nodalida 2009, Odense, Denmark, May 14---16 2009, Proceedings},
-    booktitle = {NODALIDA 2009},
-    series = {NEALT Proceedings},
-    number = {4},
-    year = {2009},
-    isbn = {},
-    uri = {http://hdl.handle.net/10062/9909},
-}
-
-
-@proceedings{conf/sfcm/2009,
-    editor = {Cerstin Mahlow and Michael Piotrowski},
-    title = {Workshop on Systems and Frameworks for Computational Morphology,
-      SFCM 2009, Zürich, Switzerland, September 2009, Proceedings},
-    booktitle = {State of the Art in Computational Morphology},
-    publisher = {Springer},
-    series = {Lecture Notes in Computer Science},
-    volume = {41},
-    year = {2009},
-    isbn = {978-3-642-04130-3},
-}
-
-@proceedings{conf/ciaa/2007,
-    title = {Proceedings of the Ninth International Conference on
-  Implementation and Application of Automata, (CIAA 2007)},
-    volume = {4783},
-    booktitle = {Lecture Notes in Computer Science},
-    publisher = {Springer},
-    year = {2007},
-}
-
-@proceedings{conf/baltichlt2,
-    title = {Proceedings of the Second Baltic Conference on Human Language Technologies},
-}
-@proceedings{conf/lrec/2004,
-    title = {Proceedings of {LREC}-2004},
-    publisher = {Lisbon, Portugal},
-}
-## The articles making up the thesis
-@Inproceedings{pirinen2009weighted,
-    Author = {Krister Lindén and Tommi Pirinen},
-    Booktitle = {Nodalida 2009},
-    series = {NEALT Proceedings},
-    number = {4},
-    editor = {Kristiina Jokinen and Eckhard Bick},
-    Title = {Weighted Finite-State Morphological Analysis of {F}innish Compounds},
-    URL = {http://www.ling.helsinki.fi/klinden/pubs/linden09dnodalida.pdf},
-    Year = {2009},
-    category = {thesis}
-}
-
-@Inproceedings{pirinen2009weighting,
-    Author = {Krister Lindén and Tommi Pirinen},
-    Booktitle = {FSMNLP 2009},
-    editor = {Bruce Watson and Derrick Courie and Loek Cleophas and Pierre Rautenbach},
-    month = {July},
-    isbn = {978-1-86854-743-2},
-    Title = {Weighting Finite-State Morphological Analyzers using {HFST} tools},
-    URL = {http://www.ling.helsinki.fi/klinden/pubs/fsmnlp2009weighting.pdf},
-    Year = {2009},
-    category = {thesis}
-}
-
-@inproceedings{pirinen2010building,
-    author = {Tommi A Pirinen and Krister Lindén},
-    title = {Building and Using Existing {H}unspell Dictionaries and {\TeX } Hyphenators as Finite-State Automata},
-    booktitle = {Proccedings of Computational Linguistics - Applications, 2010},
-    year = {2010},
-    address = {Wis{\l}a, Poland},
-    pages = {25---32},
-    url = {http://www.helsinki.fi/%7Etapirine/publications/Pirinen-cla-2010.pdf},
-    category = {thesis}
-}
-
-@InProceedings{pirinen2010finitestate,
-    author = {Tommi A Pirinen and Krister Lindén},
-    title = {Finite-State Spell-Checking with Weighted Language and Error Models},
-    booktitle = {Proceedings of the Seventh SaLTMiL workshop on creation and use of basic lexical resources for less-resourced languagages},
-    year = {2010},
-    address = {Valletta, Malta},
-    pages = {13--18},
-    url = {http://siuc01.si.ehu.es/%7Ejipsagak/SALTMIL2010\_Proceedings.pdf},
-    category = {thesis}
-}
-
-@article{pirinen2010creating,
-  title={Creating and Weighting {H}unspell Dictionaries as Finite-State Automata},
-  author={Pirinen, T.A. and Lindén, K. and others},
-  journal={Investigationes Linguisticae},
-  volume={21},
+@phdthesis{clifton2010unsupervised,
+  title={Unsupervised morphological segmentation for statistical machine translation},
+  author={Clifton, Ann},
   year={2010},
-    category = {thesis}
+  school={Applied Science: School of Computing Science}
+}
+
+@inproceedings{clifton2011combining,
+ author = {Clifton, Ann and Sarkar, Anoop},
+ title = {Combining Morpheme-based Machine Translation with Post-processing Morpheme Prediction},
+ booktitle = {Proceedings of the 49th Annual Meeting of the Association for Computational Linguistics: Human Language Technologies - Volume 1},
+ series = {HLT '11},
+ year = {2011},
+ isbn = {978-1-932432-87-9},
+ location = {Portland, Oregon},
+ pages = {32--42},
+ numpages = {11},
+ url = {http://dl.acm.org/citation.cfm?id=2002472.2002477},
+ acmid = {2002477},
+ flammie = {smt eng-fin},
+}
+
+@inproceedings{creutz2006morfessor,
+  title={Morfessor in the morpho challenge},
+  author={Creutz, Mathias and Lagus, Krista},
+  booktitle={Proceedings of the PASCAL Challenge Workshop on Unsupervised Segmentation of Words into Morphemes},
+  year={2006},
+}
+
+@inproceedings{degispert2009minimum,
+  title={Minimum {B}ayes risk combination of translation hypotheses from alternative morphological decompositions},
+  author={De Gispert, Adri{\`a} and Virpioja, Sami and Kurimo, Mikko and Byrne, William},
+  booktitle={Proceedings of Human Language Technologies: The 2009 Annual Conference of the North American Chapter of the Association for Computational Linguistics, Companion Volume: Short Papers},
+  pages={73--76},
+  year={2009},
+}
+
+@inproceedings{deilarraza2009relevance,
+  title={Relevance of Different Segmentation Options on {S}panish-{B}asque {SMT},
+  author={de Ilarraza, Arantza D{\i}az and Labaka, Gorka and Sarasola, Kepa},
+  booktitle={Proceedings of the EAMT},
+  year={2009}
+}
+
+@techreport{dyer2008generalizing,
+  title={Generalizing word lattice translation},
+  author={Dyer, Christopher and Muresan, Smaranda and Resnik, Philip},
+  year={2008},
+  institution={DTIC Document}
+}
+
+@inproceedings{elishibani2006morpho,
+  title={Morpho-syntactic Arabic preprocessing for {A}rabic-to-{E}nglish statistical machine translation},
+  author={El Isbihani, Anas and Khadivi, Shahram and Bender, Oliver and Ney, Hermann},
+  booktitle={Proceedings of the Workshop on Statistical Machine Translation},
+  pages={15--22},
+  year={2006},
+}
+
+@inproceedings{europarl,
+    crossref = {koehn2005europarl},
+}
+
+@Article{appraise,
+  author =  {Christian Federmann},
+  title =   {Appraise: An Open-Source Toolkit for Manual Evaluation of Machine Translation Output},
+  journal = {The Prague Bulletin of Mathematical Linguistics},
+  volume =  {98},
+  pages =   {25--35},
+  year =    {2012},
+  address = {Prague, Czech Republic},
+  month =   {September}
+}
+
+@inproceedings{flatcat,
+   	crossref = {gronroos2014morfessor},
+}
+
+@inproceedings{fishel2010linguistically,
+  title={Linguistically Motivated Unsupervised Segmentation for Machine Translation},
+  author={Fishel, Mark and Kirik, Harri},
+  booktitle={LREC},
+  year={2010}
+}
+
+@inproceedings{galley2008simple,
+  title={A simple and effective hierarchical phrase reordering model},
+  author={Galley, Michel and Manning, Christopher D},
+  booktitle={Proceedings of the Conference on Empirical Methods in Natural Language Processing},
+  pages={848--856},
+  year={2008},
+}
+
+@inproceedings{goldwater2005improving,
+  title={Improving statistical MT through morphological analysis},
+  author={Goldwater, Sharon and McClosky, David},
+  booktitle={Proceedings of the conference on Human Language Technology and Empirical Methods in Natural Language Processing},
+  pages={676--683},
+  year={2005},
+}
+
+@inproceedings{gronroos2014morfessor,
+  title={Morfessor {FlatCat}: An {HMM}-based method for unsupervised and semi-supervised learning of morphology},
+  author={Gr{\"o}nroos, Stig-Arne and Virpioja, Sami and Smit, Peter and Kurimo, Mikko},
+  booktitle={Proceedings of COLING 2014, the 25th International Conference on Computational Linguistics},
+  pages={1177--1185},
+  year={2014}
+}
+@article{habash2006arabic,
+  title={{A}rabic preprocessing schemes for statistical machine translation},
+  author={Habash, Nizar and Sadat, Fatiha},
+  year={2006}
+}
+
+@article{heafield2010combining,
+  title={Combining Machine Translation Output with Open Source: The {C}arnegie {M}ellon Multi-Engine Machine Translation Scheme},
+  author={Heafield, Kenneth and Lavie, Alon},
+  journal={The Prague Bulletin of Mathematical Linguistics},
+  volume={93},
+  pages={27--36},
+  year={2010}
+}
+
+@inproceedings{moses,
+    crossref = {koehn2007moses},
+}
+
+@inproceedings{koehn2005edinburgh,
+  title={{E}dinburgh system description for the 2005 {IWSLT} speech translation evaluation},
+  author={Koehn, Philipp and Axelrod, Amittai and Birch, Alexandra and Callison-Burch, Chris and Osborne, Miles and Talbot, David and White, Michael},
+  booktitle={IWSLT},
+  pages={68--75},
+  year={2005}
+}
+
+@inproceedings{koehn2005europarl,
+  title={Europarl: A parallel corpus for statistical machine translation},
+  author={Koehn, Philipp},
+  booktitle={MT summit},
+  volume={5},
+  pages={79--86},
+  year={2005},
+  organization={Citeseer}
+}
+
+@inproceedings{koehn2007moses,
+  title={Moses: Open source toolkit for statistical machine translation},
+  author={Koehn, Philipp and Hoang, Hieu and Birch, Alexandra and Callison-Burch, Chris and Federico, Marcello and Bertoldi, Nicola and Cowan, Brooke and Shen, Wade and Moran, Christine and Zens, Richard and others},
+  booktitle={Proceedings of the 45th Annual Meeting of the ACL on Interactive Poster and Demonstration Sessions},
+  pages={177--180},
+  year={2007},
+}
+
+@inproceedings{koehn2007factored,
+  title={Factored Translation Models},
+  author={Koehn, Philipp and Hoang, Hieu},
+  booktitle={EMNLP-CoNLL},
+  pages={868--876},
+  year={2007},
+}
+
+@inproceedings{kurimo2006unsupervised,
+  title={Unsupervised segmentation of words into morphemes--Challenge 2005: An Introduction and Evaluation Report},
+  author={Kurimo, Mikko and Creutz, Mathias and Varjokallio, Matti and Arisoy, Ebru and Sara{\c{c}}lar, Murat},
+  booktitle={Proceedings of the PASCAL Challenge Workshop on Unsupervised segmentation of words into morphemes},
+  year={2006}
+}
+
+@inproceedings{kurimo2007overview,
+  title={Overview of morpho challenge in clef 2007},
+  author={Kurimo, Mikko and Creutz, Mathias and Turunen, Ville},
+  booktitle={Working Notes of the CLEF 2007 Workshop},
+  pages={19--21},
+  year={2007}
+}
+
+@book{koehn2009statistical,
+  title={Statistical machine translation},
+  author={Koehn, Philipp},
+  year={2009},
+  publisher={Cambridge University Press}
+}
+
+@article{labaka2012eusmt,
+  title={EUSMT: incorporating linguistic information to SMT for a morphologically rich language. Its use in SMT-RBMT-EBMT hybridation},
+  author={Labaka Intxauspe, Gorka},
+  year={2012}
+}
+
+@inproceedings{lee2004morphological,
+ author = {Lee, Young-Suk},
+ title = {Morphological Analysis for Statistical Machine Translation},
+ booktitle = {Proceedings of HLT-NAACL 2004: Short Papers},
+ series = {HLT-NAACL-Short '04},
+ year = {2004},
+ isbn = {1-932432-24-8},
+ location = {Boston, Massachusetts},
+ pages = {57--60},
+ numpages = {4},
+ url = {http://dl.acm.org/citation.cfm?id=1613984.1613999},
+ acmid = {1613999},
+ publisher = {Association for Computational Linguistics},
+ address = {Stroudsburg, PA, USA},
+} 
+
+@inproceedings{koehn2005europarl,
+  title={Europarl: A parallel corpus for statistical machine translation},
+  author={Koehn, Philipp},
+  booktitle={MT summit},
+  volume={5},
+  pages={79--86},
+  year={2005}
+}
+
+@article{hfst,
+    crossref={linden2011hfst},
+}
+
+@article{linden2011hfst,
+  title={Hfst—framework for compiling and applying morphologies},
+  author={Lindén, Krister and Axelson, Erik and Hardwick, Sam and Pirinen, Tommi A and Silfverberg, Miikka},
+  journal={Systems and Frameworks for Computational Morphology},
+  pages={67--85},
+  year={2011},
+  publisher={Springer},
+}
+
+@inproceedings{luong2010hybrid,
+ author = {Luong, Minh-Thang and Nakov, Preslav and Kan, Min-Yen},
+ title = {A Hybrid Morpheme-word Representation for Machine Translation of Morphologically Rich Languages},
+ booktitle = {Proceedings of the 2010 Conference on Empirical Methods in Natural Language Processing},
+ series = {EMNLP '10},
+ year = {2010},
+ location = {Cambridge, Massachusetts},
+ pages = {148--157},
+ numpages = {10},
+ url = {http://dl.acm.org/citation.cfm?id=1870658.1870673},
+ acmid = {1870673},
+ flammie= {smt, eng-fin},
+}
+
+@inproceedings{mermer2010unsupervised,
+ author = {Mermer, Co\c{s}kun},
+ title = {Unsupervised Search for the Optimal Segmentation for Statistical Machine Translation},
+ booktitle = {Proceedings of the ACL 2010 Student Research Workshop},
+ series = {ACLstudent '10},
+ year = {2010},
+ location = {Uppsala, Sweden},
+ pages = {31--36},
+ numpages = {6},
+ url = {http://dl.acm.org/citation.cfm?id=1858913.1858919},
+ acmid = {1858919},
+}
+
+@inproceedings{minkov2007generating,
+  title={Generating complex morphology for machine translation},
+  author={Minkov, Einat and Toutanova, Kristina and Suzuki, Hisami},
+  booktitle={ACL},
+  volume={7},
+  pages={128--135},
+  year={2007}
+}
+
+@article{morfessor,
+    crossref = {virpioja2013morfessor},
+}
+
+@article{niessen2004statistical,
+  title={Statistical machine translation with scarce resources using morpho-syntactic information},
+  author={Nie{\ss}en, Sonja and Ney, Hermann},
+  journal={Computational Linguistics},
+  volume={30},
+  number={2},
+  pages={181--204},
+  year={2004},
+  publisher={MIT Press}
+}
+
+@inproceedings{oflazer2007exploring,
+  title={Exploring different representational units in {E}nglish-to-{T}urkish statsistical machine translation},
+  author={Oflazer, Kemal and El-Kahlout, Ilknur Durgar},
+  booktitle={Proceedings of the Second Workshop on Statistical Machine Translation},
+  pages={25--32},
+  year={2007},
+}
+
+@inproceedings{papineni2002bleu,
+  title={BLEU: a method for automatic evaluation of machine translation},
+  author={Papineni, Kishore and Roukos, Salim and Ward, Todd and Zhu, Wei-Jing},
+  booktitle={Proceedings of the 40th annual meeting on association for computational linguistics},
+  pages={311--318},
+  year={2002},
+}
+
+@article{omorfi,
+    crossref = {pirinen2015omorfi},
 }
 
 @inproceedings{pirinen2011modularisation,
-    author = {Tommi A Pirinen},
-    year = {2011},
-    title = {Modularisation of {F}innish Finite-State Language Description—Towards Wide Collaboration in Open Source Development of Morphological Analyser},
-    booktitle = { Proceedings of Nodalida},
-   number = {18},
-   series = {NEALT proceedings},
-   url = {http://www.helsinki.fi/\%7etapirine/publications/Pirinen-nodalida-2011-omorfi.pdf},
-    category = {thesis}
+  title={Modularisation of {F}innish finite-state language description--towards wide collaboration in open source development of a morphological analyser},
+  author={Pirinen, Tommi A},
+  booktitle={Proceedings of Nodalida},
+  volume={18},
+  pages={299--302},
+  year={2011},
 }
 
-@article{pirinen2012compiling,
-  title={Compiling {A}pertium morphological dictionaries with {HFST} and using them in {HFST} applications},
-  author={Pirinen, T.A. and Tyers, F.M.},
-  journal={Language Technology for Normalisation of Less-Resourced Languages},
-  pages={25},
-  year={2012},
-    category = {thesis}
+@inproceedings{pirinen2015omorfi,
+  title={Omorfi--Free and open source morphological lexical database for {F}innish},
+  author={Pirinen, Tommi A},
+  booktitle={Nordic Conference of Computational Linguistics NODALIDA 2015},
+  pages={313},
+  year={2015}
 }
 
-@inproceedings{pirinen2012effects,
-  author    = {Pirinen, Tommi A  and  Hardwick, Sam},
-  title     = {Effect of Language and Error Models on Efficiency of 
-      Finite-State Spell-Checking and Correction},
-  booktitle = {Proceedings of the 10th International Workshop on Finite State
-      Methods and Natural Language Processing},
-  month     = {July},
-  year      = {2012},
-  address   = {Donostia--San Sebastián},
+@inproceedings{popovic2004towards,
+  title={Towards the Use of Word Stems and Suffixes for Statistical Machine Translation},
+  author={Popovic, Maja and Ney, Hermann},
+  booktitle={Proceedings of LREC},
+  year={2004}
+}
+
+@InProceedings{rubino-EtAl:2015:WMT,
+  author    = {Rubino, Raphael  and  Pirinen, Tommi  and  Espl\`{a}-Gomis, Miquel  and  Ljube\v{s}i\'{c}, Nikola  and  Ortiz Rojas, Sergio  and  Papavassiliou, Vassilis  and  Prokopidis, Prokopis  and  Toral, Antonio},
+  title     = {Abu-{MaTran} at {WMT} 2015 Translation Task: Morphological Segmentation and Web Crawling},
+  booktitle = {Proceedings of the Tenth Workshop on Statistical Machine Translation},
+  month     = {September},
+  year      = {2015},
+  address   = {Lisbon, Portugal},
   publisher = {Association for Computational Linguistics},
-  pages     = {1--9},
-  url       = {http://www.aclweb.org/anthology/W12-6201},
-    category = {thesis}
+  pages     = {184--191},
+  url       = {http://aclweb.org/anthology/W15-3022}
 }
 
-@conference{pirinen2012improving,
-    title = {Improving Finite-State Spell-Checker Suggestions with Part of Speech N-Grams},
-    author = {Tommi Pirinen and Miikka Silfverberg and Krister Lindén},
-    year = {2012},
-    location = {Delhi, India},
-    booktitle = {IJCLA},
-    category = {thesis}
-}
-@article{pirinen2013quality,
-    title = {Quality and Speed Trade-Offs in Weighted Finite-State Spell-Checking},
-    year = {forthcoming},
-    author = {Tommi A Pirinen},
-    journal = {presubmitted},
-    note = {submitted},
-    category = {thesis}
+@inproceedings{ter,
+    crossref = {snover2006study},
 }
 
-@article{steinberger2006jrc,
-  title={The JRC-Acquis: A multilingual aligned parallel corpus with 20+ languages},
-  author={Steinberger, Ralf and Pouliquen, Bruno and Widiger, Anna and Ignat, Camelia and Erjavec, Tomaz and Tufis, Dan and Varga, D{\'a}niel},
-  journal={arXiv preprint cs/0609058},
+@inproceedings{snover2006study,
+  title={A study of translation edit rate with targeted human annotation},
+  author={Snover, Matthew and Dorr, Bonnie and Schwartz, Richard and Micciulla, Linnea and Makhoul, John},
+  booktitle={Proceedings of Association for machine translation in the Americas},
+  pages={223--231},
   year={2006}
 }
+
+@inproceedings{virpioja2007morphology,
+    address = {Copenhagen, Denmark},
+    author = {Sami Virpioja and Jaakko J. V{\"{a}}yrynen and Mathias Creutz and Markus Sadeniemi},
+    booktitle = {Proceedings of the Machine Translation Summit XI},
+    month = {September},
+    pages = {491--498},
+    title = {Morphology-Aware Statistical Machine Translation Based on Morphs Induced in an Unsupervised Manner},
+    year = {2007},
+}
+@inproceedings{devlin2014fast,
+  title={Fast and robust neural network joint models for statistical machine translation},
+  author={Devlin, Jacob and Zbib, Rabih and Huang, Zhongqiang and Lamar, Thomas and Schwartz, Richard and Makhoul, John},
+  booktitle={Proceedings of the 52nd Annual Meeting of the Association for Computational Linguistics},
+  volume={1},
+  pages={1370--1380},
+  year={2014}
+}
+@article{virpioja2013morfessor,
+  title={Morfessor 2.0: Python implementation and extensions for Morfessor Baseline},
+  author={Virpioja, Sami and Smit, Peter and Gr{\"o}nroos, Stig-Arne and Kurimo, Mikko and others},
+  year={2013},
+  publisher={Aalto University}
+}
+@inproceedings{vaswani2013decoding,
+  title={Decoding with Large-Scale Neural Language Models Improves Translation.},
+  author={Vaswani, Ashish and Zhao, Yinggong and Fossum, Victoria and Chiang, David},
+  booktitle={EMNLP},
+  pages={1387--1392},
+  year={2013},
+}
+@article{hasler2011margin,
+  title={Margin Infused Relaxed Algorithm for Moses},
+  author={Hasler, Eva and Haddow, Barry and Koehn, Philipp},
+  journal={The Prague Bulletin of Mathematical Linguistics},
+  volume={96},
+  pages={69--78},
+  year={2011}
+}
+@inproceedings{durrani2011joint,
+        title={A Joint Sequence Translation Model with Integrated Reordering},
+        author={Durrani, Nadir and Schmid, Helmut and Fraser, Alexander},
+        booktitle={Proceedings of ACL/HLT},
+        pages={1045--1054},
+        year={2011}
+}
+@inproceedings{gao2008parallel,
+        title={Parallel Implementations of Word Alignment Tool},
+        author={Gao, Qin and Vogel, Stephan},
+        booktitle={Software Engineering, Testing, and Quality Assurance for Natural Language Processing},
+        pages={49--57},
+        year={2008}
+}
+@inproceedings{watanabe-EtAl:2007:EMNLP-CoNLL2007,
+    author = {Watanabe, Taro and Suzuki, Jun and Tsukada, Hajime and Isozaki, Hideki},
+    title = {Online Large-Margin Training for Statistical Machine Translation},
+    booktitle = {Proceedings of the 2007 Joint Conference on Empirical Methods in Natural Language Processing and Computational Natural Language Learning (EMNLP-CoNLL)},
+    month = {June},
+    year = {2007},
+    address = {Prague, Czech Republic},
+    pages = {764--773},
+    url = {http://www.aclweb.org/anthology/D07-1080}
+    }
+
+@inproceedings{yang2006phrase,
+  title={Phrase-Based Backoff Models for Machine Translation of Highly Inflected Languages.},
+  author={Yang, Mei and Kirchhoff, Katrin},
+  booktitle={EACL},
+  pages={3--7},
+  year={2006}
+}
+
+@InProceedings{sakaguchi-post-vandurme:2014:W14-33,
+  author    = {Sakaguchi, Keisuke  and  Post, Matt  and  Van Durme, Benjamin},
+  title     = {Efficient Elicitation of Annotations for Human Evaluation of Machine Translation},
+  booktitle = {Proceedings of the Ninth Workshop on Statistical Machine Translation},
+  month     = {June},
+  year      = {2014},
+  address   = {Baltimore, Maryland, USA},
+  publisher = {Association for Computational Linguistics},
+  pages     = {1--11},
+  url       = {http://www.aclweb.org/anthology/W14-3301}
+}
+

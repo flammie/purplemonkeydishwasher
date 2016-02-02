@@ -1,7 +1,7 @@
 
 .PHONY: all
 
-all: 2016-sigur-meeting-beamer.pdf Pirinen-2016-abumatran-poster-boaster.pdf UD_tutorial.pdf
+all: 2016-sigur-meeting-beamer.pdf Pirinen-2016-abumatran-poster-boaster.pdf UD_tutorial.pdf Pirinen-2016-smt-morph-segments.pdf Pirinen-2016-iwclul-rbmt-representations.pdf
 
 %.pdf: %.tex
 	xelatex $<

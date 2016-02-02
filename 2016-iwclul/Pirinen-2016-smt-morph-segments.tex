@@ -1,0 +1,676 @@
+\documentclass[free]{flammie}
+
+\newif\ifcameraready
+\camerareadyfalse
+
+\usepackage{polyglossia}
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{expex}
+\usepackage[obeyDraft]{todonotes}
+%\usepackage{todonotes}
+
+
+\begin{document}
+
+
+\title{Rule-Based and Statistical Morph Segments in English-to-Finnish SMT\footnotepubrights{
+    This work is licensed under a Creative Commons Attribution–NoDerivatives
+    4.0 International Licence.  Licence details:
+    \url{http://creativecommons.org/licenses/by-nd/4.0/}.
+    Original publication in proceedings of second IWCLUL held in Szeged 2016
+}}
+
+
+\author{\small Tommi A Pirinen \\
+\small	tommi.pirinen@computing.dcu.ie \\
+\small  ADAPT Centre---School of Computing, DCU \\
+    \and
+\small        Antonio Toral \\ 
+\small        atoral@computing.dcu.ie\\ 
+\small        ADAPT Centre---School of Computing, DCU \\
+\and
+\small       Raphael Rubino \\
+\small       rrubino@prompsit.com\\
+\small        Prompsit Language Engineering S.L.
+}
+
+
+
+
+\maketitle
+\begin{abstract}
+%\todo[inline]{Rewrite}
+
+
+%In statistical machine translation (SMT) of morphologically complex languages, morphological segmentation of word-forms is recognised as a potential solution for dealing with the sparsity of token-based data in training. However, the previous approaches have failed to bring significant improvement or explanation of the problems. The prior work on the topic lacks systematic analysis of improvements and short-comings of the segmentation techniques and so a conclusive advantage has not been reached.
+%In this paper we present a systematic comparison of effects of two different morphological segmentation methods. We show that by systematically studying effects of various segmentation schemes and results and applying the right system combination, one can improve the results of SMT as measured by automatic, human and linguistic evaluation. While we show an experiment for a specific language pair, the methods are generally usable language-independently. 
+
+\todo[inline]{Tommi: pls change the template to IWCLUL. The paper is currently 16 pages, IWCLUL max is 10!!! – Changed / needs chop chop}
+%AT rewritten
+Morphological segmentation is recognised as a potential solution in statistical machine translation (SMT) to deal with data sparsity posed by morphologically complex languages like all Uralic languages.
+Two approaches have been used in the literature, rule-based and statistical, but always in isolation.
+In addition, previous work has failed to bring significant improvement and conclusive analyses of the effects of segmentation.
+In this paper we use both rule-based and unsupervised approaches to segmentation jointly and aim to find out where they excel and where they fail.
+Our case study is on English-to-Finnish using the datasets provided at the WMT 2015 shared task.
+We present a comprehensive evaluation of SMT systems built with different segmenters including: intrinsic evaluation, MT automatic metrics, MT human evaluation and MT linguistic evaluation.
+In terms of automatic  metrics, the best system is the one that combines both rule-based and unsupervised segmentations, outperforming an unsegmented system by 1.08 BLEU and 3.64 TER points.
+Human evaluation shows that the outputs produced by an SMT system with rule-based segmentations are preferred over those of the system that uses unsupervised segmentations.
+\end{abstract}
+
+%\todo[inline]{Overall: uniformise tool, corpora, etc. names (for instance first letter always uppercased, using textsc, etc.}
+%\todo[inline]{Overall: remove all these i.e., e.g.}
+
+\section{Introduction}
+
+
+%\todo[inline]{We need a definition of Morphologically rich (or complex) language, maybe in the introduction}
+
+Morphologically complex languages are well known to cause problems for contemporary \textit{statistical machine translation} (SMT) systems.
+\textit{Morphological segmentation}, in which words are divided into sub-word units prior to training, 
+has been a popular method to deal with morphologically complex languages in SMT. 
+In this regard,~\cite{clifton2010unsupervised} presents a comprehensive overview of the topic.
+However, despite a lot of effort put into the use of morphological segmentation in SMT, automatic evaluation for morphologically rich languages, to the extent of the richness of Uralic languages rather than most Indo-European, have yielded modest improvements to downright negative results~\cite{virpioja2007morphology}.
+
+
+In this paper we aim to lay out a pathway on this problem by extensively studying various segmentation schemes and the errors they introduce and avoid.
+We systematically evaluate and compare segmentations produced by the two most widely used approaches to morphological segmentation: rule-based and statistical.
+% While both types have been used before in the literature, they were always used in isolation. % probs don't need this selling point for lul
+Our aim is then to find out where each of these approaches excels and where they fail, and whether their joint use can be beneficial.
+To have a systematic and thorough evaluation, we use four evaluation schemes for the segmentations: intrinsic test of segmentation quality against a gold standard, the automatic and human evaluation of segmented MT systems, automatic evaluation of linguistic features and translation model features.
+
+%AT I've commented out next two lines. Didn't delete them in case we "rescue them" at some point.
+%pre-processing and post-processing of statistical machine translation and a system combination approach to, which to our knowledge has not been tried before. 
+%We find out that different types of segmentations are complementary, and thus, ultimately, we use them jointly by means of system combination.
+
+
+%Rationale. There has been work on using morph segmentation for SMT from/to morph rich languages.
+%Both rule-based and unsupervised approaches have been used, but in isolation, never in the same experiment. %We need to check carefully this is actually the case!
+%What is lacking is its joint use and a comparison. What each of these approaches bring? Where do they fail? Can their joint use be beneficial? What we can gain from combining both approaches?
+
+%The rest of this paper is laid out as follows: we start Section~\ref{sec:related-work} by describing prior art and terminology to position our work.
+%Then in Section~\ref{sec:morph-segmentation} we describe our approaches to morphological segmentation.
+%In Section~\ref{sec:experiments} we describe the experiments, the software and data sets used.
+%In Section~\ref{sec:evaluation} we present results according to four evaluation criteria and finally in Section~\ref{sec:conclusion} we summarise the findings and lay out future work.
+
+\section{Morphological Segmentation}
+\label{sec:related-work}
+
+\todo{We need to cut somewhere and this was frowned upon in prev. reviews... so I totally combined sota and method description}
+
+Morphological segmentation is a well-established technique in SMT and there is a large amount of related work to consider: \cite[p. 324]{koehn2009statistical} provides an extensive reading list on the topic.
+It is important to note that the term \textit{morphological segmentation} is often used for a number of different techniques, which we believe are not comparable, or relevant to Uralic SMT.
+For example, segmenting Chinese non-space separated sentences or Vietnamese syllables into words is not considered in this article (we associate this to \textit{tokenisation}), nor changing word-forms into structure consisting of abstract dictionary word and suffix identifiers (i.e., \textit{morphological analysis}).
+The segmentation we consider involves solely finding segmentation points within a word token.
+There are two approaches to segmentation that we study in this article:
+unsupervised statistical and rule-based.
+The state-of-the-art of statistical segmentation has been determined in \textit{MorphoChallenge} shared tasks\cite{kurimo2007overview}.
+In rule-based morphology, researchers generally concentrate on the higher level linguistic morphological analysis rather than on plain segmentation, and thus there is no comprehensive evaluation of the state of the art in the \textit{segmentation} task.
+For Uralic languages it makes sense to follow the prevalent \textit{Finite State Morphology}~\cite{beesley2003finite}. 
+These are the frameworks we use in this paper.
+
+%Therefore, we start the review of previous work by defining the differences in morphological segmentation techniques to accurately place our work within the field. 
+%On the implementation side, previous work can be divided into three classes: (i) \textit{pre- and post-processing} segmentation~\cite{virpioja2007morphology}, to which this paper belongs, (ii) \textit{factored models}~\cite{koehn2007factored}, which use structured morphological analysis, and (iii) \textit{morphological generation} models ~\cite{minkov2007generating}, which typically apply shallow morphological analysis, lemmatisation and affix classification.
+%With respect to the underlying theory, the split is between \textit{statistical} and \textit{rule-based} methods.
+%One final distinction to keep in mind is the actual \textit{morphological complexity} of the language, and by morphological complexity in this context we can easily refer to the morphs-to-word ratio. While the methodology is generally applicable it is expected that results for languages with significantly different levels of morphological complexity might not be directly comparable.
+
+
+%Morphological segmentation as it is can refer to any technique that uses linguistic or statistical information to reduce the complexity that stems from word-formation and orthographies\footnote{E.g. the fact that English noun-noun compounds are written with a white-space while German joins them together is a matter of conventional orthography rather than genuine linguistic differences between the languages.} present in most languages.
+%In this paper, we use the term morphological segmentation to refer to the detection of segments within a word-form, an algorithm that produces segmentation points from which the word can be split to produce sub-word units that can be used in SMT. For example, given the English word-form `cats', segmentation should typically detect a segmentation point between the third and fourth letters yielding the \textit{morphs} `cat' and `s'.
+%However, for the word-form `brethren' a segmenter might return zero segmentation points, or one giving the archaic plural suffix `ren' along with the stem `breth', which does not match any other word-form.
+%At the opposite end of morphological pre-processing is \textit{morphological analysis}, which takes as input a word-form, and produces an arbitrary data-structure containing (potentially), a large amount of information. For example, given `brethren', a morphological analyser might produce the lemma `brother', and an abstract identifier for plurality. Many morphological segmentation systems in previous work fall somewhere in the spectrum between these two points, e.g. making use of analysed lemmas instead of segmented stems.
+%However, the systems we are describing in this paper fall strictly in the segmenting end of the scale, and make no modifications or analyses to the sub-strings of the word-forms. 
+
+%For example, much of the work on Arabic falls into morphological analysis, rather than segmentation.~\cite{goldwater2005improving,habash2006arabic,elishibani2006morpho}
+%They convert the source string into abstract representations because non-concatenative morphologies do not easily lend themselves to segmentation. %AT this last bit is not understandable. but also make comparisons less meaningful.\todo{rephrase}
+Much of the prior work in Finno-Ugric languages, mainly for Finnish and Estonian, is based on using unsupervised morphological segmentation only~\cite{virpioja2007morphology,fishel2010linguistically,clifton2011combining,luong2010hybrid,degispert2009minimum}.
+One of the new emphases presented in this article is the comparison and combination of rule-based morphologies to unsupervised segmentation.
+\cite{clifton2011combining} make use of rule-based segmentation in determining their baseline but they carry on to use only the better-performing unsupervised segmentation in their actual experiments.
+%Their focus was on reusing unsupervised segmentations as analyses and morphological prediction from those abstracted segments, whereas we present a detailed comparison of the unsupervised and rule-based segmentations as well as an approach to improve translation quality using both.
+
+%Some of the more advanced methods using morphological segmentations for SMT~\cite{dyer2008generalizing} are not employed here, since one of the emphases of our paper is on the comparison and combination of the underlying segmentation methods in SMT setting and we feel that such additional features would not benefit the analysis of the techniques as is. Similarly is done with e.g. approaches with more advanced morphological analysis like~\cite{niessen2004statistical} for which not all the necessary resources are freely available (e.g., Finnish CG rules).%\todo{rephrase}
+
+%The majority of prior work that shows more optimistic scores with well-resourced Indo-European languages (e.g. Serbian, German)~\cite{popovic2004towards,cap2014produce}.
+The majority of prior work that shows more optimistic scores concerns language families whose morphological complexity is considerably simpler than that of Uralic languages, e.g. Slavic~\cite{popovic2004towards} and Germanic~\cite{cap2014produce}.
+German is mainly pre-processed for compound simplification; Finnish in comparison is productive both for compounding and for regular inflection.
+The closest language that has been extensively studied in previous work is Turkish~\cite{oflazer2007exploring,mermer2010unsupervised}.
+In addition, Basque~\cite{deilarraza2009relevance} is comparable to Finnish in terms of morph distributions after segmentation.\todo{rephrase}
+
+%Given these points, the novelty of this paper lies in presenting a comparison of statistical and rule-based approaches as pre-processing methods for SMT into a morphologically complex language without the use of higher-level representations or morpheme prediction. 
+
+%Morphological segmentation in statistical machine translation has been studied extensively by~\cite{popovic2004towards,niessen2004statistical,goldwater2005improving,habash2006arabic,dyer2008generalizing,degispert2009minimum,deilarraza2009relevance,fishel2010linguistically,clifton2011combining,luong2010hybrid,mermer2012unsupervised,virpioja2007morphology} and many others. 
+
+
+%\section{Morphological Segmentation}
+\label{sec:morph-segmentation}
+
+%This is also reflected in our terminology: the sub-word segments are properly called \textit{morphs} rather than morphemes,
+%there's no level of abstractions, re-writing or analysis retained in the segments after segmentation process has finished.
+%as there is no level of abstraction nor any rewriting or analysis retained in the segments after the segmentation process has finished.
+%This sets the approach apart from more deep analysis approaches, and has the following implication on the pipeline:
+Our approach to morphological segmentations is done in
+pre-processing and post-processing steps that  perform addition and deletion of segmentation points operating on segmentation markers.
+%his also precludes the use of methods such as morphological generation (e.g.,~\cite{clifton2011combining}), thus making the segmentation methods our focus and the only variable in the experiments.
+We compare two approaches to morphological segmentation: rule-based and unsupervised.
+%Our rule-based approach to segmentation relies on morphologically annotated dictionaries and morphological rule-sets hand-written by a computational linguist. 
+%A typical rule-based analyser is written for linguistic annotation and as such produces a lot of annotations per word-form.
+%For the SMT input we have only made use of the segmentation points.
+%Unsupervised morphological segmentation, conversely, is based on machine learning, where the aim is to produce the set of sub-word segments that optimises a given function on the input data.
+The methods are implemented using the following software: HFST~\cite{hfst}\footnote{\url{http://hfst.sf.net}} for rule-based and Morfessor~\cite{morfessor} for unsupervised segmentation.
+For both approaches we create two different segmentation models: for rule-based we select segmentation points to match annotations for word-segmentation (referred to in the rest of the article with the code-name \texttt{hfst-comp}) and morph-segmentation (\texttt{hfst-morph}).
+For unsupervised versions we use Morfessor 2.0 Baseline (\texttt{morfessor}) and Morfessor Flatcat (\texttt{flatcat})~\cite{flatcat}.
+Our experiments include morphological segmentation methods used separately as well as in system combination.
+
+%\subsection{Rule-based Morphological Segmentation}
+%\label{subsec:rule-based}
+
+For rule-based morphological segmentation we developed a segmenter on top of omorfi~\cite{pirinen2015omorfi},\footnote{\url{http://github.com/flammie/omorfi/}}, an open-source implementation of weighted finite-state morphology.  %Omorfi is a full-fledged morphological analyser based on weighted finite-state morphology technology~\cite{hfst}.
+Omorfi's morphological segmenter has a number of segments annotated: \texttt{MB} for morph boundaries, \texttt{DB} for derivation boundaries, \texttt{WB} and \texttt{wB} for word boundaries and \texttt{STUB} for other stemmer-type boundaries.
+We use these to produce two segmented versions: one where all \texttt{WBs} and \texttt{wBs} are turned into segmentation points and one where \texttt{WBs}, \texttt{wBs} and \texttt{MBs} are.\footnote{The two remaining types of segmentation points (\texttt{DB} and \texttt{STUB}) are discarded as they are not relevant for our task.}
+These are called \textit{compound} and \textit{morph} segmentations, respectively. 
+Rule-based morphological segmentation is ambiguous and we use the 1-best result.
+%To select the best reading, we use the default weighting method offered by omorfi. 
+%This prefers common inflections over rare ones and less morphological complexity (less boundaries).
+%We have not performed any additional training of the morphological analyser.
+For word-forms not recognised by the morphological analyser, no segmentation points are produced.
+%The base lexicon of the analyser is rather large, containing over 300,000 lexemes including a large database of proper nouns, so word-forms left unsegmented because they are not found in the dictionary are rare, and they are often caused by spelling errors or foreign language data.\footnote{For an idea of omorfi's coverage over Europarl, refer to their wiki page \url{https://github.com/flammie/omorfi/wiki/Coverages\#2015-03-26-coverages}}
+
+
+Unsupervised morphological segmentation is based on statistically likely segmentation points found from an unannotated training corpus when trying to iteratively optimise a given function.
+In the case of \texttt{morfessor}, the optimisation function is based on minimum description length (MDL), so the aim of the algorithm is
+to minimise the vocabulary size of the output, i.e. to find the segmentation with the lowest number of different morphs. 
+\texttt{Flatcat} extends this by using hidden markov models (HMM) and context to create classes for the morphs: stems, suffixes, prefixes and non-morphemes.
+Thus, for example, if there is a morph identified as a common suffix, it should be more unlikely for it to be split off from the beginning of a word, even if doing so would result in a lower set of distinct morphs as per MDL. 
+%Unsupervised morphological segmentation methods produce an $n$-best list of potential combinations of segmentation points.
+For each word we select the 1-best segmentation.
+
+Examples of the different segmenters are shown in Table~\ref{table:segmentation-examples}. The semantics of the gloss can be most easily traced to match the \texttt{hfst-morph} version.
+%As an example, the words \textit{kuntaliitoksen selvitt\"amisess\"a} (``examining annexation'') is segmented by omorfi as \texttt{kunta{WB}liito{STUB}kse{MB}n selvit{STUB}t\"a{DB}mise{MB}ss\"a} (among other possibilities), from which \texttt{hfst-comp} produces `kunta$\rightarrow \leftarrow$liitoksen selvitt\"amisess\"a' and \texttt{hfst-morph} `kunta$\rightarrow \leftarrow$liitokse$\rightarrow \leftarrow$n selvitt\"amise$\rightarrow \leftarrow$ss\"a'.
+%In comparison, 
+%\texttt{morfessor} produces the segmentation `Kun$\rightarrow \leftarrow$ta$\rightarrow \leftarrow$liito$\rightarrow \leftarrow$ksen selvitt\"a$\rightarrow \leftarrow$misess\"a' and \texttt{flatcat} `Kun$\rightarrow \leftarrow$tali$\rightarrow \leftarrow$itoksen selvitt\"amis$\rightarrow \leftarrow$ess\"a'
+
+\begin{table}
+\scriptsize{
+    \centering{
+\begin{tabular}{lr}
+\hline
+\bf Segmenter & \bf text \\
+\hline
+None & kuntaliitoksen selvitt\"amisess\"a \\
+hfst-comp & `kunta$\rightarrow \leftarrow$liitoksen selvitt\"amisess\"a \\
+hfst-morph &  kunta$\rightarrow \leftarrow$liitokse$\rightarrow \leftarrow$n selvitt\"amise$\rightarrow \leftarrow$ss\"a \\
+Flatcat & kun$\rightarrow \leftarrow$tali$\rightarrow \leftarrow$itoksen selvitt\"amis$\rightarrow \leftarrow$ess\"a \\
+Morfessor & kun$\rightarrow \leftarrow$ta$\rightarrow \leftarrow$liito$\rightarrow \leftarrow$ksen selvitt\"a$\rightarrow \leftarrow$misess\"a \\
+\hline
+Gloss & municipality+annexation.\textsc{Gen} examination.\textsc{Ine} \\
+Translation & examination regarding municipal annexation\\
+\hline
+\end{tabular}
+\caption{Different segmentation methods.}
+\label{table:segmentation-examples}
+}
+}
+\end{table}
+
+
+%\subsection{Vocabulary Size and OOVs}
+%\label{subsec:stuff}
+
+%Morphological segmentation aims at reducing sparsity and the rate of out-of-vocabulary tokens. 
+%To gauge the extents of this prior to translation experiments, we measure the effects of segmentation to the training data and the development data (see Table~\ref{table:segmentation-tokens}).
+%As expected, rule-based segmentation approaches result in a lesser reduction of vocabulary size than unsupervised ones.
+%Within each approach, the variant that discards more segmentation points has a smaller effect in vocabulary reduction than those that discard less points.
+%It is worth to note, however, that the OOV rate is not a sole explaining factor of translation quality, in fact, oversegmentation of course reduces the OOV rate the most at expense of finding non-semantic segments, as happens in morfessor case for example.
+
+%\todo[inline]{one sentence about OOVs and oversegmentation trade-off. Morfessor has the lowest OOV at the expense of over-segmenting.}
+
+%\begin{table}
+%\scriptsize{
+%    \centering{
+%\begin{tabular}{lrr}
+%\hline
+%\bf Segmenter & \bf Unique tokens & \bf OOV \\
+%\hline
+%None (word-forms) & 758,736& 9.8~\%\\
+%Flatcat & 159,632 & 2.3~\% \\
+%hfst-comp & 446,528 & 6.5~\%\\
+%hfst-morph & 208,408 & 4.3~\% \\
+%Morfessor & 139,764 & 1.0~\%\\
+%\hline
+%\end{tabular}
+%\caption{Effects of Finnish morphological segmentation on the Europarl v8 corpus. Out-of-vocabulary rates are calculated according to the development set.}
+%\label{table:segmentation-tokens}
+%}
+%}
+%\end{table}
+
+%\todo[inline]{Rapha: We should also go
+%deeper in the SMT system showing alignment sparsity words VS morphs, search
+%space size reduction during decoding (I assume), etc.}
+
+%AT. I've changed the title from "Experiments" as I think the new one reflects better the content of the section
+\section{Experimental Setup}
+\label{sec:experiments}
+
+%In this section we describe the tools and data sets we used in the experiments. %down to exact versions. 
+%We also provide all the data sets and scripts to recreate all the experiments and results shown in the paper for download.
+%This includes the pre-processing scripts, the analysis tools, Moses configuration files and so forth, for full reproducibility.\footnote{https://github.com/flammie/autostuff-moses-smt/}
+
+\subsection{MT Tools and Datasets}
+
+Our experimental setup matches the one used in~\cite{rubino-EtAl:2015:WMT}.\todo{we can remove most descriptions by refering to this.} 
+The training, development and test data set used in our experiments are obtained from the WMT 2015 shared task.\footnote{\url{http://www.statmt.org/wmt15/translation-task.html}}
+In this shared task, participants train and apply MT systems on pre-defined corpora for training, development and testing, the domain of the latter being news.
+Our translation models (TMs) are trained on the Europarl v8 Finnish--English parallel corpus and the language models (LMs) benefit from the additional shuffled news monolingual corpus (\textit{News Crawl: articles from 2014}).
+All typical pre-processing steps are performed.
+%Prior to training, the corpora are pre-processed following these steps: punctuation normalisation, tokenisation, true-casing\footnote{Monolingual lexicon-based true-casers are trained on all the available English and Finnish data for WMT 2015.} and escaping of problematic characters.
+%The parallel corpus is also cleaned by removing pairs where a sentence is longer than $80$ tokens and the source-to-target length ratio is above a fixed threshold.
+All the scripts used to pre-process the data are available with the \textsc{Moses} distribution~\cite{koehn2007moses}.
+Finally, we generate segmented training sets for both parallel and monolingual corpora following the segmentation methods described in Section~\ref{sec:morph-segmentation}.
+The segmented SMT systems output segmented Finnish text, thus a post-processing step (morph-joining) is performed to obtain the final translation.
+
+%All the TMs are trained with \textsc{Moses} and \textsc{MGiza}~\cite{gao2008parallel} with default parameters and tuned with MIRA~\cite{hasler2011margin}. The LMs are $5$-grams with modified Kneser-Ney smoothing trained with \textsc{KenLM}.
+We assess empirically the performance of two LM training methods: concatenation of parallel and monolingual corpora, or linear interpolation of two individual LMs based on the minimisation of the perplexity obtained on the development set. We observe that segmented LMs reach better results with the concatenation method, while the word-based LM benefits from the interpolation approach.
+%For re-ordering, we investigate the joint use of word-, phrase-based~\cite{koehn2005edinburgh} and hierarchical~\cite{galley2008simple} re-ordering models.
+%Following the recent enrichment of phrase-based SMT with additional components such as multiple reordering models, Operation Sequence Model (OSM)~\cite{durrani2011joint} or neural language models~\cite{vaswani2013decoding} such as Bilingual Neural LM (BiNLM)~\cite{devlin2014fast}. 
+We also experiment enriching the phrase-based SMT pipeline with additional components such as multiple reordering models (joint use of word-, phrase-based~\cite{koehn2005edinburgh} and hierarchical~\cite{galley2008simple} re-ordering models), Operation Sequence Model (OSM)~\cite{durrani2011joint} and neural language models~\cite{vaswani2013decoding} such as the Bilingual Neural LM (BiNLM)~\cite{devlin2014fast}.
+% we investigate the use of the following components:
+%\todo{if we need more space this itemize can be summarised and written as running text}
+%begin{itemize}
+	%item
+%    1) a word- and a phrase-based bidirectional reordering model with three orientations (monotone, swap and discontinuous)~\cite{koehn2005edinburgh},
+    %\item
+%    2)a hierarchical bidirectional model with four orientations (non-merged discontinuous left and right)~\cite{galley2008simple},
+    %\item
+%    3) a $5$-gram OSM trained on the parallel data,
+    %\item
+%    4) a $5$-gram Bilingual Neural LM (BiNLM)~\cite{devlin2014fast} with a source window set to $4$ tokens and a vocabulary limited to the $100$k most frequent words.
+%\end{itemize}
+Again, we empirically evaluate adding these models to our SMT systems based on the development set. We observe an improvement of the results with the three reordering models for segmented and non-segmented systems, while OSM and BiNLM yield improvements to the word-based system only.%\todo{Rapha: is this the case or simply we tried OSM and BinLM just on word-level due to time constraints?}
+
+
+\subsection{Segmentation}
+
+For our rule-based segmentation we used the segmentation automaton \texttt{omorfi.seg\-ment.hfst} from omorfi version 20150326 by simply rewriting the word boundary and morph boundary markers into arrows and any other boundaries into zero-length strings as described in Section~\ref{sec:morph-segmentation}.
+For unsupervised segmentation we used \texttt{morfessor} 2.0.2-alpha and \texttt{Flatcat} 1.0.4 trained on the Finnish side of the europarl-v8 corpus, using default settings except for the fact that we remove the segmentation points of non-morphemes in \texttt{Flatcat}.
+
+%AT. I think here's where the stuff on sys combo fits best
+Accordingly, we build four SMT systems using the aforementioned segmentations: \texttt{hfst-morph}, \texttt{hfst-comp}, \texttt{morfessor} and \texttt{Flatcat}.
+In addition, we explore the joint use of more than one segmentation by means of system combination with \texttt{MEMT}~\cite{heafield2010combining}.\footnote{We use default settings except for the %beam size (set to 1,500, the default is 500) and
+radius (5, default is 7), following empirical results obtained on the devset.}
+We try three different combinations:
+
+%\begin{itemize}
+%\item
+a) \texttt{combo-unsup}, where we attempt to build the most competitive system using only unsupervised methods. This combines \texttt{morfessor}, \texttt{Flatcat} and the baseline SMT system (unsegmented).
+%\item
+b) \texttt{combo-rb}, where the attempt is on building the most competitive system using rule-based methods. This combines \texttt{hfst-morph}, \texttt{hfst-comp} and, again, the baseline.
+%\item
+c) \texttt{combo-all}, where the aim is to build the most competitive system using both unsupervised and rule-based methods. This combines all the five systems: \texttt{morfessor}, \texttt{Flatcat}, \texttt{hfst-morph}, \texttt{hfst-comp} and the unsegmented baseline system.
+% \end{itemize}
+
+\subsection{Evaluation}
+For intrinsic evaluation of segmentation accuracy we used morphochallenge 05~\cite{kurimo2006unsupervised} gold test data and \texttt{evaluation.perl},\footnote{\url{http://research.ics.aalto.fi/events/morphochallenge2005/data/evaluation.perl}} since it most closely resembles the segmentation setup of our SMT setting (i.e. no annotations or deep analysis).
+
+Automatic evaluation of MT outputs was performed using the following evaluations scripts: \texttt{mteval13a.pl} for BLEU~\cite{papineni2002bleu}, \texttt{tercom-7.25.jar} for TER~\cite{ter}\footnote{\url{https://www.cs.umd.edu/~snover/tercom/tercom-0.7.25.tgz}} and  \texttt{meteor-1.5.jar} for METEOR~\cite{meteor}.\footnote{\url{https://www.cs.cmu.edu/~alavie/METEOR/download/meteor-1.5.tar.gz}}
+
+For human evaluation we used the Appraise toolkit~\cite{appraise}.\footnote{\url{http://github.com/cfedermann/Appraise}, commit \texttt{9b643ae55647...}}
+The evaluation was conducted by three Finnish native speakers with a background in Computational Linguistics.
+This evaluation is inspired by the human evaluation conducted as part of the translation task in WMT;
+the evaluators are given a set of outputs coming from different systems and they are asked to rank them according to their quality (ties are allowed).
+%for generic evaluation task of same setup and directions as with WMT 2014 human evaluation: ranking the translations with equal rankings allowed for equally good translations.
+
+Finally, for the linguistic analysis, we used the morphological fluency classifications of \cite{clifton2011combining}, basing on those,  we developed a new automatic evaluation script using omorfi analyses.
+% Their proposed scheme evaluates fluency based on linguistic constructions such as case agreement in noun phrases, subject-verb agreement and presence of possessive constructions, which are measured in comparison to the reference translation.
+
+\section{Evaluation}
+\label{sec:evaluation}
+
+%First we provide an intrinsic evaluation of the four segmentation approaches (Section \ref{subsec:segment-eval}).
+%Then we move to the extrinsic evaluation of the different segmentation approaches in MT.
+%In turn, we consider automatic (Section \ref{subsec:automt-eval}), human (Section \ref{subsec:humanmt-eval}) and linguistic (Section \ref{subsec:lingmt-eval}) evaluations.
+%Finally, we analyse the characteristics of translation models according to the segmentation methods used (Section \ref{subsec:analysis}).
+%To evaluate the segmentation approaches and the system combination of the segmentation methods, we use three evaluation metrics: segmentation metrics are given in~\ref{subsec:segmentation-quality}, automatic metrics of machine translation quality in~\ref{subsec:translation-quality}, human evaluation of the machine translation in~\ref{subsec:human-evaluation} and the linguistic evaluation of translation quality in~\ref{subsec:error-analysis} 
+
+
+
+\subsection{Segmentation Evaluation}\label{subsec:segment-eval}
+
+In order to evaluate how the quality of segmentation --as defined by the gold standard written by a linguist-- affects the final MT results, we evaluated our segmentation methods on the gold standard provided at the morphochallenge 2005 shared task on morphological segmentation.
+The results are shown in Table~\ref{table:morph-evaluation}. 
+
+
+\begin{table}
+\scriptsize{
+    \centering
+    \begin{tabular}{lrrr}
+        \hline
+        \bf System & \bf F-Measure & \bf Precision & \bf Recall \\
+        \hline
+        Flatcat &  54.04 \% &  76.04 \% & 41.91 \% \\
+        hfst-comp &  43.82 \% &  97.63 \% &  28.25 \% \\
+        hfst-morph & 86.32 \% & 92.39 \% & 81.00 \% \\
+        Morfessor & 53.89 \% & 71.01 \% & 43.42 \% \\        
+        \hline
+    \end{tabular}
+    %\caption{Morph segmentation of rule-based segmentation system versus unsupervised systems.\label{table:morph-evaluation}}
+    \caption{Results of the intrinsic evaluation of the four segmentation methods\label{table:morph-evaluation}}
+}
+\end{table}
+
+As expected, the results of the linguistic analyser \texttt{hfst-morph} matches the linguistic gold standard quite well, with unsupervised methods performing considerably worse. The linguistic analyser \texttt{hfst-comp} of course does not obtain high recall in segmenting all boundaries as it only aims to select a very specific subset of those (i.e. compound boundaries or stem-stem boundaries in unsupervised terms).
+%It should be noted that the results of unsupervised segmenters are out-of-domain (they are trained on Europarl and tested on morphochallenge 05, which belongs to a different domain), thus they may be performing slightly worse than if tested on an in-domain testset. That said, there is also a domain mismatch between our MT training and test sets.
+%For performance of \texttt{morfessor} on in-domain test data the reader can refer to~\cite{creutz2006morfessor}.
+
+
+\subsection{MT Automatic Evaluation}\label{subsec:automt-eval}
+%\subsection{Translation Quality Metrics}\label{subsec:automt-eval}
+
+We evaluate MT systems built on the training data segmented using each of the four segmentation methods with the three aforementioned state-of-the-art automatic metrics: BLEU, TER and METEOR (see Table \ref{table:automatic-evaluation}).
+%\todo{Report stat.significance}
+
+\begin{table}
+\scriptsize{
+    \centering
+\begin{tabular}{lrrrrrr}
+\hline
+&\multicolumn{3}{c}{Dev. set} & \multicolumn{3}{c}{Test set}\\
+
+\bf System & \bf BLEU & \bf TER & \bf METEOR & \bf BLEU & \bf TER & \bf METEOR \\
+\hline
+Baseline    & 0.1577 & 0.7479 & 0.3069 & 0.1402 & 0.7609 & 0.2997 \\
+Flatcat     & 0.1481 & 0.7699 & 0.3060 & 0.1387 & 0.7712 & 0.3001 \\
+hfst-comp   & 0.1541 & 0.7415 & 0.3019 & $\ddagger$0.1471 & 0.7405 & 0.2977 \\
+hfst-morph  & 0.1575 & 0.7381 & 0.3050 & $\ddagger$0.1451 & 0.7476 & 0.2986 \\
+Morfessor   & 0.1434 & 0.7868 & 0.2987 & 0.1343 & 0.7882 & 0.2942 \\
+\hline
+combo-unsup & 0.1595 & 0.7267 & 0.3031 & 0.1408 & 0.7367 & 0.2937 \\
+combo-rb    & 0.1569 & 0.7179 & 0.3002 & $\ddagger$0.1459 & \bf 0.7214 & 0.2959 \\
+combo-all   & \bf $\ddagger$0.1638 & \bf 0.7160 & \bf 0.3074 & \bf $\ddagger$0.1510 & 0.7245 & \bf 0.3011 \\
+\hline
+\end{tabular}
+\caption{Automatic evaluation of MT systems built with different segmentation methods. The baseline is unsegmented. 
+Statistical significance tests (paired boostrap resampling) run on BLEU ($\ddagger$ $p=0.01$).\label{table:automatic-evaluation}}
+}
+\end{table}
+
+
+We observe that systematically the system combination of all segmentation models performs the best, with the exception of TER on the test set, where the combination of rule-based and baseline methods results in the best score.
+Furthermore we note that the rule-based combination beats the unsupervised combination on the test set, but on the dev. set the unsupervised combination is slightly better (except for TER).
+Contrasting this to single system scores, which are worse across the board, we can conclude that each individual system contributes different parts to the output produced by the system combinations.
+
+
+\subsection{MT Human Evaluation}\label{subsec:humanmt-eval}
+
+We performed human evaluation of the translations with 3 native speakers ranking the sentences. 
+%Annotations were performed using Appraise~\citep{appraise}. %AT already said in Section 4.3.
+We produced the final rankings from the human evaluation judgements using the TrueSkill method adapted to MT evaluation~\cite{sakaguchi-post-vandurme:2014:W14-33} with its implementation in WMT-Trueskill,\footnote{\url{https://github.com/keisks/wmt-trueskill}}
+following its usage at WMT15.\footnote{\url{https://github.com/mjpost/wmt15}}
+Namely, we run 1,000 iterations of rankings followed by clustering ($p=0.95$).
+%the \textit{expected wins} formula $\mathrm{score_{EW}}(S_i) = \frac{1}{\{|S_j|\}} \frac{win(S_i, S_j)}{win(S_i, S_j) + win(S_j, S_i)}$, where $S$ is the set of systems to be evaluated, $win$ of system $S_i$ over system $S_j$ means that $S_i$ obtains a higher vote and draws are ignored \citep{bojar2014findings}. 
+Results are shown in Table~\ref{table:human-evaluation}.
+
+% \begin{table}[htbp]
+% 	\centering
+% 	\begin{tabular}{lrrr}
+% 	\toprule
+% 	\bf System & combo-unsup & combo-rb & combo-all \\
+%     \midrule
+%     \bf Expected Wins & 0.1324 & 0.1849 &  0.1918 \\
+%     \bottomrule
+% \end{tabular}
+% \caption{The results of human evaluation by three native speakers with background in computational linguistics as measured by the True-Skill predictor. \label{table:human-evaluation}}
+% \end{table}
+
+\begin{table}[htbp]
+\scriptsize{
+\centering
+\begin{tabular}{lrcl}
+\hline
+\bf \# & \bf Score & \bf Range & \bf System\\
+\hline
+1 & 0.529 & 1-2 & combo-all\\
+2 & 0.414 & 1-2 & combo-rb\\
+3 & -0.943 & 3-3 & combo-unsup\\
+\hline
+\end{tabular}
+\caption{The results of human evaluation by three native speakers with background in computational linguistics as measured by TrueSkill. \label{table:human-evaluation}}
+}
+\end{table}
+
+
+
+% 2015/10/09 Results with wmt-trueskill
+% (both expected wins and trueskill)
+% 1000 iteration of ranking followed by clustering (p=0.95)
+% Unsup+sup segmentations ~= only sup segmentations >> only unsup segmentations
+
+% clusters/m3.segmentations.enfi.ew.rank.cluster
+% tst.matched-bl-hc-hm-mf-fc-beam500.1best 0.564 (1.0, 2.0)
+% tst.matched-bl-hc-hm-beam500.1best 0.538 (1.0, 2.0)
+% ++++++++++
+% tst.matched-bl-mf-fc-beam500.1best 0.397 (3.0, 3.0)
+
+% clusters/m3.segmentations.enfi.ts.rank.cluster
+% tst.matched-bl-hc-hm-mf-fc-beam500.1best 0.529 (1.0, 2.0)
+% tst.matched-bl-hc-hm-beam500.1best 0.414 (1.0, 2.0)
+% ++++++++++
+% tst.matched-bl-mf-fc-beam500.1best -0.943 (3.0, 3.0)
+
+
+
+%\begin{table}
+%    \centering
+%\begin{tabular}{lr}
+%\toprule
+%\bf System & \bf Expected Wins \\
+%\midrule
+%Unsupervised & 0.1324\\%0.1324200913242009 \\
+%Rule-based & 0.1849\\%0.18491484184914841 \\
+%Combo &  0.1918\\%0.19179229480737017 \\
+%\bottomrule
+%\end{tabular}
+%\caption{The results of human evaluation by three native speakers with background in computational linguistics as measured by the Expected Wins predictor. \label{table:human-evaluation}}
+%\end{table}
+
+%TODO the comment on discussion of IAA metrics is gone! Is it solved? I don't see anything about it in this section.
+
+The results show that human annotators, in general, prefer either the combination of all systems (\texttt{combo-all}) or the rule-based combination (\texttt{combo-rb}) over the purely unsupervised combination (\texttt{combo-unsup}).
+More specifically, \texttt{combo-all} is the best performing system (0.529), closely followed by \texttt{combo-rb} (0.414) with \texttt{combo-unsup} clearly performing worst (-0.943).
+In terms of significance (column range), at $p=0.95$, \texttt{combo-all} and \texttt{combo-rb} are in the same cluster (range 1-2), thus meaning neither of the two is significantly better than the other, while \texttt{combo-unsup} is in a different cluster (range 3-3), meaning its performance is significantly worse, compared to the other two systems.
+
+The inter-annotator agreement as shown by Fleiss' $\kappa = 0.26$ suggests that there is a mild tendency of agreement between the annotators. This is in the same range as agreement at the WMT 2014 shared task~\cite{bojar2014findings}.
+
+
+\subsection{MT Linguistic Evaluation}\label{subsec:lingmt-eval}
+%\subsection{Morphosyntactic Evaluation}\label{subsec:lingmteval}
+%\label{subsec:error-analysis}
+
+In order to evaluate the fluency of the translations, \cite{clifton2011combining} suggest using morphological analysis to determine translation issues over a set of linguistic criteria. %to determine the problems in translation quality. 
+%We used the same criteria, but instead of manually checking the translations,
+%we do so automatically with the current version of omorfi, to which we add a post-processing component that detects errors according to the linguistic criteria of interest.
+%, we write a set of python scripts acting as error detection model, or a language model as is. 
+%The analyses are counted 
+We measure the recall of the following constructions in the MT output as compared to the reference translation: %and matched by analyses string:
+%\begin{enumerate}
+%\item
+a) \textit{Noun marking} (NM), for nouns with case different than nominative.
+b) \textit{Possession} (POSS) for any word with possessive suffix.
+%\item
+c) \textit{Noun-adjective agreement} (NAA) for sequences of adjective-noun, where case is shared.
+%\item
+d) \textit{Subject-verb agreement} (SVA) for sequences of noun-verb, where number is shared.
+%\item
+e) \textit{Transitive object} (TP) for sequences of verb-noun, where case is accusative or partitive. 
+%\item
+f) \textit{Postposition} (PP) for sequences of adposition-noun, where case is genitive.
+%\item
+%\end{enumerate}
+Of these tests, NM and POSS pertain to single tokens and NAA and SVA
+sequences of two tokens, whereas TP and PP scan the whole context and are thus less reliable.
+
+%\todo{Ling analysis being automatic, why not perform it for the individual systems too? It may be that results are more interesting (one individual systems may be a clear winner across the board) than for combos where the picture is very mixed}
+
+\begin{table}
+\scriptsize{
+\centering
+\begin{tabular}{lrrrrrr}
+\hline
+\bf System & \bf NM & \bf TP  & \bf POSS& \bf NAA& \bf SVA& \bf PP   \\
+%bf System & \bf NM & \bf NAA & \bf SVA & \bf TP & \bf PP & \bf POSS \\
+\hline
+Frequency & 10.03 & 1.48 & 1.40 & 0.92 & 0.76 & 0.14 \\
+%requency & 10.03& 0.92 & 0.76 & 1.48 & 0.14 & 1.40 \\
+\hline
+Baseline & 71.94   & \bf 39.24 & 54.83    & 31.62   & 45.22    & 21.97  \\
+Unsup & 72.38      & 37.24    & \bf 60.36 & 33.80   & \bf 46.78 & 21.94 \\
+Rule-based & 72.95 & 36.32    & 56.65    & 32.42    & 45.13   & \bf 29.49 \\
+Combo & \bf 73.34  & 36.78    & 56.06    & \bf 34.37 & 43.87  & 24.26  \\
+%aseline & 71.94 & 31.62 & 45.22 & \bf 39.24 & 21.97 & 54.83  \\
+%nsup & 72.38 & 33.80 & \bf 46.78 & 37.24 & 21.94 & \bf 60.36 \\
+%ule-based & 72.95 & 32.42 & 45.13 & 36.32 & \bf 29.49 & 56.65 \\
+%ombo & \bf 73.34 & \bf 34.37 & 43.87 & 36.78 & 24.26 & 56.06  \\
+\hline
+\end{tabular}
+\caption{Linguistic fluency of translated sentences compared to the reference translation. The metric is $F_1$ of the analysed MT output compared to the analysed reference.
+Frequency is the number of occurrences of the construction (as automatically detected) in the reference translation per sentence.\label{table:error-analysis}}
+}
+\end{table}
+
+% F1 71.93535975375146 31.61833489242283 45.21646178514164 39.24433249370277 21.971830985915503 54.82625482625483
+% F1 72.3832372402585 33.796503809950686 46.77677144379329 37.23739495798319 21.935483870967737 60.360884749708966
+% F1 72.95300958667296 32.41965973534972 45.12761020881671 36.31700436009234 29.487179487179493 56.64845173041895
+% F1 73.34403853873945 34.3734997599616 43.86659129451667 36.7816091954023 24.262295081967213 56.05830549650774
+
+There is no clear tendency for any single system to be the best in morpho-syntactic fluency as measured by these tests, e.g., it seems that combo and rule-based systems will recover NM and PP better but unsupervised matches the most POSS forms.
+An additional error analysis should reveal the effects of missing forms.
+
+
+%\subsection{Analysis}\label{subsec:analysis}
+
+The translation models (phrase and reordering tables) present different characteristics whether the training data was segmented or not, but also according to the different segmentation methods. For instance, depending on the segmenter, the number of extracted and scored phrase-pairs in the phrase table differs, as shown in the first row of Table~\ref{table:number_phrase_pairs}.
+These results show that segmenting the data leads to a larger amount of phrase-pairs extracted, which is related to the differences in alignment points found by \textsc{MGiza}.
+Only \textsc{hfst-morph} leads to a lower amount of extracted phrase-pairs. The performance of each segmentation method according to Table~\ref{table:morph-evaluation} is apparently inversely correlated with the number of phrase-pairs: the highest the \textit{f-score}, the lower the amount of phrase-pairs. 
+
+\begin{table}
+\scriptsize{
+	\centering{
+    \begin{tabular}{lccccc}
+    	\hline
+        & Baseline & Flatcat & hfst-comp & hfst-morph & Morfessor \\
+        \hline
+        \#Phrase-pairs (M) & 84.6 & 86.2 & 86.8 & 82.6 & 85.5 \\ 
+        Fertility & 0.786 & 1.029 & 0.856 & 1.151 & 1.047 \\
+        Lexical ambiguity & 43.3 & 29.3 & 36.7 & 24.0 & 28.7 \\
+        \hline
+    \end{tabular}
+    \caption{Statistics extracted from the trained SMT models, the first row indicates the number of phrase-pairs (millions), the second row contains the word-level fertility measured (English$\rightarrow$Finnish) and the third row indicates the average number of target words aligned with each source word calculated at the corpus level.}
+	\label{table:number_phrase_pairs}
+    }
+    }
+\end{table}
+
+An interesting phenomenon is observed on the word-level fertility from English to Finnish (how many Finnish words are generated by one English word), as shown in the second row of Table~\ref{table:number_phrase_pairs}.
+These scores indicate to which extent the segmentation leads to ambiguous alignments.
+These results are supported by the lexical ambiguity scores shown in the third row of the same Table~\ref{table:number_phrase_pairs}.
+The lexical ambiguity scores are obtained by averaging the number of target words aligned with a source word with a non-null probability at the corpus level, the lower the score the better.
+We can see that the fertility scores are inversely correlated with the lexical ambiguity.
+These notable differences between our SMT systems lead to variable translations from the same source sentences depending on the SMT system used. To illustrate these differences, we show some translation examples in Table~\ref{table:example_translation}.
+As shown in the examples, the morph-based translation methods can come up with a correct compound or morphological combination, not found in training data, e.g., the term \textit{sadevesiverkostoon} (sewage network) rather than the un-idiomatic and grammatically questionable \textit{sadevesi verkkoon} (network of rainwater). In the second example the generated compound \textit{hallituslähteisiin} matches the idiomatic compound for `governmental sources' whereas the baseline results in the less idiomatic \textit{valtion lähteistä} `sources from the state' and gets the case wrong.
+
+\begin{table}
+	\centering{
+    \scriptsize{
+    \begin{tabular}{ll}
+       	\hline
+	    Source & The water should be conducted to a fixed drain or rain water network,  \\
+        & and not just into a container. \\
+		Baseline & Vesi pitäisi johtaa kiinteään viemäriin tai että sadevesi verkkoon, eikä vain astian. \\
+		hfst-morph & Vesi pitäisi hoitaa kiinteään viemäriin tai \textbf{sadevesiverkostoon}, eikä vain astiaan. \\
+		Reference & Vesi pitäisi johtaa kiinteään viemäriin tai sadevesiverkostoon, eikä vain astiaan. \\
+        \hline
+		Source & the news is reported by BBC, who refers to governmental sources. \\
+		Baseline & uutinen on raportoinut BBC, joka viittaa valtion lähteistä. \\
+		hfst-comp & uutinen on raportoinut BBC, joka viittaa \textbf{hallituslähteisiin}. \\
+		Reference & asiasta kertoo BBC hallituslähteisiin viitaten. \\
+        \hline
+    \end{tabular}
+     \caption{Examples of translations where words in bold are generated at decoding time without being observed in the training data.}
+	\label{table:example_translation}
+    }}
+%    \vspace*{.5cm}
+\end{table}
+
+%AT this section is removed for submitted version as it is not conclusive.
+%It may be "resurrected" for cam-ready if the analysis is more meaningful
+%\subsection{Error Analysis}
+
+%%In order to explain the positive and negative results, we have selected a sample of sentences using all the evaluation criteria together: the sentences where human evaluators agree on pairwise relative ranking. For each sentence selected like this, we look at the linguistic fluency scores introduced in \ref{subsec:lingmt-eval}, and the automatic MT scores introduced in \ref{subsec:automt-eval}. Finally, from this set we draw examples that we consider might be representative of the error class and linguistically interesting.  This selection criteria gives us a sample of 24 sentences out of 120 ranked, of which we will proceed to bisect a few.
+
+%AT edited
+%In order to gain further qualitative insights on the translation quality obtained by different segmentation approaches, we have selected the of sentences where the human evaluators agree on pairwise relative ranking (24 out of the 120 sentences that were ranked).
+%For each sentence in the set, we consider the linguistic fluency scores (cf. Section \ref{subsec:lingmt-eval}) and the automatic MT scores (cf. \ref{subsec:automt-eval}).
+%Finally, from this set we draw examples that we consider to be representative of the error class as well as linguistically interesting.
+
+
+%%Doing ranking separately for sentences preferred by humans verifies the findings: BLEU is on average around 2 points higher for sentences preferred by human evaluators. Therefore we show examples showing interesting disparity in the linguistic evaluation that otherwise match for other evaluation features.
+%%For example, for adjective phrase agreement, which agrees with manual and human evaluation in our results, which should produce rather jarring ungrammaticality, we find the following examples
+%%the phrase in `Sein\"ajoki Hiphop Festival j\"arjestettiin kolmannen kerran.' (Sein\"ajoki Hiphop Festival was organised third time) is translated with same NP agreement in unsupervised segmentation whereas both supervised combinations use expression `kolmatta kertaa' (for third time), the former is prefered by human evaluators systematically, semantic differences between expressions are minimal and both are grammatically acceptable. In `ylemm\"an oikeusasteen tuomioistuimessa k\"aydyss\"a istunnossa.' (in high court's session) a whole NP is agreeing in inessive case, which gets broken in all combinations, however, the predicted highest scoring phrase resulting from combination of all systems `kuulemistilaisuudessa korkeimmassa oikeudessa .' (in hearing in highest court) as opposed to the two other systems' less fluent version:  
+%%`kuulemistilaisuudessa korkean oikeusistuimen' (approximately in hearing highest's court, borderline grammatical).
+%%Looking at subject verb agreements, which do not agree with human or MT evaluation, however, we only see false positives; this is not surprising with lack of syntactic disambiguation as the syntactic complements of verb are the most common noun forms in general with multitude of other users.
+
+%AT edited
+%Human ranking agrees with automatic MT metrics: BLEU is on average around 2 points higher for sentences preferred by human evaluators.\todo{Can you compute pearson correlation between BLEUs and system preferred for ech pair of systems on the 24 sentences?}
+%Such an agreement is not reached, however, between these two evaluation types (automatic and human) and the linguistic evaluation.
+%Therefore we show a few examples showing interesting disparity in the linguistic evaluation that otherwise agree on the two other evaluation types.
+
+%For adjective phrase agreement, where human and human evaluation agree, we find the following examples:
+%\begin{itemize}
+%\item The phrase `Sein\"ajoki Hiphop Festival j\"arjestettiin kolmannen kerran.' (Sein\"ajoki Hiphop Festival was organised third time) is translated with the same NP agreement with unsupervised segmentation whereas both supervised combinations use the expression `kolmatta kertaa' (for third time).
+%While the former is prefered by human evaluators systematically, the semantic differences between both expressions are minimal and both are grammatically acceptable.
+%\item In `ylemm\"an oikeusasteen tuomioistuimessa k\"aydyss\"a istunnossa.' (in high court's session), a whole NP is agreeing in inessive case, which gets broken by all combinations.
+%However, the output produced by the combination of all MT systems, `kuulemistilaisuudessa korkeimmassa oikeudessa .' (in hearing in highest court), is more fluent than the output of the two other combinations:  
+%`kuulemistilaisuudessa korkean oikeusistuimen' (approximately in hearing highest's court, borderline grammatical).
+%\end{itemize}
+
+%Looking at subject verb agreement, which do not agree with human or MT evaluation\todo{does that mean that for SUB-VERB agreement human and MT metrics do not agree?}, however, we only encounter false positives.
+%This is not surprising due to the lack of syntactic disambiguation in our evaluation producedure, as the syntactic complements of the verb are the most common noun forms in general with multitude of other users.\todo{What you're saying here is that omorfi does not find the majority of these SUB-VERB pairs, right? Then why not simply not having this in Table 5?}
+
+
+%Outside of the selected samples it is interesting to see how the morphological fluency points to remaining problems common to all systems, e.g. where possessive is systematically omitted, e.g. in `Susanna M\"alkki kertoo aloittavansa' (S.M. tells of her starting) is translated to a set of rather non-idiomatic versions: `Susanna M\"alkki sanoo , ett\"a h\"an aloittaa ' (tells, that she starts) `Susanna M\"alkki sanoo , ett\"a h\"an ryhtyy' (tells that she is going to) `Susanna M\"alkki sanoo , ett\"a h\"an aikoo aloittaa' (tells that she is going to start).
+
+
+\section{Conclusions and Future Work}
+\label{sec:conclusion}
+
+This paper has explored the joint use of different segmentations methods in SMT for the English-to-Finnish language direction.
+We have shown that both rule-based and unsupervised morphological segmentation methods are useful as they are complementary. %reducing sparsity (vocabulary size). 
+While morphological segmentation approaches in isolation do not result in substantial increments of performance according to automatic MT metrics, using different segmentations jointly does lead to notable increments of performance (+1.08 BLEU and -3.64 TER compared to an unsegmented system).
+
+%For future work it might be interesting to see if the combination of system combination method can be successfully combined with e.g. abstract morphemes and morph prediction method used by~\cite{clifton2011combining} or more advanced $n$-best lists and re-ranking such as~\cite{dyer2008generalizing,luong2010hybrid}.
+
+For future work it might be interesting to see if some of the more advanced morphological processing methods. For example abstraction of morphemes and morph prediction method used by~\cite{clifton2011combining} has been shown to improve English-Finnish translation. Likewise, using $n$-best lists and re-ranking with morphs---e.g. in style of~\cite{dyer2008generalizing,luong2010hybrid}---could improve the final system even more.
+
+Regarding the automatic system that uses a morphological analyser to check for linguistic similarity, for future research it would be interesting to couple this with a syntactic parsing in order to better recognise long-span features such as verb argument structures. 
+%For automatic linguistic evaluation based on morphological analysis, more advanced methods, such as high quality dependency parsing, better disambiguation, are required for accurate scoring of certain features.
+%Another possible future development would be to implement semi-automatic evaluation UI based on morphological analysis.
+
+\todo[inline]{Bilingual unsupervised segmentation taking into account fertility. Is there any paper?}
+
+\section*{Acknowledgements}
+
+The research leading to these results has received
+funding from the European Union Seventh Framework
+Programme FP7/2007-2013 under grant agreement
+PIAP-GA-2012-324414 (Abu-MaTran).
+
+We thank Inari Listenmaa, Hege Roivainen and the student organisiation of linguistics in University of Helsinki for human evaluation.
+
+\bibliographystyle{unsrt}
+\bibliography{iwclul2016}
+
+\end{document}
+% vim: set spell:
