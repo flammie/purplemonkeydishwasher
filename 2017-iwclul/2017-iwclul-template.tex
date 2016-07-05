@@ -1,0 +1,180 @@
+\documentclass[b5paper,notitlepage]{article}
+
+\usepackage{polyglossia}
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{expex}
+
+\makeatletter
+\def\blfootnote{\gdef\@thefnmark{}\@footnotetext}
+\makeatother
+
+\setmainfont[Mapping=tex-text]{Linux Libertine O}
+\setmainlanguage{english}
+\setotherlanguages{finnish,russian}
+
+% Please keep this false for submission version, true for camera-ready
+\newif\ifcameraready
+\camerareadyfalse
+
+\begin{document}
+
+\ifcameraready
+\pagestyle{empty}
+\fi
+
+\title{Template for IWCLUL 2017 Workshop Proceedings\blfootnote{
+    This work is licensed under a Creative Commons Attribution–NoDerivatives
+    4.0 International Licence.  Licence details:
+    \url{http://creativecommons.org/licenses/by-nd/4.0/}
+}
+}
+
+\ifcameraready
+\author{First Author\\
+University or Affiliation\\
+Department or School\\
+(Optionally Post Address)\\
+\url{first.author@example.com} \and
+Second Author\\
+University or Affiliation\\
+Department or School\\
+(Optionally Post Address)\\
+\url{second.author@example.com} 
+}
+\fi
+
+\date{}
+
+\maketitle
+
+\begin{abstract}
+    Abstract can be between 150 and 300 words long. Separate keywords are not
+    used. Reviewers use abstract to decide which articles to review and readers
+    will use abstract to decide which articles to read, so make it informative
+    and interesting.
+\end{abstract}
+
+{
+\selectlanguage{finnish}
+\begin{abstract}
+    Abstraktin voi kirjoittaa myös suomeksi tai muulla uralilaisella kielellä.
+\end{abstract}
+}
+
+{
+\selectlanguage{russian}
+\begin{abstract}
+Abstract in Russian is also possible
+\end{abstract}
+}
+
+
+\section{Introduction}
+
+This template is for authors submitting papers to the International Workshop
+on Computational Linguistics for Uralic Languages. The papers to be submitted
+should be in PDF format made using \XeLaTeX{} and this template; that is
+documentclass article with b5paper option. The standard xelatex packages
+including polyglossia should be loaded for all papers.  Use Linux Libertine as
+freely available font with good range of unicode support, and small-caps for
+Leipzig glossing. The proceedings are designed for viewing on screen but
+for-print versions may be produced.  Authors who are unable to use freely
+available \texttt{xelatex} should contact the conference organisers for other
+options. Additional information and recent updates to this template are
+available from \url{http://gtweb.uit.no/iwclul2017/}. The submissions are
+handled using easychair. Required tex packages should be in your texlive
+distribution, for ubuntu use: \texttt{sudo apt-get install
+texlive-\{xetex,latex-recommended,fonts-recommended\} fonts-linux-libertine}.
+
+To ease the work with licences and permissions, all submissions should retain
+a footnote acknowledging that work is to be published under Creative
+Commons Attribution-NoDerivatives 4.0 International Licence. This way we do not
+need additional copyright forms.
+
+\section{Formatting Instructions}
+
+Follow common English typographical standards. The \emph{emphasis} is used for
+sentence level highlights and \textbf{strong emphasis} for paragraph level
+highlights. 
+
+Linguistic glosses should follow Leipzig Glossing rules
+\url{http://www.eva.mpg.de/lingua/resources/glossing-rules.php}, see (\nextx).
+
+\ex
+\begingl
+\gla talo-i-ssa-ni //
+\glb house-{\sc Pl}-{\sc Ine}-{\sc 1sg} //
+\glft `in my houses' //
+\endgl
+\xe
+
+For inline examples, use emphasis for original and parentheses for translation
+\emph{talossasi} (in your house).
+
+Tables like table~\ref{table:example}. should have caption underneath and
+borders.
+
+\begin{table}
+    \center
+    \begin{tabular}{|l|r|}
+        \hline
+        \bf Header & \bf Header \\
+        \hline
+        \bf Header & Data \\
+        \hline
+    \end{tabular}
+    \caption{The rows are things and columns stuff and data is in percent units
+    \label{table:example}}
+\end{table}
+
+Citations are made using bibtex: WALS~\cite{haspelmath2005world} is a good book.
+It is possible to cite Russians using plain unicode, such as the original 
+version of Levenshtein algorithm~\cite{levenshtein1965}.
+Use bibliographystyle unsrt. If you get your bibtex snippets from google
+scholar, don't forget to double check the data and add missing parts.
+
+Code examples, program listings and shell sessions can be shown as figures,
+e.g. figure~\ref{code:analysis}.
+Pseudo-code may be formatted using one of the relevant \LaTeX{} packages, e.g.,
+\texttt{algorithm}.
+
+\begin{figure}
+    \center
+    \begin{verbatim}
+    $ hfst-lookup src/morphology.ftb3.hfst
+    > talossani
+    talossani talo+N+Sg+Ine+PxSg1
+    \end{verbatim}
+    \caption{Analysing Finnish from command-line with \texttt{hfst-lookup}
+    \label{code:analysis}}
+\end{figure}
+
+Inline formulas should use standard tex environment: $P(\mathrm{is}) >
+P(\mathrm{unlikely})$. Pay attention to the use of roman font for text examples
+and multicharacter variables and indexes. Long formulas should be numbered in
+equation block:
+
+\begin{equation}
+    P(\hat x) = \frac{x+\alpha}{y+\alpha\times z}
+\end{equation}
+
+Remember to describe each function, variable and notation you use.
+
+Use a splel-checker before submitting your texts.
+
+\ifcameraready
+\section*{Acknowledgments}
+
+Acknowledgments should be un-numbered last section. Do not include
+acknowledgements in anonymised review version.
+\fi
+
+\bibliographystyle{unsrt}
+\bibliography{fiwclul2017}
+
+\end{document}
+
