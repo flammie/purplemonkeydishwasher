@@ -1,0 +1,29 @@
+
+LATEX=xelatex
+BIBTEX=bibtex
+AUTHOR=@AUTHOR@
+YEAR=@YEAR@
+TITLE=@TITLE@
+CONFERENCE=@CONFERENCE@
+
+.PHONY: all
+
+PREFIX=$(AUTHOR)-$(YEAR)-$(CONFERENCE)-$(TITLE)
+PAPER=$(PREFIX).pdf
+BEAMER=$(PREFIX)-beamer.pdf
+POSTER=$(PREFIX)-poster.pdf
+BOASTER=$(PREFIX)-beamer-boaster.pdf
+## bibtexes cannot always handle hyphens
+BIB=$(CONFERENCE)$(YEAR).bib
+
+all: $(PAPER) $(BEAMER) $(BOASTER)
+
+%.pdf: %.tex
+	xelatex $<
+	-bibtex $*
+	xelatex $<
+	xelatex $<
+	xelatex $<
+
+clean:
+	-rm -f *.log *.bbl *.aux $(PAPER) $(BEAMER) $(BOASTER)

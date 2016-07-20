@@ -1,0 +1,47 @@
+\documentclass{beamer}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{url}
+
+\makeatletter
+\newcommand\listofframes{\@starttoc{lbf}}
+\makeatother
+
+\addtobeamertemplate{frametitle}{}{%
+  \addcontentsline{lbf}{section}{\protect\makebox[2em][l]{%
+    \protect\usebeamercolor[fg]{structure}\insertframenumber\hfill}%
+  \insertframetitle\par}%
+}
+
+
+\title{TITLE
+\scriptsize{in CONFERENCE, LOCATION, YEAR.\\
+\url{WEBSITE}}}
+\author{AUTHOR \scriptsize \guilsinglleft EMAIL \guilsinglright }
+\institute{AFFILIATION}
+\date{\today}
+
+\begin{document}
+
+\selectlanguage{english}
+
+\maketitle
+
+\begin{frame}
+    \frametitle{Structure of the Presentation}
+    \listofframes
+\end{frame}
+
+\begin{frame}
+    \frametitle{Introduction}
+    \begin{itemize}
+        \item Stuff
+    \end{itemize}
+\end{frame}
+
+
+\end{document}
