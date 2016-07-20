@@ -18,7 +18,9 @@ BIB=$(CONFERENCE)$(YEAR).bib
 
 all: $(PAPER) $(BEAMER) $(BOASTER)
 
-%.pdf: %.tex
+$(BOASTER): $(POSTER)
+
+%.pdf: %.tex $(BIB)
 	xelatex $<
 	-bibtex $*
 	xelatex $<
