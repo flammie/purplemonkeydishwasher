@@ -1,0 +1,178 @@
+\documentclass{beamer}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{url}
+
+
+\title{ACL SIGUR and UD and other interoperabilities,
+\scriptsize{in eerbmt, Alicante, 2016.\\
+\url{http://gtweb.uit.no/sigur}}}
+\author{T.~A.~Pirinen 
+\scriptsize \guilsinglleft tommi.antero.pirinen@uni-hamburg.de \guilsinglright }
+\institute{Universität Hamburg, ACL SIGUR, CLARIN-D and various others}
+\date{\today}
+
+\begin{document}
+
+\selectlanguage{english}
+
+\AtBeginSection[]{\begin{frame}{Outline}
+    \tableofcontents[currentsection]
+\end{frame}}
+
+\maketitle
+
+\begin{frame}
+    \frametitle{Structure of the Presentation}
+    \tableofcontents
+\end{frame}
+
+\section{Intro}
+
+\begin{frame}
+    \frametitle{Background ``before I start''}
+    How does ACL SIGUR fit into RBMT and interoperability?
+    \begin{itemize}
+        \item getting people to agree on analyses / tags / features
+            etc. one transfers in RBMT is hard
+        \item UD is a good project towards this goal...,
+        \item at version 1.3 three languages from same family mark some same
+            things in up to three (four?) different ways
+        \item Can we (ACL SIGUR) bring order into this chaos?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Obligatory triangle}
+    \only<1>{\includegraphics[width=\textwidth]{triforce}}
+    \only<2>{\includegraphics[width=\textwidth]{vauquois}
+    \textit{CC BY-SA 3.0: Francis Tyers / wikimedia commons}
+    \url{https://commons.wikimedia.org/wiki/File:Direct_translation_and_transfer_translation_pyramind.svg}
+    }
+\end{frame}
+
+\section{ACL SIGUR}
+
+\begin{frame}
+    \frametitle{ACL}
+    Association for computational linguistics:
+    \begin{itemize}
+        \item \url{http://aclweb.org}
+        \item Members are academics, professionals etc. interested in CL
+        \item Responsible for many high-impact conferences, publications
+            etc. in CL
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{SIG}
+    Special Interest Group:
+    \begin{itemize}
+        \item A (loosely organised) group of people interested in a
+            sub-topic of Computational linguistics (e.g. a language
+            group, a theory or sub-field)
+        \item organises events, publications, usually also resources,
+            standards and best common practices
+        \item 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{UR}
+    as in SIGUR, Special Interest Group for Uralic Ranguages
+    \url{http://gtweb.uit.no/sigur}
+    \begin{itemize}
+        \item Newly founded ACL SIG
+        \item chaired by me
+        \item organising yearly workshops, journal publications
+        \item first group effort: harmonising and expanding Uralic UD
+    \end{itemize}
+\end{frame}
+
+
+\section{Case: Uralic Universal Dependencies}
+
+\begin{frame}
+    \frametitle{Uralic Universals}
+    \includegraphics[width=0.7\textwidth]{uralic-universals}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Problems}
+    Languages that are quite known to be related and even mutually intelligible
+    should probably share the same analyses for diachronically and synchronically
+    same morphs and structures
+    \begin{itemize}
+        \item For longer presentation on the Uralic tagging issues,
+            see Tyers \& Pirinen (2016) at
+            \url{http://www.computing.dcu.ie/~tpirinen/Pirinen-2016-iwclul-rbmt-representations.pdf}
+        \item E.g. The past participle in Finnish is 
+            \texttt{VerbForm=Part|PartForm=Pres}, Estonian 
+            \texttt{VerbForm=Part|Tense=Pres} and Hungarian \texttt{VerbForm=PartPres}
+        \item if you used UD to UD transfer, this could've been a free ride but
+            isn't!
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Solutions??}
+    We just starting this work:
+    \begin{itemize}
+        \item Read and write UD documentations for intermediat level between
+            Universal and language specific \url{http://universaldependencies.org/urj/overview/introduction.html}
+        \item Write a lot of bugs \url{https://github.com/UniversalDependencies/docs/labels/Uralic}
+        \item Work with authors of current UD treebanks (help / coerce / bribe)
+            to harmonise and, work with new languages from beginning on as
+            guide
+        \item ...
+    \end{itemize}
+\end{frame}
+
+\section{Other Standardisations and efforts}
+
+\begin{frame}
+    \frametitle{Standards...}
+    \includegraphics[width=\textwidth]{xkcd-standards}
+    \textit{CC BY-NC 2.5: by Randall Munroe / XKCD} 
+    \url{http://imgs.xkcd.com/comics/standards.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{CLARIN}
+    Common Language Resource Infrastructure Network
+    \url{http://clarin.eu}
+    \begin{itemize}
+        \item Big EU / International effort
+        \item Good track record with organsing infrastructures, resources,
+            peoples
+        \item Standards group not hugely succesful with standards relevant to
+            RBMT...
+        \item Standards coordination is traditionally slow-moving process
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{CLARIN's managed / endorsed standards for RBMT}
+    \begin{itemize}
+        \item ISOcat (now defunct) $\rightarrow$ CLARIN Category Registry
+        \item Lexical Markup Framework
+        \item Virtual Language Observatory / Metashare etc. (repositories of
+            things)
+    \end{itemize}
+    Let's find them all
+\end{frame}
+
+\section{Acknowledgments}
+
+\begin{frame}
+    \frametitle{Acknowledgements}
+    This presentation was brought to you by: CLARIN-D\\
+    \vspace{2em}
+    Questions and Answers?
+\end{frame}
+
+\end{document}
