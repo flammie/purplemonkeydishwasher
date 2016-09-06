@@ -1,0 +1,62 @@
+\documentclass{beamer}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{url}
+
+\mode<presentation>
+{
+    \usetheme{HZSK}
+}
+
+
+\title{Omorfi as a part of an MT pipeline
+\scriptsize{in FinMT, Helsinki, 2016-09-12\\
+\url{https://github.com/flammie/omorfi/}}}
+\author{Tommi A Pirinen \scriptsize \guilsinglleft tommi.antero.pirinen@uni-hamburg.de \guilsinglright }
+\institute{HZSK.de, CLARIN.de, etc.}
+\date{\today}
+
+\begin{document}
+
+\selectlanguage{english}
+
+\maketitle
+
+\begin{frame}
+    \frametitle{Introduction}
+    \begin{itemize}
+        \item Omorfi is a lexical database that can be compiled into different
+            sorts of rule-based parsers and similar stuff
+        \item can be useful for machine translation with: morphological
+            analysis/generation, \{de,\}segmentation, tokenisation,
+            lemmatisation
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Installation and use}
+    \begin{itemize}
+        \item For serious use: modern Linux distro, install recent autotools,
+            gcc or clang, python3 etc. basics, then
+            HFST\footnote{\url{http://hfst.github.io}} with python bindings
+        \item \texttt{git clone git@github.com:flammie/omorfi \&\& cd omorfi
+            \&\& ./autogen.sh \&\& make \&\& make install}
+        \item Scripts starting with \texttt{omorfi-} should now just work
+            (tabtab).
+        \item e.g. \texttt{\$MOSES/scripts/tokenizer/tokenizer.perl <
+            europarl-v8.fi.text | omorfi-factorise.py}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Examples}
+    Pretty pictures here
+\end{frame}
+
+\end{document}
+
