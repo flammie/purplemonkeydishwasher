@@ -17,7 +17,7 @@
 \scriptsize{in FinMT, Helsinki, 2016-09-12\\
 \url{https://github.com/flammie/omorfi/}}}
 \author{Tommi A Pirinen \scriptsize \guilsinglleft tommi.antero.pirinen@uni-hamburg.de \guilsinglright }
-\institute{HZSK.de, CLARIN.de, etc.}
+\institute{HZSK.de, de.CLARIN.eu, etc.}
 \date{\today}
 
 \begin{document}
@@ -29,6 +29,7 @@
 \begin{frame}
     \frametitle{Introduction}
     \begin{itemize}
+        \item \url{http://flammie.github.io/omorfi}
         \item Omorfi is a lexical database that can be compiled into different
             sorts of rule-based parsers and similar stuff
         \item can be useful for machine translation with: morphological
@@ -54,9 +55,80 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Examples}
-    Pretty pictures here
+    \frametitle{Example sentence}
+    newstestB2016-enfi.ref.fi.sgml docid="aamulehti.fi.22966" seg="1":
+    ``Poliisilla on ollut etsintätehtävä 9-vuotiaan pojan karkumatkan takia''
+    police has had a search mission due to an escape journey of a 9-year-old boy
 \end{frame}
 
+\begin{frame}
+    \frametitle{Omorfi can be used to add stuff to word-forms}
+    \begin{tabular}{l|llll}
+        \bf Surface: &   Poliisilla & on & ollut & etsintätehtävä \\
+        \hline
+        \bf ``Lemmas'': &  poliisi & olla & olla & etsintätehtävä \\
+        \bf UPOS: &   NOUN & AUX & VERB & NOUN \\
+        \bf CPOS: &   SG.ADE & ACT.INDV & ACT.PCP.SG & SG.NOM \\
+        & & PRES.SG3 \\
+        \bf morphs: &  poliisi lla & o n & ol lut & etsintä tehtävä \\
+        (and more) \\
+        \hline
+        \bf Target: & Police & has & had & a rescue mission \\
+    \end{tabular}
+\end{frame}
+
+\begin{frame}
+    \frametitle{more word-forms}
+    \begin{tabular}{l|llll}
+        \bf Surface: & 9-vuotiaan & pojan & karkumatkan & \alert{takia} \\
+        \hline
+        \bf ``Lemmas'': & 9-vuotias & poika & karkumatka & takia \\
+        \bf UPOS: & ADJ & NOUN & NOUN & ADP \\
+        \bf CPOS: & SG.GEN & SG.GEN & SG.GEN & POSTP \\
+        \bf morphs: & 9 -vuotiaan & poja n & karku matka n & takia \\
+        (and more) \\
+        \hline
+        \bf Target: & \alert{because of} & 9-year-old & boy's & escape \\
+    \end{tabular}
+\end{frame}
+
+\begin{frame}
+    \frametitle{In moses pipeline}
+    \begin{itemize}
+        \item Put stuff in factors:
+            \texttt{Poliisilla|poliisi|NOUN|SG.ADE|poliisi lla}
+        \item Other pre-preprocessing like splitting compounds and morphs:
+            \texttt{etsintä @@tehtävä} (a rescue mission)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{In apertium pipeline}
+    1. ambiguous parses
+    \begin{tabular}{llll}
+        Poliisilla & on & ollut & etsintätehtävä \\
+        poliisi.n.sg.ade & olla.vaux.pri.p3 & olla.vaux.actv.past.conneg &
+        etsintätehtävä.n.sg.nom \\
+        & olla.vblex.pri.p3.sg & olla.vaux.actv.pp &
+        etsintä.n.sg.nom + tehtävä.n.sg.nom \\
+        & & olla.vaux.pass.nut.pl.nom & \\
+        & & ... & \\
+    \end{tabular}
+\end{frame}
+
+\begin{frame}
+    \frametitle{In apertium pipeline}
+    2. disambiguate
+    \begin{tabular}{llll}
+        Poliisilla & on & ollut & etsintätehtävä \\
+        poliisi.n.sg.ade & olla.vaux.pri.p3 & olla.vblex.actv.pp &
+        etsintätehtävä.n.sg.nom \\
+    \end{tabular}
+\end{frame}
+
+\begin{frame}
+    \frametitle{In apertium pipeline}
+    3. see the rest in the next presentation!
+\end{frame}
 \end{document}
 
