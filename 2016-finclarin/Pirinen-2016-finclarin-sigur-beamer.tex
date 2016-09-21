@@ -7,6 +7,11 @@
 \usepackage{color}
 \usepackage{url}
 
+\mode<presentation>
+{
+    \usetheme{HZSK}
+}
+
 \makeatletter
 \newcommand\listofframes{\@starttoc{lbf}}
 \makeatother
@@ -18,11 +23,12 @@
 }
 
 
-\title{sigur
-\scriptsize{in finclarin, LOCATION, 2016.\\
-\url{WEBSITE}}}
-\author{Pirinen \scriptsize \guilsinglleft EMAIL \guilsinglright }
-\institute{AFFILIATION}
+\title{ACL SIG for Uralic Languages SIGUR,
+\scriptsize{in Fin-CLARIN, Helsinki, 2016.\\
+\url{http://acl-sigur.github.io}}}
+\author{Tommi A Pirinen \scriptsize \guilsinglleft
+tommi.antero.pirinen@uni-hamburg.de \guilsinglright }
+\institute{Universität Hamburg}
 \date{\today}
 
 \begin{document}
@@ -31,17 +37,94 @@
 
 \maketitle
 
-\begin{frame}
-    \frametitle{Structure of the Presentation}
-    \listofframes
-\end{frame}
+\section{ACL SIGUR}
 
 \begin{frame}
-    \frametitle{Introduction}
+    \frametitle{ACL}
+    Association for computational linguistics:
     \begin{itemize}
-        \item Stuff
+        \item \url{http://aclweb.org}
+        \item Members are academics, professionals etc. interested in CL
+        \item Responsible for many high-impact conferences, publications
+            etc. in CL
     \end{itemize}
 \end{frame}
 
+\begin{frame}
+    \frametitle{SIG}
+    Special Interest Group:
+    \begin{itemize}
+        \item A (loosely organised) group of people interested in a
+            sub-topic of Computational linguistics (e.g. a language
+            group, a theory or sub-field)
+        \item organises events, publications, usually also resources,
+            standards and best common practices
+        \item
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{UR}
+    as in SIGUR, Special Interest Group for Uralic Ranguages
+    \url{http://gtweb.uit.no/sigur}
+    \begin{itemize}
+        \item Newly founded ACL SIG
+        \item organising yearly workshops, journal publications
+        \item first group effort: harmonising and expanding Uralic UD
+        \item second group effort: listing existing resources and co-ordinating
+        \item third effort: Best common practices for resources and stuff
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The catalogising and co-ordinating effort}
+    \begin{itemize}
+        \item Because: there has been some duplicated work and there are
+            undiscovered resources everywhere
+        \item Existing resource catalogues in CLARIN for
+            Finland\footnote{\url{http://kielipankki.fi}},
+            Estonia\footnote{\url{http://keeleressursid.ee}}, and
+            Hungary(?)
+        \item Probably missing many resources outside these countries and
+            national languages
+        \item we concentrate on lightweight gathering and linking of free and
+            open resource, no metadata harvesting and catalogising in databases
+            and web services
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Uralic Universal Dependencies: Example of non-co-operation
+    problematics}
+    Languages that are quite known to be related and even mutually intelligible
+    should probably share the same analyses for diachronically and synchronically
+    same morphs and structures
+    \begin{itemize}
+        \item For longer presentation on the Uralic tagging issues,
+            see Tyers \& Pirinen (2016) at
+            \url{http://www.computing.dcu.ie/~tpirinen/Pirinen-2016-iwclul-rbmt-representations.pdf}
+        \item E.g. The past participle in Finnish is
+            \texttt{VerbForm=Part|PartForm=Pres}, Estonian
+            \texttt{VerbForm=Part|Tense=Pres} and Hungarian \texttt{VerbForm=PartPres}
+        \item Read and write UD documentations for intermediate level between
+            Universal and language specific \url{http://universaldependencies.org/urj/overview/introduction.html}
+        \item Write a lot of bugs \url{https://github.com/UniversalDependencies/docs/labels/Uralic}
+        \item Work with authors of current UD treebanks (help / bribe / coerce)
+            to harmonise and, work with new languages from beginning on as
+            guide
+        \item ...
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Best common practices (getting things done)}
+    Idea brought up in 2016 meeting:
+    \begin{itemize}
+        \item We have experience of getting language support for Uralic languges
+            in digital world:
+        \item keyboards, mobile keyboards, spell checking, corpora,
+        \item how-to: build new (to computational) Uralic languages to same level
+    \end{itemize}
+\end{frame}
 
 \end{document}

@@ -7,6 +7,12 @@
 \usepackage{color}
 \usepackage{url}
 
+
+\mode<presentation>
+{
+    \usetheme{HZSK}
+}
+
 \makeatletter
 \newcommand\listofframes{\@starttoc{lbf}}
 \makeatother
@@ -18,11 +24,12 @@
 }
 
 
-\title{sigur
-\scriptsize{in finclarin, LOCATION, 2016.\\
-\url{WEBSITE}}}
-\author{Pirinen \scriptsize \guilsinglleft EMAIL \guilsinglright }
-\institute{AFFILIATION}
+\title{INEL resources and HZSK
+\scriptsize{in Fin-CLARIN, Helsinki, 2016.\\
+\url{http://inel.corpora.uni-hamburg.de}}}
+\author{Tommi A Pirinen \scriptsize \guilsinglleft
+tommi.antero.pirinen@uni-hamburg.de \guilsinglright }
+\institute{Universität Hamburg}
 \date{\today}
 
 \begin{document}
@@ -32,16 +39,105 @@
 \maketitle
 
 \begin{frame}
-    \frametitle{Structure of the Presentation}
-    \listofframes
-\end{frame}
-
-\begin{frame}
     \frametitle{Introduction}
     \begin{itemize}
-        \item Stuff
+        \item Grammars, corpora and language technologies for Indigenous
+            Northern Eurasian Languages
+        \item A long-term project (18 years) funded by Academy of Sciences and
+            Humanities in Hamburg
+        \item Research: Institut für Finnougristik / Uralistik at Universität
+            Hamburg (IFUU)
+        \item Infrastructure: Hamburger Zentrum für Sprachkorpora (HZSK)
     \end{itemize}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Languages}
+    \begin{itemize}
+        \item Uralic:
+        \begin{itemize}
+                \item Selkup (two varieties) [sel], Kamas $\dagger$ [xas],
+                    Nenets (two varieties) [yrk]
+                \item Komi (two varieties) [kom]
+        \end{itemize}
+        \item Altaic:
+        \begin{itemize}
+            \item Dolgan [dlg], Siberian Tatar [sty]
+            \item Evenki (Northern) [evn]
+        \end{itemize}
+        \item Yenissean:
+        \begin{itemize}
+            \item Ket [ket]
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Language map}
+    \includegraphics[height=\textheight]{inelmap}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Goals}
+    For each language (3 years):
+    \begin{itemize}
+        \item a corpus of annotated texts
+        \item combining oral and written data
+        \item to provide a solid empirical
+            foundation for grammatical descriptions
+    \end{itemize}
+    Also:
+    \begin{itemize}
+        \item Inventory of existing resources
+        \item Lexical data
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Data first phase}
+    \begin{itemize}
+        \item Kamas:
+        \begin{itemize}
+            \item \emph{Kamassisches Wörterbuch} (Donner, 1944),
+                glossing complete
+            \item Audio from last speaker, Klavdia Plotnikova: from AEDKL
+                archive, KOTUS archives, partially transcribed
+        \end{itemize}
+        \item Selkup:
+        \begin{itemize}
+           \item A.~I.~Kuzmina's archive at IFUU: field notes, recordings, ...
+           \item Recordings by G.~I.~Pelikh (1960s)
+           \item Recordings by S.~V.~GLushkov (1990s)
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Timeline}
+    \includegraphics[width=\textwidth]{ineltimeline-macro}
+\end{frame}
+
+\begin{frame}
+    \frametitle{HZSK infrastructure}
+    \includegraphics[width=\textwidth]{hzskrepo}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{People}
+    \begin{itemize}
+        \item INEL: \\
+            Béata Wagner-Nagy (Project leader)\\
+            Michael Rießler (Principal Investigator?)\\
+            Alexander Arkhipov (Research coordinator)\\
+            Timm Lehmberg (Technical coordinator)\\
+            Maria Brykina, Svetlana Orlova, Tiina Klooster, Chris Lasse Däbritz,
+            Josefina Budzisch, Hannah Wegener (Linguists)\\
+            Daniel Jettka, Niko Partanen (Developers)
+        \item HZSK / CLARIN-D: \\
+            Hanna Hedeland, Tommi A Pirinen
+    \end{itemize}
+\end{frame}
 
 \end{document}
