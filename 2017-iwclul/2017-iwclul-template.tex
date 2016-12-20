@@ -18,7 +18,7 @@
 
 % Please keep this false for submission version, true for camera-ready
 \newif\ifcameraready
-\camerareadyfalse
+\camerareadytrue
 
 \begin{document}
 
@@ -43,13 +43,14 @@ Second Author\\
 University or Affiliation\\
 Department or School\\
 (Optionally Post Address)\\
-\url{second.author@example.com} 
+\url{second.author@example.com}
 }
 \fi
 
 \date{}
 
 \maketitle
+\thispagestyle{empty}
 
 \begin{abstract}
     Abstract can be between 150 and 300 words long. Separate keywords are not
@@ -99,7 +100,7 @@ need additional copyright forms.
 
 Follow common English typographical standards. The \emph{emphasis} is used for
 sentence level highlights and \textbf{strong emphasis} for paragraph level
-highlights. 
+highlights.
 
 Linguistic glosses should follow Leipzig Glossing rules
 \url{http://www.eva.mpg.de/lingua/resources/glossing-rules.php}, see (\nextx).
@@ -132,7 +133,7 @@ borders.
 \end{table}
 
 Citations are made using bibtex: WALS~\cite{haspelmath2005world} is a good book.
-It is possible to cite Russians using plain unicode, such as the original 
+It is possible to cite Russians using plain unicode, such as the original
 version of Levenshtein algorithm~\cite{levenshtein1965}.
 Use bibliographystyle unsrt. If you get your bibtex snippets from google
 scholar, don't forget to double check the data and add missing parts.
