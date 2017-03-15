@@ -32,6 +32,8 @@ The things I've studied and am good at and interested in using my time in:
   co-operation
 * End-user apps with computational linguistics: Machine translation, writers
   tools, computer-aided language learning
+* Digital humanities---computational linguistics interactions
+
 
 The list is not exhaustive.
 
@@ -48,19 +50,23 @@ It may be noteworthy at the moment, that [google
 scholar](https://scholar.google.com) offers a great way to [browse my
 publications](http://scholar.google.com/citations?user=XNOLAagAAAAJ) and see
 their incoming citations.
-  11.
 
 ###  Publications in conferences and journals
 
-1. **Tommi A Pirinen** (2016, to appear) ...
-2. Francis Tyers, **Tommi Pirinen** (2016b) *Intermediate
+1. **Tommi A Pirinen**, Eszter Simon, Francis M Tyers, Veronika Vincze, (2016c),
+   *Report on the Second International Workshop on Computational Linguistics for
+   Uralic languages*, in Finno-Ugric languages and linguistics,
+1. Francis Tyers, **Tommi Pirinen** (2016b) *Intermediate
    Representations in Rule-Based Machine Translation* for Uralic
    languages in Proceedings of Second International Workshop on
    Computational Linguistics for Uralic Languages (IWCLUL2016)
-3. **Tommi Pirinen**, Antonio Toral, Raphael Rubino (2016a) *Rule-Based
+1. **Tommi Pirinen**, Antonio Toral, Raphael Rubino (2016a) *Rule-Based
    and Statistical Morph Segments in English-to-Finnish SMT*, in
    Proceedings of Second International Workshop on Computational
    Linguistics for Uralic Languages (IWCLUL), Szeged, Hungary
+1. **Tommi A Pirinen** (2015e) *Development and Use of Computational Morphology
+   of Finnish in the Open Source and Open Science Era: Notes on Experiences
+   with Omorfi Development.* SKY Journal of Linguistics.
 4. Antonio Toral, Xiaofeng Wu, **Tommi Pirinen**, Zhengwei Qiu, Ergun
    Bicici and Jinhua Du (2015d) *Dublin City University at the
    TweetMT 2015 Shared Task* in Proceedings of TweetMT shared task at
@@ -77,6 +83,8 @@ their incoming citations.
    with VISL CG-3—Some experiments with free open source Finnish
    resources*, in Proceedings of Constraint grammar - methods, tools
    and applications Workshop at NoDaLiDa
+7. Senka Drobac, Krister Lindén, **Tommi Pirinen**, Miikka Silfverberg (2014e),
+   *Heuristic hyper-minimization of finite state lexicons*, in LREC 2014
 8. Antonio Toral, Raphael Rubino, Miquel Esplà, **Tommi Pirinen**, Andy
    Way and Gema Ramírez-Sánchez (2014d). *Extrinsic Evaluation of
    Web-Crawlers in Machine Translation: a Case Study on
@@ -154,6 +162,25 @@ their incoming citations.
    Spell-Checking and Correction*, Doctoral dissertation, University of
    Helsinki
 
+### Edited volumes
+
+1. **Tommi A Pirinen** et al. (to appear) *Acta Linguistica Hungarica, special
+   issue*.
+1. **Tommi A Pirinen**, Francis Tyers, Trond Trosterud, Michael Rießler (2017),
+   *Proceedings of the third international workshop for computational linguistics
+   of Uralic languages* held in St. Petersburg, published by ACL anthology: SIG
+   workshops
+1. **Tommi A Pirinen**, Francis Tyers, Veronika Vincze (2016),
+   *Proceedings of the second international workshop for computational linguistics
+   of Uralic languages* held in Szeged, published in Szeged
+   workshops
+1. **Tommi A Pirinen**, Francis Tyers, Trond Trosterud (2016), *NEJLT (Nordic
+   European Journal of Language Technology, special issue in Uralic Language
+   Technology*, published in NEJLT
+1. **Tommi A Pirinen**, Francis Tyers, Trond Trosterud (2015),
+   *Proceedings of the first international workshop for computational linguistics
+   of Uralic languages* held in Tromsø, published by university library
+
 ### Presentations, tutorials, invited speeches
 
 1. **Tommi A Pirinen**, Antonio Toral (2015) *Why linguistics in SMT?* in Why
@@ -185,11 +212,14 @@ their incoming citations.
 14. *Avoimen lähdekoodin menetelmät äärellistilaista morfologiaa varten*,
    in 2008, Helsinki.
 
-### Software projects
+### Software projects and resources
 
 The following projects I participate are more or less related to my
 work at university and sparetime hobbies related to science:
 
+
+ * [FiWaC 1.0](https://www.clarin.si/repository/xmlui/handle/11356/1074)–Finnish
+    web as corpus, we built during abumatran project.
  * [Omorfi](https://flammie.github.io/omorfi)–Open source morphology of Finnish,
    a project I started as master's thesis and am still helping maintaining
  * [HFST–Helsinki Finite-State Technology](https://hfst.github.io), my previous
