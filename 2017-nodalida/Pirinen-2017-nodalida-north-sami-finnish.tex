@@ -1,0 +1,457 @@
+\documentclass[11pt]{article}
+\usepackage{nodalida2017}
+%\usepackage{times}
+\usepackage{mathptmx}
+%\usepackage{txfonts}
+
+\usepackage{polyglossia}
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{array}
+\usepackage{url}
+%\usepackage{hyperref}
+
+\usepackage{latexsym}
+\special{papersize=210mm,297mm} % to avoid having to use "-t a4" with dvips 
+%\setlength\titlebox{6.5cm}  % You can expand the title box if you really have to
+
+
+\usepackage{polyglossia}
+%\usepackage[T1]{fontenc}
+
+\usepackage{todonotes}
+
+\newif\iffinal
+\finaltrue
+
+\title{North Sámi to Finnish rule-based machine translation system}
+
+\iffinal
+%\author{
+
+\author{Ryan Johnson¹ \and Tommi A Pirinen² \and Tiina Puolakainen³ \\ \textbf{Francis Tyers¹} \and \textbf{Trond Trosterud¹} \and \textbf{Kevin Unhammer¹}\\ 
+¹ UiT Norgga \'Arktala\v{s} universitehta, Giela ja kultuvrra instituhtta, Romssa, Norga \\
+² Universit\"{a}t Hamburg, Hamburger Zentrum f\"{u}r Sprachkorpora, Deutschland \\
+³ Institute of the Estonian Language, Estonia\\
+ryan.txanson@gmail.com, tommi.antero.pirinen@uni-hamburg.de, \\ tiina.puolakainen@eki.ee,
+\{francis.tyers, trond.trosterud\}@uit.no \\
+kevin@unhammer.org
+}
+
+%  Ryan Johnson\footnote{Authors are listed here alphabetically} \\
+%  University \\
+%  Department \\
+%  Address \\
+%  {\tt email} \And
+%  Tommi A Pirinen \\
+%  Universit\"{a}t Hamburg \\
+%  Hamburger Zentrum f\"{u}r Sprachkorpora \\
+%  D-22767 Hamburg, Germany \\
+%  {\tt tommi.antero.pirinen@uni-hamburg.de} \And
+%  Tiina Puolakainen \\
+%  Institute of the Estonian Language \\
+%  Estonia \\
+%  {\tt tiina.puolakainen@eki.ee} \And
+%  Francis Tyers \\
+%  Norgga \'Arktala\v{s} universitehta \\
+%  Giela ja kultuvrra instituhtta \\
+%  Romssa, Norga \\
+%  {\tt francis.tyers@uit.no} \And
+%  Trond Trosterud\\
+%  Norgga \'Arktala\v{s} universitehta \\
+%  Giela ja kultuvrra instituhtta \\
+%  Romssa, Norga \\
+%  {\tt francis.tyers@uit.no, trond.trosterud@uit.no} \And
+%  Kevin Unhammer \\
+%  University \\
+%  Department \\
+%  Address \\
+%  {\tt email} \\ 
+%  }
+  
+\fi
+
+\date{}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+This paper presents a machine translation system between Finnish and North Sámi, two Uralic languages.
+In this paper we concentrate on the translation direction to Finnish.
+% * <trond.trosterud@uit.no> 2017-01-30T22:47:04.640Z:
+%
+% ^.
+As a background, the differences between the two languages is presented, followed by how the system was designed to handle some of these differences.
+We then provide an evaluation of the system's performance and directions for future work.
+\end{abstract}
+
+% 
+%1) The abstract states that the paper is about a "bidirectional machine translation system between Finnish and Northern Sámi", but the rest of the paper describes a system translating from Finnish to North Sámi, but not the other way around.
+%
+
+\section{Introduction}
+\label{sec:introduction}
+\footnote[0]{Authors are listed here alphabetically}
+This paper presents a prototype shallow-transfer rule-based machine translation system between Finnish and North Sámi.
+The paper will be laid out as follows: Section\ \ref{sec:previous-work} gives a short review of some previous work in the area of Uralic-Uralic language machine translation; Section\ \ref{sec:languages} introduces Finnish and North Sámi and compares their grammar; Section\ \ref{sec:system} describes the system and the tools used to construct it; Section\ \ref{sec:evaluation} gives a preliminary evaluation of the system; and finally Section\ \ref{sec:conclusions} describes our aims for future work and some concluding remarks.
+
+\section{Previous work}
+\label{sec:previous-work}
+
+Within the Apertium platform, work on several MT systems from North Sámi to Norwegian and to other Sámi languages have been developed \cite{tyers09,wiechetek10,trosterud12,smesma}).
+Besides these systems, several previous works on making machine translation systems between Uralic languages exist, although to our knowledge none are publicly available, except for North Sámi to Norwegian\footnote{\url{https://gtweb.uit.no/jorgal}}, and the translation between Estonian, Finnish and Hungarian being available via English as a pivot language in Google Translate.\footnote{\url{https://translate.google.com}}
+For non-Uralic pairs there are also numerous similarly laid out systems e.g. in Apertium's Turkic pairs, e.g. \cite{salimzyanov2013free}, that can offer insights on how the pair is implemented, which are detailed later in the article but the main parts are the same. 
+
+\section{The languages}
+\label{sec:languages}
+
+North Sámi and Finnish belong to the Sámi and Finnic branches of the Uralic languages, respectively.
+The languages are mutually unintelligible, but grammatically quite similar. The orthographical conventions between Finnish and North Sámi written in Finland were quite similar until 1979, when an unified North Sámi orthography widened the distance to Finnish.
+Finnish is primarily spoken in Finland, where it is the national language, sharing status with Swedish as an official language. 
+The total number of speakers is at least 6 million people.
+North Sámi is spoken in the Northern parts of Norway, Sweden and Finland by approximately 24.700 people, and it has, alongside the national language, some official status in the municipalities and counties where it is spoken.
+North Sámi speakers  are bilingual in  their mother tongue and in their respective national language, many also speak the neighbouring official language.
+An MT system between North Sámi and Finnish is potentially of great use to the language communities, although fulfilling different functions. In Finland, it may be used to understand Sámi text, and in Norway and Sweden, it may be used by North Sámi speakers to understand Finnish text. In principle, the system may also be used for North Sámi text production, although further development will be needed to fulfil such a function.
+
+
+\subsection{Phonological differences}
+\label{subseC:phonological-differences}
+
+As related languages, Finnish and North Sámi share several phonological processes, the most important one being consonant gradation.
+However, North Sámi consonant gradation involves the vast majority of stem-internal consonant clusters, whereas the Finnish counterpart involves only the stops \textit{p, t, k}. Vowel length has a more central role in Finnish than in North Sámi, Several instances of final vowel apocopy in North Sámi, as well as a neutralisation of \textit{p, t, k} in word-final position, has also resulted in quite extensive morphological homonymy. A richer inventory of affricates and fricatives in North Sámi, as well as preaspiration, also add to the difference.
+
+\subsection{Orthographic differences}
+\label{subsec:orthographic-differences}
+
+In the native vocabulary, neither Finnish nor North Sámi distinguish between voiced and unvoiced plosives,  but whereas  Finnish writes them as \textit{p, t, k}, North Sámi writes  \textit{b, d, g}, as in \textit{kirja : girji} ``book''. Finnish marks vowel length with double letter symbols. In North Sámi this distinction is marked for one vowel only, $a$, and with acute accent. Apart from this the orthographic principles of the two languages is quite similar, the almost total lack of free rides is a result of different phonology.
+
+\subsection{Morphological differences}
+\label{subsec:morphological-differences}
+
+There are a number of examples where the morphologies of Finnish and North Sámi are rather different.
+
+North Sámi has a separate dual number, whereas Finnish has not.  Otherwise the North Sámi and Finnish finite verb morphology is almost identical. The infinite  verb conjugation is more different, though: Finnish has a rich array of infinitives that are inflected in different subsets of the case system.
+
+Finnish has more than twice the number of cases as  North Sámi has. Where  North Sámi only has one case for the direct object (accusative), Finnish has two  (accusative and partitive). The Finnish system of adverbial cases consist of a 2x3 matrix of inner/outer to/in/from cases,  North Sámi has only one of these distinctions (to/in\~{}from), thus the 6 Finnish cases corresponds to 2 North Sámi ones. In principle, Finnish and North Sámi have the same system of possessive suffixes, but in  North Sámi its use is  far more restricted than in Finnish.
+
+
+\subsection{Syntactic differences}
+\label{subsec:syntactic-differences}
+
+%% 4) Under Syntactic differences, the authors state that "Syntactically speaking, there are two varieties of North Sámi, one used within and one outside of Finland". How do you deal with this in the MT system? 
+% fixed (?) tt
+
+Syntactically speaking, there are two varieties of North Sámi, one  used within and one outside of Finland. The Finnish variety is much closer to Finnish than the Scandinavian one. Comparing Finnish with the Scandinavian variety of North Sámi, the most striking difference is  participle constructions vs. relative clauses. Where North Sámi uses subordinate clauses,  written Finnish often use  head-final participle constructions instead. Since both varieties are found in Finnish, at least to some degree, we at the moment let most ``Scandinavian'' varieties of North Sámi through, thereby giving North Sámi from Norway and Finland a different stylistic flavour in the Finnish output.
+
+The  North Sámi passive is a derivational process, whereas it for Finnish is an inflectional one, resulting in quite  different syntactic patterns for passive. Finnish has a richer array of indefinite verb forms.
+
+Finnish adjectives agree with their head noun in case and number, whereas North Sámi has an invariant $attribute$ form for all but one adjective, the adjective \textit{buorre} `good', and partial 
+agreement for determiners.
+
+Existential and habitive clauses have the same structure in the two languages, \textit{possessor.local-case copula possessed} and \textit{adverbial copula e-subject} (\textit{on me / in street is car} `I have a car/There is a car in the street'). except that in Finnish, the possessed/e-subject behaves like objects, whereas it in North Sámi they behave like subjects. Thus, in North Sámi, the copula agrees with the possessed / e-subject, whereas in Finnish, it does not.
+
+
+\section{System}
+\label{sec:system}
+
+The system is based on the Apertium\footnote{\url{http://apertium.sf.net}} machine translation platform\ \cite{forcada2011apertium}.
+The platform was originally aimed at the Romance languages of the Iberian peninsula, but has also been adapted for other, more distantly related, language pairs.
+The whole platform, both programs and data, are licensed under the Free Software Foundation's General Public Licence\footnote{\url{https://www.gnu.org/licenses/gpl-3.0.en.html}} (GPL) and all the software and data for the 30 released language pairs (and the other pairs being worked on) is available for download from the project website.
+
+\subsection{Architecture of the system}
+\label{subsec:architecture-of-the-system}
+
+The Apertium translation engine consists of a Unix-style pipeline or assembly line with the following modules (see Figure \ref{fig:apertium}):
+
+%% 5) Figure 1 is very blur and hard to read, especially when printed on paper. Is there a higher resolution version of it?
+
+\begin{figure*}
+\includegraphics[width=.92\textwidth]{Apertium-structure}
+\caption{Apertium structure (Image from apertium wiki by user Rcrowther)
+\url{http://wiki.apertium.org/wiki/Workflow_diagram}
+\label{fig:apertium}}
+\end{figure*}
+
+\begin{itemize}
+\item A deformatter which encapsulates the format information in the input as \emph{superblanks} that will then be seen as blanks between words by the other modules.
+\item A morphological analyser which segments the text in surface forms (SF) (words, or, where detected, multiword lexical units or MWLUs) and for each, delivers one or more lexical forms (LF) consisting of lemma, lexical category and morphological information.
+\item A morphological disambiguator (CG) which chooses, using linguistic rules the most adequate sequence of morphological analyses for an ambiguous sentence.
+\item A lexical transfer module which reads each SL LF and delivers the corresponding target-language (TL) LF by looking it up in a bilingual dictionary encoded as an FST compiled from the corresponding XML file.
+The lexical transfer module may return more than one TL LF for a single SL LF.
+\item A lexical selection module (Tyers et al., 2012b) which chooses, based on context rules, the most adequate translation of ambiguous source language LFs. 
+\item A structural transfer module, which performs local syntactic operations, is compiled from XML files containing rules that associate an action to each defined LF pattern.
+Patterns are applied left-to-right, and the longest matching pattern is always selected.
+\item A morphological generator which delivers a TL SF for each TL LF, by suitably inflecting it.
+\item A reformatter which de-encapsulates any format information.
+\end{itemize}
+
+Table\ \ref{table:translation} provides an example of a single phrase as it moves through the pipeline.
+
+
+%% 6) Would there be a way of illustrating Table 1 in a flowchart or something more easy to take in?
+%% -a simpler example would be more suited for the illustration of the translation process
+
+
+
+%%%%%%%%%%%%%%%%%%%%%
+
+% Alternative table, same content
+
+\begin{table*}
+\begin{small}
+\begin{tabular}{|l|}
+\hline
+\bf North Sámi input: Sámegielat leat gielat maid sámit hállet. \\
+\hline
+\hline
+Morphological analysis: \\
+\hline
+\^{}Sámegielat/ sámegielat<adj> <attr>/ sámegielat<adj> <sg><nom>/ \\
+sámegiella<n> <pl><nom>/ sámegiella<n> <sg><acc><px2sg>/ \\
+sámegiella<n> <sg><gen><px2sg>/ sámegiella<n> <sg><acc><px2sg>/ \\
+sámegiella<n> <sg><gen><px2sg>\$ \\ 
+\\
+\^{}leat/ leat<vblex><iv> <indic><pres><conneg>/ \\
+leat<vblex><iv> <indic><pres><p1><pl>/ leat<vblex><iv> <indic><pres><p2><sg>/ \\ leat<vblex><iv> <indic><pres><p3><pl>/ leat<vblex><iv> <inf>\$ \\
+\^{}gielat/ giella<n> <pl><nom>/ giella<n> <sg><acc><px2sg>/ \\
+\\
+giella<n> <sg><gen><px2sg>/ giella<n> <sg><acc><px2sg>/\\ 
+giella<n> <sg><gen><px2sg>\$ \^{}maid/ maid<adv>/ mii<prn><itg> <pl><acc>/ \\
+\\
+mii<prn><itg> <pl><gen>/ mii<prn><itg> <sg><acc>/ mii<prn><rel> <pl><acc>/ \\
+mii<prn><rel> <pl><gen>/ mii<prn><rel> <sg><acc>\$ \\
+\\
+\^{}sámit/ sápmi<n> <pl><nom>/ sápmi<n> <pl><nom>\$ \\
+\\
+\^{}hállet/ hállat<vblex><tv> <imp><p2><pl>/ \\
+hállat<vblex><tv> <indic><pres><p3><pl>/ hállat<vblex><tv> <indic><pret><p2><sg>\$ \\
+\^{}./.<sent>\$
+\\
+\hline
+\hline
+Morphological disambiguation: \\
+\hline
+\^{}Sámegielat/sámegiella<n> <pl><nom> <@SUBJ$\rightarrow$>\$ \\
+\^{}leat/leat<vblex><iv> <indic><pres><p3><pl> <@+FMAINV>\$ \\
+\^{}gielat/giella<n> <pl><nom> <@$\leftarrow$SPRED>\$ \\
+\^{}maid/mii<prn><rel> <pl><acc> <@OBJ$\rightarrow$>\$ \\
+\^{}sámit/sápmi<n> <pl><nom> <@SUBJ$\rightarrow$>\$ \\
+\^{}hállet/hállat<vblex><tv> <indic><pres><p3><pl> <@+FMAINV>\$
+\^{}./.<sent>\$
+\\
+\hline 
+
+\hline
+Lexical translation: \\
+\hline
+\^{}Sámegiella<n> <pl><nom> <@SUBJ$\rightarrow$>/ Saamekieli<n> <pl><nom> <@SUBJ$\rightarrow$>/ \\
+Saame<n> <pl><nom> <@SUBJ$\rightarrow$>\$ \\
+\\
+\^{}leat<vblex><iv> <indic><pres><p3><pl> <@+FMAINV>/ \\
+olla<vblex> <actv><indic><pres><p3><pl> <@+FMAINV>/ \\
+sijaita<vblex> <actv><indic><pres><p3><pl> <@+FMAINV>\$ \\
+\\
+\^{}giella<n> <pl><nom> <@$\leftarrow$SPRED>/ kieli<n> <pl><nom> <@$\leftarrow$SPRED>/ \\ 
+ansa<n> <pl><nom> <@$\leftarrow$SPRED>\$ \\
+\\
+\^{}mii<prn><rel> <pl><acc> <@OBJ$\rightarrow$>/ mikä<prn><rel> <pl><acc> <@OBJ$\rightarrow$>\$ \\
+\\
+\^{}sápmi<n> <pl><nom> <@SUBJ$\rightarrow$>/ saame<n> <pl><nom> <@SUBJ$\rightarrow$>\$ \\
+\\
+\^{}hállat<vblex><tv> <indic><pres><p3><pl> <@+FMAINV>/ \\
+puhua<vblex> <actv><indic><pres><p3><pl> <@+FMAINV>/ \\
+mekastaa<vblex> <actv><indic><pres><p3><pl> <@+FMAINV>\$\^{}.<sent>/.<sent>\$
+\\
+\hline
+\hline
+Structural transfer: \\
+\hline
+\^{}Saamekieli<n> <pl><nom>\$
+\^{}olla<vblex> <actv><indic><pres><p3><pl>\$ \\
+\^{}kieli<n> <pl><nom>\$ 
+\^{}mik\"{a}<prn><rel> <pl><par>\$ \\
+\^{}saame<n> <pl><nom>\$
+\^{}puhua<vblex> <actv><indic><pres><p3><pl>\$\^{}.<sent>\$
+\\
+\hline
+\hline
+Finnish translation: \\
+\hline
+Saamekielet ovat kielet \#mik\"{a} saamet puhuvat \\
+\hline 
+\end{tabular}
+\caption{Translation process for the North Sámi phrase \textit{Sámegielat leat gielat maid sámit hállet} (The Sámi languages are the languages that the Sámis speak)
+\label{table:translation}}
+\end{small}
+\end{table*}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%
+\subsection{Morphological transducers}
+\label{subsec:morphological-transducers}
+
+The morphological transducers are compiled with the Helsinki Finite State Technology\ \cite{linden2009hfst},\footnote{\url{https://hfst.github.io}} a free/open-source  reimplementation of the Xerox finite-state tool-chain, popular in the field of morphological analysis.
+It implements both the lexc morphology description language for defining lexicons, and the twol and xfst scripting languages for modeling morphophonological rules.
+This toolkit has been chosen as it---or the equivalent XFST---has been widely used for other Uralic  languages\ \cite{koskenniemi1983two,pirinen2015development,moshagen2013building}, and is available under a free/open-source licence.
+The morphologies of both languages are implemented in lexc, and the morphophonologies of both languages are implemented in twolc.
+
+
+
+
+The same morphological description is used for both analysis and generation.
+To avoid overgeneration, any alternative forms are marked with one of two marks, LR (only analyser) or RL (only generator).
+Instead of the usual compile/invert to compile the transducers, we compile twice, once the generator, without the LR paths, and then again the analyser without the RL paths.
+
+\subsection{Bilingual lexicon}
+\label{subsec:bilingual-lexicon}
+
+The bilingual lexicon currently contains 19,415 stem-to-stem correspondences (of which 8044 proper nouns) and was built partly upon an available North Sámi---Finnish dictionary\footnote{\url{https://gtweb.uit.no/langtech/trunk/words/dicts/smefin/src/}}, and partly by hand (i.e., by translating  North Sámi stems unrecognised by the morphological analyser into Finnish). The proper nouns were taken from existing lexical resources.
+Entries consist largely of one-to-one stem-to-stem correspondences with part of speech, but also include some entries with ambiguous translations (see e.g., Figure\ \ref{fig:bilingual}).
+
+\begin{figure*}
+\begin{verbatim}
+    <e><p><l>sálten<s n="n"/></l><r>suolaus<s n="n"/></r></p></e>
+    <e><p><l>sálti<s n="n"/></l><r>suola<s n="n"/></r></p></e>
+    <e><p><l>sámeduodji<s n="n"/></l><r>käsityö<s n="n"/></r></p></e>
+    <e><p><l>sámegiella<s n="n"/></l><r>saame<s n="n"/></r></p></e>
+    <e><p><l>sámegiella<s n="n"/></l><r>saamekieli<s n="n"/></r></p></e>
+    <e><p><l>sámi<s n="n"/></l><r>saame<s n="n"/></r></p></e>
+    <e><p><l>sámil<s n="n"/></l><r>sammal<s n="n"/></r></p></e>
+
+\end{verbatim}
+\caption{Example entries from the bilingual transfer lexicon. Finnish is on the right, and North Sámi on the left. 
+\label{fig:bilingual}
+}
+\end{figure*}
+
+\subsection{Disambiguation rules}
+
+The system has a morphological disambiguation module in the form of a Constraint Grammar\ \cite{karlsson1995constraint}.
+The version of the formalism used is vislcg3.\footnote{\url{http://visl.cg.sdu.dk}}
+The output of each morphological analyser is highly ambiguous, measured at around 2.4 morphological analyses per form for Finnish and 2.6 for North Sámi\footnote{Cf. \cite{Trosterud07}}.
+The goal of the CG rules is to select the correct analysis when there are multiple analyses.
+%commands:
+%ccat -l sme -r ~/boundcorpus/converted/sme/news/avvir/avvir.no/|grep -v '===='|apertium -d. sme-fin-disam|cg-conv|grep -v '^;' > sme-distest-avvir.csv
+%cat ~/big/langs/fin/corp/fiwiki.txt|head -21000|grep -v '===='|apertium -d. fin-sme-disam|cg-conv|grep -v '^;' > fin-distest-wp.csv
+%One reason for the still high level of ambiguity is a series of affixes in both languages which can each be analysed variously as verbal nouns, verbal adjectives, substantitivised verbal adjectives (verbal adjectives with a  null modified noun), and even finite forms.\footnote{}
+Given the similarity of Finnish and North Sámi, ambiguity across parts of speech may often be passed from one language to the other and not lead to many translation errors.
+Disambiguating between forms within the inflectional paradigms in case of homonymy, on the other hand, are crucial for choosing the correct form of the target language, and there has been put much effort into developing CG rules to resolve such ambiguity for North Sámi. Currently, ambiguity is down to 1.08 for North Sámi (analysed with the disambigator used for MT on a 675534 word newspaper corpus\footnote{Cf. \cite{AntonsenTrosterudFST} for a presentation of the North Sámi CG.}. The corresponding number for Finnish is 1.36, for a subcorpus of 770999 words of Wikipedia text. The Finnish CG rules are a conversion of Fred Karlsson’s original CG1 rules for Finnish \cite{karlsson1990constraint}, and the poorer results for Finnish are due to conversion problems between the different CG version, and between CG1 and our Finnish FST.
+
+%%% XXX: check cite ^^^
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% I commented out LEXICAL SELECTION due to:
+%   lack of content
+% uncomment if needed.
+
+%\subsection{ Lexical selection rules}
+%\label{subseC:lexicla-selection-rulse}
+
+%While many lexical items have a similar range of meaning, lexical selection can sometimes be problematic between Finnish and North Sámi.
+%For example (see Figure 2), Finnish құрал can mean an instrument, device, tool, or even weapon, all meanings corresponding to its North Sámi cognate корал; however, it is also used in the compound ақпарат құралдары ‘mass media’ (literally, ‘means of information’), which translates to North Sámi as мəгълүмат чаралары (which has the same literal translation).
+%Hence, the Finnish word құрал must have two entries in the bilingual lexicon: one that corresponds to North Sámi корал and one that corresponds to North Sámi чара.
+%A lexical selection rule that selects the translation чара when it occurs in a compound with ақпарат is written to ensure the correct translation; this rule is shown in Figure.
+%The system currently has a total of 33 lexical selection rules. 
+%корал???
+
+
+
+%\begin{figure}
+%Figure 3: A lexical selection rule that selects чара as the
+%translation of blablabla if part of a compound with bliblibli.
+%\end{figure}
+%\begin{figure}
+%Figure 4: A lexical selection rule that selects blublublu
+%for blublubao if preceded by the word tralalala.
+%\end{figure}
+
+\section{Evaluation}
+\label{sec:evaluation}
+
+%% 1) The evaluation section leaves an unanswered question: why no BLEU score is calculated for the results? Also, as the "naive coverage" is mentioned, is there any non-naive coverage metrics calculated and then discarded as non-reliable?
+
+All evaluation was tested against a specific version of Apertium SVN\footnote{\url{https//svn.code.sf.net/p/apertium/svn/nursery/apertium-sme-fin}: revision 76019} and Giellatekno SVN\footnote{\url{https://victorio.uit.no/langtech/trunk/langs/sme}: revision 147464}.
+The lexical coverage of the system was calculated over freely available corpora of North Sámi.
+We used a recent dump of Wikipedia~\footnote{\url{http://se.wikipedia.org}} as well as a translation of the New Testament. 
+The corpora were divided into 10 parts each; the coverage numbers given are the averages of the calculated percentages of number of words analysed for each of these parts, and the standard deviation presented is the standard deviation of the coverage on each corpus.
+As shown in Table\ \ref{table:coverage}, the na\"{i}ve coverage\footnote{A non-naïve coverage would require manual evaluation of correctness for the cases where word-forms are covered accidentally by e.g., morphological processes.} of the North Sámi to Finnish MT system over the corpora approaches that of a broad-coverage MT system, with one word in ten unknown.
+
+
+\begin{table}
+\begin{tabular}{|l|r|r|r|}
+\hline
+\bf Corpus & \bf Tokens & \bf Cov. & \bf std \\
+\hline
+se.wikipedia.org & 190,894 & 76,81 \%  & $\pm$10\\  % updated numberw for in toto
+New Testament    & 162,718 & 92,45 \% & $\pm$0.06 \\  % updated numberw for in toto
+\hline 
+\end{tabular}
+\caption{Na\"{i}ve coverage of sme-fin system
+\label{table:coverage}}
+\end{table}
+
+% cat ~/big/gt/sme/corp/sewiki.txt |apertium -d. sme-fin > sewiki.mt
+% cat ~/big/gt/sme/corp/sewiki.txt |wc -w
+% cat sewiki.mt |tr ' ' '\n'|grep '^\*'|wc -l
+% ccat -l sme ~/boundcorpus/converted/sme/bible/nt/north_sami_new_testament.bible.xml.xml |apertium -d. sme-fin > nt.mt
+% ccat -l sme ~/boundcorpus/converted/sme/bible/nt/north_sami_new_testament.bible.xml.xml |wc -w
+% cat nrt.mt |tr ' ' '\n'|grep '^\*'|wc -l
+% so you may want to divide in 10 as described, I do not know whether it will improve the result.
+
+The coverage over the Wikipedia corpus is substantially worse, due to the fact that this corpus is ``dirtier'': it contains orthographical errors, wiki code~\footnote{While we have tried to clean the data from most of the Mediawiki codes and notations, there is always some left after the cleanup, due to new wiki codes after creation of the cleanup script or actual broken data}, repetitions, lot of English texts, as well as quite a few proper nouns, this is easily seen in the large deviation between divided parts.
+The New Testament on the other hand is rather well covered and has practically uniformly distributed coverage throughout.
+
+To measure the performance of the translator we used the Word Error Rate metric---an edit-distance metric based on Levenshtein distance\ \cite{levenshtein1966binary}.
+We had three small North Sámi corpora along with their manually post-edited translations into Finnish to measure the WER.
+We have chosen not to measure the translation quality with automatic measures such as BLEU, as they are not the best suited to measure quality of translations for the use case, for further details see also~\newcite{callison2006re,smith2016climbing,smith2014bleu}.
+%The first one (2,457 words total) was a  a simple story used for pedagogical purposes in a workshop on MT for the languages of Russia.
+
+For translation post-edition we used three freely available parallel texts from the internet: one from the Finnish Sámi parliament site\footnote{\url{http://samediggi.fi}}, one from a Swedish regulation of minority people and languages and the story that is used with all Apertium language pairs as initial development set (``Where is James?'').
+Table\ \ref{table:wer} presents the WER for the corpora.
+
+\begin{table}
+
+\begin{tabular}{|l|r|r|r|}
+\hline
+\bf Corpus & \bf Tokens & \bf OOV & \bf WER \\
+\hline
+Redigering.se & 1,070 & 95 & 34.24 \\
+Samediggi.fi & 570 & 33 & 36.32 \\
+The Story & 361 & 0 & 19.94 \\
+\hline
+\end{tabular}
+\caption{Word error rate over the corpora; OOV is the number of out-of-vocabulary (unknown) words.
+\label{table:wer}}
+
+\end{table}
+
+Analysing the changes in post-edition, a few classes of actual errors can be identified.
+One common example arises from the grammatical differences in the case system systems, in particular the remaining adpositions are often turned into a case suffix for the dependent noun phrase, e.g., the North Sámi ``birra'' has been turned into the Finnish adposition ``ymp\"ari'' (around), where elative case is required, similarly for the translation ``seassa'' (among) instead of inessive case.
+Also visible, especially in the story text is the lack of possessive suffix agreement e.g. ``heid\"an \"aiti'' (their mother \textsc{n sg nom}) instead of ``heid\"an \"aitins\"a'' (their mother \textsc{n sp nom/gen pxsp3}), while the former is perfectly acceptable in standard spoken Finnish it is not accepted as formal written language form.
+Another issue that appeared a number of times, maybe partially due to the genre of the texts selected, i.e. law texts, was the selection of adverb (form), e.g. the word-form ``mukana'' (with) was corrected to ``mukaan'' (according to).
+A large amount of simple lexical problems is due to the vocabulary of the selected texts as well: ``hallintoalue'' (governmental area), ``seurantavastuu'' (responsibility of surveillance), ``itsehallinto'' (autonomy), and their compounds, are all either missing or partially wrong due to lexical selections.
+
+\section{Concluding remarks}
+\label{sec:conclusions}
+
+We have presented the first MT system from Finnish to North Sámi.
+With a WER of above 30\%, it still is far from production-level performance, and it is also at the prototype-level in terms of the number of rules.
+Although the impact of this relatively low number of rules on the quality of translation is extensive (cf., the difference in WER between the development and testing corpora), the outlook is promising and the current results suggest that a high quality translation between morphologically-rich agglutinative languages is possible.
+We plan to continue development on the pair; the coverage of the system is already quite high, although we intend to increase it to 95~\% on the corpora we have
+we estimate that this will mean adding around 5,000 new stems and take 1–2 months.
+The remaining work will be improving the quality of translation by adding more rules, starting with the transfer component.
+The long-term plan is to integrate the data created with other open-source data for Uralic languages in order to make transfer systems between all the Uralic language pairs.
+Related work is currently ongoing from North Sámi to South, Lule and Inari Sámi, from North  Sámi to Norwegian, and between Finnish and Estonian.
+The system presented here is available as free/open-source software under the GNU GPL and the whole system may be downloaded from Sourceforge and the open repository of Giellatekno.
+
+
+\section*{Acknowledgements}
+\label{sec:acknowlegdements}
+\iffinal
+The work on this North Sámi-Finnish machine translation system was partially funded by the Google Summer of Code and Google Code-In programmes, and partly by a Norsk forsingsråd grant (234299) on machine translation between Sámi languages.
+\fi
+\bibliographystyle{acl}
+\bibliography{nodalida2017}
+\end{document}
