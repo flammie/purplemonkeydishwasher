@@ -1,0 +1,642 @@
+\PassOptionsToPackage{pdfpagelabels=false}{hyperref} 
+\documentclass[xetex]{beamer}
+%\documentclass[hyperref={pdfpagelabels=false}]{beamer}
+\usepackage{polyglossia} % 25pt
+\usepackage{fontspec}
+
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{multirow}
+
+\usetheme{Montpellier} %Montpellier
+\usecolortheme{beaver}
+\usepackage{color}
+\definecolor{DarkBlue}{rgb}{0.1,0.1,0.5}
+%\definecolor{Green}{rgb}{0.1,0.7,0.6}
+\definecolor{Green}{RGB}{34,139,34}
+\definecolor{Red}{rgb}{0.9,0.0,0.1}
+\definecolor{harmaa}{cmyk}{0.3,0.1,0.1,0.4}
+\definecolor{ao}{rgb}{0.36, 0.54, 0.66}
+\usepackage{linguex}
+
+\begin{document}
+\title{North Sámi to Finnish rule-based machine translation system}
+
+% Comment out for review
+\author{Ryan Johnson \and Tommi A Pirinen \and Tiina Puolakainen \\ Francis Tyers \and Trond Trosterud \and Kevin Unhammer \\ 
+%UiT Norgga \'Arktala\v{s} universitehta, Giela ja kultuvrra instituhtta, Romssa, Norga \\
+%Universit\"{a}t Hamburg, Hamburger Zentrum f\"{u}r Sprachkorpora, Deutschland \\
+%Institute of the Estonian Language, Estonia
+%ryan.txanson@gmail.com, tommi.antero.pirinen@uni-hamburg.de, \\ tiina.puolakainen@eki.ee,
+%\{francis.tyers, trond.trosterud\}@uit.no \\
+%kevin@unhammer.org
+}
+
+
+\date{}
+
+\frame{\titlepage}
+
+\frame{\frametitle{Outline of the talk}\tableofcontents} 
+
+
+\section{Introduction}
+\frame{\frametitle{Introduction}
+\begin{itemize}
+\item MT system between Finnish and North Sámi
+\item The system is bidirectional, we present North Sámi -  Finnish.
+\end{itemize}
+}
+
+\section{Previous work on Uralic MT}
+\frame{\frametitle{Previous work}
+\begin{itemize}
+\item North Sámi - Lule Sámi
+\begin{itemize}
+\item  Early work (Tyers, Wiechetek and Trosterud 2009)
+\end{itemize}
+\item North Sámi -  South Sámi
+\begin{itemize}
+\item  Test version (Antonsen and Trosterud 2013)
+\end{itemize}
+\item North Sámi -  Norwegian
+\begin{itemize}
+\item  Early system  + work on measuring  quality  of gisting (Unhammer and Trosterud 2013)
+\end{itemize}
+\item North Sámi to other Sámi (talk later today)
+\end{itemize}
+}
+
+\frame{\frametitle{Published MT systems on Uralic}
+\begin{itemize}
+\item North Sámi to Norwegian: \url{https://jorgal.uit.no/}
+\item Between Estonian, Finnish and Hungarian via English as a pivot language (Google Translate).
+\end{itemize}
+}
+
+
+
+\section{The languages: North Sámi and Finnish}
+
+
+\frame{\frametitle{The languages}
+
+\begin{itemize}
+\item  Not mutually understandable ( $\approx$ Russian - Lithuanian?)
+\item  But easy to learn the other
+\end{itemize}
+}
+
+
+\frame{\frametitle{The languages}
+
+\begin{itemize}
+\item North Sámi:
+\begin{itemize}
+\item 24.700 speakers (SIL), in Norway, Sweden and Finland 
+\item Some regional status
+\end{itemize}
+\item Finnish:
+\begin{itemize}
+\item 6 million speakers
+\item  Official state language
+\end{itemize}
+\end{itemize}
+}
+
+
+
+
+
+
+\frame{\frametitle{Phonology}
+
+
+\begin{itemize}
+\item Similar processes
+\begin{itemize}
+\item Consonant gradation
+\item Stem vowel changes
+\item Initial stress
+\end{itemize} \pause
+\item Differences
+\begin{itemize}
+\item North Sámi consonant gradation involves the vast majority of stem-internal consonant clusters, whereas the Finnish counterpart involves only the stops \textit{p, t, k}
+\item Finnish vowel length is independent of stress and consonant length, and distinctive
+\item North Sámi vowel length is rarely distinctive, and linked to syllable structure and consonant length
+\item North Sámi final vowel loss and \textit{p, t, k} neutralisation has given rise to extensive morphological homonymy
+\end{itemize}
+\end{itemize}
+}
+
+
+
+
+\frame{\frametitle{Orthography}
+
+\begin{itemize}
+\item Orthographically, Finnish and North Sámi follow different principles
+\item Finnish \textit{p, t, k}, North Sámi  \textit{b, d, g} \\ \textit{kirja : girji} ``book''. 
+\item Vowel length
+\begin{itemize}
+\item Finnish: double letter symbols. 
+\item North Sámi Length marked for $a$ / $á$
+\end{itemize}
+\item Apart from this the orthographic principles of the two languages is quite similar, 
+\item the almost total lack of free rides is a result of different phonology.
+\end{itemize}
+}
+
+
+
+\frame{\frametitle{Morphology: Verbs}
+
+
+\begin{itemize}
+\item North Sámi has a separate dual number, whereas Finnish has not.  
+\item The finite verb inflection is almost identical. \pause
+\item The infinite  verb conjugation is more different, though
+\begin{itemize}
+\item Finnish has more, and inflecting, participles
+\item Finnish has more infinitives
+\end{itemize}
+\end{itemize}
+}
+
+
+\frame{\frametitle{Morphology}
+
+
+\begin{itemize}
+\item Cases
+\begin{itemize}
+\item  North Sámi has local case IN and FROM Finnish has a 2x3 system of local cases inner/outer to/in/from cases,
+\item North Sámi has one case for the direct object (accusative), Finnish has three  (nominative, accusative and partitive).
+\end{itemize}
+\item Finnish and North Sámi have the same system of possessive suffixes, but in  North Sámi its use is  far more restricted than in Finnish.
+\end{itemize}
+}
+
+
+
+
+\frame{\frametitle{Syntax}
+
+\begin{itemize}
+\item Syntactically speaking, there are two varieties of North Sámi
+\begin{itemize}
+\item one ´´Scandinavian''
+\begin{itemize}
+\item with relative clauses, verb particles, and genitive pronouns
+\end{itemize}
+\item one ´´Finnish''
+\begin{itemize}
+\item with infinite particible/infinitive construction, verb derivation and possessive suffixes
+\end{itemize}
+\end{itemize}
+\item Translating ``Scandinavian'' Sámi into Finnish will give the output a colloquial flavour
+\end{itemize}
+}
+
+\frame{\frametitle{Agreement}
+
+\begin{itemize}
+\item Finnish adjectives agree with their head noun in case and number
+\item  North Sámi has an invariant $attribute$ form for all but one adjective, the adjective \textit{buorre} `good'
+\end{itemize}
+}
+
+
+\frame{\frametitle{Habitive constructions and E-sentences}
+
+\begin{itemize}
+\item Existential and habitive clauses have the same structure in the two languages
+\begin{itemize}
+\item  \textit{possessor.local-case copula possessed} and \textit{adverbial copula e-subject} (\textit{on me / in street is car} \\
+`I have a car/There is a car in the street')
+\end{itemize}
+\item The e-subject / possessed behaves like...
+\begin{itemize}
+\item an object in Finnish (carrying object case)
+\item a subject in North Sámi (agreeing with the verb)
+\end{itemize}
+\end{itemize}
+}
+
+
+
+
+\section{The MT system}
+
+
+\frame{\frametitle{Use of the North Sámi - Finnish MT system}
+
+\begin{itemize}
+\item The MT system fulfils different functions within and outside Finland \pause
+\begin{itemize}
+\item In Finland
+\begin{itemize}
+\item it works as a gisting systems for Finns wanting to understand North Sámi
+\item ... especially North Sámi written in Norway
+\end{itemize}
+\item In Norway and Sweden
+\begin{itemize}
+\item it may be used by North Sámi speakers to understand Finnish text. 
+\end{itemize}
+\end{itemize} \pause
+\item In principle, the system may also be used for North Sámi to Finnish text production
+\begin{itemize}
+\item ... but the use cases are few, and the quality still way too low
+\end{itemize}
+\end{itemize}
+}
+
+
+
+
+\frame{\frametitle{The Apertium system}
+
+\begin{itemize}
+\item The Apertium machine translation platform
+\item originally aimed at the Romance languages of the Iberian peninsula
+\item has also been adapted for other, more distantly related, language pairs.
+\item Licensed under General Public Licence (GPL) and all the software and data is available for download from the project website.
+\end{itemize}
+}
+
+\subsection{Architecture of the system}
+
+\frame{\frametitle{Architecture of the system}
+
+
+The Apertium translation engine consists of a Unix-style pipeline or assembly line with the following modules
+}
+
+\frame{\frametitle{}
+
+\begin{figure}
+\includegraphics[height=.92\textheight]{Apertium-structure}
+\caption{Apertium structure (Image from apertium wiki by user Rcrowther)
+\url{http://wiki.apertium.org/wiki/Workflow_diagram}
+\label{fig:apertium}}
+\end{figure}
+}
+
+\frame{\frametitle{Apertium pipeline}
+\begin{itemize}
+\item \textbf{Deformatter:} encapsulates format information of the input \pause
+\item \textbf{Morphological analyser:} gives lexical forms(s) (LF) consisting of lemma + analysis. \pause
+\item \textbf{Morphological disambiguator (CG):} chooses the most adequate morphological analysis for an ambiguous sentence. \pause
+\item \textbf{Lexical transfer module:} Looks up each LF in the bilingual dictionary and translates it \pause
+\item \textbf{Lexical selection:} chooses the most adequate translation of ambiguous source language LFs.  \pause
+\item \textbf{Structural transfer:} performs local syntactic operations on LF patterns. \pause
+\item \textbf{Morphological generator:} generates a TL SF for each TL LF \pause
+\item \textbf{Reformatter:} de-encapsulates any format information.
+\end{itemize}
+}
+
+
+\frame{\frametitle{Example}
+
+
+Translation process for the North Sámi phrase:
+
+\textit{Sámegielat leat gielat maid sámit hállet} \\
+
+(The Sámi languages are the languages that the Sámis speak)
+}
+
+\frame{\frametitle{}
+\begin{table}
+\begin{tiny}
+\begin{tabular}{|l|}
+\hline
+\^{}Sámegielat/sámegielat<adj><attr>/sámegielat<adj><sg><nom>/ \\
+sámegiella<n><pl><nom>/ sámegiella<n><sg><acc><px2sg>/ \\
+sámegiella<n><sg><gen><px2sg>/ sámegiella<n> <sg><acc><px2sg>/ \\
+sámegiella<n><sg><gen><px2sg>\$ \\ 
+\\
+\^{}leat/leat<vblex><iv><indic><pres><conneg>/ \\
+leat<vblex><iv><indic><pres><p1><pl>/leat<vblex><iv><indic><pres><p2><sg>/ \\ 
+leat<vblex><iv><indic><pres><p3><pl>/leat<vblex><iv><inf>\$ \\
+\\
+\^{}gielat/giella<n><pl><nom>/giella<n><sg><acc><px2sg>/ \\
+giella<n><sg><gen><px2sg>/giella<n><sg><acc><px2sg>/\\ 
+giella<n><sg><gen><px2sg>\$ \\
+\\
+\^{}maid/maid<adv>/mii<prn><itg><pl><acc>/ \\
+mii<prn><itg><pl><gen>/mii<prn><itg><sg><acc>/ mii<prn><rel><pl><acc>/ \\
+mii<prn><rel><pl><gen>/mii<prn><rel><sg><acc>\$ \\
+\\
+\^{}sámit/sápmi<n><pl><nom>/sápmi<n><pl><nom>\$ \\
+\\
+\^{}hállet/hállat<vblex><tv><imp><p2><pl>/ \\
+hállat<vblex><tv><indic><pres><p3><pl>/hállat<vblex><tv><indic><pret><p2><sg>\$ \\
+\^{}./.<sent>\$
+\\
+\hline 
+\end{tabular}
+%\caption{Translation process for the North Sámi phrase \\
+%\textit{Sámegielat leat gielat maid sámit hállet} \\
+%(The Sámi languages are the languages that the Sámis speak)
+%\label{table:translation1}}
+\end{tiny}
+\end{table}
+}
+
+
+\frame{\frametitle{}
+\begin{table}
+\begin{small}
+\begin{tabular}{|l|}
+
+\hline
+\^{}Sámegielat/sámegiella<n><pl><nom><@SUBJ$\rightarrow$>\$ \\
+\\
+\^{}leat/leat<vblex><iv><indic><pres><p3><pl> <@+FMAINV>\$ \\
+\\
+\^{}gielat/giella<n><pl><nom> <@$\leftarrow$SPRED>\$ \\
+\\
+\^{}maid/mii<prn><rel><pl><acc> <@OBJ$\rightarrow$>\$ \\
+\\
+\^{}sámit/sápmi<n><pl><nom><@SUBJ$\rightarrow$>\$ \\
+\\
+\^{}hállet/hállat<vblex><tv><indic><pres><p3><pl><@+FMAINV>\$ \\
+\^{}./.<sent>\$
+\\
+\hline 
+\end{tabular}
+\caption{Morphological disambiguation
+\label{table:translation2}}
+\end{small}
+\end{table}
+}
+
+
+
+
+
+\frame{\frametitle{}
+\begin{table}
+\begin{small}
+\begin{tabular}{|l|}
+\hline
+\^{}Sámegiella<n><pl><nom><@SUBJ$\rightarrow$>/ \\
+Saamekieli<n><pl><nom><@SUBJ$\rightarrow$>/Saame<n><pl><nom><@SUBJ$\rightarrow$>\$ \\
+\\
+\^{}leat<vblex><iv> <indic><pres><p3><pl><@+FMAINV>/ \\
+olla<vblex> <actv><indic><pres><p3><pl><@+FMAINV>/ \\
+sijaita<vblex> <actv><indic><pres><p3><pl><@+FMAINV>\$ \\
+\\
+\^{}giella<n> <pl><nom> <@$\leftarrow$SPRED>/kieli<n><pl><nom> <@$\leftarrow$SPRED>/ \\ 
+ansa<n><pl><nom><@$\leftarrow$SPRED>\$ \\
+\\
+\^{}mii<prn><rel><pl><acc><@OBJ$\rightarrow$>/mikä<prn><rel><pl><par><@OBJ$\rightarrow$>\$ \\
+\\
+\^{}sápmi<n><pl><nom><@SUBJ$\rightarrow$>/saamelainen<n><pl><nom> <@SUBJ$\rightarrow$>\$ \\
+\\
+\^{}hállat<vblex><tv><indic><pres><p3><pl><@+FMAINV>/ \\
+puhua<vblex><actv><indic><pres><p3><pl><@+FMAINV>/ \\
+mekastaa<vblex><actv><indic><pres><p3><pl><@+FMAINV>\$\^{}.<sent>/.<sent>\$
+\\
+\hline
+\end{tabular}
+\caption{Lexical translation
+\label{table:translation3}}
+\end{small}
+\end{table}
+}
+
+
+
+\frame{\frametitle{}
+\begin{table}
+\begin{small}
+\begin{tabular}{|l|}
+\hline
+\bf North Sámi input: \\
+Sámegielat leat gielat maid sámit hállet. \\
+\hline
+\hline
+\^{}Saamekieli<n><pl><nom>\$ \\
+\^{}olla<vblex><actv><indic><pres><p3><pl>\$ \\
+\^{}kieli<n><pl><nom>\$ \\
+\^{}mik\"{a}<prn><rel><pl><par>\$ \\
+\^{}saamelainen<n><pl><nom>\$ \\
+\^{}puhua<vblex><actv><indic><pres><p3><pl>\$\^{}.<sent>\$
+\\
+\hline 
+\end{tabular}
+\caption{Structural transfer
+\label{table:translation4}}
+\end{small}
+\end{table}
+
+\begin{table}
+\begin{small}
+\begin{tabular}{|l|}
+\hline
+Saamekielet ovat kielet mit\"{a} saamelaiset puhuvat \\
+\hline 
+\end{tabular}
+\caption{Finnish translation
+\label{table:translation}}
+\end{small}
+\end{table}
+}
+
+\subsection{Morphological transducers}
+
+\frame{\frametitle{Morphological transducers}
+
+\begin{itemize}
+\item transducers are compiled with HFST -- a free/open-source  reimplementation of the Xerox finite-state tool-chain \pause
+\item It implements lexc for stems and concatenative morphology, and the twolc and xfst scripting languages for modeling morphophonological rules. \pause
+\item The morphologies of both languages are implemented in lexc, and the morphophonologies of both languages are implemented in twolc.
+\end{itemize}
+}
+
+\frame{\frametitle{Analysis vs. generation}
+\begin{itemize}
+\item The same morphological description is used for both analysis and generation. \pause
+\item To avoid overgeneration, any alternative forms are marked with one of two marks, LR (only analyser) or RL (only generator). \pause
+\item Instead of the usual compile/invert to compile the transducers, we compile twice, once the generator, without the LR paths, and then again the analyser without the RL paths.
+\end{itemize}
+}
+
+\subsection{Bilingual lexicon}
+
+\frame{\frametitle{Bilingual lexicon}
+
+\begin{itemize}
+\item Bilingual lexicon: 19,415 stem-to-stem correspondences (half = proper nouns)
+\item it was built upon
+\begin{itemize}
+\item an available North Sámi - Finnish dictionary, 
+\item supplemented by manual work
+\item The proper nouns were taken from existing lexical resources.
+\end{itemize}
+\end{itemize}
+}
+
+
+\subsection{Disambiguation rules}
+
+\frame{\frametitle{Disambiguation rules}
+
+\begin{itemize}
+\item Morphological disambiguation module (Constraint Grammar)
+\item Output of each morphological analyser is ambiguous
+\begin{itemize}
+\item 2.4 morphological analyses per form for Finnish
+\item 2.6 morphological analyses per form for North Sámi
+\end{itemize}
+\item The goal of the CG rules is to select the correct analysis when there are multiple analyses.
+\end{itemize}
+}
+
+\frame{\frametitle{Similarity between Finnish and North Sámi}
+
+\begin{itemize}
+\item ambiguity across parts of speech may often be passed from one SL to TL
+\item Disambiguating between forms within the inflectional paradigms in case of homonymy, on the other hand, are crucial for choosing the correct form of the target language
+\item CG rules to resolve ambiguity for North Sámi
+\begin{itemize}
+\item Ambiguity is down to 1.08 for North Sámi
+\item ... and to 1.36 for Finnish
+\end{itemize}
+\end{itemize}
+}
+
+\section{Evaluation}
+
+\frame{\frametitle{Examples}
+{\tiny (from Yle Sapmi 2017-05-23)}\\
+Sámediggi nuoraidráđđi lea ožžon 15000 euro sturrosaš ruhtadeami dán jahkái DigiÁrran-prošektii. Nuoraidčálli Kati Eriken muitala, ahte digitálalaš nuoraidbargu oaivvilda nuoraidbarggu mii geavaha ávkin digitálalaš reaidduid.\\
+\vfill
+\alert<3>{Saamelaiskäräjät} nuorisoneuvosto on saanut \alert<3>{15000:ta} euron suuruisen rahoituksen \alert<3>{tähän vuoteen} \alert<1>{*DigiÁrran}-projektiin. Nuorisosihteeri Kati \alert<1>{*Eriken} kertoo, että \alert<2>{*digitálalaš} \alert<4>{nuorienteos} tarkoittaa \alert<4>{nuorienteosta} mikä käyttää etuna \alert<2>{*digitálalaš} työkaluja.
+\vfill
+\only<1>{Missing Proper nouns (sometimes do not count as error)}
+\only<2>{Missing other words}
+\only<3>{Wrong inflections}
+\only<4>{re-compounding oddities}
+\only<5>{Word-Error Rate: 0.32}
+}
+
+\frame{\frametitle{Coverage}
+
+
+
+\begin{table}
+\begin{tabular}{|l|r|r|r|}
+\hline
+\bf Corpus & \bf Tokens & \bf Cov. & \bf std \\
+\hline
+se.wikipedia.org & 190,894 & 76,81 \%  & $\pm$10\\  % updated numberw for in toto
+New Testament    & 162,718 & 92,45 \% & $\pm$0.06 \\  % updated numberw for in toto
+\hline 
+\end{tabular}
+\caption{Na\"{i}ve coverage of sme-fin system
+\label{table:coverage}}
+\end{table}
+
+}
+
+
+\frame{\frametitle{OOV WER}
+
+\begin{table}
+\begin{tabular}{|l|r|r|r|}
+\hline
+\bf Corpus & \bf Tokens & \bf OOV & \bf WER \\
+\hline
+Redigering.se & 1,070 & 95 & 34.24 \\
+Samediggi.fi & 570 & 33 & 36.32 \\
+The Story & 361 & 0 & 19.94 \\
+\hline
+\end{tabular}
+\caption{Word error rate over the corpora; OOV is the number of out-of-vocabulary (unknown) words.
+\label{table:wer}}
+\end{table}
+}
+
+\frame{\frametitle{Error Analysis}
+Problematic errors:
+\begin{itemize}
+\item Adposition <-> case:
+	\begin{itemize}
+	\item (sme) ``birra''  -> (fin) ``ymp\"ari'' (around), should be:
+    \item (sme) -> (fin) ``seassa'', should be:
+	\end{itemize}
+\item Possessive congruence:
+	\begin{itemize}
+	\item (sme) ``''  -> (fin) ``heidän äiti'' (around), should be: ``heidän äitinsä''
+	\end{itemize}
+\item Lexical:
+	\begin{itemize}
+	\item  ``hallintoalue'' (governmental area), ``seurantavastuu'' (responsibility of surveillance), ``itsehallinto'' (autonomy),
+	\end{itemize}
+\item Others: \begin{itemize}
+	\item  ``mukana'' (with) was corrected to ``mukaan'' (according to). 
+	\end{itemize}
+\end{itemize}
+can be fixed easily
+}
+
+
+\frame{\frametitle{Error Analysis}
+Smaller problems:
+\begin{itemize}
+\item object case selection:
+	\begin{itemize}
+	\item (sme) `` Máret geahččá \textit{eatnis}''  -> (fin)``Mari katsoo \textit{äitinsä}'' should be ``...äitiänsä'' 
+    \item (sme) ``''  -> (fin) ``hän näkee \textit{pientä kättäkin}'' should be ``...pienen kädenkin'' 
+	\end{itemize}
+\item Possessive congruence:
+	\begin{itemize}
+	\item (sme) ``''  -> (fin) ``heidän äiti'' (around), should be: ``heidän äitinsä''
+	\end{itemize}
+\item Lexical:
+	\begin{itemize}
+	\item  ``hallintoalue'' (governmental area), ``seurantavastuu'' (responsibility of surveillance), ``itsehallinto'' (autonomy),
+	\end{itemize}
+\item Others: \begin{itemize}
+	\item  ``mukana'' (with) was corrected to ``mukaan'' (according to). 
+	\end{itemize}
+\end{itemize}
+
+}
+
+
+\section{Conclusion}
+
+\frame{\frametitle{Conclusion}
+
+\begin{itemize}
+\item We have presented the first MT system from Finnish to North Sámi.
+\item It is still a prototype
+\begin{itemize}
+\item With a WER of above 30\%
+\item and few rules.
+\end{itemize}
+\item the outlook is promising 
+\item a high quality translation between morphologically-rich agglutinative languages is possible.
+\item We plan to continue development on the pair; 
+\item the coverage of the system is already quite high, 
+ we intend to increase it to 95~\% on the corpora we have
+\item we estimate that this will mean adding around 5,000 new stems and take 1–2 months.
+\item The remaining work will be improving the quality of translation by adding more rules, starting with the transfer component.
+\item The long-term plan is to integrate the data created with other open-source data for Uralic languages in order to make transfer systems between all the Uralic language pairs.
+\item Related work is currently ongoing from North Sámi to South, Lule and Inari Sámi, from North  Sámi to Norwegian, and between Finnish and Estonian.
+\item The system presented here is available as free/open-source software under the GNU GPL and the whole system may be downloaded from Sourceforge and the open repository of Giellatekno.
+\end{itemize}
+}
+
+
+\frame{\frametitle{Acknowledgements}
+
+The work on this North Sámi-Finnish machine translation system was partially funded by the Google Summer of Code and Google Code-In programmes, and partly by a Norsk forskingsråd grant (234299) on machine translation between Sámi languages.
+}
+\end{document}
+
+
