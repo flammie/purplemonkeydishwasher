@@ -53,6 +53,9 @@ their incoming citations.
 
 ###  Publications in conferences and journals
 
+1. **Tommi Pirinen**,  Francis M. Tyers,  Trond Trosterud, Ryan Johnson,
+   Kevin Unhammer,  Tiina Puolakainen (2017a, equal contribution) *North-Sámi to
+   Finnish rule-based machine translation system*
 1. **Tommi A Pirinen**, Eszter Simon, Francis M Tyers, Veronika Vincze, (2016c),
    *Report on the Second International Workshop on Computational Linguistics for
    Uralic languages*, in Finno-Ugric languages and linguistics,
