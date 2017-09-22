@@ -51,8 +51,13 @@ scholar](https://scholar.google.com) offers a great way to [browse my
 publications](http://scholar.google.com/citations?user=XNOLAagAAAAJ) and see
 their incoming citations.
 
+Here is a [bib-file of all my publications](bibs/pirinen.bib), it may or may not
+be as accurat and up-to-date as google scholar.
+
 ###  Publications in conferences and journals
 
+1. **Tommi A Pirinen**, Hanna Hedeland, Daniel Jettka (2017b), *Developing a
+   CLARIN compatible AAI solution for academic and restricted resources*.
 1. **Tommi Pirinen**,  Francis M. Tyers,  Trond Trosterud, Ryan Johnson,
    Kevin Unhammer,  Tiina Puolakainen (2017a, equal contribution) *North-Sámi to
    Finnish rule-based machine translation system*
@@ -225,18 +230,19 @@ work at university and sparetime hobbies related to science:
     web as corpus, we built during abumatran project.
  * [Omorfi](https://flammie.github.io/omorfi)–Open source morphology of Finnish,
    a project I started as master's thesis and am still helping maintaining
- * [HFST–Helsinki Finite-State Technology](https://hfst.github.io), my previous
-   research project, useful set of finite-state morphology handling tools,
+ * [HFST–Helsinki Finite-State Technology](https://hfst.github.io), the research
+   project I participated in while in Uni. Helsinki, a very useful set of
+   finite-state NLP tools and stuff
  * [Apertium](http://apertium.org) machine translation, The platform for open
-   source rule based machine translation, I develop bunch of Finnic pairs every
+   source rule based machine translation, I develop a bunch of Finnic pairs every
    once in a while
- * [Giellatekno](http://giellatekno.uit.no) at Tromsö university, a repository of
+ * [Giellatekno](http://giellatekno.uit.no) at Tromsø university, a repository of
    finite-state morphology and such language descriptions, includes Finnish and
    infra components I designed to upgrade finite-state morphology towards 21st
    century software engineering style
  * *HFST ospell*, spell-checking and correcting library for finite-state automata
-   I've spun off from main HFST library with help of local colleagues.
- *
+   I spun off from the main HFST library with help of my colleagues, now
+   maintained by HFST team
 
 ### Courses I've taught or TA'd
 
