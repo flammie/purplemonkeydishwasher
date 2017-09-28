@@ -146,6 +146,8 @@ be as accurat and up-to-date as google scholar.
    Existing Hunspell Dictionaries and T_E_X Hyphenators as
    Finite-State Automata*, in Proceedings of International
    Multiconference in Computer Science and Information Technology
+   [TeX version](2010-cla/Pirinen-2010-cla.tex),
+   [HTML (LaTeXML) version](2010-cla/Pirinen-2010-cla.html)
 22. **Tommi A Pirinen**, Krister Lindén (2010a), *Finite-State
    Spell-Checking with Weighted Language and Error Models*, , in
    Proceedings of Workshops of Language Resources and Evaluation
