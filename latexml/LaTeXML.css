@@ -87,7 +87,7 @@
 /*======================================================================
   Para level */
 .ltx_float {
-    margin: 1ex 3em 1ex 3em; }    
+    margin: 1ex 3em 1ex 3em; }
 td.ltx_subfigure,
 td.ltx_subtable,
 td.ltx_subfloat { width:50%; }
@@ -197,7 +197,7 @@ dl.ltx_description dl.ltx_description dd { margin-left:3em; }
 .ltx_lst_numbers_left .ltx_listingline .ltx_tag {
     background-color:transparent;
     margin-left:-3em; width:2.5em;
-    position:absolute; 
+    position:absolute;
     text-align:right; }
 .ltx_lst_numbers_right .ltx_listingline .ltx_tag {
     background-color:transparent;
@@ -295,7 +295,7 @@ span.ltx_rowspan { position:absolute; top:0; bottom:0; }
 .ltx_note_content {
      max-width: 70%; font-size:90%; left:15%;
      text-align:left;
-     background-color: white; 
+     background-color: white;
      padding: 0.5em 1em 0.5em 1.5em;
      border: 1px solid black; border-radius: 0 5px 5px 5px; box-shadow: 5px 5px 10px gray; }
 .ltx_note_mark    { color:blue; }
@@ -308,7 +308,7 @@ span.ltx_rowspan { position:absolute; top:0; bottom:0; }
 
 .ltx_ERROR        { color:red; }
 .ltx_rdf          { display:none; }
-.ltx_missing      { color:red;} 
+.ltx_missing      { color:red;}
 .ltx_nounicode    { color:red; }
 /*======================================================================
  SVG (pgf/tikz ?) basics */
@@ -322,9 +322,9 @@ span.ltx_rowspan { position:absolute; top:0; bottom:0; }
  Low-level Basics */
 /* Note that LaTeX(ML)'s font model doesn't map quite exactly to CSS's */
 /* Font Families => font-family */
-.ltx_font_serif      { font-family: serif; }
-.ltx_font_sansserif  { font-family: sans-serif; }
-.ltx_font_typewriter { font-family: monospace; }
+.ltx_font_serif      { font-family: "Linux Libertine", "Liberation Serif", serif; }
+.ltx_font_sansserif  { font-family: "Ubuntu", "Oxygen", "Cantarell", sans-serif; }
+.ltx_font_typewriter { font-family: "Terminus", monospace; }
 /* dingbats should be converted to unicode? */
 /* Math font families handled within math: script, symbol, fraktur, blackboard ? */
 /* Font Series => font-weight */
@@ -336,7 +336,7 @@ span.ltx_rowspan { position:absolute; top:0; bottom:0; }
 .ltx_font_slanted    { font-style: oblique; font-variant:normal; }
 .ltx_font_smallcaps  { font-variant: small-caps; font-style:normal; }
 .ltx_font_oldstyle   { font-variant: oldstyle-nums;  /* experimental css3 ? Doesn't seem to work!*/
-                       font-style:normal; 
+                       font-style:normal;
                        -moz-font-feature-settings: "onum";
                        -ms-font-feature-settings: "onum";
                        -webkit-font-feature-settings: "onum";
