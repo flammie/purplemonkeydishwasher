@@ -164,6 +164,8 @@ be as accurat and up-to-date as google scholar.
    *HFST Tools for morphology—An Efficient Open-Source Pacakge for
    Construction of Morphological Analyzers* in Proceedings of Workshop
    on Systems and Frameworks for Computational Morphology
+   [TeX version](2009-sfcm/Pirinen-2009-sfcm.tex),
+   [HTML (LaTeXML) version](2009-sfcm/Pirinen-2009-sfcm.html)
 
 ### Theses
 
