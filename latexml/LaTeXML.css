@@ -374,3 +374,10 @@ cite                 { font-style: normal; }
 
 /* .ltx_phantom handled in xslt */
 
+
+/* Flammie’s additions */
+
+body {
+    background-image: url("../authors-draft.png");
+}
+
