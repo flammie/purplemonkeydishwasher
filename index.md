@@ -156,6 +156,8 @@ be as accurat and up-to-date as google scholar.
 24. Krister Lindén, **Tommi A Pirinen** (2009b), *Weighting Finite-State
    Morphological Analyzers using HFST tools*, in Pre-proceedings of
    FSMNLP 2009
+   [TeX version](2009-fsmnlp/Pirinen-2009-fsmnlp.tex),
+   [HTML (LaTeXML) version](2009-fsmnlp/Pirinen-2009-fsmnlp.html)
 25. Krister Lindén, Miikka Silfverberg, **Tommi A Pirinen** (2009c),
    *HFST Tools for morphology—An Efficient Open-Source Pacakge for
    Construction of Morphological Analyzers* in Proceedings of Workshop
