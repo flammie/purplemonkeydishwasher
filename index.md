@@ -153,6 +153,8 @@ be as accurat and up-to-date as google scholar.
 23. Krister Lindén, **Tommi A Pirinen** (2009a), *Weighted Finite-State
    Morphological Analysis of Finnish Compounding with hfst-lexc*, in
    Proceedings of Nodalida 2009 presentation in PDF]
+   [TeX version](2009-nodalida/Pirinen-2009-nodalida.tex),
+   [HTML (LaTeXML) version](2009-nodalida/Pirinen-2009-nodalida.html)
 24. Krister Lindén, **Tommi A Pirinen** (2009b), *Weighting Finite-State
    Morphological Analyzers using HFST tools*, in Pre-proceedings of
    FSMNLP 2009
