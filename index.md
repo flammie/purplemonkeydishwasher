@@ -166,6 +166,8 @@ be as accurat and up-to-date as google scholar.
 1. **Tommi Pirinen** (2008), *Suomen kielen äärellistilainen
    automaattinen morfologinen analyysi avoimen lähdekoodin menetelmin*,
    Master's Thesis, University of Helsinki (in Finnish)
+   [TeX version](2008-masters-thesis/Pirinen-2008-masters-thesis.tex),
+   [HTML (LaTeXML) version](2008-masters-thesis/Pirinen-2008-masters-thesis.html)
 2. **Tommi A Pirinen** (2014), *Weighted Finite-State Methods in
    Spell-Checking and Correction*, Doctoral dissertation, University of
    Helsinki
