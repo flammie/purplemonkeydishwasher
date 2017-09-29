@@ -142,6 +142,8 @@ be as accurat and up-to-date as google scholar.
 20. **Tommi A Pirinen**, Krister Lindén (2010c), *Creating and Weighting
    Hunspell Dictionaries as Finite-State Automata* , in Investigationes
    Linguisticae (19).
+   [TeX version](2010-investigationes-linguisticae/Pirinen-2010-il.tex),
+   [HTML (LaTeXML) version](2010-investigationes-linguisticae/Pirinen-2010-il.html)
 21. **Tommi A Pirinen**, Krister Lindén (2010b), *Building and Using
    Existing Hunspell Dictionaries and T_E_X Hyphenators as
    Finite-State Automata*, in Proceedings of International
