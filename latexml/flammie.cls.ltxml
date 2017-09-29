@@ -1,0 +1,35 @@
+# -*- mode: Perl -*-
+# /=====================================================================\ #
+# |  article                                                            | #
+# | Implementation for LaTeXML                                          | #
+# |=====================================================================| #
+# | Part of LaTeXML:                                                    | #
+# |  Public domain software, produced as part of work done by the       | #
+# |  United States Government & not subject to copyright in the US.     | #
+# |---------------------------------------------------------------------| #
+# | Bruce Miller <bruce.miller@nist.gov>                        #_#     | #
+# | http://dlmf.nist.gov/LaTeXML/                              (o o)    | #
+# \=========================================================ooo==U==ooo=/ #
+package LaTeXML::Package::Pool;
+use strict;
+use warnings;
+use LaTeXML::Package;
+
+foreach my $option (qw(screen kindle
+    private free preprint postprint
+  )) {
+  DeclareOption($option, undef); }
+
+LoadClass('article');
+
+DefMacro('\footnotepubrights', '\footnote');
+
+# RequirePackage('polyglossia');
+# RequirePackage('polyglossia');
+# RequirePackage('polyglossia');
+# RequirePackage('polyglossia');
+# RequirePackage('polyglossia');
+RequirePackage('url');
+RequirePackage('hyperref');
+# SetMainFont(Liberation Serif)
+1;
