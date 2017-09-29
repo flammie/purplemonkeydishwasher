@@ -75,6 +75,8 @@ be as accurat and up-to-date as google scholar.
 1. **Tommi A Pirinen** (2015e) *Development and Use of Computational Morphology
    of Finnish in the Open Source and Open Science Era: Notes on Experiences
    with Omorfi Development.* SKY Journal of Linguistics.
+   [TeX version](2014-sky-omorfi/Pirinen-2015-sky-omorfi.tex),
+   [HTML (LaTeXML) version](2014-sky-omorfi/Pirinen-2015-sky-omorfi.html)
 4. Antonio Toral, Xiaofeng Wu, **Tommi Pirinen**, Zhengwei Qiu, Ergun
    Bicici and Jinhua Du (2015d) *Dublin City University at the
    TweetMT 2015 Shared Task* in Proceedings of TweetMT shared task at
@@ -106,6 +108,8 @@ be as accurat and up-to-date as google scholar.
    Lexicons*, in Proceedings of LREC 2014
 11. **Tommi A Pirinen**, Krister Lindén (2014a) *State-of-the-art in
    Weighted Finite-State Spell-Checking* in Proceedings of CICLing 2014
+   [TeX version](2014-cicling/Pirinen-2014-cicling.tex),
+   [HTML (LaTeXML) version](2014-cicling/Pirinen-2014-cicling.html)
 12. Sjur Moshagen, **Tommi A Pirinen**, Trond Trosterud (2013a)
    *Building an open-source development infrastructure for language
    technology projects*, in Proceedings of Nodalida 2013

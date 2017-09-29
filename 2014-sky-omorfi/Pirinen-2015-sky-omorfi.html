@@ -1,0 +1,873 @@
+<!DOCTYPE html><html>
+<head>
+<title>1</title>
+<!--Generated on Fri Sep 29 14:31:42 2017 by LaTeXML (version 0.8.2) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Document created on .-->
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../latexml/LaTeXML.css" type="text/css">
+<link rel="stylesheet" href="../latexml/ltx-article.css" type="text/css">
+</head>
+<body>
+<div class="ltx_page_main">
+<div class="ltx_page_content">
+<article class="ltx_document ltx_authors_1line">
+<h1 class="ltx_title ltx_title_document">Development and Use of Computational Morphology of Finnish in
+the Open Source and Open Science Era—Notes on Experiences with Omorfi
+Development<span class="ltx_ERROR undefined">\footnotepubrights</span>The official publication in 2016, from doc
+format version, will differ quite a bit in formatting.</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Tommi A Pirinen
+<br class="ltx_break">Dublin City University
+<br class="ltx_break">ADAPT—School of Computing
+</span></span>
+</div>
+<div class="ltx_date ltx_role_creation"></div>
+
+<div class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+
+<p class="ltx_p">This article describes a contemporary system for the computational
+modeling of the morphology of Finnish word-forms called Omorfi. The
+purpose of this article is to present new developments and open
+development model of the morphological analysis of Finnish to the
+linguistic audience. We also describe some of the advances from the
+earlier analysers. The article shows Omorfi as a full-fledged, stable
+system for real-world usage in linguistic research and computational
+linguistics applications, as opposed to presenting a new technological
+feature in a limited experiment. We describe results from experimenting
+the system in large-scale linguistic analysis setting. We also present a
+selection of real-world use cases for the morphological analysers that
+have affected the development of Omorfi.</p>
+
+<p class="ltx_p">Our system is based fully on free and open source data and methods. This
+has brought forth some new possibilities to the lexicographical data collection using
+crowdsourced dictionary Wiktionary, as well as statistical modelling
+with e.g., the Wikipedia data. One of the reasons of this article is to
+describe the successful use of the community-driven development model in
+Omorfi, including crowd-sourcing as well as independent expert
+contributions.</p>
+
+<p class="ltx_p">We evaluated our analyser to give a rough idea of its usefulness and
+applications in linguistic work. To do this, we processed large text
+corpora with Omorfi and verified that only 1 % of the word-forms
+remains unknown to the system. Omorfi was also verified to match the
+FinnTreeBank 3.1 standard analyses at 93 % faithfulness per token
+count.</p>
+
+</div>
+<span class="ltx_ERROR undefined">\titleformat</span>
+<div id="p1" class="ltx_para">
+<p class="ltx_p">*</p>
+</div>
+<section id="S1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section"></h2>
+<span class="ltx_tag ltx_tag_document">1</span><span class="ltx_ERROR undefined">\titleformat</span>
+<div id="S1.p1" class="ltx_para">
+<p class="ltx_p">*</p>
+</div>
+<section id="S1.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection"></h3>
+<span class="ltx_tag ltx_tag_section">1.1</span>
+</section>
+</section>
+<section id="S2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2 </span>Introduction</h2>
+
+<div id="S2.p1" class="ltx_para">
+<p class="ltx_p">Computational morphological models and management of lexicographical data
+are a central component for most of the computational applications of
+linguistic analysis. Computational morphology of the Finnish language was
+first described some 30 years ago <cite class="ltx_cite ltx_citemacro_citep">(Koskenniemi, <a href="#bib.bib4" title="Two-level morphology: a general computational model for word-form recognition and production" class="ltx_ref">1983</a>)</cite>. The aim
+of this article is to present Omorfi<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup>
+<a href="https://github.com/flammie/Omorfi/" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/flammie/Omorfi/</a></span></span></span> as a matured scientific project
+involving contributions from scientific community as well as crowd-sourced
+lexicographical additions, as a full-fledged project for managing
+lexicographical database on one hand and its natural language parser on the
+other hand. We will discuss our approach to lexicography and parser
+building in collaboration with crowds and experts. On technical side, we
+highlight some of the new features in the parser, especially from the point
+of view of linguists and end-users. The new features of the system at large,
+that we bring to focus in the article consists of two items: the
+inter-operation of statistical and rule-based parsing methods and the open
+development model.</p>
+</div>
+<div id="S2.p2" class="ltx_para">
+<p class="ltx_p">This article records a state of the state-of-the-art morphological analysis
+of Finnish. For a system overview in the article to be interesting and
+usable, we only highlight the long-term design goals of the system instead
+of transitional and volatile features of a fast-moving computer software
+that is developed by a base of open-source and language
+enthusiasts.<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">2</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">2</sup>for up-to-date documentation for implementation
+details and rapidly changing features, the project web site is the place
+to go: <a href="https://github.com/flammie/omorfi/wiki" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/flammie/omorfi/wiki</a></span></span></span></p>
+</div>
+<div id="S2.p3" class="ltx_para">
+<p class="ltx_p">The scientific advances within the development of the various features of
+Omorfi have been documented in scientific publications in various fora. The
+main advance to previous systems is the introduction of statistical language
+parsing component (c.f. <cite class="ltx_cite ltx_citemacro_citet">Manning and Schütze (<a href="#bib.bib38" title="Foundations of statistical natural language processing" class="ltx_ref">1999</a>)</cite>), including it’s combination with
+traditional rule-based model. The novelty in this article is not in singular
+experiments gone into Omorfi but a large-coverage system composed of all the
+state-of-the-art results in the field of computational morphology in
+weighted finite-state and relate technologies. This is, to our knowledge,
+one of the only on-going, mature, high-coverage statistical-rule based
+finite-state natural language parser, developed and used jointly by
+scientists, engineers and open source contributors via crowd-sourcing.</p>
+</div>
+<div id="S2.p4" class="ltx_para">
+<p class="ltx_p">One notable practical distinction in our system is its licensing policy. Omorfi
+analyser is a free and open source product. In contemporary computational
+linguistics, freeness of systems and data is rightly seen as a cornerstone of
+properly conducted science, as it fulfills the requirement of repeatability by
+not setting unnecessary fences for the repetition of the scientific results.
+There is a large base of recent research supporting this, specifically for
+Finnish the latest is by <cite class="ltx_cite ltx_citemacro_citet">Koskenniemi (<a href="#bib.bib7" title="How to build an open source morphological parser now" class="ltx_ref">2008</a>)</cite>. For computer-savvy end
+users this means that the tools necessary to perform linguistic analysis with
+Omorfi can be downloaded to and used on any average PC. There is an
+installation in the data centers of CSC maintained by CSC
+staff,<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">3</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">3</sup><a href="http://www.csc.fi/english/research/sciences/linguistics" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://www.csc.fi/english/research/sciences/linguistics</a></span></span></span>
+that is available for researchers.</p>
+</div>
+</section>
+<section id="S3" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">3 </span>Prior and Related Work</h2>
+
+<div id="S3.p1" class="ltx_para">
+<p class="ltx_p">Omorfi is based on the tradition of finite-state morphologies, a theoretical
+framework laid out by <cite class="ltx_cite ltx_citemacro_citet">Koskenniemi (<a href="#bib.bib4" title="Two-level morphology: a general computational model for word-form recognition and production" class="ltx_ref">1983</a>)</cite>. While our implementation
+is not directly related and was written from the scratch, Omorfi was created in
+the context of University of Helsinki, parallel to a project to update,
+open-source and maintain the software necessary to build systems akin original
+two-level morphology <cite class="ltx_cite ltx_citemacro_citep">(Lindén<span class="ltx_text ltx_bib_etal"> et al.</span>, <a href="#bib.bib22" title="Using HFST for creating computational linguistic applications" class="ltx_ref">2012</a>)</cite>.<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">4</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">4</sup><a href="http://hfst.sf.net" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://hfst.sf.net</a></span></span></span>
+Omorfi roots are in a master’s thesis project <cite class="ltx_cite ltx_citemacro_citep">(Pirinen, <a href="#bib.bib5" title="Suomen kielen Ã¤Ã¤rellistilainen automaattinen morfologinen analyysi avoimen lÃ¤hdekoodin menetelmin" class="ltx_ref">2008</a>)</cite> based
+on the newly released open source word list from kotus at the
+time.<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">5</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">5</sup>Nykysuomen sanalista,
+<a href="http://kaino.kotus.fi/sanat/nykysuomi" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://kaino.kotus.fi/sanat/nykysuomi</a></span></span></span> From a typical single-author
+project of that time, Omorfi has become a large coverage multi-author
+project with crowd-sourced lexical data sources.</p>
+</div>
+<div id="S3.p2" class="ltx_para">
+<p class="ltx_p">Many of scientific advances made by research groups in language technology
+department of University of Helsinki have directly or indirectly affected
+Omorfi. The research on sub-word <math id="S3.p2.m1" class="ltx_Math" alttext="n" display="inline"><mi>n</mi></math>-gram
+models <cite class="ltx_cite ltx_citemacro_citep">(LindÃ©n and Pirinen, <a href="#bib.bib14" title="Weighted finite-state morphological analysis of Finnish compounds" class="ltx_ref">2009</a>, <a href="#bib.bib15" title="Weighting finite-state morphological analyzers using HFST tools" class="ltx_ref">2009</a>)</cite> has been transferred
+to Omorfi compound disambiguation schemes. The methodology for
+semi-automatic lexical data harvesting, e.g.
+by <cite class="ltx_cite ltx_citemacro_citet">Lindén (<a href="#bib.bib42" title="A probabilistic model for guessing base forms of new words by analogy" class="ltx_ref">2008</a>)</cite>, has been largely influential on
+gathering of the huge lexical database in Omorfi. Finally, the work on
+coupling statistical and rule-based approaches for
+disambiguation <cite class="ltx_cite ltx_citemacro_citep">(Pirinen, <a href="#bib.bib40" title="Using weighted finite state morphology with visl cg-3âsome experiments with free open source finnish resources" class="ltx_ref">2015</a>)</cite>, based on a grammar and a parsing
+approach by <cite class="ltx_cite ltx_citemacro_citet">Karlsson<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib23" title="Constraint grammar: a language-independent system for parsing unrestricted text" class="ltx_ref">1995</a>)</cite>, and is included in the recent
+versions of Omorfi.</p>
+</div>
+<div id="S3.p3" class="ltx_para">
+<p class="ltx_p">There have been competing and complementary approaches to computational
+parsing of Finnish. For example, in machine learning,
+ <cite class="ltx_cite ltx_citemacro_citet">Durrett and DeNero (<a href="#bib.bib35" title="Supervised learning of complete morphological paradigms" class="ltx_ref">2013</a>)</cite><span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">6</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">6</sup>We thank the anonymous reviewer for
+bringing this recent research to our attention</span></span></span> show, that unsupervised
+learning from Wiktionary data will create an analyser with recall in
+prediction of inflected word-forms in the ballpark of 83—87 %, However,
+their goal was to learn to predict Wiktionary’s example inflection table’s
+28 forms per noun and 53 forms per verb, and they only performed intrinsic
+evaluation on held-out Wiktionary pages. Our approach to the usage of Wiktionary
+data is to collect the lexemes and their inflectional patterns already
+confirmed and written down by human language users,<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">7</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">7</sup>in our opinion,
+trying to machine learn data that is already available and verified by
+humans is not largely useful</span></span></span> and use hand-written rules to inflect, which
+yields to virtually 100 % recall (bar bugs in our code) for the full
+paradigms. For this reason, it is hard to directly compare these two
+approaches, at all. On the other hand, statistical language parsing systems
+have been built on top of Omorfi that go far and beyond the language parsing
+capabilities of a morphological parser, such as the universal dependency
+parser of Finnish <cite class="ltx_cite ltx_citemacro_citep">(Pyysalo<span class="ltx_text ltx_bib_etal"> et al.</span>, <a href="#bib.bib37" title="Universal dependencies for finnish" class="ltx_ref">2015</a>)</cite>.</p>
+</div>
+<div id="S3.p4" class="ltx_para">
+<p class="ltx_p">One source of development in related works is the applications, Omorfi has been
+used in many real-world scientific applications to handle Finnish language.
+For example spell-checking <cite class="ltx_cite ltx_citemacro_citep">(Pirinen, <a href="#bib.bib3" title="Weighted finite-state methods for spell-checking and correction" class="ltx_ref">2014</a>)</cite>, language
+generation <cite class="ltx_cite ltx_citemacro_citep">(Toivanen<span class="ltx_text ltx_bib_etal"> et al.</span>, <a href="#bib.bib2" title="Corpus-based generation of content and form in poetry" class="ltx_ref">2012</a>)</cite>, machine
+translation <cite class="ltx_cite ltx_citemacro_citep">(Clifton and Sarkar, <a href="#bib.bib34" title="Combining morpheme-based machine translation with post-processing morpheme prediction" class="ltx_ref">2011</a>; Rubino<span class="ltx_text ltx_bib_etal"> et al.</span>, <a href="#bib.bib41" title="Abu-matran at wmt 2015 translation task: morphological segmentation and web crawling" class="ltx_ref">2015</a>)</cite>, and statistical
+language modelling <cite class="ltx_cite ltx_citemacro_citep">(Haverinen<span class="ltx_text ltx_bib_etal"> et al.</span>, <a href="#bib.bib1" title="Building the essential resources for Finnish: the Turku dependency treebank" class="ltx_ref">2013</a>; Bohnet<span class="ltx_text ltx_bib_etal"> et al.</span>, <a href="#bib.bib30" title="Joint morphological and syntactic analysis for richly inflected languages" class="ltx_ref">2013</a>)</cite>. On top of
+adding lexical data and statistical models, the vast array of applications has
+necessitated for Omorfi to take strong software engineering best common
+practices in use, in order to keep different end-applications usable. This is
+one of the key developments we wish to highlight in this article, the concept
+of continuous development by cooperation of computer scientists, linguists and
+common crowds via crowd-sourcing is as far as we know unique and
+underdocumented for such a long-term free and open-source project as Omorfi is.
+The development by linguists and language technologists has been studied, e.g.
+by <cite class="ltx_cite ltx_citemacro_citet">Maxwell and David (<a href="#bib.bib17" title="Joint grammar development by linguists and computer scientists" class="ltx_ref">2008</a>)</cite>, and we have done our best to adapt and extend it
+to large open source development setting described in this article.</p>
+</div>
+</section>
+<section id="S4" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">4 </span>Methods</h2>
+
+<div id="S4.p1" class="ltx_para">
+<p class="ltx_p">The implementation of our analyser follows the traditional works on
+<span class="ltx_text ltx_font_italic">Finite State Morphology</span> by <cite class="ltx_cite ltx_citemacro_citet">Beesley and Karttunen (<a href="#bib.bib12" title="Finite state morphology" class="ltx_ref">2003</a>)</cite>. On top of
+that we have applied recent extensions from the research of finite-state
+morphology, such as weighted finite-state methods <cite class="ltx_cite ltx_citemacro_citep">(Allauzen<span class="ltx_text ltx_bib_etal"> et al.</span>, <a href="#bib.bib13" title="OpenFst: a general and efficient weighted finite-state transducer library" class="ltx_ref">2007</a>; Lindén<span class="ltx_text ltx_bib_etal"> et al.</span>, <a href="#bib.bib22" title="Using HFST for creating computational linguistic applications" class="ltx_ref">2012</a>)</cite>.
+What this means in practice is basic unigram probabilities of word-forms
+composed<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">8</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">8</sup>using the finite-state algebra operation composition that
+is well-defined in terms of weighted automata</span></span></span> over the analyser from a
+corpus. Finally, probabilities are used in conjunction with constraint
+grammar rules <cite class="ltx_cite ltx_citemacro_cite">Karlsson<span class="ltx_text ltx_bib_etal"> et al.</span> (<a href="#bib.bib23" title="Constraint grammar: a language-independent system for parsing unrestricted text" class="ltx_ref">1995</a>)</cite> to disambiguate. This brings
+the traditional rule-based language analyser towards the statistical
+language analysers that are widely popular in the handling of
+morphologically less complex languages. A diagram of the combination is
+shown in figure <a href="#S4.F1" title="Figure 1 ‣ 4 Methods ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>, the figure is much simplified version of
+real implementation, just to show how few forms of select words interact in
+the system, the statistical component also omits the existence of known
+compounds to simplify the presentation. The flow of the system is following:
+from database we generate a rule based analyser. The statistical data is
+counted from the corpora, and applied over the automaton using the formula
+by <cite class="ltx_cite ltx_citemacro_cite">LindÃ©n and Pirinen (<a href="#bib.bib14" title="Weighted finite-state morphological analysis of Finnish compounds" class="ltx_ref">2009</a>)</cite>. The resulting automaton is used to analyse
+word-forms and the sentence context is used by constraint grammar to further
+select the best analyses.</p>
+</div>
+<figure id="S4.F1" class="ltx_figure"><img src="" id="S4.F1.g1" class="ltx_graphics" alt="">
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure">Figure 1: </span>Diagram of Omorfi technology showing a few example words (vesi
+’water’, and käsi ’hand’) and forms in the database, analyser and
+statistical training. Not shown in the automaton but used are also words
+putous ’fall’ and jakaja ’divider’ used to demonstrate compound formation
+and probablity calculations for vesiputous ’waterfall’ and vedenjakaja
+’watershed’. In finite-state representation, the double circle marks the end
+state, and the arrow leading away from the figure is cropped out of the
+example. The sub-strings in automaton drawing were compacted to single
+transitions where possible. </figcaption>
+</figure>
+<div id="S4.p2" class="ltx_para">
+<p class="ltx_p">The implementation of finite-state morphology in Omorfi is based on
+arrangement of stems, stem variations and suffix morphs, without
+intermediate morphographemic processing. This relies on word classification
+to include data about stem patterns and vowel harmony for example. The
+classified dictionary words are stripped of their varying stem parts, and
+then concatenated with the variations and then stems, followed by all
+suffixes and optionally extended by compounding. This is done using standard
+finite-state morphology approach. E.g. in figure <a href="#S4.F1" title="Figure 1 ‣ 4 Methods ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>, we have a
+dictionary words <span class="ltx_text ltx_font_italic">vesi</span> ‘water’ and <span class="ltx_text ltx_font_italic">käsi</span> ‘hand’ with stem
+invariants <span class="ltx_text ltx_font_italic">ve-</span> and <span class="ltx_text ltx_font_italic">kä</span> resp., and stem variation in
+<span class="ltx_text ltx_font_italic">-si</span> <math id="S4.p2.m1" class="ltx_Math" alttext="\sim" display="inline"><mo>∼</mo></math> <span class="ltx_text ltx_font_italic">-de-</span> …, and respectively suffixes
+<math id="S4.p2.m2" class="ltx_Math" alttext="\emptyset" display="inline"><mi mathvariant="normal">∅</mi></math> (nominative) <math id="S4.p2.m3" class="ltx_Math" alttext="\sim" display="inline"><mo>∼</mo></math> <span class="ltx_text ltx_font_italic">-n</span> (genitive, ‘water’s’) <math id="S4.p2.m4" class="ltx_Math" alttext="\sim" display="inline"><mo>∼</mo></math>
+<span class="ltx_text ltx_font_italic">-ssä</span> (inessive ‘in water’) <math id="S4.p2.m5" class="ltx_Math" alttext="\sim" display="inline"><mo>∼</mo></math> <span class="ltx_text ltx_font_italic">-stä</span> (elative, ´from
+water’) …and so forth. This simple concatenation forms altogether
+some thousands of word-forms per dictionary word, as well as returns back to
+new words for compounding where applicable.</p>
+</div>
+<div id="S4.p3" class="ltx_para">
+<p class="ltx_p">The baseline statistical methods for morphological models are applied over
+the finite-state formulation within the same framework, as is shown in the
+example in figure <a href="#S4.F1" title="Figure 1 ‣ 4 Methods ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>. The formulation we use is the schoolbook
+unigram training (c.f. <cite class="ltx_cite ltx_citemacro_cite">Manning and Schütze (<a href="#bib.bib38" title="Foundations of statistical natural language processing" class="ltx_ref">1999</a>)</cite>): get the likelihood
+<math id="S4.p3.m1" class="ltx_Math" alttext="P(w)" display="inline"><mrow><mi>P</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>w</mi><mo stretchy="false">)</mo></mrow></mrow></math> for the surface form <math id="S4.p3.m2" class="ltx_Math" alttext="w" display="inline"><mi>w</mi></math>, by counting the amount of word-forms <math id="S4.p3.m3" class="ltx_Math" alttext="f(w)" display="inline"><mrow><mi>f</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>w</mi><mo stretchy="false">)</mo></mrow></mrow></math>
+in a corpus and divide it by the number of word-forms in the whole corpus
+<math id="S4.p3.m4" class="ltx_Math" alttext="CS" display="inline"><mrow><mi>C</mi><mo>⁢</mo><mi>S</mi></mrow></math>: <math id="S4.p3.m5" class="ltx_Math" alttext="P(w)=\frac{f(w)}{CS}" display="inline"><mrow><mrow><mi>P</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>w</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mfrac><mrow><mi>f</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>w</mi><mo stretchy="false">)</mo></mrow></mrow><mrow><mi>C</mi><mo>⁢</mo><mi>S</mi></mrow></mfrac></mrow></math>. To get around the problems with the
+probability of <math id="S4.p3.m6" class="ltx_Math" alttext="0" display="inline"><mn>0</mn></math> for unseen word-forms, we use additive
+smoothing <cite class="ltx_cite ltx_citemacro_citep">(Chen and Goodman, <a href="#bib.bib27" title="An empirical study of smoothing techniques for language modeling" class="ltx_ref">1999</a>)</cite>, which estimates frequency of each type
+as <math id="S4.p3.m7" class="ltx_Math" alttext="1" display="inline"><mn>1</mn></math> larger than it is and the size of corpus as number of types larger
+<math id="S4.p3.m8" class="ltx_Math" alttext="P(\hat{w})=\frac{f(w)+1}{CS+TC}" display="inline"><mrow><mrow><mi>P</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mover accent="true"><mi>w</mi><mo stretchy="false">^</mo></mover><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mfrac><mrow><mrow><mi>f</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>w</mi><mo stretchy="false">)</mo></mrow></mrow><mo>+</mo><mn>1</mn></mrow><mrow><mrow><mi>C</mi><mo>⁢</mo><mi>S</mi></mrow><mo>+</mo><mrow><mi>T</mi><mo>⁢</mo><mi>C</mi></mrow></mrow></mfrac></mrow></math>, where <math id="S4.p3.m9" class="ltx_Math" alttext="TC" display="inline"><mrow><mi>T</mi><mo>⁢</mo><mi>C</mi></mrow></math> is a type count. The
+acquired likelihoods are combined to the finite-state morphological analyser
+by producing a weighted finite-state automaton for language model and
+composing it over the analyser to create a morphological analyser capable of
+producing both analyses and their likelihoods as shown in the last frame of
+figure <a href="#S4.F1" title="Figure 1 ‣ 4 Methods ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>.<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">9</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">9</sup>The availability of accurate probabilistic
+data on the analyser is dependent on acquisition of suitable huge corpora,
+the default build includes “toy” weights that estimate probabilities by
+linguistic insights</span></span></span>. The probability-weighted analysis can be combined with
+rule-based probability-aware constraint grammars to produce robust
+disambiguating analysers <cite class="ltx_cite ltx_citemacro_cite">Pirinen (<a href="#bib.bib40" title="Using weighted finite state morphology with visl cg-3âsome experiments with free open source finnish resources" class="ltx_ref">2015</a>)</cite>.</p>
+</div>
+</section>
+<section id="S5" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">5 </span>Data</h2>
+
+<div id="S5.p1" class="ltx_para">
+<p class="ltx_p">There are a few freely available open resources for lexicographical data of
+Finnish. The first one we used is based on lexicographical data of the
+dictionary from institute of languages of Finland, that has been available
+under free software licence GNU LGPL since 2007, in a column titled
+<span class="ltx_text ltx_font_italic">Kotus<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">10</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">10</sup><a href="http://kaino.kotus.fi/sanat/nykysuomi" title="" class="ltx_ref ltx_url ltx_font_typewriter ltx_font_upright">http://kaino.kotus.fi/sanat/nykysuomi</a></span></span></span></span>. The
+second source of lexical data we acquired from the internet is a free, open
+source database named
+<span class="ltx_text ltx_font_italic">Joukahainen.<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">11</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">11</sup><a href="http://joukahainen.puimula.org" title="" class="ltx_ref ltx_url ltx_font_typewriter ltx_font_upright">http://joukahainen.puimula.org</a></span></span></span></span> For
+another source of lexical data we use the popular crowd-sourced
+<span class="ltx_text ltx_font_italic">Wiktionary</span> project. We have used data from
+<span class="ltx_text ltx_font_italic">FinnWordNet</span> <cite class="ltx_cite ltx_citemacro_citep">(Lindén and Carlson, <a href="#bib.bib28" title="FinnWordNet-wordnet på finska via översättning" class="ltx_ref">2010</a>)</cite>, as well as gathered data
+from students and various yet unpublished projects of University of Helsinki,
+and finally a number of contributors within project have added word-forms and
+attributes specifically for <span class="ltx_text ltx_font_italic">Omorfi</span> using semi-automatic and manual
+approaches. The current dictionary includes 424,259 lexemes, classified in over
+17 categories, including semantic features like biological gender, proper noun
+categories as well as morphosyntactic features like argument structures and
+defective paradigms.<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">12</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">12</sup>figures change nearly weekly, up-to-date
+information is on the project web site</span></span></span></p>
+</div>
+</section>
+<section id="S6" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">6 </span>Experimental Setup and Evaluation</h2>
+
+<div id="S6.p1" class="ltx_para">
+<p class="ltx_p">In this section we evaluate Omorfi to give an impression of its usefulness
+in various tasks and potential caveats when using for linguistic research.
+For evaluation we use only freely available corpora. The size of the corpora
+is detailed in table <a href="#S6.T1" title="Table 1 ‣ 6 Experimental Setup and Evaluation ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>. Following corpora are included:
+ebooks of project Gutenberg<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">13</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">13</sup><a href="http://gutenberg.org" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://gutenberg.org</a></span></span></span>, the data
+of Finnish Wikipedia<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">14</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">14</sup><a href="http://fi.wikipedia.org" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://fi.wikipedia.org</a></span></span></span>, and the JRC
+acquis corpus<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">15</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">15</sup><a href="http://ipsc.jrc.ec.europa.eu/index.php?id=198" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://ipsc.jrc.ec.europa.eu/index.php?id=198</a></span></span></span>.
+For downloading and preprocessing these corpora we use freely available
+scripts <span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">16</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">16</sup><a href="https://github.com/flammie/bash-corpora" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/flammie/bash-corpora</a></span></span></span>. The
+scripts retain most of the punctuation and white-space as-is. The resulting
+token counts are given in table <a href="#S6.T1" title="Table 1 ‣ 6 Experimental Setup and Evaluation ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>. Some further tests were
+made with fully tokenised and analysed
+FinnTreeBank <cite class="ltx_cite ltx_citemacro_citep">(Voutilainen<span class="ltx_text ltx_bib_etal"> et al.</span>, <a href="#bib.bib29" title="Specifying treebanks, outsourcing parsebanks: finntreebank 3" class="ltx_ref">2012</a>)</cite> version 3.1. The scripts
+used for this evaluation are part of Omorfi source code and are usable for
+anyone.</p>
+</div>
+<figure id="S6.T1" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_l ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:70%;">Feature:</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:70%;">Tokens</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:70%;">Types</span></th>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_l ltx_border_r"><span class="ltx_text ltx_font_bold" style="font-size:70%;">Corpus</span></th>
+<th class="ltx_td ltx_th ltx_th_column ltx_border_r"></th>
+<th class="ltx_td ltx_th ltx_th_column ltx_border_r"></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:70%;">Gutenberg</span></th>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:70%;">36,743,872</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:70%;">1,590,642</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:70%;">Wikipedia</span></th>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:70%;">55,435,341</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:70%;">3,223,985</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:70%;">JRC Acquis</span></th>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:70%;">42,265,615</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:70%;">1,425,532</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_b ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:70%;">FTB 3.1</span></th>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r"><span class="ltx_text" style="font-size:70%;">76,369,439</span></td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r"><span class="ltx_text" style="font-size:70%;">1,648,420</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering" style="font-size:70%;"><span class="ltx_tag ltx_tag_table">Table 1: </span>Corpora used for evaluations. Tokens are all strings extracted from
+corpus and types are unique strings, both include punctuation and some
+codified expressions like URLs, addresses etc.
+</figcaption>
+</figure>
+<div id="S6.p2" class="ltx_para">
+<p class="ltx_p">First we measure how big proportion of data in the material are
+out-of-vocabulary items. This gives us naive coverage, formally defined as
+<math id="S6.p2.m1" class="ltx_Math" alttext="\mathrm{Coverage}=\frac{\mathrm{Analysed}}{\mathrm{Corpussize}}" display="inline"><mrow><mi>Coverage</mi><mo>=</mo><mfrac><mi>Analysed</mi><mi>Corpussize</mi></mfrac></mrow></math>.
+The results are presented in table <a href="#S6.T2" title="Table 2 ‣ 6 Experimental Setup and Evaluation ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> for all the
+corpora we have.</p>
+</div>
+<figure id="S6.T2" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_l ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:70%;">Corpus:</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:70%;">Gutenberg</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:70%;">Wiki</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:70%;">JRC acquis</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:70%;">FTB 3.1</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:70%;">Coverage (tokens):</span></th>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:70%;">97.2 %</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:70%;">93.3 %</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:70%;">92.2 %</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:70%;">96.8 %</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_b ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:70%;">Coverage (types):</span></th>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r"><span class="ltx_text" style="font-size:70%;">90.9 %</span></td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r"><span class="ltx_text" style="font-size:70%;">87.6 %</span></td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r"><span class="ltx_text" style="font-size:70%;">82.9 %</span></td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r"><span class="ltx_text" style="font-size:70%;">87.6 %</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering" style="font-size:70%;"><span class="ltx_tag ltx_tag_table">Table 2: </span>Naive coverages when analysing common corpora
+</figcaption>
+</figure>
+<div id="S6.p3" class="ltx_para">
+<p class="ltx_p">Faithfulness is measured as a proportion of equal analyses, formally <math id="S6.p3.m1" class="ltx_Math" alttext="\mathrm{Faithfulness}=\frac{\mathrm{Matched}}{\mathrm{Correct}+\mathrm{Missing}}" display="inline"><mrow><mi>Faithfulness</mi><mo>=</mo><mfrac><mi>Matched</mi><mrow><mi>Correct</mi><mo>+</mo><mi>Missing</mi></mrow></mfrac></mrow></math>. In
+table <a href="#S6.T3" title="Table 3 ‣ 6 Experimental Setup and Evaluation ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a> we show the results for FTB3.1 corpus and
+analyses, first by proportion of all tokens in data then by unique tokens.</p>
+</div>
+<figure id="S6.T3" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_l ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:70%;">Corpus</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:70%;">Faithfulness</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:70%;">FTB (tokens)</span></th>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:70%;">93.3 %</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_b ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:70%;">FTB (types)</span></th>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r"><span class="ltx_text" style="font-size:70%;">77.0 %</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering" style="font-size:70%;"><span class="ltx_tag ltx_tag_table">Table 3: </span>The amount of FTB3.1 analyses Omorfi can analyse with exact
+match in results, from FTB3.1 reference corpus</figcaption>
+</figure>
+<div id="S6.p4" class="ltx_para">
+<p class="ltx_p">The sizes and processing speeds for automata built from the data described in
+section <a href="#S5" title="5 Data ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a> using Debian packaged HFST software
+version 3.8.3<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">17</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">17</sup><a href="http://wiki.apertium.org/wiki/Prerequisites_for_Debian" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://wiki.apertium.org/wiki/Prerequisites_for_Debian</a></span></span></span>
+on a Dell XPS 13 laptop are given in table <a href="#S6.T4" title="Table 4 ‣ 6 Experimental Setup and Evaluation ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>. The speed
+was averaged over three runs using 1 million first tokens from europarl.</p>
+</div>
+<figure id="S6.T4" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_l ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:70%;">Feature</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:70%;">Value</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:70%;">Size</span></th>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:70%;">22M</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_b ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:70%;">Speed</span></th>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r"><span class="ltx_text" style="font-size:70%;">11,099 wps</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering" style="font-size:70%;"><span class="ltx_tag ltx_tag_table">Table 4: </span>Size of Omorfi analyser as measured by <span class="ltx_text ltx_font_typewriter">ls -lh</span>, speed
+of analysis using hfst-lookup in words per second averaged over three runs
+</figcaption>
+</figure>
+<div id="S6.p5" class="ltx_para">
+<p class="ltx_p">This result is in line with previous research on speed of optimised finite-state
+automata in natural language processing by <cite class="ltx_cite ltx_citemacro_citet">Silfverberg and Lindén (<a href="#bib.bib36" title="Hfst runtime formatâa compacted transducer format allowing for fast lookup" class="ltx_ref">2009</a>)</cite>.</p>
+</div>
+</section>
+<section id="S7" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">7 </span>Discussion and Future Work</h2>
+
+<div id="S7.p1" class="ltx_para">
+<p class="ltx_p">We have showed mature, jointly developed open source natural language analyser
+using both rule-based and statistical analysis approaches, and crowd-sourced
+lexicography development.The techniques of statistical language parsing in
+Omorfi are quite modest at modern standards, while successful combination of
+statistical parsing and rule-based disambiguation is shown to be usable for a
+range of NLP applications, it would be interesting to see the effects of more
+representative corpora used with different methods to parsing quality of
+Omorfi. In particular, it would be interesting to see some development on an
+end-user application that necessitates a use of high-quality disambiguated
+morphological analyses. We expect that development towards universally
+recognised and comparable linguistic resources by projects like Universal
+dependencies will be crucial to future development of Omorfi to the direction
+of state-of-the-art language processing.</p>
+</div>
+<div id="S7.p2" class="ltx_para">
+<p class="ltx_p">One of the key components to recent success of Omorfi that this article also
+outlines is its adaptability and usefulness over various end uses. While it
+seems from the number of end users that it is in fact possible for independent
+researchers to use and develop Omorfi, it would be interesting to see how more
+linguists and lexicographers using Omorfi might improve the description as well
+as end application quality.</p>
+</div>
+<section id="S7.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">7.1 </span>Error Analysis</h3>
+
+<div id="S7.SS1.p1" class="ltx_para">
+<p class="ltx_p">The coverage of the analyser is systematically around 98 %, this is virtually
+at the upper limits of reasonable results with the given corpora. This can be
+noticed by analysing the errors or the out-of-vocabulary word-forms left in the
+current corpora. For Wikipedia, we get word-forms codes like <span class="ltx_text ltx_font_italic">Lä</span>,
+<span class="ltx_text ltx_font_italic">amp</span>, English like <span class="ltx_text ltx_font_italic">of</span>, <span class="ltx_text ltx_font_italic">The</span>, and so forth. In the
+Gutenberg corpus, we get, among some missing proper nouns, archaic and
+dialectal forms like: <span class="ltx_text ltx_font_italic">nämät</span>, <span class="ltx_text ltx_font_italic">kauvan</span>, <span class="ltx_text ltx_font_italic">sitte</span>. While
+these can be added to the analyser quite easily, the examples will show what
+is known as <span class="ltx_text ltx_font_italic">Zipfian distribution</span> of language data: rare word-forms and
+phenomena get exponentially rarer, thus the effect of collecting and
+classifying further lexemes will become insignificantly small (compare
+to <cite class="ltx_cite ltx_citemacro_citet">Manning (<a href="#bib.bib39" title="Part-of-speech tagging from 97% to 100%: is it time for some linguistics?" class="ltx_ref">2011</a>)</cite>). For applications requiring higher, potentially
+100 % coverage, using guessing techniques, e.g. <cite class="ltx_cite ltx_citemacro_citet">Mikheev (<a href="#bib.bib43" title="Automatic rule induction for unknown-word guessing" class="ltx_ref">1997</a>)</cite>,
+should be investigated.</p>
+</div>
+<div id="S7.SS1.p2" class="ltx_para">
+<p class="ltx_p">FTB3.1 evaluation is presented here as an example of customising Omorfi for an
+end user, and the faithfulness evaluations are based on comparison against an
+unknown closed source commercial tagger of FTB3.1. While we have mostly done
+our best to match the reference analyses, we have not degraded the analyser
+quality to match analyses what we view as bugs in the corpus. As an example of
+mismatched analyses right now: top wrong word-forms <span class="ltx_text ltx_font_italic">oli</span> ‘was’,
+<span class="ltx_text ltx_font_italic">olivat</span> ‘were’ are analysed as present tense in their annotations. We
+feel this is incorrect and does not warrant such analysis. In the near future
+we will use a free and open source, human-verified reference corpora instead,
+such as UD Finnish <cite class="ltx_cite ltx_citemacro_citep">(Pyysalo<span class="ltx_text ltx_bib_etal"> et al.</span>, <a href="#bib.bib37" title="Universal dependencies for finnish" class="ltx_ref">2015</a>)</cite>, to gain stable high-quality
+analysis.</p>
+</div>
+</section>
+</section>
+<section id="S8" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">8 </span>Conclusion</h2>
+
+<div id="S8.p1" class="ltx_para">
+<p class="ltx_p">In this article we present a new fully open source Finnish
+morphological lexicon. We confirm that it is full-fledged and mature lexical
+database that can be used as a baseline morphological analyser with large
+coverage, suitable for linguistic research, as well as in external applications
+such as spelling correction and machine translation. We have shown
+some approaches that make available use of modern natural language processing
+techniques like statistics in conjunction with analysers built from our data
+and paved a way forward for researchers interested those topics. We also
+provide some easy-to-access ways for linguists and researchers to use and
+extend our database via publicly maintained servers and crowd-sourced web-based
+services.</p>
+</div>
+</section>
+<section id="bib" class="ltx_bibliography">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+
+<ul id="L1" class="ltx_biblist">
+<li id="bib.bib13" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">C. Allauzen, M. Riley, J. Schalkwyk, W. Skut and M. Mohri (2007)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">OpenFst: a general and efficient weighted finite-state transducer library</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Twelfth International Conference on Implementation and Application of Automata, (CIAA 2007)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">Lecture Notes in Computer Science</span>, Vol. <span class="ltx_text ltx_bib_volume">4783</span>, <span class="ltx_text ltx_bib_pages"> pp. 11–23</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="http://www.openfst.org" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.p1" title="4 Methods ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>.
+</span>
+</li>
+<li id="bib.bib12" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">K. R. Beesley and L. Karttunen (2003)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Finite state morphology</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">CSLI publications</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text isbn ltx_bib_external">ISBN 978-1575864341</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.p1" title="4 Methods ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>.
+</span>
+</li>
+<li id="bib.bib30" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">B. Bohnet, J. Nivre, I. Bouguavsky, R. Farkas, Ginter and J. HajiÄ (2013)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Joint morphological and syntactic analysis for richly inflected languages</span>.
+</span>
+<span class="ltx_bibblock">(<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages"> pp. 415–428</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p4" title="3 Prior and Related Work ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>.
+</span>
+</li>
+<li id="bib.bib27" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">S. F. Chen and J. Goodman (1999)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">An empirical study of smoothing techniques for language modeling</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Computer Speech &amp; Language</span> <span class="ltx_text ltx_bib_volume">13</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages"> pp. 359–393</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.p3" title="4 Methods ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>.
+</span>
+</li>
+<li id="bib.bib34" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">A. Clifton and A. Sarkar (2011)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Combining morpheme-based machine translation with post-processing morpheme prediction</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 49th Annual Meeting of the Association for Computational Linguistics: Human Language Technologies - Volume 1</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">HLT ’11</span>, <span class="ltx_text ltx_bib_place">Stroudsburg, PA, USA</span>, <span class="ltx_text ltx_bib_pages"> pp. 32–42</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text isbn ltx_bib_external">ISBN 978-1-932432-87-9</span>,
+<a href="http://dl.acm.org/citation.cfm?id=2002472.2002477" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p4" title="3 Prior and Related Work ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>.
+</span>
+</li>
+<li id="bib.bib35" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">G. Durrett and J. DeNero (2013)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Supervised learning of complete morphological paradigms</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the North American Chapter of the
+Association for Computational Linguistics</span>,
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="http://aclweb.org/anthology//N/N13/N13-1138.pdf" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p3" title="3 Prior and Related Work ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>.
+</span>
+</li>
+<li id="bib.bib1" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">K. Haverinen, J. Nyblom, T. Viljanen, V. Laippala, S. Kohonen, A. MissilÃ¤, S. Ojala, T. Salakoski and F. Ginter (2013)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Building the essential resources for Finnish: the Turku dependency treebank</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Language Resources and Evaluation</span>, <span class="ltx_text ltx_bib_pages"> pp. 1–39</span> (<span class="ltx_text ltx_bib_language">English</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1574-020X</span>,
+<a href="http://dx.doi.org/10.1007/s10579-013-9244-1" title="" class="ltx_ref doi ltx_bib_external">Document</a>,
+<a href="http://dx.doi.org/10.1007/s10579-013-9244-1" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p4" title="3 Prior and Related Work ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>.
+</span>
+</li>
+<li id="bib.bib23" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">F. Karlsson, A. Voutilainen, J. HeikkilÃ¤ and A. Anttila (1995)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Constraint grammar: a language-independent system for parsing unrestricted text</span>.
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume">4</span>,  <span class="ltx_text ltx_bib_publisher">De Gruyter Mouton</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p2" title="3 Prior and Related Work ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>,
+<a href="#S4.p1" title="4 Methods ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>.
+</span>
+</li>
+<li id="bib.bib4" class="ltx_bibitem ltx_bib_thesis">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">K. Koskenniemi (1983)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Two-level morphology: a general computational model for word-form recognition and production</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_type">Ph.D. Thesis</span>, <span class="ltx_text ltx_bib_publisher">University of Helsinki</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="http://www.ling.helsinki.fi/koskenni/doc/Two-LevelMorphology.pdf" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Introduction ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>,
+<a href="#S3.p1" title="3 Prior and Related Work ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>.
+</span>
+</li>
+<li id="bib.bib7" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">K. Koskenniemi (2008)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">How to build an open source morphological parser now</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Resourceful Language Technology: Festschrift in Honor of Anna Sågvall Hein</span>, <span class="ltx_text ltx_bib_pages"> pp. 86–</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p4" title="2 Introduction ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>.
+</span>
+</li>
+<li id="bib.bib15" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">K. LindÃ©n and T. Pirinen (2009)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Weighting finite-state morphological analyzers using HFST tools</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">FSMNLP 2009</span>,  <span class="ltx_text ltx_bib_editor">B. Watson, D. Courie, L. Cleophas and P. Rautenbach (Eds.)</span>,
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text isbn ltx_bib_external">ISBN 978-1-86854-743-2</span>,
+<a href="http://www.ling.helsinki.fi/klinden/pubs/fsmnlp2009weighting.pdf" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p2" title="3 Prior and Related Work ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>.
+</span>
+</li>
+<li id="bib.bib14" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">K. LindÃ©n and T. Pirinen (2009)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Weighted finite-state morphological analysis of Finnish compounds</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Nodalida 2009</span>,  <span class="ltx_text ltx_bib_editor">K. Jokinen and E. Bick (Eds.)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">NEALT Proceedings</span>, Vol. <span class="ltx_text ltx_bib_volume">4</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="http://www.ling.helsinki.fi/klinden/pubs/linden09dnodalida.pdf" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p2" title="3 Prior and Related Work ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>,
+<a href="#S4.p1" title="4 Methods ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>.
+</span>
+</li>
+<li id="bib.bib22" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">K. Lindén, E. Axelson, S. Drobac, S. Hardwick, Silfverberg and T. A. Pirinen (2012)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Using HFST for creating computational linguistic applications</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of Computational Linguistics - Applications, 2012</span>,
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p1" title="3 Prior and Related Work ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>,
+<a href="#S4.p1" title="4 Methods ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>.
+</span>
+</li>
+<li id="bib.bib28" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">K. Lindén and L. Carlson (2010)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">FinnWordNet-wordnet på finska via översättning</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">LexicoNordica</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S5.p1" title="5 Data ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>.
+</span>
+</li>
+<li id="bib.bib42" class="ltx_bibitem ltx_bib_incollection">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">K. Lindén (2008)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A probabilistic model for guessing base forms of new words by analogy</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Computational Linguistics and Intelligent Text Processing</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 106–116</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p2" title="3 Prior and Related Work ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>.
+</span>
+</li>
+<li id="bib.bib38" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">C. D. Manning and H. Schütze (1999)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Foundations of statistical natural language processing</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">MIT press</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p3" title="2 Introduction ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>,
+<a href="#S4.p3" title="4 Methods ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>.
+</span>
+</li>
+<li id="bib.bib39" class="ltx_bibitem ltx_bib_incollection">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">C. D. Manning (2011)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Part-of-speech tagging from 97% to 100%: is it time for some linguistics?</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Computational Linguistics and Intelligent Text Processing</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 171–189</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S7.SS1.p1" title="7.1 Error Analysis ‣ 7 Discussion and Future Work ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.1</span></a>.
+</span>
+</li>
+<li id="bib.bib17" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">M. Maxwell and A. David (2008)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Joint grammar development by linguists and computer scientists</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Workshop on NLP for Less Privileged Languages, Third International Joint Conference on Natural Language Processing</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Hyderabad, India</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p4" title="3 Prior and Related Work ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>.
+</span>
+</li>
+<li id="bib.bib43" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">A. Mikheev (1997)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Automatic rule induction for unknown-word guessing</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Comput. Linguist.</span> <span class="ltx_text ltx_bib_volume">23</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages"> pp. 405–423</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0891-2017</span>,
+<a href="http://dl.acm.org/citation.cfm?id=972705.972708" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S7.SS1.p1" title="7.1 Error Analysis ‣ 7 Discussion and Future Work ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.1</span></a>.
+</span>
+</li>
+<li id="bib.bib3" class="ltx_bibitem ltx_bib_thesis">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">T. A. Pirinen (2014)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Weighted finite-state methods for spell-checking and correction</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_type">Ph.D. Thesis</span>, <span class="ltx_text ltx_bib_publisher">University of Helsinki</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p4" title="3 Prior and Related Work ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>.
+</span>
+</li>
+<li id="bib.bib40" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">T. A. Pirinen (2015)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Using weighted finite state morphology with visl cg-3âsome experiments with free open source finnish resources</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p2" title="3 Prior and Related Work ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>,
+<a href="#S4.p3" title="4 Methods ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>.
+</span>
+</li>
+<li id="bib.bib5" class="ltx_bibitem ltx_bib_thesis">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">T. Pirinen (2008)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Suomen kielen Ã¤Ã¤rellistilainen automaattinen morfologinen analyysi avoimen lÃ¤hdekoodin menetelmin</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_type">Master’s Thesis</span>, <span class="ltx_text ltx_bib_publisher">Helsingin yliopisto</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="http://www.helsinki.fi/%7Etapirine/gradu/" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p1" title="3 Prior and Related Work ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>.
+</span>
+</li>
+<li id="bib.bib37" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">S. Pyysalo, J. Kanerva, A. Missilä, V. Laippala and F. Ginter (2015)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Universal dependencies for finnish</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Nordic Conference of Computational Linguistics NODALIDA 2015</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 163</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p3" title="3 Prior and Related Work ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>,
+<a href="#S7.SS1.p2" title="7.1 Error Analysis ‣ 7 Discussion and Future Work ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">7.1</span></a>.
+</span>
+</li>
+<li id="bib.bib41" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">R. Rubino, T. Pirinen, M. EsplÃ -Gomis, N. LjubeÅ¡iÄ, S. Ortiz-Rojas, V. Papavassiliou, P. Prokopidis and A. Toral (2015)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Abu-matran at wmt 2015 translation task: morphological segmentation and web crawling</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">EMNLP 2015</span>, <span class="ltx_text ltx_bib_pages"> pp. </span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">(to appear)</span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p4" title="3 Prior and Related Work ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>.
+</span>
+</li>
+<li id="bib.bib36" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">M. Silfverberg and K. Lindén (2009)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Hfst runtime formatâa compacted transducer format allowing for fast lookup</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">FSMNLP</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume">13</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S6.p5" title="6 Experimental Setup and Evaluation ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">6</span></a>.
+</span>
+</li>
+<li id="bib.bib2" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">J. Toivanen, H. Toivonen, A. Valitutti and O. Gross (2012)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Corpus-based generation of content and form in poetry</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Third International Conference on Computational Creativity</span>,
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p4" title="3 Prior and Related Work ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>.
+</span>
+</li>
+<li id="bib.bib29" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_author-year ltx_role_refnum">A. Voutilainen, K. Muhonen, T. K. Purtonen and K.  (2012)</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Specifying treebanks, outsourcing parsebanks: finntreebank 3</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of LREC 2012 8th ELRA Conference on Language Resources and Evaluation</span>,
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S6.p1" title="6 Experimental Setup and Evaluation ‣ Development and Use of Computational Morphology of Finnish in the Open Source and Open Science Era—Notes on Experiences with Omorfi Development\footnotepubrightsThe official publication in 2016, from doc format version, will differ quite a bit in formatting." class="ltx_ref"><span class="ltx_text ltx_ref_tag">6</span></a>.
+</span>
+</li>
+</ul>
+</section>
+<div class="ltx_pagination ltx_role_newpage"></div>
+<div id="p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Contact Information:
+<br class="ltx_break">
+<br class="ltx_break">Tommi A Pirinen
+<br class="ltx_break">Ollscoil Chathair Bhaile Átha Cliath
+<br class="ltx_break">IE-D09 W6Y4
+<br class="ltx_break">Éire
+<br class="ltx_break">e-mail: <a href="Tommi.Pirinen@computing.dcu.ie" title="" class="ltx_ref ltx_url ltx_font_typewriter">Tommi.Pirinen@computing.dcu.ie</a>
+<br class="ltx_break"></span>
+</p>
+</div>
+</article>
+</div>
+<footer class="ltx_page_footer">
+<div class="ltx_page_logo">Generated  on Fri Sep 29 14:31:42 2017 by <a href="http://dlmf.nist.gov/LaTeXML/">LaTeXML <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="[LOGO]"></a>
+</div></footer>
+</div>
+</body>
+</html>
