@@ -81,11 +81,15 @@ be as accurat and up-to-date as google scholar.
    Bicici and Jinhua Du (2015d) *Dublin City University at the
    TweetMT 2015 Shared Task* in Proceedings of TweetMT shared task at
    SEPLN 2015
+   [TeX version](2015-tweetmt/Pirinen-2015-tweetmt.tex),
+   [HTML (LaTeXML) version](2015-tweetmt/Pirinen-2015-tweetmt.html)
 5. Raphael Rubino, **Tommi Pirinen**, Miquel Esplà-Gomis, Nikola Ljubešić,
    Sergio Ortiz Rojas, Vassilis Papavassiliou, Prokopis Prokopidis and
    Antonio Toral (2015c), *Abu-MaTran at WMT 2015 Translation Task:
    Morphological Segmentation and Web Crawling* In proceedings of WMT
    shared task at EMNLP 2015
+   [TeX version](2015-wmt/Pirinen-2015-wmt.tex),
+   [HTML (LaTeXML) version](2015-wmt/Pirinen-2015-wmt.html)
 6. **Tommi A Pirinen** (2015a), *Omorfi—Free and open source
    morphological lexical database for Finnish*, in Proceedings of the
    20th Nordic Conference of Computational Linguistics NODALIDA 2015
@@ -93,6 +97,8 @@ be as accurat and up-to-date as google scholar.
    with VISL CG-3—Some experiments with free open source Finnish
    resources*, in Proceedings of Constraint grammar - methods, tools
    and applications Workshop at NoDaLiDa
+   [TeX version](2015-nodalida/Pirinen-2015-nodalida-cg-reweight.tex),
+   [HTML (LaTeXML) version](2015-nodalida/Pirinen-2015-nodalida-cg-reweight.html)
 7. Senka Drobac, Krister Lindén, **Tommi Pirinen**, Miikka Silfverberg (2014e),
    *Heuristic hyper-minimization of finite state lexicons*, in LREC 2014
 8. Antonio Toral, Raphael Rubino, Miquel Esplà, **Tommi Pirinen**, Andy
@@ -158,7 +164,7 @@ be as accurat and up-to-date as google scholar.
    [TeX version](2010-investigationes-linguisticae/Pirinen-2010-il.tex),
    [HTML (LaTeXML) version](2010-investigationes-linguisticae/Pirinen-2010-il.html)
 21. **Tommi A Pirinen**, Krister Lindén (2010b), *Building and Using
-   Existing Hunspell Dictionaries and T_E_X Hyphenators as
+   Existing Hunspell Dictionaries and T<sub>E</sub>X Hyphenators as
    Finite-State Automata*, in Proceedings of International
    Multiconference in Computer Science and Information Technology
    [TeX version](2010-cla/Pirinen-2010-cla.tex),
