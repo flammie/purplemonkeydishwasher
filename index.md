@@ -61,6 +61,8 @@ be as accurat and up-to-date as google scholar.
 1. **Tommi Pirinen**,  Francis M. Tyers,  Trond Trosterud, Ryan Johnson,
    Kevin Unhammer,  Tiina Puolakainen (2017a, equal contribution) *North-Sámi to
    Finnish rule-based machine translation system*
+   [TeX version](2017-nodalida/Pirinen-2017-nodalida-fin-sme.tex),
+   [HTML (LaTeXML) version](2017-nodalida/Pirinen-2017-nodalida-fin-sme.html)
 1. **Tommi A Pirinen**, Eszter Simon, Francis M Tyers, Veronika Vincze, (2016c),
    *Report on the Second International Workshop on Computational Linguistics for
    Uralic languages*, in Finno-Ugric languages and linguistics,
@@ -68,10 +70,14 @@ be as accurat and up-to-date as google scholar.
    Representations in Rule-Based Machine Translation* for Uralic
    languages in Proceedings of Second International Workshop on
    Computational Linguistics for Uralic Languages (IWCLUL2016)
+   [TeX version](2016-iwclul/Pirinen-2016-iwclul-rbmt-representations.tex),
+   [HTML (LaTeXML) version](2016-iwclul/Pirinen-2016-iwclul-rbmt-representations.html)
 1. **Tommi Pirinen**, Antonio Toral, Raphael Rubino (2016a) *Rule-Based
    and Statistical Morph Segments in English-to-Finnish SMT*, in
    Proceedings of Second International Workshop on Computational
    Linguistics for Uralic Languages (IWCLUL), Szeged, Hungary
+   [TeX version](2016-iwclul/Pirinen-2016-smt-morph-segments.tex),
+   [HTML (LaTeXML) version](2016-iwclul/Pirinen-2016-smt-morph-segments.html)
 1. **Tommi A Pirinen** (2015e) *Development and Use of Computational Morphology
    of Finnish in the Open Source and Open Science Era: Notes on Experiences
    with Omorfi Development.* SKY Journal of Linguistics.

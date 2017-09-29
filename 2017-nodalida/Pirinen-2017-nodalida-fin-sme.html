@@ -1,0 +1,816 @@
+<!DOCTYPE html><html>
+<head>
+<title>North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order </title>
+<!--Generated on Fri Sep 29 15:50:28 2017 by LaTeXML (version 0.8.2) http://dlmf.nist.gov/LaTeXML/.-->
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../latexml/LaTeXML.css" type="text/css">
+<link rel="stylesheet" href="../latexml/ltx-article.css" type="text/css">
+</head>
+<body>
+<div class="ltx_page_main">
+<div class="ltx_page_content">
+<article class="ltx_document ltx_authors_1line">
+<h1 class="ltx_title ltx_title_document">North SÃ¡mi to Finnish rule-based machine translation
+system<span class="ltx_ERROR undefined">\footnotepubrights</span>
+Originally published in NoDaLiDa 2017 in GÃ¶teborg.
+Official vresion available from ACL anthology:
+<span class="ltx_ERROR undefined">\url</span>http://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university
+repository: <span class="ltx_ERROR undefined">\url</span>http://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014
+Authors are listed in alphabetical order
+</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Ryan JohnsonÂ¹
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Tommi A PirinenÂ²
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Tiina PuolakainenÂ³
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Francis
+TyersÂ¹
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Trond TrosterudÂ¹
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Kevin UnhammerÂ¹
+<br class="ltx_break">Â¹ UiT Norgga Árktalaš universitehta
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Giela ja kultuvrra instituhtta
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Romssa
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Norga
+<br class="ltx_break">Â² Universität Hamburg
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Hamburger Zentrum für Sprachkorpora
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Deutschland
+<br class="ltx_break">Â³ Institute of the Estonian Language
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Estonia
+<br class="ltx_break">ryan.txanson@gmail.com
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> tommi.antero.pirinen@uni-hamburg.de
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+<br class="ltx_break">tiina.puolakainen@eki.ee
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+{francis.tyers
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> trond.trosterud}@uit.no
+<br class="ltx_break">kevin@unhammer.org
+
+</span></span>
+</div>
+
+<div class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+
+<p class="ltx_p">This paper presents a machine translation system between Finnish and North SÃ¡mi, two Uralic languages.
+In this paper we concentrate on the translation direction to Finnish.
+As a background, the differences between the two languages is presented, followed by how the system was designed to handle some of these differences.
+We then provide an evaluation of the system’s performance and directions for future work.</p>
+
+</div>
+<section id="S1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">1 </span>Introduction</h2>
+
+<div id="S1.p1" class="ltx_para">
+<p class="ltx_p">This paper presents a prototype shallow-transfer rule-based machine translation system between Finnish and North SÃ¡mi.
+The paper will be laid out as follows: Section <a href="#S2" title="2 Previous work ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> gives a short review of some previous work in the area of Uralic-Uralic language machine translation; Section <a href="#S3" title="3 The languages ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a> introduces Finnish and North SÃ¡mi and compares their grammar; Section <a href="#S4" title="4 System ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a> describes the system and the tools used to construct it; Section <a href="#S5" title="5 Evaluation ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a> gives a preliminary evaluation of the system; and finally Section <a href="#S6" title="6 Concluding remarks ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6</span></a> describes our aims for future work and some concluding remarks.</p>
+</div>
+</section>
+<section id="S2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2 </span>Previous work</h2>
+
+<div id="S2.p1" class="ltx_para">
+<p class="ltx_p">Within the Apertium platform, work on several MT systems from North SÃ¡mi to Norwegian and to other SÃ¡mi languages have been developed <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib16" title="Developing prototypes for machine translation between two Sámi languages" class="ltx_ref">17</a>, <a href="#bib.bib20" title="Shooting at flies in the dark: Rule-based lexical selection for a minority language pair" class="ltx_ref">18</a>, <a href="#bib.bib17" title="Evaluating North Sámi to Norwegian assimilation RBMT" class="ltx_ref">15</a>, <a href="#bib.bib15" title="A North Saami to South Saami machine translation prototype" class="ltx_ref">1</a>]</cite>).
+Besides these systems, several previous works on making machine translation systems between Uralic languages exist, although to our knowledge none are publicly available, except for North SÃ¡mi to Norwegian<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup><span class="ltx_ERROR undefined">\url</span>https://gtweb.uit.no/jorgal</span></span></span>, and the translation between Estonian, Finnish and Hungarian being available via English as a pivot language in Google Translate.<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">2</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">2</sup><span class="ltx_ERROR undefined">\url</span>https://translate.google.com</span></span></span>
+For non-Uralic pairs there are also numerous similarly laid out systems e.g. in Apertium’s Turkic pairs, e.g. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib14" title="A free/open-source kazakh-tatar machine translation system" class="ltx_ref">12</a>]</cite>, that can offer insights on how the pair is implemented, which are detailed later in the article but the main parts are the same.</p>
+</div>
+</section>
+<section id="S3" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">3 </span>The languages</h2>
+
+<div id="S3.p1" class="ltx_para">
+<p class="ltx_p">North SÃ¡mi and Finnish belong to the SÃ¡mi and Finnic branches of the Uralic languages, respectively.
+The languages are mutually unintelligible, but grammatically quite similar. The orthographical conventions between Finnish and North SÃ¡mi written in Finland were quite similar until 1979, when an unified North SÃ¡mi orthography widened the distance to Finnish.
+Finnish is primarily spoken in Finland, where it is the national language, sharing status with Swedish as an official language.
+The total number of speakers is at least 6 million people.
+North SÃ¡mi is spoken in the Northern parts of Norway, Sweden and Finland by approximately 24.700 people, and it has, alongside the national language, some official status in the municipalities and counties where it is spoken.
+North SÃ¡mi speakers are bilingual in their mother tongue and in their respective national language, many also speak the neighbouring official language.
+An MT system between North SÃ¡mi and Finnish is potentially of great use to the language communities, although fulfilling different functions. In Finland, it may be used to understand SÃ¡mi text, and in Norway and Sweden, it may be used by North SÃ¡mi speakers to understand Finnish text. In principle, the system may also be used for North SÃ¡mi text production, although further development will be needed to fulfil such a function.</p>
+</div>
+<section id="S3.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.1 </span>Phonological differences</h3>
+
+<div id="S3.SS1.p1" class="ltx_para">
+<p class="ltx_p">As related languages, Finnish and North SÃ¡mi share several phonological processes, the most important one being consonant gradation.
+However, North SÃ¡mi consonant gradation involves the vast majority of stem-internal consonant clusters, whereas the Finnish counterpart involves only the stops <span class="ltx_text ltx_font_italic">p, t, k</span>. Vowel length has a more central role in Finnish than in North SÃ¡mi, Several instances of final vowel apocopy in North SÃ¡mi, as well as a neutralisation of <span class="ltx_text ltx_font_italic">p, t, k</span> in word-final position, has also resulted in quite extensive morphological homonymy. A richer inventory of affricates and fricatives in North SÃ¡mi, as well as preaspiration, also add to the difference.</p>
+</div>
+</section>
+<section id="S3.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.2 </span>Orthographic differences</h3>
+
+<div id="S3.SS2.p1" class="ltx_para">
+<p class="ltx_p">In the native vocabulary, neither Finnish nor North SÃ¡mi distinguish between voiced and unvoiced plosives, but whereas Finnish writes them as <span class="ltx_text ltx_font_italic">p, t, k</span>, North SÃ¡mi writes <span class="ltx_text ltx_font_italic">b, d, g</span>, as in <span class="ltx_text ltx_font_italic">kirja : girji</span> “book”. Finnish marks vowel length with double letter symbols. In North SÃ¡mi this distinction is marked for one vowel only, <math id="S3.SS2.p1.m1" class="ltx_Math" alttext="a" display="inline"><mi>a</mi></math>, and with acute accent. Apart from this the orthographic principles of the two languages is quite similar, the almost total lack of free rides is a result of different phonology.</p>
+</div>
+</section>
+<section id="S3.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.3 </span>Morphological differences</h3>
+
+<div id="S3.SS3.p1" class="ltx_para">
+<p class="ltx_p">There are a number of examples where the morphologies of Finnish and North SÃ¡mi are rather different.</p>
+</div>
+<div id="S3.SS3.p2" class="ltx_para">
+<p class="ltx_p">North SÃ¡mi has a separate dual number, whereas Finnish has not. Otherwise the North SÃ¡mi and Finnish finite verb morphology is almost identical. The infinite verb conjugation is more different, though: Finnish has a rich array of infinitives that are inflected in different subsets of the case system.</p>
+</div>
+<div id="S3.SS3.p3" class="ltx_para">
+<p class="ltx_p">Finnish has more than twice the number of cases as North SÃ¡mi has. Where North SÃ¡mi only has one case for the direct object (accusative), Finnish has two (accusative and partitive). The Finnish system of adverbial cases consist of a 2x3 matrix of inner/outer to/in/from cases, North SÃ¡mi has only one of these distinctions (to/in~from), thus the 6 Finnish cases corresponds to 2 North SÃ¡mi ones. In principle, Finnish and North SÃ¡mi have the same system of possessive suffixes, but in North SÃ¡mi its use is far more restricted than in Finnish.</p>
+</div>
+</section>
+<section id="S3.SS4" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.4 </span>Syntactic differences</h3>
+
+<div id="S3.SS4.p1" class="ltx_para">
+<p class="ltx_p">Syntactically speaking, there are two varieties of North SÃ¡mi, one used within and one outside of Finland. The Finnish variety is much closer to Finnish than the Scandinavian one. Comparing Finnish with the Scandinavian variety of North SÃ¡mi, the most striking difference is participle constructions vs. relative clauses. Where North SÃ¡mi uses subordinate clauses, written Finnish often use head-final participle constructions instead. Since both varieties are found in Finnish, at least to some degree, we at the moment let most “Scandinavian” varieties of North SÃ¡mi through, thereby giving North SÃ¡mi from Norway and Finland a different stylistic flavour in the Finnish output.</p>
+</div>
+<div id="S3.SS4.p2" class="ltx_para">
+<p class="ltx_p">The North SÃ¡mi passive is a derivational process, whereas it for Finnish is an inflectional one, resulting in quite different syntactic patterns for passive. Finnish has a richer array of indefinite verb forms.</p>
+</div>
+<div id="S3.SS4.p3" class="ltx_para">
+<p class="ltx_p">Finnish adjectives agree with their head noun in case and number, whereas North SÃ¡mi has an invariant <math id="S3.SS4.p3.m1" class="ltx_Math" alttext="attribute" display="inline"><mrow><mi>a</mi><mo>⁢</mo><mi>t</mi><mo>⁢</mo><mi>t</mi><mo>⁢</mo><mi>r</mi><mo>⁢</mo><mi>i</mi><mo>⁢</mo><mi>b</mi><mo>⁢</mo><mi>u</mi><mo>⁢</mo><mi>t</mi><mo>⁢</mo><mi>e</mi></mrow></math> form for all but one adjective, the adjective <span class="ltx_text ltx_font_italic">buorre</span> ‘good’, and partial
+agreement for determiners.</p>
+</div>
+<div id="S3.SS4.p4" class="ltx_para">
+<p class="ltx_p">Existential and habitive clauses have the same structure in the two languages, <span class="ltx_text ltx_font_italic">possessor.local-case copula possessed</span> and <span class="ltx_text ltx_font_italic">adverbial copula e-subject</span> (<span class="ltx_text ltx_font_italic">on me / in street is car</span> ‘I have a car/There is a car in the street’). except that in Finnish, the possessed/e-subject behaves like objects, whereas it in North SÃ¡mi they behave like subjects. Thus, in North SÃ¡mi, the copula agrees with the possessed / e-subject, whereas in Finnish, it does not.</p>
+</div>
+</section>
+</section>
+<section id="S4" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">4 </span>System</h2>
+
+<div id="S4.p1" class="ltx_para">
+<p class="ltx_p">The system is based on the Apertium<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">3</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">3</sup><span class="ltx_ERROR undefined">\url</span>http://apertium.sf.net</span></span></span> machine translation platform <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib7" title="Apertium: a free/open-source platform for rule-based machine translation" class="ltx_ref">4</a>]</cite>.
+The platform was originally aimed at the Romance languages of the Iberian peninsula, but has also been adapted for other, more distantly related, language pairs.
+The whole platform, both programs and data, are licensed under the Free Software Foundation’s General Public Licence<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">4</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">4</sup><span class="ltx_ERROR undefined">\url</span>https://www.gnu.org/licenses/gpl-3.0.en.html</span></span></span> (GPL) and all the software and data for the 30 released language pairs (and the other pairs being worked on) is available for download from the project website.</p>
+</div>
+<section id="S4.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.1 </span>Architecture of the system</h3>
+
+<div id="S4.SS1.p1" class="ltx_para">
+<p class="ltx_p">The Apertium translation engine consists of a Unix-style pipeline or assembly line with the following modules (see Figure <a href="#S4.F1" title="Figure 1 ‣ 4.1 Architecture of the system ‣ 4 System ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>):</p>
+</div>
+<figure id="S4.F1" class="ltx_figure"><object type="image/svg+xml" data="Apertium-structure.svg" id="S4.F1.g1" class="ltx_graphics" alt=""></object>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure">Figure 1: </span>Apertium structure (Image from apertium wiki by user Rcrowther)
+<span class="ltx_ERROR undefined">\url</span>http://wiki.apertium.org/wiki/Workflow_diagram
+</figcaption>
+</figure>
+<div id="S4.SS1.p2" class="ltx_para">
+<ul id="I1" class="ltx_itemize">
+<li id="I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_itemize">•</span>
+<div id="I1.i1.p1" class="ltx_para">
+<p class="ltx_p">A deformatter which encapsulates the format information in the input as <em class="ltx_emph">superblanks</em> that will then be seen as blanks between words by the other modules.</p>
+</div>
+</li>
+<li id="I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_itemize">•</span>
+<div id="I1.i2.p1" class="ltx_para">
+<p class="ltx_p">A morphological analyser which segments the text in surface forms (SF) (words, or, where detected, multiword lexical units or MWLUs) and for each, delivers one or more lexical forms (LF) consisting of lemma, lexical category and morphological information.</p>
+</div>
+</li>
+<li id="I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_itemize">•</span>
+<div id="I1.i3.p1" class="ltx_para">
+<p class="ltx_p">A morphological disambiguator (CG) which chooses, using linguistic rules the most adequate sequence of morphological analyses for an ambiguous sentence.</p>
+</div>
+</li>
+<li id="I1.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_itemize">•</span>
+<div id="I1.i4.p1" class="ltx_para">
+<p class="ltx_p">A lexical transfer module which reads each SL LF and delivers the corresponding target-language (TL) LF by looking it up in a bilingual dictionary encoded as an FST compiled from the corresponding XML file.
+The lexical transfer module may return more than one TL LF for a single SL LF.</p>
+</div>
+</li>
+<li id="I1.i5" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_itemize">•</span>
+<div id="I1.i5.p1" class="ltx_para">
+<p class="ltx_p">A lexical selection module (Tyers et al., 2012b) which chooses, based on context rules, the most adequate translation of ambiguous source language LFs.</p>
+</div>
+</li>
+<li id="I1.i6" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_itemize">•</span>
+<div id="I1.i6.p1" class="ltx_para">
+<p class="ltx_p">A structural transfer module, which performs local syntactic operations, is compiled from XML files containing rules that associate an action to each defined LF pattern.
+Patterns are applied left-to-right, and the longest matching pattern is always selected.</p>
+</div>
+</li>
+<li id="I1.i7" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_itemize">•</span>
+<div id="I1.i7.p1" class="ltx_para">
+<p class="ltx_p">A morphological generator which delivers a TL SF for each TL LF, by suitably inflecting it.</p>
+</div>
+</li>
+<li id="I1.i8" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_itemize">•</span>
+<div id="I1.i8.p1" class="ltx_para">
+<p class="ltx_p">A reformatter which de-encapsulates any format information.</p>
+</div>
+</li>
+</ul>
+</div>
+<div id="S4.SS1.p3" class="ltx_para">
+<p class="ltx_p">Table <a href="#S4.T1" title="Table 1 ‣ 4.1 Architecture of the system ‣ 4 System ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a> provides an example of a single phrase as it moves through the pipeline.</p>
+</div>
+<figure id="S4.T1" class="ltx_table">
+<table class="ltx_tabular ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_l ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">North SÃ¡mi input: SÃ¡megielat leat gielat maid sÃ¡mit hÃ¡llet.</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r ltx_border_tt"><span class="ltx_text" style="font-size:90%;">Morphological analysis:</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:90%;">^SÃ¡megielat/ sÃ¡megielat¡adj¿ ¡attr¿/ sÃ¡megielat¡adj¿ ¡sg¿¡nom¿/</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">sÃ¡megiella¡n¿ ¡pl¿¡nom¿/ sÃ¡megiella¡n¿ ¡sg¿¡acc¿¡px2sg¿/</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">sÃ¡megiella¡n¿ ¡sg¿¡gen¿¡px2sg¿/ sÃ¡megiella¡n¿ ¡sg¿¡acc¿¡px2sg¿/</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">sÃ¡megiella¡n¿ ¡sg¿¡gen¿¡px2sg¿$</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">^leat/ leat¡vblex¿¡iv¿ ¡indic¿¡pres¿¡conneg¿/</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">leat¡vblex¿¡iv¿ ¡indic¿¡pres¿¡p1¿¡pl¿/ leat¡vblex¿¡iv¿ ¡indic¿¡pres¿¡p2¿¡sg¿/</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">leat¡vblex¿¡iv¿ ¡indic¿¡pres¿¡p3¿¡pl¿/ leat¡vblex¿¡iv¿ ¡inf¿$</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">^gielat/ giella¡n¿ ¡pl¿¡nom¿/ giella¡n¿ ¡sg¿¡acc¿¡px2sg¿/</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">giella¡n¿ ¡sg¿¡gen¿¡px2sg¿/ giella¡n¿ ¡sg¿¡acc¿¡px2sg¿/</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">giella¡n¿ ¡sg¿¡gen¿¡px2sg¿$ ^maid/ maid¡adv¿/ mii¡prn¿¡itg¿ ¡pl¿¡acc¿/</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">mii¡prn¿¡itg¿ ¡pl¿¡gen¿/ mii¡prn¿¡itg¿ ¡sg¿¡acc¿/ mii¡prn¿¡rel¿ ¡pl¿¡acc¿/</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">mii¡prn¿¡rel¿ ¡pl¿¡gen¿/ mii¡prn¿¡rel¿ ¡sg¿¡acc¿$</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">^sÃ¡mit/ sÃ¡pmi¡n¿ ¡pl¿¡nom¿/ sÃ¡pmi¡n¿ ¡pl¿¡nom¿$</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">^hÃ¡llet/ hÃ¡llat¡vblex¿¡tv¿ ¡imp¿¡p2¿¡pl¿/</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">hÃ¡llat¡vblex¿¡tv¿ ¡indic¿¡pres¿¡p3¿¡pl¿/ hÃ¡llat¡vblex¿¡tv¿ ¡indic¿¡pret¿¡p2¿¡sg¿$</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">^./.¡sent¿$</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r ltx_border_tt"><span class="ltx_text" style="font-size:90%;">Morphological disambiguation:</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r ltx_border_t">
+<span class="ltx_text" style="font-size:90%;">^SÃ¡megielat/sÃ¡megiella¡n¿ ¡pl¿¡nom¿ ¡@SUBJ</span><math id="S4.T1.m1" class="ltx_Math" alttext="\rightarrow" display="inline"><mo mathsize="90%" stretchy="false">→</mo></math><span class="ltx_text" style="font-size:90%;">¿$</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">^leat/leat¡vblex¿¡iv¿ ¡indic¿¡pres¿¡p3¿¡pl¿ ¡@+FMAINV¿$</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r">
+<span class="ltx_text" style="font-size:90%;">^gielat/giella¡n¿ ¡pl¿¡nom¿ ¡@</span><math id="S4.T1.m2" class="ltx_Math" alttext="\leftarrow" display="inline"><mo mathsize="90%" stretchy="false">←</mo></math><span class="ltx_text" style="font-size:90%;">SPRED¿$</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r">
+<span class="ltx_text" style="font-size:90%;">^maid/mii¡prn¿¡rel¿ ¡pl¿¡acc¿ ¡@OBJ</span><math id="S4.T1.m3" class="ltx_Math" alttext="\rightarrow" display="inline"><mo mathsize="90%" stretchy="false">→</mo></math><span class="ltx_text" style="font-size:90%;">¿$</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r">
+<span class="ltx_text" style="font-size:90%;">^sÃ¡mit/sÃ¡pmi¡n¿ ¡pl¿¡nom¿ ¡@SUBJ</span><math id="S4.T1.m4" class="ltx_Math" alttext="\rightarrow" display="inline"><mo mathsize="90%" stretchy="false">→</mo></math><span class="ltx_text" style="font-size:90%;">¿$</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">^hÃ¡llet/hÃ¡llat¡vblex¿¡tv¿ ¡indic¿¡pres¿¡p3¿¡pl¿ ¡@+FMAINV¿$
+^./.¡sent¿$</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r ltx_border_tt"><span class="ltx_text" style="font-size:90%;">Lexical translation:</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r ltx_border_t">
+<span class="ltx_text" style="font-size:90%;">^SÃ¡megiella¡n¿ ¡pl¿¡nom¿ ¡@SUBJ</span><math id="S4.T1.m5" class="ltx_Math" alttext="\rightarrow" display="inline"><mo mathsize="90%" stretchy="false">→</mo></math><span class="ltx_text" style="font-size:90%;">¿/ Saamekieli¡n¿ ¡pl¿¡nom¿ ¡@SUBJ</span><math id="S4.T1.m6" class="ltx_Math" alttext="\rightarrow" display="inline"><mo mathsize="90%" stretchy="false">→</mo></math><span class="ltx_text" style="font-size:90%;">¿/</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r">
+<span class="ltx_text" style="font-size:90%;">Saame¡n¿ ¡pl¿¡nom¿ ¡@SUBJ</span><math id="S4.T1.m7" class="ltx_Math" alttext="\rightarrow" display="inline"><mo mathsize="90%" stretchy="false">→</mo></math><span class="ltx_text" style="font-size:90%;">¿$</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">^leat¡vblex¿¡iv¿ ¡indic¿¡pres¿¡p3¿¡pl¿ ¡@+FMAINV¿/</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">olla¡vblex¿ ¡actv¿¡indic¿¡pres¿¡p3¿¡pl¿ ¡@+FMAINV¿/</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">sijaita¡vblex¿ ¡actv¿¡indic¿¡pres¿¡p3¿¡pl¿ ¡@+FMAINV¿$</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r">
+<span class="ltx_text" style="font-size:90%;">^giella¡n¿ ¡pl¿¡nom¿ ¡@</span><math id="S4.T1.m8" class="ltx_Math" alttext="\leftarrow" display="inline"><mo mathsize="90%" stretchy="false">←</mo></math><span class="ltx_text" style="font-size:90%;">SPRED¿/ kieli¡n¿ ¡pl¿¡nom¿ ¡@</span><math id="S4.T1.m9" class="ltx_Math" alttext="\leftarrow" display="inline"><mo mathsize="90%" stretchy="false">←</mo></math><span class="ltx_text" style="font-size:90%;">SPRED¿/</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r">
+<span class="ltx_text" style="font-size:90%;">ansa¡n¿ ¡pl¿¡nom¿ ¡@</span><math id="S4.T1.m10" class="ltx_Math" alttext="\leftarrow" display="inline"><mo mathsize="90%" stretchy="false">←</mo></math><span class="ltx_text" style="font-size:90%;">SPRED¿$</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r">
+<span class="ltx_text" style="font-size:90%;">^mii¡prn¿¡rel¿ ¡pl¿¡acc¿ ¡@OBJ</span><math id="S4.T1.m11" class="ltx_Math" alttext="\rightarrow" display="inline"><mo mathsize="90%" stretchy="false">→</mo></math><span class="ltx_text" style="font-size:90%;">¿/ mikÃ¤¡prn¿¡rel¿ ¡pl¿¡acc¿ ¡@OBJ</span><math id="S4.T1.m12" class="ltx_Math" alttext="\rightarrow" display="inline"><mo mathsize="90%" stretchy="false">→</mo></math><span class="ltx_text" style="font-size:90%;">¿$</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r">
+<span class="ltx_text" style="font-size:90%;">^sÃ¡pmi¡n¿ ¡pl¿¡nom¿ ¡@SUBJ</span><math id="S4.T1.m13" class="ltx_Math" alttext="\rightarrow" display="inline"><mo mathsize="90%" stretchy="false">→</mo></math><span class="ltx_text" style="font-size:90%;">¿/ saame¡n¿ ¡pl¿¡nom¿ ¡@SUBJ</span><math id="S4.T1.m14" class="ltx_Math" alttext="\rightarrow" display="inline"><mo mathsize="90%" stretchy="false">→</mo></math><span class="ltx_text" style="font-size:90%;">¿$</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">^hÃ¡llat¡vblex¿¡tv¿ ¡indic¿¡pres¿¡p3¿¡pl¿ ¡@+FMAINV¿/</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">puhua¡vblex¿ ¡actv¿¡indic¿¡pres¿¡p3¿¡pl¿ ¡@+FMAINV¿/</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">mekastaa¡vblex¿ ¡actv¿¡indic¿¡pres¿¡p3¿¡pl¿ ¡@+FMAINV¿$^.¡sent¿/.¡sent¿$</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r ltx_border_tt"><span class="ltx_text" style="font-size:90%;">Structural transfer:</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:90%;">^Saamekieli¡n¿ ¡pl¿¡nom¿$
+^olla¡vblex¿ ¡actv¿¡indic¿¡pres¿¡p3¿¡pl¿$</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">^kieli¡n¿ ¡pl¿¡nom¿$
+^mikä¡prn¿¡rel¿ ¡pl¿¡par¿$</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">^saame¡n¿ ¡pl¿¡nom¿$
+^puhua¡vblex¿ ¡actv¿¡indic¿¡pres¿¡p3¿¡pl¿$^.¡sent¿$</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r ltx_border_tt"><span class="ltx_text" style="font-size:90%;">Finnish translation:</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_b ltx_border_l ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:90%;">Saamekielet ovat kielet #mikä saamet puhuvat</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption" style="font-size:90%;"><span class="ltx_tag ltx_tag_table">Table 1: </span>Translation process for the North SÃ¡mi phrase <span class="ltx_text ltx_font_italic">SÃ¡megielat leat gielat maid sÃ¡mit hÃ¡llet</span> (The SÃ¡mi languages are the languages that the SÃ¡mis speak)
+</figcaption>
+</figure>
+</section>
+<section id="S4.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.2 </span>Morphological transducers</h3>
+
+<div id="S4.SS2.p1" class="ltx_para">
+<p class="ltx_p">The morphological transducers are compiled with the Helsinki Finite State Technology <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib8" title="HFST tools for morphology–an efficient open-source package for construction of morphological analyzers" class="ltx_ref">9</a>]</cite>,<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">5</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">5</sup><span class="ltx_ERROR undefined">\url</span>https://hfst.github.io</span></span></span> a free/open-source reimplementation of the Xerox finite-state tool-chain, popular in the field of morphological analysis.
+It implements both the lexc morphology description language for defining lexicons, and the twol and xfst scripting languages for modeling morphophonological rules.
+This toolkit has been chosen as it—or the equivalent XFST—has been widely used for other Uralic languages <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib9" title="Two-level morphology—a general computational model for word-form recognition and production" class="ltx_ref">7</a>, <a href="#bib.bib11" title="Development and use of computational morphology of finnish in the open source and open science era: notes on experiences with omorfi development" class="ltx_ref">11</a>, <a href="#bib.bib12" title="Building an open-source development infrastructure for language technology projects" class="ltx_ref">10</a>]</cite>, and is available under a free/open-source licence.
+The morphologies of both languages are implemented in lexc, and the morphophonologies of both languages are implemented in twolc.</p>
+</div>
+<div id="S4.SS2.p2" class="ltx_para">
+<p class="ltx_p">The same morphological description is used for both analysis and generation.
+To avoid overgeneration, any alternative forms are marked with one of two marks, LR (only analyser) or RL (only generator).
+Instead of the usual compile/invert to compile the transducers, we compile twice, once the generator, without the LR paths, and then again the analyser without the RL paths.</p>
+</div>
+</section>
+<section id="S4.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.3 </span>Bilingual lexicon</h3>
+
+<div id="S4.SS3.p1" class="ltx_para">
+<p class="ltx_p">The bilingual lexicon currently contains 19,415 stem-to-stem correspondences (of which 8044 proper nouns) and was built partly upon an available North SÃ¡mi—Finnish dictionary<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">6</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">6</sup><span class="ltx_ERROR undefined">\url</span>https://gtweb.uit.no/langtech/trunk/words/dicts/smefin/src/</span></span></span>, and partly by hand (i.e., by translating North SÃ¡mi stems unrecognised by the morphological analyser into Finnish). The proper nouns were taken from existing lexical resources.
+Entries consist largely of one-to-one stem-to-stem correspondences with part of speech, but also include some entries with ambiguous translations (see e.g., Figure <a href="#S4.F2" title="Figure 2 ‣ 4.3 Bilingual lexicon ‣ 4 System ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>).</p>
+</div>
+<figure id="S4.F2" class="ltx_figure"><pre class="ltx_verbatim ltx_font_typewriter">
+    &lt;e&gt;&lt;p&gt;&lt;l&gt;sálten&lt;s n="n"/&gt;&lt;/l&gt;&lt;r&gt;suolaus&lt;s n="n"/&gt;&lt;/r&gt;&lt;/p&gt;&lt;/e&gt;
+    &lt;e&gt;&lt;p&gt;&lt;l&gt;sálti&lt;s n="n"/&gt;&lt;/l&gt;&lt;r&gt;suola&lt;s n="n"/&gt;&lt;/r&gt;&lt;/p&gt;&lt;/e&gt;
+    &lt;e&gt;&lt;p&gt;&lt;l&gt;sámeduodji&lt;s n="n"/&gt;&lt;/l&gt;&lt;r&gt;käsityö&lt;s n="n"/&gt;&lt;/r&gt;&lt;/p&gt;&lt;/e&gt;
+    &lt;e&gt;&lt;p&gt;&lt;l&gt;sámegiella&lt;s n="n"/&gt;&lt;/l&gt;&lt;r&gt;saame&lt;s n="n"/&gt;&lt;/r&gt;&lt;/p&gt;&lt;/e&gt;
+    &lt;e&gt;&lt;p&gt;&lt;l&gt;sámegiella&lt;s n="n"/&gt;&lt;/l&gt;&lt;r&gt;saamekieli&lt;s n="n"/&gt;&lt;/r&gt;&lt;/p&gt;&lt;/e&gt;
+    &lt;e&gt;&lt;p&gt;&lt;l&gt;sámi&lt;s n="n"/&gt;&lt;/l&gt;&lt;r&gt;saame&lt;s n="n"/&gt;&lt;/r&gt;&lt;/p&gt;&lt;/e&gt;
+    &lt;e&gt;&lt;p&gt;&lt;l&gt;sámil&lt;s n="n"/&gt;&lt;/l&gt;&lt;r&gt;sammal&lt;s n="n"/&gt;&lt;/r&gt;&lt;/p&gt;&lt;/e&gt;
+
+</pre>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure">Figure 2: </span>Example entries from the bilingual transfer lexicon. Finnish is on the right, and North SÃ¡mi on the left.
+
+</figcaption>
+</figure>
+</section>
+<section id="S4.SS4" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.4 </span>Disambiguation rules</h3>
+
+<div id="S4.SS4.p1" class="ltx_para">
+<p class="ltx_p">The system has a morphological disambiguation module in the form of a Constraint Grammar <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib13" title="Constraint grammar: a language-independent system for parsing unrestricted text" class="ltx_ref">5</a>]</cite>.
+The version of the formalism used is vislcg3.<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">7</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">7</sup><span class="ltx_ERROR undefined">\url</span>http://visl.cg.sdu.dk</span></span></span>
+The output of each morphological analyser is highly ambiguous, measured at around 2.4 morphological analyses per form for Finnish and 2.6 for North SÃ¡mi<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">8</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">8</sup>Cf. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib18" title="Disambiguering av homonymi i Nord- og Lulesamisk" class="ltx_ref">16</a>]</cite></span></span></span>.
+The goal of the CG rules is to select the correct analysis when there are multiple analyses.
+Given the similarity of Finnish and North SÃ¡mi, ambiguity across parts of speech may often be passed from one language to the other and not lead to many translation errors.
+Disambiguating between forms within the inflectional paradigms in case of homonymy, on the other hand, are crucial for choosing the correct form of the target language, and there has been put much effort into developing CG rules to resolve such ambiguity for North SÃ¡mi. Currently, ambiguity is down to 1.08 for North SÃ¡mi (analysed with the disambigator used for MT on a 675534 word newspaper corpus<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">9</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">9</sup>Cf. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib19" title="Ord sett innafra og utafra â en datalingvistisk analyse av nordsamisk" class="ltx_ref">2</a>]</cite> for a presentation of the North SÃ¡mi CG.</span></span></span>. The corresponding number for Finnish is 1.36, for a subcorpus of 770999 words of Wikipedia text. The Finnish CG rules are a conversion of Fred Karlssonâs original CG1 rules for Finnish <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib21" title="Constraint grammar as a framework for parsing running text" class="ltx_ref">6</a>]</cite>, and the poorer results for Finnish are due to conversion problems between the different CG version, and between CG1 and our Finnish FST.</p>
+</div>
+</section>
+</section>
+<section id="S5" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">5 </span>Evaluation</h2>
+
+<div id="S5.p1" class="ltx_para">
+<p class="ltx_p">All evaluation was tested against a specific version of Apertium SVN<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">10</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">10</sup><span class="ltx_ERROR undefined">\url</span>https//svn.code.sf.net/p/apertium/svn/nursery/apertium-sme-fin: revision 76019</span></span></span> and Giellatekno SVN<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">11</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">11</sup><span class="ltx_ERROR undefined">\url</span>https://victorio.uit.no/langtech/trunk/langs/sme: revision 147464</span></span></span>.
+The lexical coverage of the system was calculated over freely available corpora of North SÃ¡mi.
+We used a recent dump of Wikipedia <span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">12</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">12</sup><span class="ltx_ERROR undefined">\url</span>http://se.wikipedia.org</span></span></span> as well as a translation of the New Testament.
+The corpora were divided into 10 parts each; the coverage numbers given are the averages of the calculated percentages of number of words analysed for each of these parts, and the standard deviation presented is the standard deviation of the coverage on each corpus.
+As shown in Table <a href="#S5.T2" title="Table 2 ‣ 5 Evaluation ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>, the naïve coverage<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">13</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">13</sup>A non-naÃ¯ve coverage would require manual evaluation of correctness for the cases where word-forms are covered accidentally by e.g., morphological processes.</span></span></span> of the North SÃ¡mi to Finnish MT system over the corpora approaches that of a broad-coverage MT system, with one word in ten unknown.</p>
+</div>
+<figure id="S5.T2" class="ltx_table">
+<table class="ltx_tabular ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_l ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold">Corpus</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold">Tokens</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold">Cov.</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold">std</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r ltx_border_t">se.wikipedia.org</th>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_t">190,894</td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_t">76,81 %</td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_t">
+<math id="S5.T2.m1" class="ltx_Math" alttext="\pm" display="inline"><mo>±</mo></math>10</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_b ltx_border_l ltx_border_r">New Testament</th>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r">162,718</td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r">92,45 %</td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r">
+<math id="S5.T2.m2" class="ltx_Math" alttext="\pm" display="inline"><mo>±</mo></math>0.06</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_table">Table 2: </span>Naïve coverage of sme-fin system
+</figcaption>
+</figure>
+<div id="S5.p2" class="ltx_para">
+<p class="ltx_p">The coverage over the Wikipedia corpus is substantially worse, due to the fact that this corpus is “dirtier”: it contains orthographical errors, wiki code <span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">14</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">14</sup>While we have tried to clean the data from most of the Mediawiki codes and notations, there is always some left after the cleanup, due to new wiki codes after creation of the cleanup script or actual broken data</span></span></span>, repetitions, lot of English texts, as well as quite a few proper nouns, this is easily seen in the large deviation between divided parts.
+The New Testament on the other hand is rather well covered and has practically uniformly distributed coverage throughout.</p>
+</div>
+<div id="S5.p3" class="ltx_para">
+<p class="ltx_p">To measure the performance of the translator we used the Word Error Rate metric—an edit-distance metric based on Levenshtein distance <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib6" title="Binary codes capable of correcting deletions, insertions, and reversals" class="ltx_ref">8</a>]</cite>.
+We had three small North SÃ¡mi corpora along with their manually post-edited translations into Finnish to measure the WER.
+We have chosen not to measure the translation quality with automatic measures such as BLEU, as they are not the best suited to measure quality of translations for the use case, for further details see also <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib22" title="Re-evaluation the role of bleu in machine translation research." class="ltx_ref">3</a>, <a href="#bib.bib23" title="Climbing mount bleu: the strange world of reachable high-bleu translations" class="ltx_ref">14</a>, <a href="#bib.bib24" title="Bleu is not the colour: how optimising bleu reduces translation quality" class="ltx_ref">13</a>]</cite>.
+</p>
+</div>
+<div id="S5.p4" class="ltx_para">
+<p class="ltx_p">For translation post-edition we used three freely available parallel texts from the internet: one from the Finnish SÃ¡mi parliament site<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">15</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">15</sup><span class="ltx_ERROR undefined">\url</span>http://samediggi.fi</span></span></span>, one from a Swedish regulation of minority people and languages and the story that is used with all Apertium language pairs as initial development set (“Where is James?”).
+Table <a href="#S5.T3" title="Table 3 ‣ 5 Evaluation ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a> presents the WER for the corpora.</p>
+</div>
+<figure id="S5.T3" class="ltx_table">
+<table class="ltx_tabular ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_l ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold">Corpus</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold">Tokens</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold">OOV</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold">WER</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r ltx_border_t">Redigering.se</td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_t">1,070</td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_t">95</td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_t">34.24</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r">Samediggi.fi</td>
+<td class="ltx_td ltx_align_right ltx_border_r">570</td>
+<td class="ltx_td ltx_align_right ltx_border_r">33</td>
+<td class="ltx_td ltx_align_right ltx_border_r">36.32</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_b ltx_border_l ltx_border_r">The Story</td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r">361</td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r">0</td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r">19.94</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_table">Table 3: </span>Word error rate over the corpora; OOV is the number of out-of-vocabulary (unknown) words.
+</figcaption>
+</figure>
+<div id="S5.p5" class="ltx_para">
+<p class="ltx_p">Analysing the changes in post-edition, a few classes of actual errors can be identified.
+One common example arises from the grammatical differences in the case system systems, in particular the remaining adpositions are often turned into a case suffix for the dependent noun phrase, e.g., the North SÃ¡mi “birra” has been turned into the Finnish adposition “ympäri” (around), where elative case is required, similarly for the translation “seassa” (among) instead of inessive case.
+Also visible, especially in the story text is the lack of possessive suffix agreement e.g. “heidän äiti” (their mother <span class="ltx_text ltx_font_smallcaps">n sg nom</span>) instead of “heidän äitinsä” (their mother <span class="ltx_text ltx_font_smallcaps">n sp nom/gen pxsp3</span>), while the former is perfectly acceptable in standard spoken Finnish it is not accepted as formal written language form.
+Another issue that appeared a number of times, maybe partially due to the genre of the texts selected, i.e. law texts, was the selection of adverb (form), e.g. the word-form “mukana” (with) was corrected to “mukaan” (according to).
+A large amount of simple lexical problems is due to the vocabulary of the selected texts as well: “hallintoalue” (governmental area), “seurantavastuu” (responsibility of surveillance), “itsehallinto” (autonomy), and their compounds, are all either missing or partially wrong due to lexical selections.</p>
+</div>
+</section>
+<section id="S6" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">6 </span>Concluding remarks</h2>
+
+<div id="S6.p1" class="ltx_para">
+<p class="ltx_p">To our knowledge we have presented the first MT system from Finnish to North SÃ¡mi.
+With a WER of above 30%, it still is far from production-level performance, and it is also at the prototype-level in terms of the number of rules.
+Although the impact of this relatively low number of rules on the quality of translation is extensive (cf., the difference in WER between the development and testing corpora), the outlook is promising and the current results suggest that a high quality translation between morphologically-rich agglutinative languages is possible.
+We plan to continue development on the pair; the coverage of the system is already quite high, although we intend to increase it to 95 % on the corpora we have
+we estimate that this will mean adding around 5,000 new stems and take 1â2 months.
+The remaining work will be improving the quality of translation by adding more rules, starting with the CG module.
+The long-term plan is to integrate the data created with other open-source data for Uralic languages in order to make transfer systems between all the Uralic language pairs.
+Related work is currently ongoing from North SÃ¡mi to South, Lule and Inari SÃ¡mi, from North SÃ¡mi to Norwegian, and between Finnish and Estonian.
+The system is available as free/open-source software under the GNU GPL and the whole system may be downloaded from Sourceforge and the open repository of Giellatekno.</p>
+</div>
+</section>
+<section id="Sx1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">Acknowledgements</h2>
+
+<div id="Sx1.p1" class="ltx_para">
+<p class="ltx_p">The work on this North SÃ¡mi-Finnish machine translation system was partially funded by the Google Summer of Code and Google Code-In programmes, and partly by a Norsk forsingsrÃ¥d grant (234299) on machine translation between SÃ¡mi languages.</p>
+</div>
+</section>
+<section id="bib" class="ltx_bibliography">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+
+<ul id="L1" class="ltx_biblist">
+<li id="bib.bib15" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Antonsen, T. Trosterud and F. Tyers</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A North Saami to South Saami machine translation prototype</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_volume">4</span>, <span class="ltx_text ltx_bib_pages"> pp. 11–27</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="http://dx.doi.org/10.3384/nejlt.2000-1533.1642" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Previous work ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>.
+</span>
+</li>
+<li id="bib.bib19" class="ltx_bibitem ltx_bib_unpublished">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Antonsen and T. Trosterud</span><span class="ltx_text ltx_bib_year"> (forthcoming)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Ord sett innafra og utafra â en datalingvistisk analyse av nordsamisk</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">Norsk Lingvistisk Tidsskrift</span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS4.p1" title="4.4 Disambiguation rules ‣ 4 System ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.4</span></a>.
+</span>
+</li>
+<li id="bib.bib22" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Callison-Burch, M. Osborne and P. Koehn</span><span class="ltx_text ltx_bib_year"> (2006)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Re-evaluation the role of bleu in machine translation research.</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">EACL</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume">6</span>, <span class="ltx_text ltx_bib_pages"> pp. 249–256</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S5.p3" title="5 Evaluation ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>.
+</span>
+</li>
+<li id="bib.bib7" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. L. Forcada, M. Ginestí-Rosell, J. Nordfalk, J. Oâ, S. Ortiz-Rojas, J. A. Pérez-Ortiz, F. Sánchez-Martínez, G. Ramírez-Sánchez and Tyers</span><span class="ltx_text ltx_bib_year"> (2011)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Apertium: a free/open-source platform for rule-based machine translation</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Machine translation</span> <span class="ltx_text ltx_bib_volume">25</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages"> pp. 127–144</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.p1" title="4 System ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>.
+</span>
+</li>
+<li id="bib.bib13" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. Karlsson, A. Voutilainen, J. Heikkilae and A. Anttila</span><span class="ltx_text ltx_bib_year"> (1995)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Constraint grammar: a language-independent system for parsing unrestricted text</span>.
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume">4</span>,  <span class="ltx_text ltx_bib_publisher">Walter de Gruyter</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS4.p1" title="4.4 Disambiguation rules ‣ 4 System ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.4</span></a>.
+</span>
+</li>
+<li id="bib.bib21" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. Karlsson</span><span class="ltx_text ltx_bib_year"> (1990)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Constraint grammar as a framework for parsing running text</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 13th conference on Computational linguistics-Volume 3</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 168–173</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS4.p1" title="4.4 Disambiguation rules ‣ 4 System ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.4</span></a>.
+</span>
+</li>
+<li id="bib.bib9" class="ltx_bibitem ltx_bib_thesis">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Koskenniemi</span><span class="ltx_text ltx_bib_year"> (1983)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Two-level morphology—a general computational model for word-form recognition and production</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_type">Ph.D. Thesis</span>, <span class="ltx_text ltx_bib_publisher">Department of General Linguistics. University of Helsinki, Finland</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS2.p1" title="4.2 Morphological transducers ‣ 4 System ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.2</span></a>.
+</span>
+</li>
+<li id="bib.bib6" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">V. I. Levenshtein</span><span class="ltx_text ltx_bib_year"> (1966)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Binary codes capable of correcting deletions, insertions, and reversals</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Soviet physics doklady</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume">10</span>, <span class="ltx_text ltx_bib_pages"> pp. 707–710</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S5.p3" title="5 Evaluation ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>.
+</span>
+</li>
+<li id="bib.bib8" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Lindén, M. Silfverberg and T. Pirinen</span><span class="ltx_text ltx_bib_year"> (2009)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">HFST tools for morphology–an efficient open-source package for construction of morphological analyzers</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">International Workshop on Systems and Frameworks for Computational Morphology</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 28–47</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS2.p1" title="4.2 Morphological transducers ‣ 4 System ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.2</span></a>.
+</span>
+</li>
+<li id="bib.bib12" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. N. Moshagen, T. A. Pirinen and T. Trosterud</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Building an open-source development infrastructure for language technology projects</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 19th Nordic Conference of Computational Linguistics (NODALIDA 2013); May 22-24; 2013; Oslo University; Norway. NEALT Proceedings Series 16</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 343–352</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS2.p1" title="4.2 Morphological transducers ‣ 4 System ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.2</span></a>.
+</span>
+</li>
+<li id="bib.bib11" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. A. Pirinen</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Development and use of computational morphology of finnish in the open source and open science era: notes on experiences with omorfi development</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">SKY Journal of Linguistics</span> <span class="ltx_text ltx_bib_volume">28</span>, <span class="ltx_text ltx_bib_pages"> pp. 381–393</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS2.p1" title="4.2 Morphological transducers ‣ 4 System ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.2</span></a>.
+</span>
+</li>
+<li id="bib.bib14" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">I. Salimzyanov, J. Washington and F. Tyers</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A free/open-source kazakh-tatar machine translation system</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Machine Translation Summit XIV</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Previous work ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>.
+</span>
+</li>
+<li id="bib.bib24" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Smith, C. Hardmeier and J. Tiedemann</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Bleu is not the colour: how optimising bleu reduces translation quality</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S5.p3" title="5 Evaluation ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>.
+</span>
+</li>
+<li id="bib.bib23" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Smith, C. Hardmeier and J. Tiedemann</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Climbing mount bleu: the strange world of reachable high-bleu translations</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Baltic Journal of Modern Computing</span> <span class="ltx_text ltx_bib_volume">4</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages"> pp. 269</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S5.p3" title="5 Evaluation ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>.
+</span>
+</li>
+<li id="bib.bib17" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[15]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Trosterud and K. B. Unhammer</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Evaluating North Sámi to Norwegian assimilation RBMT</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Third International Workshop on Free/Open-Source Rule-Based Machine Translation (FreeRBMT 2012)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">Technical report</span>, Vol. <span class="ltx_text ltx_bib_volume">3</span>, <span class="ltx_text ltx_bib_pages"> pp. 13–26</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Previous work ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>.
+</span>
+</li>
+<li id="bib.bib18" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[16]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Trosterud and L. Wiechetek</span><span class="ltx_text ltx_bib_year"> (2007)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Disambiguering av homonymi i Nord- og Lulesamisk</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Suomalais-Ugrilaisen Seuran Toimituksia <math id="bib.bib18.m1" class="ltx_Math" alttext="=" display="inline"><mo>=</mo></math> Mémoires de la Société Fi nno-Ougrienne. SÃ¡mit, sÃ¡nit, sÃ¡tnehÃ¡mit. RiepmoÄÃ¡la Pekka Sammallahtii miessemÃ¡nu 21. beaivve 2007</span> <span class="ltx_text ltx_bib_volume">253</span>, <span class="ltx_text ltx_bib_pages"> pp. 375–395</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS4.p1" title="4.4 Disambiguation rules ‣ 4 System ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.4</span></a>.
+</span>
+</li>
+<li id="bib.bib16" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[17]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. Tyers, L. Wiechetek and T. Trosterud</span><span class="ltx_text ltx_bib_year"> (2009)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Developing prototypes for machine translation between two Sámi languages</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 13th Annual Conference of the European Association for Machine Translation, EAMT09</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 120–128</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Previous work ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>.
+</span>
+</li>
+<li id="bib.bib20" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[18]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Wiechetek, F. Tyers and T. Omma</span><span class="ltx_text ltx_bib_year"> (2010)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Shooting at flies in the dark: Rule-based lexical selection for a minority language pair</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Lecture Notes in Artificial Intelligence</span> <span class="ltx_text ltx_bib_volume">6233</span>, <span class="ltx_text ltx_bib_pages"> pp. 418–429</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Previous work ‣ North SÃ¡mi to Finnish rule-based machine translation system\footnotepubrights Originally published in NoDaLiDa 2017 in GÃ¶teborg. Official vresion available from ACL anthology: \urlhttp://aclweb.org/anthology/W17-0214 as well as LinkÃ¶ping university repository: \urlhttp://www.ep.liu.se/ecp/article.asp?issue=131&amp;article=014 Authors are listed in alphabetical order" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>.
+</span>
+</li>
+</ul>
+</section>
+</article>
+</div>
+<footer class="ltx_page_footer">
+<div class="ltx_page_logo">Generated  on Fri Sep 29 15:50:28 2017 by <a href="http://dlmf.nist.gov/LaTeXML/">LaTeXML <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="[LOGO]"></a>
+</div></footer>
+</div>
+</body>
+</html>
