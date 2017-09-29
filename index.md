@@ -126,6 +126,8 @@ be as accurat and up-to-date as google scholar.
    Finite-State Spell-Checker Suggestions with Part-of-Speech N-grams*
    in Proceedings of International Conference on Intelligent Text
    Processing and Computational Linguistics CICLING 2012
+   [TeX version](2011-cicling-contextspell/Pirinen-2011-cicling-contextspell.tex),
+   [HTML (LaTeXML) version](2011-cicling-contextspell/Pirinen-2011-cicling-contextspell.html)
 17. Krister Lindén, Miikka Silfverberg, Erik Axelson, Sam Hardwick,
    **Tommi A Pirinen** (2011c) *HFST—Framework for Compiling and
    Applying Morphologies* in Systems and Frameworks for Computational
