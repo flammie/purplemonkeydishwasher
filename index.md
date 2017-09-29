@@ -113,6 +113,9 @@ be as accurat and up-to-date as google scholar.
    Error Models on Efficiency of Finite-State Spell-Checking and
    Correction*, in Proceedings of 10th International Workshop on
    Finite-State Methods and/in Natural Language Processing FSMNLP 2012
+   [TeX version](2012-fsmnlp-speller/Pirinen-2012-fsmnlp-speedspelling.tex),
+   [HTML (LaTeXML)
+   version](2012-fsmnlp-speller/Pirinen-2012-fsmnlp-speedspelling.html)
 14. Krister Lindén, Miikka Silfverberg, Erik Axelson, Senka Drobac, Sam
    Hardwick, **Tommi A Pirinen** (2012c) *Using HFST for
    creating Computational Linguistic Applications* in Computational
@@ -122,6 +125,8 @@ be as accurat and up-to-date as google scholar.
    applications* in Proceedings of Workshops in Language Resources and
    Evaluation conference LREC 2012, in saltmil-aflat workshop on
    “language technology for normalisation of less-resourced languages”
+   [TeX version](2011-lrec-apertium/Pirinen-2011-lrec-apertium.tex),
+   [HTML (LaTeXML) version](2011-lrec-apertium/Pirinen-2011-lrec-apertium.html)
 16. **Tommi A Pirinen**, Miikka Silfverberg (2012a) *Improving
    Finite-State Spell-Checker Suggestions with Part-of-Speech N-grams*
    in Proceedings of International Conference on Intelligent Text
@@ -141,6 +146,8 @@ be as accurat and up-to-date as google scholar.
    Language Description—Towards Wide Collaboration in Open Source
    Development of Morphological Analyser* in Proceedings of Nodalida
    2011 (18).
+   [TeX version](2011-nodalida/Pirinen-2011-nodalida-omorfi.tex),
+   [HTML (LaTeXML) version](2011-nodalida/Pirinen-2011-nodalida-omorfi.html)
 20. **Tommi A Pirinen**, Krister Lindén (2010c), *Creating and Weighting
    Hunspell Dictionaries as Finite-State Automata* , in Investigationes
    Linguisticae (19).
