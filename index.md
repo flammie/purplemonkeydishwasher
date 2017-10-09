@@ -211,22 +211,24 @@ be as accurat and up-to-date as google scholar.
 
 ### Edited volumes
 
-1. **Tommi A Pirinen** et al. (to appear) *Acta Linguistica Hungarica, special
-   issue*.
+1. **Tommi A Pirinen** et al. (2017) *Acta Linguistica Hungarica, special
+   issue*. Volume 64, Issue 3, September 2017. [publisher's version](http://akademiai.com/toc/2062/64/3)
 1. **Tommi A Pirinen**, Francis Tyers, Trond Trosterud, Michael Rießler (2017),
    *Proceedings of the third international workshop for computational linguistics
    of Uralic languages* held in St. Petersburg, published by ACL anthology: SIG
-   workshops
+   workshops [ACL anthology
+   version](https://aclanthology.coli.uni-saarland.de/sigs/sigur#W17-06)
 1. **Tommi A Pirinen**, Francis Tyers, Veronika Vincze (2016),
    *Proceedings of the second international workshop for computational linguistics
    of Uralic languages* held in Szeged, published in Szeged
    workshops
 1. **Tommi A Pirinen**, Francis Tyers, Trond Trosterud (2016), *NEJLT (Nordic
    European Journal of Language Technology, special issue in Uralic Language
-   Technology*, published in NEJLT
+   Technology*, published in NEJLT [publisher's version](http://www.nejlt.ep.liu.se//2016/v4/index.htm)
 1. **Tommi A Pirinen**, Francis Tyers, Trond Trosterud (2015),
    *Proceedings of the first international workshop for computational linguistics
    of Uralic languages* held in Tromsø, published by university library
+   [library's version](http://septentrio.uit.no/index.php/SCS/issue/view/291)
 
 ### Presentations, tutorials, invited speeches
 
