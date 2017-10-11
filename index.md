@@ -10,6 +10,8 @@ title: Academic homepage of Tommi A Pirinen
 [CLARIN-D developer](https://clarin-d.net),
 etc. usw.
 
+[Here's some of the same info formatted as a CV](cv.html).
+
 ## Short academic history
 
 * Universität Hamburg, HZSK, CLARIN-D (2016–2020...)
