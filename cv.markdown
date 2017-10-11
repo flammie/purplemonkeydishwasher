@@ -3,16 +3,19 @@ layout: default
 title: Tommi A Pirinen–Curriculum Vitae 
 ---
 
-see also: [my academic publications](index.html)
+see also: [my academic publications](index.html), 
+[TeX CV](cv/Pirinen-Curriculum-Vitae.tex) and 
+[HTML by latexml](cv/Pirinen-Curriculum-Vitae.html) from my previous job
+application run (some specific hand picked selected articles for example)
 
 # Curriculum Vitae — Tommi Pirinen
 
-Name: Tommi Antero Pirinen
-Date of Birth: 1984-02-28
-Address: Eichholz 25
+* Name: Tommi Antero Pirinen
+* Date of Birth: 1984-02-28
+* Address: Eichholz 25
     D-20459 Hamburg
     Germany
-E-mail: tommi.antero.pirinen@uni-hamburg.de
+* E-mail: tommi.antero.pirinen@uni-hamburg.de
 
 ## Education
 
