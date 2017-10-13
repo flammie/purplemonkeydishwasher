@@ -44,7 +44,8 @@ lähdekoodin resurssein}
 
   Ohjaaja: Kimmo Koskenniemi ja Krister Lindén
   \hfill
-  26.4.2008 (korjattu \today)    % päivämäärä (esim. 2.2.2002)
+  26.4.2008 (korjattu viimeksi 13.10.2017, generoitu
+    \today)    % päivämäärä (esim. 2.2.2002)
 \end{titlepage}
 
 \tableofcontents
@@ -86,22 +87,22 @@ Laitos Institution – Department \\
 \end{tabular}
 \begin{tabular}{|l|}
 \hline
-\bf Tekijä Författare – Author \\
+\bf Tekijä - Författare – Author \\
 Tommi A Pirinen \\
 \hline
-\bf Työn nimi Arbetets titel – Title \\
+\bf Työn nimi - Arbetets titel – Title \\
 Suomen kielen äärellistilainen morfologinen jäsennin avoimen lähdekoodin
 resurssein \\
 \hline
-\bf Oppiaine  Läroämne – Subject \\
+\bf Oppiaine - Läroämne – Subject \\
 Kieli-, puhe- ja käännösteknologian maisteriohjelma \\
 \hline
 \end{tabular}
 \begin{tabular}{|l|l|l|}
     \hline
-    \bf Työn laji Arbetets art – Level &
-    \bf Aika Datum – Month and year &
-    \bf Sivumäärä Sidoantal – Number of pages \\
+    \bf Työn laji - Arbetets art – Level &
+    \bf Aika - Datum – Month and year &
+    \bf Sivumäärä - Sidoantal – Number of pages \\
     Pro gradu – Master’s thesis &
     29.4.2008 – April 2008 &
     64 \\
@@ -213,51 +214,88 @@ niiden avulla käsitellyn materiaalin vapaata jakelua (ks. esim. Yli-Jyrä
 resursseihin, joiden sisältö on vapaasti saatavilla, mukautettavissa ja
 edelleenlevitettävissä lisenssinsä perusteella.
 
-Järjestelmän toteuttamiseen
-tarvittavia äärellistilaisia ohjelmistoja on saatavilla
-runsaasti. Kuvaan tässä lyhyesti ominaisuuksien valintaa ja niiden relevanssia tutkielman sekä siinä toteutetun järjestelmän kannalta, minkä jälkeen tarkennan asiaa
-valitun järjestelmän kannalta. Liitteessä A on taulukko, joka sisältää tietoja kaikista kirjoitushetkellä löydetyistä ohjelmistoista (Yli-Jyrä, 2007), sikäli kun ne ovat
-löydettävissä, tarkastettavissa tai muuten tunnetut.
+Järjestelmän toteuttamiseen tarvittavia äärellistilaisia ohjelmistoja on
+saatavilla runsaasti. Kuvaan tässä lyhyesti ominaisuuksien valintaa ja niiden
+relevanssia tutkielman sekä siinä toteutetun järjestelmän kannalta, minkä
+jälkeen tarkennan asiaa valitun järjestelmän kannalta. Liitteessä A on taulukko,
+joka sisältää tietoja kaikista kirjoitushetkellä löydetyistä ohjelmistoista
+(Yli-Jyrä, 2007), sikäli kun ne ovat löydettävissä, tarkastettavissa tai muuten
+tunnetut.
 
-Koska tutkielman tavoitteena oli alusta loppuun rakentaa avoin ja vapaa kokonaisjärjestelmä, ohjelmistojen lisenssiehdoista on otettu huomioon ensi sijassa avoimuus. Tällä perusteella myös voi sinänsä sivuuttaa kaikki suljetut ohjelmistot irrelevantteina. Tyypillisimpiä avoimen lähdekoodin lisenssejä ovat GNU-projektin
-(GNU is Not Unix) GPL- (GNU General Public Licence) ja LGPL-lisenssit (GNU
-Lesser General Public Licence), joita käsiteltäessä on pantava merkille avoimuuden lisäksi muitakin rajoituksia tai mahdollisuuksia5 . GNU-lisenssejä pidän ensisijaisina avoimina ja vapaina lisensseinä tässä selvityksessä.
+Koska tutkielman tavoitteena oli alusta loppuun rakentaa avoin ja vapaa
+kokonaisjärjestelmä, ohjelmistojen lisenssiehdoista on otettu huomioon ensi
+sijassa avoimuus. Tällä perusteella myös voi sinänsä sivuuttaa kaikki suljetut
+ohjelmistot irrelevantteina. Tyypillisimpiä avoimen lähdekoodin lisenssejä ovat
+GNU-projektin (GNU is Not Unix) GPL- (GNU General Public Licence) ja
+LGPL-lisenssit (GNU Lesser General Public Licence), joita käsiteltäessä on
+pantava merkille avoimuuden lisäksi muitakin rajoituksia tai mahdollisuuksia5 .
+GNU-lisenssejä pidän ensisijaisina avoimina ja vapaina lisensseinä tässä
+selvityksessä.
 
 Sovellusten toiminnallisista ominaisuuksista on valitussa järjestelmässä pidetty
-tärkeänä toisinkirjoitus- eli replace-sääntöjen kirjoittamisen mahdollisuutta, ja
-replace-sääntöjä on käytetty toteutuksen perustana. Replace-säännöstä kerron tarkemmin kappaleessa 3.1. Käytännössä kyseessä on operaatio, jolla voi yksinkertaisesti ja havainnollisesti mallintaa yleisiä suomenkin kielen morfofonologisia
-vaihteluita. Esimerkiksi muutamalla tällaisella säännöllä voi mallintaa taivutuspäätteen sointuvokaalin valintaa suhteessa sitä edeltävään lähimpään sointuvokaaliin. Ne mahdollistavat tavan ilmaista helpohkosti, että jos vasemmasta kontekstista löytyy takainen sointuvokaali ennen lähintä sananrajaa, käytetään takaista
-sointua, muutoin etistä. Yksi tällainen sääntö voisi olla yksinkertaistaen vaikkapa
-\verb|A:ä → ([äöy] __)|: sointuvokaalista tulee ä jos vasemalla on ä, ö tai y.
+tärkeänä toisinkirjoitus- eli replace-sääntöjen kirjoittamisen mahdollisuutta,
+ja replace-sääntöjä on käytetty toteutuksen perustana. Replace-säännöstä kerron
+tarkemmin kappaleessa 3.1. Käytännössä kyseessä on operaatio, jolla voi
+yksinkertaisesti ja havainnollisesti mallintaa yleisiä suomenkin kielen
+morfofonologisia vaihteluita. Esimerkiksi muutamalla tällaisella säännöllä voi
+mallintaa taivutuspäätteen sointuvokaalin valintaa suhteessa sitä edeltävään
+lähimpään sointuvokaaliin. Ne mahdollistavat tavan ilmaista helpohkosti, että
+jos vasemmasta kontekstista löytyy takainen sointuvokaali ennen lähintä
+sananrajaa, käytetään takaista sointua, muutoin etistä. Yksi tällainen sääntö
+voisi olla yksinkertaistaen vaikkapa \verb|A:ä → ([äöy] __)|: sointuvokaalista
+tulee ä jos vasemalla on ä, ö tai y.
 
 Tutkielmassa toteutustyökaluksi on valittu SFST-ohjelmisto, joka on GNU GPL
--lisensoitu ja sisältää replace-säännön sellaisen toteutuksen, joka on suomenkielisen morfologisen jäsentimen toteuttamiseen riittävä. SFST:tä ei aiemmin ole käytetty kuin muutamissa saksan kielen taivutuksen ja johto-opin morfologiaa kuvaavissa järjestelmissä (Schmid, 2005), mutta hyötypuolena järjestelmää ja toteutusta verrattaessa muihin saatavilla oleviin, oli mukana edes jonkinlaiset ohjeet ja
-kuvaukset morfologian toteuttamisesta (Schmid, 2007a,b). Joitakin sekä lisenssiltään että toiminnoiltaan soveltuvia ohjelmistoja, kuten PC-KIMMOa KGENillä tai mmorphia ei ole tarkasteltu, sillä niiden saaminen toimimaan modernilla
-kääntäjillä ja järjestelmäkokoonpanoilla osoittautui hankalaksi tai mahdottomaksi ilman merkittäviä muutoksia koodiin. Mitä tulee OpenFST:hen, joka on mm.
-AT\&T:n FSM:n tekijöiden julkaisema avoin ja vapaa FST-toteutus, tiedon siitä
-sain vasta syksyllä 2007, jolloin oma morfologiani SFST:llä oli jo lähes valmis, ja
-se on jätetty siitä syystä pois laskuista. Jatkotutkimusta varten kuitenkin OpenFST
-lienee varsin kehityskelpoinen aihe.
+-lisensoitu ja sisältää replace-säännön sellaisen toteutuksen, joka on
+suomenkielisen morfologisen jäsentimen toteuttamiseen riittävä. SFST:tä ei
+aiemmin ole käytetty kuin muutamissa saksan kielen taivutuksen ja johto-opin
+morfologiaa kuvaavissa järjestelmissä (Schmid, 2005), mutta hyötypuolena
+järjestelmää ja toteutusta verrattaessa muihin saatavilla oleviin, oli mukana
+edes jonkinlaiset ohjeet ja kuvaukset morfologian toteuttamisesta (Schmid,
+2007a,b). Joitakin sekä lisenssiltään että toiminnoiltaan soveltuvia
+ohjelmistoja, kuten PC-KIMMOa KGENillä tai mmorphia ei ole tarkasteltu, sillä
+niiden saaminen toimimaan modernilla kääntäjillä ja järjestelmäkokoonpanoilla
+osoittautui hankalaksi tai mahdottomaksi ilman merkittäviä muutoksia koodiin.
+Mitä tulee OpenFST:hen, joka on mm.  AT\&T:n FSM:n tekijöiden julkaisema avoin
+ja vapaa FST-toteutus, tiedon siitä sain vasta syksyllä 2007, jolloin oma
+morfologiani SFST:llä oli jo lähes valmis, ja se on jätetty siitä syystä pois
+laskuista. Jatkotutkimusta varten kuitenkin OpenFST lienee varsin
+kehityskelpoinen aihe.
 
 Vertailukohdaksi suorituskykytestauksessa on valittu kaupallinen ja
-tutkimuskäyttöön rajattu AT\&T:n FSM-järjestelmä, joka lienee ainakin tunnettu ja käytetty. Se
-oli myös saatavilla suorituskykytestauksia varten, ja muunnos käyttämästäni järjestelmästä sille sopivaksi testaustarkoituksiin ei ollut kovin hankala.
+tutkimuskäyttöön rajattu AT\&T:n FSM-järjestelmä, joka lienee ainakin tunnettu
+ja käytetty. Se oli myös saatavilla suorituskykytestauksia varten, ja muunnos
+käyttämästäni järjestelmästä sille sopivaksi testaustarkoituksiin ei ollut kovin
+hankala.
 
 Toinen merkittävä resurssi, jonka tässä automaattisen morfologisen jäsentimen
-toteutuksessa tarvitsin, oli leksikko. Tätä tarkoitusta varten suomenkielinen sanalista, Kotimaisten kielten tutkimuskeskuksen GNU LGPL -lisenssillä julkaisema Nykysuomen sanalista (Kotimaisten Kielten Tutkimuskeskus, 2006), oli juuri
-julkaistu tutkielman teon vaiheessa ja sopi loistavasti tutkittavaksi materiaaliksi.
-Nykysuomen sanalistan muoto, joka on seikkaperäisemmin kuvattu kappaleessa
-2, määritteli myös luontevasti rajat ja tyylin tekemälleni järjestelmälle, sillä siinä
-sanat on luokiltaan jaettu perinteisen sanakirjaluokituksen mukaisesti, joka jotakuinkin kuvaa morfofonologisia piirteitä sanoissa, ja jota olen jokseenkin tarkasti
-seurannut järjestelmässäni. Toteutus toimii siis sillä perusolettamuksella, että tietyllä numerolla olevassa taivutusluokassa sana taipuu aina saman kaavan mukaisesti, ja tällainen kaava väistämättä pätee kaikkiin luokan sanoihin. Sanalistassa
-ei toisaalta ole eroteltu esimerkiksi adjektiiveja substantiiveista, jonka perusteella
-rajoitin myös adjektiivitaivutuksen järjestelmän ulkopuolelle. Toteutin myös testaustarkoituksiin yligeneroivan yhdyssanamuodostuksen, joka yhdistelee taivutettuja nomineja melko mielivaltaisesti. Sanojen johtamista ei myöskään ole toteutettu verbien yleisempiä infiniittimuotoja enempää.
+toteutuksessa tarvitsin, oli leksikko. Tätä tarkoitusta varten suomenkielinen
+sanalista, Kotimaisten kielten tutkimuskeskuksen GNU LGPL -lisenssillä
+julkaisema Nykysuomen sanalista (Kotimaisten Kielten Tutkimuskeskus, 2006), oli
+juuri julkaistu tutkielman teon vaiheessa ja sopi loistavasti tutkittavaksi
+materiaaliksi.  Nykysuomen sanalistan muoto, joka on seikkaperäisemmin kuvattu
+kappaleessa 2, määritteli myös luontevasti rajat ja tyylin tekemälleni
+järjestelmälle, sillä siinä sanat on luokiltaan jaettu perinteisen
+sanakirjaluokituksen mukaisesti, joka jotakuinkin kuvaa morfofonologisia
+piirteitä sanoissa, ja jota olen jokseenkin tarkasti seurannut järjestelmässäni.
+Toteutus toimii siis sillä perusolettamuksella, että tietyllä numerolla olevassa
+taivutusluokassa sana taipuu aina saman kaavan mukaisesti, ja tällainen kaava
+väistämättä pätee kaikkiin luokan sanoihin. Sanalistassa ei toisaalta ole
+eroteltu esimerkiksi adjektiiveja substantiiveista, jonka perusteella rajoitin
+myös adjektiivitaivutuksen järjestelmän ulkopuolelle. Toteutin myös
+testaustarkoituksiin yligeneroivan yhdyssanamuodostuksen, joka yhdistelee
+taivutettuja nomineja melko mielivaltaisesti. Sanojen johtamista ei myöskään ole
+toteutettu verbien yleisempiä infiniittimuotoja enempää.
 
-Kolmantena resurssina järjestelmän testaukseen tarvitaan saneita oikeine morfologisine tulkintoineen. Tällaisia valmiiksi jäsennettyjä tekstiaineistoja kutsutaan
-myös korpuksiksi. Sopivia korpuksia ei ole vapain lisenssein, joten tutkin tutkielmassani rajoitetummin lisensoidun automaattisesti jäsennetyn tarkistamattoman
-korpusmateriaalin käyttöä kertaluontoisen testauksen toteuttamisessa. Lisensoinnin takia testaus jouduttiin suorittamaan sivullisella palvelimella eikä tuloksia ole
-mahdollista hyödyntää vertailua laajemmin niiden lisenssiehtojen puitteissa.
-Kokonaisuutena graduni on selvitystyö, johon yritin koota tietoa seuraavista:
+Kolmantena resurssina järjestelmän testaukseen tarvitaan saneita oikeine
+morfologisine tulkintoineen. Tällaisia valmiiksi jäsennettyjä tekstiaineistoja
+kutsutaan myös korpuksiksi. Sopivia korpuksia ei ole vapain lisenssein, joten
+tutkin tutkielmassani rajoitetummin lisensoidun automaattisesti jäsennetyn
+tarkistamattoman korpusmateriaalin käyttöä kertaluontoisen testauksen
+toteuttamisessa. Lisensoinnin takia testaus jouduttiin suorittamaan sivullisella
+palvelimella eikä tuloksia ole mahdollista hyödyntää vertailua laajemmin niiden
+lisenssiehtojen puitteissa.  Kokonaisuutena graduni on selvitystyö, johon yritin
+koota tietoa seuraavista:
 
 \begin{enumerate}
     \item  morfologiajärjestelmän luonnosteleminen, jos saatavilla on jo luokiteltu sanalista, sekä tunnettu säännöllinen taivutusjärjestelmä
@@ -538,7 +576,7 @@ poikkeuksetta vähintään kolmitavuinen, ja lisäksi O- tai U-loppuinen kuten l
 Luokka 3 (valtio) on äännerakenteeltaan monitavuisten vokaaliyhtymäpäätteisten
 sanojen luokka, joiden monikon genetiivin tunnuksen allomorfit ovat iden-ittentyyppiä (valtioiden ∼ valtioitten), mutta partitiivin vain itA-tyyppiä (valtioita).
 
-Luokkaan 4 (laatikko) kuuluu useita monikon tunnusten allomorfeja, jotka liittyvät sekä heikkoon että vahvaan vokaalivartaloon siten, että muodot jen (laatikkojen) ja jA (laatikkoja) liittyvät vahvaan, iden (laatikoiden), itten (laatikoitten)avonen] by X-bar 10:38 -!- theriel [ theriel@ ja ita (laatikoita) heikkoon ja
+Luokkaan 4 (laatikko) kuuluu useita monikon tunnusten allomorfeja, jotka liittyvät sekä heikkoon että vahvaan vokaalivartaloon siten, että muodot jen (laatikkojen) ja jA (laatikkoja) liittyvät vahvaan, iden (laatikoiden), itten (laatikoitten) ja ita (laatikoita) heikkoon ja
 ihin kumpaankin vartaloon (laatikoihin ∼ laatikkoihin), kuten on morfofonotaktisesti tyypillistä. Tämä vaihtelu esiintyy vain äännerakenteeltaan kolmi- tai useampitavuisissa sanoissa joiden loppu on kkO, kuten tässä luokassa, tai kkA, kuten
 luokassa 14.
 
