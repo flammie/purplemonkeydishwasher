@@ -5,6 +5,8 @@ AUTHOR=@AUTHOR@
 YEAR=@YEAR@
 TITLE=@TITLE@
 CONFERENCE=@CONFERENCE@
+LATEXML=latexml
+LATEXMLPOST=latexmlpost
 
 .PHONY: all
 
@@ -29,3 +31,14 @@ $(BOASTER): $(POSTER)
 
 clean:
 	-rm -f *.log *.bbl *.aux $(PAPER) $(BEAMER) $(BOASTER)
+
+TEX=xelatex
+BIB=bibtex
+LATEXML=latexml
+LATEXMLPOST=latexmlpost
+
+
+%.html: %.tex
+	$(LATEXML) $< | $(LATEXMLPOST) --dest=$@ -
+	sed -i -e 's:"LaTeXML.css":"../latexml/LaTeXML.css":'\
+		-e 's:"ltx-article.css":"../latexml/ltx-article.css":' $@
