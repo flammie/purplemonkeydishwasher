@@ -1,0 +1,200 @@
+\documentclass{beamer}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{url}
+
+\usepackage[normalem]{ulem}
+
+\usepackage{pifont}
+ \newcommand{\hand}{\ding{43}}
+
+\mode<presentation>
+{
+    \usetheme{HZSK}
+}
+
+
+\title{Workflows for Developing Finnish–German Shallow RBMT...
+\scriptsize{in FinMT, Helsinki, 2017-11-01\\
+\url{https://github.com/flammie/apertium-fin-deu/}}}
+\author{Tommi A Pirinen \scriptsize \guilsinglleft tommi.antero.pirinen@uni-hamburg.de \guilsinglright }
+\institute{HZSK.de, de.CLARIN.eu, etc.}
+\date{\today}
+
+\begin{document}
+
+\selectlanguage{english}
+
+\maketitle
+
+\begin{frame}
+    \frametitle{Introduction}
+    \begin{itemize}
+        \item A professional comp.linguist moving to Germany with ``no prior
+            knowledge'' of the language
+        \item A field/documentary linguistics-heavy North Eurasian language
+            project (SIL FLeX!)
+        \item Prior experience of FSAs, RBMT, SMT\ldots
+        \item \hand RBMT+FSA+language learning+language documentation =
+            cool new workflow for creating: corpora + mono- and bilingual
+            lexicons, chunkers and more\textbf{!!}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Language documentation workflow}
+    Field linguists / documentary linguists are used to SIL tools like
+    FLeX (toolbox) with workflows like:
+    \begin{enumerate}
+        \item split words into morphs
+        \item tag morphs
+        \item translate lemmas
+        \item repeat
+    \end{enumerate}
+    Results in a dictionary, annotated corpus and some kind of ``morphological
+    analyser''.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Demo FLeX here (Finnish, simplified)}
+    \begin{tiny}\url{https://www.hs.fi/nyt/art-2000005425359.html}\end{tiny}
+        Elisa
+        julkais\only<2->{--}\alert<2-3>{i}
+        meksikolais\only<4->{--}\alert<4-5>{i}\only<4-5>{--}\alert<4-5>{lla}
+        stereotypio\only<5->{--}\alert<5>{i}\only<5>{--}\alert<5>{lla}
+        ratsasta\only<6->{--}\alert<6-7>{ne}\only<6->{--}\alert<6-7>{en}
+        mainokse\only<8->{--}\alert<8-9>{n}
+        ,
+        joka
+        suututt\only<3->{--}\alert<3>{i}
+        jopa
+        suurlähettilää\only<9->{--}\alert<9>{n}
+        –
+        Nyt
+        mainos
+        on
+        poistet\only<10->{--}\alert<10>{tu}
+        ,
+        eikä
+        yhtiö
+        halua
+        enää
+        edes
+        puhua
+        sii\only<11->{--}\alert<11>{tä}
+        ..
+        Teleyhtiö
+        Elisa
+        julkais\only<3->{--}\alert<3>{i}
+        viime
+        viiko\only<9->{--}\alert<9>{n}
+        lopu\only<12->{--}\alert<12>{ssa}
+        jatko\only<13->{--}\alert<13>{a}
+        suositu\only<14->{--}\alert<14>{lle}
+        Hintasaarnaaja
+        -
+        mainossarja\only<14->{--}\alert<14>{lle}\only<7->{--}\alert<7>{en}
+        ,
+        mutta
+        vain
+        muutama\only<9->{--}\alert<9>{n}
+        päivä\only<9->{--}\alert<9>{n}
+        jälke\only<7->{--}\alert<7>{en}
+        mainos
+        poistet\only<15->{--}\alert<15>{tiin}
+        kaikkialta
+        .
+        \only<16>{\\
+        ... after only 15 minutes of clicking and stuff you get like,
+        past tense, 10 case allomorphs. passive voice, and a dozen of lemma
+        allomorphs}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Real FLeX}
+    \includegraphics[width=\textwidth]{flexpic}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{RBMT workflow (apertium style)}
+    \begin{enumerate}
+        \item (try to) Translate a text
+        \item Add OOVs to source language dictionary, repeat 1
+        \item Add missing word-translations to bilingual dictionary, repeat 1
+        \item Add ungenerateable words to target language dictionary, repeat 1
+        \item Mangle mismatching lexical grammar
+        \item (Advanced RBMT not relevant to this presentation, magic)
+    \end{enumerate}
+    Results in two morphological analyser/generators, a bilingual dictionary and
+    a shallow comparative grammar!
+\end{frame}
+
+\begin{frame}
+    \frametitle{RBMT workflow demo}
+    \only<1>{
+    Am S-Bahnhof Berliner Tor hat es gleich drei Einsätze der Bundespolizei
+    gegeben.  Donnerstagabend war dort ein stark angetrunkener Mann auf die
+    Gleise gefallen und musste von den Beamten gerettet werden. Freitag um halb
+    acht lief ein ebenfalls angetrunkener Mann auf den Gleisen Richtung
+    Hauptbahnhof.  Und gegen zehn warf ein Mann den Deckel eines Mülleimers auf
+    die Gleise. In allen drei Fällen musste die Strecke \alert<1>{kurzzeitig} gesperrt
+    werden.}
+\only<2>{
+    Päälle \alert<2>{*S-asema} berliiniläinen portilla on se samoin kolme käytöt liittovaltionpoliisin annettu.
+    torstai-ilta oli siellä yksi vahvasti \alert<2>{*angetrunkener} mies
+    \alert<2>{@Gleis<n><pl><ine>} miellyttää ja täytyi virkailijoista pelastetaan.
+    perjantai jotta puolittainen kahdeksan saapui myös \alert<2>{*angetrunkener} mies
+    \alert<2>{@Gleis<n><pl><nom>} suunnassa \alert<2>{@Hauptbahnhof<n><sg><nom>}.
+    Ja vastaan kymmenen pudotti mies \alert<2>{@Deckel<n><sg><gen>}
+    \alert<2>{@Mülleimer<n><sg><gen>} \alert<2>{@Gleis<n><pl><ine>}.
+    kaiken kolme tapauksien/tapausten täytyi reitti lyhytaikainen estetään.
+}
+\only<3>{
+    \alert<3>{\sout{Päälle} @S-Bahnhof<n><sg><nom>} berliiniläiseltä portilla on se samoin kolme käytöt liittovaltionpoliisin annettu.
+    torstai-ilta oli siellä yksi vahvasti
+    \alert<3>{@angetrunken<adj><pos><sg><nom>} mies @Gleis<n><pl><ine> miellyttää ja täytyi virkailijoista pelastetaan.
+    perjantai jotta puolittainen kahdeksan saapui myös
+    \alert<3>{@angetrunken<adj><pos><sg><nom>} mies @Gleis<n><pl><nom> suunnassa @Hauptbahnhof<n><sg><nom>.
+Ja vastaan kymmenen pudotti mies @Deckel<n><sg><gen> @Mülleimer<n><sg><gen> @Gleis<n><pl><ine>.
+ kaiken kolme tapauksien/tapausten täytyi reitti lyhytaikainen estetään.
+}
+\only<4>{
+    \alert<4>{\#lähijuna-asema<n><sg><nom>} berliiniläiseltä portilla on se samoin kolme käytöt liittovaltionpoliisin annettu.
+torstai-ilta oli siellä yksi vahvasti humalainen mies raiteissa miellyttää ja täytyi virkailijoista pelastetaan.
+perjantai jotta puolittainen kahdeksan saapui myös humalainen mies raiteet
+    suunnassa \alert<4>{\#päärautatieasema<n><sg><nom>}.
+Ja vastaan kymmenen pudotti mies kannen roskiksen raiteissa.
+
+}
+\only<5>{
+        lähijuna-asema berliiniläiseltä portilla on se samoin kolme käytöt liittovaltionpoliisin annettu.
+torstai-ilta oli siellä yksi vahvasti humalainen mies raiteissa miellyttää ja täytyi virkailijoista pelastetaan.
+perjantai jotta puolittainen kahdeksan saapui myös humalainen mies raiteet suunnassa päärautatieasema.
+Ja vastaan kymmenen pudotti mies kannen roskiksen raiteissa.
+ kaiken kolme tapauksien/tapausten täytyi reitti lyhytaikainen estetään.
+}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Experimental ``results''}
+    \begin{itemize}
+        \item 1.5 years after starting at week-daily average effort of 15
+            minutes
+        \item approx. 10,000 translation pairs, few hundreds of new lexemes for
+            analysers, few dozens of rules for WSD, chunking, lex.sel., etc.
+        \item Post-edition WER is about 40, BLEU probably 8 or so,
+        \item ...  but it's easy to read and understand!
+        \item For realistic projects, e.g. within Uralic group, it should be
+            perfectly plausible
+    \end{itemize}
+    Let's go: \scriptsize{\url{http://39476.s.time4vps.cloud}}
+\end{frame}
+
+\end{document}
+
