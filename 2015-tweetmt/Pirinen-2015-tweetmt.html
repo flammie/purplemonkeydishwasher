@@ -1,0 +1,1367 @@
+<!DOCTYPE html><html>
+<head>
+<title>Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations.</title>
+<!--Generated on Fri Sep 29 15:41:38 2017 by LaTeXML (version 0.8.2) http://dlmf.nist.gov/LaTeXML/.-->
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../latexml/LaTeXML.css" type="text/css">
+<link rel="stylesheet" href="../latexml/ltx-article.css" type="text/css">
+</head>
+<body>
+<div class="ltx_page_main">
+<div class="ltx_page_content">
+<article class="ltx_document ltx_authors_1line">
+<h1 class="ltx_title ltx_title_document">Dublin City University at the TweetMT 2015 Shared Task<span class="ltx_ERROR undefined">\footnotepubrights</span>
+The real publication is in TweetMT 2015. in SEPLN 2015.
+The version you see here does not include the Spanish translations.</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+Antonio Toral
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Xiaofeng Wu
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Tommi Pirinen
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+<br class="ltx_break">Zhengwei Qiu
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Ergun Bicici
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Jinhua Du
+<br class="ltx_break">ADAPT Centre
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> School of Computing
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Dublin City University
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Ireland
+<br class="ltx_break">{atoral
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> xwu
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> tpirinen
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> zhengwei.qiu2
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> ebicici
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> jdu}@computing.dcu.ie
+</span></span>
+</div>
+
+<div class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+
+<p class="ltx_p">We describe our participation in TweetMT for three language pairs in both directions: Spanish from/to Catalan, Basque and Portuguese.
+We used a range of techniques: statistical and rule-based MT, morph segmentation, data selection with ParFDA and system combination.
+As for resources, our focus was on crawling vast amounts of tweets to perform monolingual domain adaptation.
+Our system was the best of all systems submitted for five out of the six language directions.</p>
+
+</div>
+<section id="S1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">1 </span>Introduction and Objectives</h2>
+
+<div id="S1.p1" class="ltx_para">
+<p class="ltx_p">While statistical machine translation (SMT) can be considered a mature technology nowadays, one of its requirements is the availability of considerable amounts of parallel text for the language pair of interest.
+Ideally, the parallel text to train an SMT system should come from the same domain and genre as the text the system is going to be applied to.
+Thus, using MT to translate types of text for which no parallel data is available constitutes a challenge.
+This is the case for tweets and social media in general, the target text of the TweetMT shared task.</p>
+</div>
+<div id="S1.p2" class="ltx_para">
+<p class="ltx_p">The main objective of our participation in the TweetMT 2015 shared task was to build the best MT systems for tweets we could with a clear constraint, i.e. it had to be done in a very short period and, to a large extent, be limited to available resources.
+We have taken part for three language pairs in both directions: Spanish (ES) from/to Catalan (CA), Basque (EU) and Portuguese (PT).</p>
+</div>
+<div id="S1.p3" class="ltx_para">
+<p class="ltx_p">We decided to focus on making the best possible use of available techniques, tools and resources.
+Regarding techniques and tools, we rely on state-of-the-art SMT, morph segmentation for morphologically rich languages (EU), data selection with ParFDA for fast development of accurate SMT systems <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib3" title="ParFDA for fast deployment of accurate statistical machine translation systems, benchmarks, and statistics" class="ltx_ref">1</a>]</cite> and domain adaptation <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib1" title="Domain adaptation for machine translation with instance selection" class="ltx_ref">3</a>]</cite>, the use of available open-source rule-based systems and, finally, system combination to take advantage of the strengths of the different systems we built.
+As for resources, we crawl vast amounts of tweets to perform monolingual domain adaptation and complement this with publicly available general-domain monolingual and parallel corpora.</p>
+</div>
+<div id="S1.p4" class="ltx_para">
+<p class="ltx_p">The rest of the paper is organised as follows.
+Sections <a href="#S2" title="2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> and <a href="#S3" title="3 Resources Employed ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a> detail the systems built and the resources used, respectively.
+Section <a href="#S4" title="4 Evaluation ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a> presents the evaluation and, finally, Section <a href="#S5" title="5 Conclusions and Future Work ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a> outlines conclusions and lines of future work.</p>
+</div>
+</section>
+<section id="S2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2 </span>Architecture and Components of the System</h2>
+
+<div id="S2.p1" class="ltx_para">
+<p class="ltx_p">Here we describe the components used in our translation pipeline.
+First, we pre-process the datasets (Section <a href="#S2.SS1" title="2.1 Data Preprocessing ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.1</span></a>), then we use a set of MT systems (Section <a href="#S2.SS2" title="2.2 MT Systems ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.2</span></a>) that can incorporate additional functionality (Sections <a href="#S2.SS3" title="2.3 Morphological Segmentation ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.3</span></a> and <a href="#S2.SS4" title="2.4 ParFDA ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.4</span></a>).
+Finally, we combine MT systems (Section <a href="#S2.SS5" title="2.5 System Combination ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.5</span></a>).</p>
+</div>
+<section id="S2.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.1 </span>Data Preprocessing</h3>
+
+<div id="S2.SS1.p1" class="ltx_para">
+<p class="ltx_p">Prior to be used, all the datasets used in our systems are preprocessed, as follows:
+</p>
+</div>
+<div id="S2.SS1.p2" class="ltx_para">
+<ol id="I1" class="ltx_enumerate">
+<li id="I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_enumerate">1.</span>
+<div id="I1.i1.p1" class="ltx_para">
+<p class="ltx_p">Punctuation normalisation, with Moses’ <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib10" title="Moses: open source toolkit for statistical machine translation" class="ltx_ref">9</a>]</cite> script.</p>
+</div>
+</li>
+<li id="I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_enumerate">2.</span>
+<div id="I1.i2.p1" class="ltx_para">
+<p class="ltx_p">Sentence splitting and tokenisation, with Freeling <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib14" title="FreeLing 3.0: towards wider multilinguality" class="ltx_ref">14</a>]</cite>.</p>
+</div>
+</li>
+<li id="I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_enumerate">3.</span>
+<div id="I1.i3.p1" class="ltx_para">
+<p class="ltx_p">Normalisation (only for tweets). We sort the vocabulary of a tweet corpus by word frequency and inspect the words that occur in at least 0.5% of the tweets, creating rules to convert informal words to their formal equivalent.
+This leads to just a handful of rules. E.g. in Spanish, “q”, occurring in 2.62% of the tweets, is converted to its formal equivalent “que”.</p>
+</div>
+</li>
+<li id="I1.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_enumerate">4.</span>
+<div id="I1.i4.p1" class="ltx_para">
+<p class="ltx_p">Truecasing, with a modified version of Moses’ script. We added a set of start-of-sentence characters commonly used in Spanish: ”-”, ”â”, ”Â¿”, ”â” and ”â”.</p>
+</div>
+</li>
+</ol>
+</div>
+</section>
+<section id="S2.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.2 </span>MT Systems</h3>
+
+<div id="S2.SS2.p1" class="ltx_para">
+<p class="ltx_p">We build SMT systems using two paradigms: phrase-based with Moses <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib10" title="Moses: open source toolkit for statistical machine translation" class="ltx_ref">9</a>]</cite> and hierarchical with cdec <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib7" title="Cdec: a decoder, alignment, and learning framework for finite-state and context-free translation models" class="ltx_ref">5</a>]</cite>.
+In both cases we use default settings.
+We also use off-the-shelf open-source rule-based MT (RBMT) systems.
+Namely, Apertium <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib8" title="Apertium: a free/open-source platform for rule-based machine translation" class="ltx_ref">6</a>]</cite> for ES<math id="S2.SS2.p1.m1" class="ltx_Math" alttext="\leftrightarrow" display="inline"><mo>↔</mo></math>CA, ES<math id="S2.SS2.p1.m2" class="ltx_Math" alttext="\leftrightarrow" display="inline"><mo>↔</mo></math>PT and EU<math id="S2.SS2.p1.m3" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>ES,<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup>Revisions 60356, 60384, and 60356, respectively.</span></span></span> and Matxin <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib13" title="Matxin, an open-source rule-based machine translation system for basque" class="ltx_ref">12</a>]</cite> for ES<math id="S2.SS2.p1.m4" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>EU.<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">2</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">2</sup>API at <a href="http://ixa2.si.ehu.es/glabaka/Matxin.xml" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://ixa2.si.ehu.es/glabaka/Matxin.xml</a></span></span></span></p>
+</div>
+<div id="S2.SS2.p2" class="ltx_para">
+<p class="ltx_p">The SMT systems use 5-gram LMs with Knesser-Ney smoothing <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib18" title="Improved backing-off for m-gram language modeling" class="ltx_ref">8</a>]</cite> except for ParFDA Moses SMT systems, which use LMs of order 8 to 10.
+We build LMs on individual monolingual corpora (cf. Section <a href="#S3.SS2" title="3.2 Monolingual Corpora ‣ 3 Resources Employed ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.2</span></a>) and interpolate them with SRILM <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib19" title="SRILM-an extensible language modeling toolkit." class="ltx_ref">18</a>]</cite> to minimise the perplexity on the dev set.
+Each target language and its corpora used to build LMs together with their interpolation weights are shown in Table <a href="#S3.T4" title="Table 4 ‣ 3.2 Monolingual Corpora ‣ 3 Resources Employed ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>.
+We observe that tweets are given very high weights even if they are not the biggest corpora in the mixes.</p>
+</div>
+</section>
+<section id="S2.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.3 </span>Morphological Segmentation</h3>
+
+<div id="S2.SS3.p1" class="ltx_para">
+<p class="ltx_p">Morphological segmentation is a popular method to deal with SMT for morphologically differing languages by simply splitting words into sub-word units.
+The main benefits of morphological segmentation are to reduce the out-of-vocabulary (OOV) rate and to increase the percentage of 1 to 1 word alignments between morphosyntactically different languages; e.g. in our case, by matching inflectional suffixes in EU to syntactic prepositions in ES, we expect to improve the MT quality for the EU–ES language pair. The segmentation and de-segmentation is able to create word-forms not present in the training data by matching a translated stem with a correct suffix.</p>
+</div>
+<div id="S2.SS3.p2" class="ltx_para">
+<p class="ltx_p">In our participation, morphological segmentation was only used for EU–ES on the EU side, since EU’s morphology is significantly more complex than that of ES. For the remaining languages of the shared task, there is no such big difference in morphology complexity (all of them are closely-related as they belong to the same family) so the expected gains do not outweigh the added complexity of segmentation.</p>
+</div>
+<div id="S2.SS3.p3" class="ltx_para">
+<p class="ltx_p">We use unsupervised statistical segmentation as provided by Morfessor 2.0 Baseline <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib21" title="Morfessor 2.0: python implementation and extensions for morfessor baseline" class="ltx_ref">20</a>]</cite>.<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">3</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">3</sup><a href="http://www.cis.hut.fi/projects/morpho/morfessor2.shtml" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://www.cis.hut.fi/projects/morpho/morfessor2.shtml</a></span></span></span> The basic setup for segmentation is the same as in the Abu-MaTran project submission to the WMT 2015 translation task <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib20" title="Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling" class="ltx_ref">16</a>]</cite>.
+However, some minor Twitter-related pre-processing has been added in order to keep URLs and hashtags intact. The parameters used for Morfessor training are the default of version 2.0.2-alpha and the data for training is the EU side of the ES–EU parallel training data (cf. Section <a href="#S3.SS1" title="3.1 Parallel Corpora ‣ 3 Resources Employed ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.1</span></a>).</p>
+</div>
+<div id="S2.SS3.p4" class="ltx_para">
+<p class="ltx_p">To gauge the effects of our method as well as the morphological complexity of EU as compared to ES we show in Table <a href="#S2.T1" title="Table 1 ‣ 2.3 Morphological Segmentation ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a> the OOV rates and vocabulary sizes of the ES and EU sides of the ES–EU training corpus, and EU corpora after morphological segmentation.
+Segmentation reduces the type-to-token ratio by a factor of 6 and the OOV rate by almost a factor of 10.</p>
+</div>
+<figure id="S2.T1" class="ltx_table">
+<table class="ltx_tabular ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_t">
+<span class="ltx_rule" style="width:-2.0pt;height:15.0pt;background:black;display:inline-block;"> </span><span class="ltx_text" style="font-size:90%;">
+</span><span class="ltx_text ltx_font_bold" style="font-size:90%;">Corpora</span>
+</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Tokens</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Types</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">OOV</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t">
+<span class="ltx_rule" style="width:-4.0pt;height:10.0pt;background:black;display:inline-block;"> </span><span class="ltx_text" style="font-size:90%;">
+ES</span>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_t"><span class="ltx_text" style="font-size:90%;">30,532,489</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t"><span class="ltx_text" style="font-size:90%;">296,612</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">14.5 %</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">EU</span></td>
+<td class="ltx_td ltx_align_center"><span class="ltx_text" style="font-size:90%;">24,966,862</span></td>
+<td class="ltx_td ltx_align_center"><span class="ltx_text" style="font-size:90%;">605,207</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">25.4 %</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_b"><span class="ltx_text" style="font-size:90%;">EU morphs</span></td>
+<td class="ltx_td ltx_align_center ltx_border_b"><span class="ltx_text" style="font-size:90%;">35,293,220</span></td>
+<td class="ltx_td ltx_align_center ltx_border_b"><span class="ltx_text" style="font-size:90%;">100,990</span></td>
+<td class="ltx_td ltx_align_right ltx_border_b"><span class="ltx_text" style="font-size:90%;">2.6 %</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption" style="font-size:90%;"><span class="ltx_tag ltx_tag_table">Table 1: </span>Size of ES–EU training corpus in word tokens (ES and EU sides) and in morph tokens (EU).
+</figcaption>
+</figure>
+<figure id="S2.T2" class="ltx_table">
+<span class="ltx_inline-block ltx_minipage ltx_align_center ltx_align_middle" style="width:433.6pt;">
+<span class="ltx_tabular ltx_guessed_headers ltx_align_middle">
+<span class="ltx_thead">
+<span class="ltx_tr">
+<span class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_r ltx_border_t"><math id="S2.T2.m1" class="ltx_Math" alttext="5" display="inline"><mn mathsize="80%">5</mn></math><span class="ltx_text" style="font-size:80%;">-gram</span></span>
+<span class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_r ltx_border_t" colspan="4"><span class="ltx_text" style="font-size:80%;">OOV</span></span>
+<span class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" colspan="4"><span class="ltx_text" style="font-size:80%;">perplexity</span></span></span>
+<span class="ltx_tr">
+<span class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_r"><math id="S2.T2.m2" class="ltx_Math" alttext="S" display="inline"><mi mathsize="80%">S</mi></math><math id="S2.T2.m3" class="ltx_Math" alttext="\rightarrow" display="inline"><mo mathsize="80%" stretchy="false">→</mo></math><math id="S2.T2.m4" class="ltx_Math" alttext="T" display="inline"><mi mathsize="80%">T</mi></math><span class="ltx_text" style="font-size:80%;"></span></span>
+<span class="ltx_td ltx_align_center ltx_th ltx_th_column"><math id="S2.T2.m5" class="ltx_Math" alttext="\lx@stackrel{{\scriptstyle\mbox{C}}}{{\mbox{train}}}" display="inline"><mover><mtext mathsize="80%">train</mtext><mtext mathsize="80%">C</mtext></mover></math><span class="ltx_text" style="font-size:80%;"></span></span>
+<span class="ltx_td ltx_align_center ltx_th ltx_th_column"><math id="S2.T2.m6" class="ltx_Math" alttext="\lx@stackrel{{\scriptstyle\mbox{FDA}}}{{\mbox{train}}}" display="inline"><mover><mtext mathsize="80%">train</mtext><mtext mathsize="80%">FDA</mtext></mover></math><span class="ltx_text" style="font-size:80%;"></span></span>
+<span class="ltx_td ltx_align_center ltx_th ltx_th_column"><math id="S2.T2.m7" class="ltx_Math" alttext="\lx@stackrel{{\scriptstyle\mbox{FDA}}}{{\mbox{LM}}}" display="inline"><mover><mtext mathsize="80%">LM</mtext><mtext mathsize="80%">FDA</mtext></mover></math><span class="ltx_text" style="font-size:80%;"></span></span>
+<span class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_r"><span class="ltx_text" style="font-size:80%;">%red</span></span>
+<span class="ltx_td ltx_align_left ltx_th ltx_th_column"><math id="S2.T2.m8" class="ltx_Math" alttext="\lx@stackrel{{\scriptstyle\mbox{C}}}{{\mbox{train}}}" display="inline"><mover><mtext mathsize="80%">train</mtext><mtext mathsize="80%">C</mtext></mover></math><span class="ltx_text" style="font-size:80%;"></span></span>
+<span class="ltx_td ltx_align_left ltx_th ltx_th_column"><math id="S2.T2.m9" class="ltx_Math" alttext="\lx@stackrel{{\scriptstyle\mbox{FDA}}}{{\mbox{train}}}" display="inline"><mover><mtext mathsize="80%">train</mtext><mtext mathsize="80%">FDA</mtext></mover></math><span class="ltx_text" style="font-size:80%;"></span></span>
+<span class="ltx_td ltx_align_left ltx_th ltx_th_column"><math id="S2.T2.m10" class="ltx_Math" alttext="\lx@stackrel{{\scriptstyle\mbox{FDA}}}{{\mbox{LM}}}" display="inline"><mover><mtext mathsize="80%">LM</mtext><mtext mathsize="80%">FDA</mtext></mover></math><span class="ltx_text" style="font-size:80%;"></span></span>
+<span class="ltx_td ltx_align_left ltx_th ltx_th_column"><span class="ltx_text" style="font-size:80%;">%red</span></span></span>
+</span>
+<span class="ltx_tbody">
+<span class="ltx_tr">
+<span class="ltx_td ltx_align_left ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:80%;">CA–ES</span></span>
+<span class="ltx_td ltx_align_center ltx_border_t"><span class="ltx_text" style="font-size:80%;">2948</span></span>
+<span class="ltx_td ltx_align_center ltx_border_t"><span class="ltx_text" style="font-size:80%;">2957</span></span>
+<span class="ltx_td ltx_align_center ltx_border_t"><span class="ltx_text" style="font-size:80%;">2324</span></span>
+<span class="ltx_td ltx_align_left ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:80%;">.21</span></span>
+<span class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:80%;">332</span></span>
+<span class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:80%;">336</span></span>
+<span class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:80%;">294</span></span>
+<span class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:80%;">.11</span></span></span>
+<span class="ltx_tr">
+<span class="ltx_td ltx_align_left ltx_border_r"><span class="ltx_text" style="font-size:80%;">EU–ES</span></span>
+<span class="ltx_td ltx_align_center"><span class="ltx_text" style="font-size:80%;">3021</span></span>
+<span class="ltx_td ltx_align_center"><span class="ltx_text" style="font-size:80%;">3046</span></span>
+<span class="ltx_td ltx_align_center"><span class="ltx_text" style="font-size:80%;">2443</span></span>
+<span class="ltx_td ltx_align_left ltx_border_r"><span class="ltx_text" style="font-size:80%;">.19</span></span>
+<span class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:80%;">462</span></span>
+<span class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:80%;">483</span></span>
+<span class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:80%;">546</span></span>
+<span class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:80%;">-.18</span></span></span>
+<span class="ltx_tr">
+<span class="ltx_td ltx_align_left ltx_border_r"><span class="ltx_text" style="font-size:80%;">PT–ES</span></span>
+<span class="ltx_td ltx_align_center"><span class="ltx_text" style="font-size:80%;">2871</span></span>
+<span class="ltx_td ltx_align_center"><span class="ltx_text" style="font-size:80%;">2896</span></span>
+<span class="ltx_td ltx_align_center"><span class="ltx_text" style="font-size:80%;">1951</span></span>
+<span class="ltx_td ltx_align_left ltx_border_r"><span class="ltx_text ltx_font_bold" style="font-size:80%;">.32</span><span class="ltx_text" style="font-size:80%;"></span></span>
+<span class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:80%;">633</span></span>
+<span class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:80%;">623</span></span>
+<span class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:80%;">486</span></span>
+<span class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:80%;">.23</span></span></span>
+<span class="ltx_tr">
+<span class="ltx_td ltx_align_left ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:80%;">ES–CA</span></span>
+<span class="ltx_td ltx_align_center ltx_border_t"><span class="ltx_text" style="font-size:80%;">3338</span></span>
+<span class="ltx_td ltx_align_center ltx_border_t"><span class="ltx_text" style="font-size:80%;">3345</span></span>
+<span class="ltx_td ltx_align_center ltx_border_t"><span class="ltx_text" style="font-size:80%;">2890</span></span>
+<span class="ltx_td ltx_align_left ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:80%;">.13</span></span>
+<span class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:80%;">325</span></span>
+<span class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:80%;">330</span></span>
+<span class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:80%;">338</span></span>
+<span class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:80%;">-.04</span></span></span>
+<span class="ltx_tr">
+<span class="ltx_td ltx_align_left ltx_border_r"><span class="ltx_text" style="font-size:80%;">ES–EU</span></span>
+<span class="ltx_td ltx_align_center"><span class="ltx_text" style="font-size:80%;">4110</span></span>
+<span class="ltx_td ltx_align_center"><span class="ltx_text" style="font-size:80%;">4129</span></span>
+<span class="ltx_td ltx_align_center"><span class="ltx_text" style="font-size:80%;">3349</span></span>
+<span class="ltx_td ltx_align_left ltx_border_r"><span class="ltx_text" style="font-size:80%;">.19</span></span>
+<span class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:80%;">745</span></span>
+<span class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:80%;">761</span></span>
+<span class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:80%;">637</span><span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">4</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">4</sup><span class="ltx_text" style="font-size:80%;">ES–EU LM is recomputed after the task,
+removing duplicates, which slightly decrease BLEU, increase NIST.</span></span></span></span><span class="ltx_text" style="font-size:80%;"></span></span>
+<span class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:80%;">.15</span><span class="ltx_ERROR undefined">\footref</span><span class="ltx_text" style="font-size:80%;">es-eu_LM</span></span></span>
+<span class="ltx_tr">
+<span class="ltx_td ltx_align_left ltx_border_b ltx_border_r"><span class="ltx_text" style="font-size:80%;">ES–PT</span></span>
+<span class="ltx_td ltx_align_center ltx_border_b"><span class="ltx_text" style="font-size:80%;">3087</span></span>
+<span class="ltx_td ltx_align_center ltx_border_b"><span class="ltx_text" style="font-size:80%;">3117</span></span>
+<span class="ltx_td ltx_align_center ltx_border_b"><span class="ltx_text" style="font-size:80%;">2216</span></span>
+<span class="ltx_td ltx_align_left ltx_border_b ltx_border_r"><span class="ltx_text" style="font-size:80%;">.28</span></span>
+<span class="ltx_td ltx_align_left ltx_border_b"><span class="ltx_text" style="font-size:80%;">993</span></span>
+<span class="ltx_td ltx_align_left ltx_border_b"><span class="ltx_text" style="font-size:80%;">941</span></span>
+<span class="ltx_td ltx_align_left ltx_border_b"><span class="ltx_text" style="font-size:80%;">746</span></span>
+<span class="ltx_td ltx_align_left ltx_border_b"><span class="ltx_text ltx_font_bold" style="font-size:80%;">.25</span></span></span>
+</span>
+</span>
+</span>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 2: </span>LM comparison built from training corpus (C train), ParFDA
+selected training data (FDA train), ParFDA selected LM data (FDA LM). <math id="S2.T2.m12" class="ltx_Math" alttext="\%" display="inline"><mo lspace="0pt" rspace="3.5pt">%</mo></math>red is reduction proportion.
+</figcaption>
+</figure>
+</section>
+<section id="S2.SS4" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.4 </span>ParFDA</h3>
+
+<div id="S2.SS4.p1" class="ltx_para">
+<p class="ltx_p">ParFDA parallelizes instance selection with an optimized parallel implementation of FDA5 and significantly reduces the
+time to deploy accurate SMT systems especially in the presence of large training data and still achieve state-of-the-art SMT performance <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib3" title="ParFDA for fast deployment of accurate statistical machine translation systems, benchmarks, and statistics" class="ltx_ref">1</a>, <a href="#bib.bib2" title="Optimizing instance selection for statistical machine translation with feature decay algorithms" class="ltx_ref">2</a>]</cite>.
+Detailed composition of the available corpora, which is referred to as constrained (C), are provided in <span class="ltx_ERROR undefined">\Cref</span>sec:resources.
+For ES, we also included LDC Gigaword corpora <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib5" title="Spanish Gigaword third edition, Linguistic Data Consortium" class="ltx_ref">13</a>]</cite>.
+The size of the LM corpora includes both the LDC and the monolingual LM corpora provided.
+ParFDA selected training and LM data obtains accurate
+translation outputs with the selected LM data reducing the number of OOV tokens by up to <math id="S2.SS4.p1.m1" class="ltx_Math" alttext="32\%" display="inline"><mrow><mn>32</mn><mo lspace="0pt" rspace="3.5pt">%</mo></mrow></math> and the perplexity by up to <math id="S2.SS4.p1.m2" class="ltx_Math" alttext="25\%" display="inline"><mrow><mn>25</mn><mo lspace="0pt" rspace="3.5pt">%</mo></mrow></math> and allows us to model higher order dependencies (<span class="ltx_ERROR undefined">\Cref</span>LMPerplexityComparison).
+</p>
+</div>
+</section>
+<section id="S2.SS5" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.5 </span>System Combination</h3>
+
+<div id="S2.SS5.p1" class="ltx_para">
+<p class="ltx_p">For each language direction we have built up to five systems, as detailed in Sections <a href="#S2.SS2" title="2.2 MT Systems ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.2</span></a> to <a href="#S2.SS4" title="2.4 ParFDA ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.4</span></a>:
+(i) phrase-based and (ii) hierarchical SMT, (iii) phrase-based with morph segmentation, (iv) phrase-based with ParFDA and (v) RBMT.
+We hypothesise these systems to have complementary strengths, and thus we decide to perform system combination.
+To that end we use MEMT <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib9" title="Combining machine translation output with open source: the carnegie mellon multi-engine machine translation scheme" class="ltx_ref">7</a>]</cite>, with default settings, except for the parameter <span class="ltx_text ltx_font_typewriter">length</span>, for which we use its default (7) for all directions except for ES<math id="S2.SS5.p1.m1" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>EU, for which we use 5 according to empirical results on the development set.</p>
+</div>
+</section>
+</section>
+<section id="S3" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">3 </span>Resources Employed</h2>
+
+<section id="S3.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.1 </span>Parallel Corpora</h3>
+
+<div id="S3.SS1.p1" class="ltx_para">
+<p class="ltx_p">Ideally, we would use data in the same domain and genre as the test set, i.e. tweets.
+We have access to parallel tweets provided by the task for ES–CA and ES–EU (4,000 parallel tweets for each language pair, we use 1,000 for dev and the remaining 3,000 for training).
+For ES–PT we have access to 999 parallel tweets (we use them for dev) from Brazilator,<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">5</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">5</sup><a href="http://www.cngl.ie/brazilator" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://www.cngl.ie/brazilator</a></span></span></span> a recent project by DCU and Microsoft to translate tweets from the 2014 soccer World Cup across 24 language directions.</p>
+</div>
+<div id="S3.SS1.p2" class="ltx_para">
+<p class="ltx_p">As the availability of parallel tweets for the language pairs of TweetMT 2015 is rather limited (at most we have 4,000 per language pair), we use additional sources of parallel data.
+For ES–CA we use elPeriodico (eP)<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">6</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">6</sup><a href="http://catalog.elra.info/product_info.php?products_id=1122" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://catalog.elra.info/product_info.php?products_id=1122</a></span></span></span> and a selection of contemporary novels.
+For ES–EU, translation memories (TMs) provided by the shared task<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">7</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">7</sup><a href="http://komunitatea.elhuyar.org/tweetmt/resources/" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://komunitatea.elhuyar.org/tweetmt/resources/</a></span></span></span>
+and two corpora from Opus <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib17" title="Parallel data, tools and interfaces in opus" class="ltx_ref">19</a>]</cite>:<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">8</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">8</sup><a href="http://opus.lingfil.uu.se/" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://opus.lingfil.uu.se/</a></span></span></span> Open subtitles 2013 and Tatoeba.
+Finally, for ES–PT we use Europarl v7<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">9</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">9</sup><a href="http://www.statmt.org/europarl/" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://www.statmt.org/europarl/</a></span></span></span> and two corpora from Opus: news-commentary and Tatoeba.
+Table <a href="#S3.T3" title="Table 3 ‣ 3.1 Parallel Corpora ‣ 3 Resources Employed ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a> provides details on these corpora.
+</p>
+</div>
+<figure id="S3.T3" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_t">
+<span class="ltx_rule" style="width:-2.0pt;height:15.0pt;background:black;display:inline-block;"> </span><span class="ltx_text" style="font-size:90%;">
+</span><span class="ltx_text ltx_font_bold" style="font-size:90%;">Pair</span>
+</th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Corpus</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;"># s.</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;"># tokens</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_t" rowspan="3"><span class="ltx_text" style="font-size:90%;">ES–CA</span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">tweets</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">3K</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">48k, 48k</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">eP</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.6M</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">13.5M, 14M</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">novels</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">47K</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">.78M, .86M</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_t" rowspan="4"><span class="ltx_text" style="font-size:90%;">ES–EU</span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">tweets</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">3K</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">42K, 38K</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">TMs</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">1.1M</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">28.9M, 23.5M</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">OpenSubs</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.16M</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">1.2M, 1.0M</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Tatoeba</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">902</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">6.7K, 5.5K</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_b ltx_border_t" rowspan="3"><span class="ltx_text" style="font-size:90%;">ES–PT</span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">EU</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">1.9M</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">54M, 53M</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">NC</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">9K</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">.26M, .25M</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_b"><span class="ltx_text" style="font-size:90%;">Tatoeba</span></th>
+<td class="ltx_td ltx_align_right ltx_border_b"><span class="ltx_text" style="font-size:90%;">53K</span></td>
+<td class="ltx_td ltx_align_right ltx_border_b"><span class="ltx_text" style="font-size:90%;">.42M, .41M</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering" style="font-size:90%;"><span class="ltx_tag ltx_tag_table">Table 3: </span>Parallel corpora used for training.
+For each corpus we provide its number of sentence pairs (# s.) and tokens on both sides (# tokens).</figcaption>
+</figure>
+</section>
+<section id="S3.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.2 </span>Monolingual Corpora</h3>
+
+<div id="S3.SS2.p1" class="ltx_para">
+<p class="ltx_p">Our main source of monolingual data is in-domain and comes from crawled tweets.
+We use TweetCat <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib11" title="TweetCaT: a Tool for Building Twitter Corpora of Smaller Languages" class="ltx_ref">11</a>]</cite> and crawl tweets for all the target languages (CA, ES, EU and PT) during March and April 2015.</p>
+</div>
+<div id="S3.SS2.p2" class="ltx_para">
+<p class="ltx_p">For each language we create two lists of words as required by the crawler:
+(i) most common discriminating words (up to 100), these are words that are unique to the language and they are used to seed the crawler so that it can find candidate tweets;
+and (ii) most common words of the language (200), these are used to determine the language of crawled tweets.
+These two lists are derived from a list of the most common words found in a corpus of subtitles.<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">10</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">10</sup><a href="https://onedrive.live.com/?cid=3732e80b128d016f&amp;id=3732E80B128D016F!3584" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://onedrive.live.com/?cid=3732e80b128d016f&amp;id=3732E80B128D016F!3584</a></span></span></span></p>
+</div>
+<div id="S3.SS2.p3" class="ltx_para">
+<p class="ltx_p">The tweets crawled are post-processed with langid<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">11</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">11</sup><a href="https://github.com/saffsd/langid.py" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/saffsd/langid.py</a></span></span></span> to identify their language.
+We keep the tweets whose langid’s confidence score is above a certain threshold, which is set empirically at 0.7 by inspecting tweets.</p>
+</div>
+<div id="S3.SS2.p4" class="ltx_para">
+<p class="ltx_p">In addition to crawled tweets, we use the target sides of the parallel corpora (cf. Section <a href="#S3.SS1" title="3.1 Parallel Corpora ‣ 3 Resources Employed ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.1</span></a> and a set of monolingual corpora as follows.
+For CA we use caWaC <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib12" title="CaWaC - a web corpus of catalan and its application to language modeling and machine translation" class="ltx_ref">10</a>]</cite>, a corpus crawled from the <span class="ltx_text ltx_font_typewriter">.cat</span> top level domain.
+For ES, news crawl and news-commentary from WMT’13.<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">12</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">12</sup><a href="http://www.statmt.org/wmt13/" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://www.statmt.org/wmt13/</a></span></span></span>
+For EU, a dump from Wikipedia (20150407).
+For PT, the news sources CETEMPublico,<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">13</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">13</sup><a href="http://www.linguateca.pt/cetempublico/" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://www.linguateca.pt/cetempublico/</a></span></span></span> and CETENFolha,<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">14</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">14</sup><a href="http://www.linguateca.pt/cetenfolha/" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://www.linguateca.pt/cetenfolha/</a></span></span></span> and a dump from Wikipedia (20150510).</p>
+</div>
+<div id="S3.SS2.p5" class="ltx_para">
+<p class="ltx_p">Table <a href="#S3.T4" title="Table 4 ‣ 3.2 Monolingual Corpora ‣ 3 Resources Employed ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a> shows details on these corpora including their interpolation weights (cf. Section <a href="#S2.SS2" title="2.2 MT Systems ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.2</span></a>).</p>
+</div>
+<figure id="S3.T4" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_t">
+<span class="ltx_rule" style="width:-2.0pt;height:15.0pt;background:black;display:inline-block;"> </span><span class="ltx_text" style="font-size:90%;">
+</span><span class="ltx_text ltx_font_bold" style="font-size:90%;">Lang</span>
+</th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Corpus</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;"># tokens</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Weights</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_t" rowspan="3"><span class="ltx_text" style="font-size:90%;">CA</span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">tweets</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">29M</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.60</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">caWaC</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.5G</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.33</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">eP</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">14M</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.07</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_t" rowspan="3"><span class="ltx_text" style="font-size:90%;">ES</span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">tweets</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">129.2M</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.75</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">news</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.4G</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.21</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">europarl</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">60M</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.04</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_t" rowspan="3"><span class="ltx_text" style="font-size:90%;">EU</span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">tweets</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">11.3M</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.97</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Wikipedia</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">11.5M</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.01</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">TMs</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">23M</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.02</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_t" rowspan="3"><span class="ltx_text" style="font-size:90%;">PT</span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">tweets</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">33M</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.93</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Wikipedia</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">166M</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.02</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Others</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">286M</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.05</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_t"><span class="ltx_rule" style="width:-4.0pt;height:10.0pt;background:black;display:inline-block;"> </span></th>
+<th class="ltx_td ltx_th ltx_th_row ltx_border_t"></th>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering" style="font-size:90%;"><span class="ltx_tag ltx_tag_table">Table 4: </span>Monolingual corpora used for training.
+For each corpus we show its number of tokens (# tokens) and its weight in LM interpolation.</figcaption>
+</figure>
+</section>
+</section>
+<section id="S4" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">4 </span>Evaluation</h2>
+
+<div id="S4.p1" class="ltx_para">
+<p class="ltx_p">We report our results on the development set (all systems built) and then on the test set (systems submitted).</p>
+</div>
+<section id="S4.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.1 </span>Evaluation on Development Data</h3>
+
+<div id="S4.SS1.p1" class="ltx_para">
+<p class="ltx_p">Table <a href="#S4.T5" title="Table 5 ‣ 4.1 Evaluation on Development Data ‣ 4 Evaluation ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a> presents the results obtained on the devset by the individual systems and a set of combinations
+for the three language pairs we covered: ES–CA, ES–EU and ES–PT.
+The scores were obtained on raw MT output (i.e. tokenised and truecased) as calculated by us with BLEU <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib15" title="BLEU: a method for automatic evaluation of machine translation" class="ltx_ref">15</a>]</cite> (multibleu cased as included in Moses version 3) and TER <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib16" title="A study of translation edit rate with targeted human annotation" class="ltx_ref">17</a>]</cite> (as implemented in TERp version 0.1). Due to time constraints not all the possible combinations were tried.
+The scores of the best individual system and combination are shown in bold.</p>
+</div>
+<figure id="S4.T5" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_rule" style="width:-2.0pt;height:15.0pt;background:black;display:inline-block;"> </span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">System</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">BLEU</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">TER</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" rowspan="7"><span class="ltx_text" style="font-size:90%;">
+<span class="ltx_inline-block ltx_transformed_outer" style="width:8.1pt;height:46.8055555555556px;vertical-align:-0.0pt;"><span class="ltx_transformed_inner" style="width:33.7pt;transform:translate(-12.82pt,2.7pt) rotate(-90deg) ;-webkit-transform:translate(-12.82pt,2.7pt) rotate(-90deg) ;-ms-transform:translate(-12.82pt,2.7pt) rotate(-90deg) ;">
+<span class="ltx_p">ES<math id="S4.T5.m1" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>CA</span>
+</span></span></span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">Moses (1)</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">82.21</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.1102</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">cdec (2)</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">81.45</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.1128</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">ParFDA (3)</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">82.37</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.1062</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Apertium (4)</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">78.17</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.1310</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">1+2</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">81.71</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.1102</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">1+4</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">82.37</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.1057</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">1+2+4</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">81.93</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.1085</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" rowspan="8"><span class="ltx_text" style="font-size:90%;">
+<span class="ltx_inline-block ltx_transformed_outer" style="width:8.1pt;height:46.8055555555556px;vertical-align:-0.0pt;"><span class="ltx_transformed_inner" style="width:33.7pt;transform:translate(-12.82pt,2.7pt) rotate(-90deg) ;-webkit-transform:translate(-12.82pt,2.7pt) rotate(-90deg) ;-ms-transform:translate(-12.82pt,2.7pt) rotate(-90deg) ;">
+<span class="ltx_p">CA<math id="S4.T5.m2" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>ES</span>
+</span></span></span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">Moses (1)</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">82.52</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.1086</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">cdec (2)</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">81.76</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.1118</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">ParFDA (3)</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">82.16</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.1063</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Apertium (4)</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">77.96</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.1329</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">1+2</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">82.38</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.1088</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">1+4</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">82.58</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.1077</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">1+2+4</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">82.38</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.1083</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">1+3+4</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">82.45</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.1074</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" rowspan="10"><span class="ltx_text" style="font-size:90%;">
+<span class="ltx_inline-block ltx_transformed_outer" style="width:8.1pt;height:46.8055555555556px;vertical-align:-0.0pt;"><span class="ltx_transformed_inner" style="width:33.7pt;transform:translate(-12.82pt,2.7pt) rotate(-90deg) ;-webkit-transform:translate(-12.82pt,2.7pt) rotate(-90deg) ;-ms-transform:translate(-12.82pt,2.7pt) rotate(-90deg) ;">
+<span class="ltx_p">ES<math id="S4.T5.m3" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>EU</span>
+</span></span></span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">Moses (1)</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">22.57</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.6116</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">cdec (2)</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">23.7</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.5863</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">ParFDA (3)</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">21.59</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.6181</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Matxin (4)</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">12.66</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.7436</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Morph (5)</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">5.20</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.8812</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">1+2</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">23.18</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.5796</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">1+4</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">18.36</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.6112</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">1+2+4</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">23.58</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.5771</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">1+2+4+5</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">24.07</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.5741</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">1+2+3+4+5</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">24.42</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.5777</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" rowspan="9"><span class="ltx_text" style="font-size:90%;">
+<span class="ltx_inline-block ltx_transformed_outer" style="width:8.1pt;height:46.8055555555556px;vertical-align:-0.0pt;"><span class="ltx_transformed_inner" style="width:33.7pt;transform:translate(-12.82pt,2.7pt) rotate(-90deg) ;-webkit-transform:translate(-12.82pt,2.7pt) rotate(-90deg) ;-ms-transform:translate(-12.82pt,2.7pt) rotate(-90deg) ;">
+<span class="ltx_p">EU<math id="S4.T5.m4" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>ES</span>
+</span></span></span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">Moses (1)</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">24.21</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.6228</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">cdec (2)</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">24.65</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.5911</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">ParFDA (3)</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">22.25</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.6346</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Apertium (4)</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">18.36</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.6918</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Morph (5)</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">11.25</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.9655</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">1+2</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">24.18</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.5883</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">1+4</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">24.33</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.6076</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">1+2+4</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">24.94</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.5831</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">1+2+4+5</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">25.21</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.5792</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" rowspan="7"><span class="ltx_text" style="font-size:90%;">
+<span class="ltx_inline-block ltx_transformed_outer" style="width:8.1pt;height:46.8055555555556px;vertical-align:-0.0pt;"><span class="ltx_transformed_inner" style="width:33.7pt;transform:translate(-12.82pt,2.7pt) rotate(-90deg) ;-webkit-transform:translate(-12.82pt,2.7pt) rotate(-90deg) ;-ms-transform:translate(-12.82pt,2.7pt) rotate(-90deg) ;">
+<span class="ltx_p">ES<math id="S4.T5.m5" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>PT</span>
+</span></span></span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">Moses (1)</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">29.21</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.6052</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">cdec (2)</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">28.14</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.5962</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">ParFDA (3)</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">27.74</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.6164</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Apertium (4)</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">24.96</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.6272</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">1+2</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">28.76</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.5891</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">1+4</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">26.58</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.6082</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">1+2+4</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">27.00</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.5878</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_b ltx_border_t" rowspan="7"><span class="ltx_text" style="font-size:90%;">
+<span class="ltx_inline-block ltx_transformed_outer" style="width:8.1pt;height:46.8055555555556px;vertical-align:-0.0pt;"><span class="ltx_transformed_inner" style="width:33.7pt;transform:translate(-12.82pt,2.7pt) rotate(-90deg) ;-webkit-transform:translate(-12.82pt,2.7pt) rotate(-90deg) ;-ms-transform:translate(-12.82pt,2.7pt) rotate(-90deg) ;">
+<span class="ltx_p">PT<math id="S4.T5.m6" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>ES</span>
+</span></span></span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">Moses (1)</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">30.47</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.5267</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">cdec (2)</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">29.42</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.5254</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">ParFDA (3)</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">29.63</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.5338</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Apertium (4)</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">27.52</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.5335</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">1+2</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">29.9</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.5230</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">1+4</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">30.01</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.5131</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_b"><span class="ltx_text" style="font-size:90%;">1+2+4</span></th>
+<td class="ltx_td ltx_align_right ltx_border_b"><span class="ltx_text" style="font-size:90%;">29.89</span></td>
+<td class="ltx_td ltx_align_right ltx_border_b"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.5089</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering" style="font-size:90%;"><span class="ltx_tag ltx_tag_table">Table 5: </span>Results on the dev set.</figcaption>
+</figure>
+<div id="S4.SS1.p2" class="ltx_para">
+<p class="ltx_p">At least one of the combinations obtains better scores (both in terms of BLEU and TER) than the best individual system (except for ES<math id="S4.SS1.p2.m1" class="ltx_Math" alttext="\leftrightarrow" display="inline"><mo>↔</mo></math>PT with BLEU and for CA<math id="S4.SS1.p2.m2" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>ES with TER), supporting our hypothesis that the individual systems built are complementary.
+Although SMT systems outperform RBMT systems for all directions,<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">15</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">15</sup>When interpreting the results, it should be taken into account that automatic metrics are known to be biased towards statistical MT approaches <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib6" title="Re-evaluation the role of bleu in machine translation research" class="ltx_ref">4</a>]</cite>.</span></span></span> the addition of RBMT in system combinations has a positive impact (except for ES<math id="S4.SS1.p2.m3" class="ltx_Math" alttext="\leftrightarrow" display="inline"><mo>↔</mo></math>PT).
+Phrase-based SMT outperforms hierarchical SMT for related language pairs (ES–CA and ES–PT), but the opposite is true for the unrelated language pair ES–EU. We hypothesise this is due to the fact that ES and EU follow different word orders (SVO and SOV, respectively), and this leads to pervasive long reorderings in translation, that are better modelled with a hierarchical approach.</p>
+</div>
+</section>
+<section id="S4.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.2 </span>Evaluation on Test Data</h3>
+
+<div id="S4.SS2.p1" class="ltx_para">
+<p class="ltx_p">Table <a href="#S4.T6" title="Table 6 ‣ 4.2 Evaluation on Test Data ‣ 4 Evaluation ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">6</span></a> presents the results on the test set of the systems we submitted.
+The scores shown are the ones reported by the organisers (case-insensitive BLEU and TER) on post-processed MT outputs (detokenised and detruecased).
+For each language direction we submitted the three systems that obtained the best performance on the dev set.
+The scores of the best submitted system are shown in bold.</p>
+</div>
+<figure id="S4.T6" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_t"><span class="ltx_rule" style="width:-2.0pt;height:15.0pt;background:black;display:inline-block;"> </span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">System</span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">BLEU</span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">TER</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t" rowspan="3"><span class="ltx_text" style="font-size:90%;">
+<span class="ltx_inline-block ltx_transformed_outer" style="width:8.1pt;height:41.6666666666667px;vertical-align:-0.0pt;"><span class="ltx_transformed_inner" style="width:30.0pt;transform:translate(-10.95pt,2.7pt) rotate(-90deg) ;-webkit-transform:translate(-10.95pt,2.7pt) rotate(-90deg) ;-ms-transform:translate(-10.95pt,2.7pt) rotate(-90deg) ;">
+<span class="ltx_p"><span class="ltx_text" style="font-size:89%;">ES<math id="S4.T6.m1" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>CA</span></span>
+</span></span></span></td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:90%;">DCU1 (1+4)</span></td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.7669</span></td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.1740</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">DCU2 (1)</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.7899<math id="S4.T6.m2" class="ltx_Math" alttext="{}^{\dagger}" display="inline"><msup><mi></mi><mo mathvariant="normal">†</mo></msup></math></span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.1626<math id="S4.T6.m3" class="ltx_Math" alttext="{}^{\dagger}" display="inline"><msup><mi></mi><mo mathvariant="normal">†</mo></msup></math></span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">DCU3 (1+2+4)</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">0.7630</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">0.1738</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t" rowspan="3"><span class="ltx_text" style="font-size:90%;">
+<span class="ltx_inline-block ltx_transformed_outer" style="width:8.1pt;height:41.6666666666667px;vertical-align:-0.0pt;"><span class="ltx_transformed_inner" style="width:30.0pt;transform:translate(-10.95pt,2.7pt) rotate(-90deg) ;-webkit-transform:translate(-10.95pt,2.7pt) rotate(-90deg) ;-ms-transform:translate(-10.95pt,2.7pt) rotate(-90deg) ;">
+<span class="ltx_p"><span class="ltx_text" style="font-size:89%;">CA<math id="S4.T6.m4" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>ES</span></span>
+</span></span></span></td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:90%;">DCU1 (1+4)</span></td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.7826</span></td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.1506</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">DCU2 (1+2+4)</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">0.7816</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">0.1500</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">DCU3 (1+3+4)</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.7943<math id="S4.T6.m5" class="ltx_Math" alttext="{}^{\dagger}" display="inline"><msup><mi></mi><mo mathvariant="normal">†</mo></msup></math></span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.1431<math id="S4.T6.m6" class="ltx_Math" alttext="{}^{\dagger}" display="inline"><msup><mi></mi><mo mathvariant="normal">†</mo></msup></math></span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t" rowspan="3"><span class="ltx_text" style="font-size:90%;">
+<span class="ltx_inline-block ltx_transformed_outer" style="width:8.1pt;height:41.6666666666667px;vertical-align:-0.0pt;"><span class="ltx_transformed_inner" style="width:30.0pt;transform:translate(-10.95pt,2.7pt) rotate(-90deg) ;-webkit-transform:translate(-10.95pt,2.7pt) rotate(-90deg) ;-ms-transform:translate(-10.95pt,2.7pt) rotate(-90deg) ;">
+<span class="ltx_p"><span class="ltx_text" style="font-size:89%;">ES<math id="S4.T6.m7" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>EU</span></span>
+</span></span></span></td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:90%;">DCU1 (1+2+4)</span></td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.2455</span></td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.6533</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">DCU2 (1+2+3+4+5)</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.2636<math id="S4.T6.m8" class="ltx_Math" alttext="{}^{\dagger}" display="inline"><msup><mi></mi><mo mathvariant="normal">†</mo></msup></math></span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.6469<math id="S4.T6.m9" class="ltx_Math" alttext="{}^{\dagger}" display="inline"><msup><mi></mi><mo mathvariant="normal">†</mo></msup></math></span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">DCU3 (1+2+4+5)</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">0.2493</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">0.6553</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t" rowspan="3"><span class="ltx_text" style="font-size:90%;">
+<span class="ltx_inline-block ltx_transformed_outer" style="width:8.1pt;height:41.6666666666667px;vertical-align:-0.0pt;"><span class="ltx_transformed_inner" style="width:30.0pt;transform:translate(-10.95pt,2.7pt) rotate(-90deg) ;-webkit-transform:translate(-10.95pt,2.7pt) rotate(-90deg) ;-ms-transform:translate(-10.95pt,2.7pt) rotate(-90deg) ;">
+<span class="ltx_p"><span class="ltx_text" style="font-size:89%;">EU<math id="S4.T6.m10" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>ES</span></span>
+</span></span></span></td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:90%;">DCU1 (2)</span></td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.2687</span></td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.6512</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">DCU2 (1+2+4)</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">0.2698</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">0.6406</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">DCU3 (1+2+4+5)</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.2728</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.6363</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t" rowspan="3"><span class="ltx_text" style="font-size:90%;">
+<span class="ltx_inline-block ltx_transformed_outer" style="width:8.1pt;height:41.6666666666667px;vertical-align:-0.0pt;"><span class="ltx_transformed_inner" style="width:30.0pt;transform:translate(-10.95pt,2.7pt) rotate(-90deg) ;-webkit-transform:translate(-10.95pt,2.7pt) rotate(-90deg) ;-ms-transform:translate(-10.95pt,2.7pt) rotate(-90deg) ;">
+<span class="ltx_p"><span class="ltx_text" style="font-size:89%;">ES<math id="S4.T6.m11" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>PT</span></span>
+</span></span></span></td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:90%;">DCU1 (1)</span></td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.3595</span></td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.5290</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">DCU2 (1+2)</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.3711<math id="S4.T6.m12" class="ltx_Math" alttext="{}^{\dagger}" display="inline"><msup><mi></mi><mo mathvariant="normal">†</mo></msup></math></span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.5157<math id="S4.T6.m13" class="ltx_Math" alttext="{}^{\dagger}" display="inline"><msup><mi></mi><mo mathvariant="normal">†</mo></msup></math></span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">DCU3 (1+2+4)</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">0.3687</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">0.5163</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_b ltx_border_t" rowspan="3"><span class="ltx_text" style="font-size:90%;">
+<span class="ltx_inline-block ltx_transformed_outer" style="width:8.1pt;height:41.6666666666667px;vertical-align:-0.0pt;"><span class="ltx_transformed_inner" style="width:30.0pt;transform:translate(-10.95pt,2.7pt) rotate(-90deg) ;-webkit-transform:translate(-10.95pt,2.7pt) rotate(-90deg) ;-ms-transform:translate(-10.95pt,2.7pt) rotate(-90deg) ;">
+<span class="ltx_p"><span class="ltx_text" style="font-size:89%;">PT<math id="S4.T6.m14" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>ES</span></span>
+</span></span></span></td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:90%;">DCU1 (1)</span></td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.4465</span></td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.5767</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">DCU2 (1+2)</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">0.4467</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">0.5627</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_b"><span class="ltx_text" style="font-size:90%;">DCU3 (1+2+4)</span></td>
+<td class="ltx_td ltx_align_left ltx_border_b"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.4524<math id="S4.T6.m15" class="ltx_Math" alttext="{}^{\dagger}" display="inline"><msup><mi></mi><mo mathvariant="normal">†</mo></msup></math></span></td>
+<td class="ltx_td ltx_align_left ltx_border_b"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.5403<math id="S4.T6.m16" class="ltx_Math" alttext="{}^{\dagger}" display="inline"><msup><mi></mi><mo mathvariant="normal">†</mo></msup></math></span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering" style="font-size:90%;"><span class="ltx_tag ltx_tag_table">Table 6: </span>Results on the test set.</figcaption>
+</figure>
+<div id="S4.SS2.p2" class="ltx_para">
+<p class="ltx_p">Out of six directions, our best submission is the top performing system for five of them (indicated with <math id="S4.SS2.p2.m1" class="ltx_Math" alttext="\dagger" display="inline"><mo>†</mo></math>).
+For most directions, the addition of a RBMT system leads to better performance.
+Similarly, for the directions where we have used segmentation (ES<math id="S4.SS2.p2.m2" class="ltx_Math" alttext="\leftrightarrow" display="inline"><mo>↔</mo></math>EU) and ParFDA (CA<math id="S4.SS2.p2.m3" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>ES and ES<math id="S4.SS2.p2.m4" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>EU), the addition of systems based on these techniques had a positive impact on the results.</p>
+</div>
+<div id="S4.SS2.p3" class="ltx_para">
+<p class="ltx_p">We now delve deeper into the results obtained by SMT systems based on ParFDA (cf. Section <a href="#S2.SS4" title="2.4 ParFDA ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.4</span></a>).
+Although ParFDA systems were submitted to the shared task only as part of system combinations, we have evaluated <span class="ltx_text ltx_font_italic">a posteriori</span> the performance of this technique by means of standalone systems on the test set.
+ParFDA Moses SMT system obtains top results in CA<math id="S4.SS2.p3.m1" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>ES and ES<math id="S4.SS2.p3.m2" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>CA and close to top results in other language pairs with <math id="S4.SS2.p3.m3" class="ltx_Math" alttext="1.21" display="inline"><mn>1.21</mn></math> BLEU points average difference to the top (<span class="ltx_ERROR undefined">\Cref</span>ParFDA_TranslationResults).
+An interesting feature of ParFDA regards its ability to build and deploy SMT systems in a quick manner. In the specific case of TweetMT,
+ParFDA took about 8 hours to build for ES<math id="S4.SS2.p3.m4" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>CA and 28 hours for PT<math id="S4.SS2.p3.m5" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>ES taking about 11 GB and 27 GB disk space in total, respectively.</p>
+</div>
+<figure id="S4.T7" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_r ltx_border_t">TweetMT</th>
+<td class="ltx_td ltx_align_left ltx_border_t">CA–ES</td>
+<td class="ltx_td ltx_align_left ltx_border_t">EU–ES</td>
+<td class="ltx_td ltx_align_left ltx_border_t">PT–ES</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_r ltx_border_t">ParFDA</th>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text ltx_font_bold">.8012</span></td>
+<td class="ltx_td ltx_align_left ltx_border_t">.2713</td>
+<td class="ltx_td ltx_align_left ltx_border_t">.4374</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_r">Top</th>
+<td class="ltx_td ltx_align_left">.7942</td>
+<td class="ltx_td ltx_align_left">.3109</td>
+<td class="ltx_td ltx_align_left">.4519</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_r">diff</th>
+<td class="ltx_td ltx_align_left">-.007</td>
+<td class="ltx_td ltx_align_left">.0396</td>
+<td class="ltx_td ltx_align_left">.0145</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_r">LM order</th>
+<td class="ltx_td ltx_align_left">8</td>
+<td class="ltx_td ltx_align_left">8</td>
+<td class="ltx_td ltx_align_left">8</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_th ltx_th_row ltx_border_r ltx_border_t"></th>
+<td class="ltx_td ltx_align_left ltx_border_t">ES–CA</td>
+<td class="ltx_td ltx_align_left ltx_border_t">ES–EU</td>
+<td class="ltx_td ltx_align_left ltx_border_t">ES–PT</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_r">ParFDA</th>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text ltx_font_bold">.7926</span></td>
+<td class="ltx_td ltx_align_left ltx_border_t">.2482</td>
+<td class="ltx_td ltx_align_left ltx_border_t">.3589</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_r">Top</th>
+<td class="ltx_td ltx_align_left">.7907</td>
+<td class="ltx_td ltx_align_left">.2636</td>
+<td class="ltx_td ltx_align_left">.3711</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_r">diff</th>
+<td class="ltx_td ltx_align_left">-.0019</td>
+<td class="ltx_td ltx_align_left">.0154</td>
+<td class="ltx_td ltx_align_left">.0122</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_b ltx_border_r">LM order</th>
+<td class="ltx_td ltx_align_left ltx_border_b">8</td>
+<td class="ltx_td ltx_align_left ltx_border_b">10</td>
+<td class="ltx_td ltx_align_left ltx_border_b">8</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 7: </span>BLEU results for ParFDA standalone systems on the test set, their difference to the top, and ParFDA LM order used.
+ParFDA obtains top results in CA<math id="S4.T7.m4" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>ES and ES<math id="S4.T7.m5" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>CA and <math id="S4.T7.m6" class="ltx_Math" alttext="1.21" display="inline"><mn>1.21</mn></math> BLEU points average difference.</figcaption>
+</figure>
+</section>
+</section>
+<section id="S5" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">5 </span>Conclusions and Future Work</h2>
+
+<div id="S5.p1" class="ltx_para">
+<p class="ltx_p">This paper has described our participation in the TweetMT 2015 shared task.
+Our focus has been on rapid development of MT systems adapted to tweets by making the best possible use of available techniques, tools and resources.
+Our best submissions have been the ones that combine different MT systems (except for ES<math id="S5.p1.m1" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math>CA), supporting our hypothesis that the techniques we have used are complementary.</p>
+</div>
+<div id="S5.p2" class="ltx_para">
+<p class="ltx_p">As for future work, we consider several possible avenues.
+First, we would like to analyse in detail the translations produced by our systems in order to derive findings beyond the ones we can extract from the automatic evaluation metrics used in the task.
+Second, most of the tweets in the test set use formal language,<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">16</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">16</sup>This is due to the fact that they are extracted from twitter accounts that publish tweets in multiple languages, and such accounts belong, to a large extent, to institutions that use formal language.</span></span></span> and thus we would like to test our systems in a more representative set of tweets where informal language would be expected to be more pervasive.</p>
+</div>
+</section>
+<section id="Sx1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">Acknowledgments</h2>
+
+<div id="Sx1.p1" class="ltx_para">
+<p class="ltx_p">This research is supported by the EU 7th Framework Programme FP7/2007-2013 under grant agreement PIAP-GA-2012-324414 (Abu-MaTran),
+by SFI as part of the
+ADAPT research center (07/CE/I1142) at Dublin City University and
+the project “Monolingual and Bilingual Text Quality Judgments with Translation Performance Prediction” (13/TIDA/I2740).
+We also thank the SFI/HEA Irish Centre for High-End Computing (ICHEC) for the
+provision of computational facilities and support.
+Finally, we would like to thank Mikel L. Forcada and Iacer Calixto for their advice on normalising tweets for Basque and Portuguese, respectively, and Gorka Labaka for his help with Matxin’s API.</p>
+</div>
+</section>
+<section id="bib" class="ltx_bibliography">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+
+<ul id="L1" class="ltx_biblist">
+<li id="bib.bib3" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. Biçici, Q. Liu and A. Way</span><span class="ltx_text ltx_bib_year"> (2015-09)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">ParFDA for fast deployment of accurate statistical machine translation systems, benchmarks, and statistics</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the EMNLP 2015 Tenth Workshop on Statistical Machine Translation</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Lisbon, Portugal</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p3" title="1 Introduction and Objectives ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>,
+<a href="#S2.SS4.p1" title="2.4 ParFDA ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.4</span></a>.
+</span>
+</li>
+<li id="bib.bib2" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. Biçici and D. Yuret</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Optimizing instance selection for statistical machine translation with feature decay algorithms</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE/ACM Transactions On Audio, Speech, and Language Processing (TASLP)</span> <span class="ltx_text ltx_bib_volume">23</span>, <span class="ltx_text ltx_bib_pages"> pp. 339–350</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="http://dx.doi.org/10.1109/TASLP.2014.2381882" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS4.p1" title="2.4 ParFDA ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.4</span></a>.
+</span>
+</li>
+<li id="bib.bib1" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. Biçici</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Domain adaptation for machine translation with instance selection</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">The Prague Bulletin of Mathematical Linguistics</span> <span class="ltx_text ltx_bib_volume">103</span>, <span class="ltx_text ltx_bib_pages"> pp. 5–20</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1804-0462</span>,
+<a href="http://dx.doi.org/10.1515/pralin-2015-0001" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p3" title="1 Introduction and Objectives ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>.
+</span>
+</li>
+<li id="bib.bib6" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Callison-Burch, M. Osborne and P. Koehn</span><span class="ltx_text ltx_bib_year"> (2006)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Re-evaluation the role of bleu in machine translation research</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">11th Conference of the European Chapter of the Association for Computational Linguistics</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 249–256</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="http://www.aclweb.org/anthology/E06-1032" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p2" title="4.1 Evaluation on Development Data ‣ 4 Evaluation ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib7" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Dyer, A. Lopez, J. Ganitkevitch, J. Weese, F. Ture, P. Blunsom, H. Setiawan and V. E. and</span><span class="ltx_text ltx_bib_year"> (2010)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Cdec: a decoder, alignment, and learning framework for finite-state and context-free translation models</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Association for Computational Linguistics (ACL)</span>,
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p1" title="2.2 MT Systems ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib8" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. L. Forcada, M. Ginestí-Rosell, J. Nordfalk, J. O’Regan, S. Ortiz-Rojas, J. A. Pérez-Ortiz, G. R. Felipe Sánchez-Martínez and F. M. Tyers</span><span class="ltx_text ltx_bib_year"> (2011)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Apertium: a free/open-source platform for rule-based machine translation</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Machine Translation</span> <span class="ltx_text ltx_bib_volume">25</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages"> pp. 127–144</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">Special Issue: Free/Open-Source Machine Translation</span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p1" title="2.2 MT Systems ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib9" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Heafield and A. Lavie</span><span class="ltx_text ltx_bib_year"> (2010)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Combining machine translation output with open source: the carnegie mellon multi-engine machine translation scheme</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">The Prague Bulletin of Mathematical Linguistics</span> <span class="ltx_text ltx_bib_volume">93</span>, <span class="ltx_text ltx_bib_pages"> pp. 27–36</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS5.p1" title="2.5 System Combination ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.5</span></a>.
+</span>
+</li>
+<li id="bib.bib18" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. Kneser and H. Ney</span><span class="ltx_text ltx_bib_year"> (1995)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Improved backing-off for m-gram language modeling</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Acoustics, Speech, and Signal Processing, 1995. ICASSP-95., 1995 International Conference on</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume">1</span>, <span class="ltx_text ltx_bib_pages"> pp. 181–184</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p2" title="2.2 MT Systems ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib10" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">P. Koehn, H. Hoang, A. Birch, C. Callison-Burch, M. Federico, N. Bertoldi, B. Cowan, W. Shen, C. Moran, R. Zens, C. Dyer, O. Bojar, A. Constantin and E. Herbst</span><span class="ltx_text ltx_bib_year"> (2007)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Moses: open source toolkit for statistical machine translation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 45th Annual Meeting of the ACL on Interactive Poster and Demonstration Sessions</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">ACL ’07</span>, <span class="ltx_text ltx_bib_place">Stroudsburg, PA, USA</span>, <span class="ltx_text ltx_bib_pages"> pp. 177–180</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="http://dl.acm.org/citation.cfm?id=1557769.1557821" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#I1.i1.p1" title="1. ‣ 2.1 Data Preprocessing ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">1.</span></a>,
+<a href="#S2.SS2.p1" title="2.2 MT Systems ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib12" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">N. LjubeÅ¡iÄ and A. Toral</span><span class="ltx_text ltx_bib_year"> (26-31)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">CaWaC - a web corpus of catalan and its application to language modeling and machine translation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Ninth International Conference on Language Resources and Evaluation (LREC’14)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Reykjavik, Iceland</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS2.p4" title="3.2 Monolingual Corpora ‣ 3 Resources Employed ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.2</span></a>.
+</span>
+</li>
+<li id="bib.bib11" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">N. Ljubešić, D. Fišer and T. Erjavec</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">TweetCaT: a Tool for Building Twitter Corpora of Smaller Languages</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Ninth International Conference on Language Resources and Evaluation (LREC’14)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Reykjavik, Iceland</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS2.p1" title="3.2 Monolingual Corpora ‣ 3 Resources Employed ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.2</span></a>.
+</span>
+</li>
+<li id="bib.bib13" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Mayor, I. Alegria, A. D. de Ilarraza Sánchez, G. Labaka, M. Lersundi and K. Sarasola</span><span class="ltx_text ltx_bib_year"> (2011)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title"><em class="ltx_emph">Matxin</em>, an open-source rule-based machine translation system for basque</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Machine Translation</span> <span class="ltx_text ltx_bib_volume">25</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages"> pp. 53–82</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="http://dx.doi.org/10.1007/s10590-011-9092-y" title="" class="ltx_ref ltx_bib_external">Link</a>,
+<a href="http://dx.doi.org/10.1007/s10590-011-9092-y" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p1" title="2.2 MT Systems ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib5" class="ltx_bibitem ltx_bib_misc">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Â. Mendonça, D. Jaquette, D. Graff and D. DiPersio</span><span class="ltx_text ltx_bib_year"> (2011)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Spanish Gigaword third edition, Linguistic Data Consortium</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Philadelphia, USA</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS4.p1" title="2.4 ParFDA ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.4</span></a>.
+</span>
+</li>
+<li id="bib.bib14" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. PadrÃ³ and E. Stanilovsky</span><span class="ltx_text ltx_bib_year"> (2012)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">FreeLing 3.0: towards wider multilinguality</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Language Resources and Evaluation Conference (LREC 2012)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Istanbul, Turkey</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#I1.i2.p1" title="2. ‣ 2.1 Data Preprocessing ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.</span></a>.
+</span>
+</li>
+<li id="bib.bib15" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[15]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Papineni, S. Roukos, T. Ward and W. Zhu</span><span class="ltx_text ltx_bib_year"> (2002)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">BLEU: a method for automatic evaluation of machine translation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 40th annual meeting on association for computational linguistics</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 311–318</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p1" title="4.1 Evaluation on Development Data ‣ 4 Evaluation ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib20" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[16]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. Rubino, T. Pirinen, M. EsplÃ -Gomis, N. LjubeÅ¡iÄ, S. Ortiz-Rojas, V. Papavassiliou and P. P. and</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Tenth Workshop on Statistical Machine Translation</span>,
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS3.p3" title="2.3 Morphological Segmentation ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.3</span></a>.
+</span>
+</li>
+<li id="bib.bib16" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[17]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Snover, B. Dorr, R. Schwartz, L. Micciulla and J. Makhoul</span><span class="ltx_text ltx_bib_year"> (2006)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A study of translation edit rate with targeted human annotation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of Association for machine translation in the Americas</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 223–231</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p1" title="4.1 Evaluation on Development Data ‣ 4 Evaluation ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib19" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[18]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Stolcke</span><span class="ltx_text ltx_bib_year"> (2002)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">SRILM-an extensible language modeling toolkit.</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">INTERSPEECH</span>,
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p2" title="2.2 MT Systems ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib17" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[19]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Tiedemann</span><span class="ltx_text ltx_bib_year"> (23-25)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Parallel data, tools and interfaces in opus</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Eight International Conference on Language Resources and Evaluation (LREC’12)</span>,  <span class="ltx_text ltx_bib_editor">N. C. (. Chair), K. Choukri, T. Declerck, M. U. Dogan, B. Maegaard, J. Mariani and J. O. and (Eds.)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Istanbul, Turkey</span> (<span class="ltx_text ltx_bib_language">english</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text isbn ltx_bib_external">ISBN 978-2-9517408-7-7</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS1.p2" title="3.1 Parallel Corpora ‣ 3 Resources Employed ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.1</span></a>.
+</span>
+</li>
+<li id="bib.bib21" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[20]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Virpioja, P. Smit, S. Grönroos and M. Kurimo</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Morfessor 2.0: python implementation and extensions for morfessor baseline</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS3.p3" title="2.3 Morphological Segmentation ‣ 2 Architecture and Components of the System ‣ Dublin City University at the TweetMT 2015 Shared Task\footnotepubrights The real publication is in TweetMT 2015. in SEPLN 2015. The version you see here does not include the Spanish translations." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.3</span></a>.
+</span>
+</li>
+</ul>
+</section>
+</article>
+</div>
+<footer class="ltx_page_footer">
+<div class="ltx_page_logo">Generated  on Fri Sep 29 15:41:38 2017 by <a href="http://dlmf.nist.gov/LaTeXML/">LaTeXML <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="[LOGO]"></a>
+</div></footer>
+</div>
+</body>
+</html>

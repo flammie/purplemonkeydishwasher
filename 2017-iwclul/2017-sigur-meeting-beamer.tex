@@ -1,0 +1,100 @@
+\documentclass{beamer}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{url}
+
+\makeatletter
+\newcommand\listofframes{\@starttoc{lbf}}
+\makeatother
+
+\addtobeamertemplate{frametitle}{}{%
+  \addcontentsline{lbf}{section}{\protect\makebox[2em][l]{%
+    \protect\usebeamercolor[fg]{structure}\insertframenumber\hfill}%
+  \insertframetitle\par}%
+}
+
+
+\title{ACL SIGUR business meeting and IWCLUL round-table\\
+\scriptsize{in St. Petersburg, 2017.\\
+\url{http://acl-sigur.github.io}}}
+\author{Tommi A Pirinen \scriptsize \guilsinglleft
+tommi.antero.pirinen@uni-hamburg.de \guilsinglright }
+\institute{UHH, HZSK}
+\date{\today}
+
+\begin{document}
+
+\selectlanguage{english}
+
+\maketitle
+
+\begin{frame}
+    \frametitle{Agenda}
+    \listofframes
+\end{frame}
+
+\begin{frame}
+    \frametitle{Gathering}
+    \begin{itemize}
+        \item determine that meeting is valid SIG meeting (who is present)
+        \item determine chair, voting, vote counters, secretary for the meeting
+        \item Review agenda (suggest changes)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{SIG updates}
+    \begin{itemize}
+        \item Website in github pages
+        \item SIG bank account
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Uralic dependencies}
+    \begin{itemize}
+        \item see pages
+        \item need more languages more data
+        \item etc.
+        \item possibly in tomorrow's sessions too
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Russian contributions roundtable}
+    \begin{itemize}
+        \item A discussion on how to deal with lack of Russian contributions in
+            the conference
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Bids for hosting IWCLUL 2018(19?)}
+    \begin{itemize}
+        \item Hamburg?
+        \item Co-locate with bigger event?
+        \item Russia?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Any Other Business (AOB)}
+    \begin{itemize}
+
+        \item open floor
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Wrap up}
+    \begin{itemize}
+        \item
+        \item The social event is at ...
+    \end{itemize}
+\end{frame}
+
+\end{document}

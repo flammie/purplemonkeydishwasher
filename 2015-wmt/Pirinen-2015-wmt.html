@@ -1,0 +1,1086 @@
+<!DOCTYPE html><html>
+<head>
+<title>Abu-MaTran at WMT 2015 Translation Task:Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology.</title>
+<!--Generated on Fri Sep 29 15:36:07 2017 by LaTeXML (version 0.8.2) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Document created on .-->
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../latexml/LaTeXML.css" type="text/css">
+<link rel="stylesheet" href="../latexml/ltx-article.css" type="text/css">
+</head>
+<body>
+<div class="ltx_page_main">
+<div class="ltx_page_content">
+<article class="ltx_document ltx_authors_1line">
+<h1 class="ltx_title ltx_title_document">Abu-MaTran at WMT 2015 Translation Task:
+<br class="ltx_break">Morphological Segmentation and Web Crawling
+<span class="ltx_ERROR undefined">\footnotepubrights</span>The official publication was in WMT 2015 workshop, in
+EMNLP 2015, and published version can be found in
+<span class="ltx_ERROR undefined">\url</span>http://statmt.org/wmt15/papers.html
+or ACL anthology.</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Raphael Rubino<math id="m1" class="ltx_Math" alttext="{}^{\star}" display="inline"><msup><mi></mi><mo>⋆</mo></msup></math>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Tommi Pirinen<math id="m2" class="ltx_Math" alttext="{}^{{\dagger}}" display="inline"><msup><mi></mi><mo>†</mo></msup></math>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+Miquel EsplÃ -Gomis<math id="m3" class="ltx_Math" alttext="{}^{{\ddagger}}" display="inline"><msup><mi></mi><mo>‡</mo></msup></math>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Nikola LjubeÅ¡iÄ<math id="m4" class="ltx_Math" alttext="{}^{\gamma}" display="inline"><msup><mi></mi><mi>γ</mi></msup></math>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+<br class="ltx_break">Sergio Ortiz-Rojas<math id="m5" class="ltx_Math" alttext="{}^{\star}" display="inline"><msup><mi></mi><mo>⋆</mo></msup></math>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Vassilis Papavassiliou<math id="m6" class="ltx_Math" alttext="{}^{\natural}" display="inline"><msup><mi></mi><mi mathvariant="normal">♮</mi></msup></math>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+Prokopis Prokopidis<math id="m7" class="ltx_Math" alttext="{}^{\natural}" display="inline"><msup><mi></mi><mi mathvariant="normal">♮</mi></msup></math>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Antonio Toral<math id="m8" class="ltx_Math" alttext="{}^{{\dagger}}" display="inline"><msup><mi></mi><mo>†</mo></msup></math>
+<br class="ltx_break"><math id="m9" class="ltx_Math" alttext="{}^{\star}" display="inline"><msup><mi></mi><mo>⋆</mo></msup></math> Prompsit Language Engineering
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> S.L.
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Elche
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Spain
+<br class="ltx_break"><span class="ltx_text ltx_font_typewriter" style="font-size:90%;">{rrubino,sortiz}@prompsit.com
+<br class="ltx_break"><math id="m10" class="ltx_Math" alttext="{}^{\dagger}" display="inline"><msup><mi></mi><mo mathvariant="normal">†</mo></msup></math><span class="ltx_text ltx_font_serif"> NCLT</span></span>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> School of Computing
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Dublin City University
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Ireland
+<br class="ltx_break"><span class="ltx_text ltx_font_typewriter" style="font-size:90%;">{atoral,tpirinen}@computing.dcu.ie
+<br class="ltx_break"><math id="m11" class="ltx_Math" alttext="{}^{\ddagger}" display="inline"><msup><mi></mi><mo mathvariant="normal">‡</mo></msup></math><span class="ltx_text ltx_font_serif"> Dep. Llenguatges i Sistemes InformÃ tics</span></span>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Universitat dâAlacant
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Spain
+<br class="ltx_break"><span class="ltx_text ltx_font_typewriter" style="font-size:90%;">mespla@dlsi.ua.es
+<br class="ltx_break"><math id="m12" class="ltx_Math" alttext="{}^{\gamma}" display="inline"><msup><mi></mi><mi mathvariant="normal">γ</mi></msup></math><span class="ltx_text ltx_font_serif"> Department of Information and Communication Sciences</span></span>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> University of Zagreb
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Croatia
+<br class="ltx_break"><span class="ltx_text ltx_font_typewriter" style="font-size:90%;">nljubesi@ffzg.hr
+<br class="ltx_break"><math id="m13" class="ltx_Math" alttext="{}^{\natural}" display="inline"><msup><mi></mi><mi mathvariant="normal">♮</mi></msup></math><span class="ltx_text ltx_font_serif"> Institute for Language and Speech Processing</span></span>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Athena Research and Innovation Center
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"> Greece
+<br class="ltx_break"><span class="ltx_text ltx_font_typewriter" style="font-size:90%;">{vpapa, prokopis}@ilsp.gr</span>
+</span></span>
+</div>
+<div class="ltx_date ltx_role_creation"></div>
+
+<div class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+
+<p class="ltx_p">This paper presents the machine translation systems submitted by the Abu-MaTran project for the Finnish–English language pair at the WMT 2015 translation task.
+We tackle the lack of resources and complex morphology of the Finnish language by (i) crawling parallel and monolingual data from the Web and (ii) applying rule-based and unsupervised methods for morphological segmentation.
+Several statistical machine translation approaches are evaluated and then combined to obtain our final submissions <span class="ltx_text" style="color:#00FF00;">which are ranked amongst the top systems on both automatic and manual evaluation.</span>
+</p>
+
+</div>
+<section id="S1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">1 </span>Introduction</h2>
+
+<div id="S1.p1" class="ltx_para">
+<p class="ltx_p">This paper presents the statistical machine translation (SMT) systems submitted by the Abu-MaTran project for the WMT 2015 translation task. The language pair concerned is Finnish–English with a strong focus on the English-to-Finnish direction. The Finnish language is newly introduced this year as a particular translation challenge due to its rich morphology and to the lack of resources available, compared to e.g. English or French.</p>
+</div>
+<div id="S1.p2" class="ltx_para">
+<p class="ltx_p">Morphologically rich languages, and especially Finnish, are known to be difficult to translate using phrase-based SMT systems mainly because of the large diversity of word forms leading to data scarcity <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib7" title="Europarl: A Parallel Corpus for Statistical Machine Translation" class="ltx_ref">16</a>]</cite>. We assume that data acquisition and morphological segmentation should contribute to decrease the out-of-vocabulary rate and thus improve the performance of SMT. To gather additional data, we decide to build on previous work conducted in the Abu-MaTran project and crawl the Web looking for monolingual and parallel corpora <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib26" title="Extrinsic evaluation of web-crawlers in machine translation: a case study on croatian–english for the tourism domain" class="ltx_ref">28</a>]</cite>. In addition, morphological segmentation of Finnish is used in our systems as pre- and post-processing steps. Four segmentation methods are proposed in this paper, two unsupervised and two rule-based.</p>
+</div>
+<div id="S1.p3" class="ltx_para">
+<p class="ltx_p">Both constrained and unconstrained translation systems are submitted for the shared task. The former ones are trained on the data provided by the shared task, while the latter ones benefit from crawled data. For both settings, we evaluate the impact of the different SMT approaches and morphological segmentation methods. Finally, the outputs of individually trained systems are combined to obtain our primary submissions for the translation tasks.</p>
+</div>
+<div id="S1.p4" class="ltx_para">
+<p class="ltx_p">This paper is structured as follows: the methods for data acquisition from the Web are described in Section <a href="#S2" title="2 Web Crawling ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>. Morphological segmentation is presented in Section <a href="#S3" title="3 Morphological Segmentation ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>. The data and tools used in our experiments are detailed in Section <a href="#S4" title="4 Datasets and Tools ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>. Finally, the results of our experiments are shown in Section <a href="#S5" title="5 Results ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>, followed by a conclusion in Section <a href="#S6" title="6 Conclusion ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">6</span></a>.</p>
+</div>
+</section>
+<section id="S2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2 </span>Web Crawling</h2>
+
+<div id="S2.p1" class="ltx_para">
+<p class="ltx_p">In this section we describe the process we followed to collect monolingual and parallel data through Web crawling. Both types of corpora are gathered through one web crawl of the Finnish <em class="ltx_emph">.fi</em> top-level domain (TLD) with the <span class="ltx_text ltx_font_smallcaps">SpiderLing</span> crawler<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup><span class="ltx_ERROR undefined">\url</span>http://nlp.fi.muni.cz/trac/spiderling</span></span></span> <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib23" title="Efficient web crawling for large text corpora" class="ltx_ref">27</a>]</cite>. Since the <span class="ltx_text ltx_font_smallcaps">SpiderLing</span> crawler performs language identification during the crawling process, it allows simultaneous multilingual crawling. The whole unconstrained dataset gathered from the Web is built in 40 days using 16 threads. Documents written in Finnish and English are collected during the crawl.</p>
+</div>
+<section id="S2.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.1 </span>Monolingual Data</h3>
+
+<div id="S2.SS1.p1" class="ltx_para">
+<p class="ltx_p">The amount of Finnish and English data collected during the crawl amounts to, after processing (which includes removing near-duplicates), <math id="S2.SS1.p1.m1" class="ltx_Math" alttext="5.6M" display="inline"><mrow><mn>5.6</mn><mo>⁢</mo><mi>M</mi></mrow></math> and <math id="S2.SS1.p1.m2" class="ltx_Math" alttext="3.9M" display="inline"><mrow><mn>3.9</mn><mo>⁢</mo><mi>M</mi></mrow></math> documents, containing <math id="S2.SS1.p1.m3" class="ltx_Math" alttext="1.7B" display="inline"><mrow><mn>1.7</mn><mo>⁢</mo><mi>B</mi></mrow></math> and <math id="S2.SS1.p1.m4" class="ltx_Math" alttext="2.0B" display="inline"><mrow><mn>2.0</mn><mo>⁢</mo><mi>B</mi></mrow></math> words for Finnish and English respectively. Interestingly, the amount of Finnish and English data on the Finnish TLD is quite similar. For comparison, on the Croatian domain only 10% of the data is written in English <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib38" title="{bs,hr,sr}WaC – web corpora of Bosnian, Croatian and Serbian" class="ltx_ref">19</a>]</cite>. While the Finnish data is used in further steps for building the target-language model, both datasets are used in the task of searching for parallel data described in the next subsection.
+</p>
+</div>
+</section>
+<section id="S2.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.2 </span>Parallel Data</h3>
+
+<div id="S2.SS2.p1" class="ltx_para">
+<p class="ltx_p">The process of searching for parallel segments among the English and Finnish crawled data is performed by adapting the <span class="ltx_text ltx_font_smallcaps">Bitextor<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">2</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">2</sup><span class="ltx_ERROR undefined">\url</span><span class="ltx_text ltx_font_upright">http://sf.net/p/bitextor/</span></span></span></span></span> tool to process already crawled data. <span class="ltx_text ltx_font_smallcaps">Bitextor</span> is a free/open-source tool for harvesting bitexts from multilingual websites. This tool downloads a complete website, processes it, extracts parallel documents and aligns their sentences. In this paper <span class="ltx_text ltx_font_smallcaps">Bitextor</span> is used to detect parallel documents from a collection of downloaded and pre-processed websites. The pre-processing performed by <span class="ltx_text ltx_font_smallcaps">SpiderLing</span> includes language detection, boilerplate removal, and HTML format cleaning. Therefore, the only modules of <span class="ltx_text ltx_font_smallcaps">Bitextor</span> used for this task are those performing document and segment alignment, relying on <span class="ltx_text ltx_font_smallcaps">hunalign<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">3</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">3</sup><span class="ltx_ERROR undefined">\url</span><span class="ltx_text ltx_font_upright">http://mokk.bme.hu/resources/hunalign</span></span></span></span></span> <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib22" title="Parallel corpora for medium density languages" class="ltx_ref">29</a>]</cite> and an English–Finnish bilingual lexicon.<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">4</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">4</sup><span class="ltx_ERROR undefined">\url</span>http://sf.net/p/bitextor/files/bitextor/bitextor-4.1/dictionaries/</span></span></span> Confidence scores for aligned segments are computed thanks to these two resources.</p>
+</div>
+<div id="S2.SS2.p2" class="ltx_para">
+<p class="ltx_p">From the <math id="S2.SS2.p2.m1" class="ltx_Math" alttext="12,183" display="inline"><mrow><mn>12</mn><mo>,</mo><mn>183</mn></mrow></math> web domains containing both Finnish and English documents, <span class="ltx_text ltx_font_smallcaps">Bitextor</span> is able to identify potentially parallel data on <math id="S2.SS2.p2.m2" class="ltx_Math" alttext="10,656" display="inline"><mrow><mn>10</mn><mo>,</mo><mn>656</mn></mrow></math> domains, i.e. <math id="S2.SS2.p2.m3" class="ltx_Math" alttext="87.5\%" display="inline"><mrow><mn>87.5</mn><mo lspace="0pt" rspace="3.5pt">%</mo></mrow></math>. From these domains, <math id="S2.SS2.p2.m4" class="ltx_Math" alttext="2.1M" display="inline"><mrow><mn>2.1</mn><mo>⁢</mo><mi>M</mi></mrow></math> segment pairs are extracted without any additional restrictions, and <math id="S2.SS2.p2.m5" class="ltx_Math" alttext="1.2M" display="inline"><mrow><mn>1.2</mn><mo>⁢</mo><mi>M</mi></mrow></math> when additional restrictions on the document pairing are set. Namely, these restrictions discard (i) document pairs where less than 5 segments are aligned; and (ii) those with an alignment score lower than <math id="S2.SS2.p2.m6" class="ltx_Math" alttext="0.2" display="inline"><mn>0.2</mn></math> according to <span class="ltx_text ltx_font_smallcaps">hunalign</span>. The first collection can be considered recall-oriented and the second one precision-oriented.</p>
+</div>
+<div id="S2.SS2.p3" class="ltx_para">
+<p class="ltx_p">In this first step, a large amount of potentially parallel data is obtained by post-processing data collected with a TLD crawl, which is not primarily aimed at finding parallel data. To make use of this resource in a more efficient way, we re-crawl some of the most promising web sites (we call them <span class="ltx_text ltx_font_italic">multilingual hotspots</span>) with the <span class="ltx_text ltx_font_smallcaps">ILSP-FC</span> crawler specialised in locating parallel documents during crawling. According to <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib24" title="Comparing two acquisition systems for automatically building an english-croatian parallel corpus from multilingual websites" class="ltx_ref">5</a>]</cite>, <span class="ltx_text ltx_font_smallcaps">Bitextor</span> and <span class="ltx_text ltx_font_smallcaps">ILSP-FC</span> have shown to be complementary, and combining both tools leads to a larger amount of parallel data.</p>
+</div>
+<div id="S2.SS2.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_smallcaps">ILSP-FC</span> <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib21" title="A modular open-source focused crawler for mining monolingual and bilingual corpora from the web" class="ltx_ref">21</a>]</cite> is an open-source modular crawling system allowing to easily acquire domain-specific and generic corpora from the Web.<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">5</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">5</sup><span class="ltx_ERROR undefined">\url</span>http://nlp.ilsp.gr/redmine/projects/ilsp-fc</span></span></span>
+The modules integrated in <span class="ltx_text ltx_font_smallcaps">ILSP-FC</span> include a de-duplicator that checks each document against all others and identifies near-duplicates by comparing the quantised word frequencies and the paragraphs of each pair of candidate duplicate documents and a pair detector that examines each document against all others and identifies pairs of documents that could be considered parallel. The main methods used by the pair detector are URL similarity, co-occurrences of images with the same filename in two documents, and the documents’ structural similarity.</p>
+</div>
+<div id="S2.SS2.p5" class="ltx_para">
+<p class="ltx_p">In order to identify the <span class="ltx_text ltx_font_italic">multilingual hotspots</span>, we process the output of the Finnish TLD and generate a list containing the websites which have already been crawled and the number of stored English and Finnish webpages for each website. Assuming that a website with comparable numbers of webpages for each language is likely to contain bitexts of good quality, we keep the websites with Finnish to English ratio over 0.9. Then, <span class="ltx_text ltx_font_smallcaps">ILSP-FC</span> processes the <math id="S2.SS2.p5.m1" class="ltx_Math" alttext="1,000" display="inline"><mrow><mn>1</mn><mo>,</mo><mn>000</mn></mrow></math> largest such websites, considered the most bitext-productive multilingual websites, in order to detect parallel documents. We identify a total of <math id="S2.SS2.p5.m2" class="ltx_Math" alttext="58,839" display="inline"><mrow><mn>58</mn><mo>,</mo><mn>839</mn></mrow></math> document pairs (<math id="S2.SS2.p5.m3" class="ltx_Math" alttext="8,936" display="inline"><mrow><mn>8</mn><mo>,</mo><mn>936</mn></mrow></math>, <math id="S2.SS2.p5.m4" class="ltx_Math" alttext="17,288" display="inline"><mrow><mn>17</mn><mo>,</mo><mn>288</mn></mrow></math> and <math id="S2.SS2.p5.m5" class="ltx_Math" alttext="32,615" display="inline"><mrow><mn>32</mn><mo>,</mo><mn>615</mn></mrow></math> based on URL similarity, co-occurrences of images and structural similarity, respectively). Finally, <span class="ltx_text ltx_font_smallcaps">Hunalign</span> is applied on these document pairs, resulting in <math id="S2.SS2.p5.m6" class="ltx_Math" alttext="1.2M" display="inline"><mrow><mn>1.2</mn><mo>⁢</mo><mi>M</mi></mrow></math> segment pairs after duplicate removal.</p>
+</div>
+<div id="S2.SS2.p6" class="ltx_para">
+<p class="ltx_p">The parallel corpus used in our experiments is the result of joining the biggest corpora acquired by <span class="ltx_text ltx_font_smallcaps">Bitextor</span> and <span class="ltx_text ltx_font_smallcaps">ILSP-FC</span> and removing duplicates.
+This amounts to <math id="S2.SS2.p6.m1" class="ltx_Math" alttext="2.8M" display="inline"><mrow><mn>2.8</mn><mo>⁢</mo><mi>M</mi></mrow></math> segment pairs.</p>
+</div>
+</section>
+</section>
+<section id="S3" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">3 </span>Morphological Segmentation</h2>
+
+<div id="S3.p1" class="ltx_para">
+<p class="ltx_p">Morphological segmentation is a method of analysis of word-forms in order to reduce morphological complexity. There are few variations on how to define morphological segmentation, we use the most simple definition: a morphological segmentation of a word is defined by 0 or more segmentation points from where the word can be split into segments. The letter sequences between segmentation points are not modified, i.e. no lemmatisation or segment analysis is performed (or retained) in the actual SMT data.
+An example of a linguistically derived morphological segmentation of an English word-form <span class="ltx_text ltx_font_italic">cats</span> would be <span class="ltx_text ltx_font_typewriter">cat<math id="S3.p1.m1" class="ltx_Math" alttext="\rightarrow" display="inline"><mo mathvariant="normal">→</mo></math> <math id="S3.p1.m2" class="ltx_Math" alttext="\leftarrow" display="inline"><mo mathvariant="normal">←</mo></math>s</span>, where <math id="S3.p1.m3" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math> <math id="S3.p1.m4" class="ltx_Math" alttext="\leftarrow" display="inline"><mo>←</mo></math> denotes the segmentation point,<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">6</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">6</sup>we follow this arrow notation throughout the paper as well as in the actual implementation</span></span></span> and <span class="ltx_text ltx_font_typewriter">cat</span> and <span class="ltx_text ltx_font_typewriter">s</span> are the segments.</p>
+</div>
+<div id="S3.p2" class="ltx_para">
+<p class="ltx_p">We use four segmentation approaches that can be divided in two categories: (i) rule-based, based on morphological dictionaries and weighted finite-state technology <span class="ltx_text ltx_font_smallcaps">HFST</span> <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib9" title="HFST tools for morphology–an efficient open-source package for construction of morphological analyzers" class="ltx_ref">18</a>]</cite><span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">7</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">7</sup><span class="ltx_ERROR undefined">\url</span>http://hfst.sf.net</span></span></span>, further detailed in subsection <a href="#S3.SS1" title="3.1 Rule-based Segmentation ‣ 3 Morphological Segmentation ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.1</span></a>, and (ii) statistical, based on unsupervised learning of morphologies, further detailed in subsection <a href="#S3.SS2" title="3.2 Unsupervised Segmentation ‣ 3 Morphological Segmentation ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.2</span></a>. All segments are used as described in subsection <a href="#S3.SS3" title="3.3 Segments in the SMT Pipeline ‣ 3 Morphological Segmentation ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.3</span></a>.</p>
+</div>
+<section id="S3.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.1 </span>Rule-based Segmentation</h3>
+
+<div id="S3.SS1.p1" class="ltx_para">
+<p class="ltx_p">Rule-based morphological segmentation is based on linguistically motivated computational descriptions of the morphology by dividing the word-forms into <span class="ltx_text ltx_font_italic">morphs</span> (minimal segments carrying semantic or syntactic meaning). The rule-based approach to morphological segmentation uses a morphological dictionary of words and an implementation of the morphological grammar to analyse word-forms. In our case, we use <span class="ltx_text ltx_font_smallcaps">omorfi</span> <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib8" title="Omorfiâfree and open source morphological lexical database for Finnish" class="ltx_ref">23</a>]</cite>, an open-source implementation of the Finnish morphology.<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">8</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">8</sup><span class="ltx_ERROR undefined">\url</span>http://github.com/flammie/omorfi/</span></span></span> <span class="ltx_text ltx_font_smallcaps">omorfi</span>’s segmentation produces named segment boundaries: stem, inflection, derivation, compound-word and other etymological. The two variants of rule-based segmentation we use are based on selection of the boundary points: <span class="ltx_text ltx_font_italic">compound segmentation</span> uses compound segments and discards the rest (referred in tables and figures to as <span class="ltx_text ltx_font_typewriter">HFST Comp</span>), and <span class="ltx_text ltx_font_italic">morph segmentation</span> uses compound and inflectional morph segments (<span class="ltx_text ltx_font_typewriter">HFST Morph</span> in tables and figures). In cases of ambiguous segments, the weighted finite-state automata 1-best search is used with default weights.<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">9</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">9</sup>For details of implementation and reproducibility, the code is available in form of automake scriptlets at <span class="ltx_ERROR undefined">\url</span>http://github.com/flammie/autostuff-moses-smt/.</span></span></span> For example, the words <span class="ltx_text ltx_font_italic">kuntaliitoksen selvittämisessä</span> (“examining annexation”) is segmented by <span class="ltx_text ltx_font_typewriter">hfst-comp</span> as ‘kunta<math id="S3.SS1.p1.m1" class="ltx_Math" alttext="\rightarrow\leftarrow" display="inline"><mrow><mi></mi><mo>→</mo><mo>←</mo></mrow></math>liitoksen selvittämisessä’ and <span class="ltx_text ltx_font_typewriter">hfst-morph</span> as ‘kunta<math id="S3.SS1.p1.m2" class="ltx_Math" alttext="\rightarrow\leftarrow" display="inline"><mrow><mi></mi><mo>→</mo><mo>←</mo></mrow></math>liitokse<math id="S3.SS1.p1.m3" class="ltx_Math" alttext="\rightarrow\leftarrow" display="inline"><mrow><mi></mi><mo>→</mo><mo>←</mo></mrow></math>n selvittämise<math id="S3.SS1.p1.m4" class="ltx_Math" alttext="\rightarrow\leftarrow" display="inline"><mrow><mi></mi><mo>→</mo><mo>←</mo></mrow></math>ssä’.</p>
+</div>
+</section>
+<section id="S3.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.2 </span>Unsupervised Segmentation</h3>
+
+<div id="S3.SS2.p1" class="ltx_para">
+<p class="ltx_p">Unsupervised morphological segmentation is based on a statistical model trained by minimising the number of different character sequences observed in a training corpus. We use two different algorithms: <span class="ltx_text ltx_font_smallcaps">Morfessor</span> Baseline 2.0 <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib35" title="Morfessor 2.0: python implementation and extensions for morfessor baseline" class="ltx_ref">30</a>]</cite> and <span class="ltx_text ltx_font_smallcaps">Flatcat</span> <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib33" title="Morfessor flatcat: an hmm-based method for unsupervised and semi-supervised learning of morphology" class="ltx_ref">8</a>]</cite>.
+The segmentation models are trained using the Europarl v8 corpus. Both systems are used with default settings. However, with <span class="ltx_text ltx_font_smallcaps">Flatcat</span> we discard the non-morph boundaries and we have not used semi-supervised features.
+For example, the phrase given in previous sub-section: <span class="ltx_text ltx_font_typewriter">morfessor</span> produces 1-best segmentation: and ‘Kun<math id="S3.SS2.p1.m1" class="ltx_Math" alttext="\rightarrow\leftarrow" display="inline"><mrow><mi></mi><mo>→</mo><mo>←</mo></mrow></math>ta<math id="S3.SS2.p1.m2" class="ltx_Math" alttext="\rightarrow\leftarrow" display="inline"><mrow><mi></mi><mo>→</mo><mo>←</mo></mrow></math>liito<math id="S3.SS2.p1.m3" class="ltx_Math" alttext="\rightarrow\leftarrow" display="inline"><mrow><mi></mi><mo>→</mo><mo>←</mo></mrow></math>ksen selvittä<math id="S3.SS2.p1.m4" class="ltx_Math" alttext="\rightarrow\leftarrow" display="inline"><mrow><mi></mi><mo>→</mo><mo>←</mo></mrow></math>misessä’ and <span class="ltx_text ltx_font_typewriter">flatcat</span> ‘Kun<math id="S3.SS2.p1.m5" class="ltx_Math" alttext="\rightarrow\leftarrow" display="inline"><mrow><mi></mi><mo>→</mo><mo>←</mo></mrow></math>tali<math id="S3.SS2.p1.m6" class="ltx_Math" alttext="\rightarrow\leftarrow" display="inline"><mrow><mi></mi><mo>→</mo><mo>←</mo></mrow></math>itoksen selvittämis<math id="S3.SS2.p1.m7" class="ltx_Math" alttext="\rightarrow\leftarrow" display="inline"><mrow><mi></mi><mo>→</mo><mo>←</mo></mrow></math>essä’</p>
+</div>
+</section>
+<section id="S3.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.3 </span>Segments in the SMT Pipeline</h3>
+
+<div id="S3.SS3.p1" class="ltx_para">
+<p class="ltx_p">The segmented data is used exactly as the word-form-based data during training, tuning and testing of the SMT systems,<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">10</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">10</sup>The parameters of the word alignment, phrase extraction and decoding algorithms have not been modified to take into account the nature of the segmented data.</span></span></span> except during the pre-processing and post-processing steps.
+For pre-processing, the Finnish side is segmented prior to use.
+In segmented-Finnish-to-English the post-processing was performed by removing the boundary markers. In English-to-segmented-Finnish translation, there are basically two types of tokens with boundary markers: <span class="ltx_text ltx_font_italic">matching</span> arrows <span class="ltx_text ltx_font_typewriter">a<math id="S3.SS3.p1.m1" class="ltx_Math" alttext="\rightarrow" display="inline"><mo mathvariant="normal">→</mo></math> <math id="S3.SS3.p1.m2" class="ltx_Math" alttext="\leftarrow" display="inline"><mo mathvariant="normal">←</mo></math>b</span> and <span class="ltx_text ltx_font_italic">stray</span> arrows <span class="ltx_text ltx_font_typewriter">a<math id="S3.SS3.p1.m3" class="ltx_Math" alttext="\rightarrow" display="inline"><mo mathvariant="normal">→</mo></math> x</span> or <span class="ltx_text ltx_font_typewriter">x <math id="S3.SS3.p1.m4" class="ltx_Math" alttext="\leftarrow" display="inline"><mo mathvariant="normal">←</mo></math>b</span>. In the former case, we replace <math id="S3.SS3.p1.m5" class="ltx_Math" alttext="\rightarrow" display="inline"><mo>→</mo></math><span class="ltx_text ltx_font_typewriter"> <math id="S3.SS3.p1.m6" class="ltx_Math" alttext="\leftarrow" display="inline"><mo mathvariant="normal">←</mo></math></span> with an empty string to join the morphs. In the latter case, we delete the morphs with the stray arrows.</p>
+</div>
+</section>
+</section>
+<section id="S4" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">4 </span>Datasets and Tools</h2>
+
+<div id="S4.p1" class="ltx_para">
+<p class="ltx_p">This section presents the tools and the monolingual and parallel data used to train our SMT systems. All the corpora are pre-processed prior to training the language and translation models. We rely on the scripts included in the <span class="ltx_text ltx_font_smallcaps">Moses</span> toolkit <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib10" title="Moses: Open Source Toolkit for Statistical Machine Translation" class="ltx_ref">14</a>]</cite> and perform the following operations: punctuation normalisation, tokenisation, true-casing and escaping of problematic characters. The truecaser is lexicon-based, trained on all the monolingual and parallel data. In addition, we remove sentence pairs from the parallel corpora where either side is longer than <math id="S4.p1.m1" class="ltx_Math" alttext="80" display="inline"><mn>80</mn></math> tokens.</p>
+</div>
+<section id="S4.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.1 </span>Translation Models</h3>
+
+<div id="S4.SS1.p1" class="ltx_para">
+<p class="ltx_p">Previous studies in MT involving Finnish do not show a clear advantage of one particular approach compared to another, and thus we decide to empirically evaluate several types of SMT systems: phrase-based SMT <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib4" title="The Alignment Template Approach to Statistical Machine Translation" class="ltx_ref">20</a>]</cite> trained on word forms or morphs as described in Section <a href="#S3" title="3 Morphological Segmentation ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>, Factored Models <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib6" title="Factored Translation Models" class="ltx_ref">15</a>]</cite> including morphological and suffix information as provided by <span class="ltx_text ltx_font_smallcaps">omorfi</span>,<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">11</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">11</sup>using the script <span class="ltx_text ltx_font_typewriter">omorfi-factorise.py</span></span></span></span> in addition to surface forms, and finally hierarchical phrase-based SMT <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib5" title="A Hierarchical Phrase-based Model for Statistical Machine Translation" class="ltx_ref">2</a>]</cite> as an unsupervised tree-based model. All the systems are trained with <span class="ltx_text ltx_font_smallcaps">Moses</span>, relying on <span class="ltx_text ltx_font_smallcaps">MGIZA</span> <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib12" title="Parallel Implementations of Word Alignment Tool" class="ltx_ref">7</a>]</cite> for word alignment
+and MIRA <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib37" title="Online large-margin training for statistical machine translation" class="ltx_ref">32</a>]</cite> for tuning. This tuning algorithm was shown to be faster and as efficient as MERT for model core features, as well as a better stability with larger numbers of features <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib1" title="Margin Infused Relaxed Algorithm for Moses" class="ltx_ref">10</a>]</cite>.</p>
+</div>
+<div id="S4.SS1.p2" class="ltx_para">
+<p class="ltx_p">In order to compare the individually trained SMT systems, we use the same parallel data for each model, as well as the provided development set to tune the systems. The phrase-based SMT system is augmented with additional features: an Operation Sequence Model (OSM) <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib16" title="A Joint Sequence Translation Model with Integrated Reordering" class="ltx_ref">4</a>]</cite> and a Bilingual Neural Language Model (BiNLM) <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib20" title="Fast and Robust Neural Network Joint Models for Statistical Machine Translation" class="ltx_ref">3</a>]</cite>, both trained on the parallel data used to learn the phrase-table. All the translation systems also benefit from two additional reordering models, namely a phrase-based model with three different orientations (monotone, swap and discontinuous) and a hierarchical model with four orientations (non merged discontinuous left and right orientations), both trained in a bidirectional way <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib2" title="Edinburgh system description for the 2005 iwslt speech translation evaluation." class="ltx_ref">13</a>, <a href="#bib.bib3" title="A simple and effective hierarchical phrase reordering model" class="ltx_ref">6</a>]</cite>.
+</p>
+</div>
+<figure id="S4.F1" class="ltx_figure"><img src="" id="S4.F1.g1" class="ltx_graphics ltx_centering" alt="">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 1: </span>Effects of segmentation to unique token counts in Finnish data.
+
+</figcaption>
+</figure>
+<div id="S4.SS1.p3" class="ltx_para">
+<p class="ltx_p">Our constrained systems are trained on the data available for the shared task, while unconstrained systems are trained with two additional sets of parallel data, the <span class="ltx_text ltx_font_smallcaps">FiEnWaC</span> crawled dataset (cf. Section  <a href="#S2.SS2" title="2.2 Parallel Data ‣ 2 Web Crawling ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.2</span></a>)
+and Open Subtitles, henceforth <span class="ltx_text ltx_font_smallcaps">osubs</span>.<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">12</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">12</sup><span class="ltx_ERROR undefined">\url</span>http://opus.lingfil.uu.se/</span></span></span> The details about the corpora used to train the translation models are presented in Table <a href="#S4.T1" title="Table 1 ‣ 4.1 Translation Models ‣ 4 Datasets and Tools ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>. Figure <a href="#S4.F1" title="Figure 1 ‣ 4.1 Translation Models ‣ 4 Datasets and Tools ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a> shows how different segmentation methods affect the vocabulary size; given that linguistic segmentation have larger vocabularies as statistical their contribution to translation models may be at least partially complementary.</p>
+</div>
+<figure id="S4.T1" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_th ltx_th_row ltx_border_tt"></th>
+<td class="ltx_td ltx_border_tt"></td>
+<td class="ltx_td ltx_align_center ltx_border_tt" colspan="2"><span class="ltx_text" style="font-size:90%;">Words (M)</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Corpus</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">Sentences (k)</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">Finnish</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">English</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_th ltx_th_row ltx_border_t"></th>
+<td class="ltx_td ltx_align_center ltx_border_t" colspan="3"><span class="ltx_text ltx_font_italic" style="font-size:90%;">Constrained System</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Europarl v8</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">1,901.1</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">36.5</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">50.9</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_th ltx_th_row"></th>
+<td class="ltx_td ltx_align_center" colspan="3"><span class="ltx_text ltx_font_italic" style="font-size:90%;">Unconstrained System</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">fienwac.in</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">640.1</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">9.2</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">13.6</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">fienwac.outt</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">838.9</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">12.5</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">18.1</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">fienwac.outb</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">838.9</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">13.9</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">18.1</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">osubs.in</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">492.2</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">3.6</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">5.6</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">osubs.outt</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">1,169.6</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">8.8</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">14.4</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb"><span class="ltx_text" style="font-size:90%;">osubs.outb</span></th>
+<td class="ltx_td ltx_align_right ltx_border_bb"><span class="ltx_text" style="font-size:90%;">1,169.6</span></td>
+<td class="ltx_td ltx_align_right ltx_border_bb"><span class="ltx_text" style="font-size:90%;">7.8</span></td>
+<td class="ltx_td ltx_align_right ltx_border_bb"><span class="ltx_text" style="font-size:90%;">13.0</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering" style="font-size:90%;"><span class="ltx_tag ltx_tag_table">Table 1: </span>Parallel data used to train the translation models, after pre-processing.</figcaption>
+</figure>
+<div id="S4.SS1.p4" class="ltx_para">
+<p class="ltx_p">The two unconstrained parallel datasets are split into three subsets: pseudo in-domain, pseudo out-of-domain top and pseudo out-of-domain bottom, henceforth <span class="ltx_text ltx_font_typewriter">in</span>, <span class="ltx_text ltx_font_typewriter">outt</span> and <span class="ltx_text ltx_font_typewriter">outb</span>.
+We rank the sentence pairs according to bilingual cross-entropy difference on the devset <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib29" title="Domain adaptation via pseudo in-domain data selection" class="ltx_ref">1</a>]</cite> and calculate the perplexity on the devset of LMs trained on different portions of the top ranked sentences (the top 1/64, 1/32 and so on).
+The subset for which we obtain the lowest perplexities is kept as <span class="ltx_text ltx_font_typewriter">in</span> (this was 1/4 for <span class="ltx_text ltx_font_typewriter">fienwac</span> (403.89 and 3610.95 for English and Finnish, respectively), and 1/16 for <span class="ltx_text ltx_font_typewriter">osubs</span> (702.45 and 7032.2).
+The remaining part of each dataset is split in two sequential parts in ranking order of same number of lines, which are kept as <span class="ltx_text ltx_font_typewriter">outt</span> and <span class="ltx_text ltx_font_typewriter">outb</span>.</p>
+</div>
+<div id="S4.SS1.p5" class="ltx_para">
+<p class="ltx_p">The out-of-domain part of <span class="ltx_text ltx_font_typewriter">osubs</span> is further processed with vocabulary saturation <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib31" title="Dramatically reducing training data size through vocabulary saturation" class="ltx_ref">17</a>]</cite> in order to have a more efficient and compact system <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib30" title="Abu-matran at wmt 2014 translation task: two-step data selection and rbmt-style synthetic rules" class="ltx_ref">24</a>]</cite>.
+We traverse the sentence pairs in the order they are ranked and filter out those for which we have seen already each 1-gram at least 10 times.
+This results in a reduction of 3.2x on the number of sentence pairs (from <math id="S4.SS1.p5.m1" class="ltx_Math" alttext="7.3M" display="inline"><mrow><mn>7.3</mn><mo>⁢</mo><mi>M</mi></mrow></math> to <math id="S4.SS1.p5.m2" class="ltx_Math" alttext="2.3M" display="inline"><mrow><mn>2.3</mn><mo>⁢</mo><mi>M</mi></mrow></math>) and 2.6x on the number of words (from <math id="S4.SS1.p5.m3" class="ltx_Math" alttext="114M" display="inline"><mrow><mn>114</mn><mo>⁢</mo><mi>M</mi></mrow></math> to <math id="S4.SS1.p5.m4" class="ltx_Math" alttext="44M" display="inline"><mrow><mn>44</mn><mo>⁢</mo><mi>M</mi></mrow></math>).</p>
+</div>
+<div id="S4.SS1.p6" class="ltx_para">
+<p class="ltx_p">The resulting parallel datasets (<math id="S4.SS1.p6.m1" class="ltx_Math" alttext="7" display="inline"><mn>7</mn></math> in total: Europarl and 3 sets for each <span class="ltx_text ltx_font_typewriter">fienwac</span> and <span class="ltx_text ltx_font_typewriter">osubs</span>) are used individually to train translation and reordering models before being combined by linear interpolation based on perplexity minimisation on the development set. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib32" title="Perplexity minimization for translation model domain adaptation in statistical machine translation" class="ltx_ref">25</a>]</cite></p>
+</div>
+</section>
+<section id="S4.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.2 </span>Language Models</h3>
+
+<div id="S4.SS2.p1" class="ltx_para">
+<p class="ltx_p">All the Language Models (LM) used in our experiments are <math id="S4.SS2.p1.m1" class="ltx_Math" alttext="5" display="inline"><mn>5</mn></math>-grams modified Kneser-Ney smoothed LMs trained using KenLM <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib13" title="Scalable Modified Kneser-Ney Language Model Estimation" class="ltx_ref">12</a>]</cite>. For the constrained setup, the Finnish and the English LMs are trained following two different approaches. The English LM is trained on the concatenation of all available corpora while the Finnish LM is obtained by linearly interpolating individually trained LMs based on each corpus. The weights given to each individual LM is calculated by minimising the perplexity obtained on the development set. For the unconstrained setup, the Finnish LM is trained on the concatenation of all constrained data plus the additional monolingual crawled corpora (noted <span class="ltx_text ltx_font_italic">FiWaC</span>). The data used to train the English and Finnish LMs are presented in Table <a href="#S4.T2" title="Table 2 ‣ 4.2 Language Models ‣ 4 Datasets and Tools ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> and Table <a href="#S4.T3" title="Table 3 ‣ 4.2 Language Models ‣ 4 Datasets and Tools ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a> respectively.</p>
+</div>
+<figure id="S4.T2" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_tt"><span class="ltx_text" style="font-size:90%;">Corpus</span></th>
+<td class="ltx_td ltx_align_right ltx_border_tt"><span class="ltx_text" style="font-size:90%;">Sentences (k)</span></td>
+<td class="ltx_td ltx_align_right ltx_border_tt"><span class="ltx_text" style="font-size:90%;">Words (M)</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">Europarl v8</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">2,218.2</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">59.9</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">News Commentary v10</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">344.9</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">8.6</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" colspan="3"><span class="ltx_text" style="font-size:90%;">News Shuffled</span></th>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">  2007</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">3 782.5</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">90.2</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">  2008</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">12 954.5</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">308.1</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">  2009</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">14 680.0</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">347.0</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">  2010</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">6 797.2</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">157.8</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">  2011</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">15 437.7</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">358.1</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">  2012</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">14 869.7</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">345.5</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">  2013</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">21 688.4</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">495.2</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">  2014</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">28 221.3</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">636.6</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb"><span class="ltx_text" style="font-size:90%;">Gigaword 5th</span></th>
+<td class="ltx_td ltx_align_right ltx_border_bb"><span class="ltx_text" style="font-size:90%;">28,178.1</span></td>
+<td class="ltx_td ltx_align_right ltx_border_bb"><span class="ltx_text" style="font-size:90%;">4,831.5</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering" style="font-size:90%;"><span class="ltx_tag ltx_tag_table">Table 2: </span>English monolingual data, after pre-processing, used to train the constrained language model.</figcaption>
+</figure>
+<figure id="S4.T3" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_tt"><span class="ltx_text" style="font-size:90%;">Corpus</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text" style="font-size:90%;">Sentences (k)</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text" style="font-size:90%;">Words (M)</span></th>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_t" colspan="3"><span class="ltx_text ltx_font_italic" style="font-size:90%;">Constrained System</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">News Shuffle 2014</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">1,378.8</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">16.5</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row" colspan="3"><span class="ltx_text ltx_font_italic" style="font-size:90%;">Unconstrained System</span></th>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb"><span class="ltx_text" style="font-size:90%;">FiWaC</span></th>
+<td class="ltx_td ltx_align_right ltx_border_bb"><span class="ltx_text" style="font-size:90%;">146,557.4</span></td>
+<td class="ltx_td ltx_align_right ltx_border_bb"><span class="ltx_text" style="font-size:90%;">1,996.3</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering" style="font-size:90%;"><span class="ltx_tag ltx_tag_table">Table 3: </span>Finnish monolingual data, after pre-processing, used to train the language models.</figcaption>
+</figure>
+</section>
+</section>
+<section id="S5" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">5 </span>Results</h2>
+
+<div id="S5.p1" class="ltx_para">
+<p class="ltx_p">In this section we present the results obtained for the constrained and unconstrained tasks.
+We tackled the English-to-Finnish direction in the unconstrained task, while both directions are presented for the constrained task. The diversity of the translation systems and morphological segmentation approaches motivates the combination of the individual translation outputs. We assume that they have complementary strengths and we perform system combination using MEMT <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib27" title="Combining machine translation output with open source: the carnegie mellon multi-engine machine translation scheme" class="ltx_ref">11</a>]</cite>. Default settings are used, except for the beam size (set to <math id="S5.p1.m1" class="ltx_Math" alttext="1,500" display="inline"><mrow><mn>1</mn><mo>,</mo><mn>500</mn></mrow></math>) and radius (5 for Finnish and 7 for English), following empirical results obtained on the development set.</p>
+</div>
+<section id="S5.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">5.1 </span>Constrained Results</h3>
+
+<div id="S5.SS1.p1" class="ltx_para">
+<p class="ltx_p">Individual systems trained on the provided data are evaluated before being combined. The results obtained for the English-to-Finnish direction are presented in Table <a href="#S5.T4" title="Table 4 ‣ 5.1 Constrained Results ‣ 5 Results ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>.<span class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">13</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">13</sup>We use NIST mteval v13 and TERp v0.1, both with default parameters.</span></span></span> The <span class="ltx_text ltx_font_smallcaps">BLEU</span> <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib19" title="BLEU: A Method for Automatic Evaluation of Machine Translation" class="ltx_ref">22</a>]</cite> and <span class="ltx_text ltx_font_smallcaps">TER</span> <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib18" title="A Study of Translation Edit Rate with Targeted Human Annotation" class="ltx_ref">26</a>]</cite> scores obtained by the system trained on compound-segmented data (<span class="ltx_text ltx_font_italic">HFST Comp</span>) show a positive impact of this method on SMT according to the development set, compared to the other individual systems. The unsupervised segmentation methods do not improve over phrase-based SMT, while the hierarchical model shows an interesting reduction of the <span class="ltx_text ltx_font_smallcaps">TER</span> score compared to a classic phrase-based approach. On the test set, the use of inflectional morph segments as well as compounds (<span class="ltx_text ltx_font_italic">HFST Morph</span>) leads to the best results for the individual systems on both evaluation metrics. The combination of these <math id="S5.SS1.p1.m1" class="ltx_Math" alttext="7" display="inline"><mn>7</mn></math> systems improves substantially over the best individual system for the development and the test sets. </p>
+</div>
+<figure id="S5.T4" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_th ltx_th_row ltx_border_tt"></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" colspan="2"><span class="ltx_text" style="font-size:90%;">Dev</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" colspan="2"><span class="ltx_text" style="font-size:90%;">Test</span></th>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row"><span class="ltx_text" style="font-size:90%;">System</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column"><span class="ltx_text" style="font-size:90%;">BLEU</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column"><span class="ltx_text" style="font-size:90%;">TER</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column"><span class="ltx_text" style="font-size:90%;">BLEU</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column"><span class="ltx_text" style="font-size:90%;">TER</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">Phrase-Based</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">13.51</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.827</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">12.33</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.843</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Factored Model</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">13.08</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.827</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">11.89</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.847</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Hierarchical</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">13.05</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.822</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">12.11</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.830</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">HFST Comp</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">13.57</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.814</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">12.66</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.828</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">HFST Morph</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">13.19</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.818</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">12.77</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.819</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Morfessor</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">12.21</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.860</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">11.58</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.864</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Flatcat</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">12.67</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.844</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">12.05</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.849</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb ltx_border_t"><span class="ltx_text" style="font-size:90%;">Combination</span></th>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t"><span class="ltx_text" style="font-size:90%;">14.61</span></td>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.786</span></td>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t"><span class="ltx_text" style="font-size:90%;">13.54</span></td>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.801</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering" style="font-size:90%;"><span class="ltx_tag ltx_tag_table">Table 4: </span>Results obtained on the development and test sets for the constrained English-to-Finnish translation task. Best individual system in bold.</figcaption>
+</figure>
+<div id="S5.SS1.p2" class="ltx_para">
+<p class="ltx_p">The results for the other translation direction (Finnish to English) are shown in Table <a href="#S5.T5" title="Table 5 ‣ 5.1 Constrained Results ‣ 5 Results ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a> and follow the same trend as observed with Finnish as target: the morphologically segmented data helps improving over classic SMT approaches. The two metrics indicate better performances of <span class="ltx_text ltx_font_italic">HFST Morph</span> on the development set, while <span class="ltx_text ltx_font_italic">Flatcat</span> reaches the best scores on the test set. The results obtained with the segmented data on the two translation directions and the different segmentation approaches are fluctuating and do not indicate which method is the best.
+Again, the combination of all the systems results in a substantial improvement over the best individual system across both evaluation metrics.</p>
+</div>
+<figure id="S5.T5" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_th ltx_th_row ltx_border_tt"></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" colspan="2"><span class="ltx_text" style="font-size:90%;">Dev</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" colspan="2"><span class="ltx_text" style="font-size:90%;">Test</span></th>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row"><span class="ltx_text" style="font-size:90%;">System</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column"><span class="ltx_text" style="font-size:90%;">BLEU</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column"><span class="ltx_text" style="font-size:90%;">TER</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column"><span class="ltx_text" style="font-size:90%;">BLEU</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column"><span class="ltx_text" style="font-size:90%;">TER</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">Phrase-Based</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">17.19</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.762</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">16.90</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.759</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Hierarchical</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">16.98</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.768</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">15.93</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.773</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">HFST Comp</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">17.87</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.748</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">16.68</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.753</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">HFST Morph</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">18.64</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.735</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">17.22</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.752</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Morfessor</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">16.83</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.769</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">15.96</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.756</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Flatcat</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">16.78</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0.766</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">17.33</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.741</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb ltx_border_t"><span class="ltx_text" style="font-size:90%;">Combination</span></th>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t"><span class="ltx_text" style="font-size:90%;">19.66</span></td>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.719</span></td>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t"><span class="ltx_text" style="font-size:90%;">18.77</span></td>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.726</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering" style="font-size:90%;"><span class="ltx_tag ltx_tag_table">Table 5: </span>Results obtained on the development and test sets for the constrained Finnish-to-English translation task. Best individual system in bold.</figcaption>
+</figure>
+</section>
+<section id="S5.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">5.2 </span>Unconstrained Results</h3>
+
+<div id="S5.SS2.p1" class="ltx_para">
+<p class="ltx_p">We present the results obtained on the unconstrained English-to-Finnish translation task in Table <a href="#S5.T6" title="Table 6 ‣ 5.2 Unconstrained Results ‣ 5 Results ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">6</span></a>. Two individual systems are evaluated, using word-forms and compound-based data, and show that the segmented data leads to lower TER scores, while higher BLEU are reached by the word-based system.
+The combination of these two systems in addition to the constrained outputs of the remaining systems (hierarchical, factored model, HFST Morph, Morfessor and Flatcat) is evaluated in the last row of the table, and shows <math id="S5.SS2.p1.m1" class="ltx_Math" alttext=".3" display="inline"><mn>.3</mn></math>pt BLEU gain on the test set over the phrase-based approach using word forms.</p>
+</div>
+<figure id="S5.T6" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_th ltx_th_row ltx_border_tt"></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" colspan="2"><span class="ltx_text" style="font-size:90%;">Dev</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" colspan="2"><span class="ltx_text" style="font-size:90%;">Test</span></th>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row"><span class="ltx_text" style="font-size:90%;">System</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column"><span class="ltx_text" style="font-size:90%;">BLEU</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column"><span class="ltx_text" style="font-size:90%;">TER</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column"><span class="ltx_text" style="font-size:90%;">BLEU</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column"><span class="ltx_text" style="font-size:90%;">TER</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">Phrase-Based</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">16.16</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.804</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">16.07</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.801</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">HFST Comp</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">15.80</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.796</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">15.06</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">0.800</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb ltx_border_t"><span class="ltx_text" style="font-size:90%;">Combination</span></th>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t"><span class="ltx_text" style="font-size:90%;">17.25</span></td>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.776</span></td>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t"><span class="ltx_text" style="font-size:90%;">16.38</span></td>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t"><span class="ltx_text" style="font-size:90%;">0.779</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering" style="font-size:90%;"><span class="ltx_tag ltx_tag_table">Table 6: </span>Results obtained on the development and test sets for the unconstrained English-to-Finnish translation task. Best individual system in bold.</figcaption>
+</figure>
+</section>
+</section>
+<section id="S6" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">6 </span>Conclusion</h2>
+
+<div id="S6.p1" class="ltx_para">
+<p class="ltx_p">Our participation in WMT15’s translation task has focused on investigating the use of several morphological segmentation methods and Web data acquisition in order to handle the data scarcity and the rich morphology of Finnish. In addition, we have evaluated several SMT approaches.
+Our submission is based on the system combination of SMT systems following different approaches and using different types of morphological segmentation.</p>
+</div>
+<div id="S6.p2" class="ltx_para">
+<p class="ltx_p">Automatic evaluation metrics show the usefulness of morphological segmentation, especially of the rule-based methods, <span class="ltx_text" style="color:#0000FF;">which lead to a reduction of the vocabulary size and, in most cases, also to better performance, compared to an equivalent SMT system that operates on word forms</span>.
+The best results are obtained with the system combination approach. The acquisition of additional training data improves over the constrained systems and is a successful example of the Abu-MaTran crawling pipeline.
+</p>
+</div>
+</section>
+<section id="Sx1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">Acknowledgments</h2>
+
+<div id="Sx1.p1" class="ltx_para">
+<p class="ltx_p">The research leading to these results has received funding from the European Union Seventh Framework Programme FP7/2007-2013 under grant agreement PIAP-GA-2012-324414 (Abu-MaTran).
+We would like to thank Kenneth Heafield for his help to our questions re MEMT.</p>
+</div>
+</section>
+<section id="bib" class="ltx_bibliography">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+
+<ul id="L1" class="ltx_biblist">
+<li id="bib.bib29" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Axelrod, X. He and J. Gao</span><span class="ltx_text ltx_bib_year"> (2011)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Domain adaptation via pseudo in-domain data selection</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Conference on Empirical Methods in Natural Language Processing</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 355–362</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p4" title="4.1 Translation Models ‣ 4 Datasets and Tools ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib5" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Chiang</span><span class="ltx_text ltx_bib_year"> (2005)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A Hierarchical Phrase-based Model for Statistical Machine Translation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of ACL</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 263–270</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p1" title="4.1 Translation Models ‣ 4 Datasets and Tools ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib20" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Devlin, R. Zbib, Z. Huang, T. Lamar, R.  and J. Makhoul</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Fast and Robust Neural Network Joint Models for Statistical Machine Translation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of ACL</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 1370–1380</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p2" title="4.1 Translation Models ‣ 4 Datasets and Tools ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib16" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">N. Durrani, H. Schmid and A. Fraser</span><span class="ltx_text ltx_bib_year"> (2011)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A Joint Sequence Translation Model with Integrated Reordering</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of ACL/HLT</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 1045–1054</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p2" title="4.1 Translation Models ‣ 4 Datasets and Tools ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib24" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Esplà-Gomis, F. Klubička, N. L. , S. Ortiz-Rojas, V. Papavassiliou and P. Prokopidis</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Comparing two acquisition systems for automatically building an english-croatian parallel corpus from multilingual websites</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 9th International Conference on Language Resources and Evaluation</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">LREC’14</span>, <span class="ltx_text ltx_bib_place">Reykjavik, Iceland</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p3" title="2.2 Parallel Data ‣ 2 Web Crawling ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib3" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Galley and C. D. Manning</span><span class="ltx_text ltx_bib_year"> (2008)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A simple and effective hierarchical phrase reordering model</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Conference on Empirical Methods in Natural Language Processing</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 848–856</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p2" title="4.1 Translation Models ‣ 4 Datasets and Tools ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib12" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Q. Gao and S. Vogel</span><span class="ltx_text ltx_bib_year"> (2008)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Parallel Implementations of Word Alignment Tool</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Software Engineering, Testing, and Quality Assurance for Natural Language Processing</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 49–57</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p1" title="4.1 Translation Models ‣ 4 Datasets and Tools ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib33" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Grönroos, S. Virpioja, P. Smit and M. Kurimo</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Morfessor flatcat: an hmm-based method for unsupervised and semi-supervised learning of morphology</span>.
+</span>
+<span class="ltx_bibblock">See <span class="ltx_text ltx_bib_crossref"><cite class="ltx_cite"><a href="#bib.bib34" title="Morfessor flatcat: an hmm-based method for unsupervised and semi-supervised learning of morphology" class="ltx_ref">Morfessor flatcat: an hmm-based method for unsupervised and semi-supervised learning of morphology, Grönroos<span class="ltx_text ltx_bib_etal"> et al.</span></a></cite></span>,
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS2.p1" title="3.2 Unsupervised Segmentation ‣ 3 Morphological Segmentation ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.2</span></a>.
+</span>
+</li>
+<li id="bib.bib34" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Grönroos, S. Virpioja, P. Smit and M. Kurimo</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Morfessor flatcat: an hmm-based method for unsupervised and semi-supervised learning of morphology</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of COLING 2014, the 25th International Conference on Computational Linguistics</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 1177–1185</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#bib.bib33" title="Morfessor flatcat: an hmm-based method for unsupervised and semi-supervised learning of morphology" class="ltx_ref">8</a>.
+</span>
+</li>
+<li id="bib.bib1" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. Hasler, B. Haddow and P. Koehn</span><span class="ltx_text ltx_bib_year"> (2011)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Margin Infused Relaxed Algorithm for Moses</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">The Prague Bulletin of Mathematical Linguistics</span> <span class="ltx_text ltx_bib_volume">96</span>, <span class="ltx_text ltx_bib_pages"> pp. 69–78</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p1" title="4.1 Translation Models ‣ 4 Datasets and Tools ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib27" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Heafield and A. Lavie</span><span class="ltx_text ltx_bib_year"> (2010)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Combining machine translation output with open source: the carnegie mellon multi-engine machine translation scheme</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">The Prague Bulletin of Mathematical Linguistics</span> <span class="ltx_text ltx_bib_volume">93</span>, <span class="ltx_text ltx_bib_pages"> pp. 27–36</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S5.p1" title="5 Results ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>.
+</span>
+</li>
+<li id="bib.bib13" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Heafield, I. Pouzyrevsky, J. H. Clark and P. Koehn</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Scalable Modified Kneser-Ney Language Model Estimation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of ACL</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 690–696</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS2.p1" title="4.2 Language Models ‣ 4 Datasets and Tools ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.2</span></a>.
+</span>
+</li>
+<li id="bib.bib2" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">P. Koehn, A. Axelrod, A. Birch, Callison-Burch, M. Osborne, D. Talbot and M. White</span><span class="ltx_text ltx_bib_year"> (2005)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Edinburgh system description for the 2005 iwslt speech translation evaluation.</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">IWSLT</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 68–75</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p2" title="4.1 Translation Models ‣ 4 Datasets and Tools ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib10" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">P. Koehn, H. Hoang, A. Birch, C. Callison-Burch, M. Federico, N. Bertoldi, B. Cowan, W. Shen, C. Moran and R. Zens</span><span class="ltx_text ltx_bib_year"> (2007)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Moses: Open Source Toolkit for Statistical Machine Translation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of ACL</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 177–180</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.p1" title="4 Datasets and Tools ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>.
+</span>
+</li>
+<li id="bib.bib6" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[15]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">P. Koehn and H. Hoang</span><span class="ltx_text ltx_bib_year"> (2007)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Factored Translation Models</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of EMNLP-CoNLL</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 868–876</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p1" title="4.1 Translation Models ‣ 4 Datasets and Tools ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib7" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[16]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">P. Koehn</span><span class="ltx_text ltx_bib_year"> (2005)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Europarl: A Parallel Corpus for Statistical Machine Translation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">MT summit</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume">5</span>, <span class="ltx_text ltx_bib_pages"> pp. 79–86</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p2" title="1 Introduction ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>.
+</span>
+</li>
+<li id="bib.bib31" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[17]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">W. D. Lewis and S. Eetemadi</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Dramatically reducing training data size through vocabulary saturation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Eighth Workshop on Statistical Machine Translation</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 281–291</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p5" title="4.1 Translation Models ‣ 4 Datasets and Tools ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib9" class="ltx_bibitem ltx_bib_incollection">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[18]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Lindén, M. Silfverberg and T. Pirinen</span><span class="ltx_text ltx_bib_year"> (2009)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">HFST tools for morphology–an efficient open-source package for construction of morphological analyzers</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">State of the Art in Computational Morphology</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 28–47</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p2" title="3 Morphological Segmentation ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>.
+</span>
+</li>
+<li id="bib.bib38" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[19]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">N. Ljubešić and F. Klubička</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">{bs,hr,sr}WaC – web corpora of Bosnian, Croatian and Serbian</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 9th Web as Corpus Workshop (WaC-9)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Gothenburg, Sweden</span>, <span class="ltx_text ltx_bib_pages"> pp. 29–35</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS1.p1" title="2.1 Monolingual Data ‣ 2 Web Crawling ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.1</span></a>.
+</span>
+</li>
+<li id="bib.bib4" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[20]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. J. Och and H. Ney</span><span class="ltx_text ltx_bib_year"> (2004)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">The Alignment Template Approach to Statistical Machine Translation</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Computational linguistics</span> <span class="ltx_text ltx_bib_volume">30</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages"> pp. 417–449</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p1" title="4.1 Translation Models ‣ 4 Datasets and Tools ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib21" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[21]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">V. Papavassiliou, P. Prokopidis and G. Thurmair</span><span class="ltx_text ltx_bib_year"> (2013-08)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A modular open-source focused crawler for mining monolingual and bilingual corpora from the web</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Sixth Workshop on Building and Using Comparable Corpora</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Sofia, Bulgaria</span>, <span class="ltx_text ltx_bib_pages"> pp. 43–51</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="http://www.aclweb.org/anthology/W13-2506.pdf" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p4" title="2.2 Parallel Data ‣ 2 Web Crawling ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib19" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[22]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Papineni, S. Roukos, T. Ward and W. Zhu</span><span class="ltx_text ltx_bib_year"> (2002)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">BLEU: A Method for Automatic Evaluation of Machine Translation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of ACL</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 311–318</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S5.SS1.p1" title="5.1 Constrained Results ‣ 5 Results ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.1</span></a>.
+</span>
+</li>
+<li id="bib.bib8" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[23]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. A. Pirinen</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Omorfiâfree and open source morphological lexical database for Finnish</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Nordic Conference of Computational Linguistics NODALIDA 2015</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 313–317</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS1.p1" title="3.1 Rule-based Segmentation ‣ 3 Morphological Segmentation ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.1</span></a>.
+</span>
+</li>
+<li id="bib.bib30" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[24]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. Rubino, A. Toral, V. M. Sánchez-Cartagena, J. Ferrández-Tordera, S. Ortiz Rojas, G. Ramírez-Sánchez, F. Sánchez-Martínez and A. Way</span><span class="ltx_text ltx_bib_year"> (2014-06)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Abu-matran at wmt 2014 translation task: two-step data selection and rbmt-style synthetic rules</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Ninth Workshop on Statistical Machine Translation</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Baltimore, Maryland, USA</span>, <span class="ltx_text ltx_bib_pages"> pp. 171–177</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="http://www.aclweb.org/anthology/W/W14/W14-3319" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p5" title="4.1 Translation Models ‣ 4 Datasets and Tools ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib32" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[25]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. Sennrich</span><span class="ltx_text ltx_bib_year"> (2012)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Perplexity minimization for translation model domain adaptation in statistical machine translation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 13th Conference of the European Chapter of the Association for Computational Linguistics</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 539–549</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p6" title="4.1 Translation Models ‣ 4 Datasets and Tools ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib18" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[26]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Snover, B. Dorr, R. Schwartz, L. Micciulla and J. Makhoul</span><span class="ltx_text ltx_bib_year"> (2006)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A Study of Translation Edit Rate with Targeted Human Annotation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of AMTA</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 223–231</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S5.SS1.p1" title="5.1 Constrained Results ‣ 5 Results ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">5.1</span></a>.
+</span>
+</li>
+<li id="bib.bib23" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[27]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">V. Suchomel and J. Pomikálek</span><span class="ltx_text ltx_bib_year"> (2012)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Efficient web crawling for large text corpora</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 7th Web as Corpus Workshop</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">WAC7</span>, <span class="ltx_text ltx_bib_place">Lyon, France</span>, <span class="ltx_text ltx_bib_pages"> pp. 39–43</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Web Crawling ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>.
+</span>
+</li>
+<li id="bib.bib26" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[28]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Toral, R. Rubino, M. Esplà-Gomis, Pirinen, A. Way and G. Ramirez-Sanchez</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Extrinsic evaluation of web-crawlers in machine translation: a case study on croatian–english for the tourism domain</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of EAMT</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 221–224</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p2" title="1 Introduction ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>.
+</span>
+</li>
+<li id="bib.bib22" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[29]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Varga, L. Németh, P. Halácsy, A. Kornai, V. Trón and V. Nagy</span><span class="ltx_text ltx_bib_year"> (2005)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Parallel corpora for medium density languages</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Recent Advances in Natural Language Processing</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Borovets, Bulgaria</span>, <span class="ltx_text ltx_bib_pages"> pp. 590–596</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p1" title="2.2 Parallel Data ‣ 2 Web Crawling ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib35" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[30]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Virpioja, P. Smit, S. Grönroos and M. Kurimo</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Morfessor 2.0: python implementation and extensions for morfessor baseline</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS2.p1" title="3.2 Unsupervised Segmentation ‣ 3 Morphological Segmentation ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.2</span></a>.
+</span>
+</li>
+<li id="bib.bib36" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[31]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Virpioja, P. Smit, S. Grönroos and M. Kurimo</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Morfessor 2.0: python implementation and extensions for morfessor baseline</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#bib.bib35" title="Morfessor 2.0: python implementation and extensions for morfessor baseline" class="ltx_ref">30</a>.
+</span>
+</li>
+<li id="bib.bib37" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_bibtag ltx_bib_key ltx_role_refnum">[32]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Watanabe, J. Suzuki, H. Tsukada and H. Isozaki</span><span class="ltx_text ltx_bib_year"> (2007-06)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Online large-margin training for statistical machine translation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 2007 Joint Conference on Empirical Methods in Natural Language Processing and Computational Natural Language Learning (EMNLP-CoNLL)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Prague, Czech Republic</span>, <span class="ltx_text ltx_bib_pages"> pp. 764–773</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="http://www.aclweb.org/anthology/D07-1080" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p1" title="4.1 Translation Models ‣ 4 Datasets and Tools ‣ Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling \footnotepubrightsThe official publication was in WMT 2015 workshop, in EMNLP 2015, and published version can be found in \urlhttp://statmt.org/wmt15/papers.html or ACL anthology." class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.1</span></a>.
+</span>
+</li>
+</ul>
+</section>
+</article>
+</div>
+<footer class="ltx_page_footer">
+<div class="ltx_page_logo">Generated  on Fri Sep 29 15:36:07 2017 by <a href="http://dlmf.nist.gov/LaTeXML/">LaTeXML <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="[LOGO]"></a>
+</div></footer>
+</div>
+</body>
+</html>
