@@ -9,19 +9,19 @@
 \usepackage{array,booktabs,tabularx}
 
 \usepackage[orientation=portrait,size=a0,scale=1.4]{beamerposter}
- 
+
 \title[Apertium-fin-deu]{{\huge Rule-based machine translation between
 Finnish and German}\\
 \url{https://github.com/flammie/apertium-fin-deu/}}
 \author[tommi.pirinen@uni-hamburg.de]{Tommi A Pirinen$^\star$}
 \institute[UHH]{$^\star$ Universität Hamburg---Hamburger Zentrum für Sprachkorpora}
 \date{\today}
- 
+
 %\logo{\includegraphics[height=7.5cm]{AbumatranLogo}}
 
 \newlength{\columnheight}
 \setlength{\columnheight}{105cm}
-
+\renewcommand<>{\texttt}{\only#1{\beameroriginal{\texttt}}}
 
 \begin{document}
 
@@ -123,7 +123,7 @@ Finnish and German}\\
                 German text & die große Gewinner \\
                 Morphological analysis &  der PRON/DET, groß ADJ, Gewinner NOUN\\
                 Disambiguation &  der PRON gros ADJ Gewinner NOUN\\
-                Translation & det=>tämä groß=>suuri Gewinner=>voittaja \\
+                Translation & der=>tämä groß=>suuri Gewinner=>voittaja \\
                 Generation & nämä suuret voittajat \\
                 \hline
             \end{tabular}
@@ -169,7 +169,7 @@ Finnish and German}\\
               \end{block}{Code snippets}
 
             \begin{block}{German dictionary (apertium monodix)}
-            \begin{texttt}
+                \texttt{
                 <section id="main"/> \\
 ... \\
   <e lm="Hauptzweig"><i>Hauptzweig</i><par n="Aal\_\_n\_m"/></e> \\
@@ -182,11 +182,11 @@ Finnish and German}\\
   <e><p><l>äuser</l><r>aus<s n="n"/><s n="nt"/><s n="pl"/><s n="acc"/></r></p></e> \\
   <e>       <p><l>aus</l>       <r>aus<s n="n"/><s n="nt"/><s n="sg"/><s n="nom"/></r></p></e> \\
   ... \\
-</pardef>\end{texttt}
+</pardef>}
             \end{block}
 
             \begin{block}{Finnish Dictionary (Finite-State Morphology lexc)}
-            \begin{texttt}
+            \texttt{
 LEXICON NOUN \\
  \\
 talniflumaatti\%<n\%>:talniflumaat        NOUN\_KORTTI     ; \\
@@ -198,30 +198,30 @@ LEXICON NOUN\_VETO \\
 :do     NOUN\_BACK\_WEAK\_PLURALS ; \\
 :do     NOUN\_COMPOUND\_N ; \\
 :to     NOUN\_BACK\_NOMINATIVE ; \\
-            \end{texttt}
+            }
             \end{block}
 
             \begin{block}{Bilingual dictionary (apertium bidix)}
-            \begin{texttt}
+            \texttt{
   <section id="main" type="standard"> \\
     <e><p><l>talli<s n="n"/></l><r>Stall<s n="n"/><s n="m"/></r></p \\
 ></e> \\
     <e><p><l>talo<s n="n"/></l><r>Haus<s n="n"/><s n="nt"/></r></p></e> \\
     <e><p><l>talouskasvu<s n="n"/></l><r>Wirtschaftswachstum<s n="n"/><s n="nt"/></r></p></e> \\
     </section> \\
-            \end{texttt}
+            }
             \end{block}
 
             \begin{block}{German disambiguation (Constraint Grammar)}
-            \begin{texttt}
+            \texttt{
 LIST DetDef = (det def) ; \\
 LIST EOS = (<<<) (sent) ; \\
 REMOVE DetDef IF (1 EOS) ; \\
 SELECT (vblex p3 sg) IF (-1 (prn pers p3 sg)) ; \\
-            \end{texttt}
+            }
             \end{block}
             \begin{block}{German-to-Finnish rules (visualisations in pseudocode)}
-            \begin{texttt}
+            \texttt{
 if sl[1]['lem'] is "in" and sl[1]['a\_case'] is <dat> then: \\
   let \$adpcase = <ine> \\
 elseif sl[1]['lem'] is "ab" and sl[1]['a\_case'] is <dat> then: \\
@@ -229,7 +229,7 @@ elseif sl[1]['lem'] is "ab" and sl[1]['a\_case'] is <dat> then: \\
 elseif sl[1]['lem'] is "über" then: \\
   let \$adpcase = <ela> \\
 ...
-            \end{texttt}
+            }
 
             \end{block}
 
