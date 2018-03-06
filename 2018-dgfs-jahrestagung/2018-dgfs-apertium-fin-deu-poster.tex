@@ -1,0 +1,250 @@
+\documentclass[final,hyperref={pdfpagelabels}]{beamer}
+
+\usepackage{fontspec}
+\usepackage[absolute,overlay]{textpos}
+
+\usepackage{amsmath,amsthm, amssymb, latexsym}
+\boldmath
+
+\usepackage{array,booktabs,tabularx}
+
+\usepackage[orientation=portrait,size=a0,scale=1.4]{beamerposter}
+ 
+\title[Apertium-fin-deu]{{\huge Rule-based machine translation between
+Finnish and German}\\
+\url{https://github.com/flammie/apertium-fin-deu/}}
+\author[tommi.pirinen@uni-hamburg.de]{Tommi A Pirinen$^\star$}
+\institute[UHH]{$^\star$ Universität Hamburg---Hamburger Zentrum für Sprachkorpora}
+\date{\today}
+ 
+%\logo{\includegraphics[height=7.5cm]{AbumatranLogo}}
+
+\newlength{\columnheight}
+\setlength{\columnheight}{105cm}
+
+
+\begin{document}
+
+\begin{frame}
+      \maketitle
+      \vfill
+      \begin{columns}
+      \begin{column}{.49\textwidth}
+      \begin{beamercolorbox}[center,wd=\textwidth]{postercolumn}
+          \begin{minipage}[T]{.95\textwidth}  % tweaks the width, makes a new \textwidth
+          \parbox[t][\columnheight]{\textwidth}{ % must be some better way to set t
+        \begin{block}{Rule-based machine translation}
+            Apertium system is built from modules that pass data in pipelines:
+            \begin{enumerate}
+                \item Morphological analysis
+                \item Morphological disambiguation
+                \item Lexical translation
+                \item Chunking
+                \item Re-ordering
+                \item Generation
+            \end{enumerate}
+            There can be more or less modules in any given system but these
+            are the main blocks of Finnish---German at the time of writing.
+            The morphological analysis and generation are implemented with
+            a dictionary-based finite-state morphological parser and the
+            translation is also basically just a bilingual dictionary, other
+            components are based on rules.
+        \end{block}
+
+        \begin{block}{Statistics on dictionaries and rules}
+            Dictionaries:
+            \begin{tabular}{|l|r|}
+                \hline
+                \bf Languages & \bf Words \\
+                Finnish & 426,947 \\
+                German$^\star$ & 96,043\\
+                Finnish---German & 10,937 \\
+                \hline
+            \end{tabular}
+            \\
+            Finnish-to-German rulesets:
+            \begin{tabular}{|l|r|}
+                \hline
+                \bf Module & \bf Rules \\
+                Disambiguation & 1,261 \\
+                Lexical selection & 3 \\
+                Chunking & 4 \\
+                Re-ordering & 2\\
+                \hline
+            \end{tabular}
+            \\
+            German-to-Finnish rulesets:
+            \begin{tabular}{|l|r|}
+                \hline
+                \bf Module & \bf Rules \\
+                Disambiguation$^\star$ & 81 \\
+                Lexical selection & 4 \\
+                Chunking & 132 \\
+                Re-ordering & 7 \\
+                \hline
+            \end{tabular}
+            $^\star$ German dictionary and rules were written by developers
+            of Apertium's German language modules.
+        \end{block}
+
+
+        \begin{block}{Example translations}
+            From \url{http://www.dw.com/de/05032018-langsam-gesprochene-nachrichten/a-42828347}:
+            \begin{tabular}{|r|l|}
+                \hline
+                German text & Bei der Parlamentswahl \\
+                Morphological analysis & bei ADP der (ART or PRON) Parlamentswahl NOUN \\
+                disambiguation & bei ADP der ART Parlamentswahl NOUN\\
+                Translation & bei=luona der=>0 Parlamentswahl=Parlamentinvaalit \\
+                Chunking & (luona 0 Parlamentinvaalit) NP PL ADE \\
+                Generation & Parlamentinvaaleilla \\
+                \hline
+            \end{tabular}
+            \begin{tabular}{|r|l|}
+                \hline
+                German text & In Italien \\
+                Morphological analysis & in ADP Italien PROPN \\
+                Translation & in=>0 Italien=>Italia \\
+                Chunking & (0 Italia) NP SG INE \\
+                Generation & Italiassa \\
+                \hline
+            \end{tabular}
+            \begin{tabular}{|r|l|}
+                \hline
+                German text & sind [...] rechte Parteien \\
+                Morphological analysis &  sein VERB, rechte ADJ / recht NOUN Partei NOUN\\
+                Disambiguation &  sein VERB, rechte ADJ Partei NOUN\\
+                Translation & sein=>olla rechte=>oikea Partei=puolue \\
+                Generation & ovat oikeat puolueet \\
+                \hline
+            \end{tabular}
+            \begin{tabular}{|r|l|}
+                \hline
+                German text & die große Gewinner \\
+                Morphological analysis &  der PRON/DET, groß ADJ, Gewinner NOUN\\
+                Disambiguation &  der PRON gros ADJ Gewinner NOUN\\
+                Translation & det=>tämä groß=>suuri Gewinner=>voittaja \\
+                Generation & nämä suuret voittajat \\
+                \hline
+            \end{tabular}
+        \end{block}
+
+        \begin{block}{References}
+            Source code and dictionary datas:
+            \begin{itemize}
+                \item \url{https://github.com/flammie/apertium-fin-deu}
+                \item \url{https://github.com/flammie/apertium-fin}
+                \item \url{https://github.com/apertium/apertium-deu} (to appear)
+            \end{itemize}
+            Engines:
+            \begin{itemize}
+                \item \url{https://sf.net/p/apertium}
+                \item \url{https://github.com/hfst}
+            \end{itemize}
+            Publications:
+            \begin{itemize}
+                \item \url{https://flammie.github.io/purplemonkeydishwasher}
+            \end{itemize}
+            Online demo (beta):
+            \begin{itemize}
+                \item \url{http://39476.s.time4vps.cloud}
+            \end{itemize}
+        \end{block}
+
+         }
+        \end{minipage}
+      \end{beamercolorbox}
+  \end{column}
+    %\end{textblock}
+
+    %\begin{textblock}{60}{0.1,1.6}
+   \begin{column}{.49\textwidth}
+      \begin{beamercolorbox}[center,wd=\textwidth]{postercolumn}
+        \begin{minipage}[T]{.95\textwidth} % tweaks the width, makes a new \textwidth
+          \parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
+
+              \begin{block}{Code snippets}
+            Whole dictionary and visualisations can be found on the website
+            \url{https://flammie.github.io/apertium-fin-deu}.
+              \end{block}{Code snippets}
+
+            \begin{block}{German dictionary (apertium monodix)}
+            \begin{texttt}
+                <section id="main"/> \\
+... \\
+  <e lm="Hauptzweig"><i>Hauptzweig</i><par n="Aal\_\_n\_m"/></e> \\
+  <e lm="Haus"><i>H</i><par n="H/aus\_\_n\_nt"/></e> \\
+  <e lm="Hausangestellte"><i>Hausangestellte</i><par n="Angestellte\_\_n\_f"/></e> \\
+... \\
+</section> \\
+<pardef n="H/aus\_\_n\_nt"> \\
+  <e><p><l>äusern</l><r>aus<s n="n"/><s n="nt"/><s n="pl"/><s n="dat"/></r></p></e> \\
+  <e><p><l>äuser</l><r>aus<s n="n"/><s n="nt"/><s n="pl"/><s n="acc"/></r></p></e> \\
+  <e>       <p><l>aus</l>       <r>aus<s n="n"/><s n="nt"/><s n="sg"/><s n="nom"/></r></p></e> \\
+  ... \\
+</pardef>\end{texttt}
+            \end{block}
+
+            \begin{block}{Finnish Dictionary (Finite-State Morphology lexc)}
+            \begin{texttt}
+LEXICON NOUN \\
+ \\
+talniflumaatti\%<n\%>:talniflumaat        NOUN\_KORTTI     ; \\
+talo\%<n\%>:talo  NOUN\_TALO       ; \\
+talojohto\%<n\%>:talo{hyph?}joh   NOUN\_VETO       ; \\
+ \\
+LEXICON NOUN\_VETO \\
+:do     NOUN\_BACK\_WEAK\_SINGULARS ; \\
+:do     NOUN\_BACK\_WEAK\_PLURALS ; \\
+:do     NOUN\_COMPOUND\_N ; \\
+:to     NOUN\_BACK\_NOMINATIVE ; \\
+            \end{texttt}
+            \end{block}
+
+            \begin{block}{Bilingual dictionary (apertium bidix)}
+            \begin{texttt}
+  <section id="main" type="standard"> \\
+    <e><p><l>talli<s n="n"/></l><r>Stall<s n="n"/><s n="m"/></r></p \\
+></e> \\
+    <e><p><l>talo<s n="n"/></l><r>Haus<s n="n"/><s n="nt"/></r></p></e> \\
+    <e><p><l>talouskasvu<s n="n"/></l><r>Wirtschaftswachstum<s n="n"/><s n="nt"/></r></p></e> \\
+    </section> \\
+            \end{texttt}
+            \end{block}
+
+            \begin{block}{German disambiguation (Constraint Grammar)}
+            \begin{texttt}
+LIST DetDef = (det def) ; \\
+LIST EOS = (<<<) (sent) ; \\
+REMOVE DetDef IF (1 EOS) ; \\
+SELECT (vblex p3 sg) IF (-1 (prn pers p3 sg)) ; \\
+            \end{texttt}
+            \end{block}
+            \begin{block}{German-to-Finnish rules (visualisations in pseudocode)}
+            \begin{texttt}
+if sl[1]['lem'] is "in" and sl[1]['a\_case'] is <dat> then: \\
+  let \$adpcase = <ine> \\
+elseif sl[1]['lem'] is "ab" and sl[1]['a\_case'] is <dat> then: \\
+  let \$adpcase = <abl> \\
+elseif sl[1]['lem'] is "über" then: \\
+  let \$adpcase = <ela> \\
+...
+            \end{texttt}
+
+            \end{block}
+
+        \begin{block}{Acknowledgements}
+        The Apertium Finnish and German dictionaries have been collected and
+            extended by numerous students and contributors.
+      \end{block}
+    %\end{textblock}
+         }
+          % ---------------------------------------------------------%
+          % end the column
+        \end{minipage}
+      \end{beamercolorbox}
+    \end{column}
+  \end{columns}
+
+  \end{frame}
+\end{document}
