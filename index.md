@@ -58,6 +58,9 @@ be as accurat and up-to-date as google scholar.
 
 ###  Publications in conferences and journals
 
+1. **Tommi Pirinen** (2018), *Rule-based machine-translation between Finnish and
+   German* in 40. Jahrestagung der Deutschen Gesellschaft für
+   Sprachwissenschaft, CL-Postersession
 1. **Tommi A Pirinen**, Hanna Hedeland, Daniel Jettka (2017b), *Developing a
    CLARIN compatible AAI solution for academic and restricted resources*.
 1. **Tommi Pirinen**,  Francis M. Tyers,  Trond Trosterud, Ryan Johnson,
@@ -200,16 +203,16 @@ be as accurat and up-to-date as google scholar.
 
 ### Theses
 
-1. **Tommi Pirinen** (2008), *Suomen kielen äärellistilainen
-   automaattinen morfologinen analyysi avoimen lähdekoodin menetelmin*,
-   Master's Thesis, University of Helsinki (in Finnish).
-   [TeX version](2008-masters-thesis/Pirinen-2008-masters-thesis.tex),
-   [HTML (LaTeXML) version](2008-masters-thesis/Pirinen-2008-masters-thesis.html)
 2. **Tommi A Pirinen** (2014), *Weighted Finite-State Methods in
    Spell-Checking and Correction*, Doctoral dissertation, University of
    Helsinki.
    [TeX version](2014-phd-dissertation/Pirinen-2014-phd-dissertation.tex),
    [HTML (LaTeXML) version](2014-phd-dissertation/Pirinen-2014-phd-dissertation.html)
+1. **Tommi Pirinen** (2008), *Suomen kielen äärellistilainen
+   automaattinen morfologinen analyysi avoimen lähdekoodin menetelmin*,
+   Master's Thesis, University of Helsinki (in Finnish).
+   [TeX version](2008-masters-thesis/Pirinen-2008-masters-thesis.tex),
+   [HTML (LaTeXML) version](2008-masters-thesis/Pirinen-2008-masters-thesis.html)
 
 ### Edited volumes
 
