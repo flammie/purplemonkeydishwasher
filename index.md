@@ -61,6 +61,8 @@ be as accurat and up-to-date as google scholar.
 1. **Tommi Pirinen** (2018), *Rule-based machine-translation between Finnish and
    German* in 40. Jahrestagung der Deutschen Gesellschaft für
    Sprachwissenschaft, CL-Postersession
+   [TeX version](2018-dgfs-jahrestagung/Pirinen-2018-dgfs-apertium-fin-deu.tex),
+   [HTML (LaTeXML) version](2018-dgfs-jahrestagung/Pirinen-2018-dgfs-apertium-fin-deu.html)
 1. **Tommi A Pirinen**, Hanna Hedeland, Daniel Jettka (2017b), *Developing a
    CLARIN compatible AAI solution for academic and restricted resources*.
 1. **Tommi Pirinen**,  Francis M. Tyers,  Trond Trosterud, Ryan Johnson,
