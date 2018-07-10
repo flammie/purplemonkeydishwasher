@@ -1,0 +1,520 @@
+\documentclass{beamer}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{url}
+
+\usepackage{pifont}
+\newcommand{\hand}{\ding{43}}
+
+\title{Digital Humanities View on Machine Translation\\
+\scriptsize{ESU-DH in Leipzig, 2018-07}}
+\author{Tommi A Pirinen \scriptsize \guilsinglleft
+tommi.antero.pirinen@uni-hamburg.de
+\guilsinglright}
+\institute{Hamburger Zentrum für Sprachkorpora, CLARIN-D}
+\date{\today}
+
+\begin{document}
+
+\selectlanguage{english}
+
+\maketitle
+
+\begin{frame}{Introduction}
+    Covered in this session:
+    \begin{itemize}
+        \item Who are we?
+        \item What is (machine) translation
+        \item Different forms of machine translation
+        \item Relations between MT and digital humanities
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Roll-call}
+    \begin{itemize}
+        \item Tommi A Pirinen, computational linguist, University of Hamburg
+            working on language technology infra (CLARIN-D), and Uralic
+            languages (Finnish, Hungarian, Estonian, Karelian, \ldots)
+        \item you?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{What is Translation}
+    Prototypically:
+    \begin{itemize}
+        \item source text: 
+            \textit{Hamburg\only<2->{$_1$} hat\only<2->{$_2$} die\only<2->{$_3$}
+            höchste\only<2->{$_4$} Grundsteuer\only<2->{$_5$} in\only<2->{$_6$}
+            Deutschland\only<2->{$_7$}} ---Hamburger Abendblatt 2018-07-09
+        \item target text: 
+            \textit{Hamburg\only<2>{$_1$} has\only<2>{$_2$} the\only<2>{$_3$}
+            highest\only<2>{$_4$} property\only<2>{$_{5.1?}$} 
+            tax\only<2>{$_{5.2?}$} in\only<2>{$_6$} Germany\only<2>{$_7$}}
+        \item (or:
+            \textit{Hampurin\only<3>{$_1$} kiinteistövero\only<3>{$_5$}
+            on\only<3>{$_2$} Saksan\only<3>{$_7$} korkein\only<3>{$_4$}
+            \only<3>{$0_3 0_6$}})
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{What is a Machine Translation}
+    \begin{itemize}
+        \item Computerised or computer-aided process of producing a
+            (number of) translations from a source language (SL)
+            text into a target language (TL)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{What is MT used for (at the moment)}
+The two main purposes:
+    \begin{itemize}
+        \item \emph{Assimilation}: to understand a text when you are not
+            very competent in the source language
+        \item \emph{Dissemination}: to create a rough draft for translators
+            or editors
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Wikipedia ContentTranslate}
+      \includegraphics[width=1.0\textwidth]{captura-mediawiki.png}
+
+\end{frame}
+
+\begin{frame}{News}
+    \begin{onlyenv}<1>
+      \begin{center}
+        \includegraphics[width=0.8\textwidth]{yle-uutiset-orig.png}
+      \end{center}
+    \end{onlyenv}
+    \begin{onlyenv}<2>
+      \begin{center}
+        \includegraphics[width=0.8\textwidth]{yle-uutiset-apertium.png}
+      \end{center}
+    \end{onlyenv}
+
+\end{frame}
+
+\begin{frame}{DH Research data?}
+    Not there yet, but it would be neat, see here:
+    \includegraphics[width=1\textwidth]{flexpic.png}
+\end{frame}
+
+\begin{frame}{Dissemination vs. Assimilation}
+    \centering
+    \begin{tabular}{|l|p{.33\linewidth}|p{.33\linewidth}|}
+        \hline
+        \textbackslash & \bf Necessary & \bf Unnecessary \\
+        \hline
+        \bf Assimilation & 
+        Understandability, fast translation & correct syntax, word-choices,
+        predictable errors, happy translators\\
+        \hline
+        \bf Dissemination & reasonable syntax, predictable errors, high
+        accuracy, happy translators & Fast translation, understandability \\
+    \end{tabular}
+    \only<1-2>{
+    \alert<1>{With the binoculars the hat-having man sees the squirrel.} \\
+    \alert<2>{The man wearing a hat sees the squirrel with the binoculars.}
+}\only<3-4>{
+    \alert<3>{The migration gave a great deal of criticism when it spoke out.}\\
+    \alert<4>{The organisation received a great deal of criticism when it spoke out.}
+}
+\end{frame}
+
+\begin{frame}{Types of Machine Translation Systems}
+\begin{columns}[t]
+  \begin{column}{0.5\textwidth}
+   Rule-based\\
+   \hrule
+   dictionaries and rules\\
+   \includegraphics[width=0.8\textwidth]{rbmt-overview.png}
+  \end{column}
+  \begin{column}{0.5\textwidth}
+      Corpus-based (Statistical, Neural...)\\
+   \hrule
+    existing translations \\
+    of sentences \\
+   \includegraphics[width=0.8\textwidth]{smt-overview.png}
+  \end{column}
+\end{columns}
+
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Rule-based machine translation}
+
+\centering
+\begin{tabular}{l|l}
+\textbf{Strengths} & \textbf{Weaknesses}\\
+\hline
++ Predictable output & - Lack of fluency \\
++ Predictable errors! & - Lack of idiomaticness \\
++ Incremental improvements & - ``Mechanical'' output \\ 
++ Translation errors traceable & - Development can be \\
++ Terminology control easy & \hfill time consuming \\
++ No need for large quantity & \\
+\hfill of existing translations& \\
+    + Creates dictionaries & \\
+\hline
+\end{tabular}
+
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Corpus-based machine translation}
+
+\centering
+\begin{tabular}{l|l}
+\textbf{Strengths} & \textbf{Weaknesses}\\
+\hline
++ Fluent output & - Unpredictable \\
++ Idiomatic output & - Incremental improvements\\
+                       & \hfill are hard \\
++ No need for linguistic & - Development can be \\
+\hfill resources: & \hfill time consuming\\
+\hfill - dictionaries & \\
+\hfill- grammars & \\
+\hfill- linguists  & \\
+\hline
+\end{tabular}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Corpus-based machine translation works best when...}
+
+\begin{itemize}
+
+  \item You have a big corpus of pre-translated and aligned sentences from one language to another --- or programmers
+     who don't mind doing the alignment \\
+
+~\\
+  \item The language to be translated into is not morphologically complex --- and the language to be 
+         translated from is more morphologically complex. \\
+~\\
+  \item The domain you want to translate is the same or similar as the one of your corpus. \\
+~\\
+  \item You lack linguists who are interested and motivated. \\
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Rule-based machine translation works best when...} 
+
+\begin{itemize}
+  \item You don't have any pre-aligned corpora, or the pre-aligned corpora you have are bad. \\
+~\\
+  \item The languages to be translated are typologically similar. \\
+~\\
+  \item You are translating formal language. \\
+~\\
+  \item You have interested and motivated linguists. \texttt{:D} \\
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Why do we work on rule-based machine translation ?}
+Machine translation conferences are full of papers about corpus-based MT, so why  
+work on rule-based MT ? \\
+~\\ 
+\begin{itemize} 
+  \item Sometimes there are no corpora, or only rubbish corpora
+  \item When we codify translation rules, it tells us something about language(s) and translation
+  \item We can produce useful systems! -- really!
+  \item Languages are interesting
+  \item It's really fun!
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Intermediate representation}
+
+Another view on MT is with regards to internal representations; what
+the source language text is turned into on the way to target language:
+
+\begin{itemize}
+  \item Direct translation: No intermediate representation
+  \item Shallow: Morphology, some word-combinations
+  \item Syntax transfer: Intermediate representation is a parse tree, or graph,
+      or similar
+  \item Semantic transfer: Intermediate representation are predicates with
+      semantic rôles.
+  \item Interlingua: As with semantic transfer, only the same 
+     intermediate representation is shared by all languages / language pairs
+\end{itemize} 
+
+
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Vauquois}
+
+\centering
+\includegraphics[width=0.85\textwidth]{pyramid}
+
+\end{frame}
+
+\begin{frame}{Direct translation}
+    Example here
+    \begin{itemize}
+        \item Typically word-to-word (or phrase to phrase or even letter
+            to letter)
+        \item No grammatical compnonent means no surprising translations
+        \item good for glossing
+        \item good for statistics and neural nets(!?), basically what is
+            most used there
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Shallow transfer}
+    Example
+    \begin{itemize}
+        \item \textbf{main topic of this workshop}
+        \item uses a bit of grammar, not too much (school-level)
+        \item blah
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Syntactic transfer}
+\begin{center}
+\end{center}
+\begin{onlyenv}<1>
+\includegraphics[width=0.75\textwidth]{dep-primer-0.png}
+\end{onlyenv}
+\begin{onlyenv}<2>
+\includegraphics[width=0.75\textwidth]{dep-primer-1.png}
+\end{onlyenv}
+\begin{onlyenv}<3>
+\includegraphics[width=0.75\textwidth]{dep-primer-2.png}
+\end{onlyenv}
+\begin{onlyenv}<4>
+\includegraphics[width=0.75\textwidth]{dep-primer-3.png}
+\end{onlyenv}
+\begin{onlyenv}<5>
+\includegraphics[width=0.75\textwidth]{dep-primer-4.png}
+\end{onlyenv}
+\begin{onlyenv}<6>
+\includegraphics[width=0.75\textwidth]{dep-primer-5.png}
+\end{onlyenv}
+\begin{onlyenv}<7->
+\includegraphics[width=0.75\textwidth]{dep-primer-6.png}
+\end{onlyenv}
+\begin{onlyenv}<7-8>
+~\\
+~\\
+
+\begin{verbatim}
+Heinrich antoi lihapalan koiralleen.
+\end{verbatim}
+\end{onlyenv}
+\begin{onlyenv}<9>
+\begin{verbatim}
+Heinrich antoi lihapalan koiralleen.
+\end{verbatim}
+\begin{itemize}
+  \item Performance depends on quality of analysis
+  \item Bad analysis can lead to surprising translations
+\end{itemize}
+\end{onlyenv}
+
+
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+  \frametitle{Semantic translation}
+``Itziar likes flowers a lot.''
+\begin{verbatim}
+Itziar pitää paljon kukista.
+\end{verbatim}
+
+\begin{onlyenv}<1>
+\begin{verbatim}
+pitää[                      magen[
+  subject=[Itziar],            subject=[Itziar],
+  adv=[kukista],               object=[Blumen],
+  adv=[paljon]                 adv=[sehr gern]
+]                            ]
+\end{verbatim}
+\end{onlyenv}
+\begin{onlyenv}<2->
+\begin{small}
+\begin{verbatim}
+pitää[                      magen[
+  experiencer=[Itziar],        experiencer=[Itziar],
+  theme=[kukista],             theme=[Blumen],
+  quantification=[paljon]      quantification=[sehr gern]
+]                            ]
+\end{verbatim}
+\end{small}
+\end{onlyenv}
+
+
+\begin{onlyenv}<3->
+\begin{verbatim}
+Itziar mag Blumen sehr gern.
+\end{verbatim}
+\end{onlyenv}
+
+\begin{onlyenv}<4->
+\begin{itemize}
+  \item Obtaining a reliable semantic parse automatically is hard
+  \item Very data intensive
+\end{itemize}
+\end{onlyenv}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Interlingua}
+
+Interlingual MT works like semantic transfer, the difference being 
+that the semantic representation
+is the same for all languages.
+
+\begin{itemize}
+  \item This only really works for limited domains
+  \item Designing an intermediate representation that is valid for 
+all the languages of the world --
+    or even for a subset is a hard task
+  \item But, if your domain is small, and you need high quality in 
+many languages, then it can
+    still be a feasible option
+\end{itemize}
+
+\begin{onlyenv}<2>
+  The only wide-coverage interlingual system I know of (GF) has bac
+k-off to 
+   syntactic and direct translation.
+\end{onlyenv}
+
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Some systems that you may have heard of\ldots}
+
+\begin{center}
+\includegraphics[width=0.76\textwidth]{pyramid.png}
+\end{center}
+
+\end{frame}
+
+\begin{frame}{Reality}
+    \begin{itemize}
+        \item Systems aren't so clear-cut Corpus-based---rule-based or
+            direct---shallow.
+        \item 
+    \end{itemize}
+\end{frame}
+
+\begin{frame} %% framesection
+ \begin{center}
+ {\Large {\bf Problems in rule-based machine translation}}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Analysis}
+
+\begin{center}
+{\em Form does not entirely determine content.}
+\end{center}
+Many sentences in natural language can have more than one interpretation, and these 
+interpretations may be translated differently in different languages.
+
+\begin{itemize}
+  \item {\em ¿Tuovatko he uutisia Kreikasta?} -- {\sc theme} `about' or {\sc source} `from'?
+  \begin{itemize}
+    \item Are they bringing news from Greece?
+    \item Are they bringing news about Greece?
+  \end{itemize}
+  \item however, if you translate from Finnish to another Uralic  languages,
+      chances are the ambiguity carries over
+\end{itemize}
+
+The machine only knows as much as you can explain to it.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Synthesis}
+
+\begin{center}
+{\em Content does not entirely determine form.}
+\end{center}
+
+A single meaning can be expressed in more than one way. A
+single sentence may have many adequate equivalents.
+
+\begin{itemize}
+\item Hampurin kinteistövero on Saksan korkein
+\item Hampurissa on Saksan korkein kiinteistövero
+\item Hampurilla on korkein kiinteistövero Saksassa
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+  \frametitle{Transfer}
+
+\begin{center}
+{\em The same content is represented differently in different languages.}
+
+\end{center}
+
+Languages differ how they express a particular meaning. Some
+languages encode facets of meaning which are not encoded by
+others.
+
+\begin{itemize}
+  \item Definiteness
+  \item Gender
+  \item Direction and class of movement
+  \item ...
+\end{itemize}
+
+\begin{itemize}
+\item {\em hän on lääkäri.}
+\begin{itemize}
+  \item hän = he/she/they, on = is, lääkäri = doctor
+\item {\em he / she /they  is / are a doctor.}
+\item {\em er / sie ist ein Doktor/in.}
+\end{itemize}
+\end{itemize}
+\begin{itemize}
+\item I like it
+    \begin{itemize}
+        \item jag gillar det
+        \item es gefällt mir
+        \item ne meeldivat mind
+        \item minä pidän siitä
+    \end{itemize}
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}{Next session}
+Look at apertium specifically and install environments / hands-on.
+Check moodle for instructions. Or wiki.apertium.org.
+\end{frame}
+
+\end{document}

@@ -1,0 +1,568 @@
+\documentclass[10pt,xetex]{beamer} %[compress, blue]
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{url}
+
+\usepackage{pifont}
+\newcommand{\hand}{\ding{43}}
+
+
+\title{Installing Apertium and tools\\
+\scriptsize{ESU-DH in Leipzig, 2018-07}}
+\author{Tommi A Pirinen \scriptsize \guilsinglleft
+tommi.antero.pirinen@uni-hamburg.de
+\guilsinglright}
+\institute{Hamburger Zentrum für Sprachkorpora, CLARIN-D}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+        \titlepage
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Introduction to Apertium}
+
+  This is a short intro on the system while we get it installed and
+    projects started if possible
+
+\begin{itemize}
+    \item installation instructions
+  \item The history of the project
+  \item The architecture of the system
+  \item How the community development process works
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% history
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+    \begin{itemize}
+        \item http://wiki.apertium.org/Installing
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{History}
+
+  \begin{itemize}
+  \item October 2004: The Spanish Ministry of Industry, funds a consortium to
+      build Free Open Source MT for the languages of Spain:
+     \begin{itemize}
+     \item Universities: EHU, UA, UPC, UVigo
+     \item Companies: Eleka, Elhuyar, Imaxin Software
+     \end{itemize}
+   \item Project develops two systems:
+     \begin{itemize}
+     \item Apertium (Spanish---Catalan, Spanish---Galician)
+     \item Matxin (Spanish$\rightarrow$Basque)
+     \end{itemize}
+ \end{itemize}
+
+% apertium built from traductor universia / internostrum
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% philosophy
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame} %% framesection
+ \begin{center}
+ {\Large {\bf Philosophy}}
+ \end{center}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Philosophy} 
+
+\begin{itemize} 
+  \item Build on top of word-by-word translation
+  \item Use a pipeline of independent programs 
+  \item Separate engine and data
+  \item Support regional, minority and lesser-used languages
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Build on top of word-by-word translation}
+
+\begin{itemize}
+  \item With closely-related languages, word-for-word translation can often get you 80\% of the way
+  \item We should be able to build on top of this with:
+  \begin{itemize}
+    \item Robust lexical processing (e.g.\ tokenisation and multiword units)
+    \item Lexical category disambiguation (e.g.\ part-of-speech tagging)
+    \item Local structural processing (e.g.\ for agreement, reordering)
+  \end{itemize}
+  \item to get post-editable quality translations
+  \item For less-related pairs, we should be able to use a similar model to get
+      translations suitable for assimilation/gisting
+\end{itemize} 
+
+
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Use a pipeline of independent programs}
+
+Instead of building a monolithic application, write simple programs which
+communicate using text interfaces (e.g. Unix pipes).
+
+\begin{itemize}
+  \item Simplifies debugging, 
+  \item Makes extending the platform easier, just ``drop in'' a new module, or
+      a replacement module.
+  \item Modules developed for Apertium can be used for other natural language
+      processing (NLP) tasks
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Separate engine and data}
+
+It should be possible to have a single translation engine, reading data for different
+language pairs.
+
+  \begin{itemize}
+    \item No programming knowledge necessary
+    \item A system should be able to be built just by writing/describing linguistic data
+    \begin{itemize}
+      \item Dictionaries
+      \item Tagging rules
+      \item Transfer rules
+    \end{itemize}
+    \item The data should be written in an interoperable format (= XML)
+    \begin{itemize}
+      \item \ldots although this may not be the case for external programs
+    \end{itemize}
+      
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Minority, marginalised and regional languages}
+
+As a project, Apertium is particularly interested in supporting minority, marginalised
+lesser-resourced and regional languages,
+
+Why ?  For some altruistic reasons, 
+
+  \begin{itemize}
+    \item Larger, more well-developed/well-funded languages already have several commercial offerings 
+    \item We are firm believers in linguistic diversity
+    \item Most of the developers speak one or more marginalised languages to some degree
+    \item Why shouldn't everyone have access to machine translation ?
+  \end{itemize}
+
+and for some less-than altruistic ones,
+
+  \begin{itemize}
+    \item Being the first to do something has some benefits from a research point of view --- publications, etc.
+    \item Easy to be the best in the field, when you're the only ;D
+  \end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% growth by year 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame} %% framesection
+ \begin{center}
+ {\Large {\bf Project growth}}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Project growth: 2005}
+\parbox{0.8\textwidth}{\includegraphics[width=0.8\textwidth]{growth/2005.pdf}}\parbox{0.2\textwidth}{{\bf 2005}}
+
+\end{frame}
+\begin{frame}
+  \frametitle{Project growth: 2006}
+\parbox{0.8\textwidth}{\includegraphics[width=0.8\textwidth]{growth/2006.pdf}}\parbox{0.2\textwidth}{{\bf 2006}}
+
+\end{frame}
+\begin{frame}
+  \frametitle{Project growth: 2007}
+\parbox{0.8\textwidth}{\includegraphics[width=0.8\textwidth]{growth/2007.pdf}}\parbox{0.2\textwidth}{{\bf 2007}}
+
+\end{frame}
+\begin{frame}
+  \frametitle{Project growth: 2008}
+\parbox{0.8\textwidth}{\includegraphics[width=0.8\textwidth]{growth/2008.pdf}}\parbox{0.2\textwidth}{{\bf 2008}}
+
+\end{frame}
+\begin{frame}
+  \frametitle{Project growth: 2009}
+\parbox{0.8\textwidth}{\includegraphics[width=0.8\textwidth]{growth/2009.pdf}}\parbox{0.2\textwidth}{{\bf 2009}}
+
+\end{frame}
+\begin{frame}
+  \frametitle{Project growth: 2010}
+\parbox{0.8\textwidth}{\includegraphics[width=0.8\textwidth]{growth/2010.pdf}}\parbox{0.2\textwidth}{{\bf 2010}}
+
+\end{frame}
+\begin{frame}
+  \frametitle{Project growth: 2011}
+\parbox{0.8\textwidth}{\includegraphics[width=0.8\textwidth]{growth/2011.pdf}}\parbox{0.2\textwidth}{{\bf 2011}}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Project growth: 2012}
+\parbox{0.8\textwidth}{\includegraphics[width=0.8\textwidth]{growth/2012.pdf}}\parbox{0.2\textwidth}{{\bf 2012}}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Project growth: 2013}
+\parbox{0.8\textwidth}{\includegraphics[width=0.8\textwidth]{growth/2013.pdf}}\parbox{0.2\textwidth}{{\bf 2013}}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Project growth: 2014}
+\parbox{0.8\textwidth}{\includegraphics[width=0.8\textwidth]{growth/2014.pdf}}\parbox{0.2\textwidth}{{\bf 2014}}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% architecture
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame} %% framesection
+ \begin{center}
+ {\Large {\bf Usage}}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+   \frametitle{Major users}
+
+   \begin{itemize}
+     \item \emph{La Voz de Galicia}
+     \item \emph{La Generalitat de Catalunya}
+     \item \emph{Ofis Publik ar Brezhoneg}
+     \item \emph{WikiMedia}
+     \item \emph{Oslo School District}
+   \end{itemize}
+
+% la voz de galicia (spa-glg)
+% generalitat de catalunya (oci-cat, oci-spa)
+% ofis publik ar brezhoneg (bre-fra)
+% wikimedia (spa-cat)
+% oslo school district (nno-nob) \smiley
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Online users}
+    \begin{center}
+      \includegraphics[width=0.87\textwidth]{graphics/usage-stats-may-2014-map.png}
+    \end{center}
+
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Online translation statistics}
+    \begin{center}
+      \includegraphics[width=0.8\textwidth]{graphics/usage-stats-may-2014.png}
+    \end{center}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% community
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame} %% framesection
+ \begin{center}
+ {\Large {\bf Development community}}%\cyrtext{Project growth}}} % Development community
+ \end{center}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Traditional development models} % Traditional development models
+
+Apertium has a wide range of development styles, but the one we try and encourage
+is the community development style. But before explaining how that works, let's recap
+the typical development types, 
+
+\begin{itemize}
+  \item {\bf Commercial}: A company makes a system, and sells licences for it in the usual fashion.
+  \item {\bf Big research}: A big consortium or group develops a system, and charges for its use. Sometimes with public money, sometimes without.
+  \item {\bf Small research}: A small group develops an MT system, and publishes it on their university web. They mark it as {\em research only/non commercial}
+ \item {\bf Single person}: A lecturer or student --- or just an interested person outside of academia develops a system, and as above.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Community development model}
+
+As opposed to the monolithic models outlined before, we prefer one which is,
+
+\begin{itemize}
+  \item {\bf User-driven}: Think of the needs of your users, and listen to them!
+  \item {\bf Open}: Anyone can participate!
+  \begin{itemize}
+    \item Individual developers / linguists
+    \item Companies
+    \item Academic institutions
+    \item Students
+  \end{itemize}
+  \item {\bf Release early, release often}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Participating} % Participating
+
+\begin{itemize}
+  \item {\bf Mailing lists}: % Mailing lists
+  \begin{itemize}
+    \item {\tt apertium-stuff}: For general discussion (over 100 members)
+    \item {\tt apertium-turkic}: For discussion relating specifically to Turkic languages (over 30 members)
+    \item {\tt apertium-celtic}: For discussion relating specifically to Celtic languages (6 members)
+    \item {\tt apertium-uralic}: For discussion relating specifically to Uralic languages (5 members)
+    \item \ldots all our mailing lists are multilingual, and new mailing lists can be made for specific development groups
+  \end{itemize}
+  \item {\bf IRC}: 
+  \begin{itemize}
+    \item {\tt \#apertium} on {\tt irc.freenode.net}
+    \item \ldots multilingual, useful for resolving problems interactively and quickly
+  \end{itemize}
+  \item {\bf Wiki}:
+  \begin{itemize}
+    \item \url{http://wiki.apertium.org}
+	    \item Collaboratively written documentation
+    \item Has a wide range of information about Apertium and related tools
+    \item \ldots mostly in English, but with some translations (some pages have \\been translated into more than 15 languages)
+  \end{itemize}  
+\end{itemize}
+
+% mailing list
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% architecture
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame} %% framesection
+ \begin{center}
+ {\Large {\bf Structure}}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Structure}
+
+    Hands-on session starts here...
+
+\includegraphics[width=\textwidth]{architecture.pdf}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Morphological analysis}
+
+\begin{onlyenv}<1>
+\includegraphics[width=\textwidth]{architecture-2.pdf}
+\end{onlyenv}
+\begin{onlyenv}<2>
+
+  \begin{block}{Morphological analysis}
+ \begin{itemize}
+   \item segments the source text in \emph{surface forms} (SFs),  
+   \item assigns to each SF one or more \emph{lexical forms} (LFs)
+ \end{itemize}
+  \end{block}
+  \begin{block}{Running the morphological analyser ({\tt hfst-proc})} % Running the morphological analyser
+  \begin{small}
+    \texttt{\$ echo "пахчара" | hfst-proc chv-tur.automorf.hfst}
+    %\texttt{\$ echo "пахчара" | hfst-proc chv-tur.automorf.hfst}
+    \texttt{ \^{}пахчара/пахча$<$n$><$loc$>$/пахча$<$n$><$px2pl$><$dat$>$\$}
+  \end{small}
+  \end{block}
+  \begin{block}{Running the morphological analyser ({\tt lt-proc})}
+  \begin{small}
+    \texttt{\$ echo "саду" | lt-proc rus-hbs.automorf.bin}
+    \texttt{ \^{}саду/сад$<$n$><$m$><$nn$><$sg$><$nom$>$/сад$<$n$><$m$><$nn$><$sg$><$acc$>$\$}
+  \end{small}
+  \end{block}
+\end{onlyenv}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Morphological disambiguation}
+
+
+\begin{onlyenv}<1>
+\includegraphics[width=\textwidth]{architecture-3.pdf}
+\end{onlyenv}
+\begin{onlyenv}<2>
+
+  \begin{block}{Morphological disambiguation}
+ \begin{itemize}
+  \item picks one of the LFs corresponding to each ambiguous SF according to context
+  \item uses a combination of hand-written disambiguation rules and hidden Markov models
+ \end{itemize}
+  \end{block}
+  \begin{block}{Running the disambiguator ({\tt cg-proc})} % Running the tagger
+  \begin{small}
+    \texttt{\$ echo "Все эти регионы являются частью Европейского союза." | lt-proc rus-hbs.automorf.bin |}
+    \texttt{     cg-proc rus-hbs.rlx.bin}
+    \texttt{\^{}Все/Весь$<$det$><$ind$><$mfn$><$pl$><$nom$>$\$ \^{}эти/этот$<$det$><$dem$><$mfn$><$pl$><$nom$>$\$}
+    \texttt{\^{}регионы/регион$<$n$><$m$><$nn$><$pl$><$nom$>$\$ \ldots}
+  \end{small}
+  \end{block}
+
+\end{onlyenv}
+% Все эти регионы являются частью Европейского союза.
+% ^Все/Весь<det><ind><mfn><pl><nom>$ ^эти/этот<det><dem><mfn><pl><nom>$ ^регионы/регион<n><m><nn><pl><nom>$ ^являются/являться<vblex><imperf><pres><p3><pl>$ ^частью/часть<n><f><nn><sg><ins>$ ^Европейского/Европейский<adj><m><sg><gen>$ ^союза/союз<n><m><nn><sg><gen>$^./.<sent>$
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lexical transfer} % Lexical transfer
+
+\begin{onlyenv}<1>
+\includegraphics[width=\textwidth]{architecture-4.pdf}
+\end{onlyenv}
+\begin{onlyenv}<2>
+
+ \begin{block}{Lexical transfer} % Lexical transfer
+  \begin{itemize}
+ \item reads each SL LF and generates the corresponding TL LFs
+ \item reads finite-state transducers generated from bilingual dictionaries in XML
+  \end{itemize}
+  \end{block}
+  \begin{block}{Running the lexical transfer ({\tt lt-proc -b})} % Running the lexical transfer
+  \begin{small}
+     \texttt{\$ echo "Әхмәт һәм Гөлнара бакчада." | hfst-proc tat-bak.automorf.hfst | cg-proc tat-bak.rlx.bin | }
+     \texttt{  apertium-tagger -g tat-bak.prob | lt-proc -b tat-bak.autobil.bin}
+     \texttt{\^{}Әхмәт$<$np$><$ant$><$m$><$nom$>$/Әхмәт$<$np$><$ant$><$m$><$nom$>$\$ \^{}һәм$<$cnjcoo$>$/һәм$<$cnjcoo$>$\$ \^{}Гөлнара$<$np$><$ant$><$f$><$nom$>$/Гөлнара$<$np$><$ant$><$f$><$nom$>$\$ \^{}бакча$<$n$><$loc$>$/баҡса$<$n$><$loc$>$\$ }
+  \end{small}
+  \end{block}
+\end{onlyenv}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lexical selection} % Lexical selection}
+
+\begin{onlyenv}<1>
+\includegraphics[width=\textwidth]{architecture-5.pdf}
+\end{onlyenv}
+\begin{onlyenv}<2>
+
+ \begin{block}{Lexical selection}
+  \begin{itemize}
+ \item for each pair of SL/TL translations, chooses the most appropriate translation in context
+ \item rules are written in an XML format and compiled into a finite-state transducer
+  \end{itemize}
+  \end{block}
+  \begin{block}{Running the lexical selection ({\tt lrx-proc})} % Running the lexical selection
+  \begin{small}
+    \texttt{\$ echo "Minä pidän sinusta." | hfst-proc fin-sme.automorf.hfst | cg-proc fin-sme.rlx.bin |}
+    \texttt{  apertium-tagger -g fin-sme.prob | lt-proc -b fin-sme.autobil.bin | lrx-proc fin-sme.lrx.bin}\\
+    \texttt{ \^{}Minä$<$Pron$><$Pers$><$Sg$><$Nom$>$/Mun$<$Pron$><$Pers$><$Sg$><$Nom$>$\$ \^{}pitää$<$V$><$Ind$><$Prs$><$Sg1$>$/liikot$<$V$><$Ind$><$Prs$><$Sg1$>$\$ \^{}sinä$<$Pron$><$Pers$><$Sg$><$Ela$>$/don$<$Pron$><$Pers$><$Sg$><$Ela$>$\$ }
+  \end{small}
+  \end{block}
+\end{onlyenv}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Structural transfer} % Structural transfer
+
+
+\begin{onlyenv}<1>
+\includegraphics[width=\textwidth]{architecture-6.pdf}
+\end{onlyenv}
+\begin{onlyenv}<2>
+
+  \begin{block}{Structural transfer}
+ \begin{itemize}
+ \item Rules have a \emph{pattern}--\emph{action} form.
+ \item It detects LF patterns to be processed using a left-to-right, longest-match strategy.
+ \item It executes the actions associated to each pattern in the rule file to generate the corresponding LF pattern for the TL.
+ \end{itemize}
+  \end{block}
+  \begin{block}{Running the structural transfer}
+  \begin{small}
+  \texttt{ echo "Әхмәт тиз генә иске зур бер агачка йөгерә, аның артына Гөлнарадан яшеренә."  | \ldots | }
+  \texttt{ apertium-transfer -b apertium-tat-kir.tat-kir.t1x tat-kir.t1x.bin | }
+  \texttt{ apertium-interchunk apertium-tat-kir.tat-kir.t2x tat-kir.t2x.bin | apertium-postchunk apertium-tat-kir.tat-kir.t3x tat-kir.t3x.bin }
+ 
+  \texttt{ \^{}Акмат$<$np$><$ant$><$m$><$nom$>$\$ \^{}эски$<$adj$>$\$ \^{}чоң$<$adj$>$\$ \^{}бир$<$det$><$ind$>$\$ \ldots }
+%^дарак<n><acc>$ ^көздөй<post>$ ^катуу<adv>$ ^гана<postadv>$ ^чурка<v><iv><prt_perf>$ ^бар<v><iv><prt_impf>$ ^жат<vaux><aor><p3><sg>$^..<sent>$
+
+  \end{small}
+  \end{block}
+
+\end{onlyenv}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Morphological generation} % Morphological generation
+
+\begin{onlyenv}<1>
+\includegraphics[width=\textwidth]{architecture-7.pdf}
+\end{onlyenv}
+\begin{onlyenv}<2>
+
+ \begin{block}{Morphological generation}
+ \begin{itemize}
+ \item Generates a TL SF from each TL LF after adequately inflecting it
+ \item It reads finite-state transducers generated from a morphological dictionary 
+ \end{itemize}
+ \end{block}
+ \begin{block}{Running morphological generation ({\tt hfst-proc -g})} % Running morphological generation
+     \texttt{\$ echo "Әхмәт тиз генә иске зур бер агачка йөгерә, аның артына Гөлнарадан яшеренә." | \ldots | hfst-proc -g tat-kir.autogen.hfst}\\
+     \texttt{ Акмат эски чоң бир даракты көздөй катуу гана чуркап бара жатат.}
+ \end{block}
+% \begin{block}{Running morphological generation ({\tt lt-proc})}
+%   \begin{small}
+%     \texttt{\$ echo "\cyrtext{Әхмәт тиз генә иске зур бер агачка йөгерә, аның артына Гөлнарадан яшеренә.}" | \ldots | hfst-proc -g tat-kir.autogen.hfst}\\
+%     \texttt{ \cyrtext{Акмат эски чоң бир даракты көздөй катуу гана чуркап бара жатат.}}
+%   \end{small}
+% \end{block}
+\end{onlyenv}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Structure}
+
+\includegraphics[width=\textwidth]{architecture.pdf}
+
+\end{frame}
+
+
+
+\end{document}
