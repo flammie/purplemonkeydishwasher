@@ -1,0 +1,589 @@
+\documentclass[10pt,xetex]{beamer} %[compress, blue]
+\mode<presentation>
+
+\usepackage{multicol}
+
+
+\date{\today}
+\title{Lexical transfer and lexical selection}
+
+\begin{document}
+
+
+\begin{frame}
+  \frametitle{Introduction}
+
+This session will be structured in two sections:
+
+\begin{itemize}
+  \item {\bf Lexical transfer}: Translating words and marking them for structural transfer
+~\\
+~\\
+  \item {\bf Lexical selection}: Choosing a translation of a polysemous word depending on context
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{center}
+\includegraphics[width=\textwidth]{architecture-4.pdf}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{block}{Transfer}
+The transfer module is where the \textbf{magic} happens: the intermediate
+representation in source language (SL) is converted into an
+intermediate representation in target language (TL).
+
+\end{block}
+~\\
+
+Transfer in Apertium consists of two submodules:
+~\\
+\begin{itemize}
+  \item {\bf Lexical transfer}
+  \begin{itemize}
+\item returns all the possible translations in TL for an SL word;
+\item marks some lexical features which will be used by the structural transfer.
+  \end{itemize}
+  \item {\bf Structural transfer}
+  \begin{itemize}
+    \item performs syntactic operations involving groups of words (see next sessions).
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lexical transfer}
+
+\begin{block}{}
+
+The lexical transfer module reads each SL lexical form and delivers the
+corresponding TL lexical forms by looking the SL word up in a bilingual dictionary.
+\end{block}
+\begin{block}{Bilingual dictionary}
+\begin{itemize}
+  \item No surface forms in this stage: input and output are lexical forms consisting of lemma, part-of-speech and inflection information.
+  \item The dictionary contains a list of equivalent lexical forms.
+  \item A single bilingual dictionary is used for both directions of translation.
+  \item XML syntax similar (but simpler) to monolingual dictionaries.
+  \item Paradigms are usually not necessary.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Lexical transfer}
+
+It should be a fairly simple task!
+
+\begin{center}
+ {\bf треугольник $\leftrightarrow$ трикутник}
+\end{center}
+~\\
+
+\begin{verbatim}
+
+(ru)                          (uk)
+треугольник<n><m><sg><nom> ←→ трикутник<n><m><sg><nom>
+треугольник<n><m><sg><gen> ←→ трикутник<n><m><sg><gen>
+треугольник<n><m><sg><dat> ←→ трикутник<n><m><sg><dat>
+треугольник<n><m><sg><acc> ←→ трикутник<n><m><sg><acc>
+треугольник<n><m><sg><ins> ←→ трикутник<n><m><sg><ins>
+треугольник<n><m><pl><nom> ←→ трикутник<n><m><pl><nom>
+...
+
+\end{verbatim}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bilingual dictionary}
+
+So, word correspondences in the bilingual dictionary use a shorter representation
+
+\begin{block}{}
+
+Only lemma and part-of-speech are mandatory if the rest of tags do not change:
+\begin{itemize}
+ \item треугольник<n> - трикутник<n>
+\end{itemize}
+\end{block}
+\begin{block}{XML encoding in the bilingual dictionary}
+~\\
+\begin{center}
+\begin{small}
+{\tt  <e><p><l>треугольник<s n="n"/></l><r>трикутник<s n="n"/></r></p></e>}
+\end{small}
+\end{center}
+~\\
+Note: More often, some extra information (e.g. gender) is added, regardless of if it changes
+~\\
+
+\begin{center}
+\begin{small}
+{\tt  <e><p><l>треугольник<s n="n"/><s n="m"/><s n="nn"/></l> \\
+      ~~~~~~~~~~<r>трикутник<s n="n"/><s n="m"/><s n="nn"/></r></p></e>}
+\end{small}
+\end{center}
+
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Change of gender}
+
+\begin{block}{}
+Only the tags until the last change need to be indicated:
+
+\begin{center}
+государство<n><nt> - держава<n><f>
+\end{center}
+\end{block}
+\begin{block}{XML encoding in the bilingual dictionary}
+{\tt <e><p><l>государство<s n="n"/><s n="nt"/></l><r>держава<s n="n"/><s n="f"/></r></p></e>}
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lexical ambiguity}
+
+Real life is a little bit more complex, as SL words may have more than one equivalent in TL.
+
+\begin{block}{Homonymy}
+\begin{itemize}
+\item A surface form with more than one possible morphological analysis:
+\item Кыргызский {\em жаз} (noun or verb) translates into русский {\em весна} (noun) or {\em писать} (verb).
+\item The part-of-speech disambiguator has already selected one single alternative (recall previous session).
+\end{itemize}
+\end{block}
+\begin{block}{Polysemy}% (Многозначность)}
+A lemma and part-of-speech that have several meanings:\\ Chuvash «{\em тӳпе}» (noun) translates into \\
+Russian «{\em вершина}», «{\em крыша}» and «{\em небо}».
+\end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Polysemy}% (Многозначность)}
+
+\begin{itemize}
+\item Polysemy needs to be addressed in the lexical transfer or lexical selection modules when different meanings are translated in different ways; for instance, {\em тӳпе} in the Chuvash--Russian bilingual dictionary.
+\item This is called {\bf lexical selection}.
+\item {\bf Free-rides} do not pose any problem: Russian {\em ручка} can be translated with {\em ручка} when referring to both дверная ручка `door handle' and шариковая ручка (writing instrument).
+\end{itemize}
+
+%PICS HERE
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Examples of bilingual dictionary entries}%How to add bidix errors
+
+\begin{block}{Examples of bilingual dictionary entries}
+Let's add some entries to the Chuvash-Russian bilingual dictionary!
+\end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Adding entries to the bilingual dictionary}
+
+\begin{onlyenv}<1>
+\begin{center}
+тӳпе $\leftrightarrow$ вершина `peak, top'
+\end{center}
+\end{onlyenv}
+\begin{onlyenv}<2>
+{\tt <e><p><l>тӳпе<s n="n"/></l><r>вершина<s n="n"/><s n="f"/><s n="nn"/></r></p></e>}
+
+\end{onlyenv}
+
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Adding entries to the bilingual dictionary}
+
+\begin{onlyenv}<1>
+\begin{center}
+тăрă $\rightarrow$ вершина
+\end{center}
+\end{onlyenv}
+\begin{onlyenv}<2>
+{\tt <e><p><l>тӳпе<s n="n"/></l><r>вершина<s n="n"/><s n="f"/><s n="nn"/></r></p></e>}\\
+{\tt <e><p><l>тăрă<s n="n"/></l><r>вершина<s n="n"/><s n="f"/><s n="nn"/></r></p></e>} \\
+
+\end{onlyenv}
+
+\end{frame}
+
+\begin{frame}
+ \frametitle{Adding entries to the bilingual dictionary}
+
+\begin{onlyenv}<1>
+\begin{center}
+тӳпе $\leftarrow$ небо `sky'
+\end{center}
+\end{onlyenv}
+\begin{onlyenv}<2>
+{\tt <e><p><l>тӳпе<s n="n"/></l><r>вершина<s n="n"/><s n="f"/><s n="nn"/></r></p></e>} \\
+{\tt <e><p><l>тăрă<s n="n"/></l><r>вершина<s n="n"/><s n="f"/><s n="nn"/></r></p></e>}  \\
+{\tt <e><p><l>тӳпе<s n="n"/></l><r>небо<s n="n"/><s n="nt"/><s n="nn"/></r></p></e>} \\
+
+\end{onlyenv}
+
+\end{frame}
+
+\begin{frame}
+ \frametitle{Adding entries to the bilingual dictionary}
+
+\begin{onlyenv}<1>
+\begin{center}
+тӳпе $\leftarrow$ крыша `roof'
+\end{center}
+\end{onlyenv}
+\begin{onlyenv}<2>
+{\tt <e><p><l>тӳпе<s n="n"/></l><r>вершина<s n="n"/><s n="f"/><s n="nn"/></r></p></e>} \\
+{\tt <e><p><l>тăрă<s n="n"/></l><r>вершина<s n="n"/><s n="f"/><s n="nn"/></r></p></e>}  \\
+{\tt <e><p><l>тӳпе<s n="n"/></l><r>небо<s n="n"/><s n="nt"/><s n="nn"/></r></p></e>}\\
+{\tt <e><p><l>тӳпе<s n="n"/></l><r>крыша<s n="n"/><s n="f"/><s n="nn"/></r></p></e>} \\
+
+\end{onlyenv}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Dealing with polysemy: Multiwords}
+
+\begin{block}{}
+One way we can deal with lexical selection of polysemous terms by using
+multiwords:
+
+
+{\tt ручка<n>  $\leftrightarrow$ ручка<n>} \\
+{\tt дверная ручка<n> $\leftrightarrow$ авăр<n>}
+
+\end{block}
+
+\begin{block}{}
+Another way is to use the lexical selection module. More on that shortly.
+\end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{What not to translate}
+
+Sometimes, we might have a word that is difficult to translate: {\em јаничарство}, {\em laufabrauð},  {\em abertzale}.
+
+\begin{itemize}
+  \item Maybe the word does not appear in the dictionary
+  \item Maybe the ``translation'' in the dictionary is actually a description
+  \begin{itemize}
+    \item e.g., {\em laufabrauð} $\rightarrow$ ``traditional Icelandic deep-fried patterned Christmas wafer''
+  \end{itemize}
+\end{itemize}
+
+%Some things you could try:
+
+\begin{itemize}
+  \item Find a more literal translation in the target language, e.g. ``laufa'' + ``brauð'' = ``leaf'' + ``bread''.
+   \item Check in a search engine, or one of the image search engines
+   \item  Not appearing in dictionary != bad translation.
+\end{itemize}
+Example: {\em Börnin bökuðu laufabrauð}
+
+\begin{itemize}
+\item The children baked leafbread.
+\item The children baked laufabrauð.
+\item The children baked traditional Icelandic deep-fried patterned Christmas wafer.
+\end{itemize}
+
+For assimilation, people can look up the word. For dissemination, they don't want to replace 7 words.
+\end{frame}
+
+\begin{frame}[fragile]
+
+In the Chuvash--Turkish dictionary:
+
+\begin{verbatim}
+<e> \\
+~<p> \\
+~~~~<l>диссертант<s n="n"/></l>  \\
+~~~~<r>bilim<b/>adamı<b/>ünvanını<b/>almak<b/>için<b/>tez<b/>yazan<b/>ve<b/>savunan<b/>kişi<s n="n"/></r> \\
+~</p> \\
+</e> \\
+\end{verbatim}
+
+Can anyone come up with a better translation ?
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Marking lexical features for the structural transfer}
+
+\begin{itemize}
+\item The lexical transfer also marks some lexical features which will be used by the structural transfer.
+\end{itemize}
+
+\begin{block}{}
+\begin{itemize}
+\item For instance, a noun with the same surface form for its two genders.
+\item Russian monolingual dictionary:
+\begin{itemize}
+  \item коллега → коллега<n><m><aa><sg><nom>
+  \item коллеги → коллега<n><m><aa><pl><nom>
+\end{itemize}
+\item The structural transfer will choose the gender by looking at the surrounding context.
+\item The lexical transfer simply marks this issue with the tag {\tt GD}.
+\end{itemize}
+\end{block}
+\begin{itemize}
+\item Similar things hold for number ({\tt ND}).
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Marking lexical features for the structural transfer}
+\begin{block}{}
+<e r="LR"><p>
+<l>колега<s n="n"/><s n="m"/></l>
+<r>коллега<s n="n"/><s n="mf"/></r>
+</p></e> \\
+<e r="LR"><p>
+<l>колега<s n="n"/><s n="f"/></l>
+<r>коллега<s n="n"/><s n="mf"/></r>
+</p></e> \\
+<e r="RL"><p>
+<l>колега<s n="n"/><s n="GD"/></l>
+<r>коллега<s n="n"/><s n="mf"/></r> </p></e> \\
+\end{block}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Some useful commands}
+
+\begin{block}{Compiling a bilingual dictionary}
+{\tt \$ lt-comp lr apertium-chv-rus.chv-rus.dix chv-rus.autobil.bin} \\
+{\tt \$ lt-comp rl apertium-chv-rus.chv-rus.dix ru-cv.autobil.bin}
+\end{block}
+\begin{block}{Testing the lexical transfer}
+{\tt \$ echo "\^{}тӳпе<n><nom>\$" | lt-proc -b chv-rus.autobil.bin }\\
+{\tt \^{}тӳпе<n><nom>/небо<n><nt><nn><nom>/ крыша<n><f><nn><nom>/вершина<n><f><nn><nom>\$ }
+
+\end{block}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+
+\begin{center}
+\includegraphics[width=\textwidth]{architecture-5.pdf}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{What is lexical selection?}
+
+\begin{center}
+  La clima és tropical amb {\bf estació humida} i {\bf estació} seca.
+\end{center}
+
+\begin{itemize}
+  \item {\bf What ?}
+  \begin{itemize}
+    \item Choosing the most adequate target language (TL) translation
+        for words with the same POS and $>$ 1 translation
+    \item Why is it different from word-sense disambiguation (WSD) ?
+    \begin{itemize}
+      \item We don't care if we get the right sense if we get the
+        right translation.
+    \end{itemize}
+  \end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lexical selection in Apertium}
+
+	\begin{block}{Lexical selection in Apertium}
+\begin{itemize}
+\item    Currently, in most language pairs, Apertium does not deal explicitly with polysemy (no lexical selection is performed).
+\begin{itemize}
+  \item There is however a lexical-selection module (now two years old!)
+\end{itemize}
+\item    A SL lexical form can have more than one TL equivalent in the
+    dictionary (more on this later) -- but only one can be selected in the final translation.
+\item    We will include in the bilingual dictionary the translation of the
+    most frequent meaning.
+			\begin{itemize}
+\item    This makes bilingual dictionaries domain-dependent.
+			\end{itemize}
+\end{itemize}
+	\end{block}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Rules are cool}
+
+\begin{itemize}
+  \item What are lexical selection rules ?
+  \begin{itemize}
+    \item A {\bf source word}: The word you want to translate
+    \item A {\bf target word}: The word you want to translate it to
+    \item A {\bf context}: Set of pairs of features and positions
+    \item An {\bf operation}: Either to {\tt select} a word you want to translate to, or {\tt remove} a word you definitely don't want to translate to
+    \begin{itemize}
+      \item  Position: The relative position where the {\bf feature} should be found (free drugs != drug free)
+      \item  Feature: A feature is either a surface form, a lemma, a tag (morphological, syntactic, semantic)
+    \end{itemize}
+  \end{itemize}
+~\\
+
+  \item Why are rules good ?
+  \begin{itemize}
+    \item Human-editable
+    \item Capable of being iteratively developed
+    \item Deterministic
+    \item Fun to write
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+\frametitle{Rule examples}
+
+Not all words are disambiguated with the same information:
+
+\begin{onlyenv}<1>
+	\begin{itemize}
+	  \item {\bf Lexical}: {\em règim} $\rightarrow$ $\{$ 1: диета, 2: режим, \ldots $\}$
+	  \begin{itemize}
+	    \item el règim$_1$ $\{$ artificial·i·mèdic, vegetarià, alimentari, d'·herbes $\}$
+	    \item el règim$_2$ $\{$ nazi, totalitari, feixista, franquista, militar, fiscal $\}$
+	  \end{itemize}
+   \end{itemize}
+\end{onlyenv}
+
+
+\begin{onlyenv}<2>
+	\begin{itemize}
+	  \item {\bf Morphological}: {\em pisu} $\rightarrow$ $\{$ 1: весь, 2: етаж, \ldots $\}$
+	  \begin{itemize}
+	    \item pisua$_1$ {\sc num} `Bere pisua 1 eta 2 kilo artekoa da.'
+	    \item {\sc num.ord} pisua$_2$ `Hirugarren pisuan...'
+	  \end{itemize}
+	\end{itemize}
+\end{onlyenv}
+
+\begin{onlyenv}<3>
+	\begin{itemize}
+	  \item {\bf Syntactic}: {\em hil} $\rightarrow$ $\{$ 1: убить, 2: умереть, \ldots $\}$
+	  \begin{itemize}
+	    \item {\sc @subj} {\sc @obj} hil$_1$ `Mikelek bera hiltzea nahi du.' %% `Mikelek ni hilko du.'
+	    \item {\sc @subj} hil$_2$ `Jainkoa hiltzea nahi du.' %% Jainkoa hil da. %% zu etxean hiltzea nahi dut
+	  \end{itemize}
+   \end{itemize}
+\end{onlyenv}
+
+\begin{onlyenv}<4->
+	\begin{itemize}
+	  \item {\bf Semantic}: {\em passar} $\rightarrow$ $\{$ 1: pass, 2: spend, \ldots $\}$
+	  \begin{itemize}
+	    \item passar$_1$ {\sc location} `He passat pel teu despatx.'
+	    \item passar$_2$ {\sc time} `Vaig passar dues hores...'
+	  \end{itemize}
+%  \item {\bf Pragmatic}:
+	\end{itemize}
+\end{onlyenv}
+
+\begin{onlyenv}<5>
+
+Of course, depending on your level of analysis, some will be more possible than others.
+
+\end{onlyenv}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{What do the rules look like ? }
+% first column
+\begin{multicols}{2}
+\begin{small}
+\begin{verbatim}
+  <rule>
+    <match lemma="pitää" tags="v.*">
+      <select lemma="doallat" tags="v.*"/>
+    </match>
+  </rule>
+  <rule>
+    <match lemma="pitää" tags="v.*">
+      <select lemma="liikot" tags="v.*"/>
+    </match>
+    <match tags="*.ela"/>
+  </rule>
+  <rule>
+    <match tags="*.gen"/>
+    <match lemma="pitää" tags="v.*">
+      <select lemma="berret" tags="v.*"/>
+    </match>
+  </rule>
+\end{verbatim}
+\begin{verbatim}
+  <rule>
+    <or>
+      <match lemma="vuosi"/>
+      <match lemma="aika"/>
+      <match lemma="kuukausi"/>
+      <match lemma="tunti"/>
+      <match lemma="viikko"/>
+    </or>
+    <match lemma="vaihde" tags="n.*">
+      <select lemma="jorggáldat" tags="n.*"/>
+    </match>
+  </rule>
+\end{verbatim}
+\end{small}
+\end{multicols}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{How to get started writing rules}
+
+Some ways you could get started writing lexical selection rules:
+
+\begin{itemize}
+  \item Think about a word and possible contexts when it can only be translated
+    with another word
+  \item Use a dictionary to find usage examples
+  \item Use a monolingual corpus to look at a concordance (key word in context)
+  \item Use a parallel corpus to find contexts where one word is used as a
+    translation of another word
+\end{itemize}
+
+If you have an existing MT system, rules can also be learnt from parallel or monolingual
+corpora,  but people interested in that can ask me later :)
+
+\end{frame}
+
+
+\end{document}
