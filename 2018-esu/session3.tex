@@ -1,0 +1,549 @@
+\documentclass[10pt,xetex]{beamer} %[compress, blue]
+\mode<presentation>
+
+\usepackage{multicol}
+
+\date{\today}
+\title{{Morphological disambiguation}}
+\begin{document}
+
+\section{Introduction}
+
+\begin{frame} %% framesection
+ \begin{center}
+ {\Large {\bf Introduction}}  % Introduction
+ \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Introduction}
+
+\begin{itemize}
+  \item What is morphological ambiguity ?
+  \begin{itemize}
+    \item The ambiguity that comes from a surface form having more than one possible analysis.
+  \end{itemize}
+  \item Why is it important ?
+  \begin{itemize}
+    \item Sometimes different readings will lead to different translations, and we want
+       to get the appropriate translation.
+  \end{itemize}
+\pause
+  \item For example: « \emph{She looks under the table and under the chairs.} »
+    \begin{itemize}
+       \item \texttt{PRON VERB PREP DET NOUN CC PREP DET NOUN.}
+       \item ++ Hän katsoo pöydän alle ja tuolien alle.
+    \end{itemize}
+    \begin{itemize}
+       \item \texttt{PRON NOUN ADV DET VERB CC ADV DET VERB.}
+       \item -- Hän katsomiset huonommin panee pöydälle ja huonommin johtaa puhetta.
+    \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+   \frametitle{Solving ambiguity: Constraint Grammar}
+
+\begin{itemize}
+  \item Takes input consisting of surface forms and their readings
+  \item Applies hand-written rules to remove inappropriate readings in context
+  \item Originally developed in Finland (Fred Karlsson)
+  \begin{itemize}
+    \item see: \emph{Constraint Grammar: A Language-Independent System for Parsing Unrestricted Text}
+    \item \ldots but we use the free/open-source VISLCG3 implementation from the U. Southern Denmark
+  \end{itemize}
+\end{itemize}
+
+Free/open-source grammars available for: Finnish, North Sámi, Faroese
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Concepts}
+
+\begin{itemize}
+  \item  {\bf  cohort} --- a surface form of a word, along with its analyses (possible lexical units), an ambiguous lexical unit.
+
+   \begin{itemize}
+         \item  Apertium equivalent: \texttt{\^{}words/word<n><pl>/word<vblex><pres><p3><sg>\$}
+   \end{itemize}
+
+    \item {\bf baseform} --- the lemma of a word.
+    \item {\bf reading} --- a single analysis of a word.
+
+   \begin{itemize}
+        \item Apertium equivalent: \texttt{\^{}word<n><pl>\$}
+   \end{itemize}
+
+    \item {\bf wordform} --- a surface form of a word.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{How the rules work}
+
+{\bf Operations}:
+
+\begin{itemize}
+
+  \item \texttt{REMOVE} --- Remove a reading that matches in  context
+
+  \item \texttt{SELECT} --- Remove all readings except the one that matches in context
+\end{itemize}
+
+{\bf Contexts}: Consist of a \alert<2>{position} and a \alert<3>{pattern}
+
+\begin{itemize}
+  \item \texttt{(\alert<2>{0} \alert<3>{noun})}
+  \item \texttt{(\alert<2>{-1*} \alert<3>{noun})}
+  \item \texttt{(\alert<2>{2*} \alert<3>{noun})}
+  \item \texttt{(\alert<2>{1}\alert<3>{C noun})} --- \texttt{C} = careful
+\end{itemize}
+
+
+\end{frame}
+
+% Morphological disambiguation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+
+
+ \begin{center}
+ {\Large {\bf Morphological disambiguation}}
+ \end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]
+ %« Jean et Marie adorent jouer, ils jouent toujours ensemble dans le jardin devant la grande maison. »
+
+\begin{multicols}{2}
+\begin{verbatim}
+"<Jean>"
+        "Jean" np ant
+"<et>"
+        "et" cnjcoo
+"<Marie>"
+        "Marie" np ant
+        "Marier" vblex pri p3 sg
+        "Marier" vblex pri p1 sg
+        "Marier" vblex prs p3 sg
+        "Marier" vblex prs p1 sg
+        "Marier" vblex imp p2 sg
+"<adorent>"
+        "adorer" vblex pri p3 pl
+        "adorer" vblex prs p3 pl
+"<jouer>"
+        "jouer" vblex inf
+"<,>"
+        "," cm
+"<ils>"
+        "il" prn tn p3 m pl
+"<jouent>"
+        "jouer" vblex pri p3 pl
+        "jouer" vblex prs p3 pl
+"<toujours>"
+        "toujours" adv
+"<ensemble>"
+        "ensemble" adv
+        "ensemble" n m sg
+"<dans>"
+        "dans" pr
+"<le>"
+        "le" prn pro p3 nt
+        "le" det def m sg
+        "le" prn pro p3 m sg
+"<jardin>"
+        "jardin" n m sg
+"<.>"
+        "." sent
+
+\end{verbatim}
+\end{multicols}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Formulating rules}
+
+\begin{center}
+ « \textit{Jean et \alert<4>{Marie} \alert<3>{adorent} jouer, ils
+    \alert<3>{jouent} toujours ensemble dans le jardin devant \alert<2>{la
+    grande maison}.} »
+\end{center}
+
+Looking at the previous sentence, we could come up with the following rules:
+
+\begin{itemize}
+  \item No proclitic pronoun without a following verb or other proclitic pronoun.
+  \item No two finite verbs can appear in the same clause
+  \item A verb in the present subjunctive \texttt{prs} is rare without a preceeding \emph{que}, \emph{qui}, \emph{quoique}.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Lists and sets}
+
+% LISTS
+
+\begin{verbatim}
+LIST DET = det ;
+LIST PRS = prs ;
+LIST N = n ;
+LIST QUI-QUE = "qui" "que" "quoique" ;
+LIST V-FIN = prs pri pii imp ;  # prs OR pri OR pii OR imp
+LIST PRO-PRON = (prn pro) ; # prn AND pro
+LIST SUBJ-PRON = ("ils" prn) ("je" prn) ;
+\end{verbatim}
+
+\begin{verbatim}
+SET CLB = SUBJ-PRON OR PRO-PRON OR V-FIN ; # Clause boundary
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{REMOVE} rules}
+
+Remove a proclitic pronoun (\texttt{PRO-PRON}) reading if:
+
+\begin{itemize}
+  \item \texttt{(0 DET)}:  The current word can be a determiner
+  \item \texttt{(NOT 1 V-FIN)}:  There is no following finite verb
+  \item \texttt{(1 N)}: The following verb is a noun
+\end{itemize}
+
+\pause
+\begin{center}
+\texttt{
+REMOVE PRO-PRON IF (0 DET) (NOT 1 V-FIN) (1 N);
+}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+ %« Jean et Marie adorent jouer, ils jouent toujours ensemble dans le jardin devant la grande maison. »
+
+\begin{multicols}{2}
+\begin{verbatim}
+"<Jean>"
+        "Jean" np ant
+"<et>"
+        "et" cnjcoo
+"<Marie>"
+        "Marie" np ant
+        "Marier" vblex pri p3 sg
+        "Marier" vblex pri p1 sg
+        "Marier" vblex prs p3 sg
+        "Marier" vblex prs p1 sg
+        "Marier" vblex imp p2 sg
+"<adorent>"
+        "adorer" vblex pri p3 pl
+        "adorer" vblex prs p3 pl
+"<jouer>"
+        "jouer" vblex inf
+"<,>"
+        "," cm
+"<ils>"
+        "il" prn tn p3 m pl
+"<jouent>"
+        "jouer" vblex pri p3 pl
+        "jouer" vblex prs p3 pl
+"<toujours>"
+        "toujours" adv
+"<ensemble>"
+        "ensemble" adv
+        "ensemble" n m sg
+"<dans>"
+        "dans" pr
+"<le>"
+        "le" det def m sg
+;  "le" prn pro p3 nt REMOVE:12
+;  "le" prn pro p3 m sg REMOVE:12
+"<jardin>"
+        "jardin" n m sg
+"<.>"
+        "." sent
+
+\end{verbatim}
+\end{multicols}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{REMOVE} rules}
+
+Remove a finite-verb reading (\texttt{V-FIN}) if:
+
+\begin{itemize}
+  \item \texttt{(1C V-FIN)}: The following word can only be a finite verb
+\end{itemize}
+
+\pause
+\begin{center}
+\texttt{
+REMOVE V-FIN IF (1C V-FIN) ;
+}
+\end{center}
+\end{frame}
+
+
+\begin{frame}[fragile]
+ %« Jean et Marie adorent jouer, ils jouent toujours ensemble dans le jardin devant la grande maison. »
+
+\begin{multicols}{2}
+\begin{verbatim}
+"<Jean>"
+        "Jean" np ant
+"<et>"
+        "et" cnjcoo
+"<Marie>"
+        "Marie" np ant
+;  "Marier" vblex imp p2 sg
+;  "Marier" vblex pri p3 sg REMOVE:14
+;  "Marier" vblex pri p1 sg REMOVE:14
+;  "Marier" vblex prs p3 sg REMOVE:14
+;  "Marier" vblex prs p1 sg REMOVE:14
+"<adorent>"
+        "adorer" vblex pri p3 pl
+        "adorer" vblex prs p3 pl
+"<jouer>"
+        "jouer" vblex inf
+"<,>"
+        "," cm
+"<ils>"
+        "il" prn tn p3 m pl
+"<jouent>"
+        "jouer" vblex pri p3 pl
+        "jouer" vblex prs p3 pl
+"<toujours>"
+        "toujours" adv
+"<ensemble>"
+        "ensemble" adv
+        "ensemble" n m sg
+"<dans>"
+        "dans" pr
+"<le>"
+        "le" det def m sg
+"<jardin>"
+        "jardin" n m sg
+"<.>"
+        "." sent
+
+\end{verbatim}
+\end{multicols}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{REMOVE} rules}
+
+Remove a present subjunctive reading if:
+
+\begin{itemize}
+   \item \texttt{(NOT -1* QUI-QUE BARRIER CLB)}: There is no `que', `qui' or `quoique' between the
+      current word and a clause boundary to the left.
+\end{itemize}
+
+\pause
+\begin{center}
+\texttt{
+REMOVE PRS IF (NOT -1* QUI-QUE BARRIER CLB);
+}
+\end{center}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+ %« Jean et Marie adorent jouer, ils jouent toujours ensemble dans le jardin devant la grande maison. »
+
+\begin{multicols}{2}
+\begin{verbatim}
+"<Jean>"
+        "Jean" np ant
+"<et>"
+        "et" cnjcoo
+"<Marie>"
+        "Marie" np ant
+"<adorent>"
+        "adorer" vblex pri p3 pl
+;  "adorer" vblex prs p3 pl REMOVE:16
+"<jouer>"
+        "jouer" vblex inf
+"<,>"
+        "," cm
+"<ils>"
+        "il" prn tn p3 m pl
+"<jouent>"
+        "jouer" vblex pri p3 pl
+;  "jouer" vblex prs p3 pl REMOVE:16
+"<toujours>"
+        "toujours" adv
+"<ensemble>"
+        "ensemble" adv
+        "ensemble" n m sg
+"<dans>"
+        "dans" pr
+"<le>"
+        "le" det def m sg
+"<jardin>"
+        "jardin" n m sg
+"<.>"
+        "." sent
+
+\end{verbatim}
+\end{multicols}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{center}
+But what about the \emph{ensemble} `together' \\ and \emph{ensemble} `ensemble, group'?
+\end{center}
+
+Not so straightforward \ldots \\
+~\\
+
+\pause
+
+But here are some ideas:
+
+\begin{itemize}
+  \item If the word is used in an NP (preceeded by an article/adjective: `l'ensemble', `un ensemble', `le grand ensemble'
+  \item If the word is modified by a prepositional phrase with \emph{de}: `ensemble de les conducteurs'
+  \begin{itemize}
+    \item Caution: `\ldots qui liait ensemble des peuples aussi divers que \ldots'
+  \end{itemize}
+  \item If the word is followed by an NP without a preposition: `pour conduire ensemble un projet', `ensemble ils sont'
+\end{itemize}
+
+Looking at a concordance can often be enlightening :)
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+\begin{verbatim}
+"<Лицо>"
+        "Лицо" n nt nn sg acc
+        "Лицо" n nt nn sg nom
+"<города>"
+        "город" n m nn sg gen
+        "город" n m nn pl acc
+        "город" n m nn pl nom
+"<менялось>"
+        "меняться" vblex impf iv past nt sg
+"<вместе>"
+        "вместе" adv
+"<со>"
+        "с" pr
+"<сменой>"
+        "смена" n f nn sg ins
+"<политических>"
+        "политический" adj mfn nn pl gen
+        "политический" adj mfn nn pl prp
+        "политический" adj mfn aa pl acc
+"<эпох>"
+        "эпоха" n f nn pl gen
+"<.>"
+        "." sent
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{\texttt{SELECT} rules}
+
+Remove all readings of a word which can only be an adjective which do not agree in case with the head noun:
+
+\begin{verbatim}
+    LIST A = adj ;
+    LIST N = n ;
+    LIST NAGDIP = nom acc gen dat ins prp ;
+
+    SECTION
+
+    SELECT A + $$NAGDIP IF (0C A) (1C N + $$NAGDIP) ;
+\end{verbatim}
+
+The \texttt{\$\$} symbol before a list is \emph{unification} --- it is basically equivalent to writing
+out all the combinations of the list:
+
+\begin{itemize}
+   \item \texttt{SELECT A + (nom) IF (0C A) (1C N + (nom));}
+   \item \texttt{SELECT A + (gen) IF (0C A) (1C N + (gen));}
+   \item \texttt{SELECT A + (dat) IF (0C A) (1C N + (dat));}
+   \item \ldots
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+\begin{verbatim}
+"<Лицо>"
+        "Лицо" n nt nn sg acc
+        "Лицо" n nt nn sg nom
+"<города>"
+        "город" n m nn sg gen
+        "город" n m nn pl acc
+        "город" n m nn pl nom
+"<менялось>"
+        "меняться" vblex impf iv past nt sg
+"<вместе>"
+        "вместе" adv
+"<со>"
+        "с" pr
+"<сменой>"
+        "смена" n f nn sg ins
+"<политических>"
+        "политический" adj mfn nn pl gen SELECT:8
+;       "политический" adj mfn nn pl prp SELECT:8
+;       "политический" adj mfn aa pl acc SELECT:8
+"<эпох>"
+        "эпоха" n f nn pl gen
+"<.>"
+        "." sent
+\end{verbatim}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+For the rest of the ambiguities I'd use \texttt{REMOVE} rules:
+
+\begin{itemize}
+  \item No accusative without a preposition in a clause with an intransitive verb.
+  \item A nominative should agree with a past tense verb in gender and number.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Useful commands}
+
+{\bf Get the tagger output}:
+
+\begin{verbatim}
+  cat filename.txt | apertium -d . xxx-yyy-tagger
+\end{verbatim}
+
+{\bf Get the tagger output in CG format}:
+
+\begin{verbatim}
+  cat filename.txt | apertium -d . xxx-yyy-disam
+\end{verbatim}
+
+\end{frame}
+
+\end{document}

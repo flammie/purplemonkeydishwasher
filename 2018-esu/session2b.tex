@@ -1,0 +1,194 @@
+\documentclass[10pt,xetex]{beamer} %[compress, blue]
+\mode<presentation>
+
+\usepackage{colortbl}
+\usepackage{tabularx}
+%\usepackage[breaklinks]{hyperref}
+
+\date{\today}
+\title{Session 2: Morphophonology with \texttt{twol}}
+\begin{document}
+
+
+
+\begin{frame}
+	\frametitle{Morphophonology: what is it?}
+	\begin{definition}{Morphophonology}
+		\begin{itemize}
+			\item ``\textit{a branch of linguistics which studies the interaction between morphological and phonological or phonetic processes}'' -wikipedia
+			\item or looking at ``the sound changes that take place in morphemes when they combine to form words''
+			\item or, for us, just ``which changes occur in morphemes as a result of their combination''
+		\end{itemize}
+	\end{definition}
+	\begin{block}{Morphophonology: why it matters}
+		\begin{itemize}
+			\item In many languages, many words and morphemes change form when they cooccur
+			\item MT systems should recognise all forms of any word or morpheme
+			\item ... and we have to tell the computer how it can deal with these processes
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Morphophonology and \texttt{twol}}
+	\begin{block}{What is \texttt{twol}?}
+		\begin{itemize}
+			\item A formalism for implementing morphophonological rules
+		\end{itemize}
+	\end{block}
+	\begin{block}{What do I need to use \texttt{twol} for?}
+		\begin{itemize}
+			\item When the form of a word or morpheme changes as a result of phonological rules
+		\end{itemize}
+	\end{block}
+	\begin{block}{How can I use \texttt{twol}?}
+		\begin{itemize}
+			\item Find the correct phonological rules\\
+			(They aren't always in the grammars, but the grammars can help)
+			\item Write the rules in the \texttt{twol} formalism!
+		\end{itemize}
+	\end{block}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Most important: When to use twol---or not}
+    \begin{block}{When to use \texttt{twol}}
+        \begin{itemize}
+            \item Kimmo gives 2 * 2 reasons for decisions (see the
+                book)\footnote{Koskenniemi, Kimmo, Two-level Morphology: A
+                General Computational Model for Word-Form Recognition and
+                Production, Publications, No. 11, 160 pages, University of
+                Helsinki, Department of General Linguistics (1983).}:
+            \item natural---suppletic variation (m : n or a : t)
+            \item phonological---morphological conditioning, or orthographic
+                (before all labials? before past tense?)
+            \item I'll give you third: frequency (s : h) in Finnish is natural and
+                morphologic but happens once.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Concrete example: Finnish and vowel harmony}
+\texttt{LEXICON nouns\\
+\textbf{xaxo} backvowelcasesfornouns ; \\
+\textbf{xixe} frontvowelcasesfornouns ; \\
+\textbf{xäxö} frontvowelcasesfornouns ;\\
+LEXICON backvowelcasesfornouns\\
+ssa backclits ; \\
+sta backclits ; \\
+lla backclits ;\\
+lta backclits ;\\
+LEXICON frontvowelcasesfornouns\\
+ssä frontclits ;  \\
+stä frontclits ; \\
+llä frontclits ; \\
+ltä frontclits ;\\
+LEXICON backclits\\
+ko \# ; pa \# ; han \# ;\\
+LEXICON frontclits\\
+kö \# ; pä \# ; hän \# ;\\
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Concrete example cont'd}
+    \texttt{LEXICON nouns\\
+        xaxo casesfornouns ; xixe casesfornouns ; \\
+        xäxö casesfornouns ;\\
+        LEXICON casesfornouns\\
+        ss\{A\} clits ;  \\
+	st\{A\} clits;  \\
+	ll\{A\} clits ;  \\
+	lta clits ; \\
+        LEXICON clits\\
+        k\{O\} \# ;  \\
+	p\{A\} \# ;  \\
+	h\{A\}n \# ;\\
+    }
+\end{frame}
+%
+\begin{frame}
+    \frametitle{Twol workings: START from Alphabet!}
+    \texttt{Alphabet\\
+        a b c ... x y z \{A\}:a \{A\}:ä \{O\}:o \{O\}:ö\\
+        ;\\
+        ~\\
+        Sets \\
+        FRONT = ä ö y ;\\
+        BACK = a o u ;\\
+        NEUT = i e ;\\
+        Rules\\
+        "No rules!!"\\
+        a <=> \_ ;
+    }
+~\\
+~\\
+    What happens now? Try it: you should get xaxossako xaxossakö xaxossäkö
+    xaxossäko ... etc. This is where we start mentally!
+~\\
+~\\
+\texttt{
+\$ hfst-lexc myfile.lexc -o myfile.lexc.hfst \\
+\$ hfst-twolc myfile.twol -o myfile.twol.hfst \\
+\$ hfst-compose-intersect -1 myfile.lexc.hfst -2 myfile.twol.hfst \\-o myfile.hfst \\
+}
+\end{frame}
+%
+\begin{frame}
+    \frametitle{Twol rules are not:}
+\begin{itemize}
+  \item  Twol rules are not for rewriting.
+  \item  Twol rules do not make realisations.
+  \item  Twol rules do not change anything into anything.
+    \begin{itemize}
+      \item Previous example did not have rules to begin with.
+      \item \ldots but everything was changed into everything!
+   \end{itemize}
+\end{itemize}
+Keep in mind: in twol you write rules to restrict wrong things out. See negative readings of Appendix TWOL of
+    Beesley---Karttunen (2003)---but ignore most of the rest for now.
+%    \url{http://fsmbook.com} $\rightarrow$ New Software.
+\end{frame}
+%
+%\begin{frame}
+%    \frametitle{Twol rules are not:}
+%    Twol rules are not for rewriting. Twol rules do not make realisations.
+%    Twol rules do not change anything into anything. (Previous example did not
+%    have rules to begin with.) Keep in mind: in twol you write rules to restrict
+%    wrong things out. See negative readings of Appendix TWOL of
+%\end{frame}
+
+
+\begin{frame}
+    \frametitle{Rules and linguistic thinking}
+    Ideally, in my opinion, rules should talk about linguistics. Vowel harmony
+    is about linguistics and easy to formulate: \_\_\_
+\end{frame}
+
+\begin{frame}
+    \frametitle{Twol rules are these many arrowy things}
+    \begin{block}{Arrows}
+    So, how encode the linguistic logic is quite mathematical logic in twol
+    (just experiment with all of these):
+    \begin{itemize}
+        \item \texttt{\{A\}:ä <= ä \textbackslash a* \_ ;} whenever you see \textit{ä} left
+            of \{A\} and no \textit{a}'s in between, go with \textit{ä}
+        \item \texttt{\{A\}:a => a \textbackslash ä* \_ ;} \{A\} will not be \textit{a} elsewhere
+            than when preceded with \textit{a} and no \textit{ä}'s in between
+        \item \texttt{\{A\}:a <=> a \textbackslash ä* \_ ;} this \{A\}:a is restricted
+            to go after \textit{a}'s and other \{A\}'s must be \textit{a} (these are majority of all
+            rules in typical systems)
+        \item \texttt{\{A\}:a /<= ä \textbackslash a \_ ;} \{A\} will not be \textit{a} if
+            there's some \textit{ä} in leftwards vicinity (use these rules to
+            get out from some tricky situations)
+    \end{itemize}
+    if you experiment with these and pay attention to all results in above
+    cases you'll understand all implications
+    \end{block}
+\end{frame}
+
+
+
+\end{document}
