@@ -1,0 +1,555 @@
+\documentclass[10pt,xetex]{beamer} %[compress, blue]
+\mode<presentation>
+
+\usepackage{shupashkar}
+
+\usepackage{alltt}
+
+\date{2nd--13th November, 2015}
+\title{\cyrtext{Session 7: Data consistency and quality}} % и оценка}}
+\begin{document}
+
+\begin{frame}
+        \titlepage
+\MyLogoBottomCentred
+\end{frame}
+
+\logo{\includegraphics[height=1.6cm]{../logo/logo}}
+
+
+\section{\cyrtext{Quality}}
+
+
+\begin{frame} %% framesection
+ \begin{center}
+ {\Large {\bf \cyrtext{Quality}}} % QUALITY
+ \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\cyrtext{Quality}}%Quality
+
+%В данном разделе мы поговорим о том, что такое качество и как его оценить
+This session will discuss what \textbf{quality} means, and how it is measured \\
+
+~\\
+
+\begin{itemize}
+  \item System quality
+  \begin{itemize}
+
+     \item Does the system pass automated tests ... e.g. of the dictionaries?
+     \item Is the current version an improvement over the previous version?
+     \item Does the system cover enough of the language to make it useful for the purpose for which it is intended?
+     \item Can how the system works be easily understood ?
+     \item How well is the system documented ? 
+  \end{itemize}
+~\\
+~\\ 
+  \item Translation quality
+  \begin{itemize}
+
+    \item How well does the system work for a particular purpose
+    \begin{itemize}
+      \item For translating a text such that it is possible to understand
+      \item For translating a text so that it is quicker to post-edit than to translate from scratch
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{System quality}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{System quality: Self-contained system}
+
+Apertium is a self-contained system. For any input, it should have one, predictable, deterministic output. \\
+
+For every lexical form in the source language dictionary, there should be:
+
+\begin{itemize}
+  \item A translation in the bilingual dictionary, {\em or} 
+  \item A transfer rule which deletes the word
+\end{itemize}
+
+If there is a translation in the bilingual dictionary, there should be:
+
+\begin{itemize}
+  \item A form of the translated word in the TL morphological dictionary, {\em or}
+  \item A transfer rule which changes the source language tags, and any delivered by 
+    the bilingual dictionary into tags suitable for the target morphological dictionary
+\end{itemize}
+
+Let's look at an example...
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{System quality: Consistency}
+
+\begin{center}
+``{\em Maşa'nın   köpeği yok ,  onun kedisi var.}''
+\end{center}
+
+\begin{onlyenv}<1>
+Our reference translation is:
+\begin{alltt}
+{\smallermono Машӑн     йытӑ   ҫук ,  унӑн кушак  пур. }
+\end{alltt}
+But, our system currently translates it to Chuvash as:
+\begin{alltt}
+{\smallermono #Маша      *köpeği   ҫук ,  ун   #кушак пур. }
+\end{alltt}
+
+So, where do those {\tt *} and {\tt \#} come from ? We can get an idea by looking at 
+the ``debug'' output (use {\tt apertium -d . tur-chv-dgen}):
+\begin{alltt}
+{\smallermono #Маша<np><ant><f><gen> *köpeği ҫук, ун #кушак<n><px3sp><nom> пур. }
+\end{alltt}
+
+\end{onlyenv}
+
+\begin{onlyenv}<2>
+
+\begin{alltt}
+{\smallermono \alert{\#}Маша<np><ant><f><gen> \alert{*}köpeği ҫук, ун \alert{\#}кушак<n><px3sp><nom> пур. }
+\end{alltt}
+
+What do those symbols mean ? 
+
+\begin{itemize}
+  \item {\tt *} means either that:
+     \item the word is not found in the source language morphological dictionary, or
+
+     \item the word is not found in the bilingual dictionary,
+
+  \item {\tt \#} means either that:
+  \begin{itemize}
+    \item the word is not in the target language monolingual dictionary, or
+
+    \item the word followed by that particular sequence of tags is not in the target 
+      language morphological dictionary, or
+
+    \item a conflict in the phonological rules causes the surface form not to be in the compiled target language 
+      dictionary
+  \end{itemize}
+\end{itemize}
+
+So how can they be fixed ? 
+
+
+\end{onlyenv}
+
+\begin{onlyenv}<3>
+
+First we add the translation(s) of {\em köpek} to the bilingual dictionary (in our case {\tt apertium-chv-tur.chv-tur.dix})
+
+\begin{alltt}
+<e><p><l>йытӑ<s n="n"/></l><r>köpek<s n="n"/></r></p></e>
+\end{alltt}
+
+Then we recompile and get,
+
+\end{onlyenv}
+
+\begin{onlyenv}<4>
+
+First we add the translation(s) of {\em köpek} to the bilingual dictionary (in our case {\tt apertium-chv-tur.chv-tur.dix})
+
+\begin{alltt}
+<e><p><l>йытӑ<s n="n"/></l><r>köpek<s n="n"/></r></p></e>
+\end{alltt}
+
+Then we recompile and get,
+
+\begin{alltt}
+{\smallermono \alert{\#}Маша<np><ant><f><gen> йыти ҫук, ун \alert{\#}кушак<n><px3sp><nom> пур. }
+\end{alltt}
+
+The {\tt @} symbol has gone, but why do we get {\em йыти} not {\em йытӑ} ?
+
+\end{onlyenv}
+
+\begin{onlyenv}<5>
+
+Next we add {\em Маша} and {\em кушак} to the target language morphological dictionary (in 
+this example {\tt apertium-chv-tur.chv.lexc})
+
+\begin{verbatim}
+
+кушак N-INFL ; ! ""
+
+...
+
+Маша NP-ANT-F ; ! ""
+
+\end{verbatim}
+
+Then we recompile and get,
+
+\begin{alltt}
+{\smallermono Машӑн йыти ҫук, ун кушакӗ пур. }
+\end{alltt}
+
+\end{onlyenv}
+
+\begin{onlyenv}<6>
+
+Let's compare that to the reference translation,
+
+\begin{itemize}
+  \item Образец: ~~~~~~~Машӑн йытӑ ҫук, унӑн кушак пур.
+  \item Наш вариант: Машӑн \alert{йыти} ҫук, \alert{ун} \alert{кушакӗ} пур.
+\end{itemize}
+
+We have removed the debugging symbols by:
+
+\begin{itemize}
+
+  \item Adding a word to the bilingual dictionary
+  \item Adding two words to the target-language monolingual dictionary
+\end{itemize}
+
+The differences that remain between the machine translation of this sentence 
+and the reference are either:
+
+\begin{itemize}
+
+  \item Transfer errors, or
+  \item Translation divergence 
+\end{itemize}
+
+\end{onlyenv}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Translation quality: Adequacy and fluency}
+
+When evaluating machine translation systems for the assimilation task, the often used 
+metrics are:
+
+\begin{itemize}
+  \item {\bf Adequacy}: How much information is transmitted by translation given by the system
+   regardless of grammaticality
+  \item {\bf Fluency}: How fluent does the translation sound, how much does it sound like 
+   a grammatical translation made by a native speaker ?
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Translation quality: Postedition}
+
+When evaluating a system for the dissemination task, a frequently used metric is 
+postedition word error rate.
+
+\begin{itemize}
+  \item The source language text is machine translated
+  \item The translation is given to a human translator to be revised
+  \item The revision is compared against the original machine translated text
+\end{itemize}
+
+The number of changes does not completely capture the amount of effort taken to revise
+the translation. Other useful metrics would be:
+
+\begin{itemize}
+  \item The time taken to revise the translation
+  \item How annoyed the translator gets with the machine translation output
+  \item What percentage of the machine translated sentences the translator
+    translates from scratch
+\end{itemize}
+
+But the word error rate is easily measureable.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Are the two really different?}
+
+\begin{block}{Recap}
+ \begin{itemize}
+   \item Assimilation: Translating for a person who doesn't know the original language
+     the text is written in so that they get the meaning
+   \item Dissemination: Translating to save the time of a translator who knows both languages 
+     
+ \end{itemize}
+\end{block}
+
+Are the translations useful for {\color<2>{blue}{assimilation}} and {\color<3>{green}{dissemination}} really different ? \\
+~\\
+Phrase: {\em Мен имарат ичиндемин.} \\
+~\\
+
+%\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+                        & {\bf Good translation} & {\bf Bad translation}\\
+\hline
+{\bf Good consist.}  & \color<3>{green}{\color<2>{blue}{Я внутри здания}} & \color<3>{green}{Я вне здания} \\
+\hline
+{\bf Bad consist.}   & \color<2>{blue}{\#Я внутри \#здание} & \#Ты вне @имарат \\
+\hline
+\end{tabular}
+%\end{center}
+
+\end{frame}
+
+\section{\cyrtext{Оценка}}
+
+
+\begin{frame} %% framesection
+ \begin{center}
+ {\Large {\bf System evaluation}} % SYSTEM EVALUATION
+ \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Coverage}
+
+The coverage of the system is the measure of given an input, how many 
+unknown (e.g. untranslated) words will appear in the output.
+
+It can be measured by:
+
+\begin{itemize}
+  \item taking a large corpus of the language
+  \item translating it with the system
+  \item counting the number of unknown words
+  \item and dividing this count by the amount of words in the corpus
+\end{itemize}
+
+Generally, unless the languages in question are very close (with very similar
+orthography), a system with under 80\% coverage will be useful neither
+
+\begin{itemize} 
+  \item for assimilation (too few words translated) nor 
+  \item for dissemination (too many words to change)
+\end{itemize}
+
+\end{frame}
+%
+%\begin{frame}
+%  \frametitle{Regression testing}
+%
+%\begin{itemize}
+%\item The idea of regression testing is borrowed from software engineering. 
+%\item When an error is found and fixed in the transfer rules, a testcase is added 
+%  to a list of tests with the new input and output.
+%\item These tests can be run automatically each time a rule is changed to see
+%  if the changes have unintended consequences.
+%\end{itemize}
+%
+%\end{frame}
+%
+%\begin{frame}[fragile]
+%
+%\begin{verbatim}
+%$ sh regression-tests.sh 
+%Running Regression-tests with 
+% mode "fin-sme" with updated tests......
+%
+%fin-sme	  Minun täytyy ostaa auto.
+%WORKS     Mun ferten oastit biilla.
+%
+%fin-sme	  Minun on ostettava auto.
+%WORKS     Mun ferten oastit biilla.
+%
+%fin-sme   Auto nähdään.
+%WORKS     Biila oidnojuvvo.
+%
+%fin-sme	  Minä rakastan sinua.
+%        - Mun ráhkestan du.
+%        + Mun ráhkistan du.
+%
+%3 / 4, ~75.0%
+%
+%\end{verbatim}
+%
+%\end{frame}
+%
+%\begin{frame}
+%  \frametitle{{\sc testvoc}: Vocabulary test}
+%
+%As we saw before, Apertium is a self-contained system.
+%
+%\begin{itemize}
+%  \item For every lexical form in the SL dictionary
+%  \item there should be an equivalent in the target dictionary 
+%\end{itemize}
+%
+%The idea of {\sc testvoc} is to:
+%
+%\begin{itemize}
+%  \item generate all possible lexical forms
+%  \item pass them through the transfer stage
+%  \item check to see if the forms output by the transfer can be generated
+%\end{itemize}
+%
+%Normally a translator will not be released without having this test
+%performed.
+%
+%\end{frame}
+%
+%\begin{frame}[fragile]
+%
+%\begin{verbatim}
+%$ cat dev/testvoc-summary.tt-ba.txt
+%dv gen 13 00:13:52 GMT 2012
+%================================================
+%POS     Total    Clean   With @  With #  Clean %
+%v       471573   471572  1       0       100
+%n       116395   116392  3       0       99.99
+%num     7564     7564    0       0       100
+%cnjcoo  2920     2526    394     0       86.51
+%prn     954      954     0       0       100
+%adj     664      475     189     0       71.54
+%adv     356      84      272     0       23.6
+%np      98       98      0       0       100
+%post    11       11      0       0       100
+%postadv 4        4       0       0       100
+%det     4        4       0       0       100
+%guio    2        2       0       0       100
+%cm      1        1       0       0       100
+%ij      0        0       0       0       100
+%================================================
+%
+%\end{verbatim}
+%
+%\end{frame}
+%
+%\begin{frame}
+%  \frametitle{Corpus test}
+%
+%\end{frame}
+%
+%\begin{frame}
+%
+%example
+%
+%\end{frame}
+
+%\begin{frame}
+%  \frametitle{Documentation}
+%
+%
+%\end{frame}
+
+\begin{frame} %% framesection
+ \begin{center}
+ {\Large {\bf Translation evaluation}} % TRANSLATION EVALUATION
+ \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Manual metrics}
+
+Here are a couple of manual metrics which are often used to measure the 
+quality of machine translation systems
+
+\begin{itemize}
+  \item {\bf Post-edition word error rate}: How close the MT output is to the 
+    output revised by a translator
+  \item {\bf Adequacy evaluation}: How much a person can understand
+  \begin{itemize}
+    \item For example by having a person who does not understand the 
+      source language look at the translations, and postedit them
+    \item then get a bilingual speaker to check the translations
+      and score them on how much of the information was retained
+  \end{itemize}
+\end{itemize}
+
+Both of these require human intervention.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Automatic metrics}
+
+When reading papers about new machine translation systems, or improvements 
+in existing ones, often the following evaluation metrics are cited:
+
+\begin{itemize}
+  \item BLEU
+  \item NIST
+  \item METEOR
+\end{itemize}
+
+All of these work by comparing a machine translated sentence to one or more 
+existing reference translations.
+
+They have some advantages:
+
+\begin{itemize}
+  \item They are quick and cheap to run if you have an existing corpus
+     of translated sentences
+\end{itemize}
+
+and some drawbacks:
+
+\begin{itemize}
+  \item The output of your system may differ substantially from the 
+    reference, while still being grammatical.
+\end{itemize}
+
+\end{frame}
+%
+%\begin{frame}
+%  \frametitle{Reference translations}
+%
+%When using an automated 
+%
+%\begin{itemize}
+%   \item Previously translated:
+%
+%   \item Posteditted:
+%\end{itemize}
+%
+%\end{frame}
+%
+%\begin{frame}
+%  \frametitle{Manual evaluation}
+%
+%kinds of manual eval e.g. with/without bilingual speakers
+%
+%\end{frame}
+
+%\begin{frame}
+%  \frametitle{Automatic metrics: Suitability for languages of Russia}
+%
+%
+%\end{frame}
+%
+\begin{frame} %% framesection
+ \begin{center}
+ {\Large {\bf Summary}} % SUMMARY/CONCLUSION
+ \end{center}
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Summary}
+
+We've covered:
+
+\begin{itemize}
+  \item Why consistency is important in making systems based on Apertium
+
+  \item Some ways of testing consistency in Apertium
+
+  \item Different evaluation metrics for measuring translation quality
+\end{itemize}
+
+\end{frame}
+
+
+
+\end{document}

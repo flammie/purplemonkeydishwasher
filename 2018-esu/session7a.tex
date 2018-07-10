@@ -1,0 +1,229 @@
+\documentclass[10pt,xetex]{beamer} %[compress, blue]
+\mode<presentation>
+
+\usepackage{helsingfors}
+
+\usepackage{alltt}
+
+\date{13--17th May 2013}
+\title{Session 7: Data consistency and quality}
+\begin{document}
+
+\begin{frame}
+        \titlepage
+\MyLogoBottomCentred
+\end{frame}
+
+%\logo{\includegraphics[height=1.6cm]{../logo/logo.pdf}}
+
+
+\section{Quality}
+
+
+\begin{frame} %% framesection
+ \begin{center}
+ {\Large {\bf Quality}} % QUALITY
+ \end{center}
+\end{frame}
+\begin{frame}
+  \frametitle{\cyrtext{Quality}}%Quality
+
+%В данном разделе мы поговорим о том, что такое качество и как его оценить
+This session will discuss what \textbf{quality} means, and how it is measured \\
+
+~\\
+
+\begin{itemize}
+  \item System quality
+  \begin{itemize}
+
+     \item Does the system pass automated tests ... e.g. of the dictionaries?
+     \item Is the current version an improvement over the previous version?
+     \item Does the system cover enough of the language to make it useful for the purpose for which it is intended?
+     \item Can how the system works be easily understood ?
+     \item How well is the system documented ? 
+  \end{itemize}
+~\\
+~\\ 
+  \item Translation quality
+  \begin{itemize}
+
+    \item How well does the system work for a particular purpose
+    \begin{itemize}
+      \item For translating a text such that it is possible to understand
+      \item For translating a text so that it is quicker to post-edit than to translate from scratch
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{System quality}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{System quality: Self-contained system}
+
+Apertium is a self-contained system. For any input, it should have one, predictable, deterministic output. \\
+
+For every lexical form in the source language dictionary, there should be:
+
+\begin{itemize}
+  \item A translation in the bilingual dictionary, {\em or} 
+  \item A transfer rule which deletes the word
+\end{itemize}
+
+If there is a translation in the bilingual dictionary, there should be:
+
+\begin{itemize}
+  \item A form of the translated word in the TL morphological dictionary, {\em or}
+  \item A transfer rule which changes the source language tags, and any delivered by 
+    the bilingual dictionary into tags suitable for the target morphological dictionary
+\end{itemize}
+
+Let's look at an example...
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{System quality: Consistency}
+
+\begin{center}
+``{\em Maşa'nın   köpeği yok ,  onun kedisi var.}''
+\end{center}
+
+\begin{onlyenv}<1>
+Our reference translation is:
+\begin{alltt}
+{\smallermono Машӑн     йытӑ   ҫук ,  унӑн кушак  пур. }
+\end{alltt}
+But, our system currently translates it to Chuvash as:
+\begin{alltt}
+{\smallermono #Маша      *köpeği   ҫук ,  ун   #кушак пур. }
+\end{alltt}
+
+So, where do those {\tt *} and {\tt \#} come from ? We can get an idea by looking at 
+the ``debug'' output (use {\tt apertium -d . tur-chv-dgen}):
+\begin{alltt}
+{\smallermono #Маша<np><ant><f><gen> *köpeği ҫук, ун #кушак<n><px3sp><nom> пур. }
+\end{alltt}
+
+\end{onlyenv}
+
+\begin{onlyenv}<2>
+
+\begin{alltt}
+{\smallermono \alert{\#}Маша<np><ant><f><gen> \alert{*}köpeği ҫук, ун \alert{\#}кушак<n><px3sp><nom> пур. }
+\end{alltt}
+
+What do those symbols mean ? 
+
+\begin{itemize}
+  \item {\tt *} means either that:
+     \item the word is not found in the source language morphological dictionary, or
+
+     \item the word is not found in the bilingual dictionary,
+
+  \item {\tt \#} means either that:
+  \begin{itemize}
+    \item the word is not in the target language monolingual dictionary, or
+
+    \item the word followed by that particular sequence of tags is not in the target 
+      language morphological dictionary, or
+
+    \item a conflict in the phonological rules causes the surface form not to be in the compiled target language 
+      dictionary
+  \end{itemize}
+\end{itemize}
+
+So how can they be fixed ? 
+
+
+\end{onlyenv}
+
+\begin{onlyenv}<3>
+
+First we add the translation(s) of {\em köpek} to the bilingual dictionary (in our case {\tt apertium-chv-tur.chv-tur.dix})
+
+\begin{alltt}
+<e><p><l>йытӑ<s n="n"/></l><r>köpek<s n="n"/></r></p></e>
+\end{alltt}
+
+Then we recompile and get,
+
+\end{onlyenv}
+
+\begin{onlyenv}<4>
+
+First we add the translation(s) of {\em köpek} to the bilingual dictionary (in our case {\tt apertium-chv-tur.chv-tur.dix})
+
+\begin{alltt}
+<e><p><l>йытӑ<s n="n"/></l><r>köpek<s n="n"/></r></p></e>
+\end{alltt}
+
+Then we recompile and get,
+
+\begin{alltt}
+{\smallermono \alert{\#}Маша<np><ant><f><gen> йыти ҫук, ун \alert{\#}кушак<n><px3sp><nom> пур. }
+\end{alltt}
+
+The {\tt @} symbol has gone, but why do we get {\em йыти} not {\em йытӑ} ?
+
+\end{onlyenv}
+
+\begin{onlyenv}<5>
+
+Next we add {\em Маша} and {\em кушак} to the target language morphological dictionary (in 
+this example {\tt apertium-chv-tur.chv.lexc})
+
+\begin{verbatim}
+
+кушак N-INFL ; ! ""
+
+...
+
+Маша NP-ANT-F ; ! ""
+
+\end{verbatim}
+
+Then we recompile and get,
+
+\begin{alltt}
+{\smallermono Машӑн йыти ҫук, ун кушакӗ пур. }
+\end{alltt}
+
+\end{onlyenv}
+
+\begin{onlyenv}<6>
+
+Let's compare that to the reference translation,
+
+\begin{itemize}
+  \item Образец: ~~~~~~~Машӑн йытӑ ҫук, унӑн кушак пур.
+  \item Наш вариант: Машӑн \alert{йыти} ҫук, \alert{ун} \alert{кушакӗ} пур.
+\end{itemize}
+
+We have removed the debugging symbols by:
+
+\begin{itemize}
+
+  \item Adding a word to the bilingual dictionary
+  \item Adding two words to the target-language monolingual dictionary
+\end{itemize}
+
+The differences that remain between the machine translation of this sentence 
+and the reference are either:
+
+\begin{itemize}
+
+  \item Transfer errors, or
+  \item Translation divergence 
+\end{itemize}
+
+\end{onlyenv}
+
+\end{frame}
+
+\end{document}

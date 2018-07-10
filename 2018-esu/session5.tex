@@ -1,0 +1,558 @@
+\documentclass[10pt,xetex]{beamer} %[compress, blue]
+\mode<presentation>
+
+\usepackage{helsingfors}
+
+\usepackage{alltt}
+
+\date{2nd--13th November, 2015}
+\title{Session 5: Structural transfer}
+\begin{document}
+
+\begin{frame}
+        \titlepage
+\MyLogoBottomCentred
+\end{frame}
+
+\logo{\includegraphics[height=1.6cm]{../logo/logo}}
+
+
+%\begin{frame}
+%
+%\end{frame}
+
+\begin{frame}
+ \frametitle{Introduction}
+
+\begin{itemize}
+  \item {\bf Contrastive analysis}
+~\\
+~\\
+  \item {\bf Rule writing}
+~\\
+~\\
+  \item {\bf Structural transfer in Apertium}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame} %% framesection
+ \begin{center}
+ {\Large {\bf Contrastive analysis}} 
+ \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Contrastive analysis}
+
+Contrastive analysis is the process of examining two or more languages together to find out what kind of features they share, and how they are distinguished. 
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Morphological contrasts}
+
+We call morphological contrasts those differences between languages which are expressed at the level of a single word. Some examples might be:
+
+\begin{itemize}
+  \item How possession is expressed: suffix, or separate word
+  \item Case inventories
+  \item Gender (or word class) inventories
+  \item Number (in all words, or just in nouns/pronouns)
+  \item ``Synthetic'' verb tenses
+  \item Person inventory 
+  \item Formality
+  \item Morpheme order (e.g. possessive before/after number)
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Syntactic contrasts}
+
+Syntactic contrasts on the other hand are differences between words
+
+\begin{itemize}
+  \item Existence or not of separate articles
+  \item Existence or not of compulsory subject pronouns
+  \item Word order (both within phrases, and between phrases)
+  \item ``Analytic'' verb tenses
+\end{itemize}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame} %% framesection
+ \begin{center}
+ {\Large {\bf Formalising rules}} % Formalising rules
+ \end{center}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Creating rules}
+
+\begin{itemize}
+\item In Apertium, our intermediate representation is based on lemmas, parts-of-speech and morphological tags. Syntactic tags may also be used if available.
+\item So, when writing rules, they should be based on this level of intermediate representation
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Operations}
+
+When thinking about implementing transfer rules, it is often worth trying to think in terms of some very basic operations. 
+
+The most basic are:
+
+\begin{itemize}
+  \item {\bf Insertion}: Add a new word or tag, 
+  \begin{itemize}
+    \item e.g., (\texttt{tur}) {\em Yeme!} $\rightarrow$ (\texttt{chv}) {\em {\bf Ан} çи!}. 
+  \end{itemize}
+  \item {\bf Deletion}: Removing a word or a tag, 
+  \begin{itemize}
+    \item e.g., (\texttt{rus}) {\tt <n>{\bf <m><aa>}<nom>} $\rightarrow$ (\texttt{chv}) {\tt <n><nom>}
+  \end{itemize}
+\end{itemize}
+
+The following operations are also basic operations, but can be considered to be permutations of the first two:
+
+\begin{itemize}
+  \item {\bf Substitution}: Replacing one tag or word, with another tag or word
+  \begin{itemize}
+    \item e.g. the vocative case in Ukranian has to be replaced with nominative in Russian 
+  \end{itemize}
+  \item {\bf Reordering}: Changing the order of words, or tags
+  \begin{itemize}
+    \item e.g. the order of plural and possessive morphemes in Chuvash and Turkish: {\em kitap·{\bf lar·ım}} $\rightarrow$ {\em кӗнеке·{\bf м·сем}}
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Combining operations} % Combining operations
+
+Most actual transfer rules will require more than a single operation.  Consider the following example of translating the abilitative from Turkish into Kyrgyz. The rule:
+
+\begin{itemize}
+  \item The abilitative in Turkish is formed with a suffix, {\em -AbIl-}, which then takes verb endings
+  \item In Kyrgyz, it is formed with the imperfect participle and the auxiliary {\em ал}, which takes the verb endings
+\end{itemize}
+
+Formalised:
+
+\begin{itemize}
+  \item {\bf Input}: {\em gelebilirim} = {\tt gel<v><abil><aor><p1><sg>} % Input
+  \begin{itemize}
+    \item ({\sc ins}) Add auxiliary verb {\em ал} after the main verb
+    \item ({\sc del}) Remove {\tt <abil>} tag from the main verb
+    \item ({\sc ins}) Set the person, number and tense of the auxiliary verb to be the same as the main verb
+    \item ({\sc del}) Remove the person, number from the main verb and set the tense to be imperfect participle
+  \end{itemize}
+  \item {\bf Output}: {\tt кел<v><iv>\alert<4>{<prt\_{}impf>} \alert<1>{ал<v><tv>\alert<3>{<aor><p1><sg>}}} = {\em келе алам} % Output
+\end{itemize}
+
+
+\end{frame}
+
+%\begin{frame}
+%  \frametitle{Some advice}
+%
+%
+%
+%\end{frame}
+%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame} %% framesection
+ \begin{center}
+ {\Large {\bf Structural transfer in Apertium}} 
+ \end{center}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\includegraphics[width=\textwidth]{architecture-6.pdf}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Structural transfer}
+
+There are several types of transfer arrangements in Apertium language pairs,
+
+\begin{itemize}
+  \item Single-level transfer:
+\includegraphics[width=0.8\textwidth]{apertium1.pdf}
+
+  \item Multiple-level transfer (without chunking):
+\includegraphics[width=0.8\textwidth]{apertium2.pdf}
+
+  \item Multiple-level transfer:
+
+\includegraphics[width=0.8\textwidth]{apertium3.pdf}
+  
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{How the transfer works}
+
+\begin{itemize}
+\item Rules detect patterns of words (generally specified as parts of speech):
+
+  \begin{itemize}
+  \item DET NOUN\\
+    \emph{The table}
+  \item DET ADJ NOUN\\ 
+    \emph{The black table}
+   \end{itemize}
+\item Transformations are applied to these patterns:
+
+
+\texttt{EN $\rightarrow$ ES}
+\newline
+\newline
+ \begin{tabular}{ll}
+   DET ADJ NOUN & $\rightarrow$ DET NOUN ADJ\\
+   \emph{The black table} &  $\rightarrow$\emph{La ~~mesa ~~negra}\\
+          sp  ~~sp ~~~~  sg     & ~~~f.sg ~f.sg ~~f.sg\\
+\hline
+   \emph{The black book} &  $\rightarrow$\emph{El ~~libro ~~negro}\\
+          sp  ~~sp ~~~~  sg     & ~~~m.sg ~m.sg ~m.sg\\
+  \end{tabular}
+
+   \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{How the rules work}
+\begin{itemize}
+\item words can only be processed by ONE rule: rules can not be overlapped
+\item patterns are matched following the LRLM principle (left-to-right-longest match)
+\newline Example:
+\begin{itemize}
+  \item Rule 1: DET ADJ
+  \item Rule 2: ADJ CONJ ADJ NOUN
+   \item Input text (ru): \emph{Этот большой и шумный город}
+\newline 
+\newline 
+\textbf{Which rule(s) will be applied?}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{How the rules work}
+\begin{itemize}
+\item words can only be processed by ONE rule: rules can not be overlapped
+\item patterns are matched following the LRLM principle (left-to-right-longest match)
+\newline Example:
+\begin{itemize}
+  \item Rule 1: DET ADJ
+  \item Rule 2: ADJ CONJ ADJ NOUN
+   \item Input text (ru): \emph{Этот большой и шумный город}
+\newline 
+\newline \textbf{Which rule(s) will be applied?}
+\newline
+\newline
+\end{itemize}
+\end{itemize}
+\begin{block}{}
+\begin{center}
+\begin{tabular}{llllll}
+ & Этот   & большой   &   и &    шумный   &  город\\
+ & Det  &  Adj &   Conj  &   Adj &  Noun\\
+\end{tabular}
+\end{center}
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{How the rules work}
+\begin{itemize}
+\item words can only be processed by ONE rule: rules can not be overlapped
+\item patterns are matched following the LRLM principle (left-to-right-longest match)
+\newline Example:
+\begin{itemize}
+  \item Rule 1: DET ADJ
+  \item Rule 2: ADJ CONJ ADJ NOUN
+   \item Input text (ru): \emph{Этот большой и шумный город}
+\newline 
+\newline \textbf{Which rule(s) will be applied?}
+\newline
+\newline
+\end{itemize}
+\end{itemize}
+\begin{block}{}
+\begin{tabular}{llllll}
+
+ & \emph{Этот} & \emph{большой} &  \emph{и} & \emph{шумный} & \emph{город} \\
+ & Det  &  Adj &   Conj  &   Adj &  Noun\\
+\emph{left-to-right} & DET & ADJ &&&\\
+\end{tabular}
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Structure of the rule file}
+Structure of the rule file:
+\begin{itemize}
+\item \texttt{<section-def-cats>}
+\item \texttt{<section-def-attrs>}
+\item \texttt{<section-def-vars>}
+\item \texttt{<section-def-lists>}
+\item \texttt{<section-def-macros>}
+\item \texttt{<section-def-rules>}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Structure of the rule file /2}
+
+\begin{itemize}
+ \item \texttt{<section-def-cats>} $\rightarrow$ definition of categories. Categories will be used to define the pattern detected by a rule.
+\begin{exampleblock}{}
+\begin{small}
+\begin{alltt}
+  <def-cat n="noun">\\
+  ~~<cat-item tags="n.*">\\
+  </def-cat>\\
+  <def-cat n="nounplural">\\
+  ~~  <cat-item tags="n.pl"/>\\
+  </def-cat>\\
+\end{alltt}
+\end{small}
+\end{exampleblock}
+Categories can be lexicalised:\\
+\begin{exampleblock}{}
+\begin{small}
+\begin{alltt}
+    <def-cat n="всегда">\\
+     ~~ <cat-item lemma="всегда" tags="adv"/>\\
+    </def-cat>\\
+\end{alltt}
+\end{small}
+\end{exampleblock}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Structure of the rule file /3}
+\begin{itemize}
+\item \texttt{<section-def-attrs>} $\rightarrow$ definition of attributes. Attributes are possible values of a certain feature.
+\begin{exampleblock}{}
+\begin{small}
+\begin{alltt}
+  <def-attr n="nbr">\\
+  ~~<attr-item tags="sg">\\
+  ~~<attr-item tags="pl">\\
+  ~~<attr-item tags="sp"/>\\
+  ~~<attr-item tags="ND"/>\\
+  </def-attr>\\
+
+<def-attr n="gen">\\
+~~<attr-item tags="m">\\
+~~<attr-item tags="f">\\
+~~<attr-item tags="mf">\\
+~~<attr-item tags="GD">\\
+</def-attr>\\
+\end{alltt}
+\end{small}
+\end{exampleblock}
+
+ \item \texttt{<section-def-vars>} $\rightarrow$ definition of variables.
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Structure of the rule file /4}
+\begin{itemize}
+ \item \texttt{<section-def-lists>} $\rightarrow$ definition of lists of lemmas which will be used inside of the rules.
+\begin{exampleblock}{}
+\begin{small}
+\begin{alltt}
+  <def-list n="egunak">\\
+  ~~ <list-item v="понедельник"/>\\
+  ~~ <list-item v="вторник"/> \\
+  ~~ <list-item v="среда"/> \\
+  (...)
+\end{alltt}
+\end{small}
+\end{exampleblock}
+ \item \texttt{<section-def-macros>} $\rightarrow$ definition of macro instructions (parts of code to be reused in the rules).
+ \item \texttt{<section-def-rules>} $\rightarrow$ definition of the transfer rules.
+
+\end{itemize}
+
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Structure of the rule file /2}
+%Minimal layout of a rule file:
+%\begin{block}{}
+% \begin{scriptsize}
+% \begin{alltt}
+%   <transfer>\\
+%   ~<section-def-cats>\\
+%   ~~ <def-cat n="adj\_or\_pp">\\
+%   ~~~ <cat-item tags="adj.*">\\
+%   ~~~ <cat-item tags="vblex.pp.*">\\
+%   ~~ </def-cat>\\
+%   ~~...\\
+%   ~</section-def-cats>\\
+%   ~<section-def-attrs>\\
+%   ~~ <def-attr n="nbr">\\
+%   ~~~ <attr-item n="sg"/>\\
+%   ~~~ <attr-item n="pl"/>\\
+%   ~~...\\
+%   ~</section-def-attrs>\\
+%   ~<section-def-vars>\\
+%   ~~  <def-var n="number"/>\\
+%   ~~ ...\\
+%   ~</section-def-vars>\\
+%   ~<section-rules>\\
+%   ~~<rule comment="NOUN ADJ">\\
+%   ~~ ...\\
+%   ~</section-rules>\\
+%   </transfer>\\
+%    \end{alltt}
+%    \end{scriptsize}
+%\end{block}
+
+%\end{frame}
+
+\begin{frame}
+\frametitle{Structure of a rule} % Structure of a rule
+
+Rule = <pattern> + <action>
+\begin{itemize}
+\item Pattern: defined using the categories of the <section-def-cats>
+\begin{exampleblock}{}
+\begin{small}
+ \begin{alltt}
+   <rule comment="REGLA: DET ADJ">\\
+   ~ <pattern>\\
+   ~~	<pattern-item n="det"/>\\
+   ~~	<pattern-item n="adj"/>\\
+   ~     </pattern>\\
+(...)
+ \end{alltt}
+\end{small}
+\end{exampleblock}
+\item Action: 
+\begin{itemize}
+\item specifies the tests and transformations to be made on the detected pattern
+\item outputs the resulting lexical forms in the desired order
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Description of some tags}
+Some tags used in the \texttt{<action>} part of the rules:
+\begin{itemize}
+  \item \texttt{<choose>}: start a test
+  \begin{itemize}
+  \item \texttt{<when>}: if the conditions specified are met...
+    \begin{itemize}
+    \item \texttt{<test>}: the condition to be tested
+    \item \texttt{<otherwise>}: if the condition is not met...
+    \end{itemize}
+  \end{itemize}
+\item \texttt{<let>}: assign a value
+\item \texttt{<call-macro>}: call a macroinstruction defined in \texttt{<section-def-macros>}
+\item \texttt{<out>}: output the lexical units
+\begin{itemize}
+\item \texttt{<lu>}: lexical unit, specified by means of one or more <clip>
+\end{itemize}
+\item \texttt{<clip>}: the basic unit of a lexical form.\\
+\texttt{<clip pos="2" side="tl" part="lem"/>}\\
+\texttt{<clip pos="2" side="tl" part="temps"/>}\\
+\texttt{<clip pos="2" side="tl" part="whole"/>}\\
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The clip element}
+
+Given the lexical form:
+\begin{block}{}
+\^{} врач\# общей практики<n><m><pl>\$
+\end{block}
+
+\begin{itemize}
+\item \texttt{<clip pos="1" side="sl" part="whole"/>} : whole content of lexical unit
+\item \texttt{<clip pos="1" side="sl" part="lem"/>} : lemma: \emph{врач\# общей практики}
+\item \texttt{<clip pos="1" side="sl" part="tags"/>} : \texttt{<n><m><pl>}
+\item \texttt{<clip pos="1" side="sl" part="lemh"/>} : lemma head : \emph{врач}
+\item \texttt{<clip pos="1" side="sl" part="lemq"/>} : lemma queue : \emph{\# общей практики}
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example rule}
+\vspace{-6pt}
+\begin{small}
+\begin{alltt}
+    <rule comment="regla: v\_{}abil">
+      <pattern>
+        <pattern-item n="v\_{}abil"/>
+      </pattern>
+      <action>
+        <let><clip pos="1" side="tl" part="abil"/><lit v=""/></let>
+        <out>
+            <lu>
+              <clip pos="1" side="tl" part="lem"/>
+              <clip pos="1" side="tl" part="a\_{}verb"/>
+              <lit-tag v="prt\_{}impf"/>
+            </lu>
+            <b/> 
+            <lu>
+              <lit v="ал"/><lit-tag v="v.tv"/>
+              <clip pos="1" side="tl" part="neg"/>
+              <clip pos="1" side="tl" part="a\_{}pers"/>
+              <clip pos="1" side="tl" part="a\_{}num"/>
+            </lu>
+        </out>
+      </action>
+    </rule>
+
+\end{alltt}
+\end{small}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Практическая часть}
+
+Now we'll try describing some rules, formalising them and then implementing them in 
+Apertium's XML format.
+
+\end{frame}
+
+\end{document}

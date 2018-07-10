@@ -1,0 +1,180 @@
+\documentclass{beamer} %[compress, blue]
+\mode<presentation>
+
+
+\setbeamercolor{frametitle}{fg=lightred,bg=darkred}
+\setbeamercolor{title}{fg=lightred,bg=darkred}
+
+\usepackage[russian,english]{babel}
+\usepackage{ucs}
+\usepackage{times}
+\usepackage[LGR,T2A,T1]{fontenc}
+\usepackage{tipa} %ŋ character
+\usepackage[utf8x]{inputenc}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{graphicx}
+%\usepackage[small,bf]{caption}
+%\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{url}
+\usepackage{gb4e}
+\usepackage{linguex}
+\usepackage{cgloss4e}
+\usepackage{multirow}
+\usepackage{ragged2e} 
+\usepackage{wasysym}
+
+\usetheme{Warsaw}
+
+\definecolor{darkred}{RGB}{153,0,0}
+\definecolor{lightred}{RGB}{226,200,200}
+\definecolor{yellow}{RGB}{226,226,50}
+
+\definecolor{ranis}{RGB}{ 128,128,128}
+
+\newcommand\cyrtext[1]{{\fontencoding{T2A}\selectfont #1}}
+\newcommand\grktext[1]{{\fontencoding{LGR}\fontfamily{pmt}\selectfont #1}}
+
+
+
+\useoutertheme[subsection=false]{smoothbars}
+
+%\usecolortheme{seahorse} %beetle, albatross, fly, default light, seahorse, crane, dove
+\usecolortheme[named= darkred]{structure}
+
+\setbeamertemplate{footline}[text line]{} % makes the footer EMPTY
+\setbeamertemplate{headline}[text line]{} % header empty
+
+\setbeamersize{text margin left=0.5cm}
+\setbeamertemplate{navigation symbols}{}
+
+
+
+\pgfdeclareimage[height=1.6cm]{logo}{logoASWnotrans.png}
+
+\setlength{\TPHorizModule}{1mm}
+\setlength{\TPVertModule}{1mm}
+
+\newcommand{\MyLogoCentred}{
+\begin{textblock}{14}(57.2,10.5)
+  \pgfuseimage{logo}
+\end{textblock}
+}
+
+\newcommand{\MyLogoBottomRight}{
+\begin{textblock}{14}(112.2,80.0)
+  \pgfuseimage{logo}
+\end{textblock}
+}
+
+\newcommand{\MyLogo}{
+\begin{textblock}{14}(112.2,0.5)
+  \pgfuseimage{logo}
+\end{textblock}
+}
+
+\newcommand{\MyLogoBottomCentred}{
+\begin{textblock}{14}(53.5,75)
+  \pgfuseimage{logo}
+\end{textblock}
+}
+
+
+
+\date{2nd--13th November, 2015}
+\title{\cyrtext{Раздел 8: Планирование проекта}}
+\begin{document}
+
+\begin{frame}
+        \titlepage
+\MyLogoBottomCentred
+\end{frame}
+
+\logo{\includegraphics[height=1.6cm]{logoASWnotrans.png}}
+
+\begin{frame}
+  \frametitle{Introduction}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Case studies
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Case studies}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Case study: Spanish and Catalan}
+
+\begin{itemize}
+  \item Spanish and Catalan (+ Valencian variant)
+  \item Dictionary entries: approx. 43,000
+  \item Coverage: approx. 97.6\% (Europarl), approx. 90\% (Wikipedia)
+  \item Word error rate: approx. 3--7\%
+  \item Development time: 72+ person months 
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Case study: Norwegian Nynorsk and Bokmål}
+
+\begin{itemize}
+  \item Norwegian Nynorsk and Norwegian Bokmål
+  \item Dictionary entries: approx. 63,600
+  \item Coverage: approx. 88.2--89.6\% (Wikipedia)
+  \item Word error rate: approx. 14\%
+  \item Development time: 3+ person months 
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Case study: Breton and French}
+
+\begin{itemize}
+  \item Breton and French
+  \item Dictionary entries: approx. 17,693
+  \item Coverage: approx. 89\% (Wikipedia), approx. 90\% (Bremaik)
+  \item Word error rate: approx. 38\%
+  \item Development time: 3+ person months 
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Case study: Spanish and Aragonese}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Expectations}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{One month}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Three months}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{One year}
+
+\end{frame}
+
+
+
+\end{document}

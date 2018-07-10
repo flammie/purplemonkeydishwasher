@@ -1,0 +1,103 @@
+\documentclass[10pt,xetex]{beamer} %[compress, blue]
+\mode<presentation>
+
+\usepackage{helsingfors}
+\usepackage{alltt}
+\usepackage[normalem]{ulem}
+
+\date{2nd--13th November, 2015}
+\title{$\alpha$: Re-usable things, infra-structures}
+
+\begin{document}
+
+\begin{frame}
+        \titlepage
+\MyLogoBottomCentred
+\end{frame}
+
+\logo{\includegraphics[height=1.6cm]{../logo/logo}}
+
+\begin{frame}
+  \frametitle{Introduction}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Case studies
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Existing morphologies}
+  Usually largely available for big well-resourced languages
+    \begin{itemize}
+        \item Finnish: omorfi \url{https://github.com/flammie/omorfi/}
+        \item Estonian: plamk \url{https://github.com/jjpp/plamk/}
+        \item \ldots
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ad hoc tagsets}
+  \texttt{
+mikä|UPOS=PRON|PRONTYPE=INT|CASE=INE  \\
+mikä|UPOS=PRON|PRONTYPE=REL|CASE=INE  \\
+mikä|UPOS=PRON|SUBCAT=QUANTIFIER|CASE=INE  \\
+missä|UPOS=ADV \\
+olla|UPOS=AUX|VOICE=ACT|MOOD=INDV|TENSE=PRESENT|PERS=SG3  \\
+olla|UPOS=VERB|VOICE=ACT|MOOD=INDV|TENSE=PRESENT|PERS=SG3  \\
+Jaak|UPOS=PROPN|PROPER=PROPER|NUM=SG|CASE=NOM|CLIT=KO  \\
+Jaakko|UPOS=PROPN|PROPER=PROPER|NUM=SG|CASE=NOM }
+vs. our hand-written:
+\texttt{\textasciicircum missä/missä<adv>\$
+\textasciicircum Jaakko/*Jaakko\$
+\textasciicircum on/olla<v><3sg><pres>\$}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ad hoc tagsets}
+  \texttt{
+kus+Adv \\
+olema+V+indic+pres+ps3+pl+ps+af \\
+olema+V+indic+pres+ps3+sg+ps+af \\
+James+H+sg+nom
+}
+vs. 
+\texttt{\textasciicircum kus/kus<adv>\$
+\textasciicircum on/olema<v><3sg><pres>/olema<v><3pl><pres>\$
+\textasciicircum James/*James\$}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Best common practices to match them: Common research infra}
+
+  Common research infra is
+\begin{itemize}
+    \item SVN directory structure for lexc, twol, etc. files
+    \item coding style and standard tags
+    \item used for tons of applications, not just MT
+    \item super complicated
+    \item hopefully backed up by good tech support team
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Giellatekno.uit.no}
+    \begin{itemize}
+        \item developed in Tromsø for Saami, urals etc. languages with
+            finite state morphology in mind
+        \item current version is good for spell-checking, MT, analysis,
+            computer aided language learning and some text to speech
+        \item free / open source, usable by anyone, goood-ish documentation
+            in a few languages, smart people answering questions, etc.
+        \item we've made a few academic publications that are good source for
+            more info (I'm gonna re-use ones from Free Software conference 2013
+            Gothenburg now)
+    \end{itemize}
+\end{frame}
+
+
+
+\end{document}

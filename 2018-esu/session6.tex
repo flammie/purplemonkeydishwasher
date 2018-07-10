@@ -1,0 +1,301 @@
+\documentclass[10pt,xetex]{beamer} %[compress, blue]
+\mode<presentation>
+
+\usepackage{helsingfors}
+
+\date{2nd--13th November, 2015}
+\title{Session 6: Chunk transfer}
+\begin{document}
+
+\begin{frame}
+        \titlepage
+\MyLogoBottomCentred
+\end{frame}
+
+\logo{\includegraphics[height=1.6cm]{../logo/logo}}
+
+\begin{frame}
+\frametitle{Chunk transfer} % Advanced transfer
+
+Chunk transfer: 3 transfer submodules:
+\newline
+
+
+%\includegraphics[scale=0.32]{dibuix-transfer3.png}
+\begin{center}
+\includegraphics[scale=0.45]{dibuix-transfer-moduls-1.pdf}
+\end{center}
+
+\begin{tabular}{lccc}
+~~~~~~~~~~~~~~~~~~~~~~~~~  &t1x & t2x & ~~ t3x \\
+~~~~~~~~~~~~~~~~~~~~~~~~~  &LRLM & LRLM & ~~ \\
+~~~~~~~~~~~~~~~~~~~~~~~~~  &patterns & patterns of & ~~ chunks \\
+~~~~~~~~~~~~~~~~~~~~~~~~~ & ~~ & chunks & ~~ chunks
+
+\end{tabular}
+\newline
+\newline
+\newline
+\newline
+Chunker and interchunk have the same \alert{file structure}.
+Chunker is like the transfer module in the single level transfer.
+Main difference: 
+\begin{itemize}
+\item Transfer outputs \alert{lexical units}
+\item Chunker outputs \alert{chunks}, to be processed by the interchunk
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Chunks}
+
+Chunks = group of words that correspond roughly to a phrase. \\
+~\\
+
+\begin{small}
+\begin{tabular}{llll}
+{\bf Input pattern} & 	{\bf Example} & 	{\bf Output chunk} &	{\bf Example} \\
+\hline
+nom & 	{\em ҫурт} &	SN$\{$nom$\}$ &	дом \\
+adj nom & 	{\em хитре ҫурт} & 	SN$\{$nom adj$\}$ &	красивый дом \\
+det nom &	{\em манăн ҫурт} &	SN$\{$det nom$\}$ &	мой дом\\
+num nom &	{\em икĕ ҫурт} &	SN$\{$num nom$\}$ &	два дома\\
+adj nom &	{\em хитре ҫуртсем} & 	SN$\{$adj nom$\}$ &	красивые домы\\
+adv adj nom &	{\em питĕ хитре ҫурт} & 	SN$\{$adv adj nom$\}$ &	очень красивый дом\\
+%num adv adj nom &	{\em пилĕ питĕ хитре ҫурт} &	SN$\{$num adv adj nom$\}$ &	пять очень красивых домов \\
+\hline
+verb &	{\em вулать} 	& V$\{$verb$\}$  &	читает \\
+verb &	{\em вуламасть} &	V$\{$neg\_{}adv verb$\}$  &	не читает  \\
+adv verb &	{\em ан вула !} & 	V$\{$adv verb$\}$ &	не читай ! \\
+ger verb &	{\em вулама пуçлать} & 	V$\{$verb inf$\}$ 	&начинает читать \\
+\hline
+\end{tabular}
+\end{small}
+
+\end{frame}
+
+\begin{frame}
+The creation of chunks allows for a more powerful treatment of syntactic/structural divergences:
+
+\begin{exampleblock}{Example} % Example
+\begin{tabular}{l|l|l}
+interchunk rule: & NP & V\\
+\hline
+possible chunks: & noun & verb\\
+& det noun & aux verb\\
+& det adj noun & adv verb\\
+& adj noun & aux adv verb \\
+& adj adj noun & aux aux verb\\
+& adj conj adj noun & ...\\
+& ... &\\
+
+
+\end{tabular}
+\end{exampleblock}
+
+\end{frame}
+
+
+\begin{frame}{The chunker}
+
+The \textbf{chunker} is like the \textbf{transfer} module of the single-level transfer, being the main difference:
+\begin{itemize}
+\item The transfer outputs \alert{lexical units}
+\item The chunker outputs \alert{chunks}
+\end{itemize}
+Structure of a chunk:
+\begin{itemize}
+\item Chunk = chunkname<tags>\{chunk\_content\}
+
+
+\item In the chunker, lexical units are translated into the target language
+
+
+\end{itemize}
+Example input (from ``chunker''):
+\begin{exampleblock}{}
+\emph{``Анна -- мугалим'' (ky $\rightarrow$ ru)} 
+\begin{small}
+\texttt{\^{}n<SN><DEF>{\color{blue}{<f>}}<aa>{\color{red}{<sg>}}{\color{green}{<nom>}}\{\^{}Анна<np><ant>{\color{blue}{<3>}}<aa>{\color{red}{<5>}{\color{green}{<6>}}}\$\}\$} \\
+\texttt{\^{}cop<Vcop><guio>\{\^{}-<guio>\$\}\$} \\
+\texttt{\^{}n<SN><IND>{\color{blue}{<GD>}}<aa>{\color{red}{<ND>}}{\color{green}{<nom>}}\{\^{}преподаватель<n>{\color{blue}{<3>}}<aa>{\color{red}{<5>}{\color{green}{<6>}}}\$\}\$}
+\end{small}
+
+\end{exampleblock}
+
+
+%\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The interchunk module}
+
+
+The interchunk module:
+\begin{itemize}
+\item detects \alert{patterns of chunks} in the same way that the chunker detects patterns of words
+\item applies the necessary transformations to these patterns: agreement, reorderings, syntactic or morphological changes
+\\[5pt]
+\end{itemize}
+Example output:
+\begin{exampleblock}{}
+\begin{small}
+\emph{``Анна -- мугалим'' (ky $\rightarrow$ ru)} 
+\begin{small}
+\texttt{\^{}n<SN><DEF>{\color{blue}{<f>}}<aa>{\color{red}{<sg>}}{\color{green}{<nom>}}\{\^{}Анна<np><ant>{\color{blue}{<3>}}<aa>{\color{red}{<5>}{\color{green}{<6>}}}\$\}\$} \\
+\texttt{\^{}cop<Vcop><guio>\{\^{}-<guio>\$\}\$} \\
+\texttt{\^{}n<SN><IND>{\color{blue}{<f>}}<aa>{\color{red}{<sg>}}{\color{green}{<nom>}}\{\^{}преподаватель<n>{\color{blue}{<3>}}<aa>{\color{red}{<5>}{\color{green}{<6>}}}\$\}\$}
+\end{small}
+
+\end{small}
+
+\end{exampleblock}
+The main difference with the chunker rules: the <clip> element in the rules does not have a \emph{side} attribute:
+\begin{itemize}
+\item making chunks (chunker): \texttt{<clip pos="2" side="tl" part="lem"/>}\\
+\item working between chunks (interchunk): \texttt{<clip pos="2" part="lem"/>}\\
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+%\frametitle{Interchunk}
+
+\begin{exampleblock}{Examples of interchunk operations (adapted from \texttt{en-es})}
+{\smallersans
+\begin{itemize}
+  \item Agreement SN-SA:
+  \begin{itemize}
+    \item \emph{Идея жаман эмес} $\rightarrow$ \emph{Идея не плохая}
+    \item Rule: SN SA POSTADV, SN ADV SA...
+  \end{itemize}
+  \item Agreement SN-SN:
+  \begin{itemize}
+    \item \emph{Анна -- мугалим} $\rightarrow$ \emph{Анна -- преподавательница}
+    \item Rule: SN Vcop SN, SN Vcop ADV SN...
+   \end{itemize}
+   \item Agreement SN-SV:
+   \begin{itemize}
+     \item \emph{Адам келди} $\rightarrow$ \emph{Мужчинa пришёл}
+     \item \emph{Адамдар келди} $\rightarrow$ \emph{Мужчины пришли}
+     \item Rule: SN SV, SN ADV SV, ...
+    \end{itemize}
+   \item Deletion of subject pronouns:
+   \begin{itemize}
+      \item \emph{Мы не пошли} $\rightarrow$ \emph{No fuimos}
+    \end{itemize}
+    \item Syntactic changes:
+    \begin{itemize}
+       \item \emph{Им нравятся торты.} $\rightarrow$ \emph{Алар тортту жакшы көрүшөт.}
+    \end{itemize}
+    \item Generation of articles:
+    \begin{itemize}
+      \item \emph{Кече балдар\textbf{ды} көрдүм.} $\rightarrow$ \emph{Ahir vaig veure \textbf{els} nens.}
+      \item ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ $\rightarrow$ \emph{Hier j'ai vu \textbf{les} enfants.}
+    \end{itemize}
+\end{itemize}
+}
+%\texttt{\^{}Nom<SN><PDET><f><sg>\{\^{}Maria<np><ant><3><4>\$\}\$\\
+%\^{}be<Vcop><vbser><pri><p3><sg>\{\^{}ser<vbser><3><4><5>\$\}\$ \\
+%\^{}det\_nom<SN><DET>{\color{red}{<f><sg>}}\{\^{}el<det><def><3><4>\$ \^{}profesor<n><3><4>\$\}\$}
+
+
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Взаимодействие между модулями /3}
+
+\begin{exampleblock}{}
+\begin{small}
+  <rule comment="REGLA: SN -- SN">\\
+  ~~  <pattern>\\
+  ~~~~	<pattern-item n="SN"/>\\
+  ~~~~	<pattern-item n="vbcop"/>\\
+  ~~~~	<pattern-item n="SN"/>\\
+  ~~ </pattern>\\
+  ~~ <action>\\
+  ~~ (...)\\
+  ~~~	<out>\\
+  ~~~~	  <chunk>\\
+  ~~~~~	    <clip pos="1" part="whole"/>\\
+  ~~~~	  </chunk>\\
+  ~~~~	  <b pos="1"/>\\
+  ~~~~	  <chunk>\\
+  ~~~~~	    <clip pos="2" part="whole"/>\\
+  ~~~~	  </chunk>\\
+(...)
+\end{small}
+\end{exampleblock}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The postchunk module}
+
+The postchunk module:
+\begin{itemize}
+\item substitutes numbers in tags by the referenced values
+
+\item removes the chunk lemma and tags
+\item outputs the sequence of lexical units
+\item can operate only on a single chunk at a time
+\item can perform some final operations on the chunk content
+\newline
+
+\end{itemize}
+
+% Example output:
+\begin{exampleblock}{}
+\emph{``Анна -- мугалим'' (ky $\rightarrow$ ru)}\\
+\texttt{\^{}Анна<np><ant>{\color{blue}{<f>}}<aa>{\color{red}{<sg>}}{\color{green}{<nom>}}\$} \\
+\texttt{\^{}-<guio>\$} \\
+\texttt{\^{}преподаватель<n>{\color{blue}{<f>}}<aa>{\color{red}{<sg>}}{\color{green}{<nom>}}\$} \\
+
+\end{exampleblock}
+
+Output of generation: {\em Анна -- преподавательница}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Looking at three-stage transfer}
+
+\textbf{Input text}: \emph{``Жөргөмүштөр сулуу.''}
+\\[9pt]
+
+\textbf{apertium -d . kir-rus-pretransfer}\\
+\texttt{\^{}Жөргөмүш<n><pl><nom>\$ \^{}сулуу<adj>\$}
+\newline
+
+\textbf{apertium -d . kir-rus-chunker}\\
+\texttt{\^{}Nom<SN>{\color{blue}{<m>}}<nn>{\color{red}{<pl>}}{\color{green}{<nom>}}\{\^{}паук<n>{\color{blue}{<2>}}<nn>{\color{red}{<4>}}{\color{green}{<5>}}\$\}\$\\
+ \^{}adj<SA>{\color{blue}{<GD>}}{\color{red}{<ND>}}{\color{green}{<CD>}}\{\^{}красивый<adj>{\color{magenta}{<short>}}{\color{blue}{<2>}}{\color{red}{<3>}{\color{green}{<4>}}}\$\}\$}
+\newline
+
+\textbf{apertium -d . kir-rus-interchunk}\\
+\texttt{\^{}Nom<SN>{\color{blue}{<m>}}<nn>{\color{red}{<pl>}}{\color{green}{<nom>}}\{\^{}паук<n>{\color{blue}{<2>}}<nn>{\color{red}{<4>}}{\color{green}{<5>}}\$\}\$\\
+ \^{}adj<SA>{\color{blue}{<mfn>}}{\color{red}{<pl>}}{\color{green}{<nom>}}\{\^{}красивый<adj><short>{\color{blue}{<2>}}{\color{red}{<3>}{\color{green}{<4>}}}\$\}\$}
+\newline
+
+\textbf{apertium -d . kir-rus-postchunk}\\
+\texttt{\^{}Паук<n>{\color{red}{<m>}}<nn>{\color{red}{<pl><nom>}}\$}\\
+\texttt{\^{}красивый<adj><short>{\color{red}{<mfn><pl><nom>}}\$} \\
+~\\
+\textbf{Output text:} ``\emph{Пауки красивы.}'' % Output text
+
+\end{frame}
+
+
+%\begin{frame}
+
+
+
+%\end{frame}
+
+
+\end{document}
