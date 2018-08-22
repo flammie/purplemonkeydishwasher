@@ -10,6 +10,8 @@ title: Academic homepage of Tommi A Pirinen
 [CLARIN-D developer](https://clarin-d.net),
 etc. usw.
 
+<div itemscope itemtype="https://schema.org/Person"><a itemprop="sameAs" content="https://orcid.org/0000-0003-1207-5395" href="https://orcid.org/0000-0003-1207-5395" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0003-1207-5395</a></div>
+
 [Here's some of the same info formatted as a CV](cv.html).
 
 ## Short academic history
@@ -54,7 +56,7 @@ publications](http://scholar.google.com/citations?user=XNOLAagAAAAJ) and see
 their incoming citations.
 
 Here is a [bib-file of all my publications](bibs/pirinen.bib), it may or may not
-be as accurat and up-to-date as google scholar.
+be as accurate and up-to-date as google scholar.
 
 ###  Publications in conferences and journals
 
