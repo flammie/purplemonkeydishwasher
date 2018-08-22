@@ -294,7 +294,15 @@ work at university and sparetime hobbies related to science:
    I spun off from the main HFST library with help of my colleagues, now
    maintained by HFST team
 
-### Courses I've taught or TA'd
+### Teaching
+
+ * [Corpus tools, Uni. Helsinki 2010](http://www.ling.helsinki.fi/kit/2010s/clt131/index.shtml),
+   [Corpus tools, Uni. Helsinki 2011](http://www.ling.helsinki.fi/kit/2011s/clt131/index.shtml)
+ * [Rule-based machine translation, Uni. Helsinki 2013](http://wiki.apertium.org/wiki/Helsinki_Apertium_Workshop),
+   [Rule-based machine translation, Tarto ylikool, 2015](http://wiki.apertium.org/wiki/Tartu_Apertium_Course),
+   [Rule-based machine translation, European Summer University for Culture & Technology, Leipzig 2018](http://wiki.apertium.org/wiki/Leipzig_workshophttp://wiki.apertium.org/wiki/Leipzig_workshop)
+
+And some TA jobs (Uni. Helsinki):
 
  * Introduction to Speech Synthesis
  * Programming NLS
