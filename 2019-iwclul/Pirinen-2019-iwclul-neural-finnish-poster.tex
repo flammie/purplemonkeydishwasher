@@ -1,0 +1,82 @@
+\documentclass[final,hyperref={pdfpagelabels}]{beamer}
+
+\usepackage{fontspec}
+\usepackage[absolute,overlay]{textpos}
+
+\usepackage{amsmath,amsthm, amssymb, latexsym}
+\boldmath
+
+\usepackage{array,booktabs,tabularx}
+
+\mode<presentation>
+{
+    \usetheme{HZSK}
+}
+\usepackage[orientation=portrait,size=a0,scale=1.4]{beamerposter}
+
+\title[Finnish neural NLP]{{\huge Neural and rule-based Finnish NLP models}\\
+\url{https://github.com/flammie/omorfi}}
+\author[tommi.antero.pirinen@uni-hamburg.de]{Tommi A Pirinen$^\star$ }
+\institute[UHH-HZSK]{$^\star$ Universität Hamburg,Hamburger Zentrumb für
+Sprachkorpora}
+\date{\today}
+
+%\logo{\includegraphics[height=7.5cm]{AbumatranLogo}}
+
+\newlength{\columnheight}
+\setlength{\columnheight}{105cm}
+
+
+\begin{document}
+
+\begin{frame}
+      \maketitle
+      %\vfill
+      \begin{columns}
+      \begin{column}{.49\textwidth}
+      \begin{beamercolorbox}[center,wd=\textwidth]{postercolumn}
+          \begin{minipage}[T]{.95\textwidth}  % tweaks the width, makes a new \textwidth
+          \parbox[t][\columnheight]{\textwidth}{ % must be some better way to set t
+        \begin{block}{BLOCK1}
+            \begin{itemize}
+                \item ITEMS
+            \end{itemize}
+        \end{block}
+
+        \begin{block}{BLOCK2}
+            \begin{itemize}
+                \item ITEMS
+            \end{itemize}
+        \end{block}
+
+         }
+        \end{minipage}
+      \end{beamercolorbox}
+  \end{column}
+    %\end{textblock}
+
+    %\begin{textblock}{60}{0.1,1.6}
+   \begin{column}{.49\textwidth}
+      \begin{beamercolorbox}[center,wd=\textwidth]{postercolumn}
+        \begin{minipage}[T]{.95\textwidth} % tweaks the width, makes a new \textwidth
+          \parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
+
+        \begin{block}{BLOCK-1}
+            GRAPHICS
+        \end{block}
+
+        \begin{block}{BLOCK-2}
+            TABLES
+        \end{block}
+
+    %\end{textblock}
+         }
+          % ---------------------------------------------------------%
+          % end the column
+        \end{minipage}
+      \end{beamercolorbox}
+    \end{column}
+  \end{columns}
+
+  \end{frame}
+\end{document}
