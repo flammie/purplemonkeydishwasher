@@ -8,6 +8,8 @@
 
 \usepackage{array,booktabs,tabularx}
 
+\usepackage{verbatimbox}
+
 \mode<presentation>
 {
     \usetheme{HZSK}
@@ -17,7 +19,7 @@
 \title[Finnish neural NLP]{{\huge Neural and rule-based Finnish NLP models}\\
 \url{https://github.com/flammie/omorfi}}
 \author[tommi.antero.pirinen@uni-hamburg.de]{Tommi A Pirinen$^\star$ }
-\institute[UHH-HZSK]{$^\star$ Universität Hamburg,Hamburger Zentrumb für
+\institute[UHH-HZSK]{$^\star$ Universität Hamburg,Hamburger Zentrum für
 Sprachkorpora}
 \date{\today}
 
@@ -29,6 +31,64 @@ Sprachkorpora}
 
 \begin{document}
 
+\begin{myverbbox}[\scriptsize]{\OmorfiAnals}$ omorfi-analyse-text.sh -X test/test.text
+Juankosken   WORD_ID=Juankoski UPOS=PROPN PROPER=GEO NUM=SG CASE=GEN
+Juankosken   WORD_ID=juan UPOS=NOUN SEM=CURRENCY NUM=SG CASE=NOM
+        BOUNDARY=COMPOUND WORD_ID=koski UPOS=NOUN NUM=SG CASE=GEN
+
+kaupunki    WORD_ID=kaupunki UPOS=NOUN NUM=SG CASE=NOM
+
+liittyy    WORD_ID=liittyä UPOS=VERB VOICE=ACT MOOD=INDV TENSE=PRESENT PERS=SG0
+liittyy    WORD_ID=liittyä UPOS=VERB VOICE=ACT MOOD=INDV TENSE=PRESENT PERS=SG3
+
+
+Kuopion    WORD_ID=Kuopio UPOS=PROPN PROPER=GEO NUM=SG CASE=GEN
+Kuopion    WORD_ID=kuopia UPOS=VERB VOICE=ACT MOOD=OPT PERS=SG1 STYLE=ARCHAIC
+
+kaupunkiin    WORD_ID=kaupunki UPOS=NOUN NUM=SG CASE=ILL
+\end{myverbbox}
+\begin{myverbbox}[\scriptsize]{\OmorfiUDs}$ omorfi-tokenise.py -a src/generated/omorfi.describe.hfst -O conllu -i
+        test/test.text |
+        omorfi-conllu.py -a src/generated/omorfi.describe.hfst
+        --not-rules src/disamparsulation/omorfi.xml
+
+# new doc id= test/test.text
+# sent_id = 1
+# text = Juankosken kaupunki liittyy Kuopion kaupunkiin vuoden 2017 alussa.
+1   Juankosken   Juankoski   PROPN   N   Case=Gen|Number=Sing   2   nmod:poss
+        _   Weight=0.01
+2   kaupunki   kaupunki   NOUN   N   Case=Nom|Number=Sing   3   nsubj   _
+        Weight=0.005
+3   liittyy   liittyä   VERB   V
+        Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin|Voice=Act   0
+        root   _   Weight=0.21000000000000002
+4   Kuopion   Kuopio   PROPN   N   Case=Gen|Number=Sing   5   nmod:poss   _
+        Weight=0.01
+5   kaupunkiin   kaupunki   NOUN   N   Case=Ill|Number=Sing   3   obl   _
+        Weight=0.01
+\end{myverbbox}
+\begin{myverbbox}[\scriptsize]{\TurkuParses}$ cat ~/github/flammie/omorfi/test/test.text |
+        python3 full_pipeline_stream.py --conf models_fi_tdt/pipelines.yaml --pipeline parse_plaintext
+# newdoc
+# newpar
+# sent_id = 1
+# text = Juankosken kaupunki liittyy Kuopion kaupunkiin vuoden 2017 alussa.
+1   Juankosken   Juankoski   PROPN   N   Case=Gen|Number=Sing   2   nmod:poss _
+        _
+2   kaupunki   kaupunki   NOUN   N   Case=Nom|Number=Sing   3   nsubj   _   _
+3   liittyy   liittyä   VERB   V
+        Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin|Voice=Act   0
+        root   _   _
+4   Kuopion   Kuopio   PROPN   N   Case=Gen|Number=Sing   5   nmod:poss   _   _
+5   kaupunkiin   kaupunki   NOUN   N   Case=Ill|Number=Sing   3   obl   _   _
+\end{myverbbox}
+\begin{myverbbox}[\scriptsize]{\Apertiums}
+xxx
+\end{myverbbox}
+\begin{myverbbox}[\scriptsize]{\OpenNLPs}
+xxx$
+\end{myverbbox}
+
 \begin{frame}
       \maketitle
       %\vfill
@@ -38,15 +98,22 @@ Sprachkorpora}
           \begin{minipage}[T]{.95\textwidth}  % tweaks the width, makes a new \textwidth
           \parbox[t][\columnheight]{\textwidth}{ % must be some better way to set t
         \begin{block}{BLOCK1}
-            \begin{itemize}
-                \item ITEMS
-            \end{itemize}
+            In these experiments I tested off-the-shelf quality of popular
+            rule-based and neural analysers and machine translators for Finnish.
+
         \end{block}
 
-        \begin{block}{BLOCK2}
-            \begin{itemize}
-                \item ITEMS
-            \end{itemize}
+        \begin{block}{Examples}
+            Omorfi analyses:
+            \fbox{\OmorfiAnals}
+            Omorfi parses UD-ified:
+            \fbox{\OmorfiUDs}
+            Turku parses:
+            \fbox{\TurkuParses}
+            Apertium-fin-deu translates:
+            \fbox{\Apertiums}
+            OpenNLP-py translates:
+            \fbox{\OpenNLPs}
         \end{block}
 
          }
@@ -65,10 +132,83 @@ Sprachkorpora}
             GRAPHICS
         \end{block}
 
-        \begin{block}{BLOCK-2}
-            TABLES
-        \end{block}
+        \begin{block}{Neural vs. Rule-based high scores}
+\begin{table}
+\begin{centering}
+    \begin{tabular}{lrrrr}
+        \toprule
+        Phase, System & \bf omorfi & \bf TNPP & \bf apertium & \bf OpenNMT \\
+        \midrule
+        Compiling & 15 minutes & --- & 40 seconds & >5 days \\
+        (Downloading) & yes & yes & no & no\\
+        Parsing / translating & 5 minutes & 10 minutes  & 5 seconds & 30 minutes \\
+        (Speed) & 5 sents/s & 3 sents/s & 324 sents/s & 0.9 sents/s \\
+        \midrule
+        Model size & 25 MiB & 770 MiB & 33 MiB & 7420 MiB \\
+        \bottomrule
+    \end{tabular}
+    \caption{Usage times of rule-based and neural systems, time-units are
+    indicated in the table. For TNPP I have found no documentation on how to
+    repeat model building or what time it has taken. Sents/s stands for
+    average sentences per second. Model sizes gives you the total size of
+    binaries on disk in binary-prefixed bytes (by \texttt{ls -h}).
+\label{table:times}}
+\end{centering}
+\end{table}
+\begin{table}
+\begin{centering}
+    \begin{tabular}{lrrr}
+        \toprule
+        Test set & \bf Baseline & \bf Winning system & \bf Omorfi \\
+        \midrule
+        Task 1 & 64.45 & 97.30 & 93.92 \\
+        Task 2 & 59.59 & 97.40 & 93.20 \\
+        Task 3 & 56.95 & 96.56 & 92.18 \\
+        \bottomrule
+    \end{tabular}
+    \caption{1-Best precisions for SIGMORPHON shared task 2016 in Finnish,
+    the winning Neural system and omorfi scores.
+\label{table:eval-sigmorphon}}
+\end{centering}
+\end{table}
+\begin{table}
+\begin{centering}
+    \begin{tabular}{lrr}
+        \toprule
+    Column & \bf Turku Neural parsing pipeline & \bf Omorfi \\
+        \midrule
+        \bf Lemma & 95.54 & 82.63 \\
+        \bf UPOS & 96.91 & 83.88 \\
+        \bf Ufeats & 94.61 & 73.95\\
+        \bf XPOS & 97.89 & 89.58 \\
+        \bf Dephead & 90.89 & 33.13 \\
+        \bf Deplabel & 92.61 & 49.01 \\
+        \bottomrule
+    \end{tabular}
+    \caption{1-best precisions of Turku neural parsing system and
+    omorfi. The numbers were measured with our script since the official
+    test script does not handle partial dependency graphs or multiple roots.
+\label{table:eval-ud}}
+\end{centering}
+\end{table}
+\begin{table}
+\begin{centering}
+    \begin{tabular}{lrr}
+        \toprule
+    Language pair & \bf OpenNMT & \bf Apertium \\
+        \midrule
+        \bf German to Finnish & 7.09 & 0.6 \\
+        \bf Finnish to German & 7.12 & 0.3  \\
+        \bottomrule
+    \end{tabular}
+    \caption{Automatic translation evaluations, metrics from WMT shared
+    tasks 2018 and corpora from europarl evaluation section. BLEU scores have
+    been measured with the tool \texttt{mteval-14.perl}.
+\label{table:eval-wmt}}
+\end{centering}
+\end{table}
 
+        \end{block}
     %\end{textblock}
          }
           % ---------------------------------------------------------%
