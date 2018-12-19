@@ -83,10 +83,16 @@ kaupunkiin    WORD_ID=kaupunki UPOS=NOUN NUM=SG CASE=ILL
 5   kaupunkiin   kaupunki   NOUN   N   Case=Ill|Number=Sing   3   obl   _   _
 \end{myverbbox}
 \begin{myverbbox}[\scriptsize]{\Apertiums}
-xxx
+$ apertium -d . deu-fin
+Die Entwicklung des heutigen Gebietes der Stadt begann ab 1748.
+kehitys nykyisen alueen kaupungin alkoi 1748:nnesta alkaen
 \end{myverbbox}
 \begin{myverbbox}[\scriptsize]{\OpenNLPs}
-xxx$
+$ ~/github/OpenNMT-py/translate.py --model \
+    europarl-v7.de-fi.opennmt-model.de-fi_step_* --src test.text
+SENT 1: ('Die', 'Entwicklung', 'des', 'heutigen', 'Gebietes', 'der', 'Stadt', 'begann', 'ab', '1748.')
+PRED 1: nykyisen alueen kehittäminen alkoi 1748. .
+$
 \end{myverbbox}
 
 \begin{frame}
@@ -96,23 +102,26 @@ xxx$
       \begin{column}{.49\textwidth}
       \begin{beamercolorbox}[center,wd=\textwidth]{postercolumn}
           \begin{minipage}[T]{.95\textwidth}  % tweaks the width, makes a new \textwidth
-          \parbox[t][\columnheight]{\textwidth}{ % must be some better way to set t
-        \begin{block}{BLOCK1}
+          \parbox[t][\columnheight]{\textwidth}{% must be some better way to set t
+        \begin{block}{Introduction}
             In these experiments I tested off-the-shelf quality of popular
             rule-based and neural analysers and machine translators for Finnish.
-
+            With these experiments I wanted to test the usability of the current
+            products as a \textit{tool} for a researcher of Uralic linguistics,
+            e.g.\ for automatic annotations, initial versions of research data
+            etc.
         \end{block}
 
         \begin{block}{Examples}
-            Omorfi analyses:
-            \fbox{\OmorfiAnals}
-            Omorfi parses UD-ified:
-            \fbox{\OmorfiUDs}
-            Turku parses:
-            \fbox{\TurkuParses}
-            Apertium-fin-deu translates:
-            \fbox{\Apertiums}
-            OpenNLP-py translates:
+            Omorfi analyses:\\
+            \fbox{\OmorfiAnals}\\
+            Omorfi parses UD-ified:\\
+            \fbox{\OmorfiUDs}\\
+            Turku parses:\\
+            \fbox{\TurkuParses}\\
+            Apertium-fin-deu translates:\\
+            \fbox{\Apertiums}\\
+            OpenNLP-py translates:\\
             \fbox{\OpenNLPs}
         \end{block}
 
@@ -126,10 +135,14 @@ xxx$
    \begin{column}{.49\textwidth}
       \begin{beamercolorbox}[center,wd=\textwidth]{postercolumn}
         \begin{minipage}[T]{.95\textwidth} % tweaks the width, makes a new \textwidth
-          \parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
+          \parbox[t][\columnheight]{\textwidth}{% must be some better way to set the the height, width and textwidth simultaneously
 
-        \begin{block}{BLOCK-1}
-            GRAPHICS
+        \begin{block}{Evaluation methodology}
+            The evaluations presented here are based on the evaluation standards
+            of shared tasks in field of automatic, supervised language modeling.
+            As such some of the evaluation metrics favor data-based approach
+            by concentrating on 1-best precision, but this is also a good metric
+            for the basic end-application use, such as automatic annotations.
         \end{block}
 
         \begin{block}{Neural vs. Rule-based high scores}
@@ -209,6 +222,20 @@ xxx$
 \end{table}
 
         \end{block}
+
+        \begin{block}{Acknowledgments}
+            This experiment was based on freely available resources made by
+            free/open source contributors:
+            Omorfi and apertium-fin* have been made by numerous contributors.
+            Turku neural parser pipeline is produced by University of Turku
+            BioNLP group. OpenNMT-py is also a collaborative open source
+            project. Find all of the projects on github:
+            \url{https://github.com/flammie/omorfi},
+            \url{https://github.com/apertium/apertium-fin-deu},
+            \url{https://github.com/TurkuNLP/Turku-neural-parsing-pipeline},
+            \url{https://github.com/OpenNMT/OpenNMT-py}
+        \end{block}
+
     %\end{textblock}
          }
           % ---------------------------------------------------------%
@@ -217,6 +244,7 @@ xxx$
       \end{beamercolorbox}
     \end{column}
   \end{columns}
+
 
   \end{frame}
 \end{document}

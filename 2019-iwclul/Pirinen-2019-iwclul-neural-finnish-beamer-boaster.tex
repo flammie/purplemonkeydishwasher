@@ -12,11 +12,12 @@
 \usepackage{xspace}
 \usepackage{array}
 
-\title{TITLE\\
-\scriptsize{in LOCATION CONFERENCE}}
-\author{AUTHOR \scriptsize \guilsinglleft{}EMAIL\guilsinglright{}}
-\institute{AFFILIATION1\\
-AFFILIATION2}
+\title{Neural vs. Rule-Based Finnish\\
+\scriptsize{in/at IWCLUL 2019, Tartu}}
+\author{Tommi A Pirinen\scriptsize
+\guilsinglleft{}tommi.antero.pirinen@uni-hamburg.de\guilsinglright{}}
+\institute{Universität Hamburg\\
+Hamburger Zentrum für Sprachkorpora}
 \date{\today}
 
 \begin{document}
@@ -26,32 +27,35 @@ AFFILIATION2}
 \maketitle
 
 \begin{frame}
-    \frametitle{WHAT?}
+    \frametitle{Initial experiments with Rule-based and Neural models}
     \begin{itemize}
-        \item DESCRIPTIONS
+        \item Omorfi is well established by now
+        \item Turku Neural Parsing Pipeline has better results
+        \item Neural machine translation is supposed to be good out of the box
+        \item Apertium-fin-deu is \ldots there
     \end{itemize}
 \end{frame}
 
 
 \begin{frame}
-    \frametitle{WHY?}
+    \frametitle{Evaluations with Shared Tasks! Why?}
     \begin{itemize}
-        \item REASONS
+        \item Surely old rule-based methods are still better in basic tasks like
+            morphology\ldots?
+        \item it turns out not according to the shared task metrics---without
+            tuning at least
+        \item (one could check other metrics, recall and then F score, to get
+            potentially different results)
+        \item I turned shared tasks into \textit{Continuous integration tests}
+            for omorfi
+        \item Translation quality out-of-the-box is not good
     \end{itemize}
 \end{frame}
 
 \begin{frame}
     \frametitle{Poster looks like this:}
-    \begin{minipage}[0.2\textheight]{\textwidth}
-\begin{columns}[T]
-\begin{column}{0.8\textwidth}
-    You can get all datas (forthcoming) and scripts \url{REPOURL}.
-\end{column}
-\begin{column}{0.2\textwidth}
-    \includegraphics[height=0.8\textheight]{AUTHOR-YEAR-CONFERENCE-TITLE-poster.pdf}
-\end{column}
-\end{columns}
-\end{minipage}
+    \includegraphics[height=0.8\textheight]{%
+        Pirinen-2019-iwclul-neural-finnish-poster.pdf}
 \end{frame}
 
 \end{document}
