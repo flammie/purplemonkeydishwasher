@@ -60,6 +60,12 @@ be as accurate and up-to-date as google scholar.
 
 ###  Publications in conferences and journals
 
+1. **Tommi A Pirinen** (2019, to appear), *Neural and rule-based Finnish NLP
+   models–expectations, experiments and experiences* in 5th International
+   Workshop for Computational Linguistics of Uralic Languages. Tartu, Estonia.
+   [TeX version](2019-dgfs-jahrestagung/Pirinen-2019-iwclul-neural-finnish.tex),
+   [HTML (LaTeXML)
+   version](2019-dgfs-jahrestagung/Pirinen-2019-iwclul-neural-finnish.html)
 1. **Tommi Pirinen** (2018), *Rule-based machine-translation between Finnish and
    German* in 40. Jahrestagung der Deutschen Gesellschaft für
    Sprachwissenschaft, CL-Postersession
