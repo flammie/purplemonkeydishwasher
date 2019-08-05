@@ -1,0 +1,229 @@
+\documentclass[final,hyperref={pdfpagelabels}]{beamer}
+
+\usepackage{fontspec}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{amsmath,amsthm, amssymb, latexsym}
+\boldmath%
+
+\usepackage{array,booktabs,tabularx}
+
+\usepackage[orientation=portrait,size=a0,scale=1.4]{beamerposter}
+\mode<presentation>
+{%
+    \usetheme{HZSK}
+}
+\setbeamertemplate{bibliography item}[triangle]
+
+\title[apertium-fin-eng]{{\huge Shared-Task Driven RBMT development}\\
+apertium-fin-eng experiments at WMT 2015--2019
+\url{https://github.com/apertium/apertium-fin-eng}}
+\author[flammie@iki.fi]{Flammie$^\star$ }
+\institute[Uni. Hamburg]{$^\star$ Universität Hamburg}
+\date{\today}
+
+%\logo{\includegraphics[height=7.5cm]{AbumatranLogo}}
+
+\newlength{\columnheight}
+\setlength{\columnheight}{105cm}
+
+
+\begin{document}
+
+\begin{frame}
+      %\maketitle
+      %\vfill
+      \begin{columns}
+      \begin{column}{.49\textwidth}
+      \begin{beamercolorbox}[center,wd=\textwidth]{postercolumn}
+          \begin{minipage}[T]{.95\textwidth}  % tweaks the width, makes a new \textwidth
+          \parbox[t][\columnheight]{\textwidth}{% must be some better way to set t
+        \begin{block}{What is this?}
+            \begin{itemize}
+                \item Rule-based, shallow transfer, machine translation system
+                    for Finnish---English using Apertium
+                \item A dictionary and rule development \emph{workflow} for RBMT
+                \item Probably not the best RBMT for fin---eng
+            \end{itemize}
+        \end{block}
+
+
+        \begin{block}{Why? Why not?}
+            \begin{itemize}
+                \item Advantages of rule-based systems:
+                    \begin{itemize}
+                        \item Such advanced lexicography is \textit{fun}, like
+                            collecting Pokémon or stamps!
+                            \includegraphics{pikachu}
+                        \item Working on the rules is also \textit{fun},
+                            like using your brain to understand linguistics
+                            and all!
+                        \item Does not destroy our planet at an alarming pace!
+                            (c.f.~\cite{strubell2019energy} few days earlier in
+                            this ACL 2019~;-)
+                            \includegraphics{mario3sun}
+                        \item Does not need to leak your data through internet
+                            and to big companies!
+                        \item Predictable errors, easy fixes!
+                    \end{itemize}
+                \item Some disadvantages of Shallow RBMT here:
+                    \begin{itemize}
+                        \item \textcolor{blue}{BLEU} score always low
+                        \item Shallow transfer RBMT not particularly suitable
+                            for Finnish---English; needs more depth
+                        \item Finnish---English is a very well resourced
+                            language pair indeed, so simply SMT and NMT makes
+                            a lot of sense
+                    \end{itemize}
+                \item Therefore:
+                    \begin{itemize}
+                        \item I mainly use work on fin---eng as an additional
+                            data point on measuring workflow efficiency
+                        \item come to Dublin for MTsummit / LoResMT workshop to
+                            see another data point with interestinger
+                            languages~\cite{pirinen2019workflows} (no English!)
+                    \end{itemize}
+            \end{itemize}
+        \end{block}
+
+        \begin{block}{How do you do it?}
+            \begin{itemize}
+                \item It's a workflow, based on shared tasks, so
+                    \textit{Shared Task Driven} development
+                \item Do this:
+                \begin{enumerate}
+                    \item Collect all lexemes unknown to source language
+                        dictionary, and add them with necessary morpholexical
+                        information
+                    \item Collect all lexemes unknown to bilingual translation
+                        dictionary, and add their translations
+                    \item Collect all lexemes unknown to the target language
+                        dictionary, and add them to the dictionary with
+                        necessary morpholexical information
+                \end{enumerate}
+            \item repeat until all words from shared task are in all
+                dictionaries
+            \item Can be semi-automated to great extent
+            \item Grammar rules, on the other hand, are mostly manual, expert
+                labour still
+            \end{itemize}
+        \end{block}
+        \begin{block}{References}
+            \small
+            \bibliography{acl2019}
+            \bibliographystyle{alpha}
+        \end{block}
+         }
+        \end{minipage}
+      \end{beamercolorbox}
+  \end{column}
+    %\end{textblock}
+
+    %\begin{textblock}{60}{0.1,1.6}
+   \begin{column}{.49\textwidth}
+      \begin{beamercolorbox}[center,wd=\textwidth]{postercolumn}
+        \begin{minipage}[T]{.95\textwidth} % tweaks the width, makes a new \textwidth
+          \parbox[t][\columnheight]{\textwidth}{% must be some better way to set the the height, width and textwidth simultaneously
+
+        \begin{block}{Figure}
+            \includegraphics{diagrammi}
+        \end{block}
+
+        \begin{block}{Results}
+
+\begin{table}
+\begin{center}
+    \begin{tabular}{lr}
+        \toprule
+        Error & count \\
+        \midrule
+        OOVs in Finnish & 763 \\
+        OOVs in English & 943 \\
+        OOVs in Fin↔Eng & 2696 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Classification of mainly lexical errors in apertium-fin-eng
+    submissions for 2019\label{table:errors}}
+\end{center}
+\end{table}
+
+
+\begin{table}
+\begin{center}
+    \begin{tabular}{lr}
+        \toprule
+        \bf Corpus & BLEU-cased  \\
+        \midrule
+        apertium-eng-fin 2015 & 2.9 \\
+        \hfill 2017 & 3.5  \\
+        \hfill 2019 & 4.3  \\
+        \midrule
+        apertium-fin-eng 2015 & 6.9\\
+        \hfill 2017 & 6.3 \\
+        \hfill 2019 & 7.6 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Progress of apertium-fin-eng over the years using only the WMT
+    shared task driven development method.\label{table:progress}}
+\end{center}
+\end{table}
+
+        \end{block}
+
+        \begin{block}{Some cherry-picked examples for fun and entertainment}
+            \includegraphics{cherries} \\
+            \begin{tabular}{lr}
+                \toprule
+                Source & Aika nopeasti saatiin hommat sovittua, Kouki sanoi \\
+                \midrule
+                Apertium-fin-eng & Kinda swiftly let jobs agreed, Kouki said. \\
+                an NMT at WMT2019 & Pretty quickly we got the
+                \textcolor{red}{gays} agreed, Kouki said.\\
+                \midrule
+                Reference & We reached a pretty quick agreement, Kouki said.\\
+                \bottomrule
+            \end{tabular}
+            \small
+            \begin{tabular}{lr}
+                \toprule
+                Source & Natural disasters make logistics even more complicated.
+                \\
+                \midrule
+                Apertium-eng-fin & Luontevat tuhot malli- logistiikka vielä
+                enemmän sekava.  \\
+                (my re-translation) & Natural destruction model- logistics even
+                more confusing. \\
+                an NMT at WMT 2019 & Luonnonkatastrofit tekevät
+                \textcolor{red}{saasteista} entistä monimutkaisempia.\\
+                (my re-translation) &  Natural disasters make
+                \textcolor{red}{pollution} even more complicated \\
+                \midrule
+                Reference & Luonnonkatastrofit tekevät
+                logistiikasta vieläkin monimutkaisempaa. \\
+                \bottomrule
+            \end{tabular}
+        \end{block}
+
+        \begin{block}{Acknowledgments}
+            The author was employed by CLARIN-D during WMT 2019. The free/libre
+            open source RBMT systems have been made possible by contributors of
+            omorfi, apertium-fin, apertium-eng and apertium-fin-eng packages.
+
+            Some pictures in this poster are taken from Nintendo-based memes and
+            rights to the characters and pixel art are owned by Nintendo (and/or
+            related companies).
+            \\
+            \includegraphics{apertium}
+            \includegraphics{flammie}
+            \includegraphics[width=0.2\textwidth]{qrcode}
+        \end{block}
+    %\end{textblock}
+         }
+          % ---------------------------------------------------------%
+          % end the column
+        \end{minipage}
+      \end{beamercolorbox}
+    \end{column}
+  \end{columns}
+
+  \end{frame}
+\end{document}
