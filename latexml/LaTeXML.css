@@ -378,6 +378,7 @@ cite                 { font-style: normal; }
 /* Flammie’s additions */
 
 body {
-    background-image: url("../authors-draft.png");
+    background-image: url("../authors-draft2.png");
+    background-position: fixed;
 }
 
