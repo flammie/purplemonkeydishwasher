@@ -64,9 +64,9 @@ be as accurate and up-to-date as google scholar.
 1. **Tommi A Pirinen** (2019), *Apertium-fin-eng---Rule-based shallow machine
    translation for WMT 2019 shared task* in the ACL 2019 Fourth conference on
    Machine Translation (wmt19), Firenze, Italy.
-   [TeX version](2019-iwclul/Pirinen-2019-wmt-finnish-english.tex),
+   [TeX version](2019-wmt/Pirinen-2019-wmt-finnish-english.tex),
    [HTML (LaTeXML)
-   version](2019-iwclul/Pirinen-2019-wmt-finnish-english.html)
+   version](2019-wmt/Pirinen-2019-wmt-finnish-english.html)
 1. **Tommi A Pirinen** (2019), *Neural and rule-based Finnish NLP
    models–expectations, experiments and experiences* in 5th International
    Workshop for Computational Linguistics of Uralic Languages. Tartu, Estonia.
