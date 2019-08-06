@@ -2,15 +2,12 @@
 % File emnlp2017.tex
 %
 
-\documentclass[11pt,a4paper]{article}
-\usepackage{acl2019}
-\usepackage{times}
-\usepackage{latexsym}
+\documentclass[free]{flammie}
 
 \usepackage{url}
 \usepackage{booktabs}
 
-\aclfinalcopy % Uncomment this line for the final submission
+%\aclfinalcopy % Uncomment this line for the final submission
 %\def\aclpaperid{***} %  Enter the acl Paper ID here
 
 %\setlength\titlebox{5cm}
@@ -48,8 +45,11 @@ shared task}
 \end{abstract}
 
 
-\section{Introduction}
-\label{sec:introduction}
+\section{Introduction}\label{sec:introduction}
+
+\footnotepubrights{Official version in ACL Anthology:
+\url{https://www.aclweb.org/anthology/sigs/sigmt/} (to appear), CC-BY version
+4.0 international: \url{https://creativecommons.org/licenses/by/4.0/}}
 
 This paper describes our submission for Finnish---English language pair to the
 machine translation shared task of the \textit{Fourth conference on machine
@@ -75,9 +75,9 @@ of the lexical data, as well as some expert-driven development of the more
 grammatical rules like noun phrase chunking and determiner generation.
 It might be noteworthy that this machine translator I describe in the
 article is not actively developed outside the shared tasks,
-so the article is moreso motivated as 
+so the article is moreso motivated as
 an exploration of the workflow and methods on semi-automatically generated
-shallow RBMT than a description of a fully developed RBMT. 
+shallow RBMT than a description of a fully developed RBMT.\@
 
 
 The rest of the article is organised as follows: In Section~\ref{sec:data}
@@ -192,28 +192,32 @@ development and test sets in Table~\ref{table:ambiguities}.
     \end{center}
 \end{table*}
 
-The rule-based machine translation process as it is performed by apertium is shown
-in Table~\ref{table:translation}. The first step of the RBMT here is morphological
-analysis, in apertium this covers both tokenisation and morphological analysis as seen here;
-in apertium-eng 
-the expression `in front of' is considered to be a single token and is packaged
-as a preposition (we have also omitted an ambiguity between attributive and nominal
-reading of the house, since the distinction does not currently make difference in English
-to Finnish translation, in order to fit the table in the paper). The morphological analysis in
-apertium is performed by finite-state morphological analysis as defined in \citet{beesley2003finite} and
-implemented in open source format by \citet{linden2011hfst}.
-After analysis, the next
-step is to disambiguate,
-i.e. pick 1-best lists of morphological analyses; in apertium this is done by constraint 
-grammar, as described by~\citet{karlsson1990constraint} and implemented in open source by VISL CG 3.\footnote{\url{http://visl.sdu.dk/cg3.html}}. In lexical translation phase, each lemma is looked
-up from the translation dictionary, and in lexical selection the translation that
-is most suitable by the context and statistics is selected. In the structural transfer phase a number of things
-is performed:
-the English morphological analyses are rewritten into Finnish analyses, e.g.\  the adjective and noun will receive a genitive case tag
-due to the adposition, and the adposition is moved before the noun phrase since it is a preposition in Finnish and
-postposition in English, and the article is just removed, as the use of articles is non-standard in Finnish.
-Finally the Finnish analysis is generated into a surface string using a finite-state morphological analyser, since
-they are inherently bidirectional this needs no extra software or algorithms.
+The rule-based machine translation process as it is performed by apertium is
+shown in Table~\ref{table:translation}. The first step of the RBMT here is
+morphological analysis, in apertium this covers both tokenisation and
+morphological analysis as seen here; in apertium-eng the expression `in front
+of' is considered to be a single token and is packaged as a preposition (we have
+also omitted an ambiguity between attributive and nominal reading of the house,
+since the distinction does not currently make difference in English to Finnish
+translation, in order to fit the table in the paper). The morphological analysis
+in apertium is performed by finite-state morphological analysis as defined
+in~\cite{beesley2003finite} and implemented in open source format
+by~\cite{linden2011hfst}.  After analysis, the next step is to disambiguate,
+i.e.\ pick 1-best lists of morphological analyses; in apertium this is done by
+constraint grammar, as described by~\cite{karlsson1990constraint} and
+implemented in open source by VISL CG
+3.\footnote{\url{http://visl.sdu.dk/cg3.html}}. In lexical translation phase,
+each lemma is looked up from the translation dictionary, and in lexical
+selection the translation that is most suitable by the context and statistics is
+selected. In the structural transfer phase a number of things is performed: the
+English morphological analyses are rewritten into Finnish analyses, e.g.\  the
+adjective and noun will receive a genitive case tag due to the adposition, and
+the adposition is moved before the noun phrase since it is a preposition in
+Finnish and postposition in English, and the article is just removed, as the use
+of articles is non-standard in Finnish.  Finally the Finnish analysis is
+generated into a surface string using a finite-state morphological analyser,
+since they are inherently bidirectional this needs no extra software or
+algorithms.
 
 
 \begin{table*}
@@ -250,7 +254,7 @@ Edess\"a.\textsc{Post}
 \bf Finnish translation: & ison talon Edess\"a \\
 \bottomrule
 \end{tabular}
-\caption{Translation process for the English phrase `In front of the big house'\\
+\caption{Translation process for the English phrase `In front of the big house'
 \label{table:translation}
     }
 \end{center}
@@ -274,7 +278,7 @@ translation quality issues in the initial converted Wordnet dictionary was a
 high number of low-frequency `synonyms' in translations. To overcome this some
 automatic methods were used. For automatic bootstrapping of the lexical
 selection rules I used Europarl corpus~\cite{koehn2005europarl} data and the
-methods demonstrated by~\citet{tyers2012flexible}.  Since the result of this
+methods demonstrated by~\cite{tyers2012flexible}.  Since the result of this
 training seemed also insufficient, I experimented with another system to
 generate more rules for lexical
 selection.\footnote{\url{https://svn.code.sf.net/p/apertium/svn/trunk/apertium-swe-nor/dev/lex-learn-unigram.sh}}
@@ -504,15 +508,15 @@ translation is that it is deceptively fluent language but conveys something comp
 different, comparing to the rule-based version: ``Kinda swiftly let jobs agreed, Kouki said.'' which
 is not fluent at all, but doesn't hallucinate gays there so it may be more usable for
 post-editing. For further research in the problems of NMT for real-world use, see for
-example~\citet{moorkens2018translators}. 
+example~\cite{moorkens2018translators}.
 
 In comparison to neural and statistical systems, the rule-based approach does not
 generally fare well as measured with automatic metrics like BLEU, for a human
-evaluation refer to \cite{bojar-EtAl:2019:WMT2}. However, the experiment I describe here is also 
+evaluation refer to~\cite{bojar-EtAl:2019:WMT2}. However, the experiment I describe here is also
 not the most actively developed machine translators, rather I use the experiment
 to gauge the effects the described workflow has to quality of semi-automatically
 generated RBMT, to see how more developed systems fare on the same task you
-should also refer to \cite{hurskainen2017rule,kolachina2015gf}. 
+should also refer to~\cite{hurskainen2017rule,kolachina2015gf}.
 
 \section{Concluding remarks}
 \label{sec:conclusions}
@@ -531,15 +535,14 @@ GPL licence, and can be downloaded from the internet.
 \section*{Acknowledgements}
 \label{sec:acknowlegdements}
 
-\ifaclfinal%
 This work has been written while employed in the \textit{Hamburger Zentrum f\"ur
 Sprachkorpora} by CLARIN-D. Thanks to all contributors of the related projects:
 omorfi, FinnWordNet, Apertium, and everyone helping with
 apertium-fin, apertium-eng and apertium-fin-eng.
-\fi
+
+\bibliographystyle{unsrt}
 
 \bibliography{acl2019}
-\bibliographystyle{acl_natbib}
 
 
 \end{document}
