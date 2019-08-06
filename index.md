@@ -37,6 +37,7 @@ The things I've studied and am good at and interested in using my time in:
 * End-user apps with computational linguistics: Machine translation, writers
   tools, computer-aided language learning
 * Digital humanities---computational linguistics interactions
+* Neural models for very underresourced languages
 
 
 The list is not exhaustive.
