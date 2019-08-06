@@ -60,7 +60,7 @@ be as accurate and up-to-date as google scholar.
 
 ###  Publications in conferences and journals
 
-1. **Tommi A Pirinen** (2019, to appear), *Neural and rule-based Finnish NLP
+1. **Tommi A Pirinen** (2019), *Neural and rule-based Finnish NLP
    models–expectations, experiments and experiences* in 5th International
    Workshop for Computational Linguistics of Uralic Languages. Tartu, Estonia.
    [TeX version](2019-iwclul/Pirinen-2019-iwclul-neural-finnish.tex),
@@ -281,24 +281,14 @@ be as accurate and up-to-date as google scholar.
 The following projects I participate are more or less related to my
 work at university and sparetime hobbies related to science:
 
-
- * [FiWaC 1.0](https://www.clarin.si/repository/xmlui/handle/11356/1074)–Finnish
-    web as corpus, we built during abumatran project.
- * [Omorfi](https://flammie.github.io/omorfi)–Open source morphology of Finnish,
-   a project I started as master's thesis and am still helping maintaining
- * [HFST–Helsinki Finite-State Technology](https://hfst.github.io), the research
-   project I participated in while in Uni. Helsinki, a very useful set of
-   finite-state NLP tools and stuff
- * [Apertium](http://apertium.org) machine translation, The platform for open
-   source rule based machine translation, I develop a bunch of Finnic pairs every
-   once in a while
- * [Giellatekno](http://giellatekno.uit.no) at Tromsø university, a repository of
-   finite-state morphology and such language descriptions, includes Finnish and
-   infra components I designed to upgrade finite-state morphology towards 21st
-   century software engineering style
- * *HFST ospell*, spell-checking and correcting library for finite-state automata
-   I spun off from the main HFST library with help of my colleagues, now
-   maintained by HFST team
+ * [Universal Dependencies](https://lindat.mff.cuni.cz/repository/xmlui/handle/11234/1-2988)
+ * [FiWaC 1.0](https://www.clarin.si/repository/xmlui/handle/11356/1074)
+ * [Omorfi](https://flammie.github.io/omorfi)
+ * [HFST–Helsinki Finite-State Technology](https://hfst.github.io)
+ ** *HFST ospell*
+ * [Apertium](http://apertium.org)
+ * [Giellatekno](http://giellatekno.uit.no)
+ 
 
 ### Teaching
 
