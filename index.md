@@ -61,11 +61,17 @@ be as accurate and up-to-date as google scholar.
 
 ###  Publications in conferences and journals
 
-1. **Tommi A Pirinen** (2019), *Apertium-fin-eng---Rule-based shallow machine
-   translation for WMT 2019 shared task* in the ACL 2019 Fourth conference on
-   Machine Translation (wmt19), Firenze, Italy.
-   [TeX version](2019-wmt/Pirinen-2019-wmt-finnish-english.tex),
-   [HTML (LaTeXML)
+1. **Tommi A Pirinen** (2019, to appear), *Building minority dependency
+   treebanks, dictionaries and computational grammars at the same time---an
+   experiment in Karelian treebanking*,  in Universal Dependencies Workshop
+   2019 (UDW 2019) at Syntaxfest 2019, Parise, France.
+1. **Tommi A Pirinen** (2019, to appear), *Workflows for kickstarting RBMT in
+   virtually No-Resource Situation*, in The 2nd Workshop on Technologies for MT
+   of Low Resource Languages (LoResMT 2019), at MTsummit 2019, Dublin.
+1. **Tommi A Pirinen** (2019, to appear), *Apertium-fin-eng---Rule-based shallow
+   machine translation for WMT 2019 shared task* in the Fourth conference on
+   Machine Translation (wmt19) at ACL 2019, Firenze, Italy.  [TeX
+   version](2019-wmt/Pirinen-2019-wmt-finnish-english.tex), [HTML (LaTeXML)
    version](2019-wmt/Pirinen-2019-wmt-finnish-english.html)
 1. **Tommi A Pirinen** (2019), *Neural and rule-based Finnish NLP
    models–expectations, experiments and experiences* in 5th International
