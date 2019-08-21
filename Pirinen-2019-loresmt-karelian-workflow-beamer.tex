@@ -1,0 +1,166 @@
+\documentclass{beamer}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{url}
+
+\usepackage[normalem]{ulem}
+
+\usepackage{pifont}
+ \newcommand{\hand}{\ding{43}}
+
+\mode<presentation>
+
+\title{Workflows for Developing Finnish–Karelian Shallow RBMT,
+\scriptsize{in LoResMT, Dublin, 2019-08-20\\
+\url{https://github.com/flammie/apertium-fin-deu/}}}
+\author{Tommi A Pirinen \scriptsize \guilsinglleft tommi.antero.pirinen@uni-hamburg.de \guilsinglright }
+\institute{Universität Hamburg}
+\date{\today}
+
+\begin{document}
+
+\selectlanguage{english}
+
+\maketitle
+
+\begin{frame}
+    \frametitle{Introduction}
+    \begin{itemize}
+        \item Closely related languages in Uralic tree: Finnish---Karelian
+        \item ``Low-Resource''?\begin{itemize}
+                \item Finnish: all NLP tools, dictionaries, few Web-corpora and
+                    crawls, treebanks, \ldots (gets called low-resource
+                    sometimes)
+                \item Karelian: 1000 lines in a Web-crawl corpus,
+                    an XML dictionary (= \textbf{low}-resource)
+                \item Probably no parallel or comparable texts\ldots
+        \end{itemize}
+        \item \hand RBMT+FSA+language documentation =
+            cool new workflow for creating: corpora + mono- and bilingual
+            lexicons, chunkers, treebanks etc.\textbf{!!}
+        \item the workflow has been successfully tested with a number of
+            Finnish-X language pairs
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Finnish and Karelian}
+    \parbox{.6\textwidth}{%
+    \begin{itemize}
+        \item Agglutinative, more morphological complexity than most IE, less
+            than Eskimo-Aleut
+        \item Limited mutual intelligibility for non-experts: e.g., few more
+            phonemes, mismatched semantic case suffixes, lexical differences
+    \end{itemize}
+    }\hfill\parbox{.4\textwidth}{%
+        \includegraphics[width=.33\textwidth]{KarelianMapPlusJoensuu}
+    }
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{RBMT workflow}
+    \begin{enumerate}
+        \item Machine-translate a text (analyse)
+        \item Add OOVs to source language dictionary, repeat 1
+        \item Add missing word-translations to bilingual dictionary, repeat 1
+        \item Add ungenerateable words to target language dictionary, repeat 1
+    \end{enumerate}
+    Also:
+    \begin{itemize}
+        \item Translate by hand / post-edit (disamgibuate)
+    \end{itemize}
+    can be interleaved
+\end{frame}
+
+\begin{frame}
+    \frametitle{RBMT workflow}
+    Parts of workflow are feeding each other:
+    \begin{enumerate}
+        \item Existing analysers and translators are used to generate
+            suggestions for new translations and annotations
+        \item Manual translations and annotations form a gold corpora / parallel
+            texts / treebanks
+        \item Manually translated / annotated lexemes are used to
+            generate entries for mono- and bilingual dictionaries
+        \item in future we would like to record gold annotations to improve
+            rule-based disambiguation
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{RBMT workflow demo}
+    \only<1>{Source text}
+    \only<2>{Analysis with source OOVs}
+    \only<3>{Analysis (100 \% coverage)}
+    \\
+        \only<1>{III Eläkeläisien talvispartakiadi piettih Petroskoissa
+
+Kaunehena pakkaispäivänä 6. kevätkuuta Petroskoin Kurgan-urheilukeškukšešša keräyty yli šata ijäkäštä hiihtourheilun harraštajua ympäri Karjalašta.
+Kilpailuja piettih kahteh jakšoh – kilpahiihot naisien ta miehien kešen šekä šekaviestihiihto.
+Urheilupruasniekan tulokšet jätettih tyytyväisiksi kuin tapahtuman järještäjie, šamoin ni ošallistujie
+    }
+    \only<2>{\alert<2>{*III *Eläkeläisien *talvispartakiadi}
+    piteä.VERB Petroskoi.PROPN
+
+    \alert<2>{*Kaunehena  *pakkaispäivänä} 6.ADJ kevätkuu.NOUN Petroskoi.PROPN
+    \alert<2>{*Kurgan}-urheilu.NOUN#keškuš.NOUN *keräyty yli.ADP šata.NUM ijäkäštä.ADJ
+    \alert<2>{*hiihtourheilun} \alert<2>{*harraštajua} ympäri.ADP Karjala.PROPN ..PUNCT
+
+    }
+\only<3>{
+    Päälle \alert<2>{*S-asema} berliiniläinen portilla on se samoin kolme käytöt liittovaltionpoliisin annettu.
+    torstai-ilta oli siellä yksi vahvasti \alert<2>{*angetrunkener} mies
+    \alert<2>{@Gleis<n><pl><ine>} miellyttää ja täytyi virkailijoista pelastetaan.
+    perjantai jotta puolittainen kahdeksan saapui myös \alert<2>{*angetrunkener} mies
+    \alert<2>{@Gleis<n><pl><nom>} suunnassa \alert<2>{@Hauptbahnhof<n><sg><nom>}.
+    Ja vastaan kymmenen pudotti mies \alert<2>{@Deckel<n><sg><gen>}
+    \alert<2>{@Mülleimer<n><sg><gen>} \alert<2>{@Gleis<n><pl><ine>}.
+    kaiken kolme tapauksien/tapausten täytyi reitti lyhytaikainen estetään.
+}
+\only<3>{
+    \alert<3>{\sout{Päälle} @S-Bahnhof<n><sg><nom>} berliiniläiseltä portilla on se samoin kolme käytöt liittovaltionpoliisin annettu.
+    torstai-ilta oli siellä yksi vahvasti
+    \alert<3>{@angetrunken<adj><pos><sg><nom>} mies @Gleis<n><pl><ine> miellyttää ja täytyi virkailijoista pelastetaan.
+    perjantai jotta puolittainen kahdeksan saapui myös
+    \alert<3>{@angetrunken<adj><pos><sg><nom>} mies @Gleis<n><pl><nom> suunnassa @Hauptbahnhof<n><sg><nom>.
+Ja vastaan kymmenen pudotti mies @Deckel<n><sg><gen> @Mülleimer<n><sg><gen> @Gleis<n><pl><ine>.
+ kaiken kolme tapauksien/tapausten täytyi reitti lyhytaikainen estetään.
+}
+\only<4>{
+    \alert<4>{\#lähijuna-asema<n><sg><nom>} berliiniläiseltä portilla on se samoin kolme käytöt liittovaltionpoliisin annettu.
+torstai-ilta oli siellä yksi vahvasti humalainen mies raiteissa miellyttää ja täytyi virkailijoista pelastetaan.
+perjantai jotta puolittainen kahdeksan saapui myös humalainen mies raiteet
+    suunnassa \alert<4>{\#päärautatieasema<n><sg><nom>}.
+Ja vastaan kymmenen pudotti mies kannen roskiksen raiteissa.
+
+}
+\only<5>{
+        lähijuna-asema berliiniläiseltä portilla on se samoin kolme käytöt liittovaltionpoliisin annettu.
+torstai-ilta oli siellä yksi vahvasti humalainen mies raiteissa miellyttää ja täytyi virkailijoista pelastetaan.
+perjantai jotta puolittainen kahdeksan saapui myös humalainen mies raiteet suunnassa päärautatieasema.
+Ja vastaan kymmenen pudotti mies kannen roskiksen raiteissa.
+ kaiken kolme tapauksien/tapausten täytyi reitti lyhytaikainen estetään.
+}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Experimental ``results''}
+    In about a year I have created some resources:
+    \begin{enumerate}
+        \item Karelian morphological analyser
+        \item Finnish-Karelian RBMT (limited vocabuliaries)
+        \item Universal Dependency treebank for Karelian
+        \item \ldots
+    \end{enumerate}
+    A demo that may or may not run correctly at the moment:
+    \scriptsize{\url{https://flammie.name}}
+\end{frame}
+
+\end{document}
+
