@@ -14,7 +14,13 @@ Map_of_Karelian_dialects.png:
 %.pdf: %.png
 	convert $< $@
 
-%.pdf: %.tex Map_of_Karelian_dialects.pdf
+%.svg: %.dia
+	dia --export=$@ $<
+
+%.pdf: %.svg
+	convert $< $@
+
+%.pdf: %.tex Map_of_Karelian_dialects.pdf process-uml.pdf
 	xelatex $<
 	-bibtex $*
 	xelatex $<
