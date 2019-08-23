@@ -68,8 +68,8 @@ be as accurate and up-to-date as google scholar.
 1. **Tommi A Pirinen** (2019, to appear), *Workflows for kickstarting RBMT in
    virtually No-Resource Situation*, in The 2nd Workshop on Technologies for MT
    of Low Resource Languages (LoResMT 2019), at MTsummit 2019, Dublin. [TeX
-   version](2019-loresmt/Pirinen-2019-loresmt-finnish-karelian.tex), [HTML (LaTeXML)
-   version](2019-loresmt/Pirinen-2019-loresmt-finnish-karelian.html)
+   version](2019-loresmt/Pirinen-2019-loresmt-karelian-workflow.tex), [HTML
+   (LaTeXML) version](2019-loresmt/Pirinen-2019-loresmt-karelian-workflow.html)
 1. **Tommi A Pirinen** (2019, to appear), *Apertium-fin-eng---Rule-based shallow
    machine translation for WMT 2019 shared task* in the Fourth conference on
    Machine Translation (wmt19) at ACL 2019, Firenze, Italy.  [TeX
