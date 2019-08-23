@@ -17,7 +17,6 @@
 
 \usepackage[inline]{enumitem}
 \usepackage{booktabs}
-\usepackage{graphicx}
 
 \newif\iffinal%
 \finaltrue%
@@ -64,9 +63,9 @@
 
 \section{Introduction}
 
-A lot of research goes into working with low-resource situation, and depending
-on the venue, low-resources can mean anything from having millions and millions
-of lines of parallel
+A lot of research goes into working with low-resource situation, however, in 
+context of large international conferences today, loww-resources can mean
+anything from having millions and millions of lines of parallel
 corpus\footnote{\url{http://www.statmt.org/wmt19/parallel-corpus-filtering.html}}
 to ``anything except English''. For this work we consider the lowest-resourced
 languages in the group of languages we work with, namely those having virtually
@@ -82,7 +81,7 @@ machine translation} (RBMT) and specifically one between a minority language
 (Karelian) and a closely related more-resourced language (Finnish), in the first
 phase. The translator is bidirectional, i.e.\ we translate both Finnish to
 Karelian and vice versa.  The work for majority language machine translations
-(i.e. English and Russian) is reserved for the future after some resources have
+(e.g.\ English and Russian) is reserved for the future after some resources have
 been built.  We have chosen this for a number of reasons, firstly the task is
 much easier when working with a related language than a typologically unrelated
 one, and secondly there is a body of good results using RBMT of closely related
@@ -96,8 +95,7 @@ building, in Section~\ref{sec:results} we describe our results so far and
 finally in the Section~\ref{sec:conclusion} we discuss findings and lay out
 future work.
 
-\section{Background}
-\label{sec:background}
+\section{Background}\label{sec:background}
 
 One of the problems, we have identified in the past in building NLP resources
 for minority languages, is that same or similar work ends up doing multiple
@@ -128,6 +126,11 @@ to say we have the workflows in place and the supporting software is built as we
 proceed with the project.
 Some of the workflows described here have been previously tested in building
 larger well-resourced machine translators, for example in~\cite{pirinen2018rulebased}.
+Based on experiences of this project, we could estimate that the effort needed
+is around 20,000 lines annotated and translated to get a comparable results as
+out of the box neural system~\cite{pirinen2019neural}, this is however a
+result achieved on two unrelated languages both of which aren't English, so
+results on related non-English languages may be different.
 
 We have selected to use a rule-based approach to machine-translation for this
 project. Since rule-based approaches have somewhat fallen out of popularity in
@@ -177,6 +180,11 @@ a machine translation between two under-resourced closely related languages,
 like Karelian and Livvi, which is a closely related language with slightly
 more resources than Karelian but much less than Finnish.
 
+Finally, for social and political reasons, there is a growing interest in
+Karelian language and culture, and while there is a number of projects on
+the linguistic aspects and language learning, there is a lack of
+language technology-based projects in the field. Our aim is to fill that
+hole.
 
 
 \subsection{Languages}
@@ -193,7 +201,7 @@ for the geographic distribution. For the machine translation task, in first
 phase we build a Karelian---Finnish translator.
 
 \begin{figure}
-    \includegraphics[width=0.48\textwidth]{Map_of_Karelian_dialects.pdf}
+    \includegraphics[width=0.48\textwidth]{Map_of_Karelian_dialects.png}
     \caption{Map of Karelian languages, the number 1 is Karelian that
     we study in this article, numbers 2 and 3 are closely related languages
     that are in some literature refered to as Karelian as well, but are
@@ -201,8 +209,7 @@ phase we build a Karelian---Finnish translator.
     ISO standard.\label{fig:krl-map}}
 \end{figure}
 
-\section{Workflow}
-\label{sec:workflow}
+\section{Workflow}\label{sec:workflow}
 
 The workflow that we have reached at this point of the project is a synthesis
 of traditional workflow in documentary linguistics and workflows in building
@@ -213,7 +220,7 @@ loosely based in tradition of Finite State Morphology.
 
 The first part of the workflow is acquiring corpora, which for unresourced
 minority is relatively difficult task, at the beginning of our project we aimed
-to use web-as-corpus\cite{} approach. During categorising the downloaded data
+to use web-as-corpus approach. During categorising the downloaded data
 into languages we found also a corpus repository with a free to use open source
 compatible licencing
 policy\footnote{\url{http://dictorpus.krc.karelia.ru/en/corpus/text}}, which on
@@ -226,7 +233,14 @@ alternated between, annotation and lexicon building. With annotation, we can
 work on any of the following tasks: lemmatising and pos tagging, morphological
 analysis, syntactic treebanking and machine translation. On the other side
 lexicon building we build the morphological lexicon for a finite-state analyser,
-and a bilingual lexicon for rule-based machine translation.
+and a bilingual lexicon for rule-based machine translation. A UML-style
+graph of the process is shown in figure~\ref{fig:translation}.
+
+\begin{figure}
+    \includegraphics[width=0.48\textwidth]{process-uml}
+    \caption{A UML-style chart of the annotation and translation
+    process\label{fig:translation}}
+\end{figure}
 
 The main contribution of this workflow is that both of the tasks feed into
 the other task, that is annotated corpora can be immediately used for entry
@@ -252,15 +266,14 @@ monolingual dictionary of Karelian, i.e. \verb|peli<n>|,
 writer can simply fill in the necessary informations to inflect the words
 properly. The entries can likewise be generated to bilingual dictionary, if 1:1
 translation match to existing target language analyses is trivial, we get
-\verb|peli<n>:peli<n>| etc. among the suggested entries. Now, when the
+\verb|peli<n>:peli<n>| etc.\ among the suggested entries. Now, when the
 annotator gets back to annotating and translating the next sentences of the
 document and runs into: ``Pelissä ”tapettih” šamoin Ilmarini'' (Ilmarinen was
 also killed in the game), the first token ``Pelissä'' has suggested annotation
 \texttt{peli NOUN Number=Sing|Case=Ine} as well as suggested translation.
 
 
-\section{Results}
-\label{sec:results}
+\section{Results}\label{sec:results}
 
 In a short time we have managed to build a rule-based machine translation
 system. We detail the system in Table~\ref{table:sizes}. The corpus built
@@ -292,8 +305,7 @@ dependencies project for the annotated corpus. Both retain the CC BY
 licence of the original raw text data. The dictionaries and analysers
 are also released via the Apertium using the GNU General Public Licence.
 
-\section{Concluding remarks}
-\label{sec:conclusion}
+\section{Concluding remarks}\label{sec:conclusion}
 
 We have found that we can rapidly build a solid base of natural language
 resourcses suitable for rule-based machine translation and we aim to extend the
@@ -309,9 +321,11 @@ resource building. However, we still think this approach may be useful as a
 part of balanced corpus building approach in a research project for any lesser
 researched language.
 
-To our knowledge, there has not been any attempts to use methods like transfer
-learning in machine translation for very low resource situations, but we
-would be interested to find out if this is a potential option.
+One of the things that we are looking forward to is to test the advances in
+neural methods in very low resource
+situation,~\cite{neubig2018rapid}\footnote{We thank the anonymous reviewers for
+bringing this line of work to our attention }this would be particularly suitable
+for Karelian-to-Finnish direction as Finnish is well-resourced.
 
 \bibliographystyle{unsrt}
 \bibliography{loresmt2019}
