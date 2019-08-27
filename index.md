@@ -65,22 +65,25 @@ be as accurate and up-to-date as google scholar.
    treebanks, dictionaries and computational grammars at the same time---an
    experiment in Karelian treebanking*,  in Universal Dependencies Workshop
    2019 (UDW 2019) at Syntaxfest 2019, Paris, France.
-1. **Tommi A Pirinen** (2019, to appear), *Workflows for kickstarting RBMT in
+1. **Tommi A Pirinen** (2019), *Workflows for kickstarting RBMT in
    virtually No-Resource Situation*, in The 2nd Workshop on Technologies for MT
    of Low Resource Languages (LoResMT 2019), at MTsummit 2019, Dublin. [TeX
    version](2019-loresmt/Pirinen-2019-loresmt-karelian-workflow.tex), [HTML
-   (LaTeXML) version](2019-loresmt/Pirinen-2019-loresmt-karelian-workflow.html)
-1. **Tommi A Pirinen** (2019, to appear), *Apertium-fin-eng---Rule-based shallow
+   (LaTeXML) version](2019-loresmt/Pirinen-2019-loresmt-karelian-workflow.html),
+   [ACL Anthology version](https://www.aclweb.org/anthology/W19-6803/)
+1. **Tommi A Pirinen** (2019), *Apertium-fin-eng---Rule-based shallow
    machine translation for WMT 2019 shared task* in the Fourth conference on
    Machine Translation (wmt19) at ACL 2019, Firenze, Italy.  [TeX
    version](2019-wmt/Pirinen-2019-wmt-finnish-english.tex), [HTML (LaTeXML)
-   version](2019-wmt/Pirinen-2019-wmt-finnish-english.html)
+   version](2019-wmt/Pirinen-2019-wmt-finnish-english.html),
+   [ACL Anthology version](https://www.aclweb.org/anthology/W19-5336/)
 1. **Tommi A Pirinen** (2019), *Neural and rule-based Finnish NLP
    models–expectations, experiments and experiences* in 5th International
    Workshop for Computational Linguistics of Uralic Languages. Tartu, Estonia.
    [TeX version](2019-iwclul/Pirinen-2019-iwclul-neural-finnish.tex),
    [HTML (LaTeXML)
-   version](2019-iwclul/Pirinen-2019-iwclul-neural-finnish.html)
+   version](2019-iwclul/Pirinen-2019-iwclul-neural-finnish.html),
+   [ACL Anthology version](https://www.aclweb.org/anthology/W19-0309/)
 1. **Tommi Pirinen** (2018), *Rule-based machine-translation between Finnish and
    German* in 40. Jahrestagung der Deutschen Gesellschaft für
    Sprachwissenschaft, CL-Postersession
