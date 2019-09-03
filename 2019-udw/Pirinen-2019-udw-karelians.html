@@ -1,0 +1,618 @@
+<!DOCTYPE html><html>
+<head>
+<title>Building minority dependency treebanks, dictionaries and computational grammars at the same time: an experiment in Karelian treebanking</title>
+<!--Generated on Tue Sep  3 15:51:29 2019 by LaTeXML (version 0.8.4) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Document created on September 3, 2019.-->
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../latexml/LaTeXML.css" type="text/css">
+<link rel="stylesheet" href="../latexml/ltx-article.css" type="text/css">
+</head>
+<body>
+<div class="ltx_page_main">
+<div class="ltx_page_content">
+<article class="ltx_document ltx_authors_1line">
+<h1 class="ltx_title ltx_title_document">Building minority dependency treebanks, dictionaries and computational
+grammars at the same time: an experiment in Karelian treebanking</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Tommi A Pirinen
+<br class="ltx_break">Universität Hamburg
+<br class="ltx_break">Hamburger Zentrum für Sprachkorpora
+<br class="ltx_break">Max-Brauer-Allee 60, D-22765 Hamburg
+<br class="ltx_break"><a href="tommi.antero.pirinen@uni-hamburg.de" title="" class="ltx_ref ltx_url ltx_font_typewriter">tommi.antero.pirinen@uni-hamburg.de</a>
+
+</span></span>
+</div>
+<div class="ltx_date ltx_role_creation">September 3, 2019</div>
+
+<div class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+    
+<p class="ltx_p">Building a treebank from scratch can easily be an elaborate, highly time
+consuming task, especially when working with a minority
+language with moderately complex morphology and no existing resources. It is
+also then typically true that language experts and informants with
+suitable skill sets are a very scarce resource. In this experiment I have
+attempted to work in parallel on building NLP resources while gathering and
+annotating the treebank. In particular, I aim to build a decent coverage
+morphologically annotated lexicon suitable for rule-based morphological
+analysis as well as accompanying rules for basic morphosyntactic analysis.
+I propose here a workflow, that I have found useful in avoiding redoing same
+work with related NLP resource construction.</p>
+  
+</div>
+<section id="S1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">1 </span>Introduction</h2>
+
+<div id="S1.p1" class="ltx_para">
+<p class="ltx_p">Karelian languages are languages closely related to Finnish spoken mainly in the
+republic of Karelia in Russia and surroundings. The languages are split in the
+ISO 639–3 standard between a few language codes: <span class="ltx_text ltx_font_italic">Karelian</span> (krl) and
+<span class="ltx_text ltx_font_italic">Livvi</span> or Olonets karelian (olo) for the two main branches of the
+language. The fact that ‘krl’ is commonly refered to as just Karelian can be
+confusing because ‘olo’ is also Karelian but I try to make the distinction clear
+throughout the article by using the ISO codes when necessary. The division is
+not totally unproblematic but I have followed it in the treebank for ease of
+development and use. There are some 35,000 native speakers of Karelian
+(krl) <span id="footnote1" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup>
+            <span class="ltx_tag ltx_tag_note">1</span>
+            
+            
+            
+          <a href="https://www.ethnologue.com/18/language/krl/" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://www.ethnologue.com/18/language/krl/</a></span></span></span> and 31,000
+for Livvi (olo) <span id="footnote2" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">2</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">2</sup>
+            <span class="ltx_tag ltx_tag_note">2</span>
+            
+            
+            
+          <a href="https://www.ethnologue.com/18/language/olo/" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://www.ethnologue.com/18/language/olo/</a></span></span></span>
+according to Ethnologue, and both are classified as “Developing”. The
+languages are developed enough to have some
+grammars <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib175" title="Vienankarjalan kielioppi" class="ltx_ref">13</a>, <a href="#bib.bib4" title="Karjalan kielioppi" class="ltx_ref">1</a>, <a href="#bib.bib90" title="Karjalan kielioppi 5-9" class="ltx_ref">5</a>]</cite>,
+dictionaries and books written, as well as some regular newspapers and
+broadcasts, but very few digital or computational resources so far. For
+unannotated corpora I have found a source with freely usable texts classified
+according to ISO language codes.
+</p>
+</div>
+<div id="S1.p2" class="ltx_para">
+<p class="ltx_p">This paper discusses creation and ongoing work for two Karelian treebanks and
+compatible morphological parsers. The first part of the Karelian data will be
+included in the 2.4 release of the Universal Dependencies and I hope to enlarge
+and verify the data with native informants as well as include the Livvi data
+by the next release. The treebanks were named under the abbreviation of KKPP or
+<span class="ltx_text ltx_font_italic">Karjalan kielten puupankit</span> which is Finnish for Karelian treebanks.</p>
+</div>
+<div id="S1.p3" class="ltx_para">
+<p class="ltx_p">The rest of the article is organised as follows: in Section <a href="#S2" title="2 Background ‣ Building minority dependency treebanks, dictionaries and computational grammars at the same time: an experiment in Karelian treebanking" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>
+I describe the languages and our goals for the treebanking, in
+Section <a href="#S3" title="3 Methods ‣ Building minority dependency treebanks, dictionaries and computational grammars at the same time: an experiment in Karelian treebanking" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a> I describe the tools and methods for building
+treebanks, in Section <a href="#S4" title="4 Data ‣ Building minority dependency treebanks, dictionaries and computational grammars at the same time: an experiment in Karelian treebanking" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a> I describe the corpus selection and
+finally in Section <a href="#S5" title="5 Discussion and future work ‣ Building minority dependency treebanks, dictionaries and computational grammars at the same time: an experiment in Karelian treebanking" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a> I summarise the article and talk about
+future work and ideas.</p>
+</div>
+</section>
+<section id="S2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2 </span>Background</h2>
+
+<div id="S2.p1" class="ltx_para">
+<p class="ltx_p">As languages with very few available NLP resources, one of our first goals is to
+get annotated corpora. The universal dependencies format is a good choice for a
+standard for writing a new treebank at the moment; it has been used with many
+Uralic languages already that provide for reference for difficult situations.
+Also, the North Saami treebank was made based on a rule-based finite-state
+morphological analyser <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib153" title="Annotation schemes in north sámi dependency parsing" class="ltx_ref">10</a>]</cite>, building one of which is
+also a goal for us, so I can safely say that the two formats are compatible and
+complement each other. One of the reasons why I make morphological analysers
+is to be able to provide number of end-user tools like spell-checking and
+correction as well as the reference corpus, for example in other Uralic
+languages there are plenty of resources hosted by
+giellatekno <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib104" title="Open-source infrastructures for collaborative work on under-resourced languages" class="ltx_ref">6</a>]</cite>.</p>
+</div>
+<div id="S2.p2" class="ltx_para">
+<p class="ltx_p">When I started with the treebanking, morphological analyser writing task, there
+were virtually no freely available corpora for Karelian and also no electronical
+dictionaries or analysers for Karelian krl. There was an existing analyser for
+Livvi and for that reason I have started our project with Karelian first. For
+digitised paper dictionaries, I have a dictionary for Karelian
+languages<span id="footnote3" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">3</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">3</sup>
+            <span class="ltx_tag ltx_tag_note">3</span>
+            
+            
+            
+          <a href="http://kaino.kotus.fi/cgi-bin/kks/kks_etusivu.cgi" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://kaino.kotus.fi/cgi-bin/kks/kks_etusivu.cgi</a></span></span></span>,
+that covers both Karelian and Livvi. The overall format and transcription
+differences, however, make it not directly usable for a source dictionary for
+morphological analyser for Karelian languages but rather an semi-automated
+source reference.</p>
+</div>
+<div id="S2.p3" class="ltx_para">
+<p class="ltx_p">One of the thing I have established in the research of under-resourced
+languages in Uralic space is that for the survival and digital survival of
+a language certain technological resources need to be developed, and our
+aim with this project is to build as many of the necessary resources rapidly as
+possible.</p>
+</div>
+<div id="S2.p4" class="ltx_para">
+<p class="ltx_p">One of the things that I have taken into consideration working on this
+treebank is how corpora are built within Uralic linguistic community
+outside the Universal Dependencies, e.g. in documentary linguistics.
+One of the prominent paradigms there is based on the line of tools
+from SIL shoebox to Fieldworks Explorer (FLeX), the workflow within
+those makes use of building corpora and dictionary simultaneously
+and this experiment is in a way our precursory study to implementing
+a similar tool for dependency treebanking style of linguistics. For reference on
+such Uralic research within computational linguistics
+see <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib18" title="Language documentation meets language technology" class="ltx_ref">3</a>]</cite>.</p>
+</div>
+<div id="S2.p5" class="ltx_para">
+<p class="ltx_p">Furthermore I are developing a morpho-syntactic rule-based methodology that can
+provide partial, ambiguous dependency graphs. The approach of building
+rule-based analysers first is very prominent within computational linguistics
+research of Uralic languages. In this article I are aiming to connect the
+traditional development of rule-based morphological analysers into treebanking
+workflow in a manner that optimises the usage of native informants’ and the
+computational linguists’ time, which is a crucial component for development in
+a very under-resourced setting.</p>
+</div>
+<div id="S2.p6" class="ltx_para">
+<p class="ltx_p">Finally, I aim to have wide coverage of Uralic languages in the Universal
+Dependency project treebanks, and further study and experiment in the
+state-of-the-art methodology in large variety of NLP and typological research
+topics that have been empowered by the project. At the moment there are 6 Uralic
+treebanks available:
+Finnish <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib53" title="Building the essential resources for finnish: the turku dependency treebank" class="ltx_ref">4</a>, <a href="#bib.bib166" title="Specifying treebanks, outsourcing parsebanks: finntreebank 3" class="ltx_ref">12</a>]</cite>,
+Estonian <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib105" title="Estonian dependency treebank: from constraint grammar tagset to universal dependencies." class="ltx_ref">7</a>]</cite>,
+Hungarian <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib164" title="Hungarian dependency treebank" class="ltx_ref">11</a>]</cite>,
+North Saami <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib153" title="Annotation schemes in north sámi dependency parsing" class="ltx_ref">10</a>]</cite>,
+Komi <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib115" title="The first komi-zyrian universal dependencies treebanks" class="ltx_ref">8</a>]</cite>, and
+Erzya <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib145" title="Towards an open-source universal-dependency treebank for erzya" class="ltx_ref">9</a>]</cite>, out of some 30 that can easily have treebanks.</p>
+</div>
+</section>
+<section id="S3" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">3 </span>Methods</h2>
+
+<div id="S3.p1" class="ltx_para">
+<p class="ltx_p">One of the contributions of this article is, that I am developing a sustainable
+workflow for creation of a wide array of technological resources for a seriously
+under-resourced language. For language technology infrastructure I will make
+use of an existing language technology infrastructure developed
+by <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib104" title="Open-source infrastructures for collaborative work on under-resourced languages" class="ltx_ref">6</a>]</cite>, which I have selected because it provides a number
+of necessary components for free once morphological analysers are built, e.g. automatic spell-checking, machine-translation and so on.</p>
+</div>
+<div id="S3.p2" class="ltx_para">
+<p class="ltx_p">The morphological analysis is based on the finite-state
+morphology <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib10" title="Finite state morphology" class="ltx_ref">2</a>]</cite>, this means in practice that one needs to
+build a dictionary and morphological rules describing the morphological
+processes. To couple the dictionary building with treebanking effort I have
+developed a method to generate lexicon entries from the annotated treebank data.
+I also use the analysers to generate suggestions for the annotators for the
+dependency annotations.</p>
+</div>
+<div id="S3.p3" class="ltx_para">
+<p class="ltx_p">To give an example of the resource building workflow, a sentence might be
+annotated in CONLL-U format like:</p>
+</div>
+<div id="S3.p4" class="ltx_para">
+<pre class="ltx_verbatim ltx_font_typewriter" style="font-size:70%;">
+# sent_id = vepkar-1774.7
+# text =  My toivomma, jotta meijn kuuh vaatah starinankertojat ta guslinoittajat, jotta kaojat uahah nh
+vanhanaikasien rahvahantapojen rekonstruointie, koroetah jrjetjt..
+1                     PUNCT   PUNCT   _       3       punct   _       Weight=0.0033333333333333335
+2       My     my     PRON    PRON    Case=Nom|Number=Sing|Person=1|PronType=Prs      3       nsubj   _       Weight
+=500.0
+3       toivomma        toivuo  VERB    VERB    Mood=Ind|Number=Plur|Person=1|Tense=Pres|VerbForm=Fin|Voice=Act 0
+       root    _       Weight=0.0194|SpaceAfter=No
+4       ,       ,       PUNCT   PUNCT   _       8       punct   _       Weight=518.6755555555555
+5       jotta   jotta   SCONJ   SCONJ   _       8       mark    _       Weight=0.002142857142857143
+6       meijn  my     PRON    PRON    Case=Gen|Number=Plur|Person=1|PronType=Prs      7       nmod:poss       _
+       Weight=500.0
+7       kuuh  kuu   NOUN    NOUN    Case=Ill|Number=Sing    8       obl     _       Weight=500.0
+8       vaatah        vaata VERB    VERB    Mood=Ind|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin|Voice=Act 3
+       ccomp   _       Weight=500.0248
+9       starinankertojat        starinan#kertoja        NOUN    NOUN Case=Nom|Number=Plur    15      nsubj   _  _
+</pre>
+</div>
+<div id="S3.p5" class="ltx_para">
+<p class="ltx_p">For a rule-based morphological parser an entry is needed to have at least
+dictionary form or lemma, and a paradigm for inflectional information; for
+languages like Karelian one cannot fully guess an entry for an inflectional
+paradigm from a single example but can usually give quite short list of
+plausible choices. So, I always extend our dictionaries with the entries from
+the annotated trees.</p>
+</div>
+<div id="S3.p6" class="ltx_para">
+<p class="ltx_p">Likewise when annotating, I use the morphological analyser that is readily
+built with UD analyses: lemmas, UPOS and morphological features as well as
+some rough guesses when possible for the deps (e.g. puncts, Case-based
+dependencies); the python-based guesser for dependencies can currently handle
+things like: select <span class="ltx_text ltx_font_typewriter">PUNCT</span> and suggest an attachment to each of the
+<span class="ltx_text ltx_font_typewriter">VERB</span>s in sentence with <span class="ltx_text ltx_font_typewriter">punct</span> dep,
+or select feature <span class="ltx_text ltx_font_typewriter">Case=Acc</span> and suggest attachment to all
+<span class="ltx_text ltx_font_typewriter">VerbForm=Fin</span> in the sentence with an <span class="ltx_text ltx_font_typewriter">obj</span> dep.
+Thus, I can generate suggestion lists like:</p>
+</div>
+<div id="S3.p7" class="ltx_para">
+<pre class="ltx_verbatim ltx_font_typewriter" style="font-size:70%;">
+# sent-id: &lt;stdin&gt;.21
+# text: Kotamukelaiset toivotah, jotta Kotamuken ta Petroskoin ek muijen
+# kaupunkien vlill olis jrjeetty innllini lentoyhtey.
+1  Kotamukelaiset  Kotamukelaiset  X  X  _  _  _  _  SpaceBefore=No|_
+2  toivotah  toivuo  VERB  VERBMood=Ind|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin|Voice=Act  0  root  _ _
+2  toivotah  toivuo  VERB  VERB  Mood=Ind|Tense=Pres|VerbForm=Fin|Voice=Pass  0  root  _  SpaceAfter=No
+3  ,  ,  SYM  SYM  _  _  _  _  SpaceBefore=No|Weight=506.4
+3  ,  ,  PUNCT  PUNCT  _  2  punct  _  SpaceBefore=No|Weight=0.0033333333333333335
+3  ,  ,  PUNCT  PUNCT  _  13  punct  _  SpaceBefore=No|Weight=0.03333333333333333
+4  jotta  jotta  SCONJ  SCONJ  _  13  mark  _  Weight=0.0225
+5  Kotamuken  Kotamuken  X  X  _  _  _  _  _
+6  ta  ta  CCONJ  CCONJ  _  7  cc  _  Weight=0.01
+7  Petroskoin  Petroskoi  PROPN  PROPN  Case=Gen|Number=Sing  2  obj  _  PropnType=Top|Weight=0.016666666666666666
+</pre>
+</div>
+<div id="S3.p8" class="ltx_para">
+<p class="ltx_p">A linguist is provided with this suggestion list per token in order defined by
+the weights,at the moment expert-determined rule-weighting but when we have
+large enough corpus I can easily incorporate the unigram log probabilities into
+weights as well. It should be noted that the linguist is allowed to discard all
+suggestions and this shall not be considered an unusual case while
+simultaneously building the analyser and the treebank. The current annotators
+also use an editor that is automatically running the validation
+tests<span id="footnote4" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">4</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">4</sup>
+            <span class="ltx_tag ltx_tag_note">4</span>
+            
+            
+            
+          <a href="https://github.com/universaldependencies/tools/validate.py" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/universaldependencies/tools/validate.py</a></span></span></span> for UD after each edit and highlighting problems on the fly. The tools that
+I have developed so far will also be released with a free/libre open source
+licence.</p>
+</div>
+<div id="S3.p9" class="ltx_para">
+<p class="ltx_p">When working on the annotation and guidelines I relied quite heavily on
+existing Uralic treebanks, especially Finnish since it is a closely related
+language with three treebanks and documentation. For many structures it is
+possible to find near or exact match using treebank
+search <span id="footnote5" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">5</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">5</sup>
+            <span class="ltx_tag ltx_tag_note">5</span>
+            
+            
+            
+          <a href="http://bionlp-www.utu.fi/dep_search/" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://bionlp-www.utu.fi/dep_search/</a></span></span></span>. For example, the
+copula structure including the possession structure is marked in the same way in
+Finnish and Karelian languages, and generally many cases, function words and so
+forth, overlap with few systematic changes (e.g. in most parts of Karelian
+(krl) adessive and ablative have same form). Many of the examples where I did
+not find equivalents in Finnish I looked at other Uralic languages, or Russian,
+for example in elliptical structures a long hyphen is often used in Karelian and
+Russian to mark some elided tokens but not in contemporary Finnish in the genres
+of the UD treebanks at least.</p>
+</div>
+<div id="S3.p10" class="ltx_para">
+<p class="ltx_p">Finally, this workflow goes on to ensure that the morphological analysers I
+build will have virtually a 100 % coverage of the treebank released, with a
+very high rate of recall for the treebank fields: lemma, UPOS and the lexical
+and morphological feature definitions. The reason recall is not 100 % is that
+there will be some annotations that, while theoretically correct, are not
+wanted in a normative analyser, e.g. colloquial uses of certain case forms in
+a role that is not the literary standard, as well as typos and mistakes,
+however, I might change this practice in the future with universal feature
+<span class="ltx_text ltx_font_typewriter">Style=Coll</span>.<span id="footnote6" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">6</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">6</sup>
+            <span class="ltx_tag ltx_tag_note">6</span>
+            
+            
+            
+          I thank the anonymous reviewer for the helpful
+suggestion.</span></span></span></p>
+</div>
+<figure id="S3.T1" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_tt">Language</th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_tt">Lexicon size</th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t">Karelian</th>
+<td class="ltx_td ltx_align_right ltx_border_t">1452</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb">Livvi</th>
+<td class="ltx_td ltx_align_right ltx_border_bb">56,377</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 1: </span>The sizes of analysers of Uralic languages.</figcaption>
+</figure>
+</section>
+<section id="S4" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">4 </span>Data</h2>
+
+<div id="S4.p1" class="ltx_para">
+<p class="ltx_p">There is not a great amount of available data written in Karelian languages to
+begin with. Furthermore, while there have been written texts for some time, the
+newest standard ortographies are quite recent, and there is some amount of
+variation from text to text in the written forms that is not the same as with
+older more standardised languages. Added to that is that telling languages
+apart, especially in less standard more dialectal writing, becomes non-trivial
+task. I started my data collection with web-crawling, and eventually found a
+corpus collection web site with open licencing policy, and the languages I want
+to work on categorised by language and genre, called
+VepKar.<span id="footnote7" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">7</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">7</sup>
+            <span class="ltx_tag ltx_tag_note">7</span>
+            
+            
+            
+          <a href="http://dictorpus.krc.karelia.ru/" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://dictorpus.krc.karelia.ru/</a></span></span></span> The open licence also
+lets us work on articles instead of shuffled sentences, so it is another
+advantage.
+</p>
+</div>
+<div id="S4.p2" class="ltx_para">
+<p class="ltx_p">By the time of writing I have developed a releasable treebank for Karelian and
+a morphological analyser, which are summarised in the table <a href="#S4.T2" title="Table 2 ‣ 4 Data ‣ Building minority dependency treebanks, dictionaries and computational grammars at the same time: an experiment in Karelian treebanking" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>,
+I have also begun the work on Livvi treebank, which already had a usable
+analyser in place. For comparison I show some of the other existing Uralic
+treebanks for reference. Number of dependency trees annotated for
+non-Karelian languages is based on universaldependencies.org’s statistics.</p>
+</div>
+<figure id="S4.T2" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_tt">Treebank</th>
+<td class="ltx_td ltx_align_right ltx_border_tt">Dependency trees</td>
+<td class="ltx_td ltx_align_right ltx_border_tt">Syntactic words</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t">Karelian</th>
+<td class="ltx_td ltx_align_right ltx_border_t">228</td>
+<td class="ltx_td ltx_align_right ltx_border_t">3094</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">Livvi</th>
+<td class="ltx_td ltx_align_right">20</td>
+<td class="ltx_td ltx_align_right">461</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t">Finnish</th>
+<td class="ltx_td ltx_align_right ltx_border_t">34,859</td>
+<td class="ltx_td ltx_align_right ltx_border_t">377,822</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">Estonian</th>
+<td class="ltx_td ltx_align_right">32,385</td>
+<td class="ltx_td ltx_align_right">461,531</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">North Saami</th>
+<td class="ltx_td ltx_align_right">3122</td>
+<td class="ltx_td ltx_align_right">26,845</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">Hungarian</th>
+<td class="ltx_td ltx_align_right">1800</td>
+<td class="ltx_td ltx_align_right">42,032</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">Erzya</th>
+<td class="ltx_td ltx_align_right">1550</td>
+<td class="ltx_td ltx_align_right">15,790</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb">Komi</th>
+<td class="ltx_td ltx_align_right ltx_border_bb">307</td>
+<td class="ltx_td ltx_align_right ltx_border_bb">3304</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 2: </span>The sizes of treebanks of Uralic languages.
+Dependency trees is number of annotated sentences and syntactic words
+as defined in UD guidelines.</figcaption>
+</figure>
+</section>
+<section id="S5" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">5 </span>Discussion and future work</h2>
+
+<div id="S5.p1" class="ltx_para">
+<p class="ltx_p">I have achieved a baseline universal dependency treebank and a morphological
+analyser for a minority language without pre-existing resources, and started
+working on a second treebank on a language with pre-existing analyser. In the
+next part I will contact more experts to verify the analyses and work on
+extending the treebanks as well as the analysers.</p>
+</div>
+</section>
+<section id="S6" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">6 </span>Acknowledgments</h2>
+
+<div id="S6.p1" class="ltx_para">
+<p class="ltx_p">The author was employed by CLARIN-D during the project.</p>
+</div>
+</section>
+<section id="bib" class="ltx_bibliography">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+
+<ul id="bib.L1" class="ltx_biblist">
+<li id="bib.bib4" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. V. Ahtia</span><span class="ltx_text ltx_bib_year"> (1938)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Karjalan kielioppi</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">Karjalan Kansalaisseura</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p1" title="1 Introduction ‣ Building minority dependency treebanks, dictionaries and computational grammars at the same time: an experiment in Karelian treebanking" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib10" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. R. Beesley and L. Karttunen</span><span class="ltx_text ltx_bib_year"> (2003)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Finite state morphology</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">CSLI publications</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text isbn ltx_bib_external">ISBN 978-1575864341</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p2" title="3 Methods ‣ Building minority dependency treebanks, dictionaries and computational grammars at the same time: an experiment in Karelian treebanking" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3</span></a>.
+</span>
+</li>
+<li id="bib.bib18" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. Blokland, M. Fedina, C. Gerstenberger, N. Partanen, M. Rießler, and J. Wilbur</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Language documentation meets language technology</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Septentrio Conference Series</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 8–18</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p4" title="2 Background ‣ Building minority dependency treebanks, dictionaries and computational grammars at the same time: an experiment in Karelian treebanking" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib53" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Haverinen, J. Nyblom, T. Viljanen, V. Laippala, S. Kohonen, A. Missilä, S. Ojala, T. Salakoski, and F. Ginter</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Building the essential resources for finnish: the turku dependency treebank</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Language Resources and Evaluation</span> <span class="ltx_text ltx_bib_volume">48</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages"> pp. 493–531</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p6" title="2 Background ‣ Building minority dependency treebanks, dictionaries and computational grammars at the same time: an experiment in Karelian treebanking" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib90" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Markianova</span><span class="ltx_text ltx_bib_year"> (2002)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Karjalan kielioppi 5-9</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Periodika, Petroskoi</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://opastajat.net/opastus/grammar/index.html" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p1" title="1 Introduction ‣ Building minority dependency treebanks, dictionaries and computational grammars at the same time: an experiment in Karelian treebanking" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib104" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Moshagen, J. Rueter, T. Pirinen, T. Trosterud, and F. M. Tyers</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Open-source infrastructures for collaborative work on under-resourced languages</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of e Ninth International Conference on
+Language Resources and Evaluation, LREC</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 71–77</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Background ‣ Building minority dependency treebanks, dictionaries and computational grammars at the same time: an experiment in Karelian treebanking" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>,
+<a href="#S3.p1" title="3 Methods ‣ Building minority dependency treebanks, dictionaries and computational grammars at the same time: an experiment in Karelian treebanking" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3</span></a>.
+</span>
+</li>
+<li id="bib.bib105" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Muischnek, K. Müürisep, and T. Puolakainen</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Estonian dependency treebank: from constraint grammar tagset to universal dependencies.</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">LREC</span>,
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p6" title="2 Background ‣ Building minority dependency treebanks, dictionaries and computational grammars at the same time: an experiment in Karelian treebanking" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib115" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">N. Partanen, R. Blokland, K. Lim, T. Poibeau, and M. Rießler</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">The first komi-zyrian universal dependencies treebanks</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Second Workshop on Universal Dependencies (UDW 2018)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 126–132</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p6" title="2 Background ‣ Building minority dependency treebanks, dictionaries and computational grammars at the same time: an experiment in Karelian treebanking" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib145" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Rueter and F. Tyers</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Towards an open-source universal-dependency treebank for erzya</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Fourth International Workshop on Computational Linguistics of Uralic Languages</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 106–118</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p6" title="2 Background ‣ Building minority dependency treebanks, dictionaries and computational grammars at the same time: an experiment in Karelian treebanking" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib153" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Sheyanova and F. M. Tyers</span><span class="ltx_text ltx_bib_year"> (2017)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Annotation schemes in north sámi dependency parsing</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 3rd International Workshop for
+Computational Linguistics of Uralic Languages</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 66–75</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Background ‣ Building minority dependency treebanks, dictionaries and computational grammars at the same time: an experiment in Karelian treebanking" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>,
+<a href="#S2.p6" title="2 Background ‣ Building minority dependency treebanks, dictionaries and computational grammars at the same time: an experiment in Karelian treebanking" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib164" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">V. Vincze, D. Szauter, A. Almási, G. Móra, Z. Alexin, and J. Csirik</span><span class="ltx_text ltx_bib_year"> (2010)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Hungarian dependency treebank</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p6" title="2 Background ‣ Building minority dependency treebanks, dictionaries and computational grammars at the same time: an experiment in Karelian treebanking" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib166" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Voutilainen, K. Muhonen, T. K. Purtonen, K. Lindén, <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2012)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Specifying treebanks, outsourcing parsebanks: finntreebank 3</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of LREC 2012 8th ELRA Conference on Language Resources
+and Evaluation</span>,
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p6" title="2 Background ‣ Building minority dependency treebanks, dictionaries and computational grammars at the same time: an experiment in Karelian treebanking" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib175" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">P. Zaikov</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Vienankarjalan kielioppi</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p1" title="1 Introduction ‣ Building minority dependency treebanks, dictionaries and computational grammars at the same time: an experiment in Karelian treebanking" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+</ul>
+</section>
+<div id="p1" class="ltx_para">
+<p class="ltx_p">Tommi A Pirinen 
+<br class="ltx_break">Universität Hamburg 
+<br class="ltx_break">Max-Brauer-Allee 60 
+<br class="ltx_break">D-22765, Hamburg 
+<br class="ltx_break"><span class="ltx_text ltx_font_typewriter">tommi.antero.pirinen@uni-hamburg.de</span> 
+<br class="ltx_break"></p>
+</div>
+</article>
+</div>
+<footer class="ltx_page_footer">
+<div class="ltx_page_logo">Generated  on Tue Sep  3 15:51:29 2019 by <a href="http://dlmf.nist.gov/LaTeXML/">LaTeXML <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="[LOGO]"></a>
+</div></footer>
+</div>
+</body>
+</html>

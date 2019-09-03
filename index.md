@@ -61,10 +61,13 @@ be as accurate and up-to-date as google scholar.
 
 ###  Publications in conferences and journals
 
-1. **Tommi A Pirinen** (2019, to appear), *Building minority dependency
+1. **Tommi A Pirinen** (2019), *Building minority dependency
    treebanks, dictionaries and computational grammars at the same time---an
    experiment in Karelian treebanking*,  in Universal Dependencies Workshop
-   2019 (UDW 2019) at Syntaxfest 2019, Paris, France.
+   2019 (UDW 2019) at Syntaxfest 2019, Paris, France. [TeX
+   version](2019-udw/Pirinen-2019-udw-karelians.tex), [HTML
+   (LaTeXML) version](2019-udw/Pirinen-2019-udw-karelians.html),
+
 1. **Tommi A Pirinen** (2019), *Workflows for kickstarting RBMT in
    virtually No-Resource Situation*, in The 2nd Workshop on Technologies for MT
    of Low Resource Languages (LoResMT 2019), at MTsummit 2019, Dublin. [TeX

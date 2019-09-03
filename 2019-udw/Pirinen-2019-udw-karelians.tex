@@ -1,20 +1,11 @@
 %File SyntaxFest2019.tex
-\documentclass[11pt]{article}
+\documentclass{flammie}
 
-\usepackage{SyntaxFest2019}
-\usepackage{url}
 \usepackage{fontspec}
-\usepackage{latexsym}
-\usepackage{mathptmx}
-\usepackage{expex}
-%\usepackage[T1]{fontenc}
-\usepackage{pinyin}
 \usepackage{booktabs}
 
 \setmainfont{Liberation Serif}
 
-\usepackage{CJKutf8}
-\newcommand{\Chinese}[1]{\begin{CJK*}{UTF8}{gbsn}#1\end{CJK*}}
 
 \newif\ifcameraready%
 \camerareadytrue%
@@ -68,13 +59,14 @@ republic of Karelia in Russia and surroundings. The languages are split in the
 ISO 639--3 standard between a few language codes: \textit{Karelian} (krl) and
 \textit{Livvi} or Olonets karelian (olo) for the two main branches of the
 language. The fact that `krl' is commonly refered to as just Karelian can be
-confusing because `olo' is also Karelian but I try to make the distinction
-clear throughout the article by using the ISO codes when necessary. The division
-is not totally unproblematic but I have followed it in the treebank for ease of
+confusing because `olo' is also Karelian but I try to make the distinction clear
+throughout the article by using the ISO codes when necessary. The division is
+not totally unproblematic but I have followed it in the treebank for ease of
 development and use. There are some 35,000 native speakers of Karelian
 (krl)~\footnote{\url{https://www.ethnologue.com/18/language/krl/}} and 31,000
-for Livvi (olo)~\footnote{\url{https://www.ethnologue.com/18/language/olo/}} according to Ethnologue, and both are classified as ``Developing''.
-The languages are developed enough to have some
+for Livvi (olo)~\footnote{\url{https://www.ethnologue.com/18/language/olo/}}
+according to Ethnologue, and both are classified as ``Developing''.  The
+languages are developed enough to have some
 grammars~\cite{zaikov2013vienankarjalan,ahtia1938karjalan,markianova2002karjalan},
 dictionaries and books written, as well as some regular newspapers and
 broadcasts, but very few digital or computational resources so far. For
@@ -353,7 +345,7 @@ The author was employed by CLARIN-D during the project.
 \fi
 
 % include your own bib file like this:
-\bibliographystyle{acl}
+\bibliographystyle{unsrt}
 \bibliography{udw2019}
 
 \ifcameraready%
