@@ -1,0 +1,178 @@
+\documentclass{beamer}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{url}
+
+\usepackage[normalem]{ulem}
+
+\usepackage{pifont}
+ \newcommand{\hand}{\ding{43}}
+
+\mode<presentation>
+
+\title{Towards Karelian UD treebanks---workflow prototype,
+\scriptsize{at SyntaxFest, Paris, 2019-08-28\\
+\url{https://github.com/apertium/apertium-krl/}}}
+\author{Tommi A Pirinen \scriptsize \guilsinglleft flammie@iki.fi \guilsinglright }
+\date{\today}
+
+\begin{document}
+
+\selectlanguage{english}
+
+\maketitle
+
+\begin{frame}
+    \frametitle{Intro: what is this}
+    \begin{itemize}
+        \item Workflow prototype
+        \item No-Resource / seriously under-resourced languages:\begin{itemize}
+                \item Some 1000 lines in a Web-crawl corpus,
+                \item an XML dictionary
+                \item Karelian proper: no analysers or NL stuff, Livvi: some
+                    basic analysers
+        \end{itemize}
+        \item we want to make dependency treebanking part of the kickstarting
+            of language resources including analysers, dictionaries, 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Karelian languages}
+    \parbox{.6\textwidth}{%
+    \begin{itemize}
+        \item Uralic, Finnic languages
+        \item Agglutinative, more morphological complexity than most IE, less
+            than Eskimo-Aleut
+        \item Closely related to Finnish, limited mutual intelligibility
+            for experts etc.
+    \end{itemize}
+    }\hfill\parbox{.4\textwidth}{%
+        \includegraphics[width=.33\textwidth]{KarelianMapPlusJoensuu}
+    }
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{The workflow}
+    \begin{enumerate}
+        \item Analyse a text
+        \item Add OOVs to source language dictionary
+        \item Generate all plausible dependency tree suggestions
+        \item Disambiguate and fix by hand
+    \end{enumerate}
+    Also:
+    \begin{itemize}
+        \item Annotate by hand / translate
+    \end{itemize}
+    can be interleaved for corpus building and fun
+\end{frame}
+
+\begin{frame}
+    \frametitle{workflow}
+    Parts of workflow are feeding each other:
+    \begin{enumerate}
+        \item Existing analysers and translators are used to generate
+            suggestions for new translations and annotations
+        \item Manual translations and annotations form a gold corpora / parallel
+            texts / treebanks
+        \item Manually translated / annotated lexemes are used to
+            generate entries for mono- and bilingual dictionaries
+        \item in future we would like to record gold annotations to improve
+            rule-based disambiguation
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{RBMT workflow demo}
+    Source text:\\
+
+    III Eläkeläisien talvispartakiadi piettih Petroskoissa
+\\
+Kaunehena pakkaispäivänä 6. kevätkuuta Petroskoin Kurgan-urheilukeškukšešša keräyty yli šata ijäkäštä hiihtourheilun harraštajua ympäri Karjalašta.
+Kilpailuja piettih kahteh jakšoh – kilpahiihot naisien ta miehien kešen šekä šekaviestihiihto.
+Urheilupruasniekan tulokšet jätettih tyytyväisiksi kuin tapahtuman järještäjie, šamoin ni ošallistujie
+\end{frame}
+
+\begin{frame}
+    \frametitle{Analysis with source OOVs}
+    \alert{*III *Eläkeläisien *talvispartakiadi}
+    piteä.VERB Petroskoi.PROPN
+
+    \alert{*Kaunehena  *pakkaispäivänä} 6.ADJ kevätkuu.NOUN Petroskoi.PROPN
+    \alert{*Kurgan}-urheilu.NOUNkeškuš.NOUN *keräyty yli.ADP šata.NUM ijäkäštä.ADJ
+    \alert{*hiihtourheilun} \alert{*harraštajua} ympäri.ADP Karjala.PROPN ..PUNCT
+\end{frame}
+
+\begin{frame}
+    \frametitle{Analysis (100 \% coverage)}
+III.ADJ Eläkeläine.NOUN talvispartakiadi.NOUN
+    piteä.VERB Petroskoi.PROPN
+
+    Kaunis.ADJ  pakkaispäivä.NOUN 6.ADJ kevätkuu.NOUN Petroskoi.PROPN
+    Kurgan-urheilukeškuš.NOUN keräytyö.VERB yli.ADP šata.NUM ijäkäštä.ADJ
+    hiihtourheilu.NOUN harraštaja.NOUN ympäri.ADP Karjala.PROPN ..PUNCT
+\end{frame}
+
+\begin{frame}
+    \frametitle{Dependency suggestions (redacted visualisation)}
+    \begin{small}
+    \begin{texttt}
+\# sent-id: vepkar-1698.1 \\
+\# text: III Eläkeläisien talvispartakiadi piettih Petroskoissa. \\
+1  III  III  ADJ  ADJ  Case=Nom|Number=Sing|NumType=Ord  \_  \_  \_  Weight=500.0 \\
+2  Eläkeläisien  eläkeläine  NOUN  NOUN  Case=Gen|Number=Plur  3  nmod:poss  \_  Weight=0.01 \\
+3  talvispartakiadi  talvispartakiadi  NOUN  NOUN  Case=Nom|Number=Sing  \_  \_  \_  Weight=500.0 \\
+        \alert{4}  piettih  piteä  VERB  VERB  Mood=Ind|Number=Plur|Person=3|Tense=Past|VerbForm=Fin|Voice=Act  0  root  \_  Weight=0.01 \\
+        \alert{4}  piettih  piteä  VERB  VERB  Mood=Ind|Tense=Past|VerbForm=Fin|Voice=Pass  0  root  \_  Weight=0.21000000000000002 \\
+5  Petroskoissa  Petroskoi  PROPN  PROPN  Case=Ine|Number=Sing  4  obl  \_  Weight=0.005 \\
+6  .  .  PUNCT  PUNCT  \_  4  punct  \_  Weight=0.01
+    \end{texttt}
+    \end{small}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Disambiguate and fix}
+    \begin{small}
+    \begin{texttt}
+\# sent-id: vepkar-1698.1 \\
+\# text: III Eläkeläisien talvispartakiadi piettih Petroskoissa. \\
+1  III  III  ADJ  ADJ  Case=Nom|Number=Sing|NumType=Ord  3  amod  \_  Weight=500.0 \\
+2  Eläkeläisien  eläkeläine  NOUN  NOUN  Case=Gen|Number=Plur  3  nmod:poss  \_  Weight=0.01 \\
+3  talvispartakiadi  talvispartakiadi  NOUN  NOUN  Case=Nom|Number=Sing  4  nsubj  \_  Weight=500.0 \\
+4  piettih  piteä  VERB  VERB  Mood=Ind|Tense=Past|VerbForm=Fin|Voice=Pass  0  root  \_  Weight=0.21000000000000002 \\
+5  Petroskoissa  Petroskoi  PROPN  PROPN  Case=Ine|Number=Sing  4  obl  \_  Weight=0.005 \\
+6  .  .  PUNCT  PUNCT  \_  4  punct  \_  Weight=0.01
+    \end{texttt}
+    \end{small}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Experimental ``results''}
+    In about a year I have created some resources:
+\begin{enumerate}
+        \item Universal Dependency treebank for Karelian
+        \item Karelian morphological analyser
+        \item Finnish-Karelian RBMT (limited vocabuliaries)
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Future???}
+    I want to make GUI that does most of the thing like so, the idea is
+    loosely based on documentary linguistics tool SIL FLEX language explorer
+    \includegraphics{flex}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Thanks, questions?}
+    Thanks, questions?
+\end{frame}
+
+\end{document}
+
