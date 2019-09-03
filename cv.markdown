@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Tommi A Pirinen–Curriculum Vitae 
+title: Tommi A Pirinen–Curriculum Vitae
 ---
 
-see also: [my academic publications](index.html), 
-[TeX CV](cv/Pirinen-Curriculum-Vitae.tex) and 
+see also: [my academic publications](index.html),
+[TeX CV](cv/Pirinen-Curriculum-Vitae.tex) and
 [HTML by latexml](cv/Pirinen-Curriculum-Vitae.html) from my previous job
 application run (some specific hand picked selected articles for example)
 
@@ -52,13 +52,15 @@ Other: Localisation, Free/Open Source Software, Natural language processing
 * **Research assistant** in Helsinki university 2008—2009
     * Programming in HFST research group
 * **Doctoral student** (i.e. junior researcher) in Helsinki university 2009—2012
-    * HFST research and development as related to PhD topic 
+    * HFST research and development as related to PhD topic
       (FSTs in spell checking)
     * Teaching courses: Text corpora, Rule-based machine translation
 * Helsinki University, department of Phonetics 2013—2014
     * Simple4all Text-to-Speech systems
 * Dublin City University, CNGL 2014—2016
     * Abu-Matran machine translation
+* Univeristy of Hamburg, HZSK 2016–
+    * CLARIN-D, CLARIAH-DE
 
 ## Military Service
 
@@ -67,8 +69,8 @@ for 6 months (also: not bound to obligatory reserve training periods).
 
 ## Miscellaneous
 
-I am an active Free/Open Source hobbyist participating mainly in Finnish
-localisation and QA of Finnish localisation projects, as well as developing the
-language technology on various levels and distributing it in Gentoo linux and
-other appropriate projects. Please see e.g. [my github
+I am an active member in Free/Libre open source communities, working with
+Finnish translations, NLP-related software including end-users tools like
+spell-checkers and text-to-speech, as well as more scientific frameworks like
+finite-state automata libraries and language models. Please see e.g. [my github
 profile](https://github.com/flammie).
