@@ -306,7 +306,7 @@ work at university and sparetime hobbies related to science:
  * [FiWaC 1.0](https://www.clarin.si/repository/xmlui/handle/11356/1074)
  * [Omorfi](https://flammie.github.io/omorfi)
  * [HFST–Helsinki Finite-State Technology](https://hfst.github.io)
- ** *HFST ospell*
+   * *HFST ospell*
  * [Apertium](http://apertium.org)
  * [Giellatekno](http://giellatekno.uit.no)
 
