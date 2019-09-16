@@ -12,7 +12,8 @@ etc. usw.
 
 <div itemscope itemtype="https://schema.org/Person"><a itemprop="sameAs" content="https://orcid.org/0000-0003-1207-5395" href="https://orcid.org/0000-0003-1207-5395" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0003-1207-5395</a></div>
 
-[Here's some of the same info formatted as a CV](cv.html).
+Here's [a sample CV](cv.html) that I update usually only when I apply for jobs
+or so, so it might be outdated. And here's [an academic bio](bio.html),
 
 ## Short academic history
 
@@ -67,7 +68,6 @@ be as accurate and up-to-date as google scholar.
    2019 (UDW 2019) at Syntaxfest 2019, Paris, France. [TeX
    version](2019-udw/Pirinen-2019-udw-karelians.tex), [HTML
    (LaTeXML) version](2019-udw/Pirinen-2019-udw-karelians.html),
-
 1. **Tommi A Pirinen** (2019), *Workflows for kickstarting RBMT in
    virtually No-Resource Situation*, in The 2nd Workshop on Technologies for MT
    of Low Resource Languages (LoResMT 2019), at MTsummit 2019, Dublin. [TeX

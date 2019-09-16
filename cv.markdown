@@ -74,3 +74,6 @@ Finnish translations, NLP-related software including end-users tools like
 spell-checkers and text-to-speech, as well as more scientific frameworks like
 finite-state automata libraries and language models. Please see e.g. [my github
 profile](https://github.com/flammie).
+
+------
+<small>Last updated: June 2019</small>
