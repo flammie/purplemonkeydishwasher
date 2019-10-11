@@ -62,6 +62,9 @@ be as accurate and up-to-date as google scholar.
 
 ###  Publications in conferences and journals
 
+1. **Tommi Pirinen**, Hanna Hedeland, Heidemarie Sambale (2019),
+   *User Support for Digital Humanities*,  in CLARIN Annual Conference 2019
+   (CAC 2019), Leipzig, Germany,
 1. **Tommi A Pirinen** (2019), *Building minority dependency
    treebanks, dictionaries and computational grammars at the same time---an
    experiment in Karelian treebanking*,  in Universal Dependencies Workshop
