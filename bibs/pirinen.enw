@@ -1,31 +1,22 @@
-%0 Conference Proceedings
-%T Heuristic hyper-minimization of finite state lexicons
-%A Drobac, Senka
-%A Lind�n, Krister
+﻿%0 Thesis
+%T Suomen kielen äärellistilainen automaattinen morfologinen jäsennin avoimen lähdekoodin resurssein
 %A Pirinen, Tommi
-%A Silfverberg, Miikka
-%A others
-%B Proceedings of the Ninth International Conference on Language Resources and Evaluation (LREC?14)
-%D 2014
-%F drobac2014heuristic
+%D 2008
+%C Master’s thesis, University of Helsinki
+%F pirinen2008suomen
+%9 Ph.D. thesis
 
-%0 Conference Proceedings
-%T North-S�mi to Finnish rule-based machine translation system
-%A Johnson, Ryan
-%A Pirinen, Tommi A.
-%A Puolakainen, Tiina
-%A Tyers, Francis
-%A Trosterud, Trond
-%A Unhammer, Kevin
-%B Proceedings of the 21st Nordic Conference on Computational Linguistics, NoDaLiDa, 22-24 May 2017, Gothenburg, Sweden
-%D 2017
-%N 131
-%F johnson2017north
-%P 115-122
+%0 Thesis
+%T Suomen kielen äärellistilainen automaattinen morfologinen analyysi avoimen lähdekoodin menetelmin
+%A Pirinen, Tommi
+%D 2008
+%C Master’s thesis, Helsingin yliopisto
+%F pirinen2008suomenX
+%9 Ph.D. thesis
 
 %0 Journal Article
-%T HFST Tools for Morphology?An Efficient Open-Source Package for Construction of Morphological Analyzers
-%A Lind�n, Krister
+%T HFST Tools for Morphology–An Efficient Open-Source Package for Construction of Morphological Analyzers
+%A Lindén, Krister
 %A Silfverberg, Miikka
 %A Pirinen, Tommi
 %J State of the Art in Computational Morphology
@@ -35,17 +26,17 @@
 %P 28-47
 
 %0 Conference Proceedings
-%T Weighting finite-state morphological analyzers using hfst tools
-%A Lind�n, Krister
+%T Weighting finite-state morphological analyzers using HFST tools
+%A Lindén, Krister
 %A Pirinen, Tommi
 %A others
-%B Finite-State Methods and Natural Language Processing-FSMNLP 2009 Eight International Workshop
+%S Finite-State Methods and Natural Language Processing-FSMNLP 2009 Eighth International Workshop
 %D 2009
 %F linden2009weighting
 
 %0 Journal Article
 %T Weighted Finite-State Morphological Analysis of Finnish Inflection and Compounding
-%A Lind�n, Krister
+%A Lindén, Krister
 %A Pirinen, Tommi
 %J Proceedings of Nodalida 2009
 %D 2009
@@ -53,132 +44,68 @@
 %F linden2009weighted
 
 %0 Conference Proceedings
-%T Hfst—framework for compiling and applying morphologies
-%A Lind�n, Krister
-%A Axelson, Erik
-%A Hardwick, Sam
-%A Pirinen, Tommi A.
-%A Silfverberg, Miikka
-%B International Workshop on Systems and Frameworks for Computational Morphology
-%D 2011
-%F linden2011hfst
-%P 67-85
-
-%0 Conference Proceedings
-%T HFST—a system for creating NLP tools
-%A Lind�n, Krister
-%A Axelson, Erik
-%A Drobac, Senka
-%A Hardwick, Sam
-%A Kuokkala, Juha
-%A Niemi, Jyrki
-%A Pirinen, Tommi A.
-%A Silfverberg, Miikka
-%B International Workshop on Systems and Frameworks for Computational Morphology
-%D 2013
-%F linden2013hfst
-%P 53-71
-
-%0 Book Section
-%T Using hfst for creating computational linguistic applications
-%A Lind�n, Krister
-%A Axelson, Erik
-%A Drobac, Senka
-%A Hardwick, Sam
-%A Silfverberg, Miikka
-%A Pirinen, Tommi A.
-%B Computational Linguistics
-%D 2013
-%I Springer Berlin Heidelberg
-%F linden2013using
-%P 3-25
-
-%0 Journal Article
-%T Finnish web corpus fiWaC 1.0
-%A Ljube?i?, Nikola
-%A Pirinen, Tommi
-%A Toral, Antonio
-%D 2016
-%I Jo\vzef Stefan Institute
-%F ljubevsic2016finnish
-
-%0 Conference Proceedings
-%T Building an open-source development infrastructure for language technology projects
-%A Moshagen, Sjur N.
-%A Pirinen, Tommi A.
-%A Trosterud, Trond
-%B Proceedings of the 19th Nordic Conference of Computational Linguistics (NODALIDA 2013)
-%D 2013
-%V 16
-%F moshagen2013buildinga
-%P 22-24
-
-%0 Conference Proceedings
-%T Building an open-source development infrastructure for language technology projects
-%A Moshagen, Sjur N.
-%A Pirinen, Tommi A.
-%A Trosterud, Trond
-%B Proceedings of the 19th Nordic Conference of Computational Linguistics (NODALIDA 2013); May 22-24; 2013; Oslo University; Norway. NEALT Proceedings Series 16
-%D 2013
-%N 085
-%F moshagen2013buildingb
-%P 343-352
-
-%0 Conference Proceedings
-%T Open-Source Infrastructures for Collaborative Work on Under-Resourced Languages
-%A Moshagen, Sjur
-%A Rueter, Jack
-%A Pirinen, Tommi
-%A Trosterud, Trond
-%A Tyers, Francis M.
-%B Proceedings of e Ninth International Conference on Language Resources and Evaluation, LREC
-%F moshagenopen
-%P 71-77
-
-%0 Thesis
-%T Suomen kielen ��rellistilainen automaattinen morfologinen j�sennin avoimen l�hdekoodin resurssein
-%A Pirinen, Tommi
-%D 2008
-%C Master’s thesis, University of Helsinki
-%F pirinen2008suomena
-%9 Ph.D. thesis
-
-%0 Thesis
-%T Suomen kielen ��rellistilainen automaattinen morfologinen analyysi avoimen l�hdekoodin menetelmin
-%A Pirinen, Tommi
-%D 2008
-%C Master’s thesis, Helsingin yliopisto
-%F pirinen2008suomenb
-%9 Ph.D. thesis
-
-%0 Conference Proceedings
 %T Finite-state spell-checking with weighted language and error models
 %A Pirinen, Tommi
-%A Lind�n, Krister
+%A Lindén, Krister
 %A others
-%B Proceedings of LREC 2010 Workshop on Creation and use of basic lexical resources for less-resourced languages
+%S Proceedings of LREC 2010 Workshop on Creation and use of basic lexical resources for less-resourced languages
 %D 2010
 %F pirinen2010finitea
 
 %0 Conference Proceedings
 %T Building and using existing hunspell dictionaries and TEX hyphenators as finite-state automata
 %A Pirinen, Tommi A.
-%A Lind�n, Krister
-%B Computer Science and Information Technology (IMCSIT), Proceedings of the 2010 International Multiconference on
+%A Lindén, Krister
+%S Computer Science and Information Technology (IMCSIT), Proceedings of the 2010 International Multiconference on
 %D 2010
+%I IEEE
 %F pirinen2010building
+%O (TEX in original title is \TeX)
 %P 477-484
 
 %0 Journal Article
 %T Creating and weighting hunspell dictionaries as finite-state automata
 %A Pirinen, Tommi A.
-%A Lind�n, Krister
+%A Lindén, Krister
 %A others
 %J Investigationes Linguisticae
 %D 2010
 %V 21
 %F pirinen2010creating
 %P 1-16
+
+%0 Conference Proceedings
+%T Finite-State Spell-Checking with Weighted Language and Error Models—Building and Evaluating Spell-Checkers with Wikipedia as Corpus
+%A Pirinen, Tommi A.
+%A Lindén, Krister
+%S 7th SaLTMiL Workshop on Creation and use of basic lexical resources for less-resourced languages LREC 2010, Valetta, Malta, 23 May 2010 Workshop programme
+%F pirinen2010finiteb
+%P 13
+
+%0 Journal Article
+%T Improving Predictive Entry of Finnish Text Messages using IRC Logs
+%A Silfverberg, Miikka
+%A Hyvärinen, Mirka
+%A Pirinen, Tommi
+%J def
+%D 2011
+%V 1
+%N 2
+%F silfverberg2011improving
+%P 4
+
+%0 Conference Proceedings
+%T Hfst—framework for compiling and applying morphologies
+%A Lindén, Krister
+%A Axelson, Erik
+%A Hardwick, Sam
+%A Pirinen, Tommi A.
+%A Silfverberg, Miikka
+%S International Workshop on Systems and Frameworks for Computational Morphology
+%D 2011
+%I Springer Berlin Heidelberg
+%F linden2011hfst
+%P 67-85
 
 %0 Generic
 %T Open Source Finnish Morphology (OMorFi). Department of Modern Languages, University of Helsinki
@@ -187,9 +114,9 @@
 %F pirinen2011open
 
 %0 Conference Proceedings
-%T Modularisation of finnish finite-state language description—towards wide collaboration in open source development of a morphological analyser
+%T Modularisation of Finnish finite-state language description—towards wide collaboration in open source development of a morphological analyser
 %A Pirinen, Tommi A.
-%B Proceedings of the 18th Nordic Conference of Computational Linguistics (NODALIDA)
+%S Proceedings of the 18th Nordic Conference of Computational Linguistics (NODALIDA)
 %D 2011
 %F pirinen2011modularisation
 %P 299-302
@@ -198,7 +125,7 @@
 %T Effects of weighted finite-state language and error models on speed and efficiency of finite-state spell-checking
 %A Pirinen, Tommi A.
 %A Hardwick, Sam
-%B Preproceedings of the 10th International Workshop on Finite State Methods and Natural Language Processing FSMNLP
+%S Preproceedings of the 10th International Workshop on Finite State Methods and Natural Language Processing FSMNLP
 %D 2012
 %F pirinen2012effects
 %P 6-14
@@ -209,7 +136,7 @@
 %A Silfverberg, Miikka
 %A Linden, Krister
 %A others
-%B Computational Linguistics and Intelligent Text Processing 13th International Conference, CICLing 2012
+%S Computational Linguistics and Intelligent Text Processing 13th International Conference, CICLing 2012
 %D 2012
 %F pirinen2012improving
 
@@ -226,41 +153,150 @@
 %T Effect of language and error models on efficiency of finite-state spell-checking and correction
 %A Pirinen, Tommi A.
 %A Hardwick, Sam
-%B Proceedings of the 10th International Workshop on Finite State Methods and Natural Language Processing
+%S Proceedings of the 10th International Workshop on Finite State Methods and Natural Language Processing
 %D 2012
 %F pirinen2012effect
 %P 1-9
 
-%0 Journal Article
+%0 Conference Proceedings
+%T HFST—a system for creating NLP tools
+%A Lindén, Krister
+%A Axelson, Erik
+%A Drobac, Senka
+%A Hardwick, Sam
+%A Kuokkala, Juha
+%A Niemi, Jyrki
+%A Pirinen, Tommi A.
+%A Silfverberg, Miikka
+%S International Workshop on Systems and Frameworks for Computational Morphology
+%D 2013
+%I Springer Berlin Heidelberg
+%F linden2013hfst
+%P 53-71
+
+%0 Book Section
+%T Using HFST for creating computational linguistic applications
+%A Lindén, Krister
+%A Axelson, Erik
+%A Drobac, Senka
+%A Hardwick, Sam
+%A Silfverberg, Miikka
+%A Pirinen, Tommi A.
+%B Computational Linguistics
+%D 2013
+%I Springer Berlin Heidelberg
+%F linden2013using
+%P 3-25
+
+%0 Conference Proceedings
+%T Building an open-source development infrastructure for language technology projects
+%A Moshagen, Sjur N.
+%A Pirinen, Tommi A.
+%A Trosterud, Trond
+%S Proceedings of the 19th Nordic Conference of Computational Linguistics (NODALIDA 2013); May 22-24; 2013; Oslo University; Norway. NEALT Proceedings Series 16
+%D 2013
+%N 085
+%I Linköping University Electronic Press
+%F moshagen2013building
+%P 343-352
+
+%0 Thesis
 %T Weighted Finite-State Methods for Spell-Checking and Correction
 %A Pirinen, Tommi
-%A others
 %D 2014
-%I Helsingin yliopisto
+%C University of Helsinki
 %F pirinen2014weighted
+%9 Ph.D. thesis
 
 %0 Conference Proceedings
 %T State-of-the-art in weighted finite-state spell-checking
 %A Pirinen, Tommi
-%A Lind�n, Krister
+%A Lindén, Krister
 %A others
-%B Computational Linguistics and Intelligent Text Processing 15th International Conference, CICLing 2014, Kathmandu, Nepal, April 6-12, 2014, Proceedings, Part II
+%S Computational Linguistics and Intelligent Text Processing 15th International Conference, CICLing 2014, Kathmandu, Nepal, April 6-12, 2014, Proceedings, Part II
 %D 2014
 %F pirinen2014state
 
 %0 Conference Proceedings
+%T Heuristic hyper-minimization of finite state lexicons
+%A Drobac, Senka
+%A Lindén, Krister
+%A Pirinen, Tommi
+%A Silfverberg, Miikka
+%A others
+%S Proceedings of the Ninth International Conference on Language Resources and Evaluation (LREC’14)
+%D 2014
+%F drobac2014heuristic
+
+%0 Conference Proceedings
+%T Extrinsic Evaluation of Web-Crawlers in Machine Translation: a Case Study on Croatian–English for the Tourism Domain
+%A Toral, Antonio
+%A Rubino, Raphael
+%A Esplà-Gomis, Miquel
+%A Pirinen, Tommi
+%A Way, Andy
+%A Ramirez-Sanchez, Gema
+%S Proceedings of the 17th Conference of the European Association for Machine Translation (EAMT)
+%D 2014
+%F toral2014extrinsic
+%P 221-224
+
+%0 Conference Proceedings
+%T Dublin City University at the TweetMT 2015 Shared Task.
+%A Toral, Antonio
+%A Wu, Xiaofeng
+%A Pirinen, Tommi A.
+%A Qiu, Zhengwei
+%A Bicici, Ergun
+%A Du, Jinhua
+%S TweetMT@ SEPLN
+%D 2015
+%F toral2015dublin
+%P 33-39
+
+%0 Journal Article
+%T Automatic Acquisition of Machine Translation Resources in the Abu-MaTran Project
+%A Toral, Antonio
+%A Pirinen, Tommi
+%A Way, Andy
+%A Rubino, Raphaël
+%A Ramírez Sánchez, Gema
+%A Ortiz Rojas, Sergio
+%A Sánchez-Cartagena, Víctor M.
+%A Ferrández-Tordera, Jorge
+%A Forcada, Mikel L.
+%A Espla-Gomis, Miquel
+%A others
+%D 2015
+%I Sociedad Espaňola para el Procesamiento del Lenguaje Natural
+%F toral2015automatic
+
+%0 Conference Proceedings
+%T Open-Source Infrastructures for Collaborative Work on Under-Resourced Languages
+%A Moshagen, Sjur
+%A Rueter, Jack
+%A Pirinen, Tommi
+%A Trosterud, Trond
+%A Tyers, Francis M.
+%S Proceedings of e Ninth International Conference on Language Resources and Evaluation, LREC
+%D 2015
+%F moshagen2015open
+%P 71-77
+
+%0 Conference Proceedings
 %T Using weighted finite state morphology with VISL CG-3-Some experiments with free open source Finnish resources
 %A Pirinen, Tommi A.
-%B Proceedings of the Workshop on “Constraint Grammar-methods, tools and applications” at NODALIDA 2015, May 11-13, 2015, Institute of the Lithuanian Language, Vilnius, Lithuania
+%S Proceedings of the Workshop on “Constraint Grammar-methods, tools and applications” at NODALIDA 2015, May 11-13, 2015, Institute of the Lithuanian Language, Vilnius, Lithuania
 %D 2015
 %N 113
+%I Linköping University Electronic Press
 %F pirinen2015using
 %P 29-33
 
 %0 Conference Proceedings
 %T Omorfi—Free and open source morphological lexical database for Finnish
 %A Pirinen, Tommi A.
-%B Nordic Conference of Computational Linguistics NODALIDA 2015
+%S Nordic Conference of Computational Linguistics NODALIDA 2015
 %D 2015
 %F pirinen2015omorfi
 %P 313
@@ -270,7 +306,7 @@
 %A Pirinen, Tommi A.
 %A Tyers, Francis M.
 %A Trosterud, Trond
-%B Septentrio Conference Series
+%S Septentrio Conference Series
 %D 2015
 %N 2
 %F pirinen2015organisers
@@ -284,12 +320,28 @@
 %F pirinen2015development
 
 %0 Conference Proceedings
-%T Finite-State Spell-Checking with Weighted Language and Error Models—Building and Evaluating Spell-Checkers with Wikipedia as Corpus
-%A Pirinen, Tommi A.
-%A Lind�n, Krister
-%B 7th SaLTMiL Workshop on Creation and use of basic lexical resources for less-resourced languages LREC 2010, Valetta, Malta, 23 May 2010 Workshop programme
-%F pirinen2010finiteb
-%P 13
+%T Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling
+%A Rubino, Raphael
+%A Pirinen, Tommi
+%A Espla-Gomis, Miquel
+%A Ljubešić, N.
+%A Ortiz Rojas, Sergio
+%A Papavassiliou, Vassilis
+%A Prokopidis, Prokopis
+%A Toral, Antonio
+%S Proceedings of the Tenth Workshop on Statistical Machine Translation
+%D 2015
+%F rubino2015abu
+%P 184-191
+
+%0 Generic
+%T Finnish web corpus fiWaC 1.0
+%A Ljubešić, Nikola
+%A Pirinen, Tommi
+%A Toral, Antonio
+%D 2016
+%I Jožef Stefan Institute
+%F ljubevsic2016finnish
 
 %0 Journal Article
 %T Report on the Second International Workshop on Computational Linguistics for Uralic Languages
@@ -297,11 +349,11 @@
 %A Simon, Eszter
 %A Tyers, Francis M.
 %A Vincze, Veronika
-%J FINNO-UGRIC LANGAUGES AND LINGUISTICS
+%J Finno-Ugric Languages and Linguistics
 %D 2016
 %V 5
 %N 1
-%I P�zm�ny P�ter Catholic University, Faculty of Social
+%I Pázmány Péter Catholic University, Faculty of Social Sciences
 %F pirinen2016report
 %P 1-5
 
@@ -310,19 +362,41 @@
 %A Pirinen, Tommi A.
 %A Toral, Antonio
 %A Rubino, Raphael
-%B Proceedings of the 2nd International Workshop on Computational Linguistics for Uralic Languages, Szeged, Hungary
+%S Proceedings of the 2nd International Workshop on Computational Linguistics for Uralic Languages, Szeged, Hungary
 %D 2016
 %F pirinen2016rule
 
-%0 Generic
+%0 Book
 %T Proceedings of the Second International Workshop on Computational Linguistics for Uralic Languages
-%A Pirinen, Tommi A.
-%A Simon, Eszter
-%A Tyers, Francis M.
-%A Vincze, Veronika
+%E Pirinen, Tommi A.
+%E Simon, Eszter
+%E Tyers, Francis M.
+%E Vincze, Veronika
 %D 2016
-%I Szegedi Tudom�nyegyetem
+%I Szegedi Tudományegyetem
 %F pirinen2016proceedings
+
+%0 Journal Article
+%T Intermediate representation in rule-based machine translation for the Uralic languages
+%A Tyers, Francis M.
+%A Pirinen, Tommi A.
+%D 2016
+%F tyers2016intermediate
+
+%0 Conference Proceedings
+%T North-Sámi to Finnish rule-based machine translation system
+%A Johnson, Ryan
+%A Pirinen, Tommi A.
+%A Puolakainen, Tiina
+%A Tyers, Francis
+%A Trosterud, Trond
+%A Unhammer, Kevin
+%S Proceedings of the 21st Nordic Conference on Computational Linguistics, NoDaLiDa, 22-24 May 2017, Gothenburg, Sweden
+%D 2017
+%N 131
+%I Linköping University Electronic Press
+%F johnson2017north
+%P 115-122
 
 %0 Journal Article
 %T Foreword to the Special Issue on Uralic Languages
@@ -335,123 +409,55 @@
 %D 2017
 %F pirinen2017foreword
 
-%0 Generic
-%T Rule-based machine-translation between Finnish and German: 40. Jahrestagung der Deutschen Gesellschaft f??r Sprachwissenschaft
-%A Pirinen, Tommi A.
-%D 2018
-%F pirinen2018rulebased
-%U https://www.dgfs2018.uni-stuttgart.de/DGfS_2018_booklet_ONLINE_FINAL.pdf
-%P 337
-
-%0 Conference Proceedings
-%T Neural and rule-based Finnish NLP models?expectations, experiments and experiences
-%A Pirinen, Tommi A.
-%B Proceedings of the Fifth International Workshop on Computational Linguistics for Uralic Languages
-%D 2019
-%F pirinen2019neural
-%P 104-114
-
-%0 Conference Proceedings
-%T Apertium-fin-eng?Rule-based shallow machine translation for WMT 2019
-%A Pirinen, Tommi A.
-%B Proceedings of the Fourth Conference on Machine Translation
-%D 2019
-%F pirinen2019apertiumfineng
-
-%0 Conference Proceedings
-%T Workflows for kickstarting RBMT in virtually No-Resource Situation
-%A Pirinen, Tommi A.
-%B Proceedings of the 2nd Workshop on Technologies for MT of Low Resource Languages
-%D 2019
-%F pirinen2019workflows
-
-%0 Conference Proceedings
-%T Building minority dependency treebanks, dictionaries and computational grammars at the same time?an experiment in Karelian treebanking
-%A Pirinen, Tommi A.
-%B Proceedings of the Universal Dependencies Workshop 2019
-%D 2019
-%F pirinen2019building
-
-%0 Conference Proceedings
-%T Abu-MaTran at WMT 2015 Translation Task: Morphological Segmentation and Web Crawling
-%A Rubino, Raphael
-%A Pirinen, Tommi
-%A Espla-Gomis, Miquel
-%A Ljube?ic, N.
-%A Ortiz Rojas, Sergio
-%A Papavassiliou, Vassilis
-%A Prokopidis, Prokopis
-%A Toral, Antonio
-%B Proceedings of the Tenth Workshop on Statistical Machine Translation
-%D 2015
-%F rubino2015abu
-%P 184-191
-
-%0 Journal Article
-%T Improving Predictive Entry of Finnish Text Messages using IRC Logs
-%A Silfverberg, Miikka
-%A Hyv�rinen, Mirka
-%A Pirinen, Tommi
-%J def
-%D 2011
-%V 1
-%N 2
-%F silfverberg2011improving
-%P 4
-
-%0 Conference Proceedings
-%T Extrinsic Evaluation of Web-Crawlers in Machine Translation: a Case Study on Croatian?English for the Tourism Domain
-%A Toral, Antonio
-%A Rubino, Raphael
-%A Espl�-Gomis, Miquel
-%A Pirinen, Tommi
-%A Way, Andy
-%A Ramirez-Sanchez, Gema
-%B Proceedings of the 17th Conference of the European Association for Machine Translation (EAMT)
-%D 2014
-%F toral2014extrinsic
-%P 221-224
-
-%0 Conference Proceedings
-%T Dublin City University at the TweetMT 2015 Shared Task.
-%A Toral, Antonio
-%A Wu, Xiaofeng
-%A Pirinen, Tommi A.
-%A Qiu, Zhengwei
-%A Bicici, Ergun
-%A Du, Jinhua
-%B TweetMT@ SEPLN
-%D 2015
-%F toral2015dublin
-%P 33-39
-
-%0 Journal Article
-%T Automatic Acquisition of Machine Translation Resources in the Abu-MaTran Project
-%A Toral, Antonio
-%A Pirinen, Tommi
-%A Way, Andy
-%A Rubino, Rapha�l
-%A Ram�rez S�nchez, Gema
-%A Ortiz Rojas, Sergio
-%A S�nchez-Cartagena, V�ctor M.
-%A Ferr�ndez-Tordera, Jorge
-%A Forcada, Mikel L.
-%A Espla-Gomis, Miquel
-%A others
-%D 2015
-%I Sociedad Espa�ola para el Procesamiento del Lenguaje Natural
-%F toral2015automatic
-
-%0 Journal Article
-%T Intermediate representation in rule-based machine translation for the Uralic languages
-%A Tyers, Francis M.
-%A Pirinen, Tommi A.
-%F tyersintermediate
-
 %0 Journal Article
 %T Developing a CLARIN compatible AAI solution for academic and restricted resources
 %A Pirinen, Tommi A.
 %A Jettka, Daniel
 %A Hanna, Hedeland
 %F pirinen2017developing
+
+%0 Conference Proceedings
+%T Rule-based machine-translation between Finnish and German
+%A Pirinen, Tommi A.
+%S DGfS 2018: 40. Jahrestagung der Deutschen Gesellschaft für Sprachwissenschaft
+%D 2018
+%F pirinen2018rulebased
+%U https://www.dgfs2018.uni-stuttgart.de/DGfS_2018_booklet_ONLINE_FINAL.pdf
+%P 337
+
+%0 Conference Proceedings
+%T Neural and rule-based Finnish NLP models—expectations, experiments and experiences
+%A Pirinen, Tommi A.
+%S Proceedings of the Fifth International Workshop on Computational Linguistics for Uralic Languages
+%D 2019
+%F pirinen2019neural
+%P 104-114
+
+%0 Conference Proceedings
+%T Apertium-fin-eng—Rule-based shallow machine translation for WMT 2019
+%A Pirinen, Tommi A.
+%S Proceedings of the Fourth Conference on Machine Translation
+%D 2019
+%F pirinen2019apertiumfineng
+
+%0 Conference Proceedings
+%T Workflows for kickstarting RBMT in virtually No-Resource Situation
+%A Pirinen, Tommi A.
+%S Proceedings of the 2nd Workshop on Technologies for MT of Low Resource Languages
+%D 2019
+%F pirinen2019workflows
+
+%0 Conference Proceedings
+%T Building minority dependency treebanks, dictionaries and computational grammars at the same time—an experiment in Karelian treebanking
+%A Pirinen, Tommi A.
+%S Proceedings of the Universal Dependencies Workshop 2019
+%D 2019
+%F pirinen2019building
+
+%0 Journal Article
+%T User Support for Digital Humanities
+%A Pirinen, Tommi A.
+%A Hedeland, Hanna
+%A Sambale, Heidemarie
+%F pirinen2017user
 
