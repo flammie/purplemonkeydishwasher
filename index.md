@@ -10,7 +10,20 @@ title: Academic homepage of Tommi A Pirinen
 [CLARIN-D developer](https://clarin-d.net),
 etc. usw.
 
-<div itemscope itemtype="https://schema.org/Person"><a itemprop="sameAs" content="https://orcid.org/0000-0003-1207-5395" href="https://orcid.org/0000-0003-1207-5395" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0003-1207-5395</a></div>
+## Profiles?
+
+Yikes, now (2019) there's a bit of proliferation of academic profiles in services that everyone must have, I've listed a few here:
+
+
+* <div itemscope itemtype="https://schema.org/Person"><a itemprop="sameAs" content="https://orcid.org/0000-0003-1207-5395" href="https://orcid.org/0000-0003-1207-5395" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0003-1207-5395</a></div>
+* https://www.semanticscholar.org/author/Tommi-A.-Pirinen/1823491
+* https://publons.com/researcher/AAE-8145-2019/
+
+I have profiles in researchgate and academia.edu, but they seem a bit iffy and I don't use them and don't really want to link to them either...
+
+
+
+## CV and bio
 
 Here's [a sample CV](cv.html) that I update usually only when I apply for jobs
 or so, so it might be outdated. And here's [an academic bio](bio.html),
