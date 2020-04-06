@@ -44,7 +44,7 @@ lähdekoodin resurssein}
 
   Ohjaaja: Kimmo Koskenniemi ja Krister Lindén
   \hfill
-  26.4.2008 (korjattu viimeksi 13.10.2017, generoitu
+  26.4.2008 (korjattu viimeksi 6.4.2020, generoitu
     \today)    % päivämäärä (esim. 2.2.2002)
 \end{titlepage}
 
@@ -84,7 +84,7 @@ Tiedekunta/Osasto Fakultet/Sektion – Faculty &
 Laitos Institution – Department \\
 \bf Humanistinen tiedekunta & \bf Yleinen kielitiede \\
 \hline
-\end{tabular}
+\end{tabular}\\
 \begin{tabular}{|l|}
 \hline
 \bf Tekijä - Författare – Author \\
@@ -97,7 +97,7 @@ resurssein \\
 \bf Oppiaine - Läroämne – Subject \\
 Kieli-, puhe- ja käännösteknologian maisteriohjelma \\
 \hline
-\end{tabular}
+\end{tabular}\\
 \begin{tabular}{|l|l|l|}
     \hline
     \bf Työn laji - Arbetets art – Level &
@@ -107,7 +107,7 @@ Kieli-, puhe- ja käännösteknologian maisteriohjelma \\
     29.4.2008 – April 2008 &
     64 \\
     \hline
-\end{tabular}
+\end{tabular}\\
 \begin{tabular}{|p{0.98\linewidth}|}
     \hline
     \bf Tiivistelmä – Referat – Abstract \\
@@ -120,7 +120,7 @@ Kieli-, puhe- ja käännösteknologian maisteriohjelma \\
     esitetään toteutetun järjestelmän testausmenetelmä valmiin morfologisesti
     jäsennetyn korpuksen avulla. \\
     \hline
-\end{tabular}
+\end{tabular}\\
 \begin{tabular}{|l|}
     \hline
     \bf Avainsanat – Nyckelord – Keywords \\
@@ -132,6 +132,7 @@ Kieli-, puhe- ja käännösteknologian maisteriohjelma \\
     Muita tietoja – Övriga uppgifter – Additional information \\
     \hline
 \end{tabular}
+\newpage
 
 \section{Johdanto}
 
@@ -145,21 +146,30 @@ kokonaisjärjestelmän lisenssiehtojen avoimuus ja vapaus. Tutkielmassa kuvaan
 avointen ja vapaasti saatavilla olevien resurssien käyttöä äärellistilaisen
 morfologisen jäsentimen rakentamisessa.
 
-Morfologia viittaa tässä tutkielmassa
-laveasti luonnollisen kielen sanojen muotoopilliseen rakenteeseen ja sen
-mallintamiseen. Muoto-opillisen rakenteen osayksiköitä nimitetään konkreettisina
-instansseina morfeiksi, ja näiden perusteella johdettuina abstrakteina malleina
-morfeemeiksi. Esimerkiksi jos puhutaan suomen kielen sanamuodosta taloissa1 , on
-siinä juurimorfi talo, monikon tunnusmorfi i ja inessiivin tunnusmorfi ssa.
-Morfeemeina voisi pitää vaikkapa esitystä talo, I ja ssA, jossa I ja A2 kuvaavat
+Morfologia viittaa tässä tutkielmassa laveasti luonnollisen kielen sanojen
+muotoopilliseen rakenteeseen ja sen mallintamiseen. Muoto-opillisen rakenteen
+osayksiköitä nimitetään konkreettisina instansseina morfeiksi, ja näiden
+perusteella johdettuina abstrakteina malleina morfeemeiksi. Esimerkiksi jos
+puhutaan suomen kielen sanamuodosta taloissa , on\footnote{Käytän tutkielmassa
+kursivointia viittamaan sanoihin, sanamuotoihin, saneisiin, morfeihin ja
+morfeemeihin lingvistisinä olioina niiden merkityksen asemesta} siinä juurimorfi
+talo, monikon tunnusmorfi i ja inessiivin tunnusmorfi ssa.  Morfeemeina voisi
+pitää vaikkapa esitystä talo, I ja ssA, jossa I ja A \footnote{Käytän
+tutkielmassa suuraakkosia kuvaamaan abstrakteja morfofoneemeja.  Tavallisesti
+kuvauksissa vastaavat A, O ja U vokaalipareja a ja ä, o ja ö sekä u ja y, eli
+sointuvokaalien pareja, koska ne käyttäytyvät lähes poikkeuksetta samoin
+vokaalisointua lukuunottamatta ja merkintätapa on melko vakiintunut.
+Vastaavasti merkitään myös V:llä mitä tahansa vokaalia ja C:llä konsonanttia.
+Tapauksittain myös kirjaimia K, P, T, G, B ja D käytetään kuvaamaan
+astevaihtelun alaisia klusiileja sekä kirjainta L likvidojen joukkoa} kuvaavat
 abstrakteja morfofoneemeja, jotka toisissa tilanteissa voivat olla vaikkapa i ja
 a yhtä hyvin kuin j ja ä vastaavasti vokaalisoinnun tai vastaavan
 äännemuunnoksen vaikutuksesta. Tämä luokittelu ja kuvaus vastaa läheisesti sitä,
-joka on esitetty suomen kielestä mm. teoksessa Karlsson (1982).
+joka on esitetty suomen kielestä mm. teoksessa \cite{karlsson1998suomen}.
 
 Yleensä
 kielitieteissä sanan jako morfeemeiksi tapahtuu jakamalla sana pienimmiksi
-semanttista sisältöä kuvastaviksi yksiköiksi (Karlsson, 1998). Jokaisella
+semanttista sisältöä kuvastaviksi yksiköiksi \cite{karlsson1998suomen}. Jokaisella
 morfeemilla on oma merkityksensä sanamuodon taloissa kokonaismerkityksen
 kannalta: talo merkitsee reaalimaailman talo-tyyppistä oliota, i merkitsee
 monikkoa eli sitä että olioita on monta ja ssa merkitsee viittausta talojen
@@ -169,12 +179,13 @@ rakenteen merkitykseen tai äännerajaukseen lopullinen järjestelmä ei ota kan
 
 Gradun terminologiassa sanan kokoisiin yksiköihin joudun viittamaan monesta eri
 näkökulmasta, joten olen yrittänyt tehdä tarkan jaon sanan eri merkityksille.
-Sanalla ’sana’3 viittaan yhteen sanakirjasanaan sen kaikissa muodoissa,
-esimerkiksi sanaan paperi. Yhdellä sanalla voi olla useita sanamuotoja, kuten
-sanalla paperi taivutusmuodot papereiden ja papereitten. Sanamuodot papereiden
-ja papereitten vastaavat samaa morfologista sanamuotoa, monikon genetiiviä, ja
-niitä kutsutaan tämän muodon allomorfeiksi. Juoksevia tekstejä käsitellessäni
-jokaista sanamuodon esiintymää kutsun saneeksi.
+Sanalla ’sana’\footnote{muualla käytetään myös esim. nimitystä lekseemi tai
+hakusana} viittaan yhteen sanakirjasanaan sen kaikissa muodoissa, esimerkiksi
+sanaan paperi. Yhdellä sanalla voi olla useita sanamuotoja, kuten sanalla paperi
+taivutusmuodot papereiden ja papereitten. Sanamuodot papereiden ja papereitten
+vastaavat samaa morfologista sanamuotoa, monikon genetiiviä, ja niitä kutsutaan
+tämän muodon allomorfeiksi. Juoksevia tekstejä käsitellessäni jokaista
+sanamuodon esiintymää kutsun saneeksi.
 
 Tutkielmassa kuvaamani toteutus
 on suomen kielen muoto-opillinen jäsennin, tarkalleen ottaen sen eräs varhainen
@@ -188,10 +199,10 @@ taivutuksessa esiintyy ainakin sekä juurimorfeemin äännevaihtelua taivutuksen
 yhteydessä että taivutusmorfeemin äännevaihtelua juuren äännerakenteen
 vaikutuksesta.
 
-Äärellistilaisilla menetelmillä (finite-state methods) tarkoitan
-tämän tutkielman piirissä kieliteknologisia sovelluksia, jotka käsittelevät
-syötteenään merkkijonoja kappaleessa 3.1 tarkemmin kuvatun mekaniikan
-mukaisesti. Äärellistilaisista olioista puhun lähinnä transduktorista
+\textit{Äärellistilaisilla menetelmillä} (finite-state methods) tarkoitan tämän
+tutkielman piirissä kieliteknologisia sovelluksia, jotka käsittelevät
+syötteenään merkkijonoja kappaleessa \ref{subsec:fooo} tarkemmin kuvatun mekaniikan
+mukaisesti. Äärellistilaisista olioista puhun lähinnä \textit{transduktorista}
 (transducer), joka on käytännön tasolla sellainen mekanismi, joka ottaa
 syötteekseen merkkijonon, tunnistaa sen ja muuntaa toisiksi vastineiksi.
 Äärellinen transduktori on nimenomaan morfologian kannalta käyttökelpoinen,
@@ -199,18 +210,20 @@ sillä niillä voi kuvata sanan sanakirjamuotojen ja taivutusmuotojen välisen
 suhteen suoraan, ja tämä kuvaus on valmiiksi kaksisuuntainen siten, että se osaa
 muuntaa sanan ja taivutusmuotojen tunnisteet sanamuodoksi sekä päinvastoin.
 Käytännössä siis eräs yksinkertainen transduktori olisi sellainen, jossa on
-kuvaus talo SG INE ↔ talossa4 . Tässä tutkielmassa esitellään transduktori, joka
-kuvaa tutkielman sanalähteenä olevan sanalistan kaikki sanat kaikille suomen
-kielen säännöllisen taivutusopin sanamuodoille.
+kuvaus \texttt{talo SG INE} ↔ talossa\footnote{Merkitsen tutkielmassa koodijärjestelmien
+merkintöjä, kuten tunnisteita, nimiä ja varattuja sanoja
+\texttt{tasavälisellä}
+fontilla.}. Tässä tutkielmassa esitellään transduktori, joka kuvaa tutkielman
+sanalähteenä olevan sanalistan kaikki sanat kaikille suomen kielen säännöllisen
+taivutusopin sanamuodoille.
 
-Avoin lähdekoodi (open source)
+\textit{Avoin lähdekoodi} (open source)
 on valittu keskeiseksi perusteeksi tutkielmassa käytettävien aineistojen
 lisensointiin, sillä on pidetty ongelmana, että saatavilla olevat suositut
 resurssit, kuten äärellistilaisia järjestelmiä käsittelevät koodit tai
 sanakirjalähteet, ovat tarkoin määritellyin lisenssein kaupallisia tai
 suljettuja ohjelmia. Tämä hankaloittaa niiden yleistä kehitettävyyttä sekä
-niiden avulla käsitellyn materiaalin vapaata jakelua (ks. esim. Yli-Jyrä
-(2005)). Avoimella lähdekoodilla tässä viittaan ensi sijassa sellaisiin
+niiden avulla käsitellyn materiaalin vapaata jakelua (ks. esim. \cite{yli2005toward}). Avoimella lähdekoodilla tässä viittaan ensi sijassa sellaisiin
 resursseihin, joiden sisältö on vapaasti saatavilla, mukautettavissa ja
 edelleenlevitettävissä lisenssinsä perusteella.
 
@@ -219,7 +232,7 @@ saatavilla runsaasti. Kuvaan tässä lyhyesti ominaisuuksien valintaa ja niiden
 relevanssia tutkielman sekä siinä toteutetun järjestelmän kannalta, minkä
 jälkeen tarkennan asiaa valitun järjestelmän kannalta. Liitteessä A on taulukko,
 joka sisältää tietoja kaikista kirjoitushetkellä löydetyistä ohjelmistoista
-(Yli-Jyrä, 2007), sikäli kun ne ovat löydettävissä, tarkastettavissa tai muuten
+\cite{ylijyra2007}, sikäli kun ne ovat löydettävissä, tarkastettavissa tai muuten
 tunnetut.
 
 Koska tutkielman tavoitteena oli alusta loppuun rakentaa avoin ja vapaa
@@ -228,9 +241,10 @@ sijassa avoimuus. Tällä perusteella myös voi sinänsä sivuuttaa kaikki sulje
 ohjelmistot irrelevantteina. Tyypillisimpiä avoimen lähdekoodin lisenssejä ovat
 GNU-projektin (GNU is Not Unix) GPL- (GNU General Public Licence) ja
 LGPL-lisenssit (GNU Lesser General Public Licence), joita käsiteltäessä on
-pantava merkille avoimuuden lisäksi muitakin rajoituksia tai mahdollisuuksia5 .
-GNU-lisenssejä pidän ensisijaisina avoimina ja vapaina lisensseinä tässä
-selvityksessä.
+pantava merkille avoimuuden lisäksi muitakin rajoituksia tai
+mahdollisuuksia\footnote{GNU-lisensseistä ja käytöstä sekä periaatteista
+tarkemmin ks. \url{http://www.gnu.org/philosophy/philosophy.html}.}.  GNU-lisenssejä
+pidän ensisijaisina avoimina ja vapaina lisensseinä tässä selvityksessä.
 
 Sovellusten toiminnallisista ominaisuuksista on valitussa järjestelmässä pidetty
 tärkeänä toisinkirjoitus- eli replace-sääntöjen kirjoittamisen mahdollisuutta,
@@ -249,18 +263,18 @@ Tutkielmassa toteutustyökaluksi on valittu SFST-ohjelmisto, joka on GNU GPL
 -lisensoitu ja sisältää replace-säännön sellaisen toteutuksen, joka on
 suomenkielisen morfologisen jäsentimen toteuttamiseen riittävä. SFST:tä ei
 aiemmin ole käytetty kuin muutamissa saksan kielen taivutuksen ja johto-opin
-morfologiaa kuvaavissa järjestelmissä (Schmid, 2005), mutta hyötypuolena
-järjestelmää ja toteutusta verrattaessa muihin saatavilla oleviin, oli mukana
-edes jonkinlaiset ohjeet ja kuvaukset morfologian toteuttamisesta (Schmid,
-2007a,b). Joitakin sekä lisenssiltään että toiminnoiltaan soveltuvia
-ohjelmistoja, kuten PC-KIMMOa KGENillä tai mmorphia ei ole tarkasteltu, sillä
-niiden saaminen toimimaan modernilla kääntäjillä ja järjestelmäkokoonpanoilla
-osoittautui hankalaksi tai mahdottomaksi ilman merkittäviä muutoksia koodiin.
-Mitä tulee OpenFST:hen, joka on mm.  AT\&T:n FSM:n tekijöiden julkaisema avoin
-ja vapaa FST-toteutus, tiedon siitä sain vasta syksyllä 2007, jolloin oma
-morfologiani SFST:llä oli jo lähes valmis, ja se on jätetty siitä syystä pois
-laskuista. Jatkotutkimusta varten kuitenkin OpenFST lienee varsin
-kehityskelpoinen aihe.
+morfologiaa kuvaavissa järjestelmissä \cite{schmid2006programming}, mutta
+hyötypuolena järjestelmää ja toteutusta verrattaessa muihin saatavilla oleviin,
+oli mukana edes jonkinlaiset ohjeet ja kuvaukset morfologian toteuttamisesta
+\cite{schmid2007a,schmid2007b}. Joitakin sekä lisenssiltään että toiminnoiltaan
+soveltuvia ohjelmistoja, kuten PC-KIMMOa KGENillä tai mmorphia ei ole
+tarkasteltu, sillä niiden saaminen toimimaan modernilla kääntäjillä ja
+järjestelmäkokoonpanoilla osoittautui hankalaksi tai mahdottomaksi ilman
+merkittäviä muutoksia koodiin.  Mitä tulee OpenFST:hen, joka on mm.  AT\&T:n
+FSM:n tekijöiden julkaisema avoin ja vapaa FST-toteutus, tiedon siitä sain vasta
+syksyllä 2007, jolloin oma morfologiani SFST:llä oli jo lähes valmis, ja se on
+jätetty siitä syystä pois laskuista. Jatkotutkimusta varten kuitenkin OpenFST
+lienee varsin kehityskelpoinen aihe.
 
 Vertailukohdaksi suorituskykytestauksessa on valittu kaupallinen ja
 tutkimuskäyttöön rajattu AT\&T:n FSM-järjestelmä, joka lienee ainakin tunnettu
@@ -271,10 +285,10 @@ hankala.
 Toinen merkittävä resurssi, jonka tässä automaattisen morfologisen jäsentimen
 toteutuksessa tarvitsin, oli leksikko. Tätä tarkoitusta varten suomenkielinen
 sanalista, Kotimaisten kielten tutkimuskeskuksen GNU LGPL -lisenssillä
-julkaisema Nykysuomen sanalista (Kotimaisten Kielten Tutkimuskeskus, 2006), oli
+julkaisema Nykysuomen sanalista \cite{nykysuomensanalista200x}, oli
 juuri julkaistu tutkielman teon vaiheessa ja sopi loistavasti tutkittavaksi
 materiaaliksi.  Nykysuomen sanalistan muoto, joka on seikkaperäisemmin kuvattu
-kappaleessa 2, määritteli myös luontevasti rajat ja tyylin tekemälleni
+kappaleessa \ref{sec:aineistot}, määritteli myös luontevasti rajat ja tyylin tekemälleni
 järjestelmälle, sillä siinä sanat on luokiltaan jaettu perinteisen
 sanakirjaluokituksen mukaisesti, joka jotakuinkin kuvaa morfofonologisia
 piirteitä sanoissa, ja jota olen jokseenkin tarkasti seurannut järjestelmässäni.
@@ -307,35 +321,7 @@ koota tietoa seuraavista:
     \item morfologisen järjestelmän testaaminen korpusaineistolla, joka on morfologisesti jäsennetty.
 \end{enumerate}
 
-\footnote{1
-    Käytän tutkielmassa kursivointia viittamaan sanoihin, sanamuotoihin, saneisiin,
-morfeihin ja morfeemeihin lingvistisinä olioina niiden merkityksen asemesta}
-\footnote{
-    2
-Käytän tutkielmassa suuraakkosia kuvaamaan abstrakteja morfofoneemeja.
-Tavallisesti kuvauksissa vastaavat A, O ja U vokaalipareja a ja ä, o ja ö sekä u
-ja y, eli sointuvokaalien pareja, koska ne käyttäytyvät lähes poikkeuksetta
-samoin vokaalisointua lukuunottamatta ja merkintätapa on melko vakiintunut.
-Vastaavasti merkitään myös V:llä mitä tahansa vokaalia ja C:llä konsonanttia.
-Tapauksittain myös kirjaimia K, P, T, G, B ja D käytetään kuvaamaan
-astevaihtelun alaisia klusiileja sekä kirjainta L likvidojen joukkoa}
-\footnote{3
-muualla
-käytetään myös esim. nimitystä lekseemi tai hakusana
-}
 
-\footnote{
-4
-
-Merkitsen tutkielmassa koodijärjestelmien merkintöjä, kuten tunnisteita, nimiä ja varattuja
-sanoja tasavälisellä fontilla.
-}
-\footnote{
-5
-
-GNU-lisensseistä ja käytöstä sekä periaatteista tarkemmin ks. http://www.gnu.org/
-philosophy/philosophy.html.
-}
 
 
 Tutkielma jakautuu selvitykseltään kahteen pääteemaan. Ensin käydään läpi
@@ -343,19 +329,20 @@ käytössä olevien resurssien ja menetelmien sisältö ja käyttötarkoitukset.
 Toiseksi tutkitaan näin resurssein valmistamani järjestelmän toimintaa
 testaamalla sitä erilaisin aineistoin ja suorituskykytestein ja analysoimalla
 havaitut puutteet ja ongelmat. Ensimmäinen osa rakentuu tutkielmassani siten,
-että kappaleessa 2 selvitetään Nykysuomen sanalistan sisältöä siltä kannalta,
-miten sitä käytetään morfologisessa jäsentimessä. Selvityksessä käydään läpi
-yleinen morfofonologinen tieto suomen kielen taivutuksesta ja se, miten se
-suhtautuu sanalistassa olevaan luokitukseen. Tämän jälkeen kappaleessa 3
-kerrotaan äärellistilaisista menetelmistä morfologisen jäsentämisen käytössä.
-Kappaleessa selvitetään miten kappaleessa 2 selvitetty tieto sanalistan
-taivutusluokituksesta on muunnettavissa äärellistilaisen järjestelmän käyttöön.
-Toinen osa koostuu testiaineistojen ja -asetelmien kuvauksista sekä tuloksista
-kappaleessa 4, jonka jälkeen kappaleessa 5 analysoidaan koko järjestelmää ja sen
-testituloksia sekä tältä pohjalta asetetaan mahdollisia tulevaisuuden
-kehityslinjoja ja tutkimusideoita.
+että kappaleessa \ref{sec:aineistot} selvitetään Nykysuomen sanalistan sisältöä
+siltä kannalta, miten sitä käytetään morfologisessa jäsentimessä. Selvityksessä
+käydään läpi yleinen morfofonologinen tieto suomen kielen taivutuksesta ja se,
+miten se suhtautuu sanalistassa olevaan luokitukseen. Tämän jälkeen kappaleessa
+\ref{sec:menetelmat} kerrotaan äärellistilaisista menetelmistä morfologisen
+jäsentämisen käytössä.  Kappaleessa selvitetään miten kappaleessa
+\ref{sec:aineistot} selvitetty tieto sanalistan taivutusluokituksesta on
+muunnettavissa äärellistilaisen järjestelmän käyttöön.  Toinen osa koostuu
+testiaineistojen ja -asetelmien kuvauksista sekä tuloksista kappaleessa
+\ref{sec:evaluoint}, jonka jälkeen kappaleessa \ref{sec:keskutelu} analysoidaan
+koko järjestelmää ja sen testituloksia sekä tältä pohjalta asetetaan mahdollisia
+tulevaisuuden kehityslinjoja ja tutkimusideoita.
 
-\section{Aineistot}
+\section{Aineistot} \label{sec:aineistot}
 
 Automaattinen morfologinen jäsennin, jollaista tutkielmassa rakennetaan,
 perustuu sanalistaan. Tällaiseksi sanalistaksi on valittu Kotimaisten kielten
@@ -363,19 +350,20 @@ tutkimuskeskuksen, eli Kotuksen, julkaisema Nykysuomen sanalista, jonka
 tutkielmassa käytetty julkaistu ensiversio sisältää 94 110 sanaa. Sanoista 44
 348:aan on merkitty tieto taivutusluokista sekä mahdollisesta astevaihtelusta,
 jota sana suomen kielen perussanakirjan taivutusluokittelussa käyttää
-(Kotimaisten Kielten Tutkimuskeskus, 2006). Loput luokittelemattomat sanat ovat
+\cite{nykysuomensanalista2006}. Loput luokittelemattomat sanat ovat
 yhdyssanoja, joiden taipuva osa on luokiteltu sanalistassa; nämä sanat olen
 jättänyt tutkielmassani toistaiseksi huomiotta.
 
 Nykysuomen sanalista on
-tallennettu XML 1.06 -määrittelyn mukaisen merkkauskielen sovelluksella.
+tallennettu XML 1.0\footnote{\url{http://www.w3.org/TR/2006/REC-xml-20060816/}}
+-määrittelyn mukaisen merkkauskielen sovelluksella.
 XML-kielen käyttö tarkoittaa että tiedosto on pohjimmiltaan tekstipohjainen
 puuta kuvaava datarakenne, jonka osaset on merkattu kulmasulkeisiin rajatuin
 tunnistein eli merkkauksin. Sanalistassa se tarkoittaa pelkistäen, että jokaista
 sanaa kohti on eroteltu vähintään tiedot sanan sanakirjamuodosta,
 taivutusluokasta ja mahdollisesta astevaihteluluokasta. Tyypillinen sanatietue
-sisältää siis osat <s>sanakirjamuoto</s>, <tn>taivutusluokka</tn> ja
-<av>astevaihtelukirjain</av>. Kokonaisia esimerkkejä on listauksessa 1.
+sisältää siis osat \texttt{<s>sanakirjamuoto</s>, <tn>taivutusluokka</tn> ja
+<av>astevaihtelukirjain</av>}. Kokonaisia esimerkkejä on listauksessa 1.
 
 Ensimmäinen toteutuksen kannalta olennainen asia Nykysuomen sanalistan
 muuttamisessa kohti morfologista jäsennintä on selvittää mitä tietoja
@@ -389,72 +377,59 @@ miten ne muuntuvat äärellistilaisen jäsentimen käytettäväksi.
 Nykysuomen
 sanalistan data — sanat ja niiden luokitukset — suurimmilta osin soveltuvat
 sellaisenaan lopullisen järjestelmän käyttöön, eikä niitä tarvinnut jakaa,
-yhdistellä tai muuttaa, joten kappaleessa 2.1 kuvaan tämän alkuperäisen
+yhdistellä tai muuttaa, joten kappaleessa \ref{subsec:21} kuvaan tämän alkuperäisen
 XMLrakenteen osineen. Muutamat muutokset ja päivitykset, jotka olen tehnyt
-sanalistaan on myös selostettu. Tämän jälkeen kappaleessa 2.2 kuvaan mitä
+sanalistaan on myös selostettu. Tämän jälkeen kappaleessa \ref{subsec:22} kuvaan mitä
 sanalistan sisältämä data tarkoittaa käytännössä lingvistiseltä kannalta, eli
 mitä kaikkea sellaista käytetyn sanaluokituksen luokat kuvaavat, mikä
 morfologisen jäsentimen tulee ottaa huomioon.
 
-\footnote{
-6
-
-http://www.w3.org/TR/2006/REC-xml-20060816/
-}
-\footnote{8
-
-Käytän tässä Ison suomen kieliopin (Hakulinen et al., 2004) termejä, sillä erotuksella, että kirjoitan tunnusten nimet pienaakkosin, eli nut- pro NUT-partisiippi. Vanhastaan kieliopeissa käytetty
-muoto on I partisiippi tai menneen ajan partisiippi}
-\footnote{
-9
-Tässä tutkielmassa produktiivisuuden määritelmänä käytetään vain natiivin kielenpuhujan intuitiota morfeemin esiintymän tuoreudesta. Todellisuudessa produktiivisuuden määrittäminen on
-hankalampi kysymys, jota on tutkittu jonkin verran. Tutkielman kannalta tärkeää on huomata, että
-produktiivisiksi merkityt morfologiset prosessit ovat sellaisia, joita esiintyy paljon, ja epäproduktiiviset sellaisia, joita ei ole löydettävissä kuin muutama laajoistakin aineistoista.
-}
 
 
 
 
-\subsection{Nykysuomen sanalistan XML-muoto}
+\subsection{Nykysuomen sanalistan XML-muoto} \label{subsec:21}
 
 Nykysuomen sanalista on yksinkertainen XML-muotoinen tiedosto. Se sisältää yhden
 monialkioisen listan, jonka jokaisen alkion sisältönä on datarakenne
-sanatietue-alkiossa st, johon kuuluu sana sanakirjamuodossaan alkiona nimeltä s.
-Toinen osa sanan sisältävää datarakennetta on taivutustiedot alkiossa t, johon
+sanatietue-alkiossa \texttt{st}, johon kuuluu sana sanakirjamuodossaan alkiona
+nimeltä \texttt{s}.
+Toinen osa sanan sisältävää datarakennetta on taivutustiedot alkiossa \texttt{t}, johon
 kuuluu sanan taivutusluokka alkiona tn sekä mahdollinen astevaihtelutieto
-alkiona av. Taivutustietoja per sana voi olla useampia kuin yksi, mutta vain
-erikoistapauksissa (harvinainen vanhempi taivutus tms., jolloin t-alkiolla myös
+alkiona \texttt{av}. Taivutustietoja per sana voi olla useampia kuin yksi, mutta vain
+erikoistapauksissa (harvinainen vanhempi taivutus tms., jolloin \texttt{t}-alkiolla myös
 on selittävä vakioitu tekstimuotoinen attribuutti), sillä homonyymit on merkitty
-eri sanoiksi, ja niille on datarakenteessa erillinen alkio hn, joka on juokseva
+eri sanoiksi, ja niille on datarakenteessa erillinen alkio \texttt{hn}, joka on juokseva
 homonyyminumero.
 
-Kuvasta 1 näemme esimerkkejä miten erilaiset sanatyypit
-kuvataan tässä XMLmuodossa. Kuvaan tässä XML-rakenteeseen kuuluvat alkiot siinä
+Kuvasta \ref{kuva:\ref{kuva:1}} näemme esimerkkejä miten erilaiset sanatyypit
+kuvataan tässä XML-muodossa. Kuvaan tässä XML-rakenteeseen kuuluvat alkiot siinä
 järjestyksessä, jossa ne tulevat esille. Juuren muodostaa XML-alkio
-kotus-sanalista, jolla
+\texttt{kotus-sanalista}, jolla
 ei ole attribuutteja, ja sisältönä on nolla tai useampia sanatietue-alkioita, eli se on
 yksinkertainen listan sisällyttävä rakenne.
 
-Sanatietueita ovat st-alkiot, eikä niilläkään ole mahdollisia attribuutteja. Sisältönään jokaiseen sanatietueeseen kuuluu tasan yksi sana-alkio, nolla tai yksi homonyymialkiota ja miten monta tahansa taivutustietoalkiota.
+Sanatietueita ovat \texttt{st}-alkiot, eikä niilläkään ole mahdollisia attribuutteja. Sisältönään jokaiseen sanatietueeseen kuuluu tasan yksi sana-alkio, nolla tai yksi homonyymialkiota ja miten monta tahansa taivutustietoalkiota.
 
-Sana-alkiolla, jonka nimi on s, ei ole mahdollisia attribuutteja, ja sen sisältönä on
+Sana-alkiolla, jonka nimi on \texttt{s}, ei ole mahdollisia attribuutteja, ja sen sisältönä on
 pelkkää tekstiä. Tekstisisällöksi kuuluu sana sanakirjamuodossaan. Tämä tarkoittaa tyypillisesti nomineilla yksikön nominatiivia ja verbeillä a-infinitiivin latiivia.
 Poikkeuksia muodostovat esim. nomineista monikkosanat, joiden sanakirjamuotona käytetään monikon nominatiivia (esim. häät, sakset), ja verbeistä sanat, joilla
-a-infinitiivin latiivia ei käytetä (esim. erkanee pro ? erata).
+a-infinitiivin latiivia ei käytetä (esim. erkanee pro $^?$erata).
 
-Homonyymialkiolla hn ei ole attribuutteja. Sen sisältönä on positiivinen kokonaislukuarvo, joka ei saa olla sama kuin yhdelläkään toisella saman sanan (so.
-sellaisen, jonka s-alkion sisältö on sama) sanatietueella. Käytännössä siis sanalistassa homograafit numeroidaan juoksevalla tunnisteluvulla.
+Homonyymialkiolla \texttt{hn} ei ole attribuutteja. Sen sisältönä on positiivinen kokonaislukuarvo, joka ei saa olla sama kuin yhdelläkään toisella saman sanan (so.
+sellaisen, jonka \texttt{s}-alkion sisältö on sama) sanatietueella. Käytännössä siis sanalistassa homograafit numeroidaan juoksevalla tunnisteluvulla.
 
-Taivutusalkiolla t on valinnainen attribuutti @taivutus, jonka arvoina
+Taivutusalkiolla \texttt{t} on valinnainen attribuutti \texttt{@taivutus}, jonka arvoina
 on sanallinen selitys taivutusalkion kuvaaman taivutuksen poikkeusluonteesta. Nykysuomen sanalistan versiossa 1 attribuutissa käytetyt arvot olivat
 ”harvinainen” ja ”mahdollinen” kuvaamaan vaihtoehtoisten taivutusten
 yleisyyttä sekä ”yksikössä” ja ”monikossa”, jolla kuvattiin sanan kolme
-taivutustapaa. Omassa koeversiossani laajensin attribuuttiarvoa monikossa koskemaan monikkosanojen t-alkiota. Taivutusalkion sisältönä on tasan yksi taivutusnumeroalkio, sekä nollasta yhteen astevaihtelualkioita.
+taivutustapaa. Omassa koeversiossani laajensin attribuuttiarvoa monikossa
+koskemaan monikkosanojen \texttt{t}-alkiota. Taivutusalkion sisältönä on tasan yksi taivutusnumeroalkio, sekä nollasta yhteen astevaihtelualkioita.
 
-Taivutusnumeroalkio tn:llä ei ole attribuutteja, ja sen sisältönä on positiivinen
-kokonaisluku, joka on yksi kappaleessa 2.2 kuvatuista taivutusluokista.
+Taivutusnumeroalkio \texttt{tn}:llä ei ole attribuutteja, ja sen sisältönä on positiivinen
+kokonaisluku, joka on yksi kappaleessa \ref{subsec:22} kuvatuista taivutusluokista.
 
-Astevaihtelualkiolla av on attribuutti astevaihtelu, jonka ainoa arvo sanalistassa on valinnainen, niille sanoille joita voi taivuttaa sekä astevaihtelullisena että -vaihteluttomana. Alkion sisältönä on suuraakkonen alueelta A—M, joka
+Astevaihtelualkiolla \texttt{av} on attribuutti \texttt{@astevaihtelu}, jonka ainoa arvo sanalistassa on valinnainen, niille sanoille joita voi taivuttaa sekä astevaihtelullisena että -vaihteluttomana. Alkion sisältönä on suuraakkonen alueelta A—M, joka
 kertoo astevaihtelun alaisena olevan äänteen ja sen heikon asteen vastineen.
 
 Taivutusnumero ja astevaihtelukirjain yhdessä sanan sanakirjamuodon kanssa
@@ -463,12 +438,12 @@ muodostavat sen keskeisen datan, johon nojaten olen jäsentimeni rakentanut.
 Näiden lisäksi olen muokannut hieman formaattia siten, että on mahdollista kuvata sanan sanakirjamuodon on monikollisuus (esim. sakset tai muut pluratiivit),
 sanan vokaalisoinnun tai vartalovokaalin odotuksenvastaisuus (esim. bordeaux ja
 monet vierassanat), ja sanan taivutuksen odotuksenvastaisuus (esim. olla). Näistä
-ja muista kehitysideoista tarkemmin 5. kappaleessa.
+ja muista kehitysideoista tarkemmin \ref{sec:keskustelu}. kappaleessa.
 
 
 \begin{figure}
-    \label{Otos Nykysuomen sanalistan XML-datasta (Kotimaisten Kielten
-    Tutkimuskeskus, 2006)}
+    \caption{Otos Nykysuomen sanalistan XML-datasta \cite{nykysuomensanalista2006}
+    \label{fig:nssl-xml}}
     \begin{verbatim}
 <st><s>aloitteikas</s><t><tn>41</tn><av>A</av></t></st>
 <st><s>-aloitteinen</s><t><tn>38</tn></t></st>
@@ -498,6 +473,7 @@ ja muista kehitysideoista tarkemmin 5. kappaleessa.
 
 
 \subsection{Nykysuomen sanalistan sisältö: sanaluokitus käytännössä}
+\label{subsec:22}
 
 Tässä kappaleessa pyrin selvittämään Nykysuomen sanalistassa käytetystä taivutusluokituksesta kaiken sen tiedon, jota lopullisessa morfologisessa jäsentimessä
 on käytetty. Kyseessä on käytännöllinen kuvaus siitä, miten taivutusluokittelua
@@ -508,7 +484,7 @@ toteutuksessa ovat olleet tarpeellisia.
 Nykysuomen sanalistan sanat on luokiteltu saman luokittelun mukaisesti kuin mitä on käytetty Suomen kielen perussanakirjassa ja Kielitoimiston sanakirjassa.
 Nomineille tarkoitettuja luokkia on 49 (1—49) ja verbeille 27 (52—78). Lisäksi sanalistassa on yksi luokka kaikille adverbeille, adpositioille, lyhenteille ja partikkeleille (99), yksi pronomineille (101) ja kaksi yhdysnomineille (50 ja 51), joita ei tämän tutkielman morfologian toteutuksessa lainkaan käsitellä. Sanaluokitus
 perustuu vanhempaan Nykysuomen sanakirjan luokitukseen siten, että luokkien
-määrää on vähennetty fonologisin perustein (Eronen, 1994).
+määrää on vähennetty fonologisin perustein \cite{eronen1994suomen}.
 
 Sanaluokitus vaikuttaa enimmäkseen käytännössä toteutetun siten, että numerosta käy ilmi sekä sanalle kuuluvat potentiaaliset allomorfit että vartalossa esiintyvät äännevaihtelut, toisin sanoen jos yhdenlaisista perusmuodon vartalon äännevaihtelusta koostuvalla luokalla esiintyy jonkin taivutuspäätteen kohdalla erilaista
 allomorfien jakaumaa sen pitäisi aina saada oma taivutusluokkansa. Poikkeuksena päätevaihtelun tuomista taivutusluokista on vokaalisoinnun aiheuttamat muutokset, joita ei ole merkitty taivutusluokiksi, ja joka pitää tässä huomioida morfologian toteutuksessa sääntöpohjaisesti. Vastaavasti vartalon äännemuutoksista
@@ -531,129 +507,146 @@ Astevaihtelukirjain taas kuvaa suoraan astevaihtelun alaisen äänneparin, josta
 astevaihtelun vaikutusta äännerakenteeseen ja vartalon äännemuutoksiin ei oteta
 lukuun niitä kuvatessa.
 
-Seuraavassa käyn läpi taivutusluokkia yksi kerrallaan siten, että selvitän jokaisesta perusmuodon äännerakenteesta luokalle yhteisen osan, joka tässä tarkoittaa sanan perusmuodon loppua, jokaisen allomorfista vaihtelua sisältävän päätetyypin
-sallitut allomorfit, sekä taivutuksessa sanan vartalossa esiintyvät äännemuutokset.
-Näitä ei ole tietääkseni missään erikseen kuvattu tämän taivutusluokituksen suhteen, joten kuvaukseni perustuu toisaalta tietoihini suomen kielen äänne- ja muotorakenteen kehityksestä, joista lähteinä järjestelmää työstäessäni olen käyttänyt
-alkeisteoksia Remes (2004); Setälä (1930); Karlsson (1982), toisaalta puhtaasti
-kokeiluun ja kielitajuuni. Alkeisteoksista Setälän kielioppi on yksi selkeimmistä
-ja systemaattisimmista näkemistäni esityksistä suomen sanojen muoto-opin järjestelmästä, vaikkakin paikoin vanhentunut, joten olen käyttänyt myös Remeksen
-laatimaa luentomonistepakettia faktojen tarkistuksessa. Samat tiedot löytynevät
-fennistiikan peruskirjallisuudesta muutoinkin. Karlssonin äänne- ja muoto-oppia
-taas on käytetty Nykysuomen sanakirjan luokkien vähentämiseksi Suomen kielen
-perussanakirja, joten olen siitä poiminut myös joitain kuvauksia7 .
+Seuraavassa käyn läpi taivutusluokkia yksi kerrallaan siten, että selvitän
+jokaisesta perusmuodon äännerakenteesta luokalle yhteisen osan, joka tässä
+tarkoittaa sanan perusmuodon loppua, jokaisen allomorfista vaihtelua sisältävän
+päätetyypin sallitut allomorfit, sekä taivutuksessa sanan vartalossa esiintyvät
+äännemuutokset.  Näitä ei ole tietääkseni missään erikseen kuvattu tämän
+taivutusluokituksen suhteen, joten kuvaukseni perustuu toisaalta tietoihini
+suomen kielen äänne- ja muotorakenteen kehityksestä, joista lähteinä
+järjestelmää työstäessäni olen käyttänyt alkeisteoksia
+\cite{remes2004muoto,setala1930suomen,karlsson1982suomen}, toisaalta puhtaasti
+kokeiluun ja kielitajuuni.  Alkeisteoksista Setälän kielioppi on yksi
+selkeimmistä ja systemaattisimmista näkemistäni esityksistä suomen sanojen
+muoto-opin järjestelmästä, vaikkakin paikoin vanhentunut, joten olen käyttänyt
+myös Remeksen laatimaa luentomonistepakettia faktojen tarkistuksessa. Samat
+tiedot löytynevät fennistiikan peruskirjallisuudesta muutoinkin. Karlssonin
+äänne- ja muoto-oppia taas on käytetty Nykysuomen sanakirjan luokkien
+vähentämiseksi Suomen kielen perussanakirja, joten olen siitä poiminut myös
+joitain kuvauksia\footnote{Tiedon Karlssonin kirjan käytöstä sanakirjatyössä
+sain vasta laadittuani seuraavat kuvaukset ja taulukot, joten sitä olen
+käyttänyt viitteenä jälkikäteisesti.}.
+
 
 Nykysuomen sanalistan luokittelu lienee motivoitu siten, että sanaluokkien ensimmäiset luokat 1 ja 52 ovat perusluokkia, joissa äännevaihtelu on vähäisintä, ja
 uudet luokat on tuotu jokaiselle havaitulle uudelle äännevaihtelukokonaisuudelle
-tai pääteallomorfijoukolle. Samalla perusteella itse tutkielman toteutettu morfologiakin on kappaleessa 3 kuvattu. Kaikkien taivutusluokkien erittely löytyy myös
-kuvausten jäljestä taulukoista 1, 2 ja 3.
+tai pääteallomorfijoukolle. Samalla perusteella itse tutkielman toteutettu
+morfologiakin on kappaleessa \ref{sec:menetelmat} kuvattu. Kaikkien taivutusluokkien erittely löytyy myös
+kuvausten jäljestä taulukoista \ref{table:xxx}, 2 ja 3.
 
 Nominit jakautuvat tavallaan kahteen pääluokkaan: ne, joiden perusmuoto on vokaalivartalo, ja joiden astevaihtelu on suora, muodostavat luokat 1—32, ja ne, joiden perusmuoto on konsonanttivartalo, ja joiden astevaihtelu on käänteinen, muodostavat luokat 33—49. Verbit jakautuvat samoin astevaihtelun suhteen suoraan
 (luokat 52—65) ja käänteiseen (luokat 66—78). Verbeistä lisäksi huomionarvoista on, että sanakirjamuoto a-infinitiivissä on taivutusvartalon lisäksi A-, dA- tai
 tA-tyyppinen a-infinitiivin tunnus.
 
-\footnote{
-7
-
-Tiedon Karlssonin kirjan käytöstä sanakirjatyössä sain vasta laadittuani seuraavat kuvaukset
-ja taulukot, joten sitä olen käyttänyt viitteenä jälkikäteisesti.
-}
 
 
-Ensimmäinen taivutusluokka (valo) on nominien yksinkertaisin luokka, johon
-ei liity ollenkaan vartalon äännemuutoksia poislukien sanaluokkakoodiin erikseen
+Ensimmäinen taivutusluokka (valo) on nominien yksinkertaisin luokka, johon ei
+liity ollenkaan vartalon äännemuutoksia poislukien sanaluokkakoodiin erikseen
 merkityt astevaihtelumuutokset, ja vaihtelevia allomorfeja ei ole vaan monikon
-genetiivin, partitiivin ja illatiivin tunnuksissa on vain yksi kieliopillinen vaihtoehto, morfeemit jen (valojen), jA (valoja) ja ihin (valoihin) vastaavasti. Luokkaan
-kuuluvien nominien vartalon äännerakennetta rajoittaa vain vartalovokaalina O tai
-U, jotka ovat vaihteluttomia. Luokka on suurehko ja avoin, sillä siihen on merkitty muun muassa nut-partisiipin passiivin8 kiteytyneet muodot sekä stO-johdokset,
-jotka molemmat ovat hyvin produktiivisia9 .
+genetiivin, partitiivin ja illatiivin tunnuksissa on vain yksi kieliopillinen
+vaihtoehto, morfeemit jen (valojen), jA (valoja) ja ihin (valoihin) vastaavasti.
+Luokkaan kuuluvien nominien vartalon äännerakennetta rajoittaa vain
+vartalovokaalina O tai U, jotka ovat vaihteluttomia. Luokka on suurehko ja
+avoin, sillä siihen on merkitty muun muassa nut-partisiipin
+passiivin\footnote{Käytän tässä Ison suomen kieliopin \cite{hakulinen2008iso}
+termejä, sillä erotuksella, että kirjoitan tunnusten nimet pienaakkosin, eli
+nut- pro NUT-partisiippi. Vanhastaan kieliopeissa käytetty muoto on I
+partisiippi tai menneen ajan partisiippi} kiteytyneet muodot sekä stO-johdokset,
+jotka molemmat ovat hyvin produktiivisia\footnote{Tässä tutkielmassa
+produktiivisuuden määritelmänä käytetään vain natiivin kielenpuhujan intuitiota
+morfeemin esiintymän tuoreudesta. Todellisuudessa produktiivisuuden
+määrittäminen on hankalampi kysymys, jota on tutkittu jonkin verran. Tutkielman
+kannalta tärkeää on huomata, että produktiivisiksi merkityt morfologiset
+prosessit ovat sellaisia, joita esiintyy paljon, ja epäproduktiiviset sellaisia,
+joita ei ole löydettävissä kuin muutama laajoistakin aineistoista.}.
 
-Luokat 2—4 ovat muutoin kun luokka 1, mutta ne merkitsevät erilaisia pääteallomorfivaihtoehtoja.
+\textbf{Luokat 2}—4 ovat muutoin kun luokka 1, mutta ne merkitsevät erilaisia pääteallomorfivaihtoehtoja.
 
 Luokan 2 (palvelu) päätteiden tunnusten allomorfeihin kuuluu luokan 1 morfeemien lisäksi monikon partitiivin tunnus itA (palveluita), sekä genetiivin tunnukset
 iden (palveluiden) ja itten (palveluitten). Luokkaan kuuluvien sanojen vartalo on
 poikkeuksetta vähintään kolmitavuinen, ja lisäksi O- tai U-loppuinen kuten luokassa 1.
 
-Luokka 3 (valtio) on äännerakenteeltaan monitavuisten vokaaliyhtymäpäätteisten
+\textbf{Luokka 3} (valtio) on äännerakenteeltaan monitavuisten vokaaliyhtymäpäätteisten
 sanojen luokka, joiden monikon genetiivin tunnuksen allomorfit ovat iden-ittentyyppiä (valtioiden ∼ valtioitten), mutta partitiivin vain itA-tyyppiä (valtioita).
 
-Luokkaan 4 (laatikko) kuuluu useita monikon tunnusten allomorfeja, jotka liittyvät sekä heikkoon että vahvaan vokaalivartaloon siten, että muodot jen (laatikkojen) ja jA (laatikkoja) liittyvät vahvaan, iden (laatikoiden), itten (laatikoitten) ja ita (laatikoita) heikkoon ja
+\textbf{Luokkaan 4} (laatikko) kuuluu useita monikon tunnusten allomorfeja, jotka liittyvät sekä heikkoon että vahvaan vokaalivartaloon siten, että muodot jen (laatikkojen) ja jA (laatikkoja) liittyvät vahvaan, iden (laatikoiden), itten (laatikoitten) ja ita (laatikoita) heikkoon ja
 ihin kumpaankin vartaloon (laatikoihin ∼ laatikkoihin), kuten on morfofonotaktisesti tyypillistä. Tämä vaihtelu esiintyy vain äännerakenteeltaan kolmi- tai useampitavuisissa sanoissa joiden loppu on kkO, kuten tässä luokassa, tai kkA, kuten
 luokassa 14.
 
-Luokat 5 ja 6 (risti ja paperi) sisältävät vartalovokaalin i vaihtelusta e:ksi monikon tunnuksen i:n edeltä, eli niihin kuuluu i:hin loppuvia sanoja, joiden monikkomuodoissa monikon tunnuksen i:tä tai j:tä edeltää useimmissa muodoissa e.
+\textbf{Luokat 5} ja 6 (risti ja paperi) sisältävät vartalovokaalin i vaihtelusta e:ksi monikon tunnuksen i:n edeltä, eli niihin kuuluu i:hin loppuvia sanoja, joiden monikkomuodoissa monikon tunnuksen i:tä tai j:tä edeltää useimmissa muodoissa e.
 Kuitenkin niin että monikon nominatiivilla tai akkusatiivilla on yksikkövartalon
 mukainen i.
 Luokalla 5 monikon genetiivi on ien-tyyppiä (ristien) ja partitiivi jA-tyyppiä (ristejä). Luokkaan 6 kuuluvat sanat saavat useampia monikon tunnusten allomorfeja
 (papereiden : papereita).
 
-Luokka 7 (ovi) sisältää myös vaihtelua i : e, tai tarkemmin i : e : ∅, tässä tapauksessa i reaalistuu vain yksikön nominatiivissa ja muissa yksikkömuodoissa
+\textbf{Luokka 7} (ovi) sisältää myös vaihtelua i : e, tai tarkemmin i : e : ∅, tässä tapauksessa i reaalistuu vain yksikön nominatiivissa ja muissa yksikkömuodoissa
 esiintyy e (ovena), joka teoriassa on vartalovokaali. Monikon tunnuksen i:n edeltä
 (ovina) vartalovokaali katoaa.
 
-Luokka 8 (nalle) on sama vaihteluton taivutusluokka kuin 1, sillä poikkeuksella että siihen kuuluu tyypillisesti vaihteleva vartalovokaali e, joka ei tässä vaihtele eikä aiheuta astevaihtelua. Luokkaan kuuluvat sanat ovat lähinnä verrattain
+\textbf{Luokka 8} (nalle) on sama vaihteluton taivutusluokka kuin 1, sillä poikkeuksella että siihen kuuluu tyypillisesti vaihteleva vartalovokaali e, joka ei tässä vaihtele eikä aiheuta astevaihtelua. Luokkaan kuuluvat sanat ovat lähinnä verrattain
 uusia, ja monet myös sitaattilainoja, joiden taivutus on muutoinkin epäsäännöllistä, esimerkiksi astevaihtelutonta pääsäännön vastaisesti. Nykysuomen sanalistan
 mallitaivutustaulukko merkitsee tähän taivutusluokkaan myös harvinaiseksi monikon genetiivin in-tunnuksen (nallein), joka esiintynee pelkästään tyylivärisenä
 vanhastavana muotona.
 Numeraali kolme on merkitty taivutettavaksi sekä luokan 8 että luokan 9 kuvauksen mukaisesti riippuen siitä taivutetaanko yksikössä vai monikossa.
 
-Luokat 9—15 ovat vartalovokaalin a vaihteluiden a : ∅ ja a : o : ∅ sekä pääteallomorfivarianttien eri kombinaatioita.
-Luokassa 9 (kala) vartalovokaali A reaalistuu O:na monikon tunnuksen i:n (kaloissa) edellä. Monikon taivutustunnuksilla ei ole vaihtelevia allomorfeja.
+\textbf{Luokat 9}—15 ovat vartalovokaalin a vaihteluiden a : ∅ ja a : o : ∅ sekä pääteallomorfivarianttien eri kombinaatioita.
+\textbf{Luokassa 9} (kala) vartalovokaali A reaalistuu O:na monikon tunnuksen i:n (kaloissa) edellä. Monikon taivutustunnuksilla ei ole vaihtelevia allomorfeja.
 
-Luokkaan 9 on sanalistassa merkitty myös sana aika (yhdyssanamuotoineen), joka ei siihen säännölisesti sovellu, vaan sisältää myös i : j -vaihtelun astevaihtelussa kadonneen koon takia vokaaliväliin joutuneen i:n asteittaisen muuttumisen
+\textbf{Luokkaan 9} on sanalistassa merkitty myös sana aika (yhdyssanamuotoineen), joka ei siihen säännölisesti sovellu, vaan sisältää myös i : j -vaihtelun astevaihtelussa kadonneen koon takia vokaaliväliin joutuneen i:n asteittaisen muuttumisen
 seurauksena. Lisäksi luokassa on numeraali sata, joka taipuu kuten odotettua.
 
-Luokka 10 (koira) on vartalovokaalin vaihtelun A : ∅ luokka, jossa monikon tunnuksen edellä A:ta vastaa kato. Luokkaan 10 kuuluu myös sana poika, jossa esiintyy luokan muista sanoista poiketen yllämainittu i : j -vaihtelu. Lisäksi luokkaan
+\textbf{Luokka 10} (koira) on vartalovokaalin vaihtelun A : ∅ luokka, jossa monikon tunnuksen edellä A:ta vastaa kato. Luokkaan 10 kuuluu myös sana poika, jossa esiintyy luokan muista sanoista poiketen yllämainittu i : j -vaihtelu. Lisäksi luokkaan
 on merkitty numeraalit neljä ja nolla, jotka taipuvat luokan kuvaamalla tavalla,
 mutta myös numeraalit seitsemän, kahdeksan ja yhdeksän, joiden taivuttaminen
 luokan kuvaamalla tavalla olettaa, että sanan taivutusvartalona käytetään muotoa,
 josta loppu-n on poistettu.
 
-Luokkaan 11 (omena) sisältää vartalovokaalin vaihtelusarjan A : O : ∅ ja siihen
+\textbf{Luokkaan 11} (omena) sisältää vartalovokaalin vaihtelusarjan A : O : ∅ ja siihen
 liittyy koko joukko monikon tunnusten allomorfeja. Monikon genetiivissä tunnukset ovat ien (omenien), iden (omenoiden) ja itten (omenoitten) sekä harvinaisina
 jen (omenojen) ja in (omenain), joista ensi mainittu liittyy vokaalittomaan vartaloon ja jäljemmät O:lliseen, sekä harvakäyttöinen in yksikkövartaloon. Vastaavasti monikon partitiivilla vokaalittomaan vartaloon liittyy allomorfi iA ja O:lliseen
 itA sekä harvemmin jA. Myös illatiivilla on tässä luokassa kaksi allomorfia, iin
 vokaalittomaan ja ihin O:lliseen vartaloon.
 
-Luokkaan 12 (kulkija) pätee vain A : O -vaihtelu ja ainoastaan monikon genetiivi
+\textbf{Luokkaan 12} (kulkija) pätee vain A : O -vaihtelu ja ainoastaan monikon genetiivi
 saa allomorfit iden (kulkijoiden) ja itten (kulkijoitten), sekä harvinaisena yksikkövartaloon in-muodon.
 
-Luokka 13 (katiska) on kuten 12, mutta allomorfivalikoimaan lisätään monikko
+\textbf{Luokka 13} (katiska) on kuten 12, mutta allomorfivalikoimaan lisätään monikko
 genetiivin jen-tunnus (katiskojen) ja partitiivin jA-tunnus (katiskoja), kun 12:ssa
 oli vain itA.
 
-Luokka 14 (solakka) on kuten 13, mutta siihen liittyy sama monikon illatiivin asteen vapaa vaihtelu kuin luokkaan 4 (solakoihin ∼ solakkoihin). Äännerakenteltaan luokka sisältää vähintään kolmitavuisia sanoja, jotka päättyvät enimmikseen
+\textbf{Luokka 14} (solakka) on kuten 13, mutta siihen liittyy sama monikon illatiivin asteen vapaa vaihtelu kuin luokkaan 4 (solakoihin ∼ solakkoihin). Äännerakenteltaan luokka sisältää vähintään kolmitavuisia sanoja, jotka päättyvät enimmikseen
 kkA, mutta myös ttA ja ppA.
 
-Luokka 15 (korkea) sisältää A-loppuisten vokaaliyhtymäloppuisten adjektiivien
+\textbf{Luokka 15} (korkea) sisältää A-loppuisten vokaaliyhtymäloppuisten adjektiivien
 a : ∅ -vaihtelun.
 
-Luokkaan 16 (vanhempi) on kerätty adjektiivien komparatiivien kiteytymiä, joiden lopun mpi-aines taipuu normaalien adjektiivien komparatiivien tavoin mPA,
+\textbf{Luokkaan 16} (vanhempi) on kerätty adjektiivien komparatiivien kiteytymiä, joiden lopun mpi-aines taipuu normaalien adjektiivien komparatiivien tavoin mPA,
 ja monikon allomorfit mp-vartalon perään tulevat partitiivin iA, illatiivin iin ja genetiivin ien. Myös komparatiiviperäiset pronominit, kuten kumpi ja kumpikin on
 sijoitettu tähän luokkaan.
 
-Luokat 17 ja 18 sisältävät pitkän vartalovokaalin vaihtelun lyhyeksi monikon tunnuksen iin edeltä. Lisäksi 17 (vapaa) ottaa yksikön illatiivin allomorfin seen (vapaaseen), joka liittyy vain pitkän vokaaliaineksen perään, ja 18 (maa) allomorfin
+\textbf{Luokat 17} ja 18 sisältävät pitkän vartalovokaalin vaihtelun lyhyeksi monikon tunnuksen iin edeltä. Lisäksi 17 (vapaa) ottaa yksikön illatiivin allomorfin seen (vapaaseen), joka liittyy vain pitkän vokaaliaineksen perään, ja 18 (maa) allomorfin
 hVn (maahan).
 
-Luokka 19 (suo) on yksitavuisten sanojen väljenevien diftongien suppea ja ilmeisesti suljettu luokka, johon kuuluu 6 sanaa. Luokkaan kuuluvat lyhyet UO- tai ieloppuiset sanat, joiden monikkomuodoissa diftongin ensikomponentti katoaa tunnuksen iin (soihin) edeltä. Myös nämä sanat ottavat yksikön illatiivin allomorfin
+\textbf{Luokka 19} (suo) on yksitavuisten sanojen väljenevien diftongien suppea ja ilmeisesti suljettu luokka, johon kuuluu 6 sanaa. Luokkaan kuuluvat lyhyet UO- tai ieloppuiset sanat, joiden monikkomuodoissa diftongin ensikomponentti katoaa tunnuksen iin (soihin) edeltä. Myös nämä sanat ottavat yksikön illatiivin allomorfin
 hVn.
 
-Luokat 20 ja 21 (filee, rosé) sisältävät niinikään vartalon pitkän vokaaliaineksen
+\textbf{Luokat 20} ja 21 (filee, rosé) sisältävät niinikään vartalon pitkän vokaaliaineksen
 lyhenemät ja ovat samoja sillä erotuksella. Näistä 20 sisältää ensi sijassa mukautuslainoja, joista pitkä vokaaliaines käy ilmi, 21 sitaattilainoja, josta pitkä vokaaliaines ei käy ilmi. Allomorfeilta nämä eroavat sillä, että 20-luokkaan kuuluvat
 myös illatiivit seen (fileeseen) ja siin (fileisiin) sekä monikon genetiivi iden (fileiden), mutta luokkaan 21 vain hVn (roséhen), ihin (roséihin) ja itten (roséitten).
 
-Luokkaan 22 (parfait) on sijoitettu toteutuksen kannalta hankala joukko vierassanoja, joiden kirjoitusasu päättyy konsonanttiin ja ääntöasu vokaaliin, ja jotka taivutetaan puolilainausmerkin ja ääntöasun mukaisen päätteen kanssa (parfait’na :
+\textbf{Luokkaan 22} (parfait) on sijoitettu toteutuksen kannalta hankala joukko vierassanoja, joiden kirjoitusasu päättyy konsonanttiin ja ääntöasu vokaaliin, ja jotka taivutetaan puolilainausmerkin ja ääntöasun mukaisen päätteen kanssa (parfait’na :
 parfait’ina). Sanojen käsittelyn hankaluus seuraa siitä, että kirjoitusasu ei sinänsä
 suoraan paljasta ääntöasua, eikä Nykysuomen sanalistassa olevista tiedoista sitä selviä. Tässä luokassa taivutuksen allomorfit ovat kuten luokassa 21:kin, joten
 yksikön illatiivin vokaalia (parfait’hen) ei voida tietää, eikä tietenkään myöskään
 vokaalisointua.
 
-Luokat 23—26 sisältävät konsonanttivartaloon liittyvät yksikön partitiivin ja monikon genetiivin allomorfit tA ja ten. Lisäksi luokassa 25 esiintyy nasaaliassimilaatiosta johtuva m : n(t) vaihtelu näiden muotojen kanssa. Vartalovokaalivaihtelun osalta kyse on luokan 7 i : e -vaihtelusta. Luokkien 24 ja 26 välinen ero on
+\textbf{Luokat 23}—26 sisältävät konsonanttivartaloon liittyvät yksikön partitiivin ja monikon genetiivin allomorfit tA ja ten. Lisäksi luokassa 25 esiintyy nasaaliassimilaatiosta johtuva m : n(t) vaihtelu näiden muotojen kanssa. Vartalovokaalivaihtelun osalta kyse on luokan 7 i : e -vaihtelusta. Luokkien 24 ja 26 välinen ero on
 ainoastaan niiden monikon genetiivin allomorfien keskinäinen järjestys.
 
-Luokkaan 24 kuuluu myös sana meri ja luokkaan 26 sana veri, jotka taipuvat
+\textbf{Luokkaan 24} kuuluu myös sana meri ja luokkaan 26 sana veri, jotka taipuvat
 muutoin odotuksenmukaisella tavalla, mutta niiden yksikön partitiivin tunnuksessa käytetään odotuksenvastaista sointuvokaalia (merta ja verta vastaavasti).
 
-Luokat 27—31 sisältävät ti-si-muunnokseen liittyvät monimutkaiset vaihtelut
+\textbf{Luokat 27}—31 sisältävät ti-si-muunnokseen liittyvät monimutkaiset vaihtelut
 (ks. tarkemmin esim. Karlsson (1982)), joihin sisältyy myös vartalovokaalin i :
 e -vaihtelu sekä konsonanttiklusterien yksinkertaistumat.
 
@@ -662,60 +655,60 @@ ttA (kättä) ja monikkomuotojen s, josta vokaali on kadonnut monikon tunnuksen
 i:n edeltä kuten luokissa 5 ja 6. Luokassa 27 ovat myös viisi ja kuusi, jotka ovat
 numeraaleja.
 
-Luokassa 28 (kynsi) si-sarjaa edeltää l, r tai n, joka aiheuttaa astevaihdellun devartalotyypin assimiloitumisen le-, re- ja ne-tyyppisiksi (kynnessä) vastaavasti.
+\textbf{Luokassa 28} (kynsi) si-sarjaa edeltää l, r tai n, joka aiheuttaa astevaihdellun devartalotyypin assimiloitumisen le-, re- ja ne-tyyppisiksi (kynnessä) vastaavasti.
 
-Luokat 29 ja 30 (lapsi ja veitsi) ovat muutoin kuin luokat 27 ja 28, mutta psija tsi-päätteet muuttuvat konsonanttivartaloisessa yksikön partitiivissa ja monikon
+\textbf{Luokat 29} ja 30 (lapsi ja veitsi) ovat muutoin kuin luokat 27 ja 28, mutta psija tsi-päätteet muuttuvat konsonanttivartaloisessa yksikön partitiivissa ja monikon
 genetiivissä stA- (lasta, veistä) ja sten-muotoihin (lasten, veisten), vastaavasti, historiallisen konsonanttiklusterin yksinkertaistuman seurauksena (Remes, 2004).
 
-Luokka 31 (kaksi) sisältää äännevaihteluina ti-si-muunnoksen lisäksi k : h -vaihtelun (kahden), joka on seurausta vanhasta ks : ht -muutoksesta (vrt. lahti < vanh.
+\textbf{Luokka 31} (kaksi) sisältää äännevaihteluina ti-si-muunnoksen lisäksi k : h -vaihtelun (kahden), joka on seurausta vanhasta ks : ht -muutoksesta (vrt. lahti < vanh.
 laksi, « ruots. lax) (Remes, 2004). Muutoin luokka on kuin 27. Luokka sisältää
 vain sanat yksi ja kaksi, joka kattaa sen äännerakennekuvauksen sinänsä.
 
-Luokka 32 (sisar) sisältää r-, l- ja n-loppuiset konsonanttivartalot, jotka vaihtelevat e-loppuisen vokaalivartalon (eli re, le ja ne vastaavasti) kanssa yksikkömuodoissa. Taivutustunnusten allomorfeiksi kuuluvat konsonanttivartalojen yksikön partitiivi tA (sisarta) sekä monikon genetiivit ten (sisarten) ja ien (sisarien).
+\textbf{Luokka 32} (sisar) sisältää r-, l- ja n-loppuiset konsonanttivartalot, jotka vaihtelevat e-loppuisen vokaalivartalon (eli re, le ja ne vastaavasti) kanssa yksikkömuodoissa. Taivutustunnusten allomorfeiksi kuuluvat konsonanttivartalojen yksikön partitiivi tA (sisarta) sekä monikon genetiivit ten (sisarten) ja ien (sisarien).
 Myös numeraali kymmenen on sijoitettu tähän luokkaan, kuitenkin siten, että oletettu taivutusvartalo olisi kymmen.
 
-Luokka 33 (kytkin) sisältää n-loppuiset konsonanttivartalot, jotka vaihtelevat vokaalivartalossa m:n kanssa (kytkimen). Taivutustunnusten allomorfit ovat kuten
+\textbf{Luokka 33} (kytkin) sisältää n-loppuiset konsonanttivartalot, jotka vaihtelevat vokaalivartalossa m:n kanssa (kytkimen). Taivutustunnusten allomorfit ovat kuten
 luokassa 32.
 
-Luokka 34 (onneton) koostuu tOn-loppuisista adjektiivin abessiivin karitiivijohdosten kiteytyneistä muodoista, jotka ovat taas sanakirjan kannalta juurestaan niin
+\textbf{Luokka 34} (onneton) koostuu tOn-loppuisista adjektiivin abessiivin karitiivijohdosten kiteytyneistä muodoista, jotka ovat taas sanakirjan kannalta juurestaan niin
 etäisiä että ne on merkitty omiksi muodoikseen. Muutoin taivutus kuuluu luokan 35 kanssa (lämmin) n : mA -vaihteluun. Luokat 34 ja 35 eroavat allomorfeiltaan
 vain monikon genetiivin harvakäyttöisten varianttien osalta siten, että 34 voi ottaa
 päätteen ten (onnetonten) ja 35 in (lämpimäin).
-Luokka 36 (sisin) sisältää kiteytyneet adjektiivien superlatiivimuodot, ja taipuu
+\textbf{Luokka 36} (sisin) sisältää kiteytyneet adjektiivien superlatiivimuodot, ja taipuu
 samoin kuin adjektiivin superlatiivi normaalisti n : mPA-vaihtelullisena. Myös
 luokka 37 (vasen) taipuu samoin ja käytännössä samoilla allomorfeilla, eroksi
 jää kantasana, ja teoriassa harvinaisen yksikön partitiivin allomorfin esiintyminen, sillä sanakirjan luokiutuksen mukaan superlatiivin kiteytymiin ei saa liittää
 pääteallomorfia (mp)AA (? sisimpää, vasempaa).
-Luokka 38 (nainen) sisältää nen-loppuiset, alkujaan johtimelliset sanat, joiden
+\textbf{Luokka 38} (nainen) sisältää nen-loppuiset, alkujaan johtimelliset sanat, joiden
 taivutus perustuu johtimettomaan muotoon, eli vartalona on se, jonka vartalopääte se toimii kuten luokassa 29—31. Merkillepantavaa tässä luokassa on, että nominatiivin sijasta yhdyssanan määriteosan muotona käytetään nominatiivitapauksissa aina erillistä s-loppuista yhdyssanamuotoa (nais-). Muissa luokissa erillinen
 yhdyssanamuoto on harvinainen.
 
-Luokat 39—42 sisältävät s-loppuisten äännevaihtelut. Luokan 39 (vastaus) s
+\textbf{Luokat 39}—42 sisältävät s-loppuisten äännevaihtelut. Luokan 39 (vastaus) s
 vaihtelee vokaalivartaloon kse-muodossa, jonka e käyttäytyy kuten vartalovokaali e luokassa 5. Lisäksi konsonanttivartalot saavat yksikön partitiivin allomorfinsa
 tA ja monikon genetiivin ten. Luokka 40 (kalleus) käyttäytyy monikon osalta kuin
 39, mutta yksikön vokaalivartalo kuten te : de luokassa 27.
 
-Luokka 41 (vieras) sisältää vaihtelun s : V, missä s siis esiintyy yksikön vokaalivartalossa edeltävän vokaalin pidentymänä (vieraana). Lisäksi monikkomuodon
+\textbf{Luokka 41} (vieras) sisältää vaihtelun s : V, missä s siis esiintyy yksikön vokaalivartalossa edeltävän vokaalin pidentymänä (vieraana). Lisäksi monikkomuodon
 allomorfit ovat vokaalivartalopohjaisesti genetiivin iden-itten ja partitiivin itA sekä illatiivin isiin. Luokka 42 (mies) sisältää poikkeuksellisen s : he vaihtelun,
 muutoin vaihtelu on kuten luokissa 32 ja 33.
 
-Luokat 43—44 ovat t-loppuisten sanojen vaihteluluokat, näistä 43 (ohut) vaihtelee t : (∅)e, mutta muutoin kuten luokat 32, 33 ja 42. Monikon allomorfeina vain
+\textbf{Luokat 43}—44 ovat t-loppuisten sanojen vaihteluluokat, näistä 43 (ohut) vaihtelee t : (∅)e, mutta muutoin kuten luokat 32, 33 ja 42. Monikon allomorfeina vain
 vokaalivartaloiset iden, itten, itA ja isiin. Luokka 44 (kevät) vaihtelee vokaalivartalossa vokaalin pitenemän kanssa kuten luokka 41:kin, ja näiden välisenä erona on vain loppukonsonantti.
 
-Luokka 45 (kahdeksas) sisältää järjestysluvut, joiden taivutus noudattaa epäsäännöllistä s : nte -vaihtelua, ja jonka t monikkomuodoissa vaihtelee s:n kanssa, koska
+\textbf{Luokka 45} (kahdeksas) sisältää järjestysluvut, joiden taivutus noudattaa epäsäännöllistä s : nte -vaihtelua, ja jonka t monikkomuodoissa vaihtelee s:n kanssa, koska
 joutuu i:n edelle vartalovokaalin e:n kadon myötä.
 
-Luokka 46 (tuhat) sisältää lukusanan tuhat, jonka taivutus on noudattaa epäsäännöllistä t : nte -vaihtelua, joka luokan 45 sisältää ti : si -vaihtelun monikossa.
+\textbf{Luokka 46} (tuhat) sisältää lukusanan tuhat, jonka taivutus on noudattaa epäsäännöllistä t : nte -vaihtelua, joka luokan 45 sisältää ti : si -vaihtelun monikossa.
 
-Luokka 47 (kuollut) koostuu nut-partisiippien aktiivien muodoista, jotka ovat tarpeeksi kiteytyneitä kuuluakseen sanakirjaan. Vartalon vaihtelut koostuvat siis ut :
+\textbf{Luokka 47} (kuollut) koostuu nut-partisiippien aktiivien muodoista, jotka ovat tarpeeksi kiteytyneitä kuuluakseen sanakirjaan. Vartalon vaihtelut koostuvat siis ut :
 eet : e -muodoista, joita edeltää nut-partisiipin tunnuksen assimiloituva n.
 
-Luokka 48 (hame) sisältää e-loppuiset sanat, joihin on kielihistoriallisesti kuulunut loppukonsonantti, ja jotka taipuvat kuin niissä olisi loppukonsonantti paikalla. Myös sanan ääntöasussa on loppukonsonanttia merkitsemässä vielä jäännöslopukepiirre. Yksikön vokaalivartalossa jäännöslopuke vaihtelee pitkän vokaalin
+\textbf{Luokka 48} (hame) sisältää e-loppuiset sanat, joihin on kielihistoriallisesti kuulunut loppukonsonantti, ja jotka taipuvat kuin niissä olisi loppukonsonantti paikalla. Myös sanan ääntöasussa on loppukonsonanttia merkitsemässä vielä jäännöslopukepiirre. Yksikön vokaalivartalossa jäännöslopuke vaihtelee pitkän vokaalin
 kanssa kuten luokissa 44 ja 41. Sanan yksikön partitiivin allomorfi on ttA kuin
 konsonanttivartalossa, mutta monikkoallomorfit ovat vokaalivartaloiset iden, itten, itA, isiin ja ihin. Luokkaan kuuluu myös uusia sanoja, jotka on muodostettu
 ex -johtimella, vaikka niihin ei muutoin jäännöslopukepiirrettä kielihistorian kautta tulisikaan.
 
-Luokkaan 49 (askel ∼ askele) kuuluvat sanat, joilla on kaksi erillistä taivutusvartaloa, toinen luokkaan 48 kuuluvan kaltainen le-, re- tai ne-loppuinen, toinen
+\textbf{Luokkaan 49} (askel ∼ askele) kuuluvat sanat, joilla on kaksi erillistä taivutusvartaloa, toinen luokkaan 48 kuuluvan kaltainen le-, re- tai ne-loppuinen, toinen
 luokkaan 32 kuuluvan kaltainen l-, r tai n-loppuinen. Nykysuomen sanalistassa
 sanoista on yleensä molemmat versiot, mutta mahdollinen astevaihtelu on kuvattu
 vain konsonanttivartaloisille nominatiiveille (esim. manner’49−J ∼ mantere49 ).
@@ -727,62 +720,62 @@ luokkaan, ja ne luokan 50 yhdyssanat, joiden perusosa puuttuu sanalistasta itsen
 ja adjektiivialkuisista sanoista kaikki onkin luokiteltu joko luokkaan 50 tai 51,
 poikkeuksena nominialkuisista. (Eronen, 1994, sanakirjan osalta)
 
-Luokka 52 (sanoa) on verbien yksinkertaisin ja vaihteluttomin luokka vastaavasti
+\textbf{Luokka 52} (sanoa) on verbien yksinkertaisin ja vaihteluttomin luokka vastaavasti
 kuin luokka 1 on nomineiden kohdalla. Se sisältää vartalovokaalit O ja U, jotka
 siis verbien tapauksessa sanakirjamuodossa esiintyvät ennen a-infinitiivin tunnusta, tässä A:ta.
 
-Luokat 53—55 sisältävät vartalon A:n kadon menneen ajan tunnuksen i:n edeltä,
+\textbf{Luokat 53}—55 sisältävät vartalon A:n kadon menneen ajan tunnuksen i:n edeltä,
 ja kuvaavat siitä syntyvän ti-sarjan ti-si-äännemuunnoksen eri vaiheita.
 
-Luokassa 53 (muistaa) muunnosta ei tule, vaan menneen ajan muodossa on aina
+\textbf{Luokassa 53} (muistaa) muunnosta ei tule, vaan menneen ajan muodossa on aina
 t (muisti). Luokka 54 (huutaa) sisältää myös pakollisen muunnoksen menneen
 ajan muodossa (huusi). Luokassa 55 (soutaa) ti- ja si-muodot ovat vapaassa vaihtelussa (souti ∼ sousi).
 
-Luokka 56 (kaivaa) sisältää vartalovokaalivaihtelun A : O menneen ajan muodoissa (kaivoi). Luokassa 57 (saartaa) luokan 56 A : O -vaihtelullinen sekä luokan 54 ti : si -vaihtelullinen A : ∅ -muoto ovat vapaassa vaihtelussa menneen ajan
+\textbf{Luokka 56} (kaivaa) sisältää vartalovokaalivaihtelun A : O menneen ajan muodoissa (kaivoi). Luokassa 57 (saartaa) luokan 56 A : O -vaihtelullinen sekä luokan 54 ti : si -vaihtelullinen A : ∅ -muoto ovat vapaassa vaihtelussa menneen ajan
 muodoissa (saarsi ∼ saartoi).
 
-Luokat 58—60 ovat e : ∅ -vaihtelun sisältäviä luokkia, näistä luokka 58 (laskea) on muutoin vaihteluton. Luokka 59 (tuntea) sisältää ti : si -vaihtelun menneen ajan muodossa (tunsi) — sekä t:n heikon asteen assimilaation n:ään (tunnen). Luokka 60 (lähteä) on myös kuin 58, mutta sisältää harvinaisena ks : ht
+\textbf{Luokat 58}—60 ovat e : ∅ -vaihtelun sisältäviä luokkia, näistä luokka 58 (laskea) on muutoin vaihteluton. Luokka 59 (tuntea) sisältää ti : si -vaihtelun menneen ajan muodossa (tunsi) — sekä t:n heikon asteen assimilaation n:ään (tunnen). Luokka 60 (lähteä) on myös kuin 58, mutta sisältää harvinaisena ks : ht
 -vaihtelun menneen ajan muodoissa (lähti ∼ läksi) kuten nominiluokassa 31.
 
-Luokka 61 (sallia) sisältää vartalovokaalin i kadon menneen ajan (sallin) sekä
+\textbf{Luokka 61} (sallia) sisältää vartalovokaalin i kadon menneen ajan (sallin) sekä
 konditionaalin (sallisin) tunnuksen i:n edeltä.
 
-Luokissa 62—65 on pitkä vokaalivartalo, jonka jäljessä esiintyy a-infinitiivin tunnus dA. Vartalon pitkä vokaaliaines esiintyy lyhyenä menneen ajan ja konditionaalin tunnuksen i:n edellä.
+\textbf{Luokissa 62—65} on pitkä vokaalivartalo, jonka jäljessä esiintyy a-infinitiivin tunnus dA. Vartalon pitkä vokaaliaines esiintyy lyhyenä menneen ajan ja konditionaalin tunnuksen i:n edellä.
 
-Luokat 62 (voida) ja 63 (saada) eroavat nähtävästi vain sillä, että vartalon vokaaliaines on i-loppuinen diftongi ja pitkä vokaali vastaavasti. Luokka 64 (juoda) sisältää vartalovokaalinaan väljenevän diftongin, joka käyttäytyy kuten nominiluokassa 19, diftongin ensikomponentti katoaa taivutustunnuksen i:n vaikutuksesta.
+\textbf{Luokat 62} (voida) ja 63 (saada) eroavat nähtävästi vain sillä, että vartalon vokaaliaines on i-loppuinen diftongi ja pitkä vokaali vastaavasti. Luokka 64 (juoda) sisältää vartalovokaalinaan väljenevän diftongin, joka käyttäytyy kuten nominiluokassa 19, diftongin ensikomponentti katoaa taivutustunnuksen i:n vaikutuksesta.
 
-Luokka 65 (käydä) sisältää poikkeuksellisen y:n vaihtelun v:ksi menneen ajan
+\textbf{Luokka 65} (käydä) sisältää poikkeuksellisen y:n vaihtelun v:ksi menneen ajan
 (kävin) tai konditionaalin (kävisin) tunnuksen i:n edeltä.
 
-Luokka 66 (rohkaista) sisältää s-konsonanttivartalot ja luokka 67 (tulla) l- ja
+\textbf{Luokka 66} (rohkaista) sisältää s-konsonanttivartalot ja luokka 67 (tulla) l- ja
 r-konsonanttivartalot. Konsonanttivartaloihin liittyy potentiaali ja nut-partisiippi
 tunnuksen n assimiloituneena. Luokkaan 67 on pantu myös olla-verbi, johon sisältyy sekä poikkeavaa taivutusta kolmansien persoonien muodoissa että suppletiivinen paradigma potentiaalimuodoissa.
 
-Luokkaan 68 (tupakoi ∼ tupakoitsee) kuuluvat luokan 62 sanat, joilla on harvinaisena vaihtoehtoisena taivutusvartalona tyypin 69 vartalo.
+\textbf{Luokkaan 68} (tupakoi ∼ tupakoitsee) kuuluvat luokan 62 sanat, joilla on harvinaisena vaihtoehtoisena taivutusvartalona tyypin 69 vartalo.
 
-Luokka 69 ja 70 (valita, juosta) sisältävät e : ∅ -vaihtelun sekä kompleksisemman
+\textbf{Luokka 69} ja 70 (valita, juosta) sisältävät e : ∅ -vaihtelun sekä kompleksisemman
 konsonanttiklusterin yksinkertaistuman siten, luokkaan 69 kuuluu tse : ts -vartalot ja 70 kse : st : s -vartalot.
 
-Luokkaan 71 (nähdä) kuuluu ke : h-vaihtelu.
+\textbf{Luokkaan 71} (nähdä) kuuluu ke : h-vaihtelu.
 
-Luokka 72 (vanheta) sisältää vartalot, joissa ne-osa on ilmeisesti perua kokonaan
+\textbf{Luokka 72} (vanheta) sisältää vartalot, joissa ne-osa on ilmeisesti perua kokonaan
 toisesta paradigmasta, eli vartalon vaihtelu on ∅ : ne.
 
-Luokka 73—75 sisältävät tavallisen vokaalivartalon ja lisäksi menneen ajan
+\textbf{Luokka 73}—75 sisältävät tavallisen vokaalivartalon ja lisäksi menneen ajan
 tunnusta edeltää vaihtelun johdosta s. Luokat eroavat toisistaan siten, että avartaloinen 73 (salata) ottaa menneen ajan tai konditionaalin tunnuksen vokaalivartalon lyhyen vokaalin jälkeen (salasin). E-, O- tai U-vartaloinen 74 (katketa)
 säilyttää pitkän vokaaliaineksen ennen konditionaalin tunnusta (katkeaisin), mutta konditionaalissa tapauksittain myös luokan 73 mukainen kato on mahdollinen
 (katkeisin). I-vartaloinen 75 (selvitä) taipuu kuten 74, mutta luokan 73 mukaista
 konditionaalia ei esiinny, ja se menisikin yhteen konditionaalimuodon kanssa.
 
-Luokka 76 (taitaa) on 58, mutta lisäksi se sallii n-konsonanttivartaloiset muodot
+\textbf{Luokka 76} (taitaa) on 58, mutta lisäksi se sallii n-konsonanttivartaloiset muodot
 potentiaalissa (tainnee) ja nut-partisiipissa (tainnut).
 
-Luokkaan 77 (väräjää) on koottu AjAA-tyypin verbit, joista esiintyy käytössä
+\textbf{Luokkaan 77} (väräjää) on koottu AjAA-tyypin verbit, joista esiintyy käytössä
 vain yksikön kolmannen indikatiiveja (väräjää : väräji) ja konditionaaleja (väräjäisi).
 
-Luokassa 78 (kaikaa) on verbit, joista esiintyy vain yksikön kolmannen indikatiivin menemättömän ajan muoto (kaikaa) ja konditionaali (kaikaisi).
+\textbf{Luokassa 78} (kaikaa) on verbit, joista esiintyy vain yksikön kolmannen indikatiivin menemättömän ajan muoto (kaikaa) ja konditionaali (kaikaisi).
 
-Luokkiin 99 ja 101 on pantu adverbejä, partikkeleja ja pronominejä, joita en tässä
+\textbf{Luokkiin 99} ja 101 on pantu adverbejä, partikkeleja ja pronominejä, joita en tässä
 tutkielmassa käsittele.
 
 Astevaihteluluokkia aineistossa on 13, jotka kuvaavat astevaihtelun alaisena olevan äänneparin, mutteivät astevaihtelun suuntaa, joka käy ilmi taivutusluokasta
@@ -791,24 +784,24 @@ D—M kuvaavat kvalitatiivisen astevaihtelun eri toteutumavariantteja.
 
 Astevaihteluluokista lienee huomionarvoista, että uudehkolla vierasperäisten konsonanttien g, b ja d kvantitatiivisella astevaihtelulla (dubata : dubbaan ja digata :
 diggaan) ei ole omaa astevaihteluluokkaa, eikä sitä ole Nykysuomen sanalistaan
-merkitty ja painetussa sanakirjassa se löytyy vain sana-artikkelin proosasta (Eronen, 1994). Myös sanassa auer esiintyvä t : ∅ -astevaihtelu puuttuu luokituksesta.
+merkitty ja painetussa sanakirjassa se löytyy vain sana-artikkelin proosasta \cite{eronen1994nykysuomen}. Myös sanassa auer esiintyvä t : ∅ -astevaihtelu puuttuu luokituksesta.
 Astevaihtelun kannalta on merkittävää, että astevaihtelun toteutuminen sanakirjamuodossa riippuu siitä, onko astevaihtelun alainen tavu sanakirjamuodossa lyhyt avotavu vai ei. Perinteisesti kieliopissa sanakirjamuodoltaan avotavuisia eli
 vahva-asteisia muotoja on kutsuttu astevaihtelun pääsäännön suoran astevaihtelun
 alaisiksi, ja niitä, joissa on umpitavu ja heikko aste sanakirjamuodossa käänteisen
-astevaihtelun mukaisiksi (Hakulinen et al., 2004). Nomineilla suoraan astevaihteluun kuuluvat yksinkertaisesti taivutusluokat 1—31, jotka ovat vokaaliloppuisia
+astevaihtelun mukaisiksi \cite{hakulinen2008iso}. Nomineilla suoraan astevaihteluun kuuluvat yksinkertaisesti taivutusluokat 1—31, jotka ovat vokaaliloppuisia
 nomineja. Luokat 32—47 ovat konsonanttiloppuisia käänteisen astevaihtelun sisältäviä luokkia. Verbien kohdalla suoraan astevaihteluun kuuluvat 52—65, käänteiseen 66—75. Kun astevaihtelun alainen äänne selviää sanaluokkanumeron ja
 astevaihtelukirjaimen avulla, sen paikantaminen selviää lähes aina triviaalisti sanakirjamuodon kirjoitusasusta poimimalla viimeinen eli oikeanpuoleisin kyseeseen tuleva kirjain. Poikkeuksia luovat muutamat verbiluokat, joissa a-infinitiivin
 tunnuksen t pitää sivuuttaa ensin sekä käänteisessä astevaihtelussa luokan D selvittäminen, kun siinä sanakirjamuodossa k:ta vastaa kato.
 
 Taivutusluokituksen jäsentimessä käyttämistäni piirteistä olen laatinut kuvaukset
 taulukkoihin 1 nomineille ja 2 verbeille, sekä astevaihtelun osalta yhteenvetona
-taulukkoon 3. Samat tiedot löytyvät teoriassa Nykysuomen sanalistan (Kotimaisten Kielten Tutkimuskeskus, 2006) mallitaivutustaulukoista hieman eri muodossa.
+taulukkoon 3. Samat tiedot löytyvät teoriassa Nykysuomen sanalistan \cite{nykysuomensanalista2006} mallitaivutustaulukoista hieman eri muodossa.
 Nominitaulukon äännevaihtelusarakkeessa kuvataan vartalossa esiintyvät äännemuutokset poislukien astevaihtelusta johtuvat —, jotka kuitenkin saattavat toisinaan olla luokalle ominaisia. Sarakkeessa äännerakenne on esitetty yleistäen se
 äännerakenne, jota kaikki luokan sanat (yksikön nominatiivissa) noudattavat, sanan lopusta lukien, eli äännerakennekuvaus ”u” tarkoittaisi vartalovokaalia u ja
 ”psi” vain psi-loppuisia vartaloita. Monissa luokissa on muutamia sanoja, jotka poikkeavat odotuksenmukaisesta muodosta, esimerkiksi osittain mukautuneita
 vierassanoja. Tällaiset tapaukset on usein merkitty sulkeilla. Esimerkiksi luokkaan 3 näyttävät kuuluvan ensi sijassa io- ja iö-loppuiset omaperäiset sanat, mutta
-myös muut vokaaliyhtymään päättyvät uudet vierasperäiset sanat (esim. zombie3 ,
-sikäli kun se lausutaan suunnilleen [0 tsom.bi.e]).
+myös muut vokaaliyhtymään päättyvät uudet vierasperäiset sanat (esim. zombie$^3$,
+sikäli kun se lausutaan suunnilleen [tsom.bi.e]).
 
 Huomattavaa on myös, että jotkin pronominit ja numeraalit on luokiteltu mukaan
 luokkiin siten, etteivät ne sinänsä täsmää kuvaukseeni, vaikka etymologisesti sopivatkin, esimerkiksi sanan kumpi kieliopillistuneet kliitilliset muodot, kuten sanaksi merkitty kumpikaan, ovat luokassa 16 muiden komparatiivien kanssa, vaikka ne
@@ -824,8 +817,9 @@ nominatiivi sellaisenaan, yksikön essiivin vokaalivartalo, monikon nominatiivin
 vokaalivartalo, yksikön partitiivin konsonanttivartalo ja i-tunnuksisten monikkomuotojen i:tä edeltävä vokaalivartalo vastaavasti.
 
 Taulukon arvaukset perustuvat morfologian kehityksessä käytettyihin arvioihin,
-joiden lähteenä ovat olleet aiemmin mainitut kieliopit (Remes, 2004; Setälä,
-1930), Nykysuomen ja Perussanakirjan kuvaukset (Eronen, 1994, 1997), aiemmin toteutetut kieliteknologiset morfologiajärjestelmät (Koskenniemi, 1983) sekä
+joiden lähteenä ovat olleet aiemmin mainitut kieliopit
+\cite{remes2004,setala1930suomen}, Nykysuomen ja Perussanakirjan kuvaukset
+\cite{eronen1994nykysuomen,eronen1997suomen}, aiemmin toteutetut kieliteknologiset morfologiajärjestelmät \cite{koskenniemi1983twolevel} sekä
 Nykysuomen sanalistan silmämääräinen ja koneellinen tarkastelu. Eräänä työkaluna vartalon äännerakennevaihteluita arvaillessani olen käyttänyt työkalua, joka
 hakee vapain GNU GPL -sovelluksin luettelosta tietyn luokan sanoja, tietyn vartaloisia sanoja, sekä tietyn luokan sanoja, jotka eivät ole kirjoitusasultaan tiettyä
 hakulauseketta vastaavia. Työkalua käytetään hakemalla kaikki luokan sanat listasta, arvaamalla äännerakenne, ja pyytämällä kaikkia arvatusta äännerakenteesta
@@ -844,7 +838,7 @@ systemaattisesti tätä ei ole tehty.
         \bf ↓Luokka &
         \bf vaihtelu & rakenne & ptv. & ill. & ptv.& gen. & ill. \\
         \hline
-%        \multicol{8}{|c|}{Vokaalivartaloiset, suoralla astevaihtelulla}
+        \multicolumn{8}{|c|}{Vokaalivartaloiset, suoralla astevaihtelulla} \\
         \hline
     \end{tabular}
     \bf TODO:
@@ -1502,9 +1496,10 @@ vain menneen ajan muodon i-tunnukseen tai sekä siihen että konditionaaliin, ri
 äännerakennetta. Sarakkeessa pret. eli preteriti on menneen ajan muodosta kuvattu sen vaikutus vartaloon, eli esim. mahdollinen ti>si-muunnos t-loppuisissa
 vartaloissa. A-infinitiivin allomorfin mukaan määräytyvät infinitiivien tunnuksessa mahdollisesti esiintyvä d, joka on kuvattu sarakkeessa inf. Kyseessä on sinänsä
 vain tavan astevaihtelukuvio, sillä poikkeuksella, että heikon asteen tunnuksesta
-ð on tietyissä konteksteissa jäänyt jäljelle nykysuomessa kato (ks. tarkemmin Hakulinen (1979)). Vastaavasti s:n jälkeisessä asemassa aste on vahva. Sarakkeessa
+ð on tietyissä konteksteissa jäänyt jäljelle nykysuomessa kato (ks. tarkemmin
+\cite{hakulinen1970suomen}). Vastaavasti s:n jälkeisessä asemassa aste on vahva. Sarakkeessa
 pass. on kuvattu se vaihtelu, joka määrittää onko t-alkuisen passiivin alussa yksi
-t (nähty, syötiin) vai kaksi t:tä (tapettu, haudattiin). Nämä vaihtelut ovat käytännössä samat kuin väitöskirjassa Koskenniemi (1983) kuvatun järjestelmän D- ja
+t (nähty, syötiin) vai kaksi t:tä (tapettu, haudattiin). Nämä vaihtelut ovat käytännössä samat kuin väitöskirjassa \cite{koskenniemi1983twolevel} kuvatun järjestelmän D- ja
 Z-morfofoneemit.
 
 \begin{table}
@@ -1697,7 +1692,7 @@ tt
 \end{table}
 
 Astevaihtelun osalta taulukko on yksinkertainen, ja löytyy liki sellaisenaankin
-aineistosta Kotimaisten Kielten Tutkimuskeskus (2006). Astevaihtelukirjain
+aineistosta \cite{nykysuomensanalista2006}. Astevaihtelukirjain
 sinänsä on morfofonologian kannalta redundanttia, sillä kun tiedetään vaihtelu
 ja taivutusluokasta vaihtelun suunta, kyseeseen tuleva äänne selviää lopputavun
 alusta ja sen toisen asteen vastine kontekstista säännönmukaisesti.
@@ -1766,52 +1761,63 @@ olettaa olevan suurelta osin laadullisesti ehjää yleiskieltä. Lisäksi korpuk
 valmiiksi jäsennetty käyttäen toista, kaupallista jäsennintä, joten tulokset antavat
 myös karkeaa viitettä, mihin kehittämäni järjestelmä laadullisesti sijoittuu.
 
-\section{Menetelmät}
+\section{Menetelmät}\label{sec:mentelmat}
 
 Äärellistilainen morfologinen jäsennin on sellainen äärellistilainen transduktori,
 joka sisältää kuvaukset sanojen taivutusmuotojen ja niiden sanakirjamuotojen sekä taivutusmuotojen tunnisteiden välillä (esim. kissasta ↔ kissa yksikön elatiivi) tai päinvastoin. Kuvauksen toteuttaminen lähtee siitä, että muunnetaan XMLmuotoinen sanalista sellaiseksi, jonka SFST osaa lukea transduktoriksi, ja tätä
 transduktoria säännöin ja äärellistilaisin operaatioin käsittelemällä saadaan aikaiseksi sellainen äärellistilainen transduktori, joka kuvaa sanakirjamuodot taivutusmuodoiksi.
 
-Kappaleessa 2 hahmotellun perusteella äärellistilainen järjestelmä, joka kuvaa
+Kappaleessa \ref{sec:aineistot} hahmotellun perusteella äärellistilainen järjestelmä, joka kuvaa
 sanojen vartaloissa esiintyvät äännemuutokset, liittää sopivat taivutuspäätteet
-sanojen sopiviin vartaloihin ja niin edelleen on perustettavissa pelkästään sanakirjamuotoihin, taivutusluokkanumeroihin ja astevaihtelukirjaimiin, joten
+sanojen sopiviin vartaloihin ja niin edelleen on perustettavissa pelkästään
+sanakirjamuotoihin, taivutusluokkanumeroihin ja astevaihtelukirjaimiin, joten
 XML-sanalista pitää muuntaa äärellistilaisen järjestelmän sanalistaksi, jossa
-jokainen sana muodostuu kolmikosta sanakirjamuoto, taivutusnumero ja astevaihtelukirjain. Tämä muunnos on tehty XSLT 2.010 -kielellä ja toteutusta on kuvattu kappaleessa 3.2.1. Tässä vaiheessa lähdetään siis liikkeelle tietueista tyyppiä
-<st><s>pata</s><hn>1</hn><t><tn>9</tn><av>F</av></t></st>
+jokainen sana muodostuu kolmikosta sanakirjamuoto, taivutusnumero ja
+astevaihtelukirjain. Tämä muunnos on tehty XSLT
+2.0\footnote{\url{http://www.w3.org/TR/2007/REC-xslt20-20070123/}}
+
+-kielellä ja toteutusta on kuvattu kappaleessa \ref{subsubsec:xxx}. Tässä vaiheessa lähdetään siis liikkeelle tietueista tyyppiä
+\texttt{<st><s>pata</s><hn>1</hn><t><tn>9</tn><av>F</av></t></st>}
 ja päädytään tyyppiin pata<9><f>.
 
 Itse äärellistilainen kuvaus, joka perustuu tuotettuun sanalistaan, on joukko
-äärellistilaisten transduktorien operaatioita ja sääntöjä, joilla järjestelmällisesti tuotetaan sanan sanakirjamuodosta (tyyppiä pata<9><f>) taivutusvartalot
-(tyyppiä pado<monikko>) ja näistä taivutustunnukset liittämällä (tyypiksi
-padoiss<A><pl><ine> ja morfofonologiset (tyypiksi padoissa) vaihtelut
-säännöin toteuttamalla päädytään transduktoriin, joka sisältää halutun morfologisen kuvauksen (tyyppiä pata<9><f><pl><ine> ↔ padoissa). Tämän
-toteutuksen kuvauksen olen jakanut kahteen osaan: Aluksi kuvaan lyhyesti äärellistilaisten menetelmien pohjateoriaa ja esittelen käyttämiäni notaatioita kappaleessa 3.1. Kappaleessa kuvatuin merkinnöin ja käytännöin itse järjestelmä on
-kuvattu kappaleessa 3.2.
+äärellistilaisten transduktorien operaatioita ja sääntöjä, joilla
+järjestelmällisesti tuotetaan sanan sanakirjamuodosta (tyyppiä
+\texttt{pata<9><f>}) taivutusvartalot
+(tyyppiä \texttt{pado<monikko>}) ja näistä taivutustunnukset liittämällä (tyypiksi
+\texttt{padoiss<A><pl><ine>} ja morfofonologiset (tyypiksi \textit{padoissa}) vaihtelut
+säännöin toteuttamalla päädytään transduktoriin, joka sisältää halutun morfologisen kuvauksen (tyyppiä
+\texttt{pata<9><f><pl><ine>} ↔ \textit{padoissa}). Tämän
+toteutuksen kuvauksen olen jakanut kahteen osaan: Aluksi kuvaan lyhyesti
+äärellistilaisten menetelmien pohjateoriaa ja esittelen käyttämiäni notaatioita
+kappaleessa \ref{subsec:fsa}. Kappaleessa kuvatuin merkinnöin ja käytännöin itse järjestelmä on
+kuvattu kappaleessa \ref{subsec:333}.
 
 Jäsentimen kattavuuden osalta on mainittava, että toteutus kattaa vain sanojen taivutuksen, eli sisältää nomineilta vain sijapäätteet, omistusliitteet ja kliitit sekä verbeiltä aika- ja tapamuodot, infinitiivit ja partisiipit, sekä persoonamuodot ja pääluokkataivutuksen. Taivutuksen oikeellisuuden perusteeksi on enimmäkseen oletettu, että Nykysuomen sanalistan luokat ovat oikein, ja kun käytetyt mallit kuvaavat osan sanoista per luokka oikein, muidenkin pitäisi kuvautua. Toteutus sisältää testaustarkoituksiin käytettävän naiivin yhdyssanamuodostussäännöstön, joka
 muodostaa mielivaltaisen paljon perusyhdyssanoja, eli nomineista muodostuvia
 yhdyssanoja, joiden määriteosa on joko yksikön nominatiivissa tai genetiivissä ja
 vain jälkiosa taipuu.
-Testitarkoituksiin valitut ei-avoimet, epävapaat korpukset ovat myös XMLaineistoa, joten niitäkin on käsitelty XSLT-pohjaisin menetelmin, lisäksi niistä
-XSLT-menetelmillä irroitettua dataa on verrattu SFST:n morfologisiin jäsennyksiin Python-pohjaisilla menetelmillä, josta lyhyt kuvaus kappaleessa 3.3.
-
-\footnote{10
-
-http://www.w3.org/TR/2007/REC-xslt20-20070123/
-}
+Testitarkoituksiin valitut ei-avoimet, epävapaat korpukset ovat myös XML-aineistoa, joten niitäkin on käsitelty XSLT-pohjaisin menetelmin, lisäksi niistä
+XSLT-menetelmillä irroitettua dataa on verrattu SFST:n morfologisiin
+jäsennyksiin Python-pohjaisilla menetelmillä, josta lyhyt kuvaus kappaleessa
+\ref{subsec:3333}.
 
 
-\subsection{Äärellistilaisten menetelmien teoriasta}
+
+\subsection{Äärellistilaisten menetelmien teoriasta} \label{subsec:fsa}
 
 Tässä kappaleessa kuvataan lyhyesti äärellistilaisten menetelmien teoriaa siltä
 osin kuin se on tarpeellista suomen morfologian toteutuksessa ja samalla esitellään SFST-toteutuksen tapaa merkitä äärellistilaisia operaattoreita ja ilmauksia.
-Laajempia ja kokonaisempia kuvauksia aiheesta löytyy vaikka teoksista Aho et al.
-(2007); Beesley ja Karttunen (2004).
+Laajempia ja kokonaisempia kuvauksia aiheesta löytyy vaikka teoksista
+\cite{aho2007compiler,beesley2004finite}.
 
 Äärellistilainen transduktori on teoreettinen malli, joka kuvaa äärellistilaisten
-kielten relaatiota kuusikolla (Σ, Γ, S, s0 , F, δ), jossa Σ on ylemmän kielen aakkosto, Γ alemman kielen aakkosto, S on äärellinen joukko tiloja, s0 alkutila joukosta
-S, F S:n osajoukko lopputiloja ja δ : S × (Σ ∪ 0) × (Γ ∪ 0) → S siirtymärelaatio
-joka kuvaa tilalta toiselle aakkospareilla. (Jurafsky ja Martin, 2000)
+kielten relaatiota kuusikolla
+$(\Sigma, \Gamma, S, s_0 , F, \delta)$, jossa $\Sigma$ on ylemmän kielen
+aakkosto, $\Gamma$ alemman
+kielen aakkosto, $S$ on äärellinen joukko tiloja, $s_0$ alkutila joukosta
+$S$, $F$ $S$:n osajoukko lopputiloja ja $\delta : S × (\Sigma ∪ 0) × (\Gamma ∪ 0) → S$ siirtymärelaatio
+joka kuvaa tilalta toiselle aakkospareilla. \cite{jurafsky2000speech}
 
 Äärellistilaisten menetelmien havainnollistavassa kuvaamisessa käytetään yleensä
 sellaista grafiikkaa, että tiloja merkitään ympyröillä tai ellipseillä, ja tilojen välisiä
@@ -1824,33 +1830,43 @@ kuvaamansa kielen aakkosilla, jotka ovat mielivaltaisia kielen symboleja, kuten
 esimerkiksi luonnollisessa kielessä konkreettisia latinalaisia aakkosia, sekä operaattoreilla, joilla mallinnetaan aakkosten tai aakkosjonojen mielivaltaisia joukkoopillisia yhdistelmiä ja toistoja. Morfologiaa käsitellessä relevantteja yksiköitä
 ovat tietenkin aakkoset, joilla kirjoitetaan kielen sanoja, ja lisäksi on tyypillistä
 käyttää joitain erikoismerkintöjä kuvaamaan sanojen taivutusmuotoja, morfofonologian abstrakteja lisämerkintöjä käsittelyn aikana ja muita erikoismerkkejä. Tyypillisimmät säännölliset ilmaukset käsittelevät yksitasoisia säännöllisiä automaatteja, tässä tutkielmassa on kyse useimmiten kaksitasoisista äärellisistä transduktoreista, joten kuvauksetkin on annettu hieman poikkeavalla SFST-PL-kielisellä
-murteella säännöllisistä ilmauksista. SFST-PL poikkeaa myös osin muissa transduktorijärjestelmissä käytetyistä murteista, joten kuvaan tässä tarkemmin perusoperaatioita ensiksi SFST-PL-kielisesti. Muihin merkintöihin tottuneet voivat löytää liitteestä B taulukon, jossa on verrattu SFST:n notaatiota yleisempiin variantteihin.
+murteella säännöllisistä ilmauksista. SFST-PL poikkeaa myös osin muissa
+transduktorijärjestelmissä käytetyistä murteista, joten kuvaan tässä tarkemmin
+perusoperaatioita ensiksi SFST-PL-kielisesti. Muihin merkintöihin tottuneet
+voivat löytää liitteestä \ref{appendix:formalisms} taulukon, jossa on verrattu SFST:n notaatiota yleisempiin variantteihin.
 
 Atomisimmat peruselementit äärellisissä järjestelmissä ovat aakkoston symboleista muodostuvien jonojen joukkoja, eli formaaleja kieliä, joita tässä merkitään symboleilla tyyppiä $L$. Aakkosten yksittäiset symbolit merkitään yksinkertaisesti a
-ja symboliparit a : b.
+ja symboliparit $a : b$.
 
-Perusolioita äärellisissä verkoissa ovat universaalit ja tyhjät kielet (merkitään vastaavasti symboleilla .∗ ja <>) sekä useimmat niiden ja mielivaltaisten kielten
+Perusolioita äärellisissä verkoissa ovat universaalit ja tyhjät kielet
+(merkitään vastaavasti symboleilla \texttt{.∗} ja \texttt{<>}) sekä useimmat niiden ja mielivaltaisten kielten
 kombinaatio-operaattoreista, kuten ehdollisuus (so. nollasta yhteen toistoa merkitään postfiksaalisella kysymysmerkillä) ja valinnaisuus (nollasta äärettömään toistoa merkitään postfiksaalisella tähdellä).
 
-Yhdiste (union) on loogisesti disjunktiivinen, jos siis meillä on kieli $L1 $, jossa on ’kissa’ ja kieli $L2 $, jossa on ’koira’, niiden yhdiste on kieli $L1 $|$L2 $,
-jossa on ’kissa’ tai ’koira’. Konkatenaatio on merkkijonokäsittelyssä usein käytetty termi yksinkertaisesta peräkkäin asettamisesta, eläinkieltemme $L1 $ ja $L2 $
-konkatenaatio tässä järjestyksessä olisi siis kieli $L1 $$L2 $, jossa on
+Yhdiste (union) on loogisesti disjunktiivinen, jos siis meillä on kieli $L_1$,
+jossa on ’kissa’ ja kieli $L_2$, jossa on ’koira’, niiden yhdiste on kieli $L_1
+| L_2$,
+jossa on ’kissa’ tai ’koira’. Konkatenaatio on merkkijonokäsittelyssä usein
+käytetty termi yksinkertaisesta peräkkäin asettamisesta, eläinkieltemme $L_1$ ja
+$L_2$
+konkatenaatio tässä järjestyksessä olisi siis kieli $L_1 L_2$, jossa on
 ’kissakoira’olio. Leikkaus (intersection) on taas loogisesti konjunktiivinen,
-siis vaikkapa kielen L1,2 , jossa on ’kissa’ tai ’koira’ ja kielen L2,3 , jossa
-on ’koira’ tai ’banaaniovi’ leikkaus on kieli \verb|$L1,2 $&$L2,3 $|, jossa on vain ’koira’. Erotus (difference)
+siis vaikkapa kielen $L_{1,2}$ , jossa on ’kissa’ tai ’koira’ ja kielen $L_{2,3}$ , jossa
+on ’koira’ tai ’banaaniovi’ leikkaus on kieli $L_{1,2} \& L_{2,3}$, jossa on vain ’koira’. Erotus (difference)
 on operaatio, jossa kielletään tai poistetaan asioita toisesta kielestä, esimerkiksi
-$L1,2 $ − $L2 $ olisi $L1 $.
+$L_{1,2} − L2$ olisi $L_1$.
 
 Monipuolisemmista operaatioista äärellisille relaatioille eli transduktoreille tyypillinen kompositio (composition) on tässä yhteydessä kuvaus ensimmäiseltä syötteeltä toiselle tulosteelle, jos ja vain jos ensimmäinen syöte kuvautuu ensimmäiselle tulosteelle, joka kuvautuu toisena syötteenä toiselle tulosteelle mielivaltaisen (kohdistetun) polun kautta. Esimerkiksi jos meillä on relaatio, jossa on pari
-a : b ja komposition toisena osapuolena relaatio, jossa on pari b : c, komposition a : b||b : c tuloksena on relaatio, jossa a ja c ovat nyt pari a : c. Käytännön tasolla siis kompositiolla voidaan kuvata peräkkäisinä toteutumina yksittäiset säännöt siten, että välivaiheet jäävät aina pois näkyvistä. Esimerkiksi
-a : b||b : c||c : d||d : e == a : e, joka morfofonologisessa maailmassa tarkoittaa, että voidaan soveltaa järjestyksessä peräkkäin sääntöjä siten, että edellisen lopputuloksella voi olla kontekstuaalinen vaikutus seuraavan sisältöön.
+$a : b$ ja komposition toisena osapuolena relaatio, jossa on pari $b : c$,
+komposition $a : b || b : c$ tuloksena on relaatio, jossa $a$ ja $c$ ovat nyt
+pari $a : c$. Käytännön tasolla siis kompositiolla voidaan kuvata peräkkäisinä toteutumina yksittäiset säännöt siten, että välivaiheet jäävät aina pois näkyvistä. Esimerkiksi
+$a : b || b : c || c : d || d : e = a : e$, joka morfofonologisessa maailmassa tarkoittaa, että voidaan soveltaa järjestyksessä peräkkäin sääntöjä siten, että edellisen lopputuloksella voi olla kontekstuaalinen vaikutus seuraavan sisältöön.
 
 Sivuutuksella (ignoring) lisätään transduktorin joka väliin mielivaltaisen monta sivuutettavaa symbolia siten, että sääntönä se voisi sivuuttaa symboleita, jos ne ovat
 käsittelyn kannalta irrelevantteja. Jos esimerkiksi haluaisimme tarkastella sanassa
 esiintyviä vokaaleja, voisimme sivuuttaa kaikki konsonantit.
 
 Kielten fonologisia relaatioita kuvatessa säännöllisten ilmausten lisäksi käytetään
-sääntöjä, joista osa tunnetaan kaksitasosääntöinä (Koskenniemi, 1983). Näistä
+sääntöjä, joista osa tunnetaan kaksitasosääntöinä \cite{koskenniemi1983twolevel}. Näistä
 kontekstirajoitusta (context restriction) määrää relaatiossa tai kielessä esiintyvän
 symbolijonon mahdolliset esiintymäpaikat, eli jos symbolijono esiintyy, sillä on
 oltava operaattorin määräämä konteksti. Esimerkiksi jos kielessä on morfofonologinen vaihtelu, joka muuttaa t:n d:ksi vain, kun se on umpitavun alussa vokaalien
@@ -1864,8 +1880,9 @@ pari kun se esiintyy annetussa kontekstissa, eli määrää parin esiintymään 
 ainoastaan jos se esiintyy annetussa kontekstissa.
 
 Toisinkirjoitus (replace) on operaatio, jolla kuvataan kieliä toisille ja relaatioita
-toisille (Karttunen, 1995). Se on esimerkiksi kaksitasosääntöjä käytännöllisempi
-operaatio tilanteessa, jossa relaatio, joka kuvataan, ei ole pari 1:1 vaan erimuotoinen (Schmid, 2007b), kuten esimerkiksi lavenevan diftongin ensikomponentin
+toisille \cite{karttunen1995replace}. Se on esimerkiksi kaksitasosääntöjä käytännöllisempi
+operaatio tilanteessa, jossa relaatio, joka kuvataan, ei ole pari 1:1 vaan
+erimuotoinen \cite{schmid2007b}, kuten esimerkiksi lavenevan diftongin ensikomponentin
 kato tai säilyminen vanhoissa sanoissa voitaisiin kuvata \verb|uo : o ˆ→ __i.|
 
 Toteuttamani järjestelmä toimii lopulta replace-sääntöjen järjestyksessä soveltamisella. Replace-sääntöjä yhdistetään sanalistasta tehtyyn transduktoriin sääntö
@@ -1885,18 +1902,30 @@ eikä niitä voi sääntöjärjestelmän kirjoittaja vahvasti hallita.
 \subsection{Suomen kielen äärellistilaisen automaattisen morfologisen
 jäsentimen toteutuksesta}
 
-Tässä morfologian toteutuksessa lähdetään liikkeelle luettelosta sanakirjamuotoja taivutus- ja astevaihteluluokkineen ja päädytään transduktoriin, joka kuvaa jokaisen sanan jokaisen taivutusmuodon sanakirjamuotoonsa. Tämä prosessi koostuu käytännössä useasta pienestä muunnoksesta, jotka kuitenkin suurpiirteissään voi yleistää seuraaviin pääkohtiin: Alussa yksinkertainen XML-datana oleva sanalista, jossa yhtä sanaa voisi vastata vaikkapa tietue <st><s>valo</s><t><tn>1</t></st>. Tämä muunnetaan SFSTleksikkotiedostossa olevaksi sanalistaksi, joka kuvaa identiteettirelaation sanojen
+Tässä morfologian toteutuksessa lähdetään liikkeelle luettelosta
+sanakirjamuotoja taivutus- ja astevaihteluluokkineen ja päädytään
+transduktoriin, joka kuvaa jokaisen sanan jokaisen taivutusmuodon
+sanakirjamuotoonsa. Tämä prosessi koostuu käytännössä useasta pienestä
+muunnoksesta, jotka kuitenkin suurpiirteissään voi yleistää seuraaviin
+pääkohtiin: Alussa yksinkertainen XML-datana oleva sanalista, jossa yhtä sanaa
+voisi vastata vaikkapa tietue \texttt{<st><s>valo</s><t><tn>1</t></st>}. Tämä
+muunnetaan SFST-leksikkotiedostossa olevaksi sanalistaksi, joka kuvaa identiteettirelaation sanojen
 perusmuodoista ja taivutusluokituksista, sekä muusta lisädatasta, joka järjestelmälle saattaa olla tarpeellista, kuten epäsäännöllisen vartalovokaalin olemassaolosta. Tämä tekstitiedosto koostuu riveistä, joista kullakin on yksi sana sanakirjamuodossaan, ja muu data kulmasulkein eroteltuna, esimerkiksi sana valo tulee
-muotoon valo<N1>
+muotoon \texttt{valo<N1>}
 
 Seuraavaksi sanoista muodostetaan replace-sääntöjen ja konkatenoitavien täydennysten avulla sellaiset taivutusvartalot joita voidaan käyttää taivutuksen lähtökohtana. Nämä taivutusvartalot ovat suunnilleen sellaisia, joihin voi konkatenoida
-taivutuspäätteitä tekemättä suurempia muutoksia, ja käytännössä lähellä koulukielioppien käyttämiä suomen sanojen taivutusvartaloita (konsonanttivartalo, monikkovartalo jne.) (Setälä, 1930). Esimerkiksi sanalle joka on leksikossa muodossa käsi<N27> saadaan taivutusvartalot suunnilleen muotoon kä<~T>e<N27>.
+taivutuspäätteitä tekemättä suurempia muutoksia, ja käytännössä lähellä
+koulukielioppien käyttämiä suomen sanojen taivutusvartaloita
+(konsonanttivartalo, monikkovartalo jne.) \cite{setala1930suomen}. Esimerkiksi sanalle
+joka on leksikossa muodossa \texttt{käsi<N27>} saadaan taivutusvartalot
+suunnilleen muotoon \texttt{kä<~T>e<N27>}.
 Lopuksi konkatenoidaan taivutuspäätteet oikeisiin vartaloihin ja toteutetaan äännemuunnokset, jotka kuvaukseen kuuluvat, jolloin esimerkiksi päästään muotoon
-kädessä, joka liittyy toisella tasolla olevaan muotoon käsi<N27><sg><ine>.
+kädessä, joka liittyy toisella tasolla olevaan muotoon
+\texttt{käsi<N27><sg><ine>}.
 Lopullinen transduktori on kokonaisuudessaan muotoa, jossa on kaikkien sanojen
 ja niiden taivutusmuotojen vastaavat relaatiot tällaisina yhdistelminä.
 
-Malli, jolla olen tämän prosessin päätynyt tekemään (ks. kuva 2), on lineaarisesti
+Malli, jolla olen tämän prosessin päätynyt tekemään (ks. kuva \ref{kuva:2}), on lineaarisesti
 etenevä kuvaus, joka ottaa syötteenään edellisen vaiheen tulosteen, ja muodostaa uuden version äärellistilaisten operaatioiden avulla. Syöte ja tuloste ovat tässä
 sanojen tai sanamuotojen lista transduktorina, joista periaatteessa joka vaiheessa
 jokaista sanamuotoa ikään kuin operoidaan. Käytännön tasolla lista tietenkin äärellistilaisessa järjestelmässä on sanamuotolistan disjunktion kanssa ekvivalentti
@@ -1931,7 +1960,8 @@ yksittäisille sanamuodoille kerrallaan. Lisäksi on tietysti niin, että operoi
 \end{figure}
 
 \begin{figure}
-    \label{Äärellistilainen järjestelmän yksinkertaistettu hahmo koodina}
+    \caption{Äärellistilainen järjestelmän yksinkertaistettu hahmo koodina
+    \label{kuva:2}}
     \begin{verbatim}
 (($sanalista$ || $taivutusvartaloiksi$)\
 $taivutuspaatteet$)\
@@ -1940,20 +1970,23 @@ $taivutuspaatteet$)\
 \end{figure}
 
 
-Kuvan 2 taulukkoa luetaan siten, että vasemmassa sarakkeessa on olio, jota operoidaan toisen sarakkeen operaattorilla kolmannen sarakkeen oliota vasten jotta
+Kuvan \ref{kuva:2} taulukkoa luetaan siten, että vasemmassa sarakkeessa on olio, jota operoidaan toisen sarakkeen operaattorilla kolmannen sarakkeen oliota vasten jotta
 saadaan neljännen sarakkeen olio. Taulukosta on tarkoituksella jätetty pois toteutuksen detaljit, kuten siistinnät, minimoinnit ja filtteröinnit, jotka ovat melko triviaaleja ja muuttuvat järjestelmän eri versioiden välillä paljon; käytännössä turhia
 merkkejä ja yligeneroivia konkatenaatioita filtteröidään aina kun se on järkevää.
 
-Seikkakohtaisempi kuvaus koko järjestelmän toteutuksesta osa osalta on kappaleessa 3.2.2, ja vielä tarkemman kuvan saa tietenkin tarkastelemalla järjestelmän
-lähdekoodia, joka on saatavilla osoitteesta https://gna.org/projects/
-omorfi. Järjestelmän toteutus ei nähdäkseni sisällä ei-triviaaleja sääntöjä tai
+Seikkakohtaisempi kuvaus koko järjestelmän toteutuksesta osa osalta on
+kappaleessa \ref{subsec:nuin}, ja vielä tarkemman kuvan saa tietenkin tarkastelemalla järjestelmän
+lähdekoodia, joka on saatavilla osoitteesta
+\url{https://gna.org/projects/omorfi}\footnote{2016: osoite ei ole enää voimassa}. Järjestelmän toteutus ei nähdäkseni sisällä ei-triviaaleja sääntöjä tai
 uusia kehityksiä, joten sen selvittäminen lähdekoodista lienee helppoa.
 
 
 \subsubsection{XML-sanalistan muunnos SFST-leksikoksi XSLT-menetelmällä}
+\label{subsubsec:xslt}
 
-Lähteenä käytettävä XML-sanalista ei ole sellaista muotoa, joka toimisi SFSTohjelman syötteenä, joten se on esikäsiteltävä ja muunnettava SFST:n käyttämään
-leksikkomuotoon, joka on yksinkertainen rivipohjainen tekstiformaatti. XML-lähteen muuntamiseen on tässä päätetty käyttää myöskin XML-pohjaista XSLTmuunnoskieltä, jonka ensisijainen tarkoitus on puurakenteisten dokumenttien kuvaaminen. Tässä tapauksessa kohdemuoto ei ole varsinaisesti niinkään puurakenteinen kuin suora lista, mutta kuvaus toimii silti. Kuvauksen periaatteenahan
+Lähteenä käytettävä XML-sanalista ei ole sellaista muotoa, joka toimisi SFST-ohjelman syötteenä, joten se on esikäsiteltävä ja muunnettava SFST:n käyttämään
+leksikkomuotoon, joka on yksinkertainen rivipohjainen tekstiformaatti.
+XML-lähteen muuntamiseen on tässä päätetty käyttää myöskin XML-pohjaista XSLT-muunnoskieltä, jonka ensisijainen tarkoitus on puurakenteisten dokumenttien kuvaaminen. Tässä tapauksessa kohdemuoto ei ole varsinaisesti niinkään puurakenteinen kuin suora lista, mutta kuvaus toimii silti. Kuvauksen periaatteenahan
 on ottaa XML-sanalistapuusta jokainen alkio ja lisätä siitä sanakirjamuoto sekä
 taivutusluokitus sanalistaan. Lisäksi poikkeustapauksista joutuu tekemään pieniä
 muunnoksia, kuten monta taivutusluokkaa sisältävien sanojen tulostaminen monesti.
@@ -1961,17 +1994,23 @@ muunnoksia, kuten monta taivutusluokkaa sisältävien sanojen tulostaminen mones
 XSLT-muunnoskieltä käytetään tutkielman projektissa kahteen tarkoitukseen, sen
 lisäksi että sillä tehdään muunnos XML-muodosteesta SFST:n ymmärtämäksi lexluetelmaksi, käytettävissä on joukko XSLT-muunnoksia, jotka sisältävät tiettyjä
 automaattisia korjauksia sanalistaan. Jälkimmäinen kohennusosio ei ole pakollista suorittaa ennen muunnosta lex-listaksi, mutta se parantaa monikkosanojen
-ja vierasperäisten sanojen käsittelytarkkuutta. Sanalistamuunnoksen koodi on tiedostossa kotus.xslt.
+ja vierasperäisten sanojen käsittelytarkkuutta. Sanalistamuunnoksen koodi on
+tiedostossa \texttt{kotus.xslt}.
 
 Automaattisen kohennuksen suorittama koodi on jaettu tiedostoihin
-xmlattribuutit.xslt, monikkosanat.xslt, monikkotaivutus.xslt ja
-vartalovokaali.xslt.  Kuvauksien ohella on pätkiä koodeista, jota käytetään
+\texttt{xmlattribuutit.xslt, monikkosanat.xslt, monikkotaivutus.xslt ja
+vartalovokaali.xslt}.  Kuvauksien ohella on pätkiä koodeista, jota käytetään
 muunnokseen, mutta täydet koodit kommenteine konteksteissaan löytyvät
-verkko-osoitteesta https://gna.org/projects/omorfi.
+verkko-osoitteesta \url{https://gna.org/projects/omorfi}.
 
-XML-attribuutit lisäävä muunnos xmlattribuutit.xslt ei tee mitään muuta kuin tarkistaa tiedoston XML-muotovaatimuksia, kuten luonnollisen kielen määrittelevän @xml:lang-attribuutin sisältävän suomen kielikoodin, nimiavaruuden osoitteen @xmlns-attribuutin, johon olen väliaikaisesti sijoittanut oman osoitteeni http://www.helsinki.fi/~tapirine/xmlns/
-experimental/kotus-sanalista, sekä uniikin tunnisteen @xml:idattribuutin, jolla olen merkinnyt version listasta omakseni ns. id-signature-arvolla
-www-helsinki-fi-tapirinen juurialkiossa. XSLT-koodina tämä muunnos on triviaalisti templaatti, jossa on yllä mainitut attribuutit:
+XML-attribuutit lisäävä muunnos \texttt{xmlattribuutit.xslt} ei tee mitään muuta
+kuin tarkistaa tiedoston XML-muotovaatimuksia, kuten luonnollisen kielen
+määrittelevän \texttt{@xml:lang}-attribuutin sisältävän suomen kielikoodin,
+nimiavaruuden osoitteen \texttt{@xmlns}-attribuutin, johon olen väliaikaisesti
+sijoittanut oman osoitteeni
+\url{http://www.helsinki.fi/~tapirine/xmlns/experimental/kotus-sanalista}, sekä
+uniikin tunnisteen \texttt{@xml:id}-attribuutin, jolla olen merkinnyt version listasta omakseni ns. id-signature-arvolla
+\texttt{www-helsinki-fi-tapirinen} juurialkiossa. XSLT-koodina tämä muunnos on triviaalisti templaatti, jossa on yllä mainitut attribuutit:
 \begin{verbatim}
 ...
 <xsl:element name="kotus-sanalista"
@@ -1986,18 +2025,18 @@ select="’fi’"/>
 ...
 \end{verbatim}
 
-Monikkosanat arvaava käsittelin monikkosanat.xslt yrittää arvata sanamuodot,
+Monikkosanat arvaava käsittelin \texttt{monikkosanat.xslt} yrittää arvata sanamuodot,
 jotka näyttävät monikoilta, eli karkeasti ne, joiden perusmuoto päättyy
 t-kirjaimeen vaikka sen ei normaalisti kuuluisi, ja merkitsee näihin sanoihin
-attribuutin @muoto, jonka arvona on NOM PL?, merkitsemässä arvattua nominatiivin
+attribuutin \texttt{@muoto}, jonka arvona on \texttt{NOM PL?}, merkitsemässä arvattua nominatiivin
 monikkoa. Esimerkiksi sana aivot kuten myös sana aivokuollut merkittäisiin tässä
 mahdollisesti monikkosanaksi. Kysymysmerkki merkitseekin sellaista muotoa, joka
 tulisi tarkistaa ja korjata käsin, ennen kuin sitä käytetään järjestelmässä.
 Korjaaminen tapahtuu poistamalla kysymysmerkki, jos arvaus on oikein, tai
-muuttamalla sen muodoksi NOM SG, jos kyseessä on yksiköllinen sana. Jos
+muuttamalla sen muodoksi \texttt{NOM SG}, jos kyseessä on yksiköllinen sana. Jos
 attribuutti poistetaan niin tämä automaattinen tarkistus lisää sen uudelleen
 seuraavalla tarkistuskerralla, joten poistaminen ei kannata. Lisäksi olen
-kokeillut attribuuttia @perusmuoto, johon arvataan sanan rekonstruoitu
+kokeillut attribuuttia \texttt{@perusmuoto}, johon arvataan sanan rekonstruoitu
 perusmuoto, eli sellainen jonka voisi olettaa yksikön nominatiivin olevan, jotta
 sanan käsittely morfologisessa jäsentimessä sujuisi oikein. Tätä kenttää voisi
 käyttää vaikkapa silloin, kun morfologisen järjestelmän taivutusosa ei osaa
@@ -2006,7 +2045,7 @@ attribuuteista on huomattava, että alustavasti olen sijoittanut ne toiseen
 nimiavaruuteen kuin muut attribuutit käyttäjille vihjeeksi siitä, että kyseessä
 on muualta tullutta, epävarmempaa dataa kuin Kotimaisten kielten
 tutkimuskeskuksen antamaa. Monikkosanojen arvaus käsittellään XSLT 2.0:n
-analyze-string-ominaisuudella jokaista sanan jokaista taivutusmuotoa kohden
+\texttt{analyze-string}-ominaisuudella jokaista sanan jokaista taivutusmuotoa kohden
 seuraavasti:
 
 \begin{verbatim}
@@ -2020,11 +2059,10 @@ select="regex-group(1)"/>
 </xsl:analyze-string>
 \end{verbatim}
 
-Monikkotaivutuksen merkitsevä käsittelin monikkotaivutus.xslt täydentää
+Monikkotaivutuksen merkitsevä käsittelin \texttt{monikkotaivutus.xslt} täydentää
 monikkosanakäsittelintä sillä, että se merkitsee monikkosanojen taivutuksen
-koskevan vain sanan monikkomuotoja, eli käyttää t-alkion olemassaolevan
-
-@taivutus-attribuutin ennalta tunnettua arvoa monikossa. Monikkotaivutuksen
+koskevan vain sanan monikkomuotoja, eli käyttää \texttt{t}-alkion olemassaolevan
+\texttt{@taivutus}-attribuutin ennalta tunnettua arvoa monikossa. Monikkotaivutuksen
 lisäyksen koodi tarkistaa yksinkertaisesti monikkovaiheessa lisätyn attribuutin:
 
 \begin{verbatim}
@@ -2033,7 +2071,7 @@ lisäyksen koodi tarkistaa yksinkertaisesti monikkovaiheessa lisätyn attribuuti
 </xsl:if>
 \end{verbatim}
 
-Vartalovokaalin arvaava käsittelin vartalovokaali.xslt on yksinkertainen
+Vartalovokaalin arvaava käsittelin \texttt{vartalovokaali.xslt} on yksinkertainen
 luokan 22 vierassanojen taivutusta helpottava koodi, joka pyrkii arvaamaan tietyntyyppisten sitaattilainojen äännerakenteen käyttäen pohjaoletuksenaan, että nämä ovat lainasanoja ranskasta tai englannista, kuten alkuperäisessä Nykysuomen
 sanalistassa kaikille tämän luokan sanoille pätee. Vartalovokaali tarkoittaa tässä sitä sanan lopussa ääntyvää vokaalia, joka ratkaisee vokaalisoinnun ja illatiivin tunnuksen, esim: show : show’ta : show’hun tai bordeaux : bordeaux’ta :
 bordeaux’hon. Tämä tunnistus on XSLT:ssä yksinkertainen merkkijonontäsmäysfunktio, jota kutsutaan jos sanan taivutusluokka on 22. Tunnistus on lähinnä esimerkinomainen, ja toimii vain sanoille, jotka olivat Nykysuomen sanalistan versiossa 1 mukana, muissa sitaattilainoissa sen arvaukset eivät välttämättä ole oikeita.
@@ -2065,13 +2103,16 @@ Tunnistamaton vartalovokaali sanassa
 
 
 Itse varsinainen muunnos XML-muodosta SFST-muotoon toimii suurpiirteissään
-niin, että luetaan kotus-sanalista-puusta, eli tämän version juuresta, jokainen lapsi, joka on tyyppiä st, eli kaikki sanatietueet nykyisen määritelmän mukaan. Näistä tarkastetaan t-alkion eli taivutusdatan olemassaolo, ja viskataan pois
-ne, joista se puuttuu. Seuraavaksi käydään läpi jokaisen tietueen kaikki t-lapset,
-eli käsitellään saman sanan eri taivutusluokat eri olioina. Näistä tn-lasten sisällön perusteella lisätään muunnoksen tulokseen joko nominirivi, sanaluokille 1—
+niin, että luetaan \texttt{kotus-sanalista}-puusta, eli tämän version juuresta,
+jokainen lapsi, joka on tyyppiä \texttt{st}, eli kaikki sanatietueet nykyisen määritelmän mukaan. Näistä tarkastetaan t-alkion eli taivutusdatan olemassaolo, ja viskataan pois
+ne, joista se puuttuu. Seuraavaksi käydään läpi jokaisen tietueen kaikki
+\texttt{t}-lapset,
+eli käsitellään saman sanan eri taivutusluokat eri olioina. Näistä \texttt{tn}-lasten sisällön perusteella lisätään muunnoksen tulokseen joko nominirivi, sanaluokille 1—
 49 tai verbirivi sanaluokille 52—78, poimimalla tulosriviin sisällöt käsiteltävän
-t-alkion sisaresta s (sanakirjamuotoinen sana) ja lapsesta tn (taivutusnumero)
-sekä av (astevaihtelu), jos sellainen on olemassa. Lisäksi jos astevaihtelussa on
-attribuutti @astevaihtelu=’valinnainen’, tulostetaan sama sana kahtena rivinä, kerran astevaihtelun kera ja kerran ilman. Jos sanalistaa on kohennettu
+\texttt{t}-alkion sisaresta \texttt{s} (sanakirjamuotoinen sana) ja lapsesta
+\texttt{tn} (taivutusnumero)
+sekä \texttt{av} (astevaihtelu), jos sellainen on olemassa. Lisäksi jos astevaihtelussa on
+attribuutti \texttt{@astevaihtelu=’valinnainen’}, tulostetaan sama sana kahtena rivinä, kerran astevaihtelun kera ja kerran ilman. Jos sanalistaa on kohennettu
 XSLT-skripteilläni ja monikkosanat merkitty monikkotaivutus-merkillä, lisätään
 tämä tieto mukaan riville. Kuvassa 4 on otos muunnoksen vaiheista. Koodi, joka toteuttaa muunnoksen, koostuu jokaisen sanatietueen jokaisen taivutustiedon
 läpikäynnistä ja datojen ylöskirjoituksesta seuraavasti:
@@ -2150,18 +2191,20 @@ uros<N41>
 \subsubsection{Äärellistilaisen järjestelmän konkreettiset SFST-moduulit}
 
 Äärellistilainen järjestelmä, joka käsittelee sanalistaa toimii siten, että se lukee
-sanalistan ulkoisesta datalähteestä, leksikkotiedostosta, joka on kappaleessa 3.2.1
+sanalistan ulkoisesta datalähteestä, leksikkotiedostosta, joka on kappaleessa
+\ref{subsbsec...}
 kuvatun XSLT-muunnoksen tulostiedosto. Tästä sanalistasta järjestelmä toteuttaa
 vartaloissa esiintyvät äännemuutokset, liittää sanoihin taivutuspäätteet ja toteuttaa
 niissä esiintyvät ja niiden aiheuttamat äännemuutokset. Lopputuloksena saadaan
 yksi transduktori, joka kuvaa sanojen kaikki taivutusmuodot niiden perusmuotoihin ja taivutusdataan, eli transduktori, joka on ekvivalentti kaikkien sanamuotojen
 disjunktion parin sanakirjamuotojen ja kuvausten kanssa.
-Systemaattinen toteutus, jolla viitetaulukkojeni (1 s. 20 ja 2 s. 24) kautta pääsee
+Systemaattinen toteutus, jolla viitetaulukkojeni (\ref{table:nominaalit} s.
+\pageref{table:nominaalit} ja 2 s. 24) kautta pääsee
 perusmuotolistasta tynkä—vartalo—päätemallin kautta lopputulokseen, on sellainen, että aluksi perusmuodosta leikataan vartalon variantti osa taivutusluokkanumeron perusteella. Esimerkiksi nyt sanasta lapsi leikataan luokan 29 perusteella
 pois loppuosa psi, jolloin jäljelle jää vaihtelematon osa la sekä taivutusluokkanumeron tunnus 29. Tämän jälkeen lisätään täydennykseksi eri vartaloihin täydentävät variantit osat vartalosta, esimerkiksi la-tynkään s konsonanttivartaloa varten ja
 pse yksikkövartaloa varten. Soveltuviin vartaloihin edelleen lisätään taivutuspäätteet, siis konsonanttivartaloon las muun muassa monikon genetiivin tunnus ten tai
 yksikän partitiivin tunnus ta. Taivutuspäätteistä osassa käytetään morfofonologisia muotoja, joissa esimerkiksi sointuvokaali a tai ä on kuvattu yhteisellä merkillä, jonka oikea muoto päätetään seuraavassa vaiheessa. Esimerkiksi muodon lasta
-partitiivin tunnus on muodossa t<~A>, ennen kuin vokaalisointu käsitellään. Tarvittavat yleistykset saadaan katsomalla tuleeko joihinkin taivutusluokkanumeroihin samoja sääntöjä tai lisäyksiä. Tässä mallissa vartalot ovat lähellä koulukielioppien kuvauksia sanojen taivutusvartaloista, esimerkiksi nomineille muodostuvat
+partitiivin tunnus on muodossa \texttt{t<~A>}, ennen kuin vokaalisointu käsitellään. Tarvittavat yleistykset saadaan katsomalla tuleeko joihinkin taivutusluokkanumeroihin samoja sääntöjä tai lisäyksiä. Tässä mallissa vartalot ovat lähellä koulukielioppien kuvauksia sanojen taivutusvartaloista, esimerkiksi nomineille muodostuvat
 monikkovartalot ja usein konsonanttivartalot ovat täsmälleen odotuksenmukaisia.
 Käytännön tasolla äärellistilainen järjestelmä on jaettu aiheittain moduuleihin, ja
 jokaisessa moduulissa on joukko transduktoreja, jotka toteuttavat yhden konseptuaalisen muunnoksen sanalistalle. Jokainen moduuli on toteutettu siten, että se
@@ -2170,53 +2213,56 @@ replace-säännöstön ja kompositio-operaation tai konkatenaatio-operaation ja 
 Moduulit on jaettu siten, että jos jonkin osan järjestelmästä voisi toteuttaa toisella lähestymistavalla, olisi se toteutettavissa nimenomaan joitakin moduuleja korvaamalla. Esimerkiksi muunnos sanalistasta taivutusvartaloihin on tässä järjestelmässä kahden moduulin avulla tehty typistys-ja-täydennysoperaatio, mahdollista
 olisi myös hoitaa sama yhdellä replace-operaatiolla ja korvata nämä kaksi moduulia sillä. Teoriassa jokaisen moduulin transduktori olisi mahdollista toteuttaa
 myös sanalistasta riippumattomasti ja kääntää erilliseen tiedostoon, ja kompositoida keskeisesti sanalistan kanssa, mutta tätä koettaessani törmäsin rajoitteisiin
-SFST-järjestelmässä, joita kuvaan tarkemmin kappaleessa 5. Tämä rajoite tekee
+SFST-järjestelmässä, joita kuvaan tarkemmin kappaleessa \ref{d5rdrt}. Tämä rajoite tekee
 järjestelmän muuttelemisen vähemmän triviaaliksi, mutta toteutettevaksi tehtäväksi.
 
 Järjestelmän
 moduulit
 ovat
 suoritusjärjestyksessä
-sanat.sfst,
-yksikoksi.sfst,
-paikanna-av.sfst,
-typista.sfst,
-vartaloiksi.sfst,
-taivutus.sfst,
-fonologia.sfst
-ja
-siisti.sfst. Lisäksi järjestelmässä on omorfi.sfst, joka keräilee
-lopullisen sanatransduktorin kasaan. Lisäksi järjestelmässä on erillisessä moduulissa aakkosto.sfst, joka sisältää apumäärityksiä järjestelmässä käytettyjen
+\texttt{sanat.sfst},
+\texttt{yksikoksi.sfst},
+\texttt{paikanna-av.sfst},
+\texttt{typista.sfst},
+\texttt{vartaloiksi.sfst},
+\texttt{taivutus.sfst},
+\texttt{fonologia.sfst} ja
+\texttt{siisti.sfst}. Lisäksi järjestelmässä on \texttt{omorfi.sfst}, joka keräilee
+lopullisen sanatransduktorin kasaan. Lisäksi järjestelmässä on erillisessä
+moduulissa \texttt{aakkosto.sfst}, joka sisältää apumäärityksiä järjestelmässä käytettyjen
 merkkien ryhmittelyjen suhteen.
 
 Koodia kuvattaessa olen esittänyt pätkiä koodeista, jotka ovat relevantteja välttäen
-samalla saman koodin toistoa tai trivialiteettien esittelyä. Täydet ja ajantasaisimmat koodit on helpointa saada luettavakseen osoitteesta https://gna.org/
-projects/omorfi.
+samalla saman koodin toistoa tai trivialiteettien esittelyä. Täydet ja
+ajantasaisimmat koodit on helpointa saada luettavakseen osoitteesta
+\url{https://gna.org/projects/omorfi.}
 
 Käytännön tasolla moduulit yhdistyvät järjestyksessä toisiinsa kaavalla, joka on
 yksinkertaistetussa muodossaan kuvassa 5. Kuvan SFST-tyylinen pseudokoodinotaatio kuvaa niitä operaatioita, joita järjestelmän transduktoreihin sovelletaan.
 Koodin lopussa on havainnollisia esimerkkejä siitä, mitä tyyppiä itse transduktorit
 aina ovat.
 
-Järjestelmä toimii järjestyksessä siten, että sanat.sfst lukee sanalistan identiteettikuvausten disjunktio -transduktoriksi, jossa on sanat muodossa
-\verb|<wb>sana<tl><av><plt><^x>|, jossa <wb> on sanaraja, sana on sana
-sanakirjamuodossaan, <tl> taivutusluokan tunnus, <av> astevaihtelun tunnus,
-jos sellainen on, <plt> monikkosanatunnus ja \verb|<^x>11| poikkeavan vartalovokaalin tai vokaalisoinnun merkki — esimerkiksi tikkaat41−A luettaisiin muodossa
-\verb|<wb>tikkaat<N41><AVA><PLT>|.
+Järjestelmä toimii järjestyksessä siten, että \texttt{sanat.sfst} lukee sanalistan
+identiteettikuvausten disjunktio-transduktoriksi, jossa on sanat muodossa
+\verb|<wb>sana<tl><av><plt><^x>|, jossa \texttt{<wb>} on sanaraja, sana on sana
+anakirjamuodossaan, \texttt{<tl>} taivutusluokan tunnus, \texttt{<av>} astevaihtelun tunnus, jos
+sellainen on, \texttt{<plt>} monikkosanatunnus ja \verb|<^x>| poikkeavan vartalovokaalin
+tai vokaalisoinnun merkki — esimerkiksi tikkaat$^{41−A}$ luettaisiin muodossa
+\verb|<wb>tikkaat<N41><AVA><PLT>|.\footnote{käytetyissä tunnuksissa ylipäätään
+on noudatettu sellaista kaavaa, että suuraakkosin kirjoitetaan lähinnä
+konkatenoinnissa ja filtteröinnissä käytetyt leksikkokoodin kaltaiset merkit,
+sirkumfleksillä alkavat merkinnät ovat muistiinpanoja, jotka eivät realisoidu
+vaan esittävät kontekstin ja aaltoviivalla alkavat ovat morfofoneemeja, joilla
+on useita mahdollisia reaalistumia}
 
-Yksikoksi.sfst on kompositoitava säännöstö, joka keksii monikkosanojen
-yksikön nominatiiveja taivutusta varten, esimerkiksi tikkaat-sanasta säännöt tekisivät muodon <wb>tikas<N41><AVA><PLT>.
-Paikanna-av.sfst on kompositoitava replace-säännöstö, joka etsii astevaihtelun alaisen äänteen taivutusluokkanumeron ja astevaihtelukirjaimen perusteella
-ja merkitsee sen astevaihtelevaksi symbolilla <~k>, <~p> tai <~t>, esimerkiksi tikkaat-sanasta säännöt tekisivät <wb>tik<~k>as<N41><AVA><PLT>.
+\texttt{Yksikoksi.sfst} on kompositoitava säännöstö, joka keksii monikkosanojen
+yksikön nominatiiveja taivutusta varten, esimerkiksi tikkaat-sanasta säännöt
+tekisivät muodon \texttt{<wb>tikas<N41><AVA><PLT>}.
+\texttt{Paikanna-av.sfst} on kompositoitava replace-säännöstö, joka etsii astevaihtelun alaisen äänteen taivutusluokkanumeron ja astevaihtelukirjaimen perusteella
+ja merkitsee sen astevaihtelevaksi symbolilla \texttt{<~k>, <~p>} tai
+\texttt{<~t>}, esimerkiksi tikkaat-sanasta säännöt tekisivät
+\texttt{<wb>tik<~k>as<N41><AVA><PLT>}.
 
-\footnote{11
-käytetyissä tunnuksissa ylipäätään on noudatettu sellaista kaavaa, että
-suuraakkosin kirjoitetaan lähinnä konkatenoinnissa ja filtteröinnissä käytetyt
-leksikkokoodin kaltaiset merkit, sirkumfleksillä alkavat merkinnät ovat
-muistiinpanoja, jotka eivät realisoidu vaan esittävät kontekstin ja
-aaltoviivalla alkavat ovat morfofoneemeja, joilla on useita mahdollisia
-reaalistumia
-}
 
 
 \begin{figure}
@@ -2262,12 +2308,12 @@ $siisti_n$ tyyppiä
 \verb_.*_
 \end{figure}
 
-Typista.sfst on kompositoitava replace-säännöstö, joka kuvaa sanaluokittain
+\texttt{Typista.sfst} on kompositoitava replace-säännöstö, joka kuvaa sanaluokittain
 sanojen vaihtelun alaisen osan vartalosta tyhjäksi ja ottaa muistiin
 mahdollisesti kadotetun vartalovokaalin, esimerkiksi sanasta tikkaat säännöillä
 tulisi muoto \verb|<wb>tik<~k><^a><N41><AVA><PLT>|.
 
-Vartaloiksi.sfst on konkatenoitava luetelma niistä vaihteluvarianteista vartalon
+\texttt{Vartaloiksi.sfst} on konkatenoitava luetelma niistä vaihteluvarianteista vartalon
 osista, joista nominatiivia vastaava osa typistettäessä poistettiin, esimerkiksi
 sanasta tikkaat saisi muun muassa monikkovartalon
 \verb|<wb>tik<~k><^a><N41><AVA><~a><VNMONI>|. Lisäämällä nämä taivutusluokkakohtaisesti
@@ -2275,25 +2321,30 @@ saadaan aikaan kaikki sanan mahdolliset taivutusvartalot, jotka suunnilleen
 vastaavat Nykysuomen sanalistan mallitaivutustaulukon rivejä pienin muutoksin ja
 yleistyksin.
 
-Taivutus.sfst on konkatenoitava luetelma kaikista taivutuspäätekombinaatioista,
+\texttt{Taivutus.sfst} on konkatenoitava luetelma kaikista taivutuspäätekombinaatioista,
 jotka lisätään soveltuviin taivutusvartaloihin, eli sijamuotojen, possessiivien
 ja kliittien kombinaatioista nomineille ja aika-, tapa ja persoonamuotojen sekä
 kliittien ja infiniittimuotojen sekä nominaalitaivutusten kombinaatioista
 verbeille. Sanaan tikkaat lisäämällä saisi muun muassa monikon inessiivin
 \verb|<wb>tik<~k><^a><N41><AVA><PLT><~a><pl>i<ine>ss<~a>|.
 
-Fonologia.sfst sisältää säännöt niille morfofonologisille yleistyksille, jotka järjestelmässä ovat olleet konkatenaatiokäsittelyn yksinkertaistamiseksi, kuten vokaalisoinnun ratkaiseminen päätteiden tunnuksissa tai astevaihtelun toteutus. Tässä vaiheessa sanan tikkaat monikon inessiivi päätyisi muotoon
+\texttt{Fonologia.sfst} sisältää säännöt niille morfofonologisille yleistyksille, jotka järjestelmässä ovat olleet konkatenaatiokäsittelyn yksinkertaistamiseksi, kuten vokaalisoinnun ratkaiseminen päätteiden tunnuksissa tai astevaihtelun toteutus. Tässä vaiheessa sanan tikkaat monikon inessiivi päätyisi muotoon
 \verb|<wb>tikk<^a><N41><AVA><PLT>a<pl>i<ine>ssa|.
 
-Siisti.sfst poistaa vielä transduktorista kaikki väliaikaiset symbolit, jota
+\texttt{Siisti.sfst} poistaa vielä transduktorista kaikki väliaikaiset symbolit, jota
 transduktorien rakennuksessa, yhdistelyssä ja suodattamisessa on käytetty apumerkkeinä, kuten leksikkosymbolit ja odotuksenvastaisen vokaalisoinnun merkitsevät symbolit, jolloin sanan tikkaat generointitasolle saadaan tikkaissa.
-Tässä vaiheessa lienee huomion arvoista, että analyysitasoon ei ole koskettukaan paitsi potentiaalisesti konkatenaatio-operaatioissa, joten analyysitasolle jää sanat.sfst:n tikkaat<N41> ja taivutus.sfst:ssä molemmille tasoille konkatenoitu tunnistejono <pl><ine>, eli haluttu analyysi
-tikkaat<N41><pl><ine>.
+Tässä vaiheessa lienee huomion arvoista, että analyysitasoon ei ole koskettukaan
+paitsi potentiaalisesti konkatenaatio-operaatioissa, joten analyysitasolle jää
+\texttt{sanat.sfst}:n \texttt{tikkaat<N41>} ja \texttt{taivutus.sfst}:ssä
+molemmille tasoille konkatenoitu tunnistejono \texttt{<pl><ine>}, eli haluttu analyysi
+\texttt{tikkaat<N41><pl><ine>}.
 
-Yhteenveto taivutusprosessista on taulukossa 6. Taulukossa on mallisana, joka
+Yhteenveto taivutusprosessista on taulukossa \ref{table.vyu}. Taulukossa on mallisana, joka
 kuvaa järjestelmässä etenemistä taso tasolta kuten se varsinaisessa järjestelmässä toimii siten, että ylemmällä rivillä on transduktorin analyysitaso ja alemmalla rivillä on transduktorin generaatiotaso. Merkintöjä on yksinkertaistettu siten
 että vain merkitykselliset merkit näkyvät kullakin tasolla, käytännössä merkit
-<N41><AVA><PLT> kulkevat mukana aina siistintään asti molemmilla tasoilla, samoin kuin uudet mukaan tulevat merkit, kuten leksikkosymboli <VNMONI>,
+\texttt{<N41><AVA><PLT>} kulkevat mukana aina siistintään asti molemmilla
+tasoilla, samoin kuin uudet mukaan tulevat merkit, kuten leksikkosymboli
+\texttt{<VNMONI>},
 mutta tarkemmin toteutuksesta saa selville itse lähdekoodista.
 
 \begin{figure}
@@ -2332,21 +2383,23 @@ mutta tarkemmin toteutuksesta saa selville itse lähdekoodista.
 \end{figure}
 
 
-\subsection{Korpusmenetelmät}
+\subsection{Korpusmenetelmät} \label{subsec:koprus}
 
-Testaamiseen käytetty korpusdata on CSC — Tieteellinen laskenta Oy:n ylläpitämässä Suomen tekstipankissa olevaa TEI XML:stä laajennettua XML-merkattua
-dataa, ja sitä käsitellään testattavaksi samankaltaisilla XSLT-menetelmillä kuin sanalistan koodi. XSLT-käsittelyn tuloksena saatu data käsitellään Python-kielisellä
-sovelluksella, joka käyttää pysfst12 -nimistä liitäntää analysoidakseen korpuksen
-sanamuotoja tekemälläni transduktorilla, sekä verratakseen analyysijärjestelmäni
-antamia tuloksia tekstipankissa oleviin merkintöihin, jotka eivät ole täysin vastaavia. XSLT-käsittelin on kuvattu lyhyesti kappaleessa 4, ja python-käsittelimen lähdekoodit löytää helpoiten omorfin jakelupaketista tai verkosta https://gna.
-org/projects/omorfi.
+Testaamiseen käytetty korpusdata on CSC — Tieteellinen laskenta Oy:n
+ylläpitämässä Suomen tekstipankissa olevaa TEI XML:stä laajennettua
+XML-merkattua dataa, ja sitä käsitellään testattavaksi samankaltaisilla
+XSLT-menetelmillä kuin sanalistan koodi. XSLT-käsittelyn tuloksena saatu data
+käsitellään Python-kielisellä sovelluksella, joka käyttää
+pysfst\footnote{\url{https://gna.org/projects/pysfst}}-nimistä liitäntää
+analysoidakseen korpuksen sanamuotoja tekemälläni transduktorilla, sekä
+verratakseen analyysijärjestelmäni antamia tuloksia tekstipankissa oleviin
+merkintöihin, jotka eivät ole täysin vastaavia. XSLT-käsittelin on kuvattu
+lyhyesti kappaleessa \ref{sec:menetelmat}, ja python-käsittelimen lähdekoodit löytää helpoiten
+omorfin jakelupaketista tai verkosta \url{https://gna.org/projects/omorfi}.
 
-\footnote{12
 
-https://gna.org/projects/pysfst
-}
 
-\section{Testiasetelma ja evaluointi}
+\section{Testiasetelma ja evaluointi} \label{sec:eval}
 
 Rakentamastani morfologisesta järjestelmästä testaan kahta asiaa. Ensin selvitän
 käytetyn muoto-opin kuvauksen toimivuutta ja onnistuneisuutta, sekä sanaslistan
@@ -2362,14 +2415,17 @@ olosuhteissa, jotka on pyritty mahdollisimman tarkkaan toisintamaan vastaamaan
 omaa järjestelmääni SFST:ssä.
 
 Kaikki kappaleessa kuvatut testit on suoritettu CSC — tieteellinen laskenta Oy:n
-koneessa, joka sijaitsi verkko-osoitteessa corpus3.csc.fi. Testauskoneen
+koneessa, joka sijaitsi verkko-osoitteessa \url{corpus3.csc.fi}. Testauskoneen
 valinta perustuu siihen, että korpukset on lisensoitu tavoin, joka ei salli käyttää
 niitä muualla, joten corpus3 on ainoa palvelin jolla testauksen voi suorittaa.
 
-\subsection{Korpusmittaukset}
+\subsection{Korpusmittaukset} \label{subsec:korpusmittaukset}
 
 Korpusmittauksissa vertaan järjestelmäni antamia analyysejä koneellisesti yhteen
-kielipankin korpusaineistossa vapaalla B-lisenssillä käytössä olevaan, valmiiksi analysoituun aineistoon, joka on otettu sanomalehti Karjalaisen vuosikerrasta 1992. Se sisältää 3 miljoonaa juoksevaa sanetta, joista 2 716 651 on laskettu mukaan analysoitavaksi. Korpusaineiston esikäsittelyn olen toteuttanut XSLTohjelmointikielellä, sillä esivalmisteltu korpusaineisto on laajennetussa TEI.2
+kielipankin korpusaineistossa vapaalla B-lisenssillä käytössä olevaan, valmiiksi
+analysoituun aineistoon, joka on otettu sanomalehti Karjalaisen vuosikerrasta
+1992. Se sisältää 3 miljoonaa juoksevaa sanetta, joista 2 716 651 on laskettu
+mukaan analysoitavaksi. Korpusaineiston esikäsittelyn olen toteuttanut XSLT-ohjelmointikielellä, sillä esivalmisteltu korpusaineisto on laajennetussa TEI.2
 XML -muodossa. Esikäsittelyni koostuu ainoastaan sanojen poiminnasta analyysiä varten siten, että jos sanan luokaksi on merkitty substantiivi, adjektiivi tai verbi, se lisätään analysoitavaksi. Koodi joka tuottaa analyysirivit XML-lähteestä on
 seuraava:
 
@@ -2391,16 +2447,18 @@ seuraava:
 Näin suoritetulla koodilla saadaan aineistosta tulokseksi yksinkertainen csvtyyppinen tiedosto, jossa jokaisella rivillä on kolme pilkuin erotettua kenttää, jotka sisältävät järjestyksessä saneen, sanan sanakirjamuodon, ja morfologiset merkinnät. Tässä tiedostossa jokainen yksittäinen sanamuoto saattaa esiintyä mielivaltaisen monta kertaa, ja yleiset sanat ja sanamuodot vievätkin suuren määrän
 esiintymistä. Tästä aiheutuvan virhetulkinnan kiertämiseksi suoritin myös toisen
 testauksen, johon jokainen sanamuoto otetaan mukaan vain kerran. Tästä tiedostomuodosta tällainen aineisto, jota nimitän tyypittäiseksi sanalistaksi, tuotetaan
-komennolla sort | uniq; tässä sanalistassa jokaisen sanan esiintymä on ainoalaatuinen, eli kahta saman sanan samamuotoista analyysiä ei esiinny kahdesti.
+komennolla \texttt{sort | uniq}; tässä sanalistassa jokaisen sanan esiintymä on ainoalaatuinen, eli kahta saman sanan samamuotoista analyysiä ei esiinny kahdesti.
 
-Automaattinen analyysi on suoritettu python-kielisellä sovelluksella pysfstmoduulia käyttäen. Analyysi toimii siten, että jokaisesta sanamuodosta tuotetaan
+Automaattinen analyysi on suoritettu python-kielisellä sovelluksella pysfst-moduulia käyttäen. Analyysi toimii siten, että jokaisesta sanamuodosta tuotetaan
 järjestelmällä kaikki tulkinnat, ja niistä tulkinnoista, joiden perusmuodot ovat samat, yritetään yhdistää kaikki kielipankissa olevat morfologiset merkinnät toteuttamani järjestelmän vastaaviin. Koska kielipankin aineiston tulkinnat eivät aivan
 täsmää järjestelmässä käytettyihin, olen pyrkinyt olettamaan niitä samaan suuntaan, siten, että esim. genetiivin tai nominatiivin possessiivin vaihtelut hyväksytään aina yhtenäisinä — itse merkitsen ne kahtena eri analyysinä ja aineisto
-käyttää erillistä genom-symbolia. Tarkka suoritettu testauskoodi löytyy osoitteesta https://gna.org/projects/omorfi.
+käyttää erillistä genom-symbolia. Tarkka suoritettu testauskoodi löytyy
+osoitteesta \url{https://gna.org/projects/omorfi}.
 
 Korpusmittaukset on suoritettu järjestelmän sellaisella versiolla, johon on otettu
 mukaan vapaasti kliittejä sanojen loppuun mielivaltainen määrä, sekä partisiippimuotojen ja tekemisjohdoksen eli vanhan IV infinitiivin vapaa produktio ja taivutus. Yhdyssanajohdosta mukana on hyvin karkea nominipareja yhdistelevä versio.
-Se miten tämä vaikuttaa mittaustuloksiin on kuvattu seikkaperäisemmin kappaleessa 5.4.
+Se miten tämä vaikuttaa mittaustuloksiin on kuvattu seikkaperäisemmin
+kappaleessa \ref{subsec:54}.
 
 Seuraavissa kaavoissa merkitsen sanoiksi jokaista yksittäistä sanamuotoa ja analyyseiksi jokaista erillistä analyysia, joita minun järjestelmässäni tulee 1—n sanaa
 kohti ja korpuksessa on 1 per sana. Kielipankin tuntemiksi analyyseiksi niitä, jotka löytyvät korpuksesta ja joille on annettu analyysi, jonka olen ottanut mittaukseen. Oikea analyysi on sellainen, jossa minun järjestelmäni on tuottanut oikean
@@ -2456,7 +2514,10 @@ taivutusopissa esiintyvää ambiguiteettipotentiaalia, ja saatu tulos on siis od
 
 \subsection{Suorituskykymittaukset}
 
-Suorituskykymittaukseni perustuvat yksinkertaisiin muistin ja prosessoriajan käytön mittauksiin järjestelmää rakennettaessa ja käytettäessä. Mittaustyökaluina toimivat GNU-järjestelmistä löytyvät muistin- ja ajankäytön mittaustyökalukomennot time ja top. Mitatut ajat ovat timen mukaisia käyttäjän kuluttamia prosessoriaikoja, eivätkä varsinaisia suoritusaikoja. Todellisuudessa esim. FSM-kääntö on
+Suorituskykymittaukseni perustuvat yksinkertaisiin muistin ja prosessoriajan
+käytön mittauksiin järjestelmää rakennettaessa ja käytettäessä.
+Mittaustyökaluina toimivat GNU-järjestelmistä löytyvät muistin- ja ajankäytön
+mittaustyökalukomennot \texttt{time} ja \texttt{top}. Mitatut ajat ovat timen mukaisia käyttäjän kuluttamia prosessoriaikoja, eivätkä varsinaisia suoritusaikoja. Todellisuudessa esim. FSM-kääntö on
 huomattavasti hitaampi kuin SFST-kääntö ja SFST:n analyysi optimoimattomalla transduktorilla kestää kertaluokittain enemmän kuin optimoidulla. Laskettaessa suorituskykyä järjestelmästä käytettiin sellaista versiota, joista otettiin mukaan
 vain perusmuotojen taivutukset, eli substantiiveista sijamuodot ja possessiivisuffiksit sekä verbeistä persoona- ja tapamudot sekä infiniittimuodoista perusmuodot;
 kaikenkaikkiaan 7 541 661 sanamuotoa. Mukana ei ollut yhdyssanamekanismia,
@@ -2472,14 +2533,15 @@ AT\&T:n FSMlibin muodostama transduktori on kooltaan 29 250 tilaa ja 463 121
 kaarta ja käytetty aakkosto sama kuin mikä SFST:ssä. Aakkoston osalta huomattavaa kuitenkin on, että FSM määrittelee aakkoston erikseen generointi- ja analyysitasolle, kun taas SFST määrittelee aakkoston symboliparien aakkostona, mikä
 selittänee ainakin osan siitä miksi samalla menetelmällä tuotetut lopulliset transduktorit järjestelmien välillä ovat merkittävästi eri kokoiset.
 
-AT\&T:n FSMlib-järjestelmän testaaminen on suoritettu ottamalla SFSTjärjestelmästä erilliset transduktorit irti »-operaattorilla, joka kirjoittaa käsiteltävän transduktorin binääritiedostoksi, ja sen jälkeen muuntamalla SFST:n
-automaatti fst-print-komennolla erääseen tekstimuotoon ja muuntamalla
+AT\&T:n FSMlib-järjestelmän testaaminen on suoritettu ottamalla SFST-järjestelmästä erilliset transduktorit irti »-operaattorilla, joka kirjoittaa käsiteltävän transduktorin binääritiedostoksi, ja sen jälkeen muuntamalla SFST:n
+automaatti \texttt{fst-print}-komennolla erääseen tekstimuotoon ja muuntamalla
 siitä skriptein FSM:n tekstimuotoon. Tästä lukemalla fsmcompilella saadaan FSM:n binäärimuoto. Mitatussa ajassa on mukana se fsmcompose-,
-fsmconcat- ja fsmunion-operaatioiden summa, jotka korvaavat SFSTjärjestelmässä
+fsmconcat- ja fsmunion-operaatioiden summa, jotka korvaavat SFST-järjestelmässä
 olleita ||-, konkatenaatio- ja \&-operaatiota, vastaavasti. Näiden
 operaatioiden lisäksi käytin fsmrmepsilon- ja fsmdeterminize-käskyjä
 vastaavasti kuin SFST-järjestelmässä, eli joka askeleen jälkeen, ja lisäksi
-transduktorien muotoina oli \verb|input_indexed| tai \verb|output_indexed|.Lopullisen transduktorin pyrin lisäksi optimoimaan fsmencode- ja fsmminimizekomennoilla.
+transduktorien muotoina oli \verb|input_indexed| tai \verb|output_indexed|.
+Lopullisen transduktorin pyrin lisäksi optimoimaan fsmencode- ja fsmminimize-komennoilla.
 
 Vastaavasti SFST:n käännön nopeustestaaminen on suoritettu samoilla, valmiiksi determinisoiduilla ja minimoiduilla transduktoreilla. Jäljelle jääneiden erojen
 merkitystä ja syitä pohdin tarkemmin kappaleessa 5.
@@ -2490,25 +2552,23 @@ Sekä AT\&T:n FSM että SFST tukevat erilaisia transduktoriformaatteja, eli käy
 myös kooltaan pieni, ja lisäksi sitä ei lueta käsiteltäessä muistiin vaan käytetään
 mahdollisimman paljon dataa suoraan kovalevyltä.
 
-Vastaavasti FSM-testi on tuotettu valikoimalla transduktorien muodoksi InputIndexed tai OutputIndexed käsin parhaan lopputuloksen takaamiseksi. SFST:n transduktoreista optimoituja versioita ei voi käyttää lainkaan muuhun kuin analyysiin.
-Generointitestin komento SFST:llä on fst-generate kotus.sfsta
-> /dev/null, ja korpusanalyysitestille fst-infl kotus.sfsta
-karjalainen1992.wordlist > /dev/null,
-missä
-karjalainen1992.wordlist on karjalaisesta kappaleessa 4.1 kuvatulla tavalla irrotetusta sanalistasta 10000 ensimmäistä tietuetta13 . FSM:llä analyysitesti
-on tehty farcompilestring-komennolla ja indexed-tyypillä, sekä kompositoimalla tulos farfilterillä, ja generointi vastaavasti.
-\footnote{
-13
-
-Koko korpuksen analysointi transduktorilla, jonka käännössä ei ole käytetty asetusta -c tai -l
-kestää n. 24 tuntia
-}
+Vastaavasti FSM-testi on tuotettu valikoimalla transduktorien muodoksi
+InputIndexed tai OutputIndexed käsin parhaan lopputuloksen takaamiseksi. SFST:n
+transduktoreista optimoituja versioita ei voi käyttää lainkaan muuhun kuin
+analyysiin.  Generointitestin komento SFST:llä on \texttt{fst-generate kotus.sfsta >
+/dev/null}, ja korpusanalyysitestille \texttt{fst-infl kotus.sfsta
+karjalainen1992.wordlist > /dev/null}, missä karjalainen1992.wordlist on
+karjalaisesta kappaleessa 4.1 kuvatulla tavalla irrotetusta sanalistasta 10000
+ensimmäistä tietuetta\footnote{Koko korpuksen analysointi transduktorilla, jonka
+käännössä ei ole käytetty asetusta -c tai -l kestää n. 24 tuntia}. FSM:llä
+analyysitesti on tehty farcompilestring-komennolla ja indexed-tyypillä, sekä
+kompositoimalla tulos farfilterillä, ja generointi vastaavasti.
 
 \begin{figure}
     \caption{Järjestelmien suoritinajan ja muistin käytön vertailutaulukko}
     \begin{tabular}{c|l|l|l||l}
         \hline
-        % \multicol{5}{c}{Suoritinaika}
+        \multicolumn{5}{c}{Suoritinaika} \\
         \hline
         \bf Järjestelmä→ & SFST & SFST & SFST & AT\&T \\
         \bf ↓Toiminto & & -c & -l & FSMlib \\
@@ -2518,7 +2578,7 @@ kestää n. 24 tuntia
         \bf Generointi (kaikki) & 17 s & — & — & 9s \\
         \bf Analyysi (korpus) & 251 s & 0,3 s & 10 s & 1,3 s \\
         \hline
-        %\multicol{5}{c}{Muistinkäyttö}
+        \multicolumn{5}{c}{Muistinkäyttö} \\
         \hline
         \bf Kääntäminen & 55 MiB & 55 MiB & 55 MiB & 83 MiB \\
         \hline
@@ -2530,8 +2590,8 @@ kestää n. 24 tuntia
 
 \section{Keskustelu}
 
-Vapaan ja avoimen morfologisen järjestelmän kehittäminen vapaista komponenteista lienee ensimmäisiä laajamittaisia suomen kielen kohdalla, vaikka aiempiakin kuvauksia muoto-opista on jo varhainkin (Koskenniemi, 1983). Muissa kielissä tällaisia järjestelmiä on toteutettu jonkin verran, esimerkiksi unkarin kohdalla
-Trón et al. (2005). Tekemäni järjestelmä on uusi ja varhaisessa vaiheessa, joten
+Vapaan ja avoimen morfologisen järjestelmän kehittäminen vapaista komponenteista lienee ensimmäisiä laajamittaisia suomen kielen kohdalla, vaikka aiempiakin kuvauksia muoto-opista on jo varhainkin \cite{koskenniemi1983twolevel}. Muissa kielissä tällaisia järjestelmiä on toteutettu jonkin verran, esimerkiksi unkarin kohdalla
+\cite{tron2005hunmorph}. Tekemäni järjestelmä on uusi ja varhaisessa vaiheessa, joten
 seuraavassa kappaleessa yritän kuvata kaikkea mahdollista jatkotutkimusta.
 
 \subsection{Jatkotutkimuksesta}
@@ -2551,7 +2611,7 @@ Toteutettu järjestelmä generoi sanamuodot käyttäen vahvasti hyväkseen Nykys
 allomorfivalinta ja vartalovaihtelu ovat kaikki toteutettu hyödyntämällä taivutusluokkanumeroita ja astevaihtelukirjaimia eksplisiittisenä datana, vaikka suomen
 kielen muoto-opin taivutuksesta valtaosa on fonologisesti motivoitunutta, ja siten
 toteutettavissa myös vaikkapa käyttämällä sanan rakennetta näiden taivutusluokkien asemesta, joka saattaa olla sovelluksittain sopivampi ratkaisu. Toteutuksesta
-ks. esim. (Koskenniemi, 1983).
+ks. esim. \cite{koskenniemi1983twolevel}.
 
 Nykysuomen sanalistan sanoista käytin järjestelmässä vain reilusti alle puolia,
 käyttämättä jäivät luokittelemattomat yhdyssanat, luokitellut yhdyssanat, adverbit ja pronominit. Näistä pronominien käsittely ja osiltaan adverbien vaatisi lähinnä pieniä lisäyksiä järjestelmään. Yhdyssanojen käsittely on kuitenkin vielä ratkaistava asia, samoin kuin adjektiivisuuden tunnistaminen ja adjektiivijohdosten
@@ -2562,21 +2622,22 @@ Vastaavasti on auki sanojen epäproduktiivisemman morfologian soveltaminen, eli
 sellaisten johdostapojen päätteleminen, jotka eivät systemaattisesti käy edes teoriassa sataan prosenttiin morfofonologisista kannoista, vaan rajoittuvat esim. semanttisleksikaalisin perustein. Myös erisnimet vaativat omanlaisensa käsittelytavan, johon järjestelmässä ei ole otettu kantaa.
 
 Nykyinen järjestelmä myös tuottaa jokaiselle sanalle kaikki teoreettisesti mahdolliset tulkinnat, joka on käytännöllistä joihinkin tarkoituksiin, mutta esimerkiksi jos järjestelmää käyttäisi kokonaisten tekstikorpusten morfologiseen merkkaamiseen tarvitsisi kehittää disambiguaatiomenetelmiä, joilla saisi vain lausekontekstissaan oikean tulkinnan aikaiseksi. Disambiguaatiokeinot ovat melko laajasti
-tutkittu alue, esimerkiksi morfosyntaktisen disambiguaation osalta (Voutilainen,
-1997; Karlsson et al., 1995) ja sitten semanttisen (Lindén, 2005).
+tutkittu alue, esimerkiksi morfosyntaktisen disambiguaation osalta
+\cite{voutilainen1997,karlsson1995} ja sitten semanttisen \cite{linden2005}.
 
-Järjestelmän laadun ja suorituskyvyn evaluoinnin osalta tarkemmat ja kattavammat kuvaukset olisivat tarpeen (esim. Kanthak ja Ney (2004)). Tutkielmassa
+Järjestelmän laadun ja suorituskyvyn evaluoinnin osalta tarkemmat ja kattavammat
+kuvaukset olisivat tarpeen (esim. \cite{kanthak2004}). Tutkielmassa
 esitetyt mittaustulokset ovat kuitenkin parhaimmillaankin yksittäisiä ja
 suuntaa-antavia, suorituskykymittaukset on esimerkiksi suoritettu käyttöympäristössä jonka tasalaatuisuutta ei ole voinut taata. Korpustestit on vastaavasti suoritettu vain
 yhdellä satunnaisesti valitulla korpuksella.
 
 Sanalistan ylläpito ja laajentaminen ovat myös tarpeen. Kuten testaustuloksista
 selvisi ei sanalistan kattavuus juoksevan tekstin yli kuitenkaan ole vielä kovin
-suuri. Sanalistan ylläpitoa on tutkittu esimerkiksi pro gradu -tutkielmassa Seppälä
-(2006).
+suuri. Sanalistan ylläpitoa on tutkittu esimerkiksi pro gradu -tutkielmassa
+\cite{seppala2006}.
 
-Eräs puute mikä SFST:tä käyttäessä on huomattavissa on varsinaisen leksikkokäsittelimen puute. Siinä missä esim. tutkielmassa Koskenniemi (1983) ja kirjassa
-Beesley ja Karttunen (2004) kuvatuissa järjestelyissä sanalistojen ja taivutusmuotojen lisäys hoituu erillisellä leksikkokäsittelyllä, toteuttamassani järjestelmässä
+Eräs puute mikä SFST:tä käyttäessä on huomattavissa on varsinaisen leksikkokäsittelimen puute. Siinä missä esim. tutkielmassa \cite{koskenniemi1983twolevel} ja kirjassa
+\cite{beesley2004finite} kuvatuissa järjestelyissä sanalistojen ja taivutusmuotojen lisäys hoituu erillisellä leksikkokäsittelyllä, toteuttamassani järjestelmässä
 tämä vaihe on hoidettu äärellistilaisilla operaatioilla yhdistämällä yligeneroiva
 konkatenaatio kompositoitavaan filtteriin.
 
@@ -2620,7 +2681,7 @@ aina (esimerkiksi show’lla u ja parfait’lla e).
 \subsection{SFST:llä toteutetun suomen kielen morfologian suorituskyky}
 
 SFST:n suorituskyvyn tarkastelemiseksi suoritin joitain alkeellisia mittauksia,
-joiden tulokset on kuvattu kappaleessa 4.2. Lopulta SFST-järjestelmä kääntyy hitaammin kuin FSM-järjestelmä, mutta suorituskyky valmiilla transduktorilla
+joiden tulokset on kuvattu kappaleessa \ref{subsec.42}. Lopulta SFST-järjestelmä kääntyy hitaammin kuin FSM-järjestelmä, mutta suorituskyky valmiilla transduktorilla
 on hyvä jos käyttää oikeita optimointiasetuksia. Erityisesti on huomattava, että
 compact-tyypin transduktori analysoi dataa eri algoritmilla kuin muut, ja on useita kertaluokkia nopeampi.
 Suorituskyvyn tarkempi evaluointi ja parantaminen vaatii vielä systemaattisempaa
@@ -2628,15 +2689,15 @@ ja järjestellympää tarkastelua ja tutkimusta.
 
 \subsection{SFST:lla toteutetun suomen kielen morfologian laadusta}
 
-SFST-järjestelmän laadullista tasoa mittasin kappaleessa 4.1. Järjestelmä toimi n.
+SFST-järjestelmän laadullista tasoa mittasin kappaleessa \ref{subsec:41}. Järjestelmä toimi n.
 97 \% saannilla — verrattuna aiempaan morfosyntaktisesti jäsentävään ja disambiguoivaan järjestelmään — niillä sanoilla, jotka sen oli tarkoitus tuntea. Jäljelle
-jäävän 3 \%:n jakauma on kuvattu taulukossa 9. Taulukossa on järjestetty eroavat analyysit yleisyyden mukaiseen järjestykseen. Merkittävä osa, liki kolmannes
+jäävän 3 \%:n jakauma on kuvattu taulukossa \ref{table:9}. Taulukossa on järjestetty eroavat analyysit yleisyyden mukaiseen järjestykseen. Merkittävä osa, liki kolmannes
 on sellaisia on-verbin analyyseja, joita järjestelmäni ei tee laisinkaan, eli passiiviksi merkittyjä muotoja, jotka näyttävät yksikön kolmannen muodoilta. Tämän
 kuvittelen johtuvan siitä, että vertailujärjestelmä käyttää syntaktista jäsennintä,
 joka poimii passiivisen tulkinnan muualta. Toiseksi eniten on superlatiiveja, jotka järjestelmästäni oli jätetty tarkoituksellisesti pois, koska kuten aiemmin kuvataan, sanalista ei erottele adjektiiveja substantiiveista. Komparatiivien pienempi
 lukumäärä johtuu siitä, että mitatussa järjestelmässä oli alkeellinen komparatiivin
 muodostus lisäämällä mpi yksikkövartaloon. 17 \% oli MA-infinitiiviksi merkittyjä
-agenttipartisiippeja, eli sellaisiksi merkittyjä MA-infinitiivin muotoja, joita MAinfinitiivi ei saa, kuten partitiivia tai genetiiviakkusatiivia (Hakulinen et al., 2004).
+agenttipartisiippeja, eli sellaisiksi merkittyjä MA-infinitiivin muotoja, joita MAinfinitiivi ei saa, kuten partitiivia tai genetiiviakkusatiivia \cite{hakulinen2008iso}.
 Kieltoverbiä ei ei ole sanalistassa, joten sen muodostus on järjestelmässä osin vajaata, osin sen virhetulkinnat ovat samanlaisia passiiveiksi merkittyjä persoonataivutettuja muotoja kuin olla-sanalla. Sanat aika ja poika on Nykysuomen sanalistassa merkitty säännölliseen taivutukseen, vaikka niillä on säännöistä poikkeava i
 : j -vaihtelu, jota en ole korjannut. Korpuksessa on myös merkittävä osa johdoksia,
 joiden kantasana on arvattu aika kaukaa, mitä järjestelmäni ei tee. Näistä
@@ -2648,7 +2709,7 @@ on merkitty yksiköiksi, kuten alueiden.
 
 \begin{figure}
     \caption{Järjestelmäni ja korpusdatan analyysien erot Karjalainen 1992
-    -korpuksessa}
+    -korpuksessa\label{table:9}}
     \begin{tabular}{l|r|r}
         \hline
         \bf Eron tyyppi & \bf N & \bf \% \\
@@ -2693,7 +2754,8 @@ on merkitty yksiköiksi, kuten alueiden.
 
 Järjestelmäni kattavuudeksi sain 75 \%, tämä tarkoittaa, että korpuksen kaikista
 saneista, jotka korpusta tehdessä käytetty järjestelmä tunnisti, minun järjestelmäni tunnisti oikein kolme neljännestä. Jäljelle jäävään neljännekseen kuuluu edellä
-mainitun 3 \%:n lisäksi yhdyssanoja, nimiä ja muita vierassanoja. Näistä olen poiminut 1000 sanan otoksesta esimerkiksi taulukon 10. Taulukossa yhdyssanoiksi
+mainitun 3 \%:n lisäksi yhdyssanoja, nimiä ja muita vierassanoja. Näistä olen
+poiminut 1000 sanan otoksesta esimerkiksi taulukon \ref{table:10}. Taulukossa yhdyssanoiksi
 on merkitty kaikki sellaiset sanojen sanalistassa olevien perusmuotojen yhdistelmät, jotka ovat jääneet tunnistumatta, joissa ei ole sellaista johdosainesta, jota
 järjestelmäni ei käsitellyt. Vastaavasti johdoksiksi on merkitty paitsi yksisanaiset
 johdostyypit, joita ei ollut sanalistassa, kuten UUs-loppuiset ominaisuuden johdokset, myös yhdyssanat, joiden osassa on esimerkiksi jA-johtiminen tekijänjohdos. Tästä esimerkiksi palkinnonsaaja on järjestelmälle vieras johdos, koska saaja
@@ -2702,7 +2764,7 @@ tunnistumattomia sanamuotoja, jotka voisi lauseyhteyden perusteella päätellä 
 
 \begin{figure}
     \caption{Järjestelmäni Karjalainen 1992 -korpuksen puuttuvat sanatyypit (1000:n
-    otoksesta)}
+    otoksesta) \label{table:10}}
     \begin{tabular}{l|r|r}
     \hline
         \bf Puutteen tyyppi & N & \% \\
@@ -2737,7 +2799,7 @@ taivutusmuoto. Lisäksi on joitain järjestelmässäni olevia systemaattisia mon
 akkusatiivin tulkinta, samoin verbien partisiippimuodoista tulee aina sekä verbiä
 että partisiippia vastaavan sanan sanamuodon tulkinnat.
 
-\section{Yhteenveto}
+\section{Yhteenveto} \label{sec:yhteenveto}
 
 Tutkielmassani olen esitellyt suomen kielen äärellistilaisen automaattisen jäsentimen kehitystä ja testausta. Tutkielman lähtäkohtana oli rakentaa avointa ja vapaata
 lähdekoodia oleva kokonaisjärjestelmä. Tähän tarkoitukseen sopiviksi resursseiksi valittiin SFST-niminen äärellistilaisten transduktorien ohjelmointijärjestelmä,
@@ -2769,6 +2831,7 @@ Kaikkiaan tutkielman tuloksena on kuvattu järjestelmä, joka kattaa hyvän osan
 suomen kielen morfologisesta jäsentimestä, ja toiminee hyvänä pohjana tulevan
 täydemmän suomen kielen jäsentimen kehitykselle.
 
+\bibliographystyle{apalike}
 \bibliography{gradu}  % viittaa tiedostoon gradu.bib
 
 
@@ -2777,7 +2840,7 @@ täydemmän suomen kielen jäsentimen kehitykselle.
 \section{Äärellistilaisten sovellusten ominaisuuksien vertailu}
 
 Tässä liitteessä on taulukoitu tutkielman kirjoitushetkellä löydettyjen äärellistilaisten ohjelmistojen ominaisuuksia, joiden perusteella tutkimuksessa käytetty ohjelmisto SFST on valittu, ja jonka perusteella jatkotutkimusta on mahdollista suunnitella. Taulukossa oleva data on peräisin sovellusten kotisivuilla annetuista tiedoista ja järjestelmiä kuvaavista artikkeleista. Taulukon lähtökohtana on käytetty
-aineistoa Yli-Jyrä (2007).
+aineistoa \cite{ylijyra2007}.
 
 Taulukossa lisenssit on jaettu luokkiin avoimuuden perusteella. GNU-lisenssit
 GPL ja LGPL on merkitty erikseen. Muut avoimet lisenssit on merkitty taulukkoon vain merkinnällä avoin. Lisenssit, joiden ehdoilla järjestelmät ovat käytettävissä maksutta, mutta jotka rajoittavat käyttöä on merkitty suljetuiksi. Suuri osa
@@ -3057,13 +3120,120 @@ C
 
 \section{Äärellistilaisten sovellusten syntaksin ja ohjeiden vertailu}
 
-Taulukko selitetty ohjeessa Eisner (2007) eli sivulla http://www.cs.jhu.
-edu/~jason/405/software.html — SFST-sarake minun, suomennokset
-minun. Taulukon muodon kuvaus löytyy myös viitatulta sivulta, mutta lyhyesti
-siinä on kerrottu jokaisen toteutuksen saatavilla olevista ohjeista ja syötteen syntaksista.
+Taulukko selitetty ohjeessa \cite{eisner2007} eli sivulla
+\url{http://www.cs.jhu.edu/~jason/405/software.html} — SFST-sarake minun,
+suomennokset minun. Taulukon muodon kuvaus löytyy myös viitatulta sivulta, mutta
+lyhyesti siinä on kerrottu jokaisen toteutuksen saatavilla olevista ohjeista ja
+syötteen syntaksista.
 
 \begin{table}
     \bf TODO:
+    \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+        & FSA Utilities & Xerox FST & AT\&T FSM + lextools & SFST \\
+        parentheses	& (E) & [E] & (E) & \\
+        comments & \% comment & \# comment & \# comment\\
+\hline
+atomic expressions & a, a:b, a::3, a:b:3 & a, a:b & a, a:b, <3>\\
+        &&&(<3> = epsilon with weight 3)\\
+\hline
+literal symbol & '*' (or escape(*)) & "*" (or \%*) & \*\\
+\hline
+symbol escape codes & as in Prolog & as in C &  \\
+\hline
+long symbol names & foo bar & foobar (greedy) & [foo][bar]\\
+\hline
+complex symbol & predicates &   & [noun num=pl gender=fem]\\
+\hline
+symbol class & a..z\\
+        & (or predicates) &   & superclass defn\\
+        &&&in .sym file\\
+        &&&(lexmakelab compiles\\
+        &&&to .scl file\\
+        &&&for -S option)\\
+\hline
+any symbol & ? (surround with spaces) & ? & [<sigma>] (if defined as superclass)\\
+\hline
+symbol complement (? - E) & `E & \textbackslash E &  \\
+\hline
+edge of string &   & .\#. & [<bos>], [<eos>]\\
+\hline
+concat & [E1,E2,E3] & E1 E2 & E1 E2 (fsmconcat)\\
+\hline
+character concat &   & {abcd} & abcd\\
+\hline
+union & {E1,E2,E3} & E1 | E2 & E1 | E2 (fsmunion)\\
+\hline
+empty string (epsilon) & [] & 0\\
+        &[] & 0\\
+        & [<epsilon>] (if defined)\\
+\hline
+empty language & {} & \\? &  \\
+\hline
+optionality & E\textcaret & (E) & E?\\
+\hline
+Kleene closure & E* & E* & E* (fsmclosure)\\
+\hline
+Kleene plus & E+ & E+ & E+\\
+\hline
+repetition &   & E\textcaret n, E\textcaret <n, E\textcaret >n, E\textcaret {n,m} & E\textcaret n\\
+\hline
+contains & \$E & \$E &  \\
+\hline
+reverse & reverse(E) & E.r & fsmreverse\\
+\hline
+intersect & E1 \& E2 & E1 \& E2 & \& (fsmintersect)\\
+\hline
+difference & E1 - E2 & E1 - E2 & E1 - E2 (fsmdifference)\\
+\hline
+complement (?* - E) & ~E & ~E & !E (fsmcomplement)\\
+\hline
+cross-product & E1 x E2\\
+        & E1:E2 (high-precedence) & E1 .x. E2, also {abcd}:{aceg} & E1:E2\\
+\hline
+same-length cross-product & E1 xx E2 &   &  \\
+\hline
+project & domain(E), range(E) & E.u, E.l & fsmproject\\
+\hline
+epsilon-remove & efree(E), et al. &   & fsmrmepsilon\\
+\hline
+determinize & E!\\
+        & {t,w,wt}\_determinize(E) &   & fsmdeterminize\\
+\hline
+minimize & E\#\\
+        & {t,w,wt}\_minimize(E) &   & fsmminimize\\
+\hline
+compose & E1 o E2 & E1 .o. E2 & E1 @ E2 (fsmcompose)\\
+\hline
+invert & invert(E) & E.i & fsminvert\\
+\hline
+ignore (insert freely) &   & A / B\\
+    & & A ./. B (blocked at edges) &  \\
+\hline
+restriction &   & [A => L1 \_ R1, L2 \_ R2] &  \\
+\hline
+replacement & Relevant macros in\\
+        &  rflorian/software/lib/fsa & A -> B (exhaustive nondeterm.)\\
+&&& A (->) B (optional)\\
+&&& A @-> B (LR longest)\\
+&&& A @> B (LR shortest)\\
+&&& A ->@ B (RL longest)\\
+&&& A >@ B (RL shortest)\\
+&&&A may have form [. E .]\\
+&&&  (blocks repeat matches of\\
+&&&  epsilon in same place)\\
+&&& B may have form L ... R\\
+&&&  (inserts L, R around A)\\
+\hline
+Contextual restrictions:\\
+\hline
+&&&   || L \_ R (upper upper)\\
+&&&   // L \_ R (lower upper)\\
+&&&   \textbackslash \textbackslash L \_ R (upper lower)\\
+&&&   \/ L \_ R (lower lower)\\
+&&&  or by , , if restricted &  \\
+\hline
+\end{tabular}
 \end{table}
 
 

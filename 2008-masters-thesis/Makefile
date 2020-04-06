@@ -4,6 +4,7 @@ BIB=bibtex
 LATEXML=latexml
 LATEXMLPOST=latexmlpost
 
+all: Pirinen-2008-masters-thesis.pdf Pirinen-2008-masters-thesis.html
 
 %.pdf: %.tex
 	$(TEX) $<
