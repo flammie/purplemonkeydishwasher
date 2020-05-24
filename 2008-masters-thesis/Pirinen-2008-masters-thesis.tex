@@ -136,7 +136,7 @@ Kieli-, puhe- ja käännösteknologian maisteriohjelma \\
 
 \section{Johdanto}
 
-Kieliteknologia on monitieteinen ala, joka käsitelee kielitieteellisten
+\textit{Kieliteknologia} on monitieteinen ala, joka käsitelee kielitieteellisten
 teorioiden soveltamista tietojenkäsittelytieteiden menetelmin. Tässä
 tutkielmassa keskitytään kieliteknologian osa-alueeseen, joka käsittelee sanojen
 automaattista jäsentymistä ja käsittelyä. Tutkielmassa kuvaan kieliteknologisen
@@ -146,15 +146,17 @@ kokonaisjärjestelmän lisenssiehtojen avoimuus ja vapaus. Tutkielmassa kuvaan
 avointen ja vapaasti saatavilla olevien resurssien käyttöä äärellistilaisen
 morfologisen jäsentimen rakentamisessa.
 
-Morfologia viittaa tässä tutkielmassa laveasti luonnollisen kielen sanojen
-muotoopilliseen rakenteeseen ja sen mallintamiseen. Muoto-opillisen rakenteen
+\textit{Morfologia} viittaa tässä tutkielmassa laveasti luonnollisen kielen sanojen
+muoto-opilliseen rakenteeseen ja sen mallintamiseen. Muoto-opillisen rakenteen
 osayksiköitä nimitetään konkreettisina instansseina morfeiksi, ja näiden
 perusteella johdettuina abstrakteina malleina morfeemeiksi. Esimerkiksi jos
-puhutaan suomen kielen sanamuodosta taloissa , on\footnote{Käytän tutkielmassa
+puhutaan suomen kielen sanamuodosta \textit{taloissa}\footnote{Käytän tutkielmassa
 kursivointia viittamaan sanoihin, sanamuotoihin, saneisiin, morfeihin ja
 morfeemeihin lingvistisinä olioina niiden merkityksen asemesta} siinä juurimorfi
-talo, monikon tunnusmorfi i ja inessiivin tunnusmorfi ssa.  Morfeemeina voisi
-pitää vaikkapa esitystä talo, I ja ssA, jossa I ja A \footnote{Käytän
+\textit{talo}, monikon tunnusmorfi \textit{i} ja inessiivin tunnusmorfi
+\textit{ssa}.  Morfeemeina voisi
+pitää vaikkapa esitystä \textit{talo}, \textit{I} ja \textit{ssA}, jossa
+\textit{I} ja \textit{A} \footnote{Käytän
 tutkielmassa suuraakkosia kuvaamaan abstrakteja morfofoneemeja.  Tavallisesti
 kuvauksissa vastaavat A, O ja U vokaalipareja a ja ä, o ja ö sekä u ja y, eli
 sointuvokaalien pareja, koska ne käyttäytyvät lähes poikkeuksetta samoin
@@ -249,7 +251,7 @@ pidän ensisijaisina avoimina ja vapaina lisensseinä tässä selvityksessä.
 Sovellusten toiminnallisista ominaisuuksista on valitussa järjestelmässä pidetty
 tärkeänä toisinkirjoitus- eli replace-sääntöjen kirjoittamisen mahdollisuutta,
 ja replace-sääntöjä on käytetty toteutuksen perustana. Replace-säännöstä kerron
-tarkemmin kappaleessa 3.1. Käytännössä kyseessä on operaatio, jolla voi
+tarkemmin kappaleessa \ref{subsec:41}. Käytännössä kyseessä on operaatio, jolla voi
 yksinkertaisesti ja havainnollisesti mallintaa yleisiä suomenkin kielen
 morfofonologisia vaihteluita. Esimerkiksi muutamalla tällaisella säännöllä voi
 mallintaa taivutuspäätteen sointuvokaalin valintaa suhteessa sitä edeltävään
@@ -338,7 +340,7 @@ jäsentämisen käytössä.  Kappaleessa selvitetään miten kappaleessa
 \ref{sec:aineistot} selvitetty tieto sanalistan taivutusluokituksesta on
 muunnettavissa äärellistilaisen järjestelmän käyttöön.  Toinen osa koostuu
 testiaineistojen ja -asetelmien kuvauksista sekä tuloksista kappaleessa
-\ref{sec:evaluoint}, jonka jälkeen kappaleessa \ref{sec:keskutelu} analysoidaan
+\ref{sec:evaluointi}, jonka jälkeen kappaleessa \ref{sec:keskutelu} analysoidaan
 koko järjestelmää ja sen testituloksia sekä tältä pohjalta asetetaan mahdollisia
 tulevaisuuden kehityslinjoja ja tutkimusideoita.
 
@@ -363,7 +365,8 @@ tunnistein eli merkkauksin. Sanalistassa se tarkoittaa pelkistäen, että jokais
 sanaa kohti on eroteltu vähintään tiedot sanan sanakirjamuodosta,
 taivutusluokasta ja mahdollisesta astevaihteluluokasta. Tyypillinen sanatietue
 sisältää siis osat \texttt{<s>sanakirjamuoto</s>, <tn>taivutusluokka</tn> ja
-<av>astevaihtelukirjain</av>}. Kokonaisia esimerkkejä on listauksessa 1.
+<av>astevaihtelukirjain</av>}. Kokonaisia esimerkkejä on listauksessa
+\ref{koodi:1}.
 
 Ensimmäinen toteutuksen kannalta olennainen asia Nykysuomen sanalistan
 muuttamisessa kohti morfologista jäsennintä on selvittää mitä tietoja
@@ -402,7 +405,7 @@ on selittävä vakioitu tekstimuotoinen attribuutti), sillä homonyymit on merki
 eri sanoiksi, ja niille on datarakenteessa erillinen alkio \texttt{hn}, joka on juokseva
 homonyyminumero.
 
-Kuvasta \ref{kuva:\ref{kuva:1}} näemme esimerkkejä miten erilaiset sanatyypit
+Kuvasta \ref{kuva:1} näemme esimerkkejä miten erilaiset sanatyypit
 kuvataan tässä XML-muodossa. Kuvaan tässä XML-rakenteeseen kuuluvat alkiot siinä
 järjestyksessä, jossa ne tulevat esille. Juuren muodostaa XML-alkio
 \texttt{kotus-sanalista}, jolla
@@ -840,51 +843,16 @@ systemaattisesti tätä ei ole tehty.
         \hline
         \multicolumn{8}{|c|}{Vokaalivartaloiset, suoralla astevaihtelulla} \\
         \hline
+        1 & — & O tai U & A & Vn & jA & jen & ihin \\
+        2 & ≥ 3 tavua & O tai U & A & Vn & jA, itA & jen, iden, itten & ihin\\
+        3 & — & iO (oe, yo & tA & Vn & itA & iden, itten & ihin \\
+          &   & ie, eo, . . . ) &&  \\
+        4 & — & kkO & A & Vn & jA, jen, iden, itten & ihin, ihin$\ddagger$ \\
+        5 & i† : e : ∅ & i & A & Vn & jA & ien & ihin \\
+        6 & i† : e : ∅ & i & A & Vn & jA, itA & ien & ihin \\
+        \hline
     \end{tabular}
     \bf TODO:
-1
-2
-3
-4
-5
-6
-
-—
-O tai U
-A
-Vn
-jA
-—
-O tai U
-A
-Vn
-jA,
-≥ 3 tavua
-itA
-—
-iO (oe, yo tA
-Vn
-itA
-ie, eo, . . . )
-—
-kkO
-A
-Vn
-jA,
-≥ 3 tavua
-itA
-†
-i :e:∅
-i
-A
-Vn
-jA
-i† : e : ∅
-i
-A
-Vn
-jA,
-(jatkuu seuraavalla sivulla)
 
 Mon.
 gen.
@@ -892,29 +860,8 @@ gen.
 Mon.
 ill.
 
-jen
-jen,
-iden, itten
-iden,
-itten
-jen,
-iden, itten
-ien
-ien,
 
-ihin
-ihin
-ihin
-ihin,
-ihin‡
-ihin
-ihin
 
-2
-
-AINEISTOT
-
-21
 
 Piirre→
 ↓Luokka
@@ -1512,9 +1459,10 @@ Z-morfofoneemit.
         \bf ↓Luokka &
         vaihtelu & rakenne & & & \\
         \hline
+        52 & — & OA, UA (iA) & i & — & t \\
+        \hline
     \end{tabular}
     \bf TODO:
-52
 53
 54
 55
@@ -1543,7 +1491,6 @@ Z-morfofoneemit.
 78
 
 Vartalovaihtelu
-—
 A:∅
 tA : s∅(i)
 tA : t∅(i) ∼ si
@@ -1573,7 +1520,6 @@ a:∅
 —
 
 Äännerakenne
-OA, UA (iA)
 tAA (AA)
 tAA (sAA)
 tAA
@@ -1604,7 +1550,6 @@ AA
 
 Pret. Inf. Pass.
 i
-i
 si
 si
 i
@@ -1620,7 +1565,6 @@ i
 i
 i
 
-—
 —
 —
 —
@@ -1637,7 +1581,6 @@ d
 t
 l
 
-t
 t
 t
 t
@@ -1704,49 +1647,21 @@ alusta ja sen toisen asteen vastine kontekstista säännönmukaisesti.
         \bf Aste→ & \bf Vahva & \bf Heikko \\
         \bf v Luokka & & \\
         \hline
+        A & kk & k \\
+        B & pp & p \\
+        C & tt & t \\
+        D & k & 0 \\
+        E & p & v \\
+        F & t & d \\
+        G & k & g \\
+        H & p & m \\
+        I & t & l \\
+        J & t & n \\
+        K & t & r \\
+        L & k & j \\
+        M & k & v \\
+        \hline
     \end{tabular}
-    \bf TODO:
-A
-B
-C
-D
-E
-F
-G
-H
-I
-J
-K
-L
-M
-
-kk
-pp
-tt
-k
-p
-t
-k
-p
-t
-t
-t
-k
-k
-
-k
-p
-t
-∅
-v
-d
-g
-m
-l
-n
-r
-j
-v
 \end{table}
 
 \subsection{Korpukset}
@@ -1816,7 +1731,8 @@ kielten relaatiota kuusikolla
 $(\Sigma, \Gamma, S, s_0 , F, \delta)$, jossa $\Sigma$ on ylemmän kielen
 aakkosto, $\Gamma$ alemman
 kielen aakkosto, $S$ on äärellinen joukko tiloja, $s_0$ alkutila joukosta
-$S$, $F$ $S$:n osajoukko lopputiloja ja $\delta : S × (\Sigma ∪ 0) × (\Gamma ∪ 0) → S$ siirtymärelaatio
+$S$, $F$ $S$:n osajoukko lopputiloja ja $\delta : S × (\Sigma ∪ \epsilon) ×
+(\Gamma ∪ \epsilon) → S$ siirtymärelaatio
 joka kuvaa tilalta toiselle aakkospareilla. \cite{jurafsky2000speech}
 
 Äärellistilaisten menetelmien havainnollistavassa kuvaamisessa käytetään yleensä
@@ -1933,7 +1849,7 @@ kuvaus, mutta kuvauksen selventämiseksi esitän operaatiot kuin ne operoitaisii
 yksittäisille sanamuodoille kerrallaan. Lisäksi on tietysti niin, että operoinnin sijasta järjestelmä on vain sanalistatransduktorin, sääntötransduktorien ja operaatioiden yhdistelmä, mutta sen hahmottaminen sanamuotojen käsittelynä käsittelynä on mielestäni havainnollista ja perusteltua.
 
 \begin{figure}
-    \label{Morfologia-järjestelmän kaaviotaulukko}
+    \caption{Morfologia-järjestelmän kaaviotaulukko \label{kuva:2}}
     \begin{tabular}{|l|l|l|l|}
         \hline
         \bf Syöte & \bf Operaatio & \bf Operandi & \bf Tuloste \\
@@ -1961,7 +1877,7 @@ yksittäisille sanamuodoille kerrallaan. Lisäksi on tietysti niin, että operoi
 
 \begin{figure}
     \caption{Äärellistilainen järjestelmän yksinkertaistettu hahmo koodina
-    \label{kuva:2}}
+    \label{kuva:3}}
     \begin{verbatim}
 (($sanalista$ || $taivutusvartaloiksi$)\
 $taivutuspaatteet$)\
@@ -2146,7 +2062,7 @@ leksikkoon, koska sen taivutusluokka uupuu.
 
 
 \begin{figure}
-    \label{XSLT-muunnoksen vaiheita}
+    \caption{XSLT-muunnoksen vaiheita \label{kuva:x}}
 
 kotus-sanalista\_v1.xml:\\
     \begin{verbatim}
@@ -2199,7 +2115,7 @@ niissä esiintyvät ja niiden aiheuttamat äännemuutokset. Lopputuloksena saada
 yksi transduktori, joka kuvaa sanojen kaikki taivutusmuodot niiden perusmuotoihin ja taivutusdataan, eli transduktori, joka on ekvivalentti kaikkien sanamuotojen
 disjunktion parin sanakirjamuotojen ja kuvausten kanssa.
 Systemaattinen toteutus, jolla viitetaulukkojeni (\ref{table:nominaalit} s.
-\pageref{table:nominaalit} ja 2 s. 24) kautta pääsee
+\pageref{table:nominaalit} ja \ref{table:verbit} s. \pageref{table:verbit}) kautta pääsee
 perusmuotolistasta tynkä—vartalo—päätemallin kautta lopputulokseen, on sellainen, että aluksi perusmuodosta leikataan vartalon variantti osa taivutusluokkanumeron perusteella. Esimerkiksi nyt sanasta lapsi leikataan luokan 29 perusteella
 pois loppuosa psi, jolloin jäljelle jää vaihtelematon osa la sekä taivutusluokkanumeron tunnus 29. Tämän jälkeen lisätään täydennykseksi eri vartaloihin täydentävät variantit osat vartalosta, esimerkiksi la-tynkään s konsonanttivartaloa varten ja
 pse yksikkövartaloa varten. Soveltuviin vartaloihin edelleen lisätään taivutuspäätteet, siis konsonanttivartaloon las muun muassa monikon genetiivin tunnus ten tai
@@ -2399,7 +2315,7 @@ omorfin jakelupaketista tai verkosta \url{https://gna.org/projects/omorfi}.
 
 
 
-\section{Testiasetelma ja evaluointi} \label{sec:eval}
+\section{Testiasetelma ja evaluointi} \label{sec:evaluointi}
 
 Rakentamastani morfologisesta järjestelmästä testaan kahta asiaa. Ensin selvitän
 käytetyn muoto-opin kuvauksen toimivuutta ja onnistuneisuutta, sekä sanaslistan
@@ -2565,7 +2481,8 @@ analyysitesti on tehty farcompilestring-komennolla ja indexed-tyypillä, sekä
 kompositoimalla tulos farfilterillä, ja generointi vastaavasti.
 
 \begin{figure}
-    \caption{Järjestelmien suoritinajan ja muistin käytön vertailutaulukko}
+    \caption{Järjestelmien suoritinajan ja muistin käytön vertailutaulukko
+    \label{table:tere}}
     \begin{tabular}{c|l|l|l||l}
         \hline
         \multicolumn{5}{c}{Suoritinaika} \\
