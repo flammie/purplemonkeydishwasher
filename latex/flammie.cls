@@ -65,17 +65,17 @@
 \pagestyle{fancy}
 
 \fancyhead[LO,RE]{\thepage}
-\fancyfoot[C]{
+\fancyfoot[C]{\small\color{gray} Author's draft:
 \ifx\flammie@version\@undefined%{
-        Unpublished draft
+    Unpublished
 \else\ifcase\flammie@version% 0 = private
-        Unpublished draft
+    Unpublished
 \or% 1 = free
-        Free publication
+    Free/Open Access
 \or% 2 = preprint
-        Author's pre-print draft.
+    pre-print
 \or% 3 = postprint
-        Author's post-print draft.
+    post-print.
 \fi\fi
 }
 

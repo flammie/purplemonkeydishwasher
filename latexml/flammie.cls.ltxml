@@ -29,6 +29,7 @@ DefMacro('\footnotepubrights', '\footnote');
 # RequirePackage('polyglossia');
 # RequirePackage('polyglossia');
 # RequirePackage('polyglossia');
+RequirePackage('xcolor');
 RequirePackage('url');
 RequirePackage('hyperref');
 # SetMainFont(Liberation Serif)
