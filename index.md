@@ -5,32 +5,37 @@ title: Academic homepage of Tommi A Pirinen
 
 # Dr. Tommi A Pirinen, publications and other academic work
 
-[Universität Hamburg](https://uhh.de),
-[Hamburger Zentrum für Sprachkorpora](https://hzsk.de),
-[CLARIN-D developer](https://clarin-d.net),
-etc. usw.
+Currently at:
+[Uit–Norges arktiske universitet](https://uit.no),
+[Divvun](https://divvun.no),
+[Giellatekno](https://giellatekno.uit.no)
 
 ## Profiles?
 
-Yikes, now (2019) there's a bit of proliferation of academic profiles in services that everyone must have, I've listed a few here:
+Yikes, now (2019) there's a bit of proliferation of academic profiles in
+services that everyone must have, I've listed a few here:
 
 
 * <div itemscope itemtype="https://schema.org/Person"><a itemprop="sameAs" content="https://orcid.org/0000-0003-1207-5395" href="https://orcid.org/0000-0003-1207-5395" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0003-1207-5395</a></div>
-* https://www.semanticscholar.org/author/Tommi-A.-Pirinen/1823491
-* https://publons.com/researcher/AAE-8145-2019/
+* [Tommi A Pirinen on Semantic
+   Scholar](https://www.semanticscholar.org/author/Tommi-A.-Pirinen/1823491)
+* [Flammie on Google
+   Scholar](http://scholar.google.com/citations?user=XNOLAagAAAAJ)
 
-I have profiles in researchgate and academia.edu, but they seem a bit iffy and I don't use them and don't really want to link to them either...
-
+I have profiles on researchgate and academia.edu as well as publons and so on
+and so forth, I prefer at the moment not to use them... actively.
 
 
 ## CV and bio
 
 Here's [a sample CV](cv.html) that I update usually only when I apply for jobs
-or so, so it might be outdated. And here's [an academic bio](bio.html),
+or so, so it might be outdated. And here's [an academic bio](bio.html), you can
+copy-paste if one is needed for conference and journal applications, etc...
 
 ## Short academic history
 
-* Universität Hamburg, HZSK, CLARIN-D (2016–2020...)
+* UiT Norges arktiske universitet, Divvun.no, Giellatekno (2020–)
+* Universität Hamburg, HZSK, CLARIN-D (2016–)
 * Dublin City University (2014–2016): [Abu-Matran](http://abumatran.eu)
 * University of Helsinki (2007–2014): [HFST](https://hfst.github.io) project,
   finite-state spell-checking (PhD), Open source morphology of Finnish (masters),
@@ -75,6 +80,13 @@ be as accurate and up-to-date as google scholar.
 
 ###  Publications in conferences and journals
 
+1. Heidemarie Sambale, Hanna Hedeland, **Tommi Pirinen** (2020 to appear),
+   *User Support for Digital Humanities*,  in CLARIN Book of FIXME
+1. Amr Keleg, Nick Howell, Francis M. Tyers, **Tommi A Pirinen** (2020),
+   *An Unsupervised Method for Weighting Finite-state Morphological Analyzers*,
+   in LREC 2020, Marseille, France (?)–live eventpostponed / cancelled, [TeX
+   version](2020-lrec/Keleg-2020-unsupervised.tex), [HTML
+   version](2020-lrec/Keleg-2020-unsupervised.html)
 1. **Tommi Pirinen**, Hanna Hedeland, Heidemarie Sambale (2019),
    *User Support for Digital Humanities*,  in CLARIN Annual Conference 2019
    (CAC 2019), Leipzig, Germany,
