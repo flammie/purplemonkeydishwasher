@@ -85,8 +85,8 @@ be as accurate and up-to-date as google scholar.
 1. Amr Keleg, Nick Howell, Francis M. Tyers, **Tommi A Pirinen** (2020),
    *An Unsupervised Method for Weighting Finite-state Morphological Analyzers*,
    in LREC 2020, Marseille, France (?)–live eventpostponed / cancelled, [TeX
-   version](2020-lrec/Keleg-2020-unsupervised.tex), [HTML
-   version](2020-lrec/Keleg-2020-unsupervised.html)
+   version](2020-lrec/Keleg-2020-lrec-unsupervised.tex), [HTML
+   version](2020-lrec/Keleg-2020-lrec-unsupervised.html)
 1. **Tommi Pirinen**, Hanna Hedeland, Heidemarie Sambale (2019),
    *User Support for Digital Humanities*,  in CLARIN Annual Conference 2019
    (CAC 2019), Leipzig, Germany,
