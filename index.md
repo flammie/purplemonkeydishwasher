@@ -80,6 +80,11 @@ be as accurate and up-to-date as google scholar.
 
 ###  Publications in conferences and journals
 
+1. Linda Wiechetek, Chiara Argese, **Tommi A Pirinen**, Trond Trosterud
+   (2021, to appear)
+   *Suoidne-varra-bleahkka-mála-bihkka-senet-dielku
+   ‘hay-blood-ink-paint-tar-mustard-stain’
+   – Should compounds be lexicalized in NLP?*,  in CLIC-IT 2021, Bologna
 1. Heidemarie Sambale, Hanna Hedeland, **Tommi Pirinen** (2020 to appear),
    *User Support for Digital Humanities*,  in CLARIN Book of FIXME
 1. Amr Keleg, Nick Howell, Francis M. Tyers, **Tommi A Pirinen** (2020),
