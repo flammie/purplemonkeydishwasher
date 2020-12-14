@@ -1,0 +1,616 @@
+% an e-dictionary, the e-dictionary?
+% File clic2017.tex
+% May 2017
+
+%% Based on the style files for CLiC-IT-2014, which were, in turn,
+%% Based on the style files for ACL-2014, which were, in turn,
+%% Based on the style files for ACL-2013, which were, in turn,
+%% Based on the style files for ACL-2012, which were, in turn,
+%% based on the style files for ACL-2011, which were, in turn,
+%% based on the style files for ACL-2010, which were, in turn,
+%% based on the style files for ACL-IJCNLP-2009, which were, in turn,
+%% based on the style files for EACL-2009 and IJCNLP-2008...
+
+%% Based on the style files for EACL 2006 by
+%%e.agirre@ehu.es or Sergi.Balari@uab.es
+%% and that of ACL 08 by Joakim Nivre and Noah Smith
+
+\documentclass[free]{flammie}
+%\usepackage{textcomp}
+\usepackage{multirow}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage{fancyvrb}
+%\usepackage{mathcomp}
+\usepackage{diagbox}
+%\usepackage{authblk} % https://ctan.org/pkg/authblk
+\usepackage{linguex}
+%\usepackage{newtxmath,newtxtext}
+%\usepackage{clic2017}
+
+\newcommand{\samit}{\mbox{t\hspace{-.35em}-}} %ŧ
+\newcommand{\samiT}{\mbox{T\hspace{-.5em}-}} %Ŧ
+
+%\setlength\titlebox{5cm}
+
+% You can expand the titlebox if you need extra space
+% to show all the authors. Please do not make the titlebox
+% smaller than 5cm (the original size); we will check this
+% in the camera-ready version and ask you to change it back.
+
+
+\title{\textit{Suoidne-varra-bleahkka-mála-bihkka-senet-dielku}
+`hay-blood-ink-paint-tar-mustard-stain' -- \\ Should compounds be lexicalized in NLP?
+\footnotepubrights{Creative Commons CC-BY-SA by conference, the official version
+published in CEUR-WS at \url{http://ceur-ws.org/Vol-2769/paper_49.pdf}}}
+
+
+\author{Linda Wiechetek \qquad Chiara Argese \qquad Tommi A Pirinen \qquad Trond Trosterud\\
+{\small linda.wiechetek@uit.no} \qquad {\small chiara.argese@uit.no} \qquad {\small tommi.pirinen@uit.no} \qquad {\small trond.trosterud@uit.no}\\
+\\
+\vspace{2ex}
+  Divvun \& Giellatekno,
+  UiT Norgga árktalaš universitehta \\}
+
+
+\date{}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+  \textbf{English.}
+
+\small Lexicalizing compounds, in addition to treating them dynamically,
+is a key element in giving us
+idiomatic translations and detecting compound errors.
+We present and evaluate an e-dictionary (\textit{NDS}) and
+a grammar checker (\textit{GramDivvun}) for North Sámi. We achieve a coverage of
+98\% for \textit{NDS}-queries and
+of 96\% for compound error detection in \textit{GramDivvun}.
+\end{abstract}
+
+\begin{abstract}
+ \textrm{\bf{Italiano.}}
+
+\small La lessicalizzazione delle parole composte, in aggiunta a trattarle in maniera dinamica, è un elemento chiave
+per ottenere traduzioni idiomatiche e rilevare errori nelle stesse.
+Presentiamo e valutiamo un e-dizionario (\textit{NDS}) e un correttore
+grammaticale (\textit{GramDivvun}) per il Sami del Nord. Otteniamo una
+copertura del 98\% per le ricerche in \textit{NDS} e del 96\% per il rilevamento di errori nelle parole composte in
+\textit{GramDivvun}.
+
+\end{abstract}
+
+\section{Introduction}
+
+
+In this paper\footnote{Copyright ©️2020 for this paper by its authors. Use permitted under Creative Commons License Attribution 4.0 International (CC BY 4.0).}, we discuss the use and necessity of the lexicalization of
+compounds -- in addition to the dynamic approach to compounding -- in two rule-based Natural Language Processing (NLP)
+applications, a grammar checker \textit{GramDivvun} and an electronic
+dictionary \textit{NDS} (short for \textit{Neahttadigisánit}).
+We argue for a dual approach and support this view with an
+evaluation of these tools. For comparison, we also look at a third
+application, a corpus tool (\textit{Korp}) for the North Sámi corpus
+\textit{SIKOR}. SIKOR, the Sámi International KORpus, is the collection of texts in different Sámi languages compiled by UiT The Arctic University of Norway and the Norwegian Sámi Parliament.
+
+In the past, we have mostly focussed on the dynamic approach to morphological analysis. This means that we have a lexicon with lemmata and stems, which in a finite-state manner are combined with inflectional and derivational affixes and other stems and modified when morpho-phonological processes apply.
+In this way the linguistic processes inflection, derivation and compounding are modelled in a dynamic way, i.e. by means of concatenation and composition as opposed to listing of all forms.
+Lexicalization, i.e. listing compounds or inflected word forms as such, is the alternative approach to the dynamic one.
+In addition to these two approaches we also use guessers for certain tasks, i.e. proper name guessing in morpho-syntactic parsing. %NEW
+Our approach is entirely rule-based and open source. Within our 20 year experience with language tools for the Sámi languages and other languages with complex morphology, we have achieved good results and produced reliable tools.
+
+There are a number of approaches to error detection of a few errortypes for morphologically complex - although less complex than North Sámi - languages like Latvian~\cite{Deksne2019} and Russian~\cite{Rozovskaya2019}.
+The Latvian neural network grammar checker focusses on preposition-postposition confusion, adjective-noun agreement, mood errors in verb forms, number and case in noun forms, definiteness of adjectives and missing commata. All of these error types have a good performance with precisions between 78\% and 98.5\%.
+Judging from their regular expressions to insert artificial errors, most of their error types seem to be fairly local errors that can be resolved based on bigrams.
+
+The Russian system focusses on more advanced error types - case, number agreement, gender agreement, preposition and aspect. However, the results show that the system is still in its initial phase with low precision and recall for most error types (precision is between 22\% and 56\%, only gender agreement reaches 68\%, and recall is significantly lower, between 9\% and 36\%).
+None of these approaches deals with compound error detection.
+
+
+For neural network approaches, large corpora with error mark-up are necessary, which are not available for North Sámi. The error marked-up corpus contains 120~459 words, and when looking at specific error types -- as in this case compound errors -- the corpus is even smaller.
+The Russian system is based on an error-marked corpus of 200k words (deemed too small by its authors), the Latvian system works with artificial errors, an approach that can be problematic as it does not reflect real text errors.
+
+In compounding, two or several words are combined to form a new
+In compounding, two or several words are combined to form a new
+word. In Sámi, Finnic and Germanic languages, compounding is a
+productive process and new compounds like in \Next{} can be made on
+the fly.\footnote{To avoid confusion with hyphenated compounds, ``$|$'' is used to mark word boundaries in compounds}
+In Romance languages, these compounds typically correspond to
+prepositional constructions (ital. `la federa del cuscino del
+divano').\footnote{Although there are a number of real compounds in
+  Italian, such as \textit{fruttivendolo}, as well.}
+%(il detersivo)
+
+
+\exg. soffá$|$guoddá$|$olggoža ({North Sámi})\label{sami}\\
+sofa$|$pute$|$trekk (Norwegian)\\
+`sofa pillow cover (English)'
+
+
+The initial motivation for extensive lexicalization of compounds of
+North Sámi goes back to adapting the spellchecker to users' needs,
+i.e.\ avoiding false alarms in \textit{Ávvir} newspaper's texts.  %Also
+%\textit{Jorgal}, our machine translation program benefits from the
+%lexicalization of compounds and idiomatic translations of
+%these. \cite[p.28]{Antonsen18}
+
+North Sámi is a Uralic language spoken in Norway, Sweden and Finland by
+approximately 25~700 speakers~\cite{Ethnologue2018}. It is a synthetic language,
+where the open parts of speech (PoS) -- nouns, adjectives, etc. -- inflect for
+case, person and number. The grammatical categories are expressed by a
+combination of suffixes and stem-internal processes affecting root vowels and
+consonants alike, making it perhaps the most fusional of all Uralic languages.
+In addition to compounding, inflection and derivation are common morphological processes in North Sámi.
+
+
+North Sámi has seven morpho-syntactic cases, i.e. nominative (Nom.), genitive (Gen.), accusative (Acc.), illative (Ill.), locative (Loc.), comitative (Com.), and essive (Ess.).
+Case plays a more central role in Sámi than in preposition-based case languages, since here syntactic functions are identified based on case only.
+In addition, nouns can bear possessive suffixes.
+Verbs are inflected for person, number (singular, dual, plural), tense (present and past tense) and mood (indicative, conditional, and potential).  Derivational processes (passive, causative, inchoative, diminutive, reflexive, to name only some of them) enhance the combinatory possibilities of each verb.
+
+
+Table~\ref{pos-compounds} illustrates that compounding in North Sámi
+is by no means restricted to noun noun combinations, but includes a
+number of other \textit{parts-of-speech} (PoS) as well, also as
+heads.\footnote{The following abbreviations are used: N=noun, V=verb, A=adjective, Attr=attributive,
+  Adv=adverb, Pron=pronoun, Pcle=particle, PrfPrc=past participle, Num=numeral, Prop=propernoun.}
+
+
+\begin{table}[h]
+\small
+\begin{center}
+\begin{tabular}{|p{1.1cm}|p{2.4cm}|p{2.8cm}|}
+\hline \bf Type & \bf Example & \bf Gloss and translation \\ \hline
+\hline
+N N & láhka$|$rievdadusat & law$|$change\textsc{.pl} `law changes'\\
+A.Attr N & boahtte$|$áigi & coming$|$time `future'\\
+\hline
+\hline
+Adv N & dáppe$|$olmmoš & here$|$person `person from here'\\
+Pron A & iešguđet$|$lágan & each$|$alike `different kinds of'\\
+Pron N & eanet$|$lohku & more$|$number `majority'\\
+Adv Pcle & dušše$|$fal & only$|$really `just' \\
+Adv V & vuostái$|$váldojuvvo & against$|$take\textsc{.pass.3sg} `received' \\
+PrfPrc N & mearridan$|$fápmu & decide\textsc{.prfprc}$|$power `authority'\\
+Num Num & okta$|$nuppe$|$lohkái & one$|$second$|$ten\textsc{.ill} `eleven'\\ %oktanuppelohkái+Num+Sg+Loc:okta#nuppe#logi%>s K ; !time
+Num N & 1978$|$-láhka & 1978$|$-law `1978 law'\\ %1978-láhka+N+CmpNP/First+Sem/Rule:1978-láhºka GOAHTI-A ;
+Num A & 3$|$-ivnnat & 3$|$-colored `3-colored'\\
+Num A & golmma$|$ivnnat & three$|$colored `three colored'\\ %golmmaivnnat	golbma+Num+Cmp/SgGen+Cmp#ivdni+N+Der/t+A+Sg+Nom	0,000000
+%& Why not marked as a compound? \\ % 3-ivnnat+A+Sem/Dummytag:3-ivnn AGAdj ;
+\hline
+\end{tabular}
+\end{center}
+\caption{\label{pos-compounds} Compound types according to PoS; `$|$' is used to mark word boundaries}
+\end{table}
+
+
+In North Sámi, compounds are formed without a hyphen, except for those involving a proper noun, a digit, or an acronym like \textit{Davvi-Norgii} `Northern Norway (Ill.)',
+\textit{3-juvllatsykkel} `tricycle',
+%+N+CmpNP/First+Sem/Veh:3-juvllat#sykkel GAHPIR ;
+%sáme#digge#ráđđi AIGI ;
+and \textit{ILO-álgoálbmotsoahpamuš} `ILO-indigenous people agreement'~\cite[p.46]{callinravagirji2015}. %+N+CmpNP/First+Sem/Prod-ling:ILO-álgo#álbmot#soahpamušš LEXMUSH ;
+%(cf. ex. \ref{ex-norm2})
+There are a number of multiwords where a space is obligatory (\textit{albma ládje} `properly' and \textit{duollet dálle} `sometimes'). Also %\textit{nuppe gežiid} `upside down',
+genitive first compounds have an alternative interpretation when
+written apart, %(\textit{lottečivga} `baby bird' vs.
+%\textit{lotte čivga} `the bird's offspring'),
+which makes error detection more difficult.
+
+
+\section{Background}
+
+The North Sámi tools described in this article -- \textit{NDS}, \textit{Korp} for \textit{SIKOR} and
+\textit{GramDivvun}~\cite{Wiechetek2012} -- all rely on the \textit{GiellaLT}
+infrastructure~\cite{Moshagen2013BuildingAO}, a technological framework
+for managing lexical data and building it into language technology applications
+including e-dictionaries and grammar checkers.  All of them make use of a
+morphological analyzer, an \textit{FST} (Finite-State Transducer) described in
+Pirinen~\cite{Pirinen2014}, where word formation processes are moduled.
+Additionally, \textit{SIKOR} and \textit{GramDivvun} include a Constraint
+Grammar-based syntactic analysis. The full modular structure of the latter is
+described in Wiechetek~\cite{Wiechetek2019}.
+
+
+The computational modeling of the language is done using finite-state
+morphology~\cite{Beesley2003}. The method of recognizing grammatical
+words as well as querying their grammatical information is based on
+looking up the words in an FST that contains the morphological
+dictionary of the language.  There are two types of compounds in the
+language model: the ones that are stored in the lexicon as lexicalized
+units and the ones generated dynamically using a compounding model.
+Table~\ref{table:lexicalised-compounds} gives the statistics over the length of lexicalized compounds.\footnote{The table is based on the dictionary size at the time of the writing (September 2020); it is actively  developed daily. Further abbreviations are Adp$=$adposition, Conj$=$conjunction.}
+
+Lexicalized four-element compounds are quite common in the noun lexicon,
+e.g. \textit{davvisámegielterminologiija} `North Sámi language
+terminology'.
+%+N+Sem/Dummytag:davvi#sáme#giel#terminologi IIJA ;
+%and \textit{mohtorfievrodáhkádusdirektiiva} `motor vehicles insurance directives', %+N+Sem/Dummytag:mohtor#fievro#dáhkádus#direkt IIVA ; !^LOAN
+%muhtorfievrodáhkádusdirektiiva+N+Sem/Dummytag:muhtor#fievro#dáhkádus#direkt IIVA ; !^LOAN
+%agivulošvuođageahpedus `labor market  measure offer', %+N+Sem/Money:agi#vuloš#vuođa#geahpeduss JOHTOLAT ;
+%agivulošvuođageahpádus+N+Sem/Money:agi#vuloš#vuođa#geahpáduss JOHTOLAT ; %`under age comfort/welfare'
+Even six-element compounds (\textit{sáiva\-čáhce\-guolle\-vuostáiváldindilli} `fresh water fish receive situation') %+v1+N+Sem/State:sáiva#čáhce#guolle#vuostái#váldin#dilli ALBMILONGSHORT ;
+%sáivačáhceguollevuostáiváldindilli+v2+N+Sem/State:sáiva#čáhce#guolle#vuostá#váldin#dilli ALBMILONGSHORT ;
+%bargomárkandoaibmabidjofálaldat+N+Sem/Prod-cogn:bargo#márkan#doaibma#bidjo#fálaldahºk JOHTOLAT ; `labor market  measure offer'
+can be found.
+
+
+The different types of North Sámi
+compounds in Table~\ref{pos-compounds} are not treated equally in the
+morphological analyzer. Only the compounds in the first two lines can
+be derived dynamically.
+%There is no limit to the length of NN and NumNum combinations.
+All others need to be lexicalized, i.e. listed in the lexicon, to receive a compound analysis. %(i.e. Goallosteamit nugo bajásšaddat ja lávžegeahcen, eai
+%oacco dynámalaš goallostananalysa Antonsen2018 p.28)
+Numeral compounding is not treated dynamically in the FST.
+% (i.e. \textit{duššefal})
+The dynamic compounds are generated from the dictionary by concatenating
+word forms (such as a genitive or nominative noun
+followed by other noun) and adding a compound tag \texttt{+Cmp}. The
+main dynamic compounds are (derived and non-derived) noun + noun
+pairs. % with some other combinations having limited and a limited
+%selection of numeral + noun pairs for specific nouns, such as...
+One feature of the underlying technology is that the compounding mechanism is
+capable of modeling infinitely long compounds: for example nouns of
+any magnitude are compounds and modeled by the finite-state
+automaton. Since the compounding mechanism of an FST is very powerful, it
+also leads to ambiguity. When we allow arbitrary lexemes to combine
+to form compounds, some will overlap other existing lexemes, cf. ex. \ref{regivudna}.
+
+\exg. Davvi \textbf{regiuvdna}\label{regivudna}\\ %lea maŋemus jagi (2007) erenoamážit áŋgiruššan gávdnat sámi biebmoruovttuid.
+North region;direction.oven\\ %has last year (2007)
+`The northern region'%fix  has the last years especially urged to find Sámi foster homes
+
+Here, \textit{regiuvdna} `region' has a typical spelling error, o>u. The FST analyzes it as a misspelling of \textit{regiovdna} `region', but also as a compound with the elements \textit{regi}, a common wrong form of  \textit{regiija} `direction', and \textit{uvdna} `oven'.
+While this example has only two possible analyses, twenty or more different analyses are not uncommon.
+
+%"<regiuvdna>"
+%"uvdna" N Sem/Obj-el Sg Nom <W:0.0> <cohort-with-dynamic-compound> ADD:2204
+%"regiija" N Sem/Dummytag Err/Orth Cmp <W:0.0>
+%"regiovdna" N Err/Orth Sem/Plc Sg Nom <W:0.0> <cohort-with-dynamic-compound> ADD:2204
+%
+%regiuvdna = spelling error for regiovdna= region
+
+
+
+
+\begin{table}[htb]
+ \begin{center}
+% \begin{tabular}{|A|B||}
+     \begin{tabular}{|l|r|r|r|r|r|}
+\hline
+\diagbox[height=7ex,width=8ex]{PoS}{Roots} & 2 & 3 & 4 & 5 & 6+ \\ % var: Parts
+%&   &   &   &   &   &   &   & \\
+\hline
+\hline
+         \textbf{N}    & 16~603 & 1~048 & 1~665 & 86 & 15 \\
+         \textbf{Num}  & 408    & 1~048 & 42    & 0  & 4 \\
+         \textbf{Prop} & 11~680 & 3~005 &  115  & 9  & 1 \\
+         \textbf{A}    & 3~854  & 333   & 13    & 0  & 0  \\
+         \textbf{V}    & 478    & 4     & 0     & 0  & 9  \\
+         \textbf{Adv}  & 896    & 109   & 1     & 0  & 0  \\
+         \textbf{Adp}  & 152    & 49    & 0     & 0  & 0  \\
+         \textbf{Conj} & 3      & 0     & 0     & 0  & 0  \\
+\hline
+\end{tabular}
+    \caption{Lexical compounds in the lexicon by the PoS of their
+    head and the number of their roots\label{table:lexicalised-compounds}}
+\end{center}
+\end{table}
+
+\section{Compounds in three NLP applications}
+
+We present three applications, an e-dictionary, a corpus tool, and a grammar checker tool.
+
+\subsection{An e-dictionary (NDS)}\label{ndssection}
+
+The North Sámi -- Norwegian dictionary contains 25~000 lemmata and uses
+an FST.
+The e-dictionary was first implemented in 2013 with no use of relational databases (all linguistic resources are contained within static files and external command-line tools)~\cite{Johnson2013}.
+It is an intelligent dictionary in the sense that is able to look up North Sámi word forms and find lemmas via the FST.
+It also allows a tolerant mode, which accepts the letters \textit{acdnstz} for \textit{áčđŋš\samit{}ž} in addition to their usual values.
+The e-dictionary can split compounds to provide the user with its elements
+as well as the whole compound if a translation is available.
+The lexicalization of compounds is important since the translation of the
+compound cannot necessarily be derived from the translation of its parts~\cite[p.54]{Antonsen18}.
+
+In the FST 90\% of the 100~000 nouns, and in the dictionary 75\% of the 25~000 nouns
+are compounds.  %TROND -- vi ser m dette ser bra ut, spm er kva vi vil seie.
+
+\subsection{A corpus tool}
+
+The web application and corpus search tool \textit{Korp}~\cite{Borin2012} does
+not show the internal structure of compounds in \textit{SIKOR}.  Neither
+lexicalized, nor dynamic compounds are searchable as either the lexicalized
+analysis is picked instead of the dynamic one or -- in the case of compounds
+that are not listed in the lexicon -- a lexicalized compound is made by the
+preprocessor. This is a problem inherent in the implementation of the tool.
+However, when searching for the compound tag used in the FST
+(\texttt{+Cmp}), there are 94~658 results. The reason for that is that the first
+element in split compounds in coordination receives a specific compound tag
+(\texttt{+Cmp/SplitR}) as well.
+
+Table~\ref{table:sikor-compounds} shows the statistics for compounds in
+\textit{SIKOR}.\footnote{The search was done on 2020-09-07.}  The results are obtained using the scripts that can be found in \textit{GiellaLT}.\footnote{{\label{footnote_scripts}\url{https://github.com/giellalt/conf-clicit2021}}} According to our analyses 8.6\%
+of the tokens in corpus are compounds, and 86\% are lexicalized.  The rest is
+mainly composed of 2-elements compounds (13.4\%) and a very small part of 4-7 elements (0.5\%). %According to previous analyses (2018-01-09), 10.7\% of
+%SIKOR's nouns receive a dynamic compound analysis~\cite[p.25]{Antonsen18}.
+
+Many of the longer compounds in \textit{SIKOR} are quite creative and are
+hyphenated as the one in ex.~\ref{productivecompoundsikor}.
+
+\begin{small}
+\exg. \textbf{suoidne-varra-bleahkka-mála-bihkka-senet-dielku} mu báiddis lei dušše lihkohisvuohta.\label{productivecompoundsikor}\\
+hay-blood-ink-paint-tar-mustard-stain my shirt\textsc{.loc} was only mishap\\
+`The hay-blood-ink-paint-tar-mustard-stain on my shirt was only a mishap.'
+
+\end{small}
+
+
+
+\begin{table}[h]
+ \begin{center}
+% \begin{tabular}{|A|B||}
+     \begin{tabular}{|l|r|r|r|r|r|r|}
+     \hline
+         \diagbox[height=7ex,width=8ex]{PoS}{Parts} & 2 & 3 & 4 & 5 & 6/7  \\
+     %&   &   &   &   &   &   &   &   & \\
+     \hline
+     \hline
+              \textbf{N}    	& 96.2 & 98.9 & 89.2 & 80 & 66.7 \\
+     %         \textbf{Num} 	&  &  &   \\
+              \textbf{Prop} & 3.8 & 1.1 & 10.8 & 20 & 33.3 \\
+     %         \textbf{A} 	&  &  &   \\
+     %         \textbf{V} 	&  &  &   \\
+     %         \textbf{A} 	&  &  &   \\ % Adv?
+     %         \textbf{Adp} 	&  &  &   \\
+     %         \textbf{Conj} 	&  &  &   \\
+     \hline
+     \end{tabular}
+    \caption{Compound types in SIKOR by the PoS of their head and the number of their root (amounts given in percentage)\label{table:sikor-compounds}}
+\end{center}
+\end{table}
+
+
+The current public version of the Sámi corpus \textit{SIKOR}~\cite{sikor_06.11.2018} (in Korp) consists of 32.2
+million words. It was analyzed with a
+preprocessor that does not distinguish between lexicalized and
+dynamic compounds. The (non-public) version of SIKOR used in this article
+makes this distinction, though, as will future versions in Korp.
+
+ A search for compound tags only returns split compounds,
+ i.e. the first coordinated hyphenated nominal element, cf. in
+ ex. \Next, i.e. \textit{riddo-} `coast-'.
+
+ \exg. \textbf{riddo-} ja vuotnaguovlluin\label{split}\\
+ coast- and fjordregion\textsc{.loc.pl}\\
+ `in coastal and fjord regions'
+
+
+\textit{GiellaLT} has already produced a solution, i.e.\ a tag for cohorts with
+a dynamic compound (\texttt{<with-dynamic-compound>}) added by a Constraint Grammar module.
+However, this tag does not provide any information
+about the number of elements and the beginning and ending of each element.
+
+\subsection{A grammar checker (GramDivvun)}
+
+\textit{GramDivvun}, the
+North Sámi grammar checker~\cite{Wiechetek2019} takes input from the FST to a number of other modules, the core of which are several Constraint Grammar modules.  Constraint Grammar
+is a rule-based formalism for writing disambiguation and syntactic
+annotation grammars~\cite{Karlsson:1990,Karlsson:1995}.
+In our work, we use the free open source implementation VISLCG-3~\cite{Didriksen2015}. All components are compiled and built
+using the \textit{GiellaLT}
+infrastructure~\cite{Moshagen2013BuildingAO}.
+
+Lexicalization of compounds is relevant for grammar checking within compound error detection. One common error that cannot be resolved by a spellchecker is the spelling of compounds as two or more words.
+\textit{GramDivvun} performs this type of error detection as part of the tokenization.
+The tokenization is done in two steps. In the first step potential compounds are tokenized ambiguously (either as one or as two words, the first of which is accompanied by an errortag). In the second step, a Constraint Grammar module\footnote{\url{https://github.com/giellalt/lang-sme/blob/3a43911929458fd39da309ed23178bf5dbd04bcd/tools/tokenisers/mwe-dis.cg3}} selects or removes the error reading.
+Two conditions need to be met to find the compound error:
+1.\ the compound needs to be lexicalized, and 2.\ the syntactic context needs to support the compound reading.
+
+The syntactic context is specified in hand-written Constraint Grammar rules. The REMOVE-rule below removes the compound error reading (identified by the tag Err/SpaceCmp) if the head is a 3rd person singular verb (cf. l.2) and the first element of the potential compound is a noun in nominative case (cf. l.3). The context condition further specifies that there should be a finite verb (VFIN) somewhere in the sentence (cf. l.4) for the rule to apply.
+
+\begin{Verbatim}[frame=single,framerule=0.2mm,framesep=3mm,fontsize=\footnotesize,baselinestretch=1,numbers=left]
+REMOVE (Err/SpaceCmp)
+(0/0 (V Sg3))
+(0/1 (N Sg Nom))
+(*0 VFIN);
+\end{Verbatim}
+
+
+All possible compounds written apart are considered
+to be errors by default, unless the lexicon specifies a two or
+several word compound %(i.e.)
+or a syntactic rule removes the error reading.
+There are numerous syntactic contexts where the potential parts of
+compounds make perfectly sense.
+In the case of noun-noun compounds, the second element can for example be a simple adverbial,
+as in ex.~\ref{manna}. %, or an object or subject predicate after a subject.
+The second element can be homonymous with another PoS, it can be a finite verb or an infinitive.
+
+
+\exg. son lea boarráseamus \textbf{mánná} \textbf{joavkkus}.\label{manna}\\
+%Sus leat guokte viellja ja okta oabbá, ja
+s/he is oldest child group\textsc{.loc}\\
+`s/he is the oldest child in the group.'
+
+%\begin{Verbatim}[frame=single,framerule=0.2mm,framesep=3mm,fontsize=\footnotesize,baselinestretch=1,numbers=left]
+%ADD (<cohort-with-dynamic-compound>)
+%(N) (0/1 (N Cmp))
+%(NEGATE 0/2 (Gen Allegro));
+%\end{Verbatim}
+
+
+\section{Evaluation}
+
+We evaluate the e-dictionary (coverage) and the grammar checker (precision, recall) for compounding (errors). The corpus search tool does not exhibit compounding information and is therefore not evaluated.
+
+
+\subsection{An e-dictionary (NDS)}
+
+We analyzed the logs for NDS (\textit{Neahttadigisánit}) for 2019, and found that 12.6\% of
+the types in the user queries are compounds. The results are obtained using the
+scripts that can be found in \textit{GiellaLT}%\footnotemark[\ref{footnote_scripts}].
+The amount of lexicalized compounds in the logs (72.1\%) is approximately
+the same as in the dictionary, where it is 75\% (cf. Section~\ref{ndssection} above).
+As much as 98\% of the compound queries get a translation, either a lexicalized one or of its parts. Thus dynamic compounding
+contributes with a substantial improvement to dictionary coverage.
+If the alternatives are ``getting no help from the dictionary'' and ``getting help to translate the parts'' then the latter is to be preferred, even though the correct translation would be different from just joining the parts.
+For example, the compound word \textit{ruhtahearrá} `rich man' is not lexicalized in NDS but it does get a translation of its parts  \textit{ruhta} `money' and \textit{hearrá} `man', which can help the user to understand the meaning of the compound word itself.
+
+Most of the non lexicalized compounds are composed of 2 elements (96\% in the logs and 93\% in the entries).
+%, 3 elements (3.6\%), and a very small part of 4 elements (0.1\%).
+When analyzing the entries in the dictionary, we found that 24.8\% are compounds and of those 97.6\% are lexicalized.
+Table \ref{tab:table1} shows PoS for compounds in NDS logs and entries.
+
+\begin{table}[h]
+\small
+  \begin{center}
+    \begin{tabular}{|l|r|r|r|r|r|r|r|r|}
+    \hline
+      %\textbf{Parts} & \textbf{L} & \textbf{2} & \textbf{3} & \textbf{4}\\
+      \textbf{}  & \multicolumn{4}{|c|}{\textbf{Logs}}  & \multicolumn{4}{|c|}{\textbf{Entries}}  \\
+      \hline
+      \diagbox[height=7.5ex,width=8ex]{PoS}{Parts} & L & 2 & 3 & 4  & L & 2 & 3 & 4 \\
+       %&  &  &  & \\
+      \hline
+      \hline
+      N 	& 90 	& 87 	& 85 & 100 & 86 & 87 & 82 & 0\\
+      A 	& 3 	& 0 	& 0 & 0 & 2 & 0 & 0 & 0 \\
+      Prop 	& 3 	& 0 	& 0 & 0 & 12 & 4 & 0 & 0 \\
+      V 	& 2 	& 13 	& 14 & 0 & 0 & 8 & 18 & 0\\
+      Adv 	& 1 	& 0 	& 0 & 0 & 0 & 0 & 0 & 0 \\
+      \hline
+    \end{tabular}
+        \caption{Compounds according to the number of their parts and PoS in NDS logs and entries (L=lexicalized)}
+    \label{tab:table1}
+  \end{center}
+\end{table}
+
+
+
+\subsection{A grammar checker (GramDivvun)}
+
+We evaluate error detection for syntactic compound errors (i.e. words that are written
+apart and should be a compound) in \textit{GramDivvun} in two ways.
+Firstly, we compare last year's results in Wiechetek~\cite{Wiechetek2019b} with a
+newer version of \textit{GramDivvun}, from now on referred to as the \textit{Nodalida}-corpus. %The \textit{Nodalida}-corpus consists of 226~336 words.
+%- where we evaluated other types of errortypes as well).
+%the same texts (226~336 word corpus)
+Last year's results are based on version \textit{r183544}~\cite{Wiechetek2019b}\footnote{\url{https://github.com/giellalt/lang-sme/releases/tag/nodalida-2018} on 2019-09-26}. The new results are based on version {r28510}\footnote{\url{https://github.com/giellalt/lang-sme/releases/tag/clicit} on 2020-09-07} of \textit{GramDivvun}.
+
+However, as the focus in the last analysis was a different one, i.e.\ we evaluated other error types as well, we %run another evaluation othese include only few instances of potential
+%compounds (\textbf{TP} 51+ \textbf{FP} 17 + \textbf{FN} 19, which is
+ran a second evaluation on a
+2~363 word-corpus\footnote{\url{http://gtsvn.uit.no/freecorpus/orig/sme/odda_mahppa/compounds.correct.txt}}
+specifically made to test compound error detection, i.e.\ every sentence contains a potential compound. These sentences are hand-selected from \textit{SIKOR}.
+
+The results of the evaluation are presented in Table \ref{quantevaltbl}. We can see that precision has gone significantly up, i.e.\ the average precision is 95.5\%. However, the recall has gone down to average 46\%. We are investigating the reasons for that. But in general, a high precision is desirable in grammar checking, even at the cost of a lower recall.
+
+The results of the evaluation of \textit{GramDivvun} compound grammar checking are shown in
+Table~\ref{quantevaltbl}.
+
+
+
+\begin{table}[h]
+ \begin{center}
+% \begin{tabular}{|A||B||}
+\begin{tabular}{|l|r|r|r|}
+\hline
+\textbf{Measure} & (2019) & \multicolumn{2}{|c|}{(2020)} \\
+%				 &  & \multicolumn{2}{c}{(2020)} \\
+\hline
+\textbf{}  & \multicolumn{2}{|c|}{\textbf{Nodalida}}  & \textbf{Compound} \\ %only looking at syntactic errors
+\textbf{}  & \multicolumn{2}{|c|}{\textbf{corpus}}  & \textbf{corpus} \\
+\hline
+\hline
+\textbf{Precision}    &  75.0\% & 93.1\% & 98.0\% \\
+\textbf{Recall}       &  72.9\% & 43.2\% & 48.5\% \\
+\textbf{F1-Score}     &   73.9 & 59.0    & 64.9\\
+\hline
+\hline
+\textbf{TP}           & 51 & 54 & 50 \\
+\textbf{FP}           & 17 & 4  & 1 \\
+\textbf{FN}           & 19 & 67 & 53\\
+\hline
+\end{tabular}
+\caption{Measures for GramDivvun (TP/FP= true/false
+    positives, FN=false negatives)\label{quantevaltbl}}
+\end{center}
+\end{table}
+
+
+False negatives are typically due to the lack of lexicalization.
+Many of those are proper noun combinations which are very productive, e.g. \textit{Murmánska-aviisa} `Murmansk newspaper', \textit{Várggát-festiválas} `at the Várggát festival', \textit{km-galba} `km sign' and \textit{Divttasvuotna-regiovnna} `Divttasvuotna region'. %, \textit{Biret-muoŧŧá} \textit{kV-geaidnoáššiin}, \textit{NBR-festivála}, \textit{Bb-čoahkkin} `Bb meeting',
+
+Other reasons are certain (unlikely) analyses of especially the first element, e.g.
+that generally suggest a syntactic construction rather than a compound as in
+    ex.~\ref{duorastat}. Here the first element \textit{duorastat} `Thursday' has a finite verb reading as well.
+
+
+\exg. dán \textbf{duorastat veaiggi}.\label{duorastat}\\ %Ruvdnaprinsa beasai muosáhit sihke dánssa ja rockekonseartta ja beasai maid humadit nuoraiguin geat ledje boahtán Nuoraidvissui
+this\textsc{.gen} {Thursday twilight\textsc{.gen}}\\ %small.talk youngster\textsc{.com.pl} that had come to Nuoraidviessu\textsc{.ill}
+`this Thursday evening'
+
+
+
+The false positive is due to an error in the recognition of the span of the
+target. In ex.~\ref{lullisami}, \textit{lulli sámi guvlui} is concatenated, but it should only be \textit{lulli sámi}.
+
+\exg. dohko \textbf{lulli} \textbf{sámi} guvlui.\label{lullisami}\\ %Dutkan boahtá gokčat Sámi, ja siskkildit oasseváldiid davvisámis viidásit
+thither South Sámi area\textsc{.ill}\\ %The research will cover Sámi, and
+`thither towards the South Sámi area.'
+
+
+
+\section{Conclusion}
+
+We have shown that the lexicalization of compounds -- in addition to their dynamic
+treatment --
+is useful and necessary
+for two language applications for North Sámi, an e-dictionary (\textit{NDS}) and a
+grammar checker (\textit{GramDivvun}).  The evaluation of
+\textit{NDS} shows that we get a good coverage: 98\% of the compounds logged do get a translation and 72\% are lexicalized in the FST.
+The evaluation
+of \textit{GramDivvun} has shown that we manage to identify compound
+errors with a precision of 98\% and a recall of 49\% utilising a
+combination of information from the lexicon and syntax.
+
+
+We conclude that there are perfectly
+good reasons for lexicalizing compounds, i.e.\ providing idiomatic translations for when it
+cannot be derived from the parts, and to support compound grammar checking. At the same time, lexicalization can
+dissimulate word formation information in corpus tools.
+This can be resolved and we have already implemented a solution in Constraint Grammar to make the information available in a
+future version of the corpus tool.
+As dynamic compounding is limited to few PoS at the moment, in the
+future we want to investigate and model compounding of other PoS (in the FST).
+Also experiments with neural network approaches and a comparison of the results to our rule-based grammar checker could be an interesting future project.
+
+
+
+
+\section*{Acknowledgments}
+Thank you to Thomas Omma for doing the error corpus mark-up and for fun linguistic discussions, and to Lene Antonsen for digging in our corpus and helping to find just the right example.
+
+\bibliographystyle{acl}
+\bibliography{lexicalizedcompounds}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

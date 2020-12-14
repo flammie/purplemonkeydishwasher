@@ -1,0 +1,905 @@
+<!DOCTYPE html><html>
+<head>
+<title>Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf</title>
+<!--Generated on Mon Dec 14 06:59:57 2020 by LaTeXML (version 0.8.5) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Document created on .-->
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../latexml/LaTeXML.css" type="text/css">
+<link rel="stylesheet" href="../latexml/ltx-article.css" type="text/css">
+<link rel="stylesheet" href="ltx-listings.css" type="text/css">
+</head>
+<body>
+<div class="ltx_page_main">
+<div class="ltx_page_content">
+<article class="ltx_document ltx_authors_1line">
+<h1 class="ltx_title ltx_title_document">
+<span class="ltx_text ltx_font_italic">Suoidne-varra-bleahkka-mála-bihkka-senet-dielku</span>
+‘hay-blood-ink-paint-tar-mustard-stain’ – 
+<br class="ltx_break">Should compounds be lexicalized in NLP?
+<span class="ltx_ERROR undefined">\footnotepubrights</span>Creative Commons CC-BY-SA by conference, the official version
+published in CEUR-WS at <a href="http://ceur-ws.org/Vol-2769/paper_49.pdf" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://ceur-ws.org/Vol-2769/paper_49.pdf</a>
+</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Linda Wiechetek   Chiara Argese   Tommi A Pirinen   Trond Trosterud
+<br class="ltx_break"><span class="ltx_text" style="font-size:90%;">linda.wiechetek@uit.no</span>   <span class="ltx_text" style="font-size:90%;">chiara.argese@uit.no</span>   <span class="ltx_text" style="font-size:90%;">tommi.pirinen@uit.no</span>   <span class="ltx_text" style="font-size:90%;">trond.trosterud@uit.no
+<br class="ltx_break">
+<br class="ltx_break"></span>
+Divvun &amp; Giellatekno
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+UiT Norgga árktalaš universitehta 
+<br class="ltx_break">
+</span></span>
+</div>
+<div class="ltx_dates">()</div>
+
+<div class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+    
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">English.</span></p>
+    
+<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Lexicalizing compounds, in addition to treating them dynamically,
+is a key element in giving us
+idiomatic translations and detecting compound errors.
+We present and evaluate an e-dictionary (<span class="ltx_text ltx_font_italic">NDS</span>) and
+a grammar checker (<span class="ltx_text ltx_font_italic">GramDivvun</span>) for North Sámi. We achieve a coverage of
+98% for <span class="ltx_text ltx_font_italic">NDS</span>-queries and
+of 96% for compound error detection in <span class="ltx_text ltx_font_italic">GramDivvun</span>.</span></p>
+  
+</div>
+<div class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+    
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Italiano.</span></p>
+    
+<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">La lessicalizzazione delle parole composte, in aggiunta a trattarle in maniera dinamica, è un elemento chiave
+per ottenere traduzioni idiomatiche e rilevare errori nelle stesse.
+Presentiamo e valutiamo un e-dizionario (<span class="ltx_text ltx_font_italic">NDS</span>) e un correttore
+grammaticale (<span class="ltx_text ltx_font_italic">GramDivvun</span>) per il Sami del Nord. Otteniamo una
+copertura del 98% per le ricerche in <span class="ltx_text ltx_font_italic">NDS</span> e del 96% per il rilevamento di errori nelle parole composte in
+<span class="ltx_text ltx_font_italic">GramDivvun</span>.</span></p>
+  
+</div>
+<section id="S1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">1 </span>Introduction</h2>
+
+<div id="S1.p1" class="ltx_para">
+<p class="ltx_p">In this paper<span id="footnote1" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup>
+            <span class="ltx_tag ltx_tag_note">1</span>
+            
+            
+            
+          Copyright ©️2020 for this paper by its authors. Use permitted under Creative Commons License Attribution 4.0 International (CC BY 4.0).</span></span></span>, we discuss the use and necessity of the lexicalization of
+compounds – in addition to the dynamic approach to compounding – in two rule-based Natural Language Processing (NLP)
+applications, a grammar checker <span class="ltx_text ltx_font_italic">GramDivvun</span> and an electronic
+dictionary <span class="ltx_text ltx_font_italic">NDS</span> (short for <span class="ltx_text ltx_font_italic">Neahttadigisánit</span>).
+We argue for a dual approach and support this view with an
+evaluation of these tools. For comparison, we also look at a third
+application, a corpus tool (<span class="ltx_text ltx_font_italic">Korp</span>) for the North Sámi corpus
+<span class="ltx_text ltx_font_italic">SIKOR</span>. SIKOR, the Sámi International KORpus, is the collection of texts in different Sámi languages compiled by UiT The Arctic University of Norway and the Norwegian Sámi Parliament.</p>
+</div>
+<div id="S1.p2" class="ltx_para">
+<p class="ltx_p">In the past, we have mostly focussed on the dynamic approach to morphological analysis. This means that we have a lexicon with lemmata and stems, which in a finite-state manner are combined with inflectional and derivational affixes and other stems and modified when morpho-phonological processes apply.
+In this way the linguistic processes inflection, derivation and compounding are modelled in a dynamic way, i.e. by means of concatenation and composition as opposed to listing of all forms.
+Lexicalization, i.e. listing compounds or inflected word forms as such, is the alternative approach to the dynamic one.
+In addition to these two approaches we also use guessers for certain tasks, i.e. proper name guessing in morpho-syntactic parsing. Our approach is entirely rule-based and open source. Within our 20 year experience with language tools for the Sámi languages and other languages with complex morphology, we have achieved good results and produced reliable tools.</p>
+</div>
+<div id="S1.p3" class="ltx_para">
+<p class="ltx_p">There are a number of approaches to error detection of a few errortypes for morphologically complex - although less complex than North Sámi - languages like Latvian <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Deksne2019</span>]</cite> and Russian <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Rozovskaya2019</span>]</cite>.
+The Latvian neural network grammar checker focusses on preposition-postposition confusion, adjective-noun agreement, mood errors in verb forms, number and case in noun forms, definiteness of adjectives and missing commata. All of these error types have a good performance with precisions between 78% and 98.5%.
+Judging from their regular expressions to insert artificial errors, most of their error types seem to be fairly local errors that can be resolved based on bigrams.</p>
+</div>
+<div id="S1.p4" class="ltx_para">
+<p class="ltx_p">The Russian system focusses on more advanced error types - case, number agreement, gender agreement, preposition and aspect. However, the results show that the system is still in its initial phase with low precision and recall for most error types (precision is between 22% and 56%, only gender agreement reaches 68%, and recall is significantly lower, between 9% and 36%).
+None of these approaches deals with compound error detection.</p>
+</div>
+<div id="S1.p5" class="ltx_para">
+<p class="ltx_p">For neural network approaches, large corpora with error mark-up are necessary, which are not available for North Sámi. The error marked-up corpus contains 120 459 words, and when looking at specific error types – as in this case compound errors – the corpus is even smaller.
+The Russian system is based on an error-marked corpus of 200k words (deemed too small by its authors), the Latvian system works with artificial errors, an approach that can be problematic as it does not reflect real text errors.</p>
+</div>
+<div id="S1.p6" class="ltx_para">
+<p class="ltx_p">In compounding, two or several words are combined to form a new
+In compounding, two or several words are combined to form a new
+word. In Sámi, Finnic and Germanic languages, compounding is a
+productive process and new compounds like in <span class="ltx_ERROR undefined">\Next</span> can be made on
+the fly.<span id="footnote2" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">2</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">2</sup>
+            <span class="ltx_tag ltx_tag_note">2</span>
+            
+            
+            
+          To avoid confusion with hyphenated compounds, “<math id="footnote2.m1" class="ltx_Math" alttext="|" display="inline"><mo stretchy="false">|</mo></math>” is used to mark word boundaries in compounds</span></span></span>
+In Romance languages, these compounds typically correspond to
+prepositional constructions (ital. ‘la federa del cuscino del
+divano’).<span id="footnote3" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">3</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">3</sup>
+            <span class="ltx_tag ltx_tag_note">3</span>
+            
+            
+            
+          Although there are a number of real compounds in
+Italian, such as <span class="ltx_text ltx_font_italic">fruttivendolo</span>, as well.</span></span></span>
+</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S1.p7" class="ltx_para">
+<p class="ltx_p">. soffá<math id="S1.p7.m1" class="ltx_Math" alttext="|" display="inline"><mo stretchy="false">|</mo></math>guoddá<math id="S1.p7.m2" class="ltx_Math" alttext="|" display="inline"><mo stretchy="false">|</mo></math>olggoža (North Sámi)
+<br class="ltx_break">sofa<math id="S1.p7.m3" class="ltx_Math" alttext="|" display="inline"><mo stretchy="false">|</mo></math>pute<math id="S1.p7.m4" class="ltx_Math" alttext="|" display="inline"><mo stretchy="false">|</mo></math>trekk (Norwegian)
+<br class="ltx_break">‘sofa pillow cover (English)’</p>
+</div>
+<div id="S1.p8" class="ltx_para">
+<p class="ltx_p">The initial motivation for extensive lexicalization of compounds of
+North Sámi goes back to adapting the spellchecker to users’ needs,
+i.e. avoiding false alarms in <span class="ltx_text ltx_font_italic">Ávvir</span> newspaper’s texts. </p>
+</div>
+<div id="S1.p9" class="ltx_para">
+<p class="ltx_p">North Sámi is a Uralic language spoken in Norway, Sweden and Finland by
+approximately 25 700 speakers <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Ethnologue2018</span>]</cite>. It is a synthetic language,
+where the open parts of speech (PoS) – nouns, adjectives, etc. – inflect for
+case, person and number. The grammatical categories are expressed by a
+combination of suffixes and stem-internal processes affecting root vowels and
+consonants alike, making it perhaps the most fusional of all Uralic languages.
+In addition to compounding, inflection and derivation are common morphological processes in North Sámi.</p>
+</div>
+<div id="S1.p10" class="ltx_para">
+<p class="ltx_p">North Sámi has seven morpho-syntactic cases, i.e. nominative (Nom.), genitive (Gen.), accusative (Acc.), illative (Ill.), locative (Loc.), comitative (Com.), and essive (Ess.).
+Case plays a more central role in Sámi than in preposition-based case languages, since here syntactic functions are identified based on case only.
+In addition, nouns can bear possessive suffixes.
+Verbs are inflected for person, number (singular, dual, plural), tense (present and past tense) and mood (indicative, conditional, and potential). Derivational processes (passive, causative, inchoative, diminutive, reflexive, to name only some of them) enhance the combinatory possibilities of each verb.</p>
+</div>
+<div id="S1.p11" class="ltx_para">
+<p class="ltx_p">Table <a href="#S1.T1" title="Table 1 ‣ 1 Introduction ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a> illustrates that compounding in North Sámi
+is by no means restricted to noun noun combinations, but includes a
+number of other <span class="ltx_text ltx_font_italic">parts-of-speech</span> (PoS) as well, also as
+heads.<span id="footnote4" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">4</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">4</sup>
+            <span class="ltx_tag ltx_tag_note">4</span>
+            
+            
+            
+          The following abbreviations are used: N=noun, V=verb, A=adjective, Attr=attributive,
+Adv=adverb, Pron=pronoun, Pcle=particle, PrfPrc=past participle, Num=numeral, Prop=propernoun.</span></span></span></p>
+</div>
+<figure id="S1.T1" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_justify ltx_th ltx_th_column ltx_border_l ltx_border_r ltx_border_t" style="width:31.3pt;"><span class="ltx_text ltx_wrap ltx_font_bold" style="font-size:90%;">Type</span></th>
+<th class="ltx_td ltx_align_justify ltx_th ltx_th_column ltx_border_r ltx_border_t" style="width:68.3pt;"><span class="ltx_text ltx_wrap ltx_font_bold" style="font-size:90%;">Example</span></th>
+<th class="ltx_td ltx_align_justify ltx_th ltx_th_column ltx_border_r ltx_border_t" style="width:79.7pt;"><span class="ltx_text ltx_wrap ltx_font_bold" style="font-size:90%;">Gloss and translation</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_border_l ltx_border_r ltx_border_tt" style="width:31.3pt;"><span class="ltx_text" style="font-size:90%;">N N</span></td>
+<td class="ltx_td ltx_align_justify ltx_border_r ltx_border_tt" style="width:68.3pt;">
+<span class="ltx_text" style="font-size:90%;">láhka</span><math id="S1.T1.m1" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">rievdadusat</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_border_r ltx_border_tt" style="width:79.7pt;">
+<span class="ltx_text" style="font-size:90%;">law</span><math id="S1.T1.m2" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">change</span><span class="ltx_text ltx_font_smallcaps" style="font-size:90%;">.pl</span><span class="ltx_text" style="font-size:90%;"> ‘law changes’</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_border_l ltx_border_r" style="width:31.3pt;"><span class="ltx_text" style="font-size:90%;">A.Attr N</span></td>
+<td class="ltx_td ltx_align_justify ltx_border_r" style="width:68.3pt;">
+<span class="ltx_text" style="font-size:90%;">boahtte</span><math id="S1.T1.m3" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">áigi</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_border_r" style="width:79.7pt;">
+<span class="ltx_text" style="font-size:90%;">coming</span><math id="S1.T1.m4" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">time ‘future’</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_border_l ltx_border_r ltx_border_tt" style="width:31.3pt;"><span class="ltx_text" style="font-size:90%;">Adv N</span></td>
+<td class="ltx_td ltx_align_justify ltx_border_r ltx_border_tt" style="width:68.3pt;">
+<span class="ltx_text" style="font-size:90%;">dáppe</span><math id="S1.T1.m5" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">olmmoš</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_border_r ltx_border_tt" style="width:79.7pt;">
+<span class="ltx_text" style="font-size:90%;">here</span><math id="S1.T1.m6" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">person ‘person from here’</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_border_l ltx_border_r" style="width:31.3pt;"><span class="ltx_text" style="font-size:90%;">Pron A</span></td>
+<td class="ltx_td ltx_align_justify ltx_border_r" style="width:68.3pt;">
+<span class="ltx_text" style="font-size:90%;">iešguđet</span><math id="S1.T1.m7" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">lágan</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_border_r" style="width:79.7pt;">
+<span class="ltx_text" style="font-size:90%;">each</span><math id="S1.T1.m8" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">alike ‘different kinds of’</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_border_l ltx_border_r" style="width:31.3pt;"><span class="ltx_text" style="font-size:90%;">Pron N</span></td>
+<td class="ltx_td ltx_align_justify ltx_border_r" style="width:68.3pt;">
+<span class="ltx_text" style="font-size:90%;">eanet</span><math id="S1.T1.m9" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">lohku</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_border_r" style="width:79.7pt;">
+<span class="ltx_text" style="font-size:90%;">more</span><math id="S1.T1.m10" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">number ‘majority’</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_border_l ltx_border_r" style="width:31.3pt;"><span class="ltx_text" style="font-size:90%;">Adv Pcle</span></td>
+<td class="ltx_td ltx_align_justify ltx_border_r" style="width:68.3pt;">
+<span class="ltx_text" style="font-size:90%;">dušše</span><math id="S1.T1.m11" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">fal</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_border_r" style="width:79.7pt;">
+<span class="ltx_text" style="font-size:90%;">only</span><math id="S1.T1.m12" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">really ‘just’</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_border_l ltx_border_r" style="width:31.3pt;"><span class="ltx_text" style="font-size:90%;">Adv V</span></td>
+<td class="ltx_td ltx_align_justify ltx_border_r" style="width:68.3pt;">
+<span class="ltx_text" style="font-size:90%;">vuostái</span><math id="S1.T1.m13" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">váldojuvvo</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_border_r" style="width:79.7pt;">
+<span class="ltx_text" style="font-size:90%;">against</span><math id="S1.T1.m14" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">take</span><span class="ltx_text ltx_font_smallcaps" style="font-size:90%;">.pass.3sg</span><span class="ltx_text" style="font-size:90%;"> ‘received’</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_border_l ltx_border_r" style="width:31.3pt;"><span class="ltx_text" style="font-size:90%;">PrfPrc N</span></td>
+<td class="ltx_td ltx_align_justify ltx_border_r" style="width:68.3pt;">
+<span class="ltx_text" style="font-size:90%;">mearridan</span><math id="S1.T1.m15" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">fápmu</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_border_r" style="width:79.7pt;">
+<span class="ltx_text" style="font-size:90%;">decide</span><span class="ltx_text ltx_font_smallcaps" style="font-size:90%;">.prfprc<math id="S1.T1.m16" class="ltx_Math" alttext="|" display="inline"><mo mathvariant="normal" stretchy="false">|</mo></math></span><span class="ltx_text" style="font-size:90%;">power ‘authority’</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_border_l ltx_border_r" style="width:31.3pt;"><span class="ltx_text" style="font-size:90%;">Num Num</span></td>
+<td class="ltx_td ltx_align_justify ltx_border_r" style="width:68.3pt;">
+<span class="ltx_text" style="font-size:90%;">okta</span><math id="S1.T1.m17" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">nuppe</span><math id="S1.T1.m18" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">lohkái</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_border_r" style="width:79.7pt;">
+<span class="ltx_text" style="font-size:90%;">one</span><math id="S1.T1.m19" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">second</span><math id="S1.T1.m20" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">ten</span><span class="ltx_text ltx_font_smallcaps" style="font-size:90%;">.ill</span><span class="ltx_text" style="font-size:90%;"> ‘eleven’</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_border_l ltx_border_r" style="width:31.3pt;"><span class="ltx_text" style="font-size:90%;">Num N</span></td>
+<td class="ltx_td ltx_align_justify ltx_border_r" style="width:68.3pt;">
+<span class="ltx_text" style="font-size:90%;">1978</span><math id="S1.T1.m21" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">-láhka</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_border_r" style="width:79.7pt;">
+<span class="ltx_text" style="font-size:90%;">1978</span><math id="S1.T1.m22" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">-law ‘1978 law’</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_border_l ltx_border_r" style="width:31.3pt;"><span class="ltx_text" style="font-size:90%;">Num A</span></td>
+<td class="ltx_td ltx_align_justify ltx_border_r" style="width:68.3pt;">
+<span class="ltx_text" style="font-size:90%;">3</span><math id="S1.T1.m23" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">-ivnnat</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_border_r" style="width:79.7pt;">
+<span class="ltx_text" style="font-size:90%;">3</span><math id="S1.T1.m24" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">-colored ‘3-colored’</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_border_b ltx_border_l ltx_border_r" style="width:31.3pt;"><span class="ltx_text" style="font-size:90%;">Num A</span></td>
+<td class="ltx_td ltx_align_justify ltx_border_b ltx_border_r" style="width:68.3pt;">
+<span class="ltx_text" style="font-size:90%;">golmma</span><math id="S1.T1.m25" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">ivnnat</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_border_b ltx_border_r" style="width:79.7pt;">
+<span class="ltx_text" style="font-size:90%;">three</span><math id="S1.T1.m26" class="ltx_Math" alttext="|" display="inline"><mo maxsize="90%" minsize="90%">|</mo></math><span class="ltx_text" style="font-size:90%;">colored ‘three colored’</span>
+</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption" style="font-size:90%;"><span class="ltx_tag ltx_tag_table">Table 1: </span> Compound types according to PoS; ‘<math id="S1.T1.m28" class="ltx_Math" alttext="|" display="inline"><mo stretchy="false">|</mo></math>’ is used to mark word boundaries</figcaption>
+</figure>
+<div id="S1.p12" class="ltx_para">
+<p class="ltx_p">In North Sámi, compounds are formed without a hyphen, except for those involving a proper noun, a digit, or an acronym like <span class="ltx_text ltx_font_italic">Davvi-Norgii</span> ‘Northern Norway (Ill.)’,
+<span class="ltx_text ltx_font_italic">3-juvllatsykkel</span> ‘tricycle’,
+and <span class="ltx_text ltx_font_italic">ILO-álgoálbmotsoahpamuš</span> ‘ILO-indigenous people agreement’ <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">callinravagirji2015</span>, p.46]</cite>. There are a number of multiwords where a space is obligatory (<span class="ltx_text ltx_font_italic">albma ládje</span> ‘properly’ and <span class="ltx_text ltx_font_italic">duollet dálle</span> ‘sometimes’). Also genitive first compounds have an alternative interpretation when
+written apart, which makes error detection more difficult.
+</p>
+</div>
+</section>
+<section id="S2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2 </span>Background</h2>
+
+<div id="S2.p1" class="ltx_para">
+<p class="ltx_p">The North Sámi tools described in this article – <span class="ltx_text ltx_font_italic">NDS</span>, <span class="ltx_text ltx_font_italic">Korp</span> for <span class="ltx_text ltx_font_italic">SIKOR</span> and
+<span class="ltx_text ltx_font_italic">GramDivvun</span> <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Wiechetek2012</span>]</cite> – all rely on the <span class="ltx_text ltx_font_italic">GiellaLT</span>
+infrastructure <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Moshagen2013BuildingAO</span>]</cite>, a technological framework
+for managing lexical data and building it into language technology applications
+including e-dictionaries and grammar checkers. All of them make use of a
+morphological analyzer, an <span class="ltx_text ltx_font_italic">FST</span> (Finite-State Transducer) described in
+Pirinen <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Pirinen2014</span>]</cite>, where word formation processes are moduled.
+Additionally, <span class="ltx_text ltx_font_italic">SIKOR</span> and <span class="ltx_text ltx_font_italic">GramDivvun</span> include a Constraint
+Grammar-based syntactic analysis. The full modular structure of the latter is
+described in Wiechetek <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Wiechetek2019</span>]</cite>.</p>
+</div>
+<div id="S2.p2" class="ltx_para">
+<p class="ltx_p">The computational modeling of the language is done using finite-state
+morphology <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Beesley2003</span>]</cite>. The method of recognizing grammatical
+words as well as querying their grammatical information is based on
+looking up the words in an FST that contains the morphological
+dictionary of the language. There are two types of compounds in the
+language model: the ones that are stored in the lexicon as lexicalized
+units and the ones generated dynamically using a compounding model.
+Table <a href="#S2.T2" title="Table 2 ‣ 2 Background ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> gives the statistics over the length of lexicalized compounds.<span id="footnote5" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">5</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">5</sup>
+            <span class="ltx_tag ltx_tag_note">5</span>
+            
+            
+            
+          The table is based on the dictionary size at the time of the writing (September 2020); it is actively developed daily. Further abbreviations are Adp<math id="footnote5.m1" class="ltx_Math" alttext="=" display="inline"><mo>=</mo></math>adposition, Conj<math id="footnote5.m2" class="ltx_Math" alttext="=" display="inline"><mo>=</mo></math>conjunction.</span></span></span></p>
+</div>
+<div id="S2.p3" class="ltx_para">
+<p class="ltx_p">Lexicalized four-element compounds are quite common in the noun lexicon,
+e.g. <span class="ltx_text ltx_font_italic">davvisámegielterminologiija</span> ‘North Sámi language
+terminology’.
+Even six-element compounds (<span class="ltx_text ltx_font_italic">sáivačáhceguollevuostáiváldindilli</span> ‘fresh water fish receive situation’) can be found.</p>
+</div>
+<div id="S2.p4" class="ltx_para">
+<p class="ltx_p">The different types of North Sámi
+compounds in Table <a href="#S1.T1" title="Table 1 ‣ 1 Introduction ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a> are not treated equally in the
+morphological analyzer. Only the compounds in the first two lines can
+be derived dynamically.
+All others need to be lexicalized, i.e. listed in the lexicon, to receive a compound analysis. Numeral compounding is not treated dynamically in the FST.
+The dynamic compounds are generated from the dictionary by concatenating
+word forms (such as a genitive or nominative noun
+followed by other noun) and adding a compound tag <span class="ltx_text ltx_font_typewriter">+Cmp</span>. The
+main dynamic compounds are (derived and non-derived) noun + noun
+pairs. One feature of the underlying technology is that the compounding mechanism is
+capable of modeling infinitely long compounds: for example nouns of
+any magnitude are compounds and modeled by the finite-state
+automaton. Since the compounding mechanism of an FST is very powerful, it
+also leads to ambiguity. When we allow arbitrary lexemes to combine
+to form compounds, some will overlap other existing lexemes, cf. ex. <a href="#S2" title="2 Background ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>.</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S2.p5" class="ltx_para">
+<p class="ltx_p">. Davvi <span class="ltx_text ltx_font_bold">regiuvdna
+<br class="ltx_break"></span>North region;direction.oven
+<br class="ltx_break">‘The northern region’</p>
+</div>
+<div id="S2.p6" class="ltx_para">
+<p class="ltx_p">Here, <span class="ltx_text ltx_font_italic">regiuvdna</span> ‘region’ has a typical spelling error, o¿u. The FST analyzes it as a misspelling of <span class="ltx_text ltx_font_italic">regiovdna</span> ‘region’, but also as a compound with the elements <span class="ltx_text ltx_font_italic">regi</span>, a common wrong form of <span class="ltx_text ltx_font_italic">regiija</span> ‘direction’, and <span class="ltx_text ltx_font_italic">uvdna</span> ‘oven’.
+While this example has only two possible analyses, twenty or more different analyses are not uncommon.</p>
+</div>
+<figure id="S2.T2" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_l ltx_border_r ltx_border_t">
+<span class="ltx_ERROR undefined">\diagbox</span>[height=7ex,width=8ex]PoSRoots</th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t">2</th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t">3</th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t">4</th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t">5</th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t">6+</th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r ltx_border_tt"><span class="ltx_text ltx_font_bold">N</span></th>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt">16 603</td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt">1 048</td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt">1 665</td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt">86</td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt">15</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r"><span class="ltx_text ltx_font_bold">Num</span></th>
+<td class="ltx_td ltx_align_right ltx_border_r">408</td>
+<td class="ltx_td ltx_align_right ltx_border_r">1 048</td>
+<td class="ltx_td ltx_align_right ltx_border_r">42</td>
+<td class="ltx_td ltx_align_right ltx_border_r">0</td>
+<td class="ltx_td ltx_align_right ltx_border_r">4</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r"><span class="ltx_text ltx_font_bold">Prop</span></th>
+<td class="ltx_td ltx_align_right ltx_border_r">11 680</td>
+<td class="ltx_td ltx_align_right ltx_border_r">3 005</td>
+<td class="ltx_td ltx_align_right ltx_border_r">115</td>
+<td class="ltx_td ltx_align_right ltx_border_r">9</td>
+<td class="ltx_td ltx_align_right ltx_border_r">1</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r"><span class="ltx_text ltx_font_bold">A</span></th>
+<td class="ltx_td ltx_align_right ltx_border_r">3 854</td>
+<td class="ltx_td ltx_align_right ltx_border_r">333</td>
+<td class="ltx_td ltx_align_right ltx_border_r">13</td>
+<td class="ltx_td ltx_align_right ltx_border_r">0</td>
+<td class="ltx_td ltx_align_right ltx_border_r">0</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r"><span class="ltx_text ltx_font_bold">V</span></th>
+<td class="ltx_td ltx_align_right ltx_border_r">478</td>
+<td class="ltx_td ltx_align_right ltx_border_r">4</td>
+<td class="ltx_td ltx_align_right ltx_border_r">0</td>
+<td class="ltx_td ltx_align_right ltx_border_r">0</td>
+<td class="ltx_td ltx_align_right ltx_border_r">9</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r"><span class="ltx_text ltx_font_bold">Adv</span></th>
+<td class="ltx_td ltx_align_right ltx_border_r">896</td>
+<td class="ltx_td ltx_align_right ltx_border_r">109</td>
+<td class="ltx_td ltx_align_right ltx_border_r">1</td>
+<td class="ltx_td ltx_align_right ltx_border_r">0</td>
+<td class="ltx_td ltx_align_right ltx_border_r">0</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r"><span class="ltx_text ltx_font_bold">Adp</span></th>
+<td class="ltx_td ltx_align_right ltx_border_r">152</td>
+<td class="ltx_td ltx_align_right ltx_border_r">49</td>
+<td class="ltx_td ltx_align_right ltx_border_r">0</td>
+<td class="ltx_td ltx_align_right ltx_border_r">0</td>
+<td class="ltx_td ltx_align_right ltx_border_r">0</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_b ltx_border_l ltx_border_r"><span class="ltx_text ltx_font_bold">Conj</span></th>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r">3</td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r">0</td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r">0</td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r">0</td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r">0</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 2: </span>Lexical compounds in the lexicon by the PoS of their
+head and the number of their roots</figcaption>
+</figure>
+</section>
+<section id="S3" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">3 </span>Compounds in three NLP applications</h2>
+
+<div id="S3.p1" class="ltx_para">
+<p class="ltx_p">We present three applications, an e-dictionary, a corpus tool, and a grammar checker tool.</p>
+</div>
+<section id="S3.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.1 </span>An e-dictionary (NDS)</h3>
+
+<div id="S3.SS1.p1" class="ltx_para">
+<p class="ltx_p">The North Sámi – Norwegian dictionary contains 25 000 lemmata and uses
+an FST.
+The e-dictionary was first implemented in 2013 with no use of relational databases (all linguistic resources are contained within static files and external command-line tools) <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Johnson2013</span>]</cite>.
+It is an intelligent dictionary in the sense that is able to look up North Sámi word forms and find lemmas via the FST.
+It also allows a tolerant mode, which accepts the letters <span class="ltx_text ltx_font_italic">acdnstz</span> for <span class="ltx_text ltx_font_italic">áčđŋšt-ž</span> in addition to their usual values.
+The e-dictionary can split compounds to provide the user with its elements
+as well as the whole compound if a translation is available.
+The lexicalization of compounds is important since the translation of the
+compound cannot necessarily be derived from the translation of its parts <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Antonsen18</span>, p.54]</cite>.</p>
+</div>
+<div id="S3.SS1.p2" class="ltx_para">
+<p class="ltx_p">In the FST 90% of the 100 000 nouns, and in the dictionary 75% of the 25 000 nouns
+are compounds. </p>
+</div>
+</section>
+<section id="S3.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.2 </span>A corpus tool</h3>
+
+<div id="S3.SS2.p1" class="ltx_para">
+<p class="ltx_p">The web application and corpus search tool <span class="ltx_text ltx_font_italic">Korp</span> <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Borin2012</span>]</cite> does
+not show the internal structure of compounds in <span class="ltx_text ltx_font_italic">SIKOR</span>. Neither
+lexicalized, nor dynamic compounds are searchable as either the lexicalized
+analysis is picked instead of the dynamic one or – in the case of compounds
+that are not listed in the lexicon – a lexicalized compound is made by the
+preprocessor. This is a problem inherent in the implementation of the tool.
+However, when searching for the compound tag used in the FST
+(<span class="ltx_text ltx_font_typewriter">+Cmp</span>), there are 94 658 results. The reason for that is that the first
+element in split compounds in coordination receives a specific compound tag
+(<span class="ltx_text ltx_font_typewriter">+Cmp/SplitR</span>) as well.</p>
+</div>
+<div id="S3.SS2.p2" class="ltx_para">
+<p class="ltx_p">Table <a href="#S3.T3" title="Table 3 ‣ 3.2 A corpus tool ‣ 3 Compounds in three NLP applications ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a> shows the statistics for compounds in
+<span class="ltx_text ltx_font_italic">SIKOR</span>.<span id="footnote6" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">6</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">6</sup>
+              <span class="ltx_tag ltx_tag_note">6</span>
+              
+              
+              
+            The search was done on 2020-09-07.</span></span></span> The results are obtained using the scripts that can be found in <span class="ltx_text ltx_font_italic">GiellaLT</span>.<span id="footnote7" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">7</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">7</sup>
+              <span class="ltx_tag ltx_tag_note">7</span>
+              
+              
+              
+            <a href="https://github.com/giellalt/conf-clicit2021" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/giellalt/conf-clicit2021</a></span></span></span> According to our analyses 8.6%
+of the tokens in corpus are compounds, and 86% are lexicalized. The rest is
+mainly composed of 2-elements compounds (13.4%) and a very small part of 4-7 elements (0.5%). </p>
+</div>
+<div id="S3.SS2.p3" class="ltx_para">
+<p class="ltx_p">Many of the longer compounds in <span class="ltx_text ltx_font_italic">SIKOR</span> are quite creative and are
+hyphenated as the one in ex. <a href="#S3.SS2" title="3.2 A corpus tool ‣ 3 Compounds in three NLP applications ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.2</span></a>.</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S3.SS2.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">. <span class="ltx_text ltx_font_bold">suoidne-varra-bleahkka-mála-bihkka-senet-dielku</span> mu báiddis lei dušše lihkohisvuohta.
+<br class="ltx_break">hay-blood-ink-paint-tar-mustard-stain my shirt<span class="ltx_text ltx_font_smallcaps">.loc</span> was only mishap
+<br class="ltx_break">‘The hay-blood-ink-paint-tar-mustard-stain on my shirt was only a mishap.’</span></p>
+</div>
+<figure id="S3.T3" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_l ltx_border_r ltx_border_t">
+<span class="ltx_ERROR undefined">\diagbox</span>[height=7ex,width=8ex]PoSParts</th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t">2</th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t">3</th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t">4</th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t">5</th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t">6/7</th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r ltx_border_tt"><span class="ltx_text ltx_font_bold">N</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt">96.2</td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt">98.9</td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt">89.2</td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt">80</td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt">66.7</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_b ltx_border_l ltx_border_r"><span class="ltx_text ltx_font_bold">Prop</span></td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r">3.8</td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r">1.1</td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r">10.8</td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r">20</td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r">33.3</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 3: </span>Compound types in SIKOR by the PoS of their head and the number of their root (amounts given in percentage)</figcaption>
+</figure>
+<div id="S3.SS2.p5" class="ltx_para">
+<p class="ltx_p">The current public version of the Sámi corpus <span class="ltx_text ltx_font_italic">SIKOR</span> <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">sikor_06.11.2018</span>]</cite> (in Korp) consists of 32.2
+million words. It was analyzed with a
+preprocessor that does not distinguish between lexicalized and
+dynamic compounds. The (non-public) version of SIKOR used in this article
+makes this distinction, though, as will future versions in Korp.</p>
+</div>
+<div id="S3.SS2.p6" class="ltx_para">
+<p class="ltx_p">A search for compound tags only returns split compounds,
+i.e. the first coordinated hyphenated nominal element, cf. in
+ex. <span class="ltx_ERROR undefined">\Next</span>, i.e. <span class="ltx_text ltx_font_italic">riddo-</span> ‘coast-’.</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S3.SS2.p7" class="ltx_para">
+<p class="ltx_p">. <span class="ltx_text ltx_font_bold">riddo-</span> ja vuotnaguovlluin
+<br class="ltx_break">coast- and fjordregion<span class="ltx_text ltx_font_smallcaps">.loc.pl
+<br class="ltx_break"></span>‘in coastal and fjord regions’</p>
+</div>
+<div id="S3.SS2.p8" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_italic">GiellaLT</span> has already produced a solution, i.e. a tag for cohorts with
+a dynamic compound (<span class="ltx_text ltx_font_typewriter">&lt;with-dynamic-compound&gt;</span>) added by a Constraint Grammar module.
+However, this tag does not provide any information
+about the number of elements and the beginning and ending of each element.</p>
+</div>
+</section>
+<section id="S3.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.3 </span>A grammar checker (GramDivvun)</h3>
+
+<div id="S3.SS3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_italic">GramDivvun</span>, the
+North Sámi grammar checker <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Wiechetek2019</span>]</cite> takes input from the FST to a number of other modules, the core of which are several Constraint Grammar modules. Constraint Grammar
+is a rule-based formalism for writing disambiguation and syntactic
+annotation grammars <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Karlsson:1990</span>, <span class="ltx_ref ltx_missing_citation ltx_ref_self">Karlsson:1995</span>]</cite>.
+In our work, we use the free open source implementation VISLCG-3 <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Didriksen2015</span>]</cite>. All components are compiled and built
+using the <span class="ltx_text ltx_font_italic">GiellaLT</span>
+infrastructure <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Moshagen2013BuildingAO</span>]</cite>.</p>
+</div>
+<div id="S3.SS3.p2" class="ltx_para">
+<p class="ltx_p">Lexicalization of compounds is relevant for grammar checking within compound error detection. One common error that cannot be resolved by a spellchecker is the spelling of compounds as two or more words.
+<span class="ltx_text ltx_font_italic">GramDivvun</span> performs this type of error detection as part of the tokenization.
+The tokenization is done in two steps. In the first step potential compounds are tokenized ambiguously (either as one or as two words, the first of which is accompanied by an errortag). In the second step, a Constraint Grammar module<span id="footnote8" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">8</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">8</sup>
+              <span class="ltx_tag ltx_tag_note">8</span>
+              
+              
+              
+            <a href="https://github.com/giellalt/lang-sme/blob/3a43911929458fd39da309ed23178bf5dbd04bcd/tools/tokenisers/mwe-dis.cg3" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/giellalt/lang-sme/blob/3a43911929458fd39da309ed23178bf5dbd04bcd/tools/tokenisers/mwe-dis.cg3</a></span></span></span> selects or removes the error reading.
+Two conditions need to be met to find the compound error:
+1. the compound needs to be lexicalized, and 2. the syntactic context needs to support the compound reading.</p>
+</div>
+<div id="S3.SS3.p3" class="ltx_para">
+<p class="ltx_p">The syntactic context is specified in hand-written Constraint Grammar rules. The REMOVE-rule below removes the compound error reading (identified by the tag Err/SpaceCmp) if the head is a 3rd person singular verb (cf. l.2) and the first element of the potential compound is a noun in nominative case (cf. l.3). The context condition further specifies that there should be a finite verb (VFIN) somewhere in the sentence (cf. l.4) for the rule to apply.</p>
+</div>
+<span class="ltx_ERROR undefined">{Verbatim}</span>
+<div id="S3.SS3.p4" class="ltx_para">
+<p class="ltx_p">[frame=single,framerule=0.2mm,framesep=3mm,fontsize=<span class="ltx_text" style="font-size:80%;">,baselinestretch=1,numbers=left]
+REMOVE (Err/SpaceCmp)
+(0/0 (V Sg3))
+(0/1 (N Sg Nom))
+(*0 VFIN);
+</span></p>
+</div>
+<div id="S3.SS3.p5" class="ltx_para">
+<p class="ltx_p">All possible compounds written apart are considered
+to be errors by default, unless the lexicon specifies a two or
+several word compound or a syntactic rule removes the error reading.
+There are numerous syntactic contexts where the potential parts of
+compounds make perfectly sense.
+In the case of noun-noun compounds, the second element can for example be a simple adverbial,
+as in ex. <a href="#S3.SS3" title="3.3 A grammar checker (GramDivvun) ‣ 3 Compounds in three NLP applications ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.3</span></a>. The second element can be homonymous with another PoS, it can be a finite verb or an infinitive.</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S3.SS3.p6" class="ltx_para">
+<p class="ltx_p">. son lea boarráseamus <span class="ltx_text ltx_font_bold">mánná</span> <span class="ltx_text ltx_font_bold">joavkkus</span>.
+<br class="ltx_break">s/he is oldest child group<span class="ltx_text ltx_font_smallcaps">.loc
+<br class="ltx_break"></span>‘s/he is the oldest child in the group.’</p>
+</div>
+</section>
+</section>
+<section id="S4" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">4 </span>Evaluation</h2>
+
+<div id="S4.p1" class="ltx_para">
+<p class="ltx_p">We evaluate the e-dictionary (coverage) and the grammar checker (precision, recall) for compounding (errors). The corpus search tool does not exhibit compounding information and is therefore not evaluated.</p>
+</div>
+<section id="S4.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.1 </span>An e-dictionary (NDS)</h3>
+
+<div id="S4.SS1.p1" class="ltx_para">
+<p class="ltx_p">We analyzed the logs for NDS (<span class="ltx_text ltx_font_italic">Neahttadigisánit</span>) for 2019, and found that 12.6% of
+the types in the user queries are compounds. The results are obtained using the
+scripts that can be found in <span class="ltx_text ltx_font_italic">GiellaLT</span>The amount of lexicalized compounds in the logs (72.1%) is approximately
+the same as in the dictionary, where it is 75% (cf. Section <a href="#S3.SS1" title="3.1 An e-dictionary (NDS) ‣ 3 Compounds in three NLP applications ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.1</span></a> above).
+As much as 98% of the compound queries get a translation, either a lexicalized one or of its parts. Thus dynamic compounding
+contributes with a substantial improvement to dictionary coverage.
+If the alternatives are “getting no help from the dictionary” and “getting help to translate the parts” then the latter is to be preferred, even though the correct translation would be different from just joining the parts.
+For example, the compound word <span class="ltx_text ltx_font_italic">ruhtahearrá</span> ‘rich man’ is not lexicalized in NDS but it does get a translation of its parts <span class="ltx_text ltx_font_italic">ruhta</span> ‘money’ and <span class="ltx_text ltx_font_italic">hearrá</span> ‘man’, which can help the user to understand the meaning of the compound word itself.</p>
+</div>
+<div id="S4.SS1.p2" class="ltx_para">
+<p class="ltx_p">Most of the non lexicalized compounds are composed of 2 elements (96% in the logs and 93% in the entries).
+When analyzing the entries in the dictionary, we found that 24.8% are compounds and of those 97.6% are lexicalized.
+Table <a href="#S4.T4" title="Table 4 ‣ 4.1 An e-dictionary (NDS) ‣ 4 Evaluation ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">4</span></span></a> shows PoS for compounds in NDS logs and entries.</p>
+</div>
+<figure id="S4.T4" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_th ltx_th_column ltx_th_row ltx_border_l ltx_border_r ltx_border_t"></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_l ltx_border_r ltx_border_t" colspan="4"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Logs</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_l ltx_border_r ltx_border_t" colspan="4"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Entries</span></th>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_l ltx_border_r ltx_border_t">
+<span class="ltx_ERROR undefined">\diagbox</span><span class="ltx_text" style="font-size:90%;">[height=7.5ex,width=8ex]PoSParts</span>
+</th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:90%;">L</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:90%;">2</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:90%;">3</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:90%;">4</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:90%;">L</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:90%;">2</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:90%;">3</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_r ltx_border_t"><span class="ltx_text" style="font-size:90%;">4</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r ltx_border_tt"><span class="ltx_text" style="font-size:90%;">N</span></th>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt"><span class="ltx_text" style="font-size:90%;">90</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt"><span class="ltx_text" style="font-size:90%;">87</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt"><span class="ltx_text" style="font-size:90%;">85</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt"><span class="ltx_text" style="font-size:90%;">100</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt"><span class="ltx_text" style="font-size:90%;">86</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt"><span class="ltx_text" style="font-size:90%;">87</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt"><span class="ltx_text" style="font-size:90%;">82</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt"><span class="ltx_text" style="font-size:90%;">0</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">A</span></th>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">3</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">0</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">0</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">0</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">2</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">0</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">0</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">0</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">Prop</span></th>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">3</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">0</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">0</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">0</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">12</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">4</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">0</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">0</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">V</span></th>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">2</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">13</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">14</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">0</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">0</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">8</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">18</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text" style="font-size:90%;">0</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_b ltx_border_l ltx_border_r"><span class="ltx_text" style="font-size:90%;">Adv</span></th>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r"><span class="ltx_text" style="font-size:90%;">1</span></td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r"><span class="ltx_text" style="font-size:90%;">0</span></td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r"><span class="ltx_text" style="font-size:90%;">0</span></td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r"><span class="ltx_text" style="font-size:90%;">0</span></td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r"><span class="ltx_text" style="font-size:90%;">0</span></td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r"><span class="ltx_text" style="font-size:90%;">0</span></td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r"><span class="ltx_text" style="font-size:90%;">0</span></td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r"><span class="ltx_text" style="font-size:90%;">0</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering" style="font-size:90%;"><span class="ltx_tag ltx_tag_table">Table 4: </span>Compounds according to the number of their parts and PoS in NDS logs and entries (L=lexicalized)</figcaption>
+</figure>
+</section>
+<section id="S4.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.2 </span>A grammar checker (GramDivvun)</h3>
+
+<div id="S4.SS2.p1" class="ltx_para">
+<p class="ltx_p">We evaluate error detection for syntactic compound errors (i.e. words that are written
+apart and should be a compound) in <span class="ltx_text ltx_font_italic">GramDivvun</span> in two ways.
+Firstly, we compare last year’s results in Wiechetek <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Wiechetek2019b</span>]</cite> with a
+newer version of <span class="ltx_text ltx_font_italic">GramDivvun</span>, from now on referred to as the <span class="ltx_text ltx_font_italic">Nodalida</span>-corpus. Last year’s results are based on version <span class="ltx_text ltx_font_italic">r183544</span> <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Wiechetek2019b</span>]</cite><span id="footnote9" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">9</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">9</sup>
+              <span class="ltx_tag ltx_tag_note">9</span>
+              
+              
+              
+            <a href="https://github.com/giellalt/lang-sme/releases/tag/nodalida-2018" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/giellalt/lang-sme/releases/tag/nodalida-2018</a> on 2019-09-26</span></span></span>. The new results are based on version r28510<span id="footnote10" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">10</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">10</sup>
+              <span class="ltx_tag ltx_tag_note">10</span>
+              
+              
+              
+            <a href="https://github.com/giellalt/lang-sme/releases/tag/clicit" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/giellalt/lang-sme/releases/tag/clicit</a> on 2020-09-07</span></span></span> of <span class="ltx_text ltx_font_italic">GramDivvun</span>.</p>
+</div>
+<div id="S4.SS2.p2" class="ltx_para">
+<p class="ltx_p">However, as the focus in the last analysis was a different one, i.e. we evaluated other error types as well, we ran a second evaluation on a
+2 363 word-corpus<span id="footnote11" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">11</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">11</sup>
+              <span class="ltx_tag ltx_tag_note">11</span>
+              
+              
+              
+            <a href="http://gtsvn.uit.no/freecorpus/orig/sme/odda_mahppa/compounds.correct.txt" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://gtsvn.uit.no/freecorpus/orig/sme/odda_mahppa/compounds.correct.txt</a></span></span></span>
+specifically made to test compound error detection, i.e. every sentence contains a potential compound. These sentences are hand-selected from <span class="ltx_text ltx_font_italic">SIKOR</span>.</p>
+</div>
+<div id="S4.SS2.p3" class="ltx_para">
+<p class="ltx_p">The results of the evaluation are presented in Table <a href="#S4.T5" title="Table 5 ‣ 4.2 A grammar checker (GramDivvun) ‣ 4 Evaluation ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>. We can see that precision has gone significantly up, i.e. the average precision is 95.5%. However, the recall has gone down to average 46%. We are investigating the reasons for that. But in general, a high precision is desirable in grammar checking, even at the cost of a lower recall.</p>
+</div>
+<div id="S4.SS2.p4" class="ltx_para">
+<p class="ltx_p">The results of the evaluation of <span class="ltx_text ltx_font_italic">GramDivvun</span> compound grammar checking are shown in
+Table <a href="#S4.T5" title="Table 5 ‣ 4.2 A grammar checker (GramDivvun) ‣ 4 Evaluation ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>.</p>
+</div>
+<figure id="S4.T5" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold">Measure</span></th>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_t">(2019)</td>
+<td class="ltx_td ltx_align_center ltx_border_l ltx_border_r ltx_border_t" colspan="2">(2020)</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_th ltx_th_row ltx_border_l ltx_border_r ltx_border_t"></th>
+<td class="ltx_td ltx_align_center ltx_border_l ltx_border_r ltx_border_t" colspan="2"><span class="ltx_text ltx_font_bold">Nodalida</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold">Compound</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_th ltx_th_row ltx_border_l ltx_border_r"></th>
+<td class="ltx_td ltx_align_center ltx_border_l ltx_border_r" colspan="2"><span class="ltx_text ltx_font_bold">corpus</span></td>
+<td class="ltx_td ltx_align_right ltx_border_r"><span class="ltx_text ltx_font_bold">corpus</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r ltx_border_tt"><span class="ltx_text ltx_font_bold">Precision</span></th>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt">75.0%</td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt">93.1%</td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt">98.0%</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r"><span class="ltx_text ltx_font_bold">Recall</span></th>
+<td class="ltx_td ltx_align_right ltx_border_r">72.9%</td>
+<td class="ltx_td ltx_align_right ltx_border_r">43.2%</td>
+<td class="ltx_td ltx_align_right ltx_border_r">48.5%</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r"><span class="ltx_text ltx_font_bold">F1-Score</span></th>
+<td class="ltx_td ltx_align_right ltx_border_r">73.9</td>
+<td class="ltx_td ltx_align_right ltx_border_r">59.0</td>
+<td class="ltx_td ltx_align_right ltx_border_r">64.9</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r ltx_border_tt"><span class="ltx_text ltx_font_bold">TP</span></th>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt">51</td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt">54</td>
+<td class="ltx_td ltx_align_right ltx_border_r ltx_border_tt">50</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_l ltx_border_r"><span class="ltx_text ltx_font_bold">FP</span></th>
+<td class="ltx_td ltx_align_right ltx_border_r">17</td>
+<td class="ltx_td ltx_align_right ltx_border_r">4</td>
+<td class="ltx_td ltx_align_right ltx_border_r">1</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_b ltx_border_l ltx_border_r"><span class="ltx_text ltx_font_bold">FN</span></th>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r">19</td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r">67</td>
+<td class="ltx_td ltx_align_right ltx_border_b ltx_border_r">53</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 5: </span>Measures for GramDivvun (TP/FP= true/false
+positives, FN=false negatives)</figcaption>
+</figure>
+<div id="S4.SS2.p5" class="ltx_para">
+<p class="ltx_p">False negatives are typically due to the lack of lexicalization.
+Many of those are proper noun combinations which are very productive, e.g. <span class="ltx_text ltx_font_italic">Murmánska-aviisa</span> ‘Murmansk newspaper’, <span class="ltx_text ltx_font_italic">Várggát-festiválas</span> ‘at the Várggát festival’, <span class="ltx_text ltx_font_italic">km-galba</span> ‘km sign’ and <span class="ltx_text ltx_font_italic">Divttasvuotna-regiovnna</span> ‘Divttasvuotna region’. </p>
+</div>
+<div id="S4.SS2.p6" class="ltx_para">
+<p class="ltx_p">Other reasons are certain (unlikely) analyses of especially the first element, e.g.
+that generally suggest a syntactic construction rather than a compound as in
+ex. <a href="#S4.T5" title="Table 5 ‣ 4.2 A grammar checker (GramDivvun) ‣ 4 Evaluation ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>. Here the first element <span class="ltx_text ltx_font_italic">duorastat</span> ‘Thursday’ has a finite verb reading as well.
+</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S4.SS2.p7" class="ltx_para">
+<p class="ltx_p">. dán <span class="ltx_text ltx_font_bold">duorastat veaiggi</span>.
+<br class="ltx_break">this<span class="ltx_text ltx_font_smallcaps">.gen</span> Thursday twilight<span class="ltx_text ltx_font_smallcaps">.gen
+<br class="ltx_break"></span>‘this Thursday evening’</p>
+</div>
+<div id="S4.SS2.p8" class="ltx_para">
+<p class="ltx_p">The false positive is due to an error in the recognition of the span of the
+target. In ex. <a href="#S4.T5" title="Table 5 ‣ 4.2 A grammar checker (GramDivvun) ‣ 4 Evaluation ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>, <span class="ltx_text ltx_font_italic">lulli sámi guvlui</span> is concatenated, but it should only be <span class="ltx_text ltx_font_italic">lulli sámi</span>.</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S4.SS2.p9" class="ltx_para">
+<p class="ltx_p">. dohko <span class="ltx_text ltx_font_bold">lulli</span> <span class="ltx_text ltx_font_bold">sámi</span> guvlui.
+<br class="ltx_break">thither South Sámi area<span class="ltx_text ltx_font_smallcaps">.ill
+<br class="ltx_break"></span>‘thither towards the South Sámi area.’</p>
+</div>
+</section>
+</section>
+<section id="S5" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">5 </span>Conclusion</h2>
+
+<div id="S5.p1" class="ltx_para">
+<p class="ltx_p">We have shown that the lexicalization of compounds – in addition to their dynamic
+treatment –
+is useful and necessary
+for two language applications for North Sámi, an e-dictionary (<span class="ltx_text ltx_font_italic">NDS</span>) and a
+grammar checker (<span class="ltx_text ltx_font_italic">GramDivvun</span>). The evaluation of
+<span class="ltx_text ltx_font_italic">NDS</span> shows that we get a good coverage: 98% of the compounds logged do get a translation and 72% are lexicalized in the FST.
+The evaluation
+of <span class="ltx_text ltx_font_italic">GramDivvun</span> has shown that we manage to identify compound
+errors with a precision of 98% and a recall of 49% utilising a
+combination of information from the lexicon and syntax.</p>
+</div>
+<div id="S5.p2" class="ltx_para">
+<p class="ltx_p">We conclude that there are perfectly
+good reasons for lexicalizing compounds, i.e. providing idiomatic translations for when it
+cannot be derived from the parts, and to support compound grammar checking. At the same time, lexicalization can
+dissimulate word formation information in corpus tools.
+This can be resolved and we have already implemented a solution in Constraint Grammar to make the information available in a
+future version of the corpus tool.
+As dynamic compounding is limited to few PoS at the moment, in the
+future we want to investigate and model compounding of other PoS (in the FST).
+Also experiments with neural network approaches and a comparison of the results to our rule-based grammar checker could be an interesting future project.</p>
+</div>
+</section>
+<section id="Sx1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">Acknowledgments</h2>
+
+<div id="Sx1.p1" class="ltx_para">
+<p class="ltx_p">Thank you to Thomas Omma for doing the error corpus mark-up and for fun linguistic discussions, and to Lene Antonsen for digging in our corpus and helping to find just the right example.</p>
+</div>
+</section>
+<section id="bib" class="ltx_bibliography">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+
+<ul id="bib.L1" class="ltx_biblist">
+</ul>
+</section>
+</article>
+</div>
+<footer class="ltx_page_footer">
+<div class="ltx_page_logo">Generated  on Mon Dec 14 06:59:57 2020 by <a href="http://dlmf.nist.gov/LaTeXML/">LaTeXML <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="[LOGO]"></a>
+</div></footer>
+</div>
+</body>
+</html>
