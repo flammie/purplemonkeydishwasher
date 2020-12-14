@@ -1,7 +1,7 @@
 <!DOCTYPE html><html>
 <head>
-<title>Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf</title>
-<!--Generated on Mon Dec 14 06:59:57 2020 by LaTeXML (version 0.8.5) http://dlmf.nist.gov/LaTeXML/.-->
+<title>Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP?   1  footnote 1  1  footnote 1  Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf</title>
+<!--Generated on Mon Dec 14 08:01:48 2020 by LaTeXML (version 0.8.5) http://dlmf.nist.gov/LaTeXML/.-->
 <!--Document created on .-->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -17,8 +17,13 @@
 <span class="ltx_text ltx_font_italic">Suoidne-varra-bleahkka-mála-bihkka-senet-dielku</span>
 ‘hay-blood-ink-paint-tar-mustard-stain’ – 
 <br class="ltx_break">Should compounds be lexicalized in NLP?
-<span class="ltx_ERROR undefined">\footnotepubrights</span>Creative Commons CC-BY-SA by conference, the official version
-published in CEUR-WS at <a href="http://ceur-ws.org/Vol-2769/paper_49.pdf" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://ceur-ws.org/Vol-2769/paper_49.pdf</a>
+<span id="footnote1" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup>
+        <span class="ltx_tag ltx_tag_note">1</span>
+        
+        
+        
+      Creative Commons CC-BY-SA by conference, the official version
+published in CEUR-WS at <a href="http://ceur-ws.org/Vol-2769/paper_49.pdf" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://ceur-ws.org/Vol-2769/paper_49.pdf</a></span></span></span>
 </h1>
 <div class="ltx_authors">
 <span class="ltx_creator ltx_role_author">
@@ -26,10 +31,7 @@ published in CEUR-WS at <a href="http://ceur-ws.org/Vol-2769/paper_49.pdf" title
 <br class="ltx_break"><span class="ltx_text" style="font-size:90%;">linda.wiechetek@uit.no</span>   <span class="ltx_text" style="font-size:90%;">chiara.argese@uit.no</span>   <span class="ltx_text" style="font-size:90%;">tommi.pirinen@uit.no</span>   <span class="ltx_text" style="font-size:90%;">trond.trosterud@uit.no
 <br class="ltx_break">
 <br class="ltx_break"></span>
-Divvun &amp; Giellatekno
-</span></span>
-<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
-<span class="ltx_personname">
+Divvun &amp; Giellatekno,
 UiT Norgga árktalaš universitehta 
 <br class="ltx_break">
 </span></span>
@@ -68,8 +70,8 @@ copertura del 98% per le ricerche in <span class="ltx_text ltx_font_italic">NDS<
 <span class="ltx_tag ltx_tag_section">1 </span>Introduction</h2>
 
 <div id="S1.p1" class="ltx_para">
-<p class="ltx_p">In this paper<span id="footnote1" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup>
-            <span class="ltx_tag ltx_tag_note">1</span>
+<p class="ltx_p">In this paper<span id="footnote2" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">2</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">2</sup>
+            <span class="ltx_tag ltx_tag_note">2</span>
             
             
             
@@ -89,7 +91,7 @@ Lexicalization, i.e. listing compounds or inflected word forms as such, is the a
 In addition to these two approaches we also use guessers for certain tasks, i.e. proper name guessing in morpho-syntactic parsing. Our approach is entirely rule-based and open source. Within our 20 year experience with language tools for the Sámi languages and other languages with complex morphology, we have achieved good results and produced reliable tools.</p>
 </div>
 <div id="S1.p3" class="ltx_para">
-<p class="ltx_p">There are a number of approaches to error detection of a few errortypes for morphologically complex - although less complex than North Sámi - languages like Latvian <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Deksne2019</span>]</cite> and Russian <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Rozovskaya2019</span>]</cite>.
+<p class="ltx_p">There are a number of approaches to error detection of a few errortypes for morphologically complex - although less complex than North Sámi - languages like Latvian <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib140" title="Bidirectional lstm tagger for latvian grammatical error detection" class="ltx_ref">5</a>]</cite> and Russian <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib141" title="Grammar error correction in morphologically rich languages: the case of russian" class="ltx_ref">11</a>]</cite>.
 The Latvian neural network grammar checker focusses on preposition-postposition confusion, adjective-noun agreement, mood errors in verb forms, number and case in noun forms, definiteness of adjectives and missing commata. All of these error types have a good performance with precisions between 78% and 98.5%.
 Judging from their regular expressions to insert artificial errors, most of their error types seem to be fairly local errors that can be resolved based on bigrams.</p>
 </div>
@@ -106,16 +108,16 @@ The Russian system is based on an error-marked corpus of 200k words (deemed too 
 In compounding, two or several words are combined to form a new
 word. In Sámi, Finnic and Germanic languages, compounding is a
 productive process and new compounds like in <span class="ltx_ERROR undefined">\Next</span> can be made on
-the fly.<span id="footnote2" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">2</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">2</sup>
-            <span class="ltx_tag ltx_tag_note">2</span>
+the fly.<span id="footnote3" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">3</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">3</sup>
+            <span class="ltx_tag ltx_tag_note">3</span>
             
             
             
-          To avoid confusion with hyphenated compounds, “<math id="footnote2.m1" class="ltx_Math" alttext="|" display="inline"><mo stretchy="false">|</mo></math>” is used to mark word boundaries in compounds</span></span></span>
+          To avoid confusion with hyphenated compounds, “<math id="footnote3.m1" class="ltx_Math" alttext="|" display="inline"><mo stretchy="false">|</mo></math>” is used to mark word boundaries in compounds</span></span></span>
 In Romance languages, these compounds typically correspond to
 prepositional constructions (ital. ‘la federa del cuscino del
-divano’).<span id="footnote3" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">3</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">3</sup>
-            <span class="ltx_tag ltx_tag_note">3</span>
+divano’).<span id="footnote4" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">4</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">4</sup>
+            <span class="ltx_tag ltx_tag_note">4</span>
             
             
             
@@ -136,7 +138,7 @@ i.e. avoiding false alarms in <span class="ltx_text ltx_font_italic">Ávvir</sp
 </div>
 <div id="S1.p9" class="ltx_para">
 <p class="ltx_p">North Sámi is a Uralic language spoken in Norway, Sweden and Finland by
-approximately 25 700 speakers <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Ethnologue2018</span>]</cite>. It is a synthetic language,
+approximately 25 700 speakers <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib69" title="Ethnologue: languages of the world" class="ltx_ref">14</a>]</cite>. It is a synthetic language,
 where the open parts of speech (PoS) – nouns, adjectives, etc. – inflect for
 case, person and number. The grammatical categories are expressed by a
 combination of suffixes and stem-internal processes affecting root vowels and
@@ -150,11 +152,11 @@ In addition, nouns can bear possessive suffixes.
 Verbs are inflected for person, number (singular, dual, plural), tense (present and past tense) and mood (indicative, conditional, and potential). Derivational processes (passive, causative, inchoative, diminutive, reflexive, to name only some of them) enhance the combinatory possibilities of each verb.</p>
 </div>
 <div id="S1.p11" class="ltx_para">
-<p class="ltx_p">Table <a href="#S1.T1" title="Table 1 ‣ 1 Introduction ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a> illustrates that compounding in North Sámi
+<p class="ltx_p">Table <a href="#S1.T1" title="Table 1 ‣ 1 Introduction ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a> illustrates that compounding in North Sámi
 is by no means restricted to noun noun combinations, but includes a
 number of other <span class="ltx_text ltx_font_italic">parts-of-speech</span> (PoS) as well, also as
-heads.<span id="footnote4" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">4</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">4</sup>
-            <span class="ltx_tag ltx_tag_note">4</span>
+heads.<span id="footnote5" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">5</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">5</sup>
+            <span class="ltx_tag ltx_tag_note">5</span>
             
             
             
@@ -286,7 +288,7 @@ Adv=adverb, Pron=pronoun, Pcle=particle, PrfPrc=past participle, Num=numeral, Pr
 <div id="S1.p12" class="ltx_para">
 <p class="ltx_p">In North Sámi, compounds are formed without a hyphen, except for those involving a proper noun, a digit, or an acronym like <span class="ltx_text ltx_font_italic">Davvi-Norgii</span> ‘Northern Norway (Ill.)’,
 <span class="ltx_text ltx_font_italic">3-juvllatsykkel</span> ‘tricycle’,
-and <span class="ltx_text ltx_font_italic">ILO-álgoálbmotsoahpamuš</span> ‘ILO-indigenous people agreement’ <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">callinravagirji2015</span>, p.46]</cite>. There are a number of multiwords where a space is obligatory (<span class="ltx_text ltx_font_italic">albma ládje</span> ‘properly’ and <span class="ltx_text ltx_font_italic">duollet dálle</span> ‘sometimes’). Also genitive first compounds have an alternative interpretation when
+and <span class="ltx_text ltx_font_italic">ILO-álgoálbmotsoahpamuš</span> ‘ILO-indigenous people agreement’ <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib48" title="Riektačállinrávvagat" class="ltx_ref">10</a>, p.46]</cite>. There are a number of multiwords where a space is obligatory (<span class="ltx_text ltx_font_italic">albma ládje</span> ‘properly’ and <span class="ltx_text ltx_font_italic">duollet dálle</span> ‘sometimes’). Also genitive first compounds have an alternative interpretation when
 written apart, which makes error detection more difficult.
 </p>
 </div>
@@ -297,30 +299,30 @@ written apart, which makes error detection more difficult.
 
 <div id="S2.p1" class="ltx_para">
 <p class="ltx_p">The North Sámi tools described in this article – <span class="ltx_text ltx_font_italic">NDS</span>, <span class="ltx_text ltx_font_italic">Korp</span> for <span class="ltx_text ltx_font_italic">SIKOR</span> and
-<span class="ltx_text ltx_font_italic">GramDivvun</span> <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Wiechetek2012</span>]</cite> – all rely on the <span class="ltx_text ltx_font_italic">GiellaLT</span>
-infrastructure <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Moshagen2013BuildingAO</span>]</cite>, a technological framework
+<span class="ltx_text ltx_font_italic">GramDivvun</span> <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib56" title="Constraint Grammar based correction of grammatical errors for North Sámi" class="ltx_ref">17</a>]</cite> – all rely on the <span class="ltx_text ltx_font_italic">GiellaLT</span>
+infrastructure <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib124" title="Building an open-source development infrastructure for language technology projects" class="ltx_ref">8</a>]</cite>, a technological framework
 for managing lexical data and building it into language technology applications
 including e-dictionaries and grammar checkers. All of them make use of a
 morphological analyzer, an <span class="ltx_text ltx_font_italic">FST</span> (Finite-State Transducer) described in
-Pirinen <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Pirinen2014</span>]</cite>, where word formation processes are moduled.
+Pirinen <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib128" title="State-of-the-art in weighted finite-state spell-checking" class="ltx_ref">9</a>]</cite>, where word formation processes are moduled.
 Additionally, <span class="ltx_text ltx_font_italic">SIKOR</span> and <span class="ltx_text ltx_font_italic">GramDivvun</span> include a Constraint
 Grammar-based syntactic analysis. The full modular structure of the latter is
-described in Wiechetek <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Wiechetek2019</span>]</cite>.</p>
+described in Wiechetek <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib136" title="Many shades of grammar checking – launching a constraint grammar tool for north sámi" class="ltx_ref">16</a>]</cite>.</p>
 </div>
 <div id="S2.p2" class="ltx_para">
 <p class="ltx_p">The computational modeling of the language is done using finite-state
-morphology <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Beesley2003</span>]</cite>. The method of recognizing grammatical
+morphology <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib49" title="Finite state morphology" class="ltx_ref">2</a>]</cite>. The method of recognizing grammatical
 words as well as querying their grammatical information is based on
 looking up the words in an FST that contains the morphological
 dictionary of the language. There are two types of compounds in the
 language model: the ones that are stored in the lexicon as lexicalized
 units and the ones generated dynamically using a compounding model.
-Table <a href="#S2.T2" title="Table 2 ‣ 2 Background ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> gives the statistics over the length of lexicalized compounds.<span id="footnote5" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">5</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">5</sup>
-            <span class="ltx_tag ltx_tag_note">5</span>
+Table <a href="#S2.T2" title="Table 2 ‣ 2 Background ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> gives the statistics over the length of lexicalized compounds.<span id="footnote6" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">6</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">6</sup>
+            <span class="ltx_tag ltx_tag_note">6</span>
             
             
             
-          The table is based on the dictionary size at the time of the writing (September 2020); it is actively developed daily. Further abbreviations are Adp<math id="footnote5.m1" class="ltx_Math" alttext="=" display="inline"><mo>=</mo></math>adposition, Conj<math id="footnote5.m2" class="ltx_Math" alttext="=" display="inline"><mo>=</mo></math>conjunction.</span></span></span></p>
+          The table is based on the dictionary size at the time of the writing (September 2020); it is actively developed daily. Further abbreviations are Adp<math id="footnote6.m1" class="ltx_Math" alttext="=" display="inline"><mo>=</mo></math>adposition, Conj<math id="footnote6.m2" class="ltx_Math" alttext="=" display="inline"><mo>=</mo></math>conjunction.</span></span></span></p>
 </div>
 <div id="S2.p3" class="ltx_para">
 <p class="ltx_p">Lexicalized four-element compounds are quite common in the noun lexicon,
@@ -330,7 +332,7 @@ Even six-element compounds (<span class="ltx_text ltx_font_italic">sáivačáhce
 </div>
 <div id="S2.p4" class="ltx_para">
 <p class="ltx_p">The different types of North Sámi
-compounds in Table <a href="#S1.T1" title="Table 1 ‣ 1 Introduction ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a> are not treated equally in the
+compounds in Table <a href="#S1.T1" title="Table 1 ‣ 1 Introduction ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a> are not treated equally in the
 morphological analyzer. Only the compounds in the first two lines can
 be derived dynamically.
 All others need to be lexicalized, i.e. listed in the lexicon, to receive a compound analysis. Numeral compounding is not treated dynamically in the FST.
@@ -343,7 +345,7 @@ capable of modeling infinitely long compounds: for example nouns of
 any magnitude are compounds and modeled by the finite-state
 automaton. Since the compounding mechanism of an FST is very powerful, it
 also leads to ambiguity. When we allow arbitrary lexemes to combine
-to form compounds, some will overlap other existing lexemes, cf. ex. <a href="#S2" title="2 Background ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>.</p>
+to form compounds, some will overlap other existing lexemes, cf. ex. <a href="#S2" title="2 Background ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>.</p>
 </div>
 <span class="ltx_ERROR undefined">\exg</span>
 <div id="S2.p5" class="ltx_para">
@@ -453,13 +455,13 @@ head and the number of their roots</figcaption>
 <div id="S3.SS1.p1" class="ltx_para">
 <p class="ltx_p">The North Sámi – Norwegian dictionary contains 25 000 lemmata and uses
 an FST.
-The e-dictionary was first implemented in 2013 with no use of relational databases (all linguistic resources are contained within static files and external command-line tools) <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Johnson2013</span>]</cite>.
+The e-dictionary was first implemented in 2013 with no use of relational databases (all linguistic resources are contained within static files and external command-line tools) <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib139" title="Using finite state transducers for making efficient reading comprehension dictionaries." class="ltx_ref">12</a>]</cite>.
 It is an intelligent dictionary in the sense that is able to look up North Sámi word forms and find lemmas via the FST.
 It also allows a tolerant mode, which accepts the letters <span class="ltx_text ltx_font_italic">acdnstz</span> for <span class="ltx_text ltx_font_italic">áčđŋšt-ž</span> in addition to their usual values.
 The e-dictionary can split compounds to provide the user with its elements
 as well as the whole compound if a translation is available.
 The lexicalization of compounds is important since the translation of the
-compound cannot necessarily be derived from the translation of its parts <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Antonsen18</span>, p.54]</cite>.</p>
+compound cannot necessarily be derived from the translation of its parts <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib138" title="Sámegielaid modelleren – huksen ja heiveheapmi duohta giellamáilbmái. [Modeling Saami languages. Construction and adaptation to real-world linguistic issues]" class="ltx_ref">1</a>, p.54]</cite>.</p>
 </div>
 <div id="S3.SS1.p2" class="ltx_para">
 <p class="ltx_p">In the FST 90% of the 100 000 nouns, and in the dictionary 75% of the 25 000 nouns
@@ -471,7 +473,7 @@ are compounds. </p>
 <span class="ltx_tag ltx_tag_subsection">3.2 </span>A corpus tool</h3>
 
 <div id="S3.SS2.p1" class="ltx_para">
-<p class="ltx_p">The web application and corpus search tool <span class="ltx_text ltx_font_italic">Korp</span> <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Borin2012</span>]</cite> does
+<p class="ltx_p">The web application and corpus search tool <span class="ltx_text ltx_font_italic">Korp</span> <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib57" title="Korp – the corpus infrastructure of språkbanken" class="ltx_ref">4</a>]</cite> does
 not show the internal structure of compounds in <span class="ltx_text ltx_font_italic">SIKOR</span>. Neither
 lexicalized, nor dynamic compounds are searchable as either the lexicalized
 analysis is picked instead of the dynamic one or – in the case of compounds
@@ -483,14 +485,14 @@ element in split compounds in coordination receives a specific compound tag
 (<span class="ltx_text ltx_font_typewriter">+Cmp/SplitR</span>) as well.</p>
 </div>
 <div id="S3.SS2.p2" class="ltx_para">
-<p class="ltx_p">Table <a href="#S3.T3" title="Table 3 ‣ 3.2 A corpus tool ‣ 3 Compounds in three NLP applications ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a> shows the statistics for compounds in
-<span class="ltx_text ltx_font_italic">SIKOR</span>.<span id="footnote6" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">6</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">6</sup>
-              <span class="ltx_tag ltx_tag_note">6</span>
-              
-              
-              
-            The search was done on 2020-09-07.</span></span></span> The results are obtained using the scripts that can be found in <span class="ltx_text ltx_font_italic">GiellaLT</span>.<span id="footnote7" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">7</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">7</sup>
+<p class="ltx_p">Table <a href="#S3.T3" title="Table 3 ‣ 3.2 A corpus tool ‣ 3 Compounds in three NLP applications ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a> shows the statistics for compounds in
+<span class="ltx_text ltx_font_italic">SIKOR</span>.<span id="footnote7" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">7</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">7</sup>
               <span class="ltx_tag ltx_tag_note">7</span>
+              
+              
+              
+            The search was done on 2020-09-07.</span></span></span> The results are obtained using the scripts that can be found in <span class="ltx_text ltx_font_italic">GiellaLT</span>.<span id="footnote8" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">8</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">8</sup>
+              <span class="ltx_tag ltx_tag_note">8</span>
               
               
               
@@ -500,7 +502,7 @@ mainly composed of 2-elements compounds (13.4%) and a very small part of 4-7 ele
 </div>
 <div id="S3.SS2.p3" class="ltx_para">
 <p class="ltx_p">Many of the longer compounds in <span class="ltx_text ltx_font_italic">SIKOR</span> are quite creative and are
-hyphenated as the one in ex. <a href="#S3.SS2" title="3.2 A corpus tool ‣ 3 Compounds in three NLP applications ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.2</span></a>.</p>
+hyphenated as the one in ex. <a href="#S3.SS2" title="3.2 A corpus tool ‣ 3 Compounds in three NLP applications ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.2</span></a>.</p>
 </div>
 <span class="ltx_ERROR undefined">\exg</span>
 <div id="S3.SS2.p4" class="ltx_para">
@@ -543,7 +545,7 @@ hyphenated as the one in ex. <a href="#S3.SS2" title="3.2 A corpus tool ‣ 3 C
 <figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 3: </span>Compound types in SIKOR by the PoS of their head and the number of their root (amounts given in percentage)</figcaption>
 </figure>
 <div id="S3.SS2.p5" class="ltx_para">
-<p class="ltx_p">The current public version of the Sámi corpus <span class="ltx_text ltx_font_italic">SIKOR</span> <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">sikor_06.11.2018</span>]</cite> (in Korp) consists of 32.2
+<p class="ltx_p">The current public version of the Sámi corpus <span class="ltx_text ltx_font_italic">SIKOR</span> <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib137" title="SIKOR uit norgga árktalaš universitehta ja norgga sámedikki sámi teakstačoakkáldat, veršuvdna 06.11.2018" class="ltx_ref">13</a>]</cite> (in Korp) consists of 32.2
 million words. It was analyzed with a
 preprocessor that does not distinguish between lexicalized and
 dynamic compounds. The (non-public) version of SIKOR used in this article
@@ -573,18 +575,18 @@ about the number of elements and the beginning and ending of each element.</p>
 
 <div id="S3.SS3.p1" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text ltx_font_italic">GramDivvun</span>, the
-North Sámi grammar checker <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Wiechetek2019</span>]</cite> takes input from the FST to a number of other modules, the core of which are several Constraint Grammar modules. Constraint Grammar
+North Sámi grammar checker <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib136" title="Many shades of grammar checking – launching a constraint grammar tool for north sámi" class="ltx_ref">16</a>]</cite> takes input from the FST to a number of other modules, the core of which are several Constraint Grammar modules. Constraint Grammar
 is a rule-based formalism for writing disambiguation and syntactic
-annotation grammars <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Karlsson:1990</span>, <span class="ltx_ref ltx_missing_citation ltx_ref_self">Karlsson:1995</span>]</cite>.
-In our work, we use the free open source implementation VISLCG-3 <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Didriksen2015</span>]</cite>. All components are compiled and built
+annotation grammars <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib99" title="Constraint Grammar as a Framework for Parsing Running Text" class="ltx_ref">7</a>, <a href="#bib.bib98" title="Constraint grammar: a language-independent system for parsing unrestricted text" class="ltx_ref">6</a>]</cite>.
+In our work, we use the free open source implementation VISLCG-3 <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib21" title="CG-3 – beyond classical Constraint Grammar" class="ltx_ref">3</a>]</cite>. All components are compiled and built
 using the <span class="ltx_text ltx_font_italic">GiellaLT</span>
-infrastructure <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Moshagen2013BuildingAO</span>]</cite>.</p>
+infrastructure <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib124" title="Building an open-source development infrastructure for language technology projects" class="ltx_ref">8</a>]</cite>.</p>
 </div>
 <div id="S3.SS3.p2" class="ltx_para">
 <p class="ltx_p">Lexicalization of compounds is relevant for grammar checking within compound error detection. One common error that cannot be resolved by a spellchecker is the spelling of compounds as two or more words.
 <span class="ltx_text ltx_font_italic">GramDivvun</span> performs this type of error detection as part of the tokenization.
-The tokenization is done in two steps. In the first step potential compounds are tokenized ambiguously (either as one or as two words, the first of which is accompanied by an errortag). In the second step, a Constraint Grammar module<span id="footnote8" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">8</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">8</sup>
-              <span class="ltx_tag ltx_tag_note">8</span>
+The tokenization is done in two steps. In the first step potential compounds are tokenized ambiguously (either as one or as two words, the first of which is accompanied by an errortag). In the second step, a Constraint Grammar module<span id="footnote9" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">9</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">9</sup>
+              <span class="ltx_tag ltx_tag_note">9</span>
               
               
               
@@ -611,7 +613,7 @@ several word compound or a syntactic rule removes the error reading.
 There are numerous syntactic contexts where the potential parts of
 compounds make perfectly sense.
 In the case of noun-noun compounds, the second element can for example be a simple adverbial,
-as in ex. <a href="#S3.SS3" title="3.3 A grammar checker (GramDivvun) ‣ 3 Compounds in three NLP applications ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.3</span></a>. The second element can be homonymous with another PoS, it can be a finite verb or an infinitive.</p>
+as in ex. <a href="#S3.SS3" title="3.3 A grammar checker (GramDivvun) ‣ 3 Compounds in three NLP applications ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.3</span></a>. The second element can be homonymous with another PoS, it can be a finite verb or an infinitive.</p>
 </div>
 <span class="ltx_ERROR undefined">\exg</span>
 <div id="S3.SS3.p6" class="ltx_para">
@@ -636,7 +638,7 @@ as in ex. <a href="#S3.SS3" title="3.3 A grammar checker (GramDivvun) ‣ 3 Com
 <p class="ltx_p">We analyzed the logs for NDS (<span class="ltx_text ltx_font_italic">Neahttadigisánit</span>) for 2019, and found that 12.6% of
 the types in the user queries are compounds. The results are obtained using the
 scripts that can be found in <span class="ltx_text ltx_font_italic">GiellaLT</span>The amount of lexicalized compounds in the logs (72.1%) is approximately
-the same as in the dictionary, where it is 75% (cf. Section <a href="#S3.SS1" title="3.1 An e-dictionary (NDS) ‣ 3 Compounds in three NLP applications ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.1</span></a> above).
+the same as in the dictionary, where it is 75% (cf. Section <a href="#S3.SS1" title="3.1 An e-dictionary (NDS) ‣ 3 Compounds in three NLP applications ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.1</span></a> above).
 As much as 98% of the compound queries get a translation, either a lexicalized one or of its parts. Thus dynamic compounding
 contributes with a substantial improvement to dictionary coverage.
 If the alternatives are “getting no help from the dictionary” and “getting help to translate the parts” then the latter is to be preferred, even though the correct translation would be different from just joining the parts.
@@ -645,7 +647,7 @@ For example, the compound word <span class="ltx_text ltx_font_italic">ruhtahearr
 <div id="S4.SS1.p2" class="ltx_para">
 <p class="ltx_p">Most of the non lexicalized compounds are composed of 2 elements (96% in the logs and 93% in the entries).
 When analyzing the entries in the dictionary, we found that 24.8% are compounds and of those 97.6% are lexicalized.
-Table <a href="#S4.T4" title="Table 4 ‣ 4.1 An e-dictionary (NDS) ‣ 4 Evaluation ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">4</span></span></a> shows PoS for compounds in NDS logs and entries.</p>
+Table <a href="#S4.T4" title="Table 4 ‣ 4.1 An e-dictionary (NDS) ‣ 4 Evaluation ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">4</span></span></a> shows PoS for compounds in NDS logs and entries.</p>
 </div>
 <figure id="S4.T4" class="ltx_table">
 <table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
@@ -737,14 +739,14 @@ Table <a href="#S4.T4" title="Table 4 ‣ 4.1 An e-dictionary (NDS) ‣ 4 Evalua
 <div id="S4.SS2.p1" class="ltx_para">
 <p class="ltx_p">We evaluate error detection for syntactic compound errors (i.e. words that are written
 apart and should be a compound) in <span class="ltx_text ltx_font_italic">GramDivvun</span> in two ways.
-Firstly, we compare last year’s results in Wiechetek <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Wiechetek2019b</span>]</cite> with a
-newer version of <span class="ltx_text ltx_font_italic">GramDivvun</span>, from now on referred to as the <span class="ltx_text ltx_font_italic">Nodalida</span>-corpus. Last year’s results are based on version <span class="ltx_text ltx_font_italic">r183544</span> <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Wiechetek2019b</span>]</cite><span id="footnote9" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">9</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">9</sup>
-              <span class="ltx_tag ltx_tag_note">9</span>
-              
-              
-              
-            <a href="https://github.com/giellalt/lang-sme/releases/tag/nodalida-2018" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/giellalt/lang-sme/releases/tag/nodalida-2018</a> on 2019-09-26</span></span></span>. The new results are based on version r28510<span id="footnote10" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">10</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">10</sup>
+Firstly, we compare last year’s results in Wiechetek <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib4" title="Seeing more than whitespace – Tokenisation and disambiguation in a North Sámi grammar checker" class="ltx_ref">15</a>]</cite> with a
+newer version of <span class="ltx_text ltx_font_italic">GramDivvun</span>, from now on referred to as the <span class="ltx_text ltx_font_italic">Nodalida</span>-corpus. Last year’s results are based on version <span class="ltx_text ltx_font_italic">r183544</span> <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib4" title="Seeing more than whitespace – Tokenisation and disambiguation in a North Sámi grammar checker" class="ltx_ref">15</a>]</cite><span id="footnote10" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">10</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">10</sup>
               <span class="ltx_tag ltx_tag_note">10</span>
+              
+              
+              
+            <a href="https://github.com/giellalt/lang-sme/releases/tag/nodalida-2018" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/giellalt/lang-sme/releases/tag/nodalida-2018</a> on 2019-09-26</span></span></span>. The new results are based on version r28510<span id="footnote11" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">11</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">11</sup>
+              <span class="ltx_tag ltx_tag_note">11</span>
               
               
               
@@ -752,8 +754,8 @@ newer version of <span class="ltx_text ltx_font_italic">GramDivvun</span>, from 
 </div>
 <div id="S4.SS2.p2" class="ltx_para">
 <p class="ltx_p">However, as the focus in the last analysis was a different one, i.e. we evaluated other error types as well, we ran a second evaluation on a
-2 363 word-corpus<span id="footnote11" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">11</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">11</sup>
-              <span class="ltx_tag ltx_tag_note">11</span>
+2 363 word-corpus<span id="footnote12" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">12</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">12</sup>
+              <span class="ltx_tag ltx_tag_note">12</span>
               
               
               
@@ -761,11 +763,11 @@ newer version of <span class="ltx_text ltx_font_italic">GramDivvun</span>, from 
 specifically made to test compound error detection, i.e. every sentence contains a potential compound. These sentences are hand-selected from <span class="ltx_text ltx_font_italic">SIKOR</span>.</p>
 </div>
 <div id="S4.SS2.p3" class="ltx_para">
-<p class="ltx_p">The results of the evaluation are presented in Table <a href="#S4.T5" title="Table 5 ‣ 4.2 A grammar checker (GramDivvun) ‣ 4 Evaluation ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>. We can see that precision has gone significantly up, i.e. the average precision is 95.5%. However, the recall has gone down to average 46%. We are investigating the reasons for that. But in general, a high precision is desirable in grammar checking, even at the cost of a lower recall.</p>
+<p class="ltx_p">The results of the evaluation are presented in Table <a href="#S4.T5" title="Table 5 ‣ 4.2 A grammar checker (GramDivvun) ‣ 4 Evaluation ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>. We can see that precision has gone significantly up, i.e. the average precision is 95.5%. However, the recall has gone down to average 46%. We are investigating the reasons for that. But in general, a high precision is desirable in grammar checking, even at the cost of a lower recall.</p>
 </div>
 <div id="S4.SS2.p4" class="ltx_para">
 <p class="ltx_p">The results of the evaluation of <span class="ltx_text ltx_font_italic">GramDivvun</span> compound grammar checking are shown in
-Table <a href="#S4.T5" title="Table 5 ‣ 4.2 A grammar checker (GramDivvun) ‣ 4 Evaluation ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>.</p>
+Table <a href="#S4.T5" title="Table 5 ‣ 4.2 A grammar checker (GramDivvun) ‣ 4 Evaluation ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>.</p>
 </div>
 <figure id="S4.T5" class="ltx_table">
 <table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
@@ -833,7 +835,7 @@ Many of those are proper noun combinations which are very productive, e.g. <span
 <div id="S4.SS2.p6" class="ltx_para">
 <p class="ltx_p">Other reasons are certain (unlikely) analyses of especially the first element, e.g.
 that generally suggest a syntactic construction rather than a compound as in
-ex. <a href="#S4.T5" title="Table 5 ‣ 4.2 A grammar checker (GramDivvun) ‣ 4 Evaluation ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>. Here the first element <span class="ltx_text ltx_font_italic">duorastat</span> ‘Thursday’ has a finite verb reading as well.
+ex. <a href="#S4.T5" title="Table 5 ‣ 4.2 A grammar checker (GramDivvun) ‣ 4 Evaluation ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>. Here the first element <span class="ltx_text ltx_font_italic">duorastat</span> ‘Thursday’ has a finite verb reading as well.
 </p>
 </div>
 <span class="ltx_ERROR undefined">\exg</span>
@@ -844,7 +846,7 @@ ex. <a href="#S4.T5" title="Table 5 ‣ 4.2 A grammar checker (GramDivvun) ‣ 
 </div>
 <div id="S4.SS2.p8" class="ltx_para">
 <p class="ltx_p">The false positive is due to an error in the recognition of the span of the
-target. In ex. <a href="#S4.T5" title="Table 5 ‣ 4.2 A grammar checker (GramDivvun) ‣ 4 Evaluation ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? \footnotepubrightsCreative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>, <span class="ltx_text ltx_font_italic">lulli sámi guvlui</span> is concatenated, but it should only be <span class="ltx_text ltx_font_italic">lulli sámi</span>.</p>
+target. In ex. <a href="#S4.T5" title="Table 5 ‣ 4.2 A grammar checker (GramDivvun) ‣ 4 Evaluation ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>, <span class="ltx_text ltx_font_italic">lulli sámi guvlui</span> is concatenated, but it should only be <span class="ltx_text ltx_font_italic">lulli sámi</span>.</p>
 </div>
 <span class="ltx_ERROR undefined">\exg</span>
 <div id="S4.SS2.p9" class="ltx_para">
@@ -893,12 +895,231 @@ Also experiments with neural network approaches and a comparison of the results 
 <h2 class="ltx_title ltx_title_bibliography">References</h2>
 
 <ul id="bib.L1" class="ltx_biblist">
+<li id="bib.bib138" class="ltx_bibitem ltx_bib_thesis">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Antonsen</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Sámegielaid modelleren – huksen ja heiveheapmi duohta giellamáilbmái. [Modeling Saami languages. Construction and adaptation to real-world linguistic issues]</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_type">Ph.D. Thesis</span>, <span class="ltx_text ltx_bib_publisher">UiT The Arctic University of Norway</span>, <span class="ltx_text ltx_bib_place">Tromsø</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://hdl.handle.net/10037/12884" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS1.p1" title="3.1 An e-dictionary (NDS) ‣ 3 Compounds in three NLP applications ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.1</span></a>.
+</span>
+</li>
+<li id="bib.bib49" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. R. Beesley and L. Karttunen</span><span class="ltx_text ltx_bib_year"> (2003)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Finite state morphology</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">CSLI Studies in Computational Linguistics</span>,  <span class="ltx_text ltx_bib_publisher">CSLI Publications</span>, <span class="ltx_text ltx_bib_place">Stanford</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p2" title="2 Background ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib21" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. Bick and T. Didriksen</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">CG-3 – beyond classical Constraint Grammar</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 20th Nordic Conference of Computational Linguistics (NoDaLiDa 2015)</span>,  <span class="ltx_text ltx_bib_editor">B. Megyesi (Ed.)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 31–39</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1650-3740</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS3.p1" title="3.3 A grammar checker (GramDivvun) ‣ 3 Compounds in three NLP applications ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.3</span></a>.
+</span>
+</li>
+<li id="bib.bib57" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Borin, M. Forsberg, and J. Roxendal</span><span class="ltx_text ltx_bib_year"> (2012)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Korp – the corpus infrastructure of språkbanken</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 8th International Conference on Language Resources and Evaluation (LREC 2012)</span>,  <span class="ltx_text ltx_bib_editor">N. Calzolari, K. Choukri, T. Declerck, M. U. Doğan, B. Maegaard, J. Mariani, J. Odijk, and S. Piperidis (Eds.)</span>,
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS2.p1" title="3.2 A corpus tool ‣ 3 Compounds in three NLP applications ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.2</span></a>.
+</span>
+</li>
+<li id="bib.bib140" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Deksne</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Bidirectional lstm tagger for latvian grammatical error detection</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Ekštein K. (eds) Text, Speech, and Dialogue. TSD 2019. Lecture Notes in Computer Science, vol 11697. Springer</span>,
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://doi.org/10.1007/978-3-030-27947-9_5" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p3" title="1 Introduction ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib98" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. Karlsson, A. Voutilainen, J. Heikkilä, and A. Anttila</span><span class="ltx_text ltx_bib_year"> (1995)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Constraint grammar: a language-independent system for parsing unrestricted text</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">Mouton de Gruyter</span>, <span class="ltx_text ltx_bib_place">Berlin</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS3.p1" title="3.3 A grammar checker (GramDivvun) ‣ 3 Compounds in three NLP applications ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.3</span></a>.
+</span>
+</li>
+<li id="bib.bib99" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. Karlsson</span><span class="ltx_text ltx_bib_year"> (1990)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Constraint Grammar as a Framework for Parsing Running Text</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 13th Conference on Computational Linguistics (COLING 1990)</span>,  <span class="ltx_text ltx_bib_editor">H. Karlgren (Ed.)</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume">3</span>, <span class="ltx_text ltx_bib_place">Helsinki, Finland</span>, <span class="ltx_text ltx_bib_pages"> pp. 168–173</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS3.p1" title="3.3 A grammar checker (GramDivvun) ‣ 3 Compounds in three NLP applications ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.3</span></a>.
+</span>
+</li>
+<li id="bib.bib124" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. N. Moshagen, T. A. Pirinen, and T. Trosterud</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Building an open-source development infrastructure for language technology projects</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">NODALIDA</span>,
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Background ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>,
+<a href="#S3.SS3.p1" title="3.3 A grammar checker (GramDivvun) ‣ 3 Compounds in three NLP applications ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.3</span></a>.
+</span>
+</li>
+<li id="bib.bib128" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. A. Pirinen and K. Lindén</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">State-of-the-art in weighted finite-state spell-checking</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 15th International Conference on Computational Linguistics and Intelligent Text Processing - Volume 8404</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">CICLing 2014</span>, <span class="ltx_text ltx_bib_place">Berlin, Heidelberg</span>, <span class="ltx_text ltx_bib_pages"> pp. 519–532</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Background ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib48" class="ltx_bibitem ltx_bib_misc">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Riektačállinrávvagat</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Riektačállinrávvagat</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">Sámedikki giellaossodat/Sámedikki oahpahusossodat, Guovdageaidnu</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://www.sametinget.no/content/download/870/13825%20(Accessed%202017-11-3)" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p12" title="1 Introduction ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib141" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Rozovskaya and D. Roth</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Grammar error correction in morphologically rich languages: the case of russian</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Transactions of the Association for Computational Linguistics, vol. 7, pp. 1–17, 2019</span>,
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://www.aclweb.org/anthology/Q19-1001.pdf" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p3" title="1 Introduction ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib139" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. T. Ryan Johnson</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Using finite state transducers for making efficient reading comprehension dictionaries.</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 19th Nordic Conference of Computational Linguistics (NoDaLiDa 2013)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">Proceedings Series 16: 59–71</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS1.p1" title="3.1 An e-dictionary (NDS) ‣ 3 Compounds in three NLP applications ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.1</span></a>.
+</span>
+</li>
+<li id="bib.bib137" class="ltx_bibitem ltx_bib_misc">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">SIKOR</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">SIKOR uit norgga árktalaš universitehta ja norgga sámedikki sámi teakstačoakkáldat, veršuvdna 06.11.2018</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">Accessed: 2018-11-06</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="http://gtweb.uit.no/korp" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS2.p5" title="3.2 A corpus tool ‣ 3 Compounds in three NLP applications ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.2</span></a>.
+</span>
+</li>
+<li id="bib.bib69" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_editor">G. F. Simons and C. D. Fennig (Eds.)</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Ethnologue: languages of the world</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_edition">twenty-first edition</span>,  <span class="ltx_text ltx_bib_publisher">SIL International</span>, <span class="ltx_text ltx_bib_place">Dallas, Texas</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="http://www.ethnologue.com%20(Accessed%202018-10-09)" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p9" title="1 Introduction ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib4" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Wiechetek, K. Brubeck Unhammer, and S. Nørstebø Moshagen</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Seeing more than whitespace – Tokenisation and disambiguation in a North Sámi grammar checker</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the third Workshop on the Use of Computational Methods in the Study of Endangered Languages</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 46–55</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://www.aclweb.org/anthology/W19-6007" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS2.p1" title="4.2 A grammar checker (GramDivvun) ‣ 4 Evaluation ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.2</span></a>.
+</span>
+</li>
+<li id="bib.bib136" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Wiechetek, S. N. Moshagen, B. Gaup, and T. Omma</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Many shades of grammar checking – launching a constraint grammar tool for north sámi</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the NoDaLiDa 2019 Workshop on Constraint Grammar - Methods, Tools and Applications</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">NEALT Proceedings Series 33:8</span>, <span class="ltx_text ltx_bib_pages"> pp. 35–44</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Background ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>,
+<a href="#S3.SS3.p1" title="3.3 A grammar checker (GramDivvun) ‣ 3 Compounds in three NLP applications ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.3</span></a>.
+</span>
+</li>
+<li id="bib.bib56" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[17]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Wiechetek</span><span class="ltx_text ltx_bib_year"> (22)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Constraint Grammar based correction of grammatical errors for North Sámi</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Workshop on Language Technology for Normalisation of Less-Resourced Languages (SALTMIL 8/AFLAT 2012)</span>,  <span class="ltx_text ltx_bib_editor">G. D. Pauw, G. de Schryver, M.L. Forcada, K. Sarasola, F.M. Tyers, and P.W. Wagacha (Eds.)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Istanbul, Turkey</span>, <span class="ltx_text ltx_bib_pages"> pp. 35–40</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Background ‣ Suoidne-varra-bleahkka-mála-bihkka-senet-dielku ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in NLP? 1 footnote 1 1 footnote 1 Creative Commons CC-BY-SA by conference, the official version published in CEUR-WS at http://ceur-ws.org/Vol-2769/paper_49.pdf" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
 </ul>
 </section>
 </article>
 </div>
 <footer class="ltx_page_footer">
-<div class="ltx_page_logo">Generated  on Mon Dec 14 06:59:57 2020 by <a href="http://dlmf.nist.gov/LaTeXML/">LaTeXML <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="[LOGO]"></a>
+<div class="ltx_page_logo">Generated  on Mon Dec 14 08:01:48 2020 by <a href="http://dlmf.nist.gov/LaTeXML/">LaTeXML <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="[LOGO]"></a>
 </div></footer>
 </div>
 </body>

@@ -85,8 +85,7 @@ be as accurate and up-to-date as google scholar.
    *Suoidne-varra-bleahkka-mála-bihkka-senet-dielku
    ‘hay-blood-ink-paint-tar-mustard-stain’
    – Should compounds be lexicalized in NLP?*,  in CLIC-IT 2021, Bologna
-   in LREC 2020, Marseille, France (?)–live eventpostponed / cancelled, [TeX
-   version](2021-clicit/Wiechetek-2021-clicit-lexicalised.tex), [HTML
+  [TeX version](2021-clicit/Wiechetek-2021-clicit-lexicalised.tex), [HTML
    version](2021-clicit/Wiechetek-2021-clicit-lexicalised.html)
 1. Heidemarie Sambale, Hanna Hedeland, **Tommi Pirinen** (2020 to appear),
    *User Support for Digital Humanities*,  in CLARIN Book of FIXME
