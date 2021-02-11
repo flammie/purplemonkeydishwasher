@@ -1,8 +1,3 @@
----
-layout: default
-title: Academic homepage of Tommi A Pirinen
----
-
 # Dr. Tommi A Pirinen, publications and other academic work
 
 Currently at:
@@ -80,18 +75,22 @@ be as accurate and up-to-date as google scholar.
 
 ###  Publications in conferences and journals
 
+1. Yvo Meeres, **Tommi A Pirinen** (2021)
+   *Vowel Harmony viewed as Error-Correcting Code.*, in SCiL 2021,
+   ~~Umass~~ (Online)
 1. Linda Wiechetek, Chiara Argese, **Tommi A Pirinen**, Trond Trosterud
    (2021)
    *Suoidne-varra-bleahkka-mála-bihkka-senet-dielku
    ‘hay-blood-ink-paint-tar-mustard-stain’
-   – Should compounds be lexicalized in NLP?*,  in CLIC-IT 2021, Bologna
+   – Should compounds be lexicalized in NLP?*,  in CLIC-IT 2021, ~~Bologna~~
+   (actually Online)
   [TeX version](2021-clicit/Wiechetek-2021-clicit-lexicalised.tex), [HTML
    version](2021-clicit/Wiechetek-2021-clicit-lexicalised.html)
 1. Heidemarie Sambale, Hanna Hedeland, **Tommi Pirinen** (2020 to appear),
    *User Support for Digital Humanities*,  in CLARIN Book of FIXME
 1. Amr Keleg, Nick Howell, Francis M. Tyers, **Tommi A Pirinen** (2020),
    *An Unsupervised Method for Weighting Finite-state Morphological Analyzers*,
-   in LREC 2020, Marseille, France (?)–live eventpostponed / cancelled, [TeX
+   in LREC 2020, ~~Marseille, France~~  postponed / cancelled, [TeX
    version](2020-lrec/Keleg-2020-lrec-unsupervised.tex), [HTML
    version](2020-lrec/Keleg-2020-lrec-unsupervised.html)
 1. **Tommi Pirinen**, Hanna Hedeland, Heidemarie Sambale (2019),
