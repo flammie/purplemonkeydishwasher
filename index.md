@@ -5,6 +5,11 @@ Currently at:
 [Divvun](https://divvun.no),
 [Giellatekno](https://giellatekno.uit.no)
 
+This site contains a list of publications and other academic works and a CVs for
+Dr Tommi A Pirinen. The publications are author's pre-print, postprint or
+updated versions depending on the details of copyright, with source codes and
+pdf's available as well.
+
 ## Profiles?
 
 Yikes, now (2019) there's a bit of proliferation of academic profiles in
