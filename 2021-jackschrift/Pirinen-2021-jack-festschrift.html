@@ -1,0 +1,518 @@
+<!DOCTYPE html><html>
+<head>
+<title>Building language technology infrastructures to support a collaborative approach to language resource building</title>
+<!--Generated on Mon Mar 22 13:55:27 2021 by LaTeXML (version 0.8.5) http://dlmf.nist.gov/LaTeXML/.-->
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../latexml/LaTeXML.css" type="text/css">
+<link rel="stylesheet" href="../latexml/ltx-article.css" type="text/css">
+</head>
+<body>
+<div class="ltx_page_main">
+<div class="ltx_page_content">
+<article class="ltx_document ltx_authors_1line">
+<h1 class="ltx_title ltx_title_document">Building language technology infrastructures to support a collaborative approach to language resource building</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Tommi A Pirinen<math id="m1" class="ltx_Math" alttext="{}^{[0000-0003-1207-5395]}" display="inline"><msup><mi></mi><mrow><mo stretchy="false">[</mo><mrow><mn>0000</mn><mo>-</mo><mn>0003</mn><mo>-</mo><mn>1207</mn><mo>-</mo><mn>5395</mn></mrow><mo stretchy="false">]</mo></mrow></msup></math>
+<br class="ltx_break">UiT-Norgga árktalaš universitehta
+<br class="ltx_break"><a href="firstname.lastname@uit.no" title="" class="ltx_ref ltx_url ltx_font_typewriter">firstname.lastname@uit.no</a>
+
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Francis M. Tyers<math id="m2" class="ltx_Math" alttext="{}^{[0000-0001-6108-2220]}" display="inline"><msup><mi></mi><mrow><mo stretchy="false">[</mo><mrow><mn>0000</mn><mo>-</mo><mn>0001</mn><mo>-</mo><mn>6108</mn><mo>-</mo><mn>2220</mn></mrow><mo stretchy="false">]</mo></mrow></msup></math>
+<br class="ltx_break">Indiana
+<br class="ltx_break"><a href="ftyers@iu.edu" title="" class="ltx_ref ltx_url ltx_font_typewriter">ftyers@iu.edu</a>
+
+</span></span>
+</div>
+
+<div class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+
+<p class="ltx_p">Digital infrastructures are a vital part of support for providing a research framework and platform in engineering their digital lexicography and grammars and deploying the to end-users as real NLP software products.
+In this article we review the usage of two popular free/libre open source infrastructures and give our view on best current practices from few decades of experiences.
+We find that infrastructures can turn work in digital lexicography and grammars into viable end-user products like machine translators, spell checkers and correctors and so forth.
+Keywords: <span class="ltx_text ltx_font_italic">NLP infrastructures Citizen science Uralic languages.</span></p>
+
+</div>
+<section id="S1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">1 </span>Introduction</h2>
+
+<div id="S1.p1" class="ltx_para">
+<p class="ltx_p">Work in digital humanities, particularly like of digital lexicography, is a very front and central concept in building for language technologies and digital cultures for minority and under-resourced languages.
+In these contexts, it is common to have very limited access to language experts that are highly necessary for building of the resources necessary, we talk about <span class="ltx_text ltx_font_italic">citizen science</span> and <span class="ltx_text ltx_font_italic">crowd-sourcing</span>.
+For this reason, the role of digital infrastructures for building of the natural language processing systems becomes very central.
+An ideal digital infrastructure makes it easy for a language expert, activist or other contributor with limited technical skills or resources to work with involved technically complex systems, to contribute their expertise with their native language skills.
+In this article we make an overview of some infrastructures that enable contributing native language skills and describe some recent developments in the field of software engineering that have enabled us to improve our infrastructures so we also lay out a desiderata of a kinds for all sorts of language technology infrastructures.</p>
+</div>
+<div id="S1.p2" class="ltx_para">
+<p class="ltx_p">In this article we use as a case study two infra-structures we have helped to build, that are also central to Uralic natural language processing: GiellaLT<span id="footnote1" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup>
+            <span class="ltx_tag ltx_tag_note">1</span>
+
+
+
+          <a href="https://github.com/giellalt" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/giellalt</a></span></span></span> and Apertium<span id="footnote2" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">2</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">2</sup>
+            <span class="ltx_tag ltx_tag_note">2</span>
+
+
+
+          <a href="https://github.com/Apertium" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/Apertium</a></span></span></span>, but we also cast an eyesight towards other kinds of popular infrastructures.</p>
+</div>
+<div id="S1.p3" class="ltx_para">
+<p class="ltx_p">The article is organised in following sections: First we describe some background for the system in section <a href="#S2" title="2 Background ‣ Building language technology infrastructures to support a collaborative approach to language resource building" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>.
+Then we describe and compare different infrastructures and their features in section <a href="#S3" title="3 Infrastructures and Resources ‣ Building language technology infrastructures to support a collaborative approach to language resource building" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>.
+We discuss the system in section <a href="#S4" title="4 Discussion and conclusions ‣ Building language technology infrastructures to support a collaborative approach to language resource building" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>.</p>
+</div>
+</section>
+<section id="S2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2 </span>Background</h2>
+
+<div id="S2.p1" class="ltx_para">
+<p class="ltx_p">The work on computational lexicography, specifically for finite-state language models and Uralic languages has been carried on for almost 40 years now.
+Some of the technologies and systems underneath remain largely unchanged, for example Finite-State morphology <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib8" title="Finite-state morphology: xerox tools and techniques" class="ltx_ref">2</a>]</cite> methods have been used in similar form ever since the beginning.
+On the other end, the software engineering and computational infrastructures typically have life-cycle of not more than 10 years.
+The role of infrastructure to support language scientists and contributors is in many cases to reduce the impact of changes of such computational systems to provide smooth continuity for the development of the actual dictionary data etc.
+The scientists and language experts contributing words and grammars are usually not interested in differences of, e.g. RCS, CVS, SVN and git as version control system, while the infrastructures have been dragged through these all in the past decades—and conversely, the engineers who build the infrastructures may be very interested in such underlying technologies.
+The linguistic and NLP software is built on lexical data and grammars, this includes software like:
+<span class="ltx_text ltx_font_italic">machine translation</span>, <span class="ltx_text ltx_font_italic">spell-checking and correction</span>, <span class="ltx_text ltx_font_italic">grammar checking</span>, <span class="ltx_text ltx_font_italic">text-to-speech</span> and so forth.
+The main point of a good infrastructure is that the lexical data can be contributed once and used for all applications alike.
+In figure <a href="#S2.F1" title="Figure 1 ‣ 2 Background ‣ Building language technology infrastructures to support a collaborative approach to language resource building" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a> there is a diagrammatic representation of ideal work-flow between various stakeholders of NLP software.</p>
+</div>
+<figure id="S2.F1" class="ltx_figure"><img src="infra-diagram.svg" id="S2.F1.g1" class="ltx_graphics ltx_centering" width="608" height="860" alt="Ideal workflow for infrastructure in NLP apps
+(simplified; in reality there is a fully connected graph of dozens of apps and stakeholders)
+">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 1: </span>Ideal workflow for infrastructure in NLP apps
+(simplified; in reality there is a fully connected graph of dozens of apps and stakeholders)
+</figcaption>
+</figure>
+<div id="S2.p2" class="ltx_para">
+<p class="ltx_p">One of the core values that makes this all possible is based on the <span class="ltx_text ltx_font_italic">free/libre open source software</span> (FLOSS) movement, which in way is turning into free science and open data movements in the academia.
+In the old times of single scientists keeping their word-lists and grammar sketches in the desk drawers, eventually to be published in a grand tome with a high price and restricting licence schemes, it was not easily possible for other researchers and the language community at large to start contributing and further developing the resources.
+However, the free and open source movement has already enabled such huge projects like Wikipedia, a massive crowd-sourced online encyclopedia made by humans, and this work is in a way trying to harness the same approaches in the field of linguistics and lexicography.</p>
+</div>
+<div id="S2.p3" class="ltx_para">
+<p class="ltx_p">One of the recent innovations in software engineering is the concept of <span class="ltx_text ltx_font_italic">Continuous Deployment</span> and <span class="ltx_text ltx_font_italic">Continuous Integration</span> (CD/CI).
+This means that a software is developed all the time and the updates are made public immediately, and there is an automatic infrastructure to test the software quality and send the end-users updated versions.
+This translates directly to work with language resources; when language users discover a word is not supported by the spell-checker or similar NLP software they can submit it to the infrastructure and get an updated version of the software with the word included within hours instead of after months of development cycle.
+In this article we study the implementation of such CI/CD infrastructures within the NLP systems.</p>
+</div>
+<section id="S2.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.1 </span>Prior Art</h3>
+
+<div id="S2.SS1.p1" class="ltx_para">
+<p class="ltx_p">The role of computational linguistics infrastructures in projects for cooperating with citizen scientists and language experts to create NLP software has not been very extensively studied.
+Some existing work has been published on the topic of co-operation of linguists and engineers in large scale infra-structure like projects, e.g. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib2" title="Open-source infrastructures for collaborative work on under-resourced languages" class="ltx_ref">7</a>, <a href="#bib.bib3" title="A formal framework for linguistic annotation" class="ltx_ref">4</a>, <a href="#bib.bib1" title="Joint grammar development by linguists and computer scientists" class="ltx_ref">6</a>, <a href="#bib.bib7" title="Implementing NLP projects for non-central languages: instructions for funding bodies, strategies for developers" class="ltx_ref">10</a>]</cite>.
+In the part of involving the audience more in the infra-structure usage some recent projects have built on the existing and documented infrastructures, such as <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib10" title="Ve’rdd. narrowing the gap between paper dictionaries, low-resource NLP and community involvement" class="ltx_ref">1</a>, <a href="#bib.bib9" title="Synchronized mediawiki based analyzer dictionary development" class="ltx_ref">9</a>]</cite>
+The other part of infrastructure usage and uptake is documented as outreach activities, for such relevant is also software projects, like UralicNLP <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Hämäläinen2019</span>]</cite><span id="footnote3" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">3</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">3</sup>
+              <span class="ltx_tag ltx_tag_note">3</span>
+
+
+
+            <a href="https://github.com/mikahama/UralicNLP/" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/mikahama/UralicNLP/</a></span></span></span>, and activities of education networks like COPIUS<span id="footnote4" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">4</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">4</sup>
+              <span class="ltx_tag ltx_tag_note">4</span>
+
+
+
+            <a href="https://www.copius.eu/index.php" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://www.copius.eu/index.php</a></span></span></span> and labs like FU-Lab.<span id="footnote5" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">5</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">5</sup>
+              <span class="ltx_tag ltx_tag_note">5</span>
+
+
+
+            <a href="https://fu-lab.ru/" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://fu-lab.ru/</a></span></span></span></p>
+</div>
+</section>
+</section>
+<section id="S3" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">3 </span>Infrastructures and Resources</h2>
+
+<div id="S3.p1" class="ltx_para">
+<p class="ltx_p">In this article we survey some of the main free/open source repositories for Uralic NLP specifically related to lexicography and morphology.
+The main goal of much of our work is to release NLP-based tools for end-users, be it machine translation or spell-checking and correction, and the lexicography and contributions linguistic research are achieved as a side effect.
+As one of the goals of the infrastructures is to lower the barrier to entry, we put an emphasis in this article to the infrastructure frameworks built to make it easier and more accessible.
+In table <a href="#S3.T1" title="Table 1 ‣ 3 Infrastructures and Resources ‣ Building language technology infrastructures to support a collaborative approach to language resource building" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a> we show an overview of the languages and resources for our infrastructures: GiellaLT and Apertium and for comparison other FLOSS infrastructures: CommonVoice<span id="footnote6" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">6</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">6</sup>
+            <span class="ltx_tag ltx_tag_note">6</span>
+
+
+
+          <a href="https://commonvoice.mozilla.org" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://commonvoice.mozilla.org</a></span></span></span> and Universal Dependencies<span id="footnote7" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">7</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">7</sup>
+            <span class="ltx_tag ltx_tag_note">7</span>
+
+
+
+          <a href="https://universaldependencies.org" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://universaldependencies.org</a></span></span></span> and UniMorph<span id="footnote8" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">8</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">8</sup>
+            <span class="ltx_tag ltx_tag_note">8</span>
+
+
+
+          <a href="https://github.com/unimorph/" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/unimorph/</a></span></span></span>.</p>
+</div>
+<figure id="S3.T1" class="ltx_table">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 1: </span>Infrastructures and the languages and resources they have.</figcaption>
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold">Infra - stuff</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold">Languages</span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold">NLP resources</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t">GiellaLT</td>
+<td class="ltx_td ltx_align_right ltx_border_t">121</td>
+<td class="ltx_td ltx_align_left ltx_border_t">Morphological analysis</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+<td class="ltx_td ltx_align_left">Text-To-Speech</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+<td class="ltx_td ltx_align_left">Spell and Grammar-checking</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">Apertium</td>
+<td class="ltx_td ltx_align_right">181</td>
+<td class="ltx_td ltx_align_left">Morphological analysis</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td"></td>
+<td class="ltx_td ltx_align_right">237</td>
+<td class="ltx_td ltx_align_left">Machine translation</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t">Common Voice</td>
+<td class="ltx_td ltx_align_right ltx_border_t">78</td>
+<td class="ltx_td ltx_align_left ltx_border_t">Speech recognition</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+<td class="ltx_td ltx_align_left">Speech synthesis</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">Universal Dependencies</td>
+<td class="ltx_td ltx_align_right">104</td>
+<td class="ltx_td ltx_align_left">Treebanking</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+<td class="ltx_td ltx_align_left">Dependency Grammar</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">Unimorph</td>
+<td class="ltx_td ltx_align_right">122</td>
+<td class="ltx_td ltx_align_left">Example</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_border_bb"></td>
+<td class="ltx_td ltx_border_bb"></td>
+<td class="ltx_td ltx_align_left ltx_border_bb">word-forms</td>
+</tr>
+</tbody>
+</table>
+</figure>
+<div id="S3.p2" class="ltx_para">
+<p class="ltx_p">One important feature of a language technology infrastructure is separation of the technology and data.
+This means that the language experts can collect and curate data, while the engineers improve and add NLP systems, and when a new or improved system for a specific NLP application is finalised, it can be applied to all languages providing language data in the infrastructure.
+In practice for example, this has in past meant, that when new research was published making weighted finite-state spell-checking and correction end-user usable <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib5" title="State-of-the-art in weighted finite-state spell-checking" class="ltx_ref">8</a>]</cite>, all languages in the infrastructure could have an additional (albeit basic) spell-checker and corrector.
+Both in GiellaLT infra and Apertium system this is implemented at low level by simply applying the necessary changes to all of the language repositories.
+Due to potential of complicated interactions and change conflicts in this phase, both infrastructures have built additional tooling to ease the process: gut<span id="footnote9" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">9</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">9</sup>
+            <span class="ltx_tag ltx_tag_note">9</span>
+
+
+
+          <a href="https://github.com/divvun/gut/" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/divvun/gut/</a></span></span></span> and Apertium-init<span id="footnote10" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">10</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">10</sup>
+            <span class="ltx_tag ltx_tag_note">10</span>
+
+
+
+          <a href="https://github.com/Apertium/Apertium-init/" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/Apertium/Apertium-init/</a></span></span></span>
+In the core both systems are based on partial templating, with main difference being in the implementation technology: Rust and Python respectively.</p>
+</div>
+<section id="S3.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.1 </span>Testing</h3>
+
+<div id="S3.SS1.p1" class="ltx_para">
+<p class="ltx_p">One feature that an infrastructure is useful for as a supporting role for citizen science and crowdsourcing lexicography is quality assurance.
+In the NLP software this is done by automated testing.
+The automated tests for an end-user facing software can vary from as simple unit and integration testing as ensuring that you can enter word-forms and get analyses or translations back to as intricate as ensuring that the translation or spell-checking quality does not decrease.
+The testing methodology follows from software engineering and tends to use the same terminology: Unit testing, regression testing, integration testing and so forth.
+One of the testing approaches many linguists might be most acquainted with is a form of regression testing <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib6" title="Validation and regression testing for a cross-linguistic grammar resource" class="ltx_ref">3</a>]</cite>.
+One of the recent developments in software engineering is automated testing of each commit on the server, using <span class="ltx_text ltx_font_italic">continuous integration</span>.
+Continuous integration is set up to ensure that no changes to the lexicon are breaking the system or decreasing the results.</p>
+</div>
+<div id="S3.SS1.p2" class="ltx_para">
+<p class="ltx_p">There are two problems that arise with complex NLP systems and automated testing: firstly, a full coverage testing on substantial material can take much more time and processing resources than is available on a freely available CI services.
+Secondly, complex NLP systems do not only break from changes within the local lexicographical data, but also from other parts of infrastructure changing.
+With the theme of rule-based machine translation this is obvious: each project depends at least from three different lexicographical projects: the <span class="ltx_text ltx_font_italic">source</span> language dictionary, the <span class="ltx_text ltx_font_italic">target</span> language dictionary and the <span class="ltx_text ltx_font_italic">bilingual</span> dictionary, and change in any of these can throw the translation off.
+For other NLP pipelines, similar problems arise from changes in the build infrastructure, for example handling of capitalisation, tokenisation and even tagging standard changes.
+The first problem of limited processing power we have partially solved with self-hosted and customised build servers, however, this does introduce a non-standard non-trivial component to the mix so it is unoptimal for the purpose of this article (not easily reproducible).
+The second problem still exists in our build systems, however we are researching on potential solutions.</p>
+</div>
+</section>
+<section id="S3.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.2 </span>Deploying</h3>
+
+<div id="S3.SS2.p1" class="ltx_para">
+<p class="ltx_p">One feature that infrastructure provides to scientists and language experts is turning their lexicons and grammars into end-user products fro the whole language community: for example languages in GiellaLT and Apertium repository are provided to users of LibreOffice, or Linux-based systems as packages for spell-checking and correction <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib5" title="State-of-the-art in weighted finite-state spell-checking" class="ltx_ref">8</a>]</cite>.<span id="footnote11" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">11</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">11</sup>
+              <span class="ltx_tag ltx_tag_note">11</span>
+
+
+
+            <a href="https://divvun.org" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://divvun.org</a></span></span></span></p>
+</div>
+<div id="S3.SS2.p2" class="ltx_para">
+<p class="ltx_p">The most common approach for deployment is, is to simply provide a standard build system, such as auto-tools based one, and have the distributors of systems pick it up for their users; this has been the traditional approach especially within the Linux ecosystem and other free / open systems.
+This is not always feasible option for minority language technology, e.g. due to lack of interest and necessary expertise on behalf of the distribution providers, for other approaches we have build custom repositories<span id="footnote12" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">12</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">12</sup>
+              <span class="ltx_tag ltx_tag_note">12</span>
+
+
+
+            <a href="https://Apertium.projectjj.com/apt/" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://Apertium.projectjj.com/apt/</a></span></span></span>, and supplementary parts to packaging systems<span id="footnote13" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">13</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">13</sup>
+              <span class="ltx_tag ltx_tag_note">13</span>
+
+
+
+            <a href="http://pahkat.uit.no/" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://pahkat.uit.no/</a></span></span></span>, which, while not ideal for average end users, are good enough to get the software to a majority of the end users.</p>
+</div>
+</section>
+<section id="S3.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.3 </span>Documentation</h3>
+
+<div id="S3.SS3.p1" class="ltx_para">
+<p class="ltx_p">One of our goals in the original infrastructure designs has been to introduce the concept of <span class="ltx_text ltx_font_italic">Literate Programming</span> <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib4" title="Literate programming" class="ltx_ref">5</a>]</cite> into NLP.
+The idea of producing documentation, even books, from well-commented source code is well within reach or natural language processing, lexicographical databases and grammar rules are typically the main meal of linguistic literature in general.
+For example in Fennistic tradition, it is not untypical to see a grammar book formatted in form of dozens and dozens of examples listed or tabulated accompanying every description of every grammatical phenomenon, this is very near to rule-based NLP format already.
+The current implementation of the literate programming scheme in giellaLT infra follows the light-weight literate programming style most programming languages have eventually adopted as well, namely <span class="ltx_text ltx_font_italic">doc comments</span>.
+What this means is we have specially formatted comment blocks within source code, that can be, together with context-relevant code, be re-used as documentation, as well as <span class="ltx_text ltx_font_italic">unit tests</span>.
+Compare this to Python’s docstrings<span id="footnote14" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">14</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">14</sup>
+              <span class="ltx_tag ltx_tag_note">14</span>
+
+
+
+            <a href="https://www.python.org/dev/peps/pep-0257/" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://www.python.org/dev/peps/pep-0257/</a></span></span></span> and doctests<span id="footnote15" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">15</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">15</sup>
+              <span class="ltx_tag ltx_tag_note">15</span>
+
+
+
+            <a href="https://docs.python.org/3/library/doctest.html" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://docs.python.org/3/library/doctest.html</a></span></span></span>.
+It is noteworthy, that mostly, in lexicography and grammar, tests, are nothing more than example word forms and their preferred annotations, be it grammatical analysis or perhaps spelling corrections, this, naturally, is in and of itself interesting for a linguist even without the testing feature.
+As a recent feature for the documentation comments, the output format has been updated to GitHub’s github-pages format and a prototypical examples can be found at the time of writing in the GiellaLT github space<span id="footnote16" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">16</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">16</sup>
+              <span class="ltx_tag ltx_tag_note">16</span>
+
+
+
+            <a href="https://giellalt.github.io" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://giellalt.github.io</a>, see for example <a href="https://giellalt.github.io/lang-fin/fin.html" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://giellalt.github.io/lang-fin/fin.html</a></span></span></span>.</p>
+</div>
+</section>
+</section>
+<section id="S4" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">4 </span>Discussion and conclusions</h2>
+
+<div id="S4.p1" class="ltx_para">
+<p class="ltx_p">We have built various infrastructures for enabling various groups of contributors to contribute linguistic data.
+Currently our infrastructures are used to involve large number of researchers in providing digital language tools for large number of marginalised languages.</p>
+</div>
+<div id="S4.p2" class="ltx_para">
+<p class="ltx_p">In the table <a href="#S3.T1" title="Table 1 ‣ 3 Infrastructures and Resources ‣ Building language technology infrastructures to support a collaborative approach to language resource building" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a> we give the amount of languages being worked on within the infrastructures, while the numbers do not directly tell of the quality, there are further ways of determining how much the languages have been worked on in each of the systems.
+Within GiellaLT and Apertium communities we have opted for self-classifying the production quality of the languages as such: in GiellaLT registry<span id="footnote17" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">17</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">17</sup>
+            <span class="ltx_tag ltx_tag_note">17</span>
+
+
+
+          <a href="https://github.com/divvun/registry#languages" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/divvun/registry#languages</a></span></span></span> at the time of writing we find 8 full <span class="ltx_text ltx_font_italic">production</span> quality and 27 <span class="ltx_text ltx_font_italic">beta</span> testing phase languages (out of 128), in Apertium correspondingly 53 <span class="ltx_text ltx_font_italic">trunk</span> translators and 39 <span class="ltx_text ltx_font_italic">nursery</span> translators (out of 237).<span id="footnote18" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">18</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">18</sup>
+            <span class="ltx_tag ltx_tag_note">18</span>
+
+
+
+          at the time of writing, this can obviously change fast in a fast-moving user community</span></span></span>
+The repositories Common Voice, Universal Dependencies and Unimorph on the other hand do not include classifications, but we can study them rather by comparing the sizes: the biggest recording size in English is 1800 hours, and 36 have 10 or more hours of confirmed recordings, out of the 78.
+For Universal Dependencies biggest data set is German with 3.753 million dependency trees, with 43 having over 100 thousand trees.
+In unimorph, Finnish is the biggest dataset with over 2 million word-forms, with 27 languages containing over 100 thousand word forms.</p>
+</div>
+<div id="S4.p3" class="ltx_para">
+<p class="ltx_p">We have two infrastructures for NLP systems that have provided people with various tools and software for years.
+They have also improved continuously and still actively used.</p>
+</div>
+</section>
+<section id="Sx1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">Acknowledgments</h2>
+
+<div id="Sx1.p1" class="ltx_para">
+<p class="ltx_p">Building and using infrastructures takes a large developer base and the authors of the article are just a small part of these communities.
+Thanks goes to everyone at GiellaLT<span id="footnote19" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">19</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">19</sup>
+            <span class="ltx_tag ltx_tag_note">19</span>
+
+
+
+          <a href="https://github.com/orgs/giellalt/people" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/orgs/giellalt/people</a></span></span></span>, Divvun<span id="footnote20" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">20</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">20</sup>
+            <span class="ltx_tag ltx_tag_note">20</span>
+
+
+
+          <a href="https://github.com/orgs/divvun/people" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/orgs/divvun/people</a></span></span></span>, and Apertium<span id="footnote21" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">21</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">21</sup>
+            <span class="ltx_tag ltx_tag_note">21</span>
+
+
+
+          <a href="https://github.com/orgs/Apertium/people" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/orgs/Apertium/people</a></span></span></span> communities.</p>
+</div>
+</section>
+<section id="bib" class="ltx_bibliography">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+
+<ul id="bib.L1" class="ltx_biblist">
+<li id="bib.bib10" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Alnajjar, M. Hämäläinen, J. Rueter, and N. Partanen</span><span class="ltx_text ltx_bib_year"> (2020-12)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Ve’rdd. narrowing the gap between paper dictionaries, low-resource NLP and community involvement</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 28th International Conference on Computational Linguistics: System Demonstrations</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Barcelona, Spain (Online)</span>, <span class="ltx_text ltx_bib_pages"> pp. 1–6</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://www.aclweb.org/anthology/2020.coling-demos.1" title="" class="ltx_ref ltx_bib_external">Link</a>,
+<a href="https://dx.doi.org/10.18653/v1/2020.coling-demos.1" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS1.p1" title="2.1 Prior Art ‣ 2 Background ‣ Building language technology infrastructures to support a collaborative approach to language resource building" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.1</span></a>.
+</span>
+</li>
+<li id="bib.bib8" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. R. Beesley and L. Karttunen</span><span class="ltx_text ltx_bib_year"> (2003)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Finite-state morphology: xerox tools and techniques</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">CSLI, Stanford</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Background ‣ Building language technology infrastructures to support a collaborative approach to language resource building" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib6" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. M. Bender, L. Poulson, S. Drellishak, and C. Evans</span><span class="ltx_text ltx_bib_year"> (2007)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Validation and regression testing for a cross-linguistic grammar resource</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Acl 2007 workshop on deep linguistic processing</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 136–143</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS1.p1" title="3.1 Testing ‣ 3 Infrastructures and Resources ‣ Building language technology infrastructures to support a collaborative approach to language resource building" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.1</span></a>.
+</span>
+</li>
+<li id="bib.bib3" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Bird and M. Liberman</span><span class="ltx_text ltx_bib_year"> (2001)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A formal framework for linguistic annotation</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Speech communication</span> <span class="ltx_text ltx_bib_volume">33</span> (<span class="ltx_text ltx_bib_number">1-2</span>), <span class="ltx_text ltx_bib_pages"> pp. 23–60</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS1.p1" title="2.1 Prior Art ‣ 2 Background ‣ Building language technology infrastructures to support a collaborative approach to language resource building" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.1</span></a>.
+</span>
+</li>
+<li id="bib.bib4" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. E. Knuth</span><span class="ltx_text ltx_bib_year"> (1984)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Literate programming</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">The Computer Journal</span> <span class="ltx_text ltx_bib_volume">27</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages"> pp. 97–111</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS3.p1" title="3.3 Documentation ‣ 3 Infrastructures and Resources ‣ Building language technology infrastructures to support a collaborative approach to language resource building" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.3</span></a>.
+</span>
+</li>
+<li id="bib.bib1" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Maxwell and A. David</span><span class="ltx_text ltx_bib_year"> (2008)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Joint grammar development by linguists and computer scientists</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Workshop on NLP for Less Privileged Languages, Third
+International Joint Conference on Natural Language Processing</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Hyderabad, India</span>, <span class="ltx_text ltx_bib_pages"> pp. 27–34</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS1.p1" title="2.1 Prior Art ‣ 2 Background ‣ Building language technology infrastructures to support a collaborative approach to language resource building" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.1</span></a>.
+</span>
+</li>
+<li id="bib.bib2" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Moshagen, J. Rueter, T. Pirinen, T. Trosterud, and F. M. Tyers</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Open-source infrastructures for collaborative work on under-resourced languages</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Ninth International Conference on
+Language Resources and Evaluation, LREC</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 71–77</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS1.p1" title="2.1 Prior Art ‣ 2 Background ‣ Building language technology infrastructures to support a collaborative approach to language resource building" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.1</span></a>.
+</span>
+</li>
+<li id="bib.bib5" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Pirinen, K. Lindén, <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">State-of-the-art in weighted finite-state spell-checking</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Computational Linguistics and Intelligent Text Processing 15th
+International Conference, CICLing 2014, Kathmandu, Nepal, April 6-12,
+2014, Proceedings, Part II</span>,
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS2.p1" title="3.2 Deploying ‣ 3 Infrastructures and Resources ‣ Building language technology infrastructures to support a collaborative approach to language resource building" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.2</span></a>,
+<a href="#S3.p2" title="3 Infrastructures and Resources ‣ Building language technology infrastructures to support a collaborative approach to language resource building" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3</span></a>.
+</span>
+</li>
+<li id="bib.bib9" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Rueter and M. Hämäläinen</span><span class="ltx_text ltx_bib_year"> (2017-01)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Synchronized mediawiki based analyzer dictionary development</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Third Workshop on Computational Linguistics for Uralic Languages</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">St. Petersburg, Russia</span>, <span class="ltx_text ltx_bib_pages"> pp. 1–7</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://www.aclweb.org/anthology/W17-0601" title="" class="ltx_ref ltx_bib_external">Link</a>,
+<a href="https://dx.doi.org/10.18653/v1/W17-0601" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS1.p1" title="2.1 Prior Art ‣ 2 Background ‣ Building language technology infrastructures to support a collaborative approach to language resource building" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.1</span></a>.
+</span>
+</li>
+<li id="bib.bib7" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">O. Streiter, K. Scannell, and M. Stuflesser</span><span class="ltx_text ltx_bib_year"> (2006)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Implementing NLP projects for non-central languages: instructions for funding bodies, strategies for developers</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Machine Translation</span> <span class="ltx_text ltx_bib_volume">20</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages"> pp. 267–289</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS1.p1" title="2.1 Prior Art ‣ 2 Background ‣ Building language technology infrastructures to support a collaborative approach to language resource building" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.1</span></a>.
+</span>
+</li>
+</ul>
+</section>
+</article>
+</div>
+<footer class="ltx_page_footer">
+<div class="ltx_page_logo">Generated  on Mon Mar 22 13:55:27 2021 by <a href="http://dlmf.nist.gov/LaTeXML/">LaTeXML <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="[LOGO]"></a>
+</div></footer>
+</div>
+</body>
+</html>
