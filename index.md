@@ -86,7 +86,6 @@ be as accurate and up-to-date as google scholar.
    (Festschrift of Dr Jack Rueter) [HTML
    version](2021-jackschrift/Pirinen-20201-jack-festchrift.html),
    [TeX version](2021-jackschrift/Pirinen-2021-jack-festschrift.tex)
-   ~~Umass~~ (Online)
 1. Yvo Meeres, **Tommi A Pirinen** (2021)
    *Vowel Harmony viewed as Error-Correcting Code.*, in SCiL 2021,
    ~~Umass~~ (Online)
