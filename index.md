@@ -64,11 +64,11 @@ The list is not exhaustive.
 ## Publications
 
 Following is a list of all my accepted publications and links to author's
-post-print versions. The versions on this page may differ significantly from the
-officials in that they have been optimised for screen reading, they have been
-reformatted, the hyperlinks have been added, and so forth.
-
-<!--   I can haz PDF–for free and open science for everyone!1 -->
+post-print versions. I only provide HTML versions produced with
+[latexml](https://dlmf.nist.gov/LaTeXML/), with minimal extra stylings by me. I
+consider PDF a rubbish format and also printing wasteful; if something looks
+really bad on HTML send me a message and I can fix it. If you really must, TeX
+source codes are available on my github and can be used to generate PDFs.
 
 It may be noteworthy at the moment, that [google
 scholar](https://scholar.google.com) offers a great way to [browse my
@@ -81,111 +81,93 @@ be as accurate and up-to-date as google scholar.
 ###  Publications in conferences and journals
 
 1. **Tommi A Pirinen**, Francis M. Tyers (2021)
-   *Building language technology infrastructures to support a collaborative
-   approach to language resource building*, in Multilingual Facilitation
-   (Festschrift of Dr Jack Rueter) [HTML
-   version](2021-jackschrift/Pirinen-20201-jack-festchrift.html),
-   [TeX version](2021-jackschrift/Pirinen-2021-jack-festschrift.tex)
+   [Building language technology infrastructures to support a collaborative
+   approach to language resource
+   building](2021-jackschrift/Pirinen-2021-jack-festchrift.html), in
+   Multilingual Facilitation (Festschrift of Dr Jack Rueter) ,
 1. Yvo Meeres, **Tommi A Pirinen** (2021)
    *Vowel Harmony viewed as Error-Correcting Code.*, in SCiL 2021,
    ~~Umass~~ (Online)
 1. Linda Wiechetek, Chiara Argese, **Tommi A Pirinen**, Trond Trosterud
-   (2021)
-   *Suoidne-varra-bleahkka-mála-bihkka-senet-dielku
-   ‘hay-blood-ink-paint-tar-mustard-stain’
-   – Should compounds be lexicalized in NLP?*,  in CLIC-IT 2021, ~~Bologna~~
-   (actually Online)
-  [TeX version](2021-clicit/Wiechetek-2021-clicit-lexicalised.tex), [HTML
-   version](2021-clicit/Wiechetek-2021-clicit-lexicalised.html)
+   (2021) [Suoidne-varra-bleahkka-mála-bihkka-senet-dielku
+   ‘hay-blood-ink-paint-tar-mustard-stain’ – Should compounds be lexicalized in
+   NLP?](2021-clicit/Wiechetek-2021-clicit-lexicalised.html) ,  in CLIC-IT 2021,
+   ~~Bologna~~ (actually Online)
 1. Heidemarie Sambale, Hanna Hedeland, **Tommi Pirinen** (2020 to appear),
    *User Support for Digital Humanities*,  in CLARIN Book of FIXME
 1. Amr Keleg, Nick Howell, Francis M. Tyers, **Tommi A Pirinen** (2020),
-   *An Unsupervised Method for Weighting Finite-state Morphological Analyzers*,
-   in LREC 2020, ~~Marseille, France~~  postponed / cancelled, [TeX
-   version](2020-lrec/Keleg-2020-lrec-unsupervised.tex), [HTML
-   version](2020-lrec/Keleg-2020-lrec-unsupervised.html)
+   [An Unsupervised Method for Weighting Finite-state Morphological
+   Analyzers](2020-lrec/Keleg-2020-lrec-unsupervised.html) in LREC 2020,
+   ~~Marseille, France~~  postponed / cancelled,
 1. **Tommi Pirinen**, Hanna Hedeland, Heidemarie Sambale (2019),
    *User Support for Digital Humanities*,  in CLARIN Annual Conference 2019
    (CAC 2019), Leipzig, Germany,
-1. **Tommi A Pirinen** (2019), *Building minority dependency
+1. **Tommi A Pirinen** (2019), [Building minority dependency
    treebanks, dictionaries and computational grammars at the same time---an
-   experiment in Karelian treebanking*,  in Universal Dependencies Workshop
-   2019 (UDW 2019) at Syntaxfest 2019, Paris, France. [TeX
-   version](2019-udw/Pirinen-2019-udw-karelians.tex), [HTML
-   (LaTeXML) version](2019-udw/Pirinen-2019-udw-karelians.html),
-1. **Tommi A Pirinen** (2019), *Workflows for kickstarting RBMT in
-   virtually No-Resource Situation*, in The 2nd Workshop on Technologies for MT
-   of Low Resource Languages (LoResMT 2019), at MTsummit 2019, Dublin. [TeX
-   version](2019-loresmt/Pirinen-2019-loresmt-karelian-workflow.tex), [HTML
-   (LaTeXML) version](2019-loresmt/Pirinen-2019-loresmt-karelian-workflow.html),
+   experiment in Karelian treebanking](2019-udw/Pirinen-2019-udw-karelians.html)
+   in Universal Dependencies Workshop 2019 (UDW 2019) at Syntaxfest 2019,
+   Paris, France.
+1. **Tommi A Pirinen** (2019), [Workflows for kickstarting RBMT in
+   virtually No-Resource
+   Situation](2019-loresmt/Pirinen-2019-loresmt-karelian-workflow.html) in The
+   2nd Workshop on Technologies for MT of Low Resource Languages (LoResMT 2019),
+   at MTsummit 2019, Dublin.
    [ACL Anthology version](https://www.aclweb.org/anthology/W19-6803/)
-1. **Tommi A Pirinen** (2019), *Apertium-fin-eng---Rule-based shallow
-   machine translation for WMT 2019 shared task* in the Fourth conference on
-   Machine Translation (wmt19) at ACL 2019, Firenze, Italy.  [TeX
-   version](2019-wmt/Pirinen-2019-wmt-finnish-english.tex), [HTML (LaTeXML)
-   version](2019-wmt/Pirinen-2019-wmt-finnish-english.html),
-   [ACL Anthology version](https://www.aclweb.org/anthology/W19-5336/)
-1. **Tommi A Pirinen** (2019), *Neural and rule-based Finnish NLP
-   models–expectations, experiments and experiences* in 5th International
-   Workshop for Computational Linguistics of Uralic Languages. Tartu, Estonia.
-   [TeX version](2019-iwclul/Pirinen-2019-iwclul-neural-finnish.tex),
-   [HTML (LaTeXML)
-   version](2019-iwclul/Pirinen-2019-iwclul-neural-finnish.html),
-   [ACL Anthology version](https://www.aclweb.org/anthology/W19-0309/)
-1. **Tommi Pirinen** (2018), *Rule-based machine-translation between Finnish and
-   German* in 40. Jahrestagung der Deutschen Gesellschaft für
-   Sprachwissenschaft, CL-Postersession
-   [TeX version](2018-dgfs-jahrestagung/Pirinen-2018-dgfs-apertium-fin-deu.tex),
-   [HTML (LaTeXML) version](2018-dgfs-jahrestagung/Pirinen-2018-dgfs-apertium-fin-deu.html)
+1. **Tommi A Pirinen** (2019), [Apertium-fin-eng---Rule-based shallow
+   machine translation for WMT 2019 shared
+   task](2019-wmt/Pirinen-2019-wmt-finnish-english.html) in the Fourth
+   conference on Machine Translation (wmt19) at ACL 2019, Firenze, Italy.  [ACL
+   Anthology version](https://www.aclweb.org/anthology/W19-5336/)
+1. **Tommi A Pirinen** (2019), [Neural and rule-based Finnish NLP
+   models–expectations, experiments and
+   experiences](2019-iwclul/Pirinen-2019-iwclul-neural-finnish.html) in 5th
+   International Workshop for Computational Linguistics of Uralic Languages.
+   Tartu, Estonia.  [ACL Anthology
+   version](https://www.aclweb.org/anthology/W19-0309/)
+1. **Tommi Pirinen** (2018), [Rule-based machine-translation between Finnish and
+   German](2018-dgfs-jahrestagung/Pirinen-2018-dgfs-apertium-fin-deu.html) in
+   40. Jahrestagung der Deutschen Gesellschaft für Sprachwissenschaft,
+   CL-Postersession
 1. **Tommi A Pirinen**, Hanna Hedeland, Daniel Jettka (2017b), *Developing a
    CLARIN compatible AAI solution for academic and restricted resources*.
 1. **Tommi Pirinen**,  Francis M. Tyers,  Trond Trosterud, Ryan Johnson,
-   Kevin Unhammer,  Tiina Puolakainen (2017a, equal contribution) *North-Sámi to
-   Finnish rule-based machine translation system*
-   [TeX version](2017-nodalida/Pirinen-2017-nodalida-fin-sme.tex),
-   [HTML (LaTeXML) version](2017-nodalida/Pirinen-2017-nodalida-fin-sme.html)
+   Kevin Unhammer,  Tiina Puolakainen (2017a, equal contribution) [North-Sámi to
+   Finnish rule-based machine translation
+   system](2017-nodalida/Pirinen-2017-nodalida-fin-sme.html) at nodalida 2017
 1. **Tommi A Pirinen**, Eszter Simon, Francis M Tyers, Veronika Vincze, (2016c),
    *Report on the Second International Workshop on Computational Linguistics for
    Uralic languages*, in Finno-Ugric languages and linguistics,
-1. Francis Tyers, **Tommi Pirinen** (2016b) *Intermediate
-   Representations in Rule-Based Machine Translation* for Uralic
-   languages in Proceedings of Second International Workshop on
-   Computational Linguistics for Uralic Languages (IWCLUL2016)
-   [TeX version](2016-iwclul/Pirinen-2016-iwclul-rbmt-representations.tex),
-   [HTML (LaTeXML) version](2016-iwclul/Pirinen-2016-iwclul-rbmt-representations.html)
-1. **Tommi Pirinen**, Antonio Toral, Raphael Rubino (2016a) *Rule-Based
-   and Statistical Morph Segments in English-to-Finnish SMT*, in
-   Proceedings of Second International Workshop on Computational
-   Linguistics for Uralic Languages (IWCLUL), Szeged, Hungary
-   [TeX version](2016-iwclul/Pirinen-2016-smt-morph-segments.tex),
-   [HTML (LaTeXML) version](2016-iwclul/Pirinen-2016-smt-morph-segments.html)
-1. **Tommi A Pirinen** (2015e) *Development and Use of Computational Morphology
+1. Francis Tyers, **Tommi Pirinen** (2016b) [Intermediate
+   Representations in Rule-Based Machine Translation for Uralic
+   languages](2016-iwclul/Pirinen-2016-iwclul-rbmt-representations.html) in
+   Proceedings of Second International Workshop on Computational Linguistics for
+   Uralic Languages (IWCLUL2016)
+1. **Tommi Pirinen**, Antonio Toral, Raphael Rubino (2016a) [Rule-Based
+   and Statistical Morph Segments in English-to-Finnish
+   SMT](2016-iwclul/Pirinen-2016-smt-morph-segments.html), in Proceedings of
+   Second International Workshop on Computational Linguistics for Uralic
+   Languages (IWCLUL), Szeged, Hungary
+1. **Tommi A Pirinen** (2015e) [Development and Use of Computational Morphology
    of Finnish in the Open Source and Open Science Era: Notes on Experiences
-   with Omorfi Development.* SKY Journal of Linguistics.
-   [TeX version](2014-sky-omorfi/Pirinen-2015-sky-omorfi.tex),
-   [HTML (LaTeXML) version](2014-sky-omorfi/Pirinen-2015-sky-omorfi.html)
+   with Omorfi Development.](2014-sky-omorfi/Pirinen-2015-sky-omorfi.html) SKY
+   Journal of Linguistics.
 4. Antonio Toral, Xiaofeng Wu, **Tommi Pirinen**, Zhengwei Qiu, Ergun
-   Bicici and Jinhua Du (2015d) *Dublin City University at the
-   TweetMT 2015 Shared Task* in Proceedings of TweetMT shared task at
-   SEPLN 2015
-   [TeX version](2015-tweetmt/Pirinen-2015-tweetmt.tex),
-   [HTML (LaTeXML) version](2015-tweetmt/Pirinen-2015-tweetmt.html)
+   Bicici and Jinhua Du (2015d) [Dublin City University at the
+   TweetMT 2015 Shared Task](2015-tweetmt/Pirinen-2015-tweetmt.html) in
+   Proceedings of TweetMT shared task at SEPLN 2015
 5. Raphael Rubino, **Tommi Pirinen**, Miquel Esplà-Gomis, Nikola Ljubešić,
    Sergio Ortiz Rojas, Vassilis Papavassiliou, Prokopis Prokopidis and
-   Antonio Toral (2015c), *Abu-MaTran at WMT 2015 Translation Task:
-   Morphological Segmentation and Web Crawling* In proceedings of WMT
-   shared task at EMNLP 2015
-   [TeX version](2015-wmt/Pirinen-2015-wmt.tex),
-   [HTML (LaTeXML) version](2015-wmt/Pirinen-2015-wmt.html)
+   Antonio Toral (2015c), [Abu-MaTran at WMT 2015 Translation Task:
+   Morphological Segmentation and Web Crawling](2015-wmt/Pirinen-2015-wmt.html)
+   In proceedings of WMT shared task at EMNLP 2015
 6. **Tommi A Pirinen** (2015a), *Omorfi—Free and open source
    morphological lexical database for Finnish*, in Proceedings of the
    20th Nordic Conference of Computational Linguistics NODALIDA 2015
-7. **Tommi A Pirinen** (2015b), *Using weighted finite state morphology
+7. **Tommi A Pirinen** (2015b), [Using weighted finite state morphology
    with VISL CG-3—Some experiments with free open source Finnish
-   resources*, in Proceedings of Constraint grammar - methods, tools
-   and applications Workshop at NoDaLiDa
-   [TeX version](2015-nodalida/Pirinen-2015-nodalida-cg-reweight.tex),
-   [HTML (LaTeXML) version](2015-nodalida/Pirinen-2015-nodalida-cg-reweight.html)
+   resources](2015-nodalida/Pirinen-2015-nodalida-cg-reweight.html), in
+   Proceedings of Constraint grammar - methods, tools and applications Workshop
+   at NoDaLiDa 2015
 7. Senka Drobac, Krister Lindén, **Tommi Pirinen**, Miikka Silfverberg (2014e),
    *Heuristic hyper-minimization of finite state lexicons*, in LREC 2014
 8. Antonio Toral, Raphael Rubino, Miquel Esplà, **Tommi Pirinen**, Andy
@@ -199,37 +181,32 @@ be as accurate and up-to-date as google scholar.
 10. Senka Drobac, Krister Lindén, **Tommi A Pirinen** and Miikka
    Silfverberg (2014b), *Heuristic Hyperminimisation of Finite-State
    Lexicons*, in Proceedings of LREC 2014
-11. **Tommi A Pirinen**, Krister Lindén (2014a) *State-of-the-art in
-   Weighted Finite-State Spell-Checking* in Proceedings of CICLing 2014
-   [TeX version](2014-cicling/Pirinen-2014-cicling.tex),
-   [HTML (LaTeXML) version](2014-cicling/Pirinen-2014-cicling.html)
+11. **Tommi A Pirinen**, Krister Lindén (2014a) [State-of-the-art in
+   Weighted Finite-State Spell-Checking](2014-cicling/Pirinen-2014-cicling.html)
+   in Proceedings of CICLing 2014
 12. Sjur Moshagen, **Tommi A Pirinen**, Trond Trosterud (2013a)
    *Building an open-source development infrastructure for language
    technology projects*, in Proceedings of Nodalida 2013
-13. **Tommi A Pirinen**, Sam Hardwick (2012d) *Effect of Language and
+13. **Tommi A Pirinen**, Sam Hardwick (2012d) [Effect of Language and
    Error Models on Efficiency of Finite-State Spell-Checking and
-   Correction*, in Proceedings of 10th International Workshop on
-   Finite-State Methods and/in Natural Language Processing FSMNLP 2012
-   [TeX version](2012-fsmnlp-speller/Pirinen-2012-fsmnlp-speedspelling.tex),
-   [HTML (LaTeXML)
-   version](2012-fsmnlp-speller/Pirinen-2012-fsmnlp-speedspelling.html)
+   Correction](2012-fsmnlp-speller/Pirinen-2012-fsmnlp-speedspelling.html), in
+   Proceedings of 10th International Workshop on Finite-State Methods and/in
+   Natural Language Processing FSMNLP 2012
 14. Krister Lindén, Miikka Silfverberg, Erik Axelson, Senka Drobac, Sam
    Hardwick, **Tommi A Pirinen** (2012c) *Using HFST for
    creating Computational Linguistic Applications* in Computational
    Linguistics-Applications 2012
-15. **Tommi A Pirinen**, Francis M. Tyers (2012b) *Compiling Apertium
+15. **Tommi A Pirinen**, Francis M. Tyers (2012b) [Compiling Apertium
    morphological dictionaries with HFST and using them in HFST
-   applications* in Proceedings of Workshops in Language Resources and
-   Evaluation conference LREC 2012, in saltmil-aflat workshop on
-   “language technology for normalisation of less-resourced languages”
-   [TeX version](2011-lrec-apertium/Pirinen-2011-lrec-apertium.tex),
-   [HTML (LaTeXML) version](2011-lrec-apertium/Pirinen-2011-lrec-apertium.html)
-16. **Tommi A Pirinen**, Miikka Silfverberg (2012a) *Improving
-   Finite-State Spell-Checker Suggestions with Part-of-Speech N-grams*
-   in Proceedings of International Conference on Intelligent Text
-   Processing and Computational Linguistics CICLING 2012
-   [TeX version](2011-cicling-contextspell/Pirinen-2011-cicling-contextspell.tex),
-   [HTML (LaTeXML) version](2011-cicling-contextspell/Pirinen-2011-cicling-contextspell.html)
+   applications](2011-lrec-apertium/Pirinen-2011-lrec-apertium.html) in
+   Proceedings of Workshops in Language Resources and Evaluation conference LREC
+   2012, in saltmil-aflat workshop on “language technology for normalisation of
+   less-resourced languages”
+16. **Tommi A Pirinen**, Miikka Silfverberg (2012a) [Improving
+   Finite-State Spell-Checker Suggestions with Part-of-Speech
+   N-grams](2011-cicling-contextspell/Pirinen-2011-cicling-contextspell.html) in
+   Proceedings of International Conference on Intelligent Text Processing and
+   Computational Linguistics CICLING 2012
 17. Krister Lindén, Miikka Silfverberg, Erik Axelson, Sam Hardwick,
    **Tommi A Pirinen** (2011c) *HFST—Framework for Compiling and
    Applying Morphologies* in Systems and Frameworks for Computational
@@ -239,56 +216,47 @@ be as accurate and up-to-date as google scholar.
    *Improving Predictive Entry of Finnish Text Messages using IRC
    Logs* in Proceedings of the Computational Linguistics-Applications
    Conference 2011, ISBN: 978-83-60810-47-7.
-19. **Tommi A Pirinen** (2011a), *Modularisation of Finnish Finite-State
-   Language Description—Towards Wide Collaboration in Open Source
-   Development of Morphological Analyser* in Proceedings of Nodalida
-   2011 (18).
-   [TeX version](2011-nodalida/Pirinen-2011-nodalida-omorfi.tex),
-   [HTML (LaTeXML) version](2011-nodalida/Pirinen-2011-nodalida-omorfi.html)
-20. **Tommi A Pirinen**, Krister Lindén (2010c), *Creating and Weighting
-   Hunspell Dictionaries as Finite-State Automata* , in Investigationes
-   Linguisticae (19).
-   [TeX version](2010-investigationes-linguisticae/Pirinen-2010-il.tex),
-   [HTML (LaTeXML) version](2010-investigationes-linguisticae/Pirinen-2010-il.html)
-21. **Tommi A Pirinen**, Krister Lindén (2010b), *Building and Using
-   Existing Hunspell Dictionaries and T<sub>E</sub>X Hyphenators as
-   Finite-State Automata*, in Proceedings of International
-   Multiconference in Computer Science and Information Technology
-   [TeX version](2010-cla/Pirinen-2010-cla.tex),
-   [HTML (LaTeXML) version](2010-cla/Pirinen-2010-cla.html)
+19. **Tommi A Pirinen** (2011a), [Modularisation of Finnish Finite-State
+   Language Description—Towards Wide Collaboration in Open Source Development of
+   Morphological Analyser](2011-nodalida/Pirinen-2011-nodalida-omorfi.html) in
+   Proceedings of Nodalida 2011.
+20. **Tommi A Pirinen**, Krister Lindén (2010c), [Creating and Weighting
+  Hunspell Dictionaries as Finite-State
+  Automata](2010-investigationes-linguisticae/Pirinen-2010-il.html) , in
+  Investigationes Linguisticae (19).
+21. **Tommi A Pirinen**, Krister Lindén (2010b), [Building and Using
+   Existing Hunspell Dictionaries and TₑX Hyphenators as
+   Finite-State Automata](2010-cla/Pirinen-2010-cla.html), in Proceedings of
+   International Multiconference in Computer Science and Information Technology
 22. **Tommi A Pirinen**, Krister Lindén (2010a), *Finite-State
    Spell-Checking with Weighted Language and Error Models*, , in
    Proceedings of Workshops of Language Resources and Evaluation
-   Conference 7 in Valletta, Malta.
-23. Krister Lindén, **Tommi A Pirinen** (2009a), *Weighted Finite-State
-   Morphological Analysis of Finnish Compounding with hfst-lexc*, in
-   Proceedings of Nodalida 2009 presentation in PDF]
-   [TeX version](2009-nodalida/Pirinen-2009-nodalida.tex),
-   [HTML (LaTeXML) version](2009-nodalida/Pirinen-2009-nodalida.html)
-24. Krister Lindén, **Tommi A Pirinen** (2009b), *Weighting Finite-State
-   Morphological Analyzers using HFST tools*, in Pre-proceedings of
-   FSMNLP 2009
-   [TeX version](2009-fsmnlp/Pirinen-2009-fsmnlp.tex),
-   [HTML (LaTeXML) version](2009-fsmnlp/Pirinen-2009-fsmnlp.html)
+   Conference LREC 2010 in Valletta, Malta.
+23. Krister Lindén, **Tommi A Pirinen** (2009a), [Weighted Finite-State
+   Morphological Analysis of Finnish Compounding with
+   hfst-lexc](2009-nodalida/Pirinen-2009-nodalida.html), in Proceedings of
+   Nodalida 2009 presentation
+24. Krister Lindén, **Tommi A Pirinen** (2009b), [Weighting Finite-State
+   Morphological Analyzers using HFST
+   tools](2009-fsmnlp/Pirinen-2009-fsmnlp.html), in Pre-proceedings of FSMNLP
+   2009
 25. Krister Lindén, Miikka Silfverberg, **Tommi A Pirinen** (2009c),
-   *HFST Tools for morphology—An Efficient Open-Source Pacakge for
-   Construction of Morphological Analyzers* in Proceedings of Workshop
-   on Systems and Frameworks for Computational Morphology
-   [TeX version](2009-sfcm/Pirinen-2009-sfcm.tex),
-   [HTML (LaTeXML) version](2009-sfcm/Pirinen-2009-sfcm.html)
+   [HFST Tools for morphology—An Efficient Open-Source Pacakge for
+   Construction of Morphological Analyzers](2009-sfcm/Pirinen-2009-sfcm.html) in
+   Proceedings of Workshop on Systems and Frameworks for Computational
+   Morphology
 
 ### Theses
 
-2. **Tommi A Pirinen** (2014), *Weighted Finite-State Methods in
-   Spell-Checking and Correction*, Doctoral dissertation, University of
-   Helsinki.
-   [TeX version](2014-phd-dissertation/Pirinen-2014-phd-dissertation.tex),
-   [HTML (LaTeXML) version](2014-phd-dissertation/Pirinen-2014-phd-dissertation.html)
-1. **Tommi Pirinen** (2008), *Suomen kielen äärellistilainen
-   automaattinen morfologinen analyysi avoimen lähdekoodin menetelmin*,
-   Master's Thesis, University of Helsinki (in Finnish).
-   [TeX version](2008-masters-thesis/Pirinen-2008-masters-thesis.tex),
-   [HTML (LaTeXML) version](2008-masters-thesis/Pirinen-2008-masters-thesis.html)
+1. **Tommi A Pirinen** (2014), [Weighted Finite-State Methods in
+   Spell-Checking and
+   Correction](2014-phd-dissertation/Pirinen-2014-phd-dissertation.html),
+   Doctoral dissertation, University of Helsinki.
+1. **Tommi Pirinen** (2008), [Suomen kielen äärellistilainen
+   automaattinen morfologinen analyysi avoimen lähdekoodin
+   menetelmin](2008-masters-thesis/Pirinen-2008-masters-thesis.html), Master's
+   Thesis, University of Helsinki (in Finnish).
+
 
 ### Edited volumes
 
@@ -312,6 +280,8 @@ be as accurate and up-to-date as google scholar.
    [library's version](http://septentrio.uit.no/index.php/SCS/issue/view/291)
 
 ### Presentations, tutorials, invited speeches
+
+(A rather incomplete list of course...)
 
 1. **Tommi A Pirinen**, Antonio Toral (2015) *Why linguistics in SMT?* in Why
    Linguistics? workshop, Tarto, 2015
@@ -364,7 +334,7 @@ work at university and sparetime hobbies related to science:
    [Rule-based machine translation, Tarto ylikool, 2015](http://wiki.apertium.org/wiki/Tartu_Apertium_Course),
    [Rule-based machine translation, European Summer University for Culture & Technology, Leipzig 2018](http://wiki.apertium.org/wiki/Leipzig_workshophttp://wiki.apertium.org/wiki/Leipzig_workshop)
 
-And some TA jobs (Uni. Helsinki):
+#### TA jobs (Uni. Helsinki):
 
  * Introduction to Speech Synthesis
  * Programming NLS
