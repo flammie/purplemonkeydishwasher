@@ -1,36 +1,33 @@
 # Dr. Tommi A Pirinen, publications and other academic work
 
-Currently at:
-[Uit–Norges arktiske universitet](https://uit.no),
-[Divvun](https://divvun.no),
-[Giellatekno](https://giellatekno.uit.no)
+Currently working at/in/on:
+
+* [Uit–Norges arktiske universitet](https://uit.no),
+  * [Divvun](https://divvun.no),
 
 This site contains a list of publications and other academic works and a CVs for
-Dr Tommi A Pirinen. The publications are author's pre-print, postprint or
-updated versions depending on the details of copyright, with source codes and
-pdf's available as well.
+Dr Tommi A Pirinen. The publications are author's versions automatically
+converted to HTML,.
 
-## Profiles?
-
-Yikes, now (2019) there's a bit of proliferation of academic profiles in
-services that everyone must have, I've listed a few here:
-
+## Academic profiles
 
 * <div itemscope itemtype="https://schema.org/Person"><a itemprop="sameAs" content="https://orcid.org/0000-0003-1207-5395" href="https://orcid.org/0000-0003-1207-5395" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0003-1207-5395</a></div>
 * [Tommi A Pirinen on Semantic
    Scholar](https://www.semanticscholar.org/author/Tommi-A.-Pirinen/1823491)
 * [Flammie on Google
    Scholar](http://scholar.google.com/citations?user=XNOLAagAAAAJ)
+* [Tommi A. Pirinen on DBLP](https://dblp.org/pid/30/8936)
 
-I have profiles on researchgate and academia.edu as well as publons and so on
-and so forth, I prefer at the moment not to use them... actively.
+I have linked the ones I have found useful or that are required by e.g. ACL, the
+ones I did not link I do not actively use and perhaps even discourage (e.g.
+ResearchGate, academia.edu, please avoid these if possible).
 
+## Bio and CV
 
-## CV and bio
-
-Here's [a sample CV](cv.html) that I update usually only when I apply for jobs
-or so, so it might be outdated. And here's [an academic bio](bio.html), you can
-copy-paste if one is needed for conference and journal applications, etc...
+* Here's [an academic bio](bio.html), you can copy-paste if one is needed for
+  conference and journal applications, etc...
+* Here's [an old sample CV](cv.html), I basically last updated it before
+  applying for jobs so it's outdated by now
 
 ## Short academic history
 
