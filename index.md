@@ -1,4 +1,4 @@
-# Dr. Tommi A Pirinen, publications and other academic work
+# Dr. Flammie A Pirinen, publications and other academic work
 
 Currently working at/in/on:
 
@@ -6,10 +6,12 @@ Currently working at/in/on:
   * [Divvun](https://divvun.no),
 
 This site contains a list of publications and other academic works and a CVs for
-Dr Tommi A Pirinen. The publications are author's versions automatically
+Dr Flammie A Pirinen. The publications are author's versions automatically
 converted to HTML,.
 
 ## Academic profiles
+
+Most stuff prior to 2021 will be under name *Tommi A Pirinen*.
 
 * <div itemscope itemtype="https://schema.org/Person"><a itemprop="sameAs" content="https://orcid.org/0000-0003-1207-5395" href="https://orcid.org/0000-0003-1207-5395" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0003-1207-5395</a></div>
 * [Tommi A Pirinen on Semantic
@@ -76,6 +78,8 @@ Here is a [bib-file of all my publications](bibs/pirinen.bib), it may or may not
 be as accurate and up-to-date as google scholar.
 
 ###  Publications in conferences and journals
+
+Name as used on the paper, will be updated when I get to it.
 
 1. **Tommi A Pirinen**, Francis M. Tyers (2021)
    [Building language technology infrastructures to support a collaborative
