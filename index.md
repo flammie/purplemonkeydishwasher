@@ -19,6 +19,7 @@ Most stuff prior to 2021 will be under name *Tommi A Pirinen*.
 * [Flammie on Google
    Scholar](http://scholar.google.com/citations?user=XNOLAagAAAAJ)
 * [Tommi A. Pirinen on DBLP](https://dblp.org/pid/30/8936)
+* [Zotero page of Flammie A Pirinen](https://www.zotero.org/ffflammie/publications)
 
 I have linked the ones I have found useful or that are required by e.g. ACL, the
 ones I did not link I do not actively use and perhaps even discourage (e.g.
