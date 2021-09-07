@@ -119,6 +119,7 @@ ACL anthology: \url{http://FIXME/#1}. All modern ACL conferences are
 open access with Creative Commons licenses.}
 
 % My packages
+\RequirePackage{booktabs}
 \RequirePackage{polyglossia}
 \RequirePackage{fontspec}
 \RequirePackage{xunicode}
