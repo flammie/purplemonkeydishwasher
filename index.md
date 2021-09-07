@@ -82,6 +82,11 @@ be as accurate and up-to-date as google scholar.
 
 Name as used on the paper, will be updated when I get to it.
 
+1. Linda Wiechetek, **Flammie A Pirinen**, Mika Hämäläinen, Chiara Argese,
+   (2021) [Rules Ruling Neural Networks – Neural vs. Rule-Based Grammar
+   Checking for a Low Resource
+   Language](2021-ranlp/Wiechetek-2021-ranlp-grammarchecker.html), in
+   RANLP 2021, ~~Bulgaria~~ (actually Online)
 1. **Tommi A Pirinen**, Francis M. Tyers (2021)
    [Building language technology infrastructures to support a collaborative
    approach to language resource
