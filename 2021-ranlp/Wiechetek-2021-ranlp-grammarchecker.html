@@ -1,0 +1,1573 @@
+<!DOCTYPE html><html>
+<head>
+<title>Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language  1  footnote 1  1  footnote 1  find original in ACL anthology</title>
+<!--Generated on Tue Sep  7 02:32:04 2021 by LaTeXML (version 0.8.5) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Document created on September 7, 2021.-->
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../latexml/LaTeXML.css" type="text/css">
+<link rel="stylesheet" href="../latexml/ltx-article.css" type="text/css">
+</head>
+<body>
+<div class="ltx_page_main">
+<div class="ltx_page_content">
+<article class="ltx_document ltx_authors_1line">
+<h1 class="ltx_title ltx_title_document">Rules Ruling Neural Networks — 
+<br class="ltx_break">Neural vs. Rule-Based Grammar Checking for a Low Resource
+Language<span id="footnote1" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup>
+        <span class="ltx_tag ltx_tag_note">1</span>
+        
+        
+        
+      find original in ACL anthology</span></span></span>
+</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Linda Wiechetek
+<br class="ltx_break">UiT Norgga árktalaš
+<br class="ltx_break">universitehta 
+<br class="ltx_break">Norway 
+<br class="ltx_break">
+<br class="ltx_break">
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+Flammie A Pirinen 
+<br class="ltx_break">UiT Norgga árktalaš
+<br class="ltx_break">universitehta 
+<br class="ltx_break">Norway 
+<br class="ltx_break">
+<br class="ltx_break">
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+Mika Hämäläinen 
+<br class="ltx_break">University of Helsinki, 
+<br class="ltx_break">Rootroo Ltd 
+<br class="ltx_break">Finland
+<br class="ltx_break">
+<br class="ltx_break">
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+Chiara Argese
+<br class="ltx_break">UiT Norgga árktalaš
+<br class="ltx_break">universitehta 
+<br class="ltx_break">Norway 
+<br class="ltx_break">
+</span></span>
+</div>
+<div class="ltx_dates">(September 7, 2021)</div>
+
+<div class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+    
+<p class="ltx_p">We investigate both rule-based and machine learning methods for the task of
+compound error correction and evaluate their efficiency for North Sámi, a
+low resource language. The lack of error-free data needed for a neural
+approach is a challenge to the development of these tools, which is not
+shared by bigger languages. In order to compensate for that, we used a
+rule-based grammar checker to remove erroneous sentences and insert compound
+errors by splitting correct compounds. We describe how we set up the error
+detection rules, and how we train a bi-RNN based neural network. The
+precision of the rule-based model tested on a corpus with real errors
+(81.0%) is slightly better than the neural model (79.4%). The rule-based
+model is also more flexible with regard to fixing specific errors requested
+by the user community. However, the neural model has a better recall (98%).
+The results suggest that an approach that combines the advantages of both
+models would be desirable in the future. Our tools and data sets are
+open-source and freely available on GitHub and Zenodo.
+</p>
+  
+</div>
+<section id="S1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">1 </span>Introduction</h2>
+
+<div id="S1.p1" class="ltx_para">
+<p class="ltx_p">This paper presents our work on automatically correcting compound errors in real
+world text of North Sámi and exploring both rule-based and neural network
+methods. We chose this error type as it is the most frequent grammatical error
+type (after spelling and punctuation errors) and twice as frequent as the second
+most frequent grammatical error (agreement error). It also regards both spelling
+and grammar as the error is a space between two words, but its correction
+requires grammatical context.</p>
+</div>
+<div id="S1.p2" class="ltx_para">
+<p class="ltx_p">A grammar checker is a writer’s tool and particularly relevant to improve
+writing skills of a minority language in a bilingual context, as is the case for
+North Sámi. According to UNESCO <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib120" title="Atlas of the world’s languages in danger" class="ltx_ref">25</a>]</cite>, North Sámi, spoken in
+the North of Norway, Sweden and Finland, has around 30,000 speakers. It is a low
+resource language in a bilingual setting, and language users frequently face
+bigger challenges to writing proficiency as there is always a competing
+language. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib133" title="Davvisámegielat čálamáhtu konteaksta [The context of North Sámi literacy]" class="ltx_ref">30</a>]</cite> Developing a reliable grammar
+checker with a high precision that at the same time covers a lot of errors has
+therefore been our main focus. Good precision (i.e. avoiding false alarms) is
+a priority because users get easily frustrated if a grammar checker gives false
+alarms and underlines correct sentences.</p>
+</div>
+<div id="S1.p3" class="ltx_para">
+<p class="ltx_p">In this paper we focus on the correction of compound errors. This type of errors
+is easy to generate artificially in the absence of large amounts of error
+marked-up text, and we have a good amount of manually marked-up corpus for
+evaluation for this error type.
+Compound errors (i.e. one-word compounds that are erroneously written as two
+words) can be automatically inserted by using a rule-based morphological
+analyser on the corpus and splitting the word wherever we get a compound
+analysis. Unlike other error types (like e.g. real word errors) they are easily
+inserted, and existing compounds are seldom errors. In addition, they are
+interesting from a linguistic point of view as they are proper (complex)
+syntactic errors and not just spelling errors and serve as an example for higher
+level tools. Two adjacent words can either be syntactically related or erroneous
+compounds, depending on the syntax. In North Sámi orthography, as in the
+majority languages spoken in the region (Norwegian, Swedish and Finnish), nouns
+that form a new concept are usually written together. For example, the North
+Sámi word <span class="ltx_text ltx_font_italic">boazodoalloguovlu</span> ‘reindeer herding area’ consists of three
+words <span class="ltx_text ltx_font_italic">boazu</span> ‘reindeer’, <span class="ltx_text ltx_font_italic">doallu</span> ‘industry’ and <span class="ltx_text ltx_font_italic">guovlu</span>
+‘area’, and thus it is written together as a single compound. The task of our
+methods is to correct spellings such as <span class="ltx_text ltx_font_italic">boazodoallu guovlu</span> into
+<span class="ltx_text ltx_font_italic">boazodoalloguovlu</span> in case the words have been written separately in
+error.</p>
+</div>
+<div id="S1.p4" class="ltx_para">
+<p class="ltx_p">We develop both a rule-based and a neural model for the correction of compound
+errors. The rule-based model (<span class="ltx_text ltx_font_italic">GramDivvun</span>) is based on finite-state
+technology and Constraint Grammar. The neural model is bi-directional recurrent
+(BiRNN). While the rule-based model has earlier produced good precision, it did
+not handle unknown compounds well, which is why we were interested in a neural
+approach. However, neural models depend on large amounts of ‘clean’ data and
+synthetic error generation (or alternatively marked-up data).</p>
+</div>
+<div id="S1.p5" class="ltx_para">
+<p class="ltx_p">Typical for low-resource languages and also North Sámi, the corpora are not
+clean and contain a fair amount of a variety of different spelling and
+grammatical errors (see <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib11" title="Cállinmeattáhusaid guorran." class="ltx_ref">4</a>]</cite>).</p>
+</div>
+<div id="S1.p6" class="ltx_para">
+<p class="ltx_p">Therefore, efficiently preparing data as to making it available for neural model
+training is an important part of this paper. In our case, we make use of the
+existing rule-based tools to both, generate synthetic error data and clean the
+original data for training. For evaluation, on the other hand, we use real world
+error data.</p>
+</div>
+<div id="S1.p7" class="ltx_para">
+<p class="ltx_p">Our free and open-source rule-based tools can be found on GiellaLT
+GitHub.<span id="footnote2" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">2</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">2</sup>
+            <span class="ltx_tag ltx_tag_note">2</span>
+            
+            
+            
+          <a href="https://github.com/giellalt/" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/giellalt/</a></span></span></span> The training data and the
+neural models are freely available on
+Zenodo.<span id="footnote3" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">3</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">3</sup>
+            <span class="ltx_tag ltx_tag_note">3</span>
+            
+            
+            
+          <a href="https://zenodo.org/record/5172095" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://zenodo.org/record/5172095</a></span></span></span> We hereby want to
+promote a wider academic interest in conducting NLP research for the North Sámi.
+</p>
+</div>
+</section>
+<section id="S2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2 </span>Background</h2>
+
+<div id="S2.p1" class="ltx_para">
+<p class="ltx_p">Sámi open source rule-based language tools have a long and successful tradition
+(nearly 20 years) <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib186" title="Porting morphological analysis and disambiguation to new languages" class="ltx_ref">38</a>, <a href="#bib.bib121" title="Tilgjengelegheit for samisk og andre nasjonale minoritetsspråk" class="ltx_ref">27</a>, <a href="#bib.bib10" title="Next to nothing–a cheap south saami disambiguator" class="ltx_ref">3</a>, <a href="#bib.bib167" title="FST morphology for the endangered Skolt Sami language" class="ltx_ref">34</a>]</cite>.
+North Sámi is a low-resource language in terms of available corpus data (32.24M
+tokens raw data). Although there is a fair amount of data, it contains many real
+errors and only a small amount is marked up for errors.</p>
+</div>
+<div id="S2.p2" class="ltx_para">
+<p class="ltx_p">Applying neural approaches for high-level language tasks to low resource
+languages is an interesting research question due the various limitations of
+minority language corpora, versus the existing research in the topic in
+well-resourced, majority languages and artificially constrained
+setups <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib125" title="Participatory research for low-resourced machine translation: a case study in African languages" class="ltx_ref">28</a>]</cite>. Rules have been used and are in a
+wide-spread use in the context of endangered Uralic languages. There is recent
+work on grammar checking for North Sámi <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib201" title="Seeing more than whitespace—tokenisation and disambiguation in a north Sámi grammar checker" class="ltx_ref">40</a>]</cite> and spell
+checking for Skolt Sámi <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib185" title="Soft on errors? the correcting mechanism of a Skolt Sami speller" class="ltx_ref">37</a>]</cite>. Other rule-based approaches
+to grammar checking are extensively described in Wiechetek
+<cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib200" title="When grammar can’t be trusted – valency and semantic categories in north sámi syntactic analysis and error detection" class="ltx_ref">41</a>]</cite>.</p>
+</div>
+<div id="S2.p3" class="ltx_para">
+<p class="ltx_p">Before the era of neural models, it was common to use statistical machine
+translation (SMT) as a method for grammar error
+correction <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib212" title="Automated grammar correction using hierarchical phrase-based statistical machine translation" class="ltx_ref">6</a>, <a href="#bib.bib211" title="Tuning a grammar correction system for increased precision" class="ltx_ref">23</a>, <a href="#bib.bib218" title="Exploiting n-best hypotheses to improve an smt approach to grammatical error correction" class="ltx_ref">15</a>]</cite>. Many recent papers on grammar checking use bi-directional
+LSTM models that are trained to tag errors in an input sentence. Such methods
+have been proposed for Latvian <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib213" title="Bidirectional lstm tagger for latvian grammatical error detection" class="ltx_ref">9</a>]</cite>,
+English <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib224" title="Compositional sequence labeling models for error detection in learner writing" class="ltx_ref">33</a>]</cite> and
+Chinese <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib220" title="Bi-lstm neural networks for chinese grammatical error diagnosis" class="ltx_ref">17</a>]</cite>. Similar LSTM based approaches have also been
+applied for error
+correction <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib223" title="Grammatical error correction using neural machine translation" class="ltx_ref">43</a>, <a href="#bib.bib222" title="Automatic grammatical error correction for sequence-to-sequence text generation: an empirical study" class="ltx_ref">11</a>, <a href="#bib.bib221" title="Bangla real-word error detection and correction using bidirectional lstm and bigram hybrid model" class="ltx_ref">18</a>]</cite>. Other
+recent approaches <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib219" title="Learning to combine grammatical error corrections" class="ltx_ref">19</a>, <a href="#bib.bib215" title="GECToR–grammatical error correction: tag, not rewrite" class="ltx_ref">29</a>]</cite> use methods
+that take advantage of BERT <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib42" title="BERT: pre-training of deep bidirectional transformers for language understanding" class="ltx_ref">10</a>]</cite> and other data-hungry
+models. While such rich sentence embeddings can be used for English and a few
+other languages with a large amount of data, their use is not viable for North
+Sámi.</p>
+</div>
+</section>
+<section id="S3" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">3 </span>Data</h2>
+
+<div id="S3.p1" class="ltx_para">
+<p class="ltx_p">For evaluation and training the neural model we use the <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib225" title="SIKOR uit norgga árktalaš universitehta ja norgga sámedikki sámi teakstačoakkáldat, veršuvdna 06.11.2018" class="ltx_ref">36</a>]</cite>
+(the Sámi International KORpus), which is a collection of texts in different
+Sámi languages compiled by UiT The Arctic University of Norway and the Norwegian
+Sámi Parliament. It consists of two subcorpora:
+<span class="ltx_text ltx_font_italic">GT-Bound<span id="footnote4" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">4</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">4</sup>
+              <span class="ltx_tag ltx_tag_note"><span class="ltx_text ltx_font_upright">4</span></span>
+              
+              
+              
+            <a href="https://gtsvn.uit.no/boundcorpus/orig/sme/" title="" class="ltx_ref ltx_url ltx_font_typewriter ltx_font_upright">https://gtsvn.uit.no/boundcorpus/orig/sme/</a></span></span></span></span>
+(texts limited by a copyright which are available only by request) and
+<span class="ltx_text ltx_font_italic">GT-Free<span id="footnote5" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">5</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">5</sup>
+              <span class="ltx_tag ltx_tag_note"><span class="ltx_text ltx_font_upright">5</span></span>
+              
+              
+              
+            <a href="https://gtsvn.uit.no/freecorpus/orig/sme/" title="" class="ltx_ref ltx_url ltx_font_typewriter ltx_font_upright">https://gtsvn.uit.no/freecorpus/orig/sme/</a></span></span></span></span> (the
+publicly available texts). As a preprocessing step, we run a rule-based grammar
+checker <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib199" title="Constraint Grammar based correction of grammatical errors for North Sámi" class="ltx_ref">42</a>]</cite> and remove sentences with potential compound
+errors, as we cannot automatically ensure whether these errors are real or not.
+This is needed as we want this data to be fully free of any compound errors as
+it serves as the target side of our neural model.</p>
+</div>
+<div id="S3.p2" class="ltx_para">
+<p class="ltx_p">Thereafter, we take in each sentence in this error free data and analyse it by a
+rule-based morphological
+analyser<span id="footnote6" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">6</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">6</sup>
+            <span class="ltx_tag ltx_tag_note">6</span>
+            
+            
+            
+          <a href="https://github.com/giellalt/lang-sme" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/giellalt/lang-sme</a></span></span></span>. When the analyser
+sees a potential compound word, it indicates the word boundary with a compound
+(<span class="ltx_text ltx_font_typewriter">+Cmp#</span>) tag. We use this information to automatically split all
+compounds identified by the rule-based analyser. This results in a parallel
+corpus of the original sentences as the prediction target and their
+corresponding versions with synthetically introduced compound errors. Many of
+the compound boundaries are ambiguous, and the algorithm decides the one used in
+training data based on heuristics: maximum number of compound boundaries where
+the splitting will not cause any other modifications of the word stems or other
+content.</p>
+</div>
+<div id="S3.p3" class="ltx_para">
+<p class="ltx_p">As an additional data source, we use the North Sámi Universal Dependencies
+treebank <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib188" title="Annotation schemes in North Sámi dependency parsing" class="ltx_ref">39</a>]</cite>. We parse the corpus with
+UralicNLP <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib226" title="UralicNLP: an NLP library for Uralic languages" class="ltx_ref">14</a>]</cite> and split the compounds the rule-based
+morphological analyser identifies as consisting of two or more words in order to
+synthetically introduce errors. We also run the rule-based morphological
+analyser and morpho-syntactic disambiguator to add <span class="ltx_text ltx_font_italic">part-of-speech</span>
+(POS) information to produce an additional data set with POS tags. For the
+Universal Dependencies data, we use the POS tags provided in the data set.</p>
+</div>
+<div id="S3.p4" class="ltx_para">
+<p class="ltx_p">We then make sure that all sentences have at least one generated compound error
+and that the only type of error the sentences have is the compound error (no
+other changes introduced by the rule-based models). We shuffle this data
+randomly and split it on a sentence level into 70 % training, 15 % validation
+and 15 % testing. The size of the data set can be seen in
+Table <a href="#S3.T1" title="Table 1 ‣ 3 Data ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a>, the sentences were tokenized based on punctuation
+marks.</p>
+</div>
+<figure id="S3.T1" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_th ltx_th_row ltx_border_tt"></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Sentences</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Source tokens</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Train</span></th>
+<td class="ltx_td ltx_align_center ltx_border_t"><span class="ltx_text" style="font-size:90%;">43,658</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t"><span class="ltx_text" style="font-size:90%;">388,167</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Test</span></th>
+<td class="ltx_td ltx_align_center"><span class="ltx_text" style="font-size:90%;">9,356</span></td>
+<td class="ltx_td ltx_align_center"><span class="ltx_text" style="font-size:90%;">83,107</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Validation</span></th>
+<td class="ltx_td ltx_align_center"><span class="ltx_text" style="font-size:90%;">9,355</span></td>
+<td class="ltx_td ltx_align_center"><span class="ltx_text" style="font-size:90%;">82,566</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Real-world errors</span></th>
+<td class="ltx_td ltx_align_center ltx_border_bb ltx_border_t"><span class="ltx_text" style="font-size:90%;">3,291</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb ltx_border_t"><span class="ltx_text" style="font-size:90%;">26,565</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering" style="font-size:90%;"><span class="ltx_tag ltx_tag_table">Table 1: </span>Training, testing and validation sizes for the <span class="ltx_text ltx_font_bold">neural model</span>
+(corpus with synthetic errors)</figcaption>
+</figure>
+<div id="S3.p5" class="ltx_para">
+<p class="ltx_p">For the rule-based model <span class="ltx_text ltx_font_italic">GramDivvun</span> we do not generate synthetic
+errors. We have hand-selected a large corpus for rule development and as
+regression tests, consisting of representative sentences from <span class="ltx_text ltx_font_italic">GT-Free</span>.
+The current selection for syntactic compound errors includes 3,291 sentences
+with real world compound errors (and possibly other errors in addition).</p>
+</div>
+</section>
+<section id="S4" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">4 </span>Methods</h2>
+
+<div id="S4.p1" class="ltx_para">
+<p class="ltx_p">We use a neural models and a rule-based model for compound error correction.</p>
+</div>
+<section id="S4.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.1 </span>Neural Model</h3>
+
+<figure id="S4.T2" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_align_middle">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold">n</span></td>
+<td class="ltx_td ltx_align_left ltx_border_r ltx_border_t"><span class="ltx_text ltx_font_bold">Input</span></td>
+<td class="ltx_td ltx_align_justify ltx_border_r ltx_border_t" style="width:184.9pt;"><span class="ltx_text ltx_wrap ltx_font_bold">Output</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r ltx_border_t">2</td>
+<td class="ltx_td ltx_align_left ltx_border_r ltx_border_t">g e a h č č a l a d d a n _ p r o š e a k t a n</td>
+<td class="ltx_td ltx_align_justify ltx_border_r ltx_border_t" style="width:184.9pt;">g e a h č č a l a d d a n p r o š e a k t a n</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r ltx_border_t">3</td>
+<td class="ltx_td ltx_align_left ltx_border_r ltx_border_t">g e a h č č a l a d d a n _ p r o š e a k t a n _ p r o š e a k t a n</td>
+<td class="ltx_td ltx_align_justify ltx_border_r ltx_border_t" style="width:184.9pt;">g e a h č č a l a d d a n p r o š e a k t a n _ p r o š e a k t a n</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_l ltx_border_r ltx_border_t">2</td>
+<td class="ltx_td ltx_align_left ltx_border_r ltx_border_t">V&gt; g e a h č č a l a d d a n &lt;V _ N&gt; p r o š e a k t a n &lt;N</td>
+<td class="ltx_td ltx_align_justify ltx_border_r ltx_border_t" style="width:184.9pt;">g e a h č č a l a d d a n p r o š e a k t a n</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_b ltx_border_l ltx_border_r ltx_border_t">3</td>
+<td class="ltx_td ltx_align_left ltx_border_b ltx_border_r ltx_border_t">
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">V&gt; g e a h č č a l a d d a n &lt;V _ N&gt; p r o š e a k t a n &lt;N _</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">N&gt; j a g i &lt;N</td>
+</tr>
+</table>
+</td>
+<td class="ltx_td ltx_align_justify ltx_border_b ltx_border_r ltx_border_t" style="width:184.9pt;">g e a h č č a l a d d a n p r o š e a k t a n _ p r o š e a k t a n</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 2: </span>Examples of the character-level input and output, where <span class="ltx_text ltx_font_italic">n</span>
+indicates the chunk size. The first examples are without POS tags and the
+last with POS tags</figcaption>
+</figure>
+<div id="S4.SS1.p1" class="ltx_para">
+<p class="ltx_p">We model the problem at a character instead of word level in NMT (neural machine
+translation). The reason for using a character-level model instead of a
+word-level model is that, this way, the model can work better with
+out-of-vocabulary words. This is important due to the low-resourced nature of
+North Sámi, although there are other deep learning methods for endangered
+languages that do not utilize character level models <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib8" title="When word embeddings become endangered" class="ltx_ref">2</a>]</cite>. In
+practice, we split words into characters separated by white spaces and mark
+actual spaces between words with an underscore (_). We train the model to
+predict from text with compound errors into text without compound errors. As
+previous research <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib227" title="Dialect text normalization to normative standard Finnish" class="ltx_ref">31</a>, <a href="#bib.bib9" title="Automated prediction of medieval Arabic diacritics" class="ltx_ref">1</a>]</cite> has
+found that using chunks of words instead of full sentences at a time improves
+the results in character level models, we will be training different models with
+different chunk sizes. This means that we will train a model to predict two
+words at a time, three words at a time, all the way to five words at a time.</p>
+</div>
+<div id="S4.SS1.p2" class="ltx_para">
+<p class="ltx_p">We train the models with and without POS tags. For the models with POS tags, we
+surround each word with a token indicating the beginning and the end of the POS
+tag. The POS tags are included only on the source side, not on the target side.
+They are separated from the word with a white space.</p>
+</div>
+<div id="S4.SS1.p3" class="ltx_para">
+<p class="ltx_p">An example of the data can be seen in Table <a href="#S4.T2" title="Table 2 ‣ 4.1 Neural Model ‣ 4 Methods ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>. Even
+though every sentence in the training data has a compound error, this does not
+mean that every input chunk the model sees would have a compound error. This
+way, the model will also learn to leave the input unchanged if no compound
+errors are detected.</p>
+</div>
+<div id="S4.SS1.p4" class="ltx_para">
+<p class="ltx_p">We train all models using a bi-directional long short-term memory (LSTM) based
+model <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib214" title="Long short-term memory" class="ltx_ref">16</a>]</cite> by using OpenNMT-py <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib81" title="OpenNMT: open-source toolkit for neural machine translation" class="ltx_ref">22</a>]</cite> with the
+default settings except for the encoder where we use a
+BiRNN <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib216" title="Bidirectional recurrent neural networks" class="ltx_ref">35</a>]</cite> instead of the default RNN (recurrent
+neural network), since BiRNN based models have been shown to provide better
+results in character-level models <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib217" title="Revisiting nmt for normalization of early English letters" class="ltx_ref">13</a>]</cite>. We use the
+default of two layers for both the encoder and the decoder and the default
+attention model, which is the general global attention presented by
+<cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib100" title="Effective approaches to attention-based neural machine translation" class="ltx_ref">24</a>]</cite>. The models are trained for the default of 100,000
+steps. All models are trained with the same random seed (3,435) to ensure
+reproducibility.</p>
+</div>
+<div id="S4.SS1.p5" class="ltx_para">
+<p class="ltx_p">During the training of the neural models, we evaluate the models using simple
+sentence level scores. There we look only at full-sentence matches and evaluate
+their accuracy, precision and recall, as opposed to the evaluations in
+Section <a href="#S5" title="5 Results ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>, where we study them more carefully at the
+word-level. The results of the neural models for the generated corpus (where
+errors were introduced by splitting compounds) can be seen in
+Table <a href="#S4.T3" title="Table 3 ‣ 4.1 Neural Model ‣ 4 Methods ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>. The results indicate that both of the models
+receiving a chunk of two words at a time reached to the highest accuracy, and
+the model without the POS tags also reached to the highest precision.</p>
+</div>
+<figure id="S4.T3" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_tt"><span class="ltx_text ltx_font_bold">Chunk</span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold">POS</span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold">Accuracy</span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold">Precision</span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold">Recall</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t">2</th>
+<td class="ltx_td ltx_align_left ltx_border_t">no</td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text ltx_font_bold">0.925</span></td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text ltx_font_bold">0.949</span></td>
+<td class="ltx_td ltx_align_left ltx_border_t">0.974</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">3</th>
+<td class="ltx_td ltx_align_left">no</td>
+<td class="ltx_td ltx_align_left">0.847</td>
+<td class="ltx_td ltx_align_left">0.883</td>
+<td class="ltx_td ltx_align_left">0.955</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">4</th>
+<td class="ltx_td ltx_align_left">no</td>
+<td class="ltx_td ltx_align_left">0.852</td>
+<td class="ltx_td ltx_align_left">0.892</td>
+<td class="ltx_td ltx_align_left">0.950</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">5</th>
+<td class="ltx_td ltx_align_left">no</td>
+<td class="ltx_td ltx_align_left">0.869</td>
+<td class="ltx_td ltx_align_left">0.909</td>
+<td class="ltx_td ltx_align_left">0.952</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">2</th>
+<td class="ltx_td ltx_align_left">yes</td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold">0.925</span></td>
+<td class="ltx_td ltx_align_left">0.948</td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold">0.976</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">3</th>
+<td class="ltx_td ltx_align_left">yes</td>
+<td class="ltx_td ltx_align_left">0.906</td>
+<td class="ltx_td ltx_align_left">0.934</td>
+<td class="ltx_td ltx_align_left">0.968</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">4</th>
+<td class="ltx_td ltx_align_left">yes</td>
+<td class="ltx_td ltx_align_left">0.856</td>
+<td class="ltx_td ltx_align_left">0.896</td>
+<td class="ltx_td ltx_align_left">0.951</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb">5</th>
+<td class="ltx_td ltx_align_left ltx_border_bb">yes</td>
+<td class="ltx_td ltx_align_left ltx_border_bb">0.857</td>
+<td class="ltx_td ltx_align_left ltx_border_bb">0.895</td>
+<td class="ltx_td ltx_align_left ltx_border_bb">0.953</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 3: </span>Sentence level scores for different neural models tested on a corpus
+with artificially introduced errors</figcaption>
+</figure>
+<div id="S4.SS1.p6" class="ltx_para">
+<p class="ltx_p">The POS tags were not important for the models, as the results with and without
+them are fairly similar. The largest gain was when the compound error correction
+was done for three words at a time. As this performance gain only occurred for
+that specific model, it suggests that it is more of an artefact of the training
+data and how it is fed into the model than any actual improvement.
+</p>
+</div>
+</section>
+<section id="S4.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.2 </span>Rule-based Model</h3>
+
+<div id="S4.SS2.p1" class="ltx_para">
+<p class="ltx_p">The rule-based grammar checker <span class="ltx_text ltx_font_italic">GramDivvun</span> is a full-fledged grammar
+checker fixing spelling errors, (morpho)-syntactic errors (including real word
+spelling errors<span id="footnote7" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">7</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">7</sup>
+              <span class="ltx_tag ltx_tag_note">7</span>
+              
+              
+              
+            Real word errors are spelling errors where the outcome
+is an actual word that is not fit for the context.</span></span></span>, inflection errors, and
+compounding errors) and punctuation and spacing errors.</p>
+</div>
+<div id="S4.SS2.p2" class="ltx_para">
+<p class="ltx_p">It takes input from the finite-state transducer (<span class="ltx_text ltx_font_italic">FST</span>) to a number of
+other modules, the core of which are several Constraint Grammar modules for
+tokenization disambiguation, morpho-syntactic disambiguation and a module for
+error detection and correction. The full modular structure
+(Figure <a href="#S4.F1" title="Figure 1 ‣ 4.2 Rule-based Model ‣ 4 Methods ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>) is described in
+Wiechetek <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib201" title="Seeing more than whitespace—tokenisation and disambiguation in a north Sámi grammar checker" class="ltx_ref">40</a>]</cite>. This work regards predominantly the
+modification of the disambiguation and error detection modules
+<span class="ltx_text ltx_font_italic">mwe-dis.cg3</span>, <span class="ltx_text ltx_font_italic">grc-disambiguator.cg3</span>, and
+<span class="ltx_text ltx_font_italic">grammerchecker-release.cg3</span>. We are using finite-state
+morphology <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib15" title="Finite state morphology" class="ltx_ref">5</a>]</cite> to model word formation processes. The
+technology behind our <span class="ltx_text ltx_font_italic">FSTs</span> is described in
+Pirinen <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib146" title="Finite-state spell-checking with weighted language and error models" class="ltx_ref">32</a>]</cite>. Constraint Grammar is a rule-based
+formalism for writing disambiguation and syntactic annotation
+grammars <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib74" title="Constraint grammar as a framework for parsing unrestricted text" class="ltx_ref">21</a>, <a href="#bib.bib72" title="Constraint grammar: a language-independent system for parsing unrestricted text" class="ltx_ref">20</a>]</cite>. In our work, we
+use the free open source implementation VISLCG-3 <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib43" title="CG-3 – beyond classical Constraint Grammar" class="ltx_ref">7</a>]</cite>. All
+components are compiled and built using the <span class="ltx_text ltx_font_italic">GiellaLT</span>
+infrastructure <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib122" title="Building an open-source development infrastructure for language technology projects" class="ltx_ref">26</a>]</cite>. The code and data for the
+model is available for
+download <span id="footnote8" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">8</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">8</sup>
+              <span class="ltx_tag ltx_tag_note">8</span>
+              
+              
+              
+            <a href="https://github.com/giellalt/lang-sme/releases/tag/naacl-2021-ws" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/giellalt/lang-sme/releases/tag/naacl-2021-ws</a></span></span></span>
+with specific version tagged for reproducibility.</p>
+</div>
+<figure id="S4.F1" class="ltx_figure"><img src="GramCheckLightFlow-08-2021.png" id="S4.F1.g1" class="ltx_graphics ltx_centering" width="3504" height="2483" alt="System architecture of the North Sámi grammar checker
+(">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 1: </span>System architecture of the North Sámi grammar checker
+(<span class="ltx_text ltx_font_italic">GramDivvun</span>)</figcaption>
+</figure>
+<div id="S4.SS2.p3" class="ltx_para">
+<p class="ltx_p">The syntactic context is specified in hand-written Constraint Grammar rules. The
+REMOVE-rule below removes the compound error reading (identified by the tag
+<span class="ltx_text ltx_font_typewriter">Err/SpaceCmp</span>) if the head is a 3rd person singular verb (cf. l.2) and
+the first element of the potential compound is a noun in nominative case (cf. l.3). The context condition further specifies that there should be a finite verb
+(VFIN) somewhere in the sentence (cf. l.4) for the rule to apply.</p>
+</div>
+<span class="ltx_ERROR undefined">{Verbatim}</span>
+<div id="S4.SS2.p4" class="ltx_para">
+<p class="ltx_p">[frame=single,framerule=0.2mm,framesep=3mm,fontsize=<span class="ltx_text" style="font-size:80%;">,baselinestretch=1]
+REMOVE (Err/SpaceCmp)
+(0/0 (V Sg3))
+(0/1 (N Sg Nom))
+(*0 VFIN);
+</span></p>
+</div>
+<div id="S4.SS2.p5" class="ltx_para">
+<p class="ltx_p">All possible compounds written apart are considered to be errors by default,
+unless the lexicon specifies a two or several word compound or a syntactic rule
+removes the error reading.</p>
+</div>
+<div id="S4.SS2.p6" class="ltx_para">
+<p class="ltx_p">The process of rule writing includes several consecutive steps, and like neural
+network models they require data. The process is as follows:</p>
+</div>
+<div id="S4.SS2.p7" class="ltx_para">
+<ol id="S4.I1" class="ltx_enumerate">
+<li id="S4.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> 
+<div id="S4.I1.i1.p1" class="ltx_para">
+<p class="ltx_p">Modelling an error detection rule based on at least one actual
+sentence containing the error</p>
+</div>
+</li>
+<li id="S4.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">2.</span> 
+<div id="S4.I1.i2.p1" class="ltx_para">
+<p class="ltx_p">Adding constraints based on the linguist’s knowledge of possible
+contexts (remembered data)</p>
+</div>
+</li>
+<li id="S4.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">3.</span> 
+<div id="S4.I1.i3.p1" class="ltx_para">
+<p class="ltx_p">A corpus search for sentences containing similar forms/errors, testing
+of the rule and reporting rule mistakes</p>
+</div>
+</li>
+<li id="S4.I1.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">4.</span> 
+<div id="S4.I1.i4.p1" class="ltx_para">
+<p class="ltx_p">Modification of constraints in the rule based on this data and testing
+against regression tests so that unfit constraints depending on results
+for precision and recall (focus on precision)
+</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="S4.SS2.p8" class="ltx_para">
+<p class="ltx_p">The basis of rule development is continuous integration. Typical shortcomings
+and bad errors can be fixed right away with added conditions. Neural models are
+not usually trained in this way.</p>
+</div>
+<div id="S4.SS2.p9" class="ltx_para">
+<p class="ltx_p">The frequent experience of false alarms can decrease the users’ trust in the
+grammar checker. Typically, full-fledged user oriented grammar checkers, e.g.
+<span class="ltx_text ltx_font_italic">DanProof</span> focus on keeping false alarms low and precision
+high <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib21" title="DanProof: pedagogical spell and grammar checking for Danish" class="ltx_ref">8</a>]</cite> because users’ experiences have shown that certain
+experiences will frustrate users and stop them from using the application.</p>
+</div>
+<div id="S4.SS2.p10" class="ltx_para">
+<p class="ltx_p">For rule development, regression tests are used. These consist in error-specific
+YAML<span id="footnote9" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">9</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">9</sup>
+              <span class="ltx_tag ltx_tag_note">9</span>
+              
+              
+              
+            <a href="https://yaml.org/spec/1.2/spec.html" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://yaml.org/spec/1.2/spec.html</a></span></span></span> tests and are manually
+marked up.</p>
+</div>
+<div id="S4.SS2.p11" class="ltx_para">
+<p class="ltx_p">The regression test for compound errors contains 3,291 sentences (1,368 compound
+errors, used for development and regression) give the results as shown in
+Table <a href="#S4.T4" title="Table 4 ‣ 4.2 Rule-based Model ‣ 4 Methods ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>.</p>
+</div>
+<figure id="S4.T4" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold">Precision</span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold">Recall</span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt">
+<math id="S4.T4.m1" class="ltx_Math" alttext="F_{1}" display="inline"><msub><mi>F</mi><mn>1</mn></msub></math><span class="ltx_text ltx_font_bold"> score</span>
+</th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_bb ltx_border_t">94.95</td>
+<td class="ltx_td ltx_align_left ltx_border_bb ltx_border_t">86.22</td>
+<td class="ltx_td ltx_align_left ltx_border_bb ltx_border_t">90.80</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 4: </span>The <span class="ltx_text ltx_font_bold">rule-based model</span> tested on the developer’s corpus
+(regression tests)</figcaption>
+</figure>
+</section>
+</section>
+<section id="S5" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">5 </span>Results</h2>
+
+<div id="S5.p1" class="ltx_para">
+<p class="ltx_p">We evaluate the models both quantitatively and qualitatively. We evaluate on
+accuracy, precision and recall, and do a linguistic evaluation. The
+measurements are defined in this article as follows: Accuracy <math id="S5.p1.m1" class="ltx_Math" alttext="A=\frac{C}{S}" display="inline"><mrow><mi>A</mi><mo>=</mo><mfrac><mi>C</mi><mi>S</mi></mfrac></mrow></math>,
+where C is a correct sentence (1:1 string match) and <math id="S5.p1.m2" class="ltx_Math" alttext="S" display="inline"><mi>S</mi></math> is corpus size in
+sentences, precision <math id="S5.p1.m3" class="ltx_Math" alttext="P=\frac{tp}{tp+fp}" display="inline"><mrow><mi>P</mi><mo>=</mo><mfrac><mrow><mi>t</mi><mo>⁢</mo><mi>p</mi></mrow><mrow><mrow><mi>t</mi><mo>⁢</mo><mi>p</mi></mrow><mo>+</mo><mrow><mi>f</mi><mo>⁢</mo><mi>p</mi></mrow></mrow></mfrac></mrow></math> and recall <math id="S5.p1.m4" class="ltx_Math" alttext="R=\frac{tp}{tp+fn}" display="inline"><mrow><mi>R</mi><mo>=</mo><mfrac><mrow><mi>t</mi><mo>⁢</mo><mi>p</mi></mrow><mrow><mrow><mi>t</mi><mo>⁢</mo><mi>p</mi></mrow><mo>+</mo><mrow><mi>f</mi><mo>⁢</mo><mi>n</mi></mrow></mrow></mfrac></mrow></math>, where <math id="S5.p1.m5" class="ltx_Math" alttext="tp" display="inline"><mrow><mi>t</mi><mo>⁢</mo><mi>p</mi></mrow></math> is true positive, <math id="S5.p1.m6" class="ltx_Math" alttext="fp" display="inline"><mrow><mi>f</mi><mo>⁢</mo><mi>p</mi></mrow></math> is false positive and <math id="S5.p1.m7" class="ltx_Math" alttext="fn" display="inline"><mrow><mi>f</mi><mo>⁢</mo><mi>n</mi></mrow></math> is false
+negative. The <math id="S5.p1.m8" class="ltx_Math" alttext="F_{1}" display="inline"><msub><mi>F</mi><mn>1</mn></msub></math> score is the harmonic mean of precision and recall <math id="S5.p1.m9" class="ltx_Math" alttext="F_{1}=2\times\frac{P\times R}{P+R}" display="inline"><mrow><msub><mi>F</mi><mn>1</mn></msub><mo>=</mo><mrow><mn>2</mn><mo>×</mo><mfrac><mrow><mi>P</mi><mo>×</mo><mi>R</mi></mrow><mrow><mi>P</mi><mo>+</mo><mi>R</mi></mrow></mfrac></mrow></mrow></math>. The accuracy is thus sentence level
+correctness rate—as used in the method section to probe model
+qualities—whereas precision measures how often corrections were right and
+recall measures how many errors we found. The word-level errors are counted
+once per error in the marked-up corpus. Thus, if a three-part compound contains
+two compounding errors it is counted towards the total as one error, but if a
+sentence has three separate compounds with wrong splits each, we count three
+errors.</p>
+</div>
+<div id="S5.p2" class="ltx_para">
+<p class="ltx_p">The error marked-up corpus we used includes 140 syntactic compound errors (there
+are other compound errors that can be discovered by the spellchecker as they are
+word internal) and is from <span class="ltx_text ltx_font_italic">GT-Bound</span>. We chose <span class="ltx_text ltx_font_italic">GT-Bound</span> to make
+sure that the sentences had not been used to develop rules. It is part of our
+error-marked up corpus, which makes it possible to run an automatic analysis.
+This error corpus does only contain real world (as opposed to synthetic)
+errors.</p>
+</div>
+<figure id="S5.T5" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_tt"><span class="ltx_text ltx_font_bold">Chunk</span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold">POS</span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold">Accuracy</span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold">Precision</span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold">Recall</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t">2</th>
+<td class="ltx_td ltx_align_left ltx_border_t">no</td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text ltx_font_bold">0.781</span></td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text ltx_font_bold">0.794</span></td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text ltx_font_bold">0.980</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">3</th>
+<td class="ltx_td ltx_align_left">no</td>
+<td class="ltx_td ltx_align_left">0.707</td>
+<td class="ltx_td ltx_align_left">0.720</td>
+<td class="ltx_td ltx_align_left">0.974</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">4</th>
+<td class="ltx_td ltx_align_left">no</td>
+<td class="ltx_td ltx_align_left">0.726</td>
+<td class="ltx_td ltx_align_left">0.747</td>
+<td class="ltx_td ltx_align_left">0.963</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">5</th>
+<td class="ltx_td ltx_align_left">no</td>
+<td class="ltx_td ltx_align_left">0.727</td>
+<td class="ltx_td ltx_align_left">0.757</td>
+<td class="ltx_td ltx_align_left">0.950</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">2</th>
+<td class="ltx_td ltx_align_left">yes</td>
+<td class="ltx_td ltx_align_left">0.777</td>
+<td class="ltx_td ltx_align_left">0.788</td>
+<td class="ltx_td ltx_align_left">0.982</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">3</th>
+<td class="ltx_td ltx_align_left">yes</td>
+<td class="ltx_td ltx_align_left">0.761</td>
+<td class="ltx_td ltx_align_left">0.775</td>
+<td class="ltx_td ltx_align_left">0.976</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">4</th>
+<td class="ltx_td ltx_align_left">yes</td>
+<td class="ltx_td ltx_align_left">0.720</td>
+<td class="ltx_td ltx_align_left">0.744</td>
+<td class="ltx_td ltx_align_left">0.958</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb">5</th>
+<td class="ltx_td ltx_align_left ltx_border_bb">yes</td>
+<td class="ltx_td ltx_align_left ltx_border_bb">0.751</td>
+<td class="ltx_td ltx_align_left ltx_border_bb">0.765</td>
+<td class="ltx_td ltx_align_left ltx_border_bb">0.976</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 5: </span>Sentence level scores for the neural models tested on a real world
+error corpus</figcaption>
+</figure>
+<div id="S5.p3" class="ltx_para">
+<p class="ltx_p">Table <a href="#S5.T5" title="Table 5 ‣ 5 Results ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a> shows the results for the neural models on
+this corpus. The drop in results is expected as the models were trained on
+synthetic data, whereas this data consists of real world errors. However, the
+results stay relatively good, given that synthetic data was the only way to
+produce enough training data for North Sámi.</p>
+</div>
+<div id="S5.p4" class="ltx_para">
+<p class="ltx_p">We ran the neural and rule-based model on two different corpora of compound
+error materials, i.e. synthetic and real world. Table <a href="#S5.T6" title="Table 6 ‣ 5 Results ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6</span></a> shows
+the evaluation on a real world error corpus.</p>
+</div>
+<figure id="S5.T6" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold">Model</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold">Precision</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold">Recall</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_tt"><math id="S5.T6.m1" class="ltx_Math" alttext="F_{1}" display="inline"><msub><mi>F</mi><mn>1</mn></msub></math></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t">Rule-based model</td>
+<td class="ltx_td ltx_align_right ltx_border_t">81.0</td>
+<td class="ltx_td ltx_align_right ltx_border_t">60.7</td>
+<td class="ltx_td ltx_align_right ltx_border_t">69.3</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_bb">Neural model</td>
+<td class="ltx_td ltx_align_right ltx_border_bb">79.4</td>
+<td class="ltx_td ltx_align_right ltx_border_bb">98.0</td>
+<td class="ltx_td ltx_align_right ltx_border_bb">87.7</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 6: </span>Results for <span class="ltx_text ltx_font_bold">both models</span> based on a manually marked-up
+evaluation corpus</figcaption>
+</figure>
+<div id="S5.p5" class="ltx_para">
+<p class="ltx_p">The neural network performs well in terms of numbers, but has the following
+shortcomings that are problematic for the end users. It introduces new (types
+of) errors unrelated to compounding, like changing <span class="ltx_text ltx_font_italic">km²</span> randomly either
+to <span class="ltx_text ltx_font_italic">kmy</span> or <span class="ltx_text ltx_font_italic">km</span> kind of unforgivable (because not understandable)
+for the end user. They introduce compounds like <span class="ltx_text ltx_font_italic">Statoileamiálbmogiid</span>
+‘Statoil (national oil company and gasstation) indigenous people’ as in
+ex. <a href="#S5.T6" title="Table 6 ‣ 5 Results ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6</span></a>. The rule-based grammar checker presupposes that the compound
+is listed in the lexicon, which is why these corrections can easily be avoided.</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S5.p6" class="ltx_para">
+<p class="ltx_p">. <span class="ltx_text ltx_font_bold">Statoil</span> <span class="ltx_text ltx_font_bold">eamiálbmogiid</span> eatnamiid billisteami birra
+<br class="ltx_break">Statoil indigenous.people.<span class="ltx_text ltx_font_smallcaps">acc.pl</span> land.<span class="ltx_text ltx_font_smallcaps">acc.pl</span> destruction<span class="ltx_text ltx_font_smallcaps">.gen</span> about
+<br class="ltx_break">‘about the destruction of the indigenous peoples’ territories by Statoil’</p>
+</div>
+<div id="S5.p7" class="ltx_para">
+<p class="ltx_p">It also produces untypically long non-sense words like
+<span class="ltx_text ltx_font_italic">NorggaSámiidRiidRiidRiidRiidRiidRiidRiikasearvvi</span>. In addition, there
+are false positives of certain grammatical combinations that are systematically
+avoided by rule-based grammar checker. These are combinations of attributive
+adjectives and nouns (17 occurrences) like <span class="ltx_text ltx_font_italic">boares eallinoainnuid</span> in
+ex. <a href="#S5.T6" title="Table 6 ‣ 5 Results ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6</span></a> and genitive modifier and noun combinations (11
+occurrences) like <span class="ltx_text ltx_font_italic">njealjehaskilomehtera eatnamat</span> in
+ex. <a href="#S5.T6" title="Table 6 ‣ 5 Results ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6</span></a>.</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S5.p8" class="ltx_para">
+<p class="ltx_p">. <span class="ltx_text ltx_font_bold">boares</span> <span class="ltx_text ltx_font_bold">eallinoainnuid</span> ja modearna servodaga váikkuhusaid gaskii.
+<br class="ltx_break">old life.view<span class="ltx_text ltx_font_smallcaps">.acc.pl</span> and modern society<span class="ltx_text ltx_font_smallcaps">.gen</span> impact<span class="ltx_text ltx_font_smallcaps">.acc.pl</span> between 
+<br class="ltx_break">‘between old philosophies and the impact of modern society’</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S5.p9" class="ltx_para">
+<p class="ltx_p">. Dasalassin 137000 <span class="ltx_text ltx_font_bold">njealjehaskilomehtera</span> <span class="ltx_text ltx_font_bold">eatnamat</span> biđgejuvvojit seismalaš linnjáid
+<br class="ltx_break">in.addition 137000 square.kilometre<span class="ltx_text ltx_font_smallcaps">.gen</span> land<span class="ltx_text ltx_font_smallcaps">pl.</span> split<span class="ltx_text ltx_font_smallcaps">.pass.pl3</span> seismic line<span class="ltx_text ltx_font_smallcaps">.acc.pl</span> 
+<br class="ltx_break">‘In addition, 137,000 square kilometres of land are split by seismic lines’</p>
+</div>
+<div id="S5.p10" class="ltx_para">
+<p class="ltx_p">The rule-based model, on the other hand, typically suggests compounding, where
+both compounding and two word combinations would be adequate, for example in the
+case of the first part of the compound having homonymous genitive and a
+nominative analyses. The suggested compound is not an error. However, the
+written form is grammatically correct as well. These suggestions still count as
+false positives. Other typical errors are cases where there are two accepted
+ways of spelling a compound/MWE as in ex. <a href="#S5.T6" title="Table 6 ‣ 5 Results ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6</span></a>, where both
+<span class="ltx_text ltx_font_italic">Riddu Riđđu</span> and <span class="ltx_text ltx_font_italic">Riddu-Riđđu</span> are correct spellings, and the
+latter one is suggested as a correction of the former one.
+</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S5.p11" class="ltx_para">
+<p class="ltx_p">. ovdanbuktojuvvojit omd. jahkásaš <span class="ltx_text ltx_font_bold">Riddu Riđđu</span> festiválas.
+<br class="ltx_break">present<span class="ltx_text ltx_font_smallcaps">.pass.prs.pl3</span> e.g. annual Riddu Riđđu festival<span class="ltx_text ltx_font_smallcaps">.loc
+<br class="ltx_break"></span>‘they are presented at the annual Riddu Riđđu festival.</p>
+</div>
+<div id="S5.p12" class="ltx_para">
+<p class="ltx_p">The rule-based model also struggles predominantly with false negatives, like
+<span class="ltx_text ltx_font_italic">njunuš olbmot</span> ‘leading people’ that are due to missing entries in the
+lexicon like in ex. <a href="#S5.T6" title="Table 6 ‣ 5 Results ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6</span></a>.</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S5.p13" class="ltx_para">
+<p class="ltx_p">. Sii leat gieldda <span class="ltx_text ltx_font_bold">njunuš</span> <span class="ltx_text ltx_font_bold">olbmot</span>.
+<br class="ltx_break">they are municipality<span class="ltx_text ltx_font_smallcaps">.gen</span> leading people
+<br class="ltx_break">‘They are the leading people of the municipality’</p>
+</div>
+</section>
+<section id="S6" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">6 </span>Discussion</h2>
+
+<div id="S6.p1" class="ltx_para">
+<p class="ltx_p">In the future, we would like to look into hybrid grammar checking of other error
+types and other (Sámi) languages.</p>
+</div>
+<div id="S6.p2" class="ltx_para">
+<p class="ltx_p">The neural approach gives us relatively high recall in the real world situation
+with lower precision, whereas the rule-based model is designed to give us high
+precision even at the cost of lower recall (user experience), which is why
+hybrid approaches that combine the best of two worlds are interesting.
+</p>
+</div>
+<div id="S6.p3" class="ltx_para">
+<p class="ltx_p">Noisy data is to be expected in any endangered language context, as the language
+norms are to a lesser degree internalized. We will therefore need a way of
+preparing the data to train neural networks, which can either consist in
+creating synthetic data or automatically fixing errors and creating a parallel
+corpus.</p>
+</div>
+<div id="S6.p4" class="ltx_para">
+<p class="ltx_p">When creating synthetic data for neural networks, the amount of data is hardly
+the main issue. Many generative systems are capable of over-generating data. The
+main question that arises is the quality and representatives
+(<cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib69" title="A template based approach for training nmt for low-resource uralic languages - a pilot with Finnish" class="ltx_ref">12</a>]</cite>) of the generated data. If the rules used to
+generate the data are not in line with the real world phenomenon the neural
+model is meant to solve, we cannot expect very high quality results in real
+world data.</p>
+</div>
+<div id="S6.p5" class="ltx_para">
+<p class="ltx_p">Generated sentences can easily be less complex ‘text book examples’ that are not
+representative of real world examples. In the case of agreement errors between
+subjects and verbs, for example, there are long distance relationships and
+complex coordinated subjects including personal pronouns that can change the
+structure of a seemingly straightforward relation. Therefore, we advocate the
+use of high quality rule-based tools to prepare the data, i.e. fix the errors
+and create a parallel corpus.</p>
+</div>
+<div id="S6.p6" class="ltx_para">
+<p class="ltx_p">While synthetic error data generation for compound errors is somewhat more
+straightforward as it only affects adjacent words, the generation of synthetic
+error corpora for other error types is not as straightforward, in part also
+because generating synthetic errors of other kind can potentially create valid
+and grammatically correct sentences with different meanings. We therefore
+predict that (hybrid) neural network approaches for other error types that
+either involve specific morphological forms (of which there are many in North
+Sámi) or changes in word order will be more difficult to resolve.</p>
+</div>
+</section>
+<section id="S7" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">7 </span>Conclusion</h2>
+
+<div id="S7.p1" class="ltx_para">
+<p class="ltx_p">In this paper, we have developed both a neural network and a rule-based grammar
+checker module for compound errors in North Sámi. We have shown that a neural
+compound-corrector for a low-resource language can be built based on synthetic
+error data by introducing the compound errors using a high level rule-based
+grammar models. It is based on the rule-based tools to both generate errors and
+clean the data using both part-of-speech analysis, disambiguation and even the
+error detector.</p>
+</div>
+<div id="S7.p2" class="ltx_para">
+<p class="ltx_p">The rule-based module is embedded in the full-fledged <span class="ltx_text ltx_font_italic">GramDivvun</span>
+grammar checker and achieves a good precision of 81% and a lower recall of
+61%. A higher precision, even at the cost of a lower recall, is in line with
+our objective of keeping false alarms low, so users will be comfortable using
+our language tools. The neural network achieves a slightly lower precision of
+79% and a much higher recall of 98%.</p>
+</div>
+<div id="S7.p3" class="ltx_para">
+<p class="ltx_p">However, the rule-based model has more user-friendly suggestions and some false
+positives are simply other correct alternatives to the ones in the text, while
+the neural network’s false positives sometimes introduce new and unrelated
+errors. On-the-fly fixes that avoid false positives are an advantage of
+rule-based models. Rule-based models, on the other hand, are not so good at
+recognizing unknown combinations. Hybrid models that combine the benefits of
+both approaches are therefore desirable for efficient compound error correction
+in the future.</p>
+</div>
+</section>
+<section id="Sx1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">Acknowledgments</h2>
+
+<div id="Sx1.p1" class="ltx_para">
+<p class="ltx_p">Thanks to Børre Gaup for his work on the evaluation script. Some computations
+were performed on resources provided by UNINETT Sigma2 — the National
+Infrastructure for High Performance Computing and Data Storage in Norway.</p>
+</div>
+</section>
+<section id="bib" class="ltx_bibliography">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+
+<ul id="bib.L1" class="ltx_biblist">
+<li id="bib.bib9" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Alnajjar, M. Hämäläinen, N. Partanen, and J. Rueter</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Automated prediction of medieval Arabic diacritics</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2010.05269</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p1" title="4.1 Neural Model ‣ 4 Methods ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib8" class="ltx_bibitem ltx_bib_incollection">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Alnajjar</span><span class="ltx_text ltx_bib_year"> (2021-03)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">When word embeddings become endangered</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Multilingual Facilitation</span>,  <span class="ltx_text ltx_bib_editor">M. Hämäläinen, N. Partanen, and K. Alnajjar (Eds.)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 275–288</span> (<span class="ltx_text ltx_bib_language">English</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.31885/9789515150257" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p1" title="4.1 Neural Model ‣ 4 Methods ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib10" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Antonsen and T. Trosterud</span><span class="ltx_text ltx_bib_year"> (2011)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Next to nothing–a cheap south saami disambiguator</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the NODALIDA 2011 Workshop Constraint Grammar Applications</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 1–7</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Background ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib11" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Antonsen</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Cállinmeattáhusaid guorran.</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">University of Tromsø</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">[English summary: Tracking misspellings.]</span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p5" title="1 Introduction ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib15" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. R. Beesley and L. Karttunen</span><span class="ltx_text ltx_bib_year"> (2003)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Finite state morphology</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">CSLI publications</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text isbn ltx_bib_external">ISBN 978-1575864341</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS2.p2" title="4.2 Rule-based Model ‣ 4 Methods ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.2</span></a>.
+</span>
+</li>
+<li id="bib.bib212" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">B. Behera and P. Bhattacharyya</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Automated grammar correction using hierarchical phrase-based statistical machine translation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Sixth International Joint Conference on Natural
+Language Processing</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 937–941</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p3" title="2 Background ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib43" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. Bick and T. Didriksen</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">CG-3 – beyond classical Constraint Grammar</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 20th Nordic Conference of Computational
+Linguistics (NoDaLiDa 2015)</span>,  <span class="ltx_text ltx_bib_editor">B. Megyesi (Ed.)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 31–39</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1650-3740</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS2.p2" title="4.2 Rule-based Model ‣ 4 Methods ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.2</span></a>.
+</span>
+</li>
+<li id="bib.bib21" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. Bick</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">DanProof: pedagogical spell and grammar checking for Danish</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 10th International Conference Recent
+Advances in Natural Language Processing (RANLP 2015)</span>,  <span class="ltx_text ltx_bib_editor">G. Angelova, K. Bontcheva, and R. Mitkov (Eds.)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Hissar, Bulgaria</span>, <span class="ltx_text ltx_bib_pages"> pp. 55–62</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS2.p9" title="4.2 Rule-based Model ‣ 4 Methods ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.2</span></a>.
+</span>
+</li>
+<li id="bib.bib213" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Deksne</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Bidirectional lstm tagger for latvian grammatical error detection</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">International Conference on Text, Speech, and Dialogue</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 58–68</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p3" title="2 Background ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib42" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Devlin, M. Chang, K. Lee, and K. Toutanova</span><span class="ltx_text ltx_bib_year"> (2019-06)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">BERT: pre-training of deep bidirectional transformers for language understanding</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 2019 Conference of the North American
+Chapter of the Association for Computational Linguistics: Human Language
+Technologies, Volume 1 (Long and Short Papers)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Minneapolis, Minnesota</span>, <span class="ltx_text ltx_bib_pages"> pp. 4171–4186</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://www.aclweb.org/anthology/N19-1423" title="" class="ltx_ref ltx_bib_external">Link</a>,
+<a href="https://dx.doi.org/10.18653/v1/N19-1423" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p3" title="2 Background ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib222" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Ge, X. Zhang, F. Wei, and M. Zhou</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Automatic grammatical error correction for sequence-to-sequence text generation: an empirical study</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 57th Annual Meeting of the Association for
+Computational Linguistics</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 6059–6064</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p3" title="2 Background ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib69" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Hämäläinen and K. Alnajjar</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A template based approach for training nmt for low-resource uralic languages - a pilot with Finnish</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 2019 2nd International Conference on
+Algorithms, Computing and Artificial Intelligence</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">ACAI 2019</span>, <span class="ltx_text ltx_bib_place">New York, NY, USA</span>, <span class="ltx_text ltx_bib_pages"> pp. 520–525</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text isbn ltx_bib_external">ISBN 9781450372619</span>,
+<a href="https://doi.org/10.1145/3377713.3377801" title="" class="ltx_ref ltx_bib_external">Link</a>,
+<a href="https://dx.doi.org/10.1145/3377713.3377801" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S6.p4" title="6 Discussion ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§6</span></a>.
+</span>
+</li>
+<li id="bib.bib217" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Hämäläinen, T. Säily, J. Rueter, J. Tiedemann, and E. M äkelä</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Revisiting nmt for normalization of early English letters</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 3rd Joint SIGHUM Workshop on Computational Linguistics for Cultural Herita
+ge, Social Sciences, Humanities and Literature</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 71–75</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p4" title="4.1 Neural Model ‣ 4 Methods ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib226" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Hämäläinen</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">UralicNLP: an NLP library for Uralic languages</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Open Source Software</span> <span class="ltx_text ltx_bib_volume">4</span> (<span class="ltx_text ltx_bib_number">37</span>), <span class="ltx_text ltx_bib_pages"> pp. 1345</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.21105/joss.01345" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p3" title="3 Data ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3</span></a>.
+</span>
+</li>
+<li id="bib.bib218" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. T. Hoang, S. Chollampatt, and H. T. Ng</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Exploiting n-best hypotheses to improve an smt approach to grammatical error correction</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Twenty-Fifth International Joint Conference on Artificial Intelligence</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 2803–2809</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p3" title="2 Background ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib214" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Hochreiter and J. Schmidhuber</span><span class="ltx_text ltx_bib_year"> (1997)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Long short-term memory</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Neural computation</span> <span class="ltx_text ltx_bib_volume">9</span> (<span class="ltx_text ltx_bib_number">8</span>), <span class="ltx_text ltx_bib_pages"> pp. 1735–1780</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p4" title="4.1 Neural Model ‣ 4 Methods ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib220" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[17]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Huang and H. Wang</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Bi-lstm neural networks for chinese grammatical error diagnosis</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 3rd Workshop on Natural Language Processing Techniques for Educational App
+lications (NLPTEA2016)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 148–154</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p3" title="2 Background ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib221" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[18]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. N. Jahan, A. Sarker, S. Tanchangya, and M. A. Yousuf</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Bangla real-word error detection and correction using bidirectional lstm and bigram hybrid model</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of International Conference on Trends in Computational
+and Cognitive Engineering</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 3–13</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p3" title="2 Background ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib219" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[19]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Y. Kantor, Y. Katz, L. Choshen, E. Cohen-Karlik, N. Liberman, A. Toledo, A. Menczel, and N. Slonim</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Learning to combine grammatical error corrections</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Fourteenth Workshop on Innovative Use of NLP
+for Building Educational Applications</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 139–148</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p3" title="2 Background ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib72" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[20]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. Karlsson, A. Voutilainen, J. Heikkilä, and A. Anttila</span><span class="ltx_text ltx_bib_year"> (1995)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Constraint grammar: a language-independent system for parsing unrestricted text</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">Mouton de Gruyter</span>, <span class="ltx_text ltx_bib_place">Berlin</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS2.p2" title="4.2 Rule-based Model ‣ 4 Methods ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.2</span></a>.
+</span>
+</li>
+<li id="bib.bib74" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[21]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. Karlsson</span><span class="ltx_text ltx_bib_year"> (1990)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Constraint grammar as a framework for parsing unrestricted text</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 13th International Conference of Computational Linguistics</span>,  <span class="ltx_text ltx_bib_editor">H. Karlgren (Ed.)</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume">3</span>, <span class="ltx_text ltx_bib_place">Helsinki</span>, <span class="ltx_text ltx_bib_pages"> pp. 168–173</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS2.p2" title="4.2 Rule-based Model ‣ 4 Methods ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.2</span></a>.
+</span>
+</li>
+<li id="bib.bib81" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[22]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">G. Klein, Y. Kim, Y. Deng, J. Senellart, and A. M. Rush</span><span class="ltx_text ltx_bib_year"> (2017)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">OpenNMT: open-source toolkit for neural machine translation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proc. ACL</span>,
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://doi.org/10.18653/v1/P17-4012" title="" class="ltx_ref ltx_bib_external">Link</a>,
+<a href="https://dx.doi.org/10.18653/v1/P17-4012" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p4" title="4.1 Neural Model ‣ 4 Methods ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib211" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[23]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Kunchukuttan, S. Chaudhury, and P. Bhattacharyya</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Tuning a grammar correction system for increased precision</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Eighteenth Conference on Computational Natural Language Learning: Shared Task</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 60–64</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p3" title="2 Background ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib100" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[24]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Luong, H. Pham, and C. D. Manning</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Effective approaches to attention-based neural machine translation</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:1508.04025</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p4" title="4.1 Neural Model ‣ 4 Methods ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib120" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[25]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_editor">C. Moseley (Ed.)</span><span class="ltx_text ltx_bib_year"> (2010)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Atlas of the world’s languages in danger</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_edition">3rd edition</span>,  <span class="ltx_text ltx_bib_publisher">UNESCO Publishing</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">Online version: http://www.unesco.org/languages-atlas/</span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p2" title="1 Introduction ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib122" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[26]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. N. Moshagen, T. Pirinen, and T. Trosterud</span><span class="ltx_text ltx_bib_year"> (2013-05)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Building an open-source development infrastructure for language technology projects</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 19th Nordic Conference of Computational Linguistics (NODALIDA 2013)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Oslo, Norway</span>, <span class="ltx_text ltx_bib_pages"> pp. 343–352</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://www.aclweb.org/anthology/W13-5631" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS2.p2" title="4.2 Rule-based Model ‣ 4 Methods ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.2</span></a>.
+</span>
+</li>
+<li id="bib.bib121" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[27]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Moshagen</span><span class="ltx_text ltx_bib_year"> (2011)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Tilgjengelegheit for samisk og andre nasjonale minoritetsspråk</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Språkteknologi för ökad tillgänglighet</span>,
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Background ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib125" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[28]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">W. Nekoto, V. Marivate, T. Matsila, T. Fasubaa, T. Fagbohungbe, S. O. Akinola, S. Muhammad, S. Kabongo Kabenamualu, S. Osei, F. Sackey, R. A. Niyongabo, R. Macharm, P. Ogayo, O. Ahia, M. M. Berhe, M. Adeyemi, M. Mokgesi-Selinga, L. Okegbemi, L. Martinus, K. Tajudeen, K. Degila, K. Ogueji, K. Siminyu, J. Kreutzer, J. Webster, J. T. Ali, J. Abbott, I. Orife, I. Ezeani, I. A. Dangana, H. Kamper, H. Elsahar, G. Duru, G. Kioko, M. Espoir, E. van Biljon, D. Whitenack, C. Onyefuluchi, C. C. Emezue, B. F. P. Dossou, B. Sibanda, B. Bassey, A. Olabiyi, A. Ramkilowan, A. Öktem, A. Akinfaderin, and A. Bashir</span><span class="ltx_text ltx_bib_year"> (2020-11)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Participatory research for low-resourced machine translation: a case study in African languages</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Findings of the Association for Computational Linguistics: EMNLP 2020</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Online</span>, <span class="ltx_text ltx_bib_pages"> pp. 2144–2160</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://www.aclweb.org/anthology/2020.findings-emnlp.195" title="" class="ltx_ref ltx_bib_external">Link</a>,
+<a href="https://dx.doi.org/10.18653/v1/2020.findings-emnlp.195" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p2" title="2 Background ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib215" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[29]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Omelianchuk, V. Atrasevych, A. Chernodub, and O. Skurzhanskyi</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">GECToR–grammatical error correction: tag, not rewrite</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Fifteenth Workshop on Innovative Use of NLP for Building Educational Applications</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 163–170</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p3" title="2 Background ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib133" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[30]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">H. Outakoski</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Davvisámegielat čálamáhtu konteaksta [The context of North Sámi literacy]</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Sámi dieđalaš áigečála</span> <span class="ltx_text ltx_bib_volume">1/2015</span>, <span class="ltx_text ltx_bib_pages"> pp. 29–59</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p2" title="1 Introduction ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib227" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[31]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">N. Partanen, M. Hämäläinen, and K. Alnajjar</span><span class="ltx_text ltx_bib_year"> (2019-11)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Dialect text normalization to normative standard Finnish</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 5th Workshop on Noisy User-generated Text (W-NUT 2019)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Hong Kong, China</span>, <span class="ltx_text ltx_bib_pages"> pp. 141–146</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://www.aclweb.org/anthology/D19-5519" title="" class="ltx_ref ltx_bib_external">Link</a>,
+<a href="https://dx.doi.org/10.18653/v1/D19-5519" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p1" title="4.1 Neural Model ‣ 4 Methods ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib146" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[32]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. A. Pirinen and K. Lindén</span><span class="ltx_text ltx_bib_year"> (2010)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Finite-state spell-checking with weighted language and error models</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Seventh SaLTMiL workshop on creation and
+use of basic lexical resources for less-resourced languagages</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Valletta, Malta</span>, <span class="ltx_text ltx_bib_pages"> pp. 13–18</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="http://siuc01.si.ehu.es/%7Ejipsagak/SALTMIL2010%5C_Proceedings.pdf" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS2.p2" title="4.2 Rule-based Model ‣ 4 Methods ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.2</span></a>.
+</span>
+</li>
+<li id="bib.bib224" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[33]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Rei and H. Yannakoudakis</span><span class="ltx_text ltx_bib_year"> (2016-08)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Compositional sequence labeling models for error detection in learner writing</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 54th Annual Meeting of the Association for
+Computational Linguistics (Volume 1: Long Papers)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Berlin, Germany</span>, <span class="ltx_text ltx_bib_pages"> pp. 1181–1191</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://www.aclweb.org/anthology/P16-1112" title="" class="ltx_ref ltx_bib_external">Link</a>,
+<a href="https://dx.doi.org/10.18653/v1/P16-1112" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p3" title="2 Background ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib167" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[34]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Rueter and M. Hämäläinen</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">FST morphology for the endangered Skolt Sami language</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 1st Joint Workshop on Spoken Language
+Technologies for Under-resourced languages (SLTU) and Collaboration and
+Computing for Under-Resourced Languages (CCURL)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 250–257</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Background ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib216" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[35]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Schuster and K. K. Paliwal</span><span class="ltx_text ltx_bib_year"> (1997)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Bidirectional recurrent neural networks</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE transactions on Signal Processing</span> <span class="ltx_text ltx_bib_volume">45</span> (<span class="ltx_text ltx_bib_number">11</span>), <span class="ltx_text ltx_bib_pages"> pp. 2673–2681</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p4" title="4.1 Neural Model ‣ 4 Methods ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib225" class="ltx_bibitem ltx_bib_misc">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[36]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">SIKOR</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">SIKOR uit norgga árktalaš universitehta ja norgga sámedikki sámi teakstačoakkáldat, veršuvdna 06.11.2018</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">onlineAccessed: 2018-11-06</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="..." title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p1" title="3 Data ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3</span></a>.
+</span>
+</li>
+<li id="bib.bib185" class="ltx_bibitem ltx_bib_incollection">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[37]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Trosterud and S. Moshagen</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Soft on errors? the correcting mechanism of a Skolt Sami speller</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Multilingual Facilitation</span>,  <span class="ltx_text ltx_bib_editor">M. Hämäläinen, N. Partanen, and K. Alnajjar (Eds.)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 197–207</span> (<span class="ltx_text ltx_bib_language">English</span>).
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p2" title="2 Background ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib186" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[38]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Trosterud</span><span class="ltx_text ltx_bib_year"> (2004)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Porting morphological analysis and disambiguation to new languages</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">SALTMIL Workshop at LREC 2004: First Steps in Language Documentation for Minority Languages</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 90–92</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Background ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib188" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[39]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. M. Tyers and M. Sheyanova</span><span class="ltx_text ltx_bib_year"> (2017-01)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Annotation schemes in North Sámi dependency parsing</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Third Workshop on Computational Linguistics for Uralic Languages</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">St. Petersburg, Russia</span>, <span class="ltx_text ltx_bib_pages"> pp. 66–75</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://www.aclweb.org/anthology/W17-0607" title="" class="ltx_ref ltx_bib_external">Link</a>,
+<a href="https://dx.doi.org/10.18653/v1/W17-0607" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p3" title="3 Data ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3</span></a>.
+</span>
+</li>
+<li id="bib.bib201" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[40]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Wiechetek, S. Moshagen, and K. B. Unhammer</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Seeing more than whitespace—tokenisation and disambiguation in a north Sámi grammar checker</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 3rd Workshop on the Use of Computational
+Methods in the Study of Endangered Languages Volume 1 (Papers)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 46–55</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p2" title="2 Background ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>,
+<a href="#S4.SS2.p2" title="4.2 Rule-based Model ‣ 4 Methods ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.2</span></a>.
+</span>
+</li>
+<li id="bib.bib200" class="ltx_bibitem ltx_bib_thesis">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[41]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Wiechetek</span><span class="ltx_text ltx_bib_year"> (2017)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">When grammar can’t be trusted – valency and semantic categories in north sámi syntactic analysis and error detection</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_type">PhD Thesis</span>, <span class="ltx_text ltx_bib_publisher">UiT The Arctic University of Norway</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p2" title="2 Background ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib199" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[42]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Wiechetek</span><span class="ltx_text ltx_bib_year"> (22)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Constraint Grammar based correction of grammatical errors for North Sámi</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Workshop on Language Technology for
+Normalisation of Less-Resourced Languages (SALTMIL 8/AFLAT 2012)</span>,  <span class="ltx_text ltx_bib_editor">G. D. Pauw, G. de Schryver, M.L. Forcada, K. Sarasola, F.M. Tyers, and P.W. Wagacha (Eds.)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Istanbul, Turkey</span>, <span class="ltx_text ltx_bib_pages"> pp. 35–40</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p1" title="3 Data ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3</span></a>.
+</span>
+</li>
+<li id="bib.bib223" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[43]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Z. Yuan and T. Briscoe</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Grammatical error correction using neural machine translation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 2016 Conference of the North American Chapter
+of the Association for Computational Linguistics: Human Language
+Technologies</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 380–386</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p3" title="2 Background ‣ Rules Ruling Neural Networks — Neural vs. Rule-Based Grammar Checking for a Low Resource Language 1 footnote 1 1 footnote 1 find original in ACL anthology" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+</ul>
+</section>
+</article>
+</div>
+<footer class="ltx_page_footer">
+<div class="ltx_page_logo">Generated  on Tue Sep  7 02:32:04 2021 by <a href="http://dlmf.nist.gov/LaTeXML/">LaTeXML <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="[LOGO]"></a>
+</div></footer>
+</div>
+</body>
+</html>
