@@ -1,5 +1,6 @@
 ## run make to convert stuff
 
+LATEXML=latexml
 BIB2XML=bib2xml
 XML2END=xml2end
 
@@ -10,3 +11,6 @@ all: pirinen.xml pirinen.enw
 
 %.enw: %.xml
 	$(XML2END) $< > $@
+
+check:
+	$(LATEXML) --bibtex pirinen.bib > /dev/null

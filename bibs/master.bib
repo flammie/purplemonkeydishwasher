@@ -1,5 +1,6 @@
 # This file contains Tommi A Pirinen's master bibtex reference database
 # Use google scholar citation names (authoryeartitle), sort alphabetically
+# or ACL anthology citation names (author-etal-year-title)
 # Some conference proceedings can be crossrefed to key conferenceyear.
 # Some software can be crossrefed to by name or nameyear.
 
@@ -64,6 +65,43 @@
 }
 @Article{apertium,
     crossref = {forcada2010apertium},
+}
+
+@incollection{alnajjar2021when,
+    title = "When Word Embeddings Become Endangered",
+    author = "Khalid Alnajjar",
+    year = "2021",
+    month = mar,
+    doi = "10.31885/9789515150257",
+    language = "English",
+    pages = "275--288",
+    editor = "Mika H{\"a}m{\"a}l{\"a}inen and Niko Partanen and Khalid Alnajjar",
+    booktitle = "Multilingual Facilitation",
+    publisher = "Rootroo Ltd",
+    address = "Finland",
+}
+
+@article{alnajjar2020automated,
+  title={Automated Prediction of Medieval {A}rabic Diacritics},
+  author={Alnajjar, Khalid and H{\"a}m{\"a}l{\"a}inen, Mika and Partanen, Niko and Rueter, Jack},
+  journal={arXiv preprint arXiv:2010.05269},
+  year={2020}
+}
+
+@inproceedings{antonsen2011next,
+  title={Next to nothing--a cheap South Saami disambiguator},
+  author={Antonsen, Lene and Trosterud, Trond},
+  booktitle={Proceedings of the NODALIDA 2011 Workshop Constraint Grammar Applications},
+  pages={1--7},
+  year={2011}
+}
+
+@article{antonsen2013callinmeattahusaid,
+  title={C{\'a}llinmeatt{\'a}husaid guorran.},
+  note={[{E}nglish summary: Tracking misspellings.]},
+  author={Antonsen, Lene},
+  journal={University of Troms{\o}},
+  year={2013}
 }
 
 @article{attia2013improved,
@@ -161,6 +199,19 @@ author    = {Attia, Mohammed  and  Pecina, Pavel  and  Samih, Younes  and  Shaal
     url = {http://hdl.handle.net/123456789/247},
     flammie = {spell-checking},
 }
+
+@inproceedings{bick2015danproof,
+   author = {Eckhard Bick},
+   title = {{DanProof}: Pedagogical Spell and Grammar Checking for {Danish}},
+   editor = {Galia Angelova and Kalina Bontcheva and Ruslan Mitkov},
+   address = {Hissar, Bulgaria},
+   publisher = {INCOMA Ltd.},
+   booktitle = {Proceedings of the 10th International Conference Recent
+       Advances in Natural Language Processing (RANLP 2015)},
+   year = {2015},
+   pages = {55--62},
+}
+
 
 @phdthesis{bigert2005automatic,
     author = {Johnny Bigert},
@@ -410,8 +461,38 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och,
   number={2},
   pages = {275--285},
   year={2005},
-  publisher={UNIVERSITY OF ZIELONA GORA PRESS}.
+  publisher={UNIVERSITY OF ZIELONA GORA PRESS},
   flammie = {spell-checking},
+}
+
+@inproceedings{devlin-etal-2019-bert,
+    title = {{BERT}: Pre-training of Deep Bidirectional Transformers for Language Understanding},
+    author = {Devlin, Jacob  and
+      Chang, Ming-Wei  and
+      Lee, Kenton  and
+      Toutanova, Kristina},
+    booktitle = {Proceedings of the 2019 Conference of the North {A}merican
+      Chapter of the Association for Computational Linguistics: Human Language
+      Technologies, Volume 1 (Long and Short Papers)},
+    month = {jun},
+    year = {2019},
+    address = {Minneapolis, Minnesota},
+    publisher = {Association for Computational Linguistics},
+    url = {https://www.aclweb.org/anthology/N19-1423},
+    doi = {10.18653/v1/N19-1423},
+    pages = {4171--4186},
+}
+
+@inproceedings{didriksen2015cg3,
+author = {Bick, Eckhard and Didriksen, Tino},
+booktitle = {Proceedings of the 20th Nordic Conference of Computational
+    Linguistics (NoDaLiDa 2015)},
+pages = {31--39},
+publisher = {Linköping University Electronic Press, Linköpings universitet},
+editor = {Beáta Megyesi},
+title = {{CG-3} -- Beyond Classical {Constraint Grammar}},
+year = {2015},
+issn = {1650-3740},
 }
 
 @misc{earnest2011first,
@@ -443,9 +524,7 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och,
     year={2013},
     howpublished={personal WWW page},
     url={http://www.stanford.edu/~learnest/legacies.pdf},
-    note={Retrieved 1st of June 2013:
-        \url{http://www.stanford.edu/~learnest/legacies.pdf}; Third revision of
-          the document contains
+    note={Retrieved 1st of June 2013, the document contains
     a larger set of subjects and links to original documentation},
   flammie = {spell-checking},
 }
@@ -540,8 +619,9 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och,
   author={Gorin, RE},
   journal={Online documentation for the DEC-10 computer},
   year={1971},
-  note={Retrieved 1st of August 2013: \url{http://www.saildart.org/}, entries
-      UP, DOC: SPELL.REG}.
+  note={Retrieved 1st of August 2013},
+  url= {http://www.saildart.org/},
+  note={entries: UP DOC: SPELL.REG},
   flammie = {spell-checking},
 }
 
@@ -690,6 +770,26 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och,
   year={2017}
 }
 
+@inproceedings{hamalainen2019template,
+    author = {H\"{a}m\"{a}l\"{a}inen, Mika and Alnajjar, Khalid},
+    title = {A Template Based Approach for Training NMT for Low-Resource Uralic
+        Languages - A Pilot with {F}innish},
+    year = {2019},
+    isbn = {9781450372619},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    url = {https://doi.org/10.1145/3377713.3377801},
+    doi = {10.1145/3377713.3377801},
+    booktitle = {Proceedings of the 2019 2nd International Conference on
+        Algorithms, Computing and Artificial Intelligence},
+    pages = {520–525},
+    numpages = {6},
+    keywords = {Synthetic templates, Machine translation,
+        Endangered languages},
+    location = {Sanya, China},
+    series = {ACAI 2019}
+}
+
 
 @book{jurafsky2000speech,
   title={Speech and language processing: An introduction to natural language
@@ -713,6 +813,13 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och,
     year={2018}
 }
 
+@book{karlsson1995constraint,
+        author = {Fred Karlsson and Atro Voutilainen and Juha Heikkilä and Arto Anttila},
+        title = {Constraint Grammar: A Language-Independent System for Parsing Unrestricted Text},
+        address = {Berlin},
+        publisher = {Mouton de Gruyter},
+        year = 1995,
+}
 
 @inproceedings{karlsson1992swetwol,
     author = {Fred Karlsson},
@@ -746,10 +853,11 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och,
 @inproceedings{karttunen1995replace,
   title={The replace operator},
   author={Karttunen, Lauri},
-  booktitle={Proceedings of the 33rd annual meeting on Association for Computational Linguistics},
+  booktitle={Proceedings of the 33rd annual meeting on Association for
+      Computational Linguistics},
   pages={16--23},
   year={1995},
-  organization={Association for Computational Linguistics}.
+  organization={Association for Computational Linguistics},
 }
 
 @article{karttunen2006numbers,
@@ -931,7 +1039,7 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och,
     year = {2012},
     howpublished = {Blog post in Language Log},
     url = {http://languagelog.ldc.upenn.edu/nll/?p=4115},
-    note = {Retrieved 1st of August 2013: \url{http://languagelog.ldc.upenn.edu/nll/?p=4115}},
+    note = {Retrieved 1st of August 2013},
   flammie = {spell-checking},
 }
 
@@ -994,7 +1102,14 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och,
  publisher = {Association for Computational Linguistics},
  address = {Stroudsburg, PA, USA},
  flammie= {smt, eng-fin},
-} 
+}
+
+@article{luong2015effective,
+  title={Effective approaches to attention-based neural machine translation},
+  author={Luong, Minh-Thang and Pham, Hieu and Manning, Christopher D},
+  journal={arXiv preprint arXiv:1508.04025},
+  year={2015}
+},
 
 @inproceedings{mangu1997automatic,
   title={Automatic rule acquisition for spelling correction},
@@ -1207,6 +1322,37 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och,
   publisher={John Benjamins}
 }
 
+@book{moseley2010atlas, 
+place={Paris}, 
+edition={3rd}, 
+title={Atlas of the World's Languages in Danger},
+publisher={UNESCO Publishing}, 
+editor={Moseley, Christopher}, 
+year={2010},
+note = {Online version: http://www.unesco.org/languages-atlas/}
+}
+
+@inproceedings{moshagen2011tilgjengelegheit,
+  title={Tilgjengelegheit for samisk og andre nasjonale minoritetsspr{\aa}k},
+  author={Moshagen, Sjur},
+  booktitle="Språkteknologi för ökad tillgänglighet",
+  year={2011}
+}
+
+@inproceedings{moshagen-etal-2013-building,
+    title = "Building an Open-Source Development Infrastructure for Language Technology Projects",
+    author = "Moshagen, Sjur N.  and
+      Pirinen, Tommi  and
+      Trosterud, Trond",
+    booktitle = "Proceedings of the 19th Nordic Conference of Computational Linguistics ({NODALIDA} 2013)",
+    month = may,
+    year = "2013",
+    address = "Oslo, Norway",
+    publisher = {Link{\"o}ping University Electronic Press, Sweden},
+    url = "https://www.aclweb.org/anthology/W13-5631",
+    pages = "343--352",
+}
+
 @inproceedings{moshagen2014open,
   title={Open-Source Infrastructures for Collaborative Work
       on Under-Resourced Languages},
@@ -1225,6 +1371,64 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och,
   year={2016}
 }
 
+@inproceedings{nekoto2020participatory,
+    title = "Participatory Research for Low-resourced Machine Translation: A Case Study in {A}frican Languages",
+    author = {Nekoto, Wilhelmina  and
+      Marivate, Vukosi  and
+      Matsila, Tshinondiwa  and
+      Fasubaa, Timi  and
+      Fagbohungbe, Taiwo  and
+      Akinola, Solomon Oluwole  and
+      Muhammad, Shamsuddeen  and
+      Kabongo Kabenamualu, Salomon  and
+      Osei, Salomey  and
+      Sackey, Freshia  and
+      Niyongabo, Rubungo Andre  and
+      Macharm, Ricky  and
+      Ogayo, Perez  and
+      Ahia, Orevaoghene  and
+      Berhe, Musie Meressa  and
+      Adeyemi, Mofetoluwa  and
+      Mokgesi-Selinga, Masabata  and
+      Okegbemi, Lawrence  and
+      Martinus, Laura  and
+      Tajudeen, Kolawole  and
+      Degila, Kevin  and
+      Ogueji, Kelechi  and
+      Siminyu, Kathleen  and
+      Kreutzer, Julia  and
+      Webster, Jason  and
+      Ali, Jamiil Toure  and
+      Abbott, Jade  and
+      Orife, Iroro  and
+      Ezeani, Ignatius  and
+      Dangana, Idris Abdulkadir  and
+      Kamper, Herman  and
+      Elsahar, Hady  and
+      Duru, Goodness  and
+      Kioko, Ghollah  and
+      Espoir, Murhabazi  and
+      van Biljon, Elan  and
+      Whitenack, Daniel  and
+      Onyefuluchi, Christopher  and
+      Emezue, Chris Chinenye  and
+      Dossou, Bonaventure F. P.  and
+      Sibanda, Blessing  and
+      Bassey, Blessing  and
+      Olabiyi, Ayodele  and
+      Ramkilowan, Arshath  and
+      {\"O}ktem, Alp  and
+      Akinfaderin, Adewale  and
+      Bashir, Abdallah},
+    booktitle = "Findings of the Association for Computational Linguistics: EMNLP 2020",
+    month = nov,
+    year = "2020",
+    address = "Online",
+    publisher = "Association for Computational Linguistics",
+    url = "https://www.aclweb.org/anthology/2020.findings-emnlp.195",
+    doi = "10.18653/v1/2020.findings-emnlp.195",
+    pages = "2144--2160",
+}
 
 @inproceedings{nemeth2004leveraging,
     title={Leveraging the open source ispell codebase for minority language
@@ -1271,7 +1475,8 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och,
     author = {Peter Norvig},
     title = {How To Write a Spelling Corrector},
     howpublished = {Web page},
-    note = {retrieved first of November 2011, available \url{http://norvig.com/spell-correct.html}},
+    note = {retrieved first of November 2011, available},
+    url = {http://norvig.com/spell-correct.html},
     year = {2010},
     url = {http://norvig.com/spell-correct.html},
   flammie = {spell-checking},
@@ -1291,6 +1496,16 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och,
 
 @inproceedings{openfst,
     crossref= {allauzen2007openfst},
+}
+
+@article{Outakoski2015davvisamegielat,
+    author = {Outakoski, Hanna},
+    title = {Davvisámegielat čálamáhtu konteaksta [{The} context of {North Sámi} literacy]},
+    year = {2013},
+    journal = {Sámi dieđalaš áigečála},
+    editor = {Jussi Ylikoski, Lene Antonsen, Vuokko Hirvonen, Johan Klemet Kalstad ja Mikael Svonni},
+    volume = {1/2015},
+    pages = {29--59},
 }
 
 @article{otero2007contextual,
@@ -1667,6 +1882,18 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och,
   year={2018}
 }
 
+@inproceedings{rueter2020fst,
+  title={FST Morphology for the Endangered {S}kolt {S}ami Language},
+  author={Rueter, Jack and H{\"a}m{\"a}l{\"a}inen, Mika},
+  booktitle={Proceedings of the 1st Joint Workshop on Spoken Language
+      Technologies for Under-resourced languages (SLTU) and Collaboration and
+        Computing for Under-Resourced Languages (CCURL)},
+  pages={250--257},
+  year={2020}
+}
+
+
+
 @article{russell1918soundex,
   title={Soundex},
   author={Russell, R. and Odell, M.},
@@ -1852,12 +2079,47 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och,
   organization={Association for Computational Linguistics},
 }
 
+@incollection{trosterud2021soft,
+    title = "Soft on errors? The correcting mechanism of a {S}kolt {S}ami speller",
+    author = "Trosterud, Trond and Moshagen, Sjur",
+    year = "2021",
+    language = "English",
+    pages = "197-207",
+    editor = "Mika H{\"a}m{\"a}l{\"a}inen and Niko Partanen and Khalid Alnajjar",
+    booktitle = "Multilingual Facilitation",
+    publisher = "Rootroo Ltd",
+}
+
+@inproceedings{trosterud2004porting,
+  title={Porting morphological analysis and disambiguation to new languages},
+  author={Trosterud, Trond},
+  booktitle={SALTMIL Workshop at LREC 2004: First Steps in Language Documentation for Minority Languages},
+  pages={90--92},
+  year={2004},
+  organization={Citeseer}
+}
+
+
 
 @article{tyers2012flexible,
   title={Flexible finite-state lexical selection for rule-based machine translation},
   author={Tyers, Francis M and S{\'a}nchez-Mart{\'\i}nez, Felipe and Forcada, Mikel L and others},
   year={2012},
   publisher={European Association for Machine Translation}
+}
+
+@inproceedings{tyers-sheyanova-2017-annotation,
+    title = "Annotation schemes in {N}orth {S}{\'a}mi dependency parsing",
+    author = "Tyers, Francis M.  and
+      Sheyanova, Mariya",
+    booktitle = "Proceedings of the Third Workshop on Computational Linguistics for Uralic Languages",
+    month = jan,
+    year = "2017",
+    address = "St. Petersburg, Russia",
+    publisher = "Association for Computational Linguistics",
+    url = "https://www.aclweb.org/anthology/W17-0607",
+    doi = "10.18653/v1/W17-0607",
+    pages = "66--75",
 }
 
 @inproceedings{UiDhonnchadha2006partofspeech,
@@ -1875,21 +2137,6 @@ author    = {Brants, Thorsten  and  Popat, Ashok C.  and  Xu, Peng  and  Och,
 }
 
 
-@misc{unicode,
-    title={The {U}nicode Standard},
-    author={{The Unicode Consortium}},
-    year={2013},
-    pages={690},
-    editor={Julie D. Allen, Deborah Anderson, Joe Becker, Richard Cook,
-Mark Davis, Peter Edberg, Michael Everson, Asmus Freytag,
-John H. Jenkins, Rick McGowan, Lisa Moore, Eric Muller,
-Addison Phillips, Michel Suignard, and Ken Whistler},
-    isbn={978-1-936213-07-8},
-    url={http://www.unicode.org/versions/latest/},
-    howpublished={WWW page},
-    note={Retrieved 1st of August 2013 (unversioned), 
-        refered version 6.2.0; \url{http://www.unicode.org/versions/latest/}},
-}
 
 @inproceedings{Velldal2017word,
   author = {Fares, Murhaf and Kutuzov, Andrey and Oepen, Stephan and Velldal,
@@ -1982,6 +2229,72 @@ Addison Phillips, Michel Suignard, and Ken Whistler},
     booktitle = {In Proceedings of the Australian Workshop on Machine Learning and Hybrid Systems},
     year = {1993},
     pages = {6--10}
+}
+
+@InProceedings{Wiechetek2012constraint,
+  author = {Linda Wiechetek},
+  title = {{Constraint Grammar} based correction of grammatical errors for {North Sámi}},
+  booktitle = {Proceedings of the Workshop on Language Technology for
+      Normalisation of Less-Resourced Languages (SALTMIL 8/AFLAT 2012)},
+  year = {2012},
+  month = {may},
+  date = {22},
+  address = {Istanbul, Turkey},
+  editor = {G. De Pauw and G-M de Schryver and M.L. Forcada and K. Sarasola and
+      F.M. Tyers and P.W. Wagacha},
+  publisher = {European Language Resources Association (ELRA)},
+  pages = {35--40},
+ }
+
+@phdthesis{Wiechetek2017when,
+author = {Linda Wiechetek},
+title = {When grammar can't be trusted -- Valency and semantic categories in
+    North Sámi syntactic analysis and error detection},
+year = {2017},
+type = {{PhD} Thesis},
+school = {UiT The Arctic University of Norway},
+}
+
+@inproceedings{wiechetek2019seeing,
+  title={Seeing more than whitespace—Tokenisation and disambiguation in a North
+        {S}{\'a}mi grammar checker},
+  author={Wiechetek, Linda and Moshagen, Sjur and Unhammer, Kevin Brubeck},
+  booktitle={Proceedings of the 3rd Workshop on the Use of Computational
+      Methods in the Study of Endangered Languages Volume 1 (Papers)},
+  pages={46--55},
+  year={2019}
+}
+
+@inproceedings{wiechetek-etal-2019-seeing,
+    title = "Seeing more than whitespace {---} Tokenisation and disambiguation
+      in a {N}orth {S}{\'a}mi grammar checker",
+    author = "Wiechetek, Linda  and
+      Moshagen, Sjur N{\o}rsteb{\o}  and
+      Unhammer, Kevin Brubeck",
+    booktitle = "Proceedings of the 3rd Workshop on the Use of Computational
+      Methods in the Study of Endangered Languages Volume 1 (Papers)",
+    month = feb,
+    year = "2019",
+    address = "Honolulu",
+    publisher = "Association for Computational Linguistics",
+    url = "https://www.aclweb.org/anthology/W19-6007",
+    pages = "46--55",
+}
+
+@inproceedings{wiechetek-etal-2019-end,
+    title = "Is this the end? Two-step tokenization of sentence boundaries",
+    author = "Wiechetek, Linda  and
+      Moshagen, Sjur N{\o}rsteb{\o}  and
+      Omma, Thomas",
+    booktitle = "Proceedings of the Fifth International Workshop on
+      Computational Linguistics for Uralic Languages",
+    month = jan,
+    year = "2019",
+    address = "Tartu, Estonia",
+    publisher = "Association for Computational Linguistics",
+    url = "https://www.aclweb.org/anthology/W19-0312",
+    doi = "10.18653/v1/W19-0312",
+    pages = "141--153",
 }
 
 @inproceedings{wilcox-ohearn2008realword,
@@ -2081,24 +2394,17 @@ Addison Phillips, Michel Suignard, and Ken Whistler},
   year={2013}
 }
 
-@InProceedings{zeman2018conll,
-  author = 	"Zeman, Daniel
-		and Haji{\{}{\v{c}}{\}}, Jan
-		and Popel, Martin
-		and Potthast, Martin
-		and Straka, Milan
-		and Ginter, Filip
-		and Nivre, Joakim
-		and Petrov, Slav",
-  title = 	"CoNLL 2018 Shared Task: Multilingual Parsing from Raw Text to
-    Universal Dependencies",
-  booktitle = 	"Proceedings of the CoNLL 2018 Shared Task: Multilingual
-    Parsing from Raw Text to Universal Dependencies",
-  year = 	"2018",
-  publisher = 	"Association for Computational Linguistics",
-  pages = 	"1--21",
-  location = 	"Brussels, Belgium",
-  url = 	"http://aclweb.org/anthology/K18-2001",
+
+
+
+
+
+@inproceedings{kunchukuttan2014tuning,
+  title={Tuning a grammar correction system for increased precision},
+  author={Kunchukuttan, Anoop and Chaudhury, Sriram and Bhattacharyya, Pushpak},
+  booktitle={Proceedings of the Eighteenth Conference on Computational Natural Language Learning: Shared Task},
+  pages={60--64},
+  year={2014}
 }
 
 
@@ -2114,141 +2420,176 @@ Addison Phillips, Michel Suignard, and Ken Whistler},
 
 
 
+# unsorted: 
+
+@inproceedings{behera2013automated,
+  title={Automated grammar correction using hierarchical phrase-based
+      statistical machine translation},
+  author={Behera, Bibek and Bhattacharyya, Pushpak},
+  booktitle={Proceedings of the Sixth International Joint Conference on Natural
+      Language Processing},
+  pages={937--941},
+  year={2013}
+}
+
+@inproceedings{deksne2019bidirectional,
+  title={Bidirectional LSTM tagger for Latvian grammatical error detection},
+  author={Deksne, Daiga},
+  booktitle={International Conference on Text, Speech, and Dialogue},
+  pages={58--68},
+  year={2019},
+  organization={Springer}
+}
 
 
+@article{hochreiter1997long,
+  title={Long short-term memory},
+  author={Hochreiter, Sepp and Schmidhuber, J{\"u}rgen},
+  journal={Neural computation},
+  volume={9},
+  number={8},
+  pages={1735--1780},
+  year={1997},
+  publisher={MIT Press}
+}
 
+@inproceedings{omelianchuk2020gector,
+  title={GECToR--Grammatical Error Correction: Tag, Not Rewrite},
+  author={Omelianchuk, Kostiantyn and Atrasevych, Vitaliy and Chernodub, Artem and Skurzhanskyi, Oleksandr},
+  booktitle={Proceedings of the Fifteenth Workshop on Innovative Use of NLP for Building Educational Applications},
+  pages={163--170},
+  year={2020}
+}
 
+@article{schuster1997bidirectional,
+  title={Bidirectional recurrent neural networks},
+  author={Schuster, Mike and Paliwal, Kuldip K},
+  journal={IEEE transactions on Signal Processing},
+  volume={45},
+  number={11},
+  pages={2673--2681},
+  year={1997},
+  publisher={Ieee}
+}
 
+@inproceedings{hamalainen2019revisiting,
+  title={Revisiting NMT for Normalization of Early {E}nglish Letters},
+  author={H{\"a}m{\"a}l{\"a}inen, Mika and S{\"a}ily, Tanja and Rueter, Jack and Tiedemann, J{\"o}rg and M
+{\"a}kel{\"a}, Eetu},
+  booktitle={Proceedings of the 3rd Joint SIGHUM Workshop on Computational Linguistics for Cultural Herita
+ge, Social Sciences, Humanities and Literature},
+  pages={71--75},
+  year={2019}
+}
 
+@inproceedings{hoang2016exploiting,
+  title={Exploiting N-best hypotheses to improve an SMT approach to grammatical error correction},
+  author={Hoang, Duc Tam and Chollampatt, Shamil and Ng, Hwee Tou},
+  booktitle={Proceedings of the Twenty-Fifth International Joint Conference on Artificial Intelligence},
+  pages={2803--2809},
+  year={2016}
+}
 
+@inproceedings{kantor2019learning,
+  title={Learning to combine Grammatical Error Corrections},
+  author={Kantor, Yoav and Katz, Yoav and Choshen, Leshem and Cohen-Karlik, Edo
+      and Liberman, Naftali and Toledo, Assaf and Menczel, Amir and Slonim,
+      Noam},
+  booktitle={Proceedings of the Fourteenth Workshop on Innovative Use of NLP
+      for Building Educational Applications},
+  pages={139--148},
+  year={2019}
+}
 
+@inproceedings{huang2016bi,
+  title={Bi-LSTM neural networks for Chinese grammatical error diagnosis},
+  author={Huang, Shen and Wang, Houfeng},
+  booktitle={Proceedings of the 3rd Workshop on Natural Language Processing Techniques for Educational App
+lications (NLPTEA2016)},
+  pages={148--154},
+  year={2016}
+}
 
+@inproceedings{jahan2021bangla,
+  title={Bangla Real-Word Error Detection and Correction Using Bidirectional
+      LSTM and Bigram Hybrid Model},
+  author={Jahan, Mir Noshin and Sarker, Anik and Tanchangya, Shubra and Yousuf,
+      Mohammad Abu},
+  booktitle={Proceedings of International Conference on Trends in Computational
+      and Cognitive Engineering},
+  pages={3--13},
+  year={2021},
+  organization={Springer}
+}
 
+@inproceedings{ge2019automatic,
+  title={Automatic grammatical error correction for sequence-to-sequence text
+      generation: An empirical study},
+  author={Ge, Tao and Zhang, Xingxing and Wei, Furu and Zhou, Ming},
+  booktitle={Proceedings of the 57th Annual Meeting of the Association for
+      Computational Linguistics},
+  pages={6059--6064},
+  year={2019}
+}
 
+@inproceedings{yuan2016grammatical,
+  title={Grammatical error correction using neural machine translation},
+  author={Yuan, Zheng and Briscoe, Ted},
+  booktitle={Proceedings of the 2016 Conference of the North American Chapter
+      of the Association for Computational Linguistics: Human Language
+        Technologies},
+  pages={380--386},
+  year={2016}
+}
 
+@inproceedings{rei-yannakoudakis-2016-compositional,
+    title = "Compositional Sequence Labeling Models for Error Detection in
+      Learner Writing",
+    author = "Rei, Marek  and
+      Yannakoudakis, Helen",
+    booktitle = "Proceedings of the 54th Annual Meeting of the Association for
+      Computational Linguistics (Volume 1: Long Papers)",
+    month = aug,
+    year = "2016",
+    address = "Berlin, Germany",
+    publisher = "Association for Computational Linguistics",
+    url = "https://www.aclweb.org/anthology/P16-1112",
+    doi = "10.18653/v1/P16-1112",
+    pages = "1181--1191",
+}
 
+@misc{sikor_06.11.2018,
+  author = {{SIKOR}},
+  title = {{SIKOR} UiT Norgga árktalaš universitehta ja Norgga Sámedikki sámi
+      teakstačoakkáldat, Veršuvdna 06.11.2018},
+  howpublished = {online},
+  year = 2018,
+  note = {Accessed: 2018-11-06},
+  url = {...},
+}
 
+@article{uralicnlp, 
+    title={{UralicNLP}: An {NLP} Library for {U}ralic Languages},
+    DOI={10.21105/joss.01345}, 
+    journal={Journal of Open Source Software}, 
+    author={Mika Hämäläinen}, 
+    year={2019}, 
+    volume={4},
+    number={37},
+    pages={1345}
+}
 
-
-
-
-
-
-
-@misc{ud24,
- title = {Universal Dependencies 2.4},
- author = {Nivre, Joakim and Abrams, Mitchell and Agi{\'c}, {\v Z}eljko and
-     Ahrenberg, Lars and Aleksandravi{\v c}i{\=u}t{\.e}, Gabriel{\.e} and
-       Antonsen, Lene and Aplonova, Katya and Aranzabe, Maria Jesus and Arutie,
-     Gashaw and Asahara, Masayuki and Ateyah, Luma and Attia, Mohammed and
-       Atutxa, Aitziber and Augustinus, Liesbeth and Badmaeva, Elena and
-       Ballesteros, Miguel and Banerjee, Esha and Bank, Sebastian and Barbu
-       Mititelu, Verginica and Basmov, Victoria and Bauer, John and Bellato,
-     Sandra and Bengoetxea, Kepa and Berzak, Yevgeni and Bhat, Irshad Ahmad and
-       Bhat, Riyaz Ahmad and Biagetti, Erica and Bick, Eckhard and
-       Bielinskien{\.e}, Agn{\.e} and Blokland, Rogier and Bobicev, Victoria
-       and Boizou, Lo{\"{\i}}c and Borges V{\"o}lker, Emanuel and B{\"o}rstell,
-     Carl and Bosco, Cristina and Bouma, Gosse and Bowman, Sam and Boyd,
-     Adriane and Brokait{\.e}, Kristina and Burchardt, Aljoscha and Candito,
-     Marie and Caron, Bernard and Caron, Gauthier and Cebiro{\u g}lu Eryi{\u
-         g}it, G{\"u}l{\c s}en and Cecchini, Flavio Massimiliano and Celano,
-     Giuseppe G. A. and {\v C}{\'e}pl{\"o}, Slavom{\'{\i}}r and Cetin, Savas
-       and Chalub, Fabricio and Choi, Jinho and Cho, Yongseok and Chun, Jayeol
-       and Cinkov{\'a}, Silvie and Collomb, Aur{\'e}lie and {\c C}{\"o}ltekin,
-         {\c C}a{\u g}r{\i} and Connor, Miriam and Courtin, Marine and
-     Davidson, Elizabeth and de Marneffe, Marie-Catherine and de Paiva, Valeria
-       and Diaz de Ilarraza, Arantza and Dickerson, Carly and Dione, Bamba and
-       Dirix, Peter and Dobrovoljc, Kaja and Dozat, Timothy and Droganova, Kira
-       and Dwivedi, Puneet and Eckhoff, Hanne and Eli, Marhaba and Elkahky, Ali
-       and Ephrem, Binyam and Erjavec, Toma{\v z} and Etienne, Aline and
-       Farkas, Rich{\'a}rd and Fernandez Alcalde, Hector and Foster, Jennifer
-       and Freitas, Cl{\'a}udia and Fujita, Kazunori and Gajdo{\v s}ov{\'a},
-           Katar{\'{\i}}na and Galbraith, Daniel and Garcia, Marcos and
-             G{\"a}rdenfors, Moa and Garza, Sebastian and Gerdes, Kim and
-             Ginter, Filip and Goenaga, Iakes and Gojenola, Koldo and
-             G{\"o}k{\i}rmak, Memduh and Goldberg, Yoav and G{\'o}mez
-             Guinovart, Xavier and Gonz{\'a}lez Saavedra, Berta and Grioni,
-           Matias and Gr{\= u}z{\={\i}}tis, Normunds and Guillaume, Bruno and
-             Guillot-Barbance, C{\'e}line and Habash, Nizar and Haji{\v c}, Jan
-             and Haji{\v c} jr., Jan and H{\`a} M{\~y}, Linh and Han, Na-Rae
-             and Harris, Kim and Haug, Dag and Heinecke, Johannes and Hennig,
-           Felix and Hladk{\'a}, Barbora and Hlav{\'a}{\v c}ov{\'a}, Jaroslava
-             and Hociung, Florinel and Hohle, Petter and Hwang, Jena and Ikeda,
-           Takumi and Ion, Radu and Irimia, Elena and Ishola, {\d
-               O}l{\'a}j{\'{\i}}d{\'e} and Jel{\'{\i}}nek, Tom{\'a}{\v s} and
-               Johannsen, Anders and J{\o}rgensen, Fredrik and Ka{\c
-                   s}{\i}kara, H{\"u}ner and Kaasen, Andre and Kahane, Sylvain
-                   and Kanayama, Hiroshi and Kanerva, Jenna and Katz, Boris and
-                   Kayadelen, Tolga and Kenney, Jessica and Kettnerov{\'a},
-           V{\'a}clava and Kirchner, Jesse and K{\"o}hn, Arne and Kopacewicz,
-           Kamil and Kotsyba, Natalia and Kovalevskait{\.e}, Jolanta and Krek,
-           Simon and Kwak, Sookyoung and Laippala, Veronika and Lambertino,
-           Lorenzo and Lam, Lucia and Lando, Tatiana and Larasati, Septina Dian
-             and Lavrentiev, Alexei and Lee, John and L{\^e} H{\`{\^o}}ng,
-           Phương and Lenci, Alessandro and Lertpradit, Saran and Leung, Herman
-             and Li, Cheuk Ying and Li, Josie and Li, Keying and Lim,
-             {KyungTae} and Li, Yuan and Ljube{\v s}i{\'c}, Nikola and
-     Loginova, Olga and Lyashevskaya, Olga and Lynn, Teresa and Macketanz,
-       Vivien and Makazhanov, Aibek and Mandl, Michael and Manning, Christopher
-         and Manurung, Ruli and M{\u a}r{\u a}nduc, C{\u a}t{\u a}lina and
-         Mare{\v c}ek, David and Marheinecke, Katrin and Mart{\'{\i}}nez
-         Alonso, H{\'e}ctor and Martins, Andr{\'e} and Ma{\v s}ek, Jan and
-         Matsumoto, Yuji and {McDonald}, Ryan and Mendon{\c c}a, Gustavo and
-         Miekka, Niko and Misirpashayeva, Margarita and Missil{\"a}, Anna and
-         Mititelu, C{\u a}t{\u a}lin and Miyao, Yusuke and Montemagni,
-       Simonetta and More, Amir and Moreno Romero, Laura and Mori, Keiko Sophie
-         and Morioka, Tomohiko and Mori, Shinsuke and Moro, Shigeki and
-         Mortensen, Bjartur and Moskalevskyi, Bohdan and Muischnek, Kadri and
-         Murawaki, Yugo and M{\"u}{\"u}risep, Kaili and Nainwani, Pinkey and
-         Navarro Hor{\~n}iacek, Juan Ignacio and Nedoluzhko, Anna and Ne{\v
-             s}pore-B{\=e}rzkalne, Gunta and Nguy{\~{\^e}}n Th{\d i}, Lương and
-             Nguy{\~{\^e}}n Th{\d i} Minh, Huy{\`{\^e}}n and Nikaido, Yoshihiro
-             and Nikolaev, Vitaly and Nitisaroj, Rattima and Nurmi, Hanna and
-             Ojala, Stina and Ol{\'u}{\`o}kun, Ad{\'e}day{\d o}̀ and Omura, Mai
-             and Osenova, Petya and {\"O}stling, Robert and {\O}vrelid, Lilja
-             and Partanen, Niko and Pascual, Elena and Passarotti, Marco and
-             Patejuk, Agnieszka and Paulino-Passos, Guilherme and
-             Peljak-{\L}api{\'n}ska, Angelika and Peng, Siyao and Perez,
-       Cenel-Augusto and Perrier, Guy and Petrova, Daria and Petrov, Slav and
-         Piitulainen, Jussi and Pirinen, Tommi A and Pitler, Emily and Plank,
-       Barbara and Poibeau, Thierry and Popel, Martin and Pretkalni{\c n}a,
-       Lauma and Pr{\'e}vost, Sophie and Prokopidis, Prokopis and
-         Przepi{\'o}rkowski, Adam and Puolakainen, Tiina and Pyysalo, Sampo and
-         R{\"a}{\"a}bis, Andriela and Rademaker, Alexandre and Ramasamy,
-       Loganathan and Rama, Taraka and Ramisch, Carlos and Ravishankar, Vinit
-         and Real, Livy and Reddy, Siva and Rehm, Georg and Rie{\ss}ler,
-       Michael and Rimkut{\.e}, Erika and Rinaldi, Larissa and Rituma, Laura
-         and Rocha, Luisa and Romanenko, Mykhailo and Rosa, Rudolf and Rovati,
-       Davide and Roșca, Valentin and Rudina, Olga and Rueter, Jack and Sadde,
-       Shoval and Sagot, Beno{\^{\i}}t and Saleh, Shadi and Salomoni, Alessio
-         and Samard{\v z}i{\'c}, Tanja and Samson, Stephanie and Sanguinetti,
-       Manuela and Sarah {McGuinness}, Abigail Walsh and S{\"a}rg, Dage and
-         Saul{\={\i}}te, Baiba and Sawanakunanon, Yanin and Schneider, Nathan
-         and Schuster, Sebastian and Seddah, Djam{\'e} and Seeker, Wolfgang and
-         Seraji, Mojgan and Shen, Mo and Shimada, Atsuko and Shirasu, Hiroyuki
-         and Shohibussirri, Muh and Sichinava, Dmitry and Silveira, Natalia and
-         Simi, Maria and Simionescu, Radu and Simk{\'o}, Katalin and {\v
-             S}imkov{\'a}, M{\'a}ria and Simov, Kiril and Smith, Aaron and
-             Soares-Bastos, Isabela and Spadine, Carolyn and Stella, Antonio
-             and Straka, Milan and Strnadov{\'a}, Jana and Suhr, Alane and
-             Sulubacak, Umut and Suzuki, Shingo and Sz{\'a}nt{\'o}, Zsolt and
-             Taji, Dima and Takahashi, Yuta and Tamburini, Fabio and Tanaka,
-       Takaaki and Tellier, Isabelle and Thomas, Guillaume and Torga, Liisi and
-         Trosterud, Trond and Trukhina, Anna and Tsarfaty, Reut and Tyers,
-       Francis and Uematsu, Sumire and Ure{\v s}ov{\'a}, Zde{\v n}ka and Uria,
-       Larraitz and Uszkoreit, Hans and Vajjala, Sowmya and van Niekerk, Daniel
-         and van Noord, Gertjan and Varga, Viktor and Villemonte de la
-         Clergerie, Eric and Vincze, Veronika and Wallin, Lars and Wang, Jing
-         Xian and Washington, Jonathan North and Wendt, Maximilan and Williams,
-       Seyi and Wir{\'e}n, Mats and Wittern, Christian and Woldemariam, Tsegay
-         and Wong, Tak-sum and Wr{\'o}blewska, Alina and Yako, Mary and
-         Yamazaki, Naoki and Yan, Chunxiao and Yasuoka, Koichi and Yavrumyan,
-       Marat M. and Yu, Zhuoran and {\v Z}abokrtsk{\'y}, Zden{\v e}k and
-         Zeldes, Amir and Zeman, Daniel and Zhang, Manying and Zhu, Hanzhi},
- url = {http://hdl.handle.net/11234/1-2988},
- note = {{LINDAT}/{CLARIN} digital library at the Institute of Formal and
-     Applied Linguistics ({{\'U}FAL}), Faculty of Mathematics and Physics,
-     Charles University},
- copyright = {Licence Universal Dependencies v2.4},
- year = {2019} 
+@inproceedings{partanen-etal-2019-dialect,
+    title = "Dialect Text Normalization to Normative Standard {F}innish",
+    author = {Partanen, Niko  and
+      H{\"a}m{\"a}l{\"a}inen, Mika  and
+      Alnajjar, Khalid},
+    booktitle = "Proceedings of the 5th Workshop on Noisy User-generated Text (W-NUT 2019)",
+    month = nov,
+    year = "2019",
+    address = "Hong Kong, China",
+    publisher = "Association for Computational Linguistics",
+    url = "https://www.aclweb.org/anthology/D19-5519",
+    doi = "10.18653/v1/D19-5519",
+    pages = "141--146",
 }
