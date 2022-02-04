@@ -83,19 +83,19 @@
 \newcommand{\footnotepubrights}[1]{
     \footnote{
 \ifx\flammie@version\@undefined%{
-        This is Tommi A Pirinen's unpublished draft version of an article for
+        This is Flammie A Pirinen's unpublished draft version of an article for
         private reviews. If you found this from the Internet, report to author.
 \else\ifcase\flammie@version% 0 = private
-        This is Tommi A Pirinen's unpublished draft version of an article for
+        This is Flammie A Pirinen's unpublished draft version of an article for
         private reviews. If you found this from the Internet, report to author.
 \or% 1 = free
         This article has a free/open publication licence; this particular
-        version is Tommi A Pirinen's draft version.
+        version is Flammie A Pirinen's draft version.
 \or% 2 = preprint
-        This version is Tommi A Pirinen's pre-print draft. The official
+        This version is Flammie A Pirinen's pre-print draft. The official
         publication may differ.
 \or% 3 = postprint
-        This version is Tommi A Pirinen's post-print draft. The official
+        This version is Flammie A Pirinen's post-print draft. The official
         publication may differ.
 \fi\fi
         This version uses my own documentclass instead of official
@@ -127,9 +127,9 @@ open access with Creative Commons licenses.}
 \RequirePackage{url}
 \RequirePackage{xcolor}
 \RequirePackage[colorlinks=true,
-                linkcolor=blue!30!black,
-                citecolor=blue!30!black,
-                urlcolor=blue!30!black]{hyperref}
+                linkcolor=blue!40!black,
+                citecolor=blue!40!black,
+                urlcolor=blue!40!black]{hyperref}
 \setmainfont[Mapping=tex-text]{Liberation Serif}
 
 % end input
