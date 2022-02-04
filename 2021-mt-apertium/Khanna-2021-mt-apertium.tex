@@ -1,0 +1,1459 @@
+\RequirePackage{fix-cm}%
+%
+\documentclass[free]{flammie}
+% \smartqed% flush right qed marks, e.g. at end of proof
+
+
+\hyphenation{Che-ri-vi-rala Mar-tí-nez Sán-chez--Mar-tí-nez}
+
+\usepackage{graphicx}
+\usepackage[para,online,flushleft]{threeparttable}
+\usepackage[]{todonotes}
+\usepackage{float}
+\restylefloat{table}
+
+\usepackage{booktabs}%
+%\usepackage{forest}
+\usepackage{float}
+\usepackage{multicol}
+\floatstyle{plaintop}
+\restylefloat{table}
+
+\usepackage{multicol}
+
+\newcommand{\tag}[1]{\texttt{<#1>}}
+\newcommand{\examp}[1]{\emph{#1}}
+\newcommand{\morphform}[1]{\texttt{#1}}
+\newcommand{\node}[1]{\begin{tabular}{c}#1\end{tabular}}
+
+\makeatletter
+\@mparswitchfalse
+\makeatother
+\setlength{\marginparwidth}{6cm}
+
+\begin{document}
+
+\title{Recent advances in Apertium, a free / open-source rule-based machine
+translation platform for low-resource languages
+\footnotepubrights{Springer Open Access publication. This version from pre-print
+latex form does not contain some changes made in the editorial process.
+Published version available:
+\url{https://link.springer.com/article/10.1007/s10590-021-09260-6}}
+}
+
+%\titlerunning{Recent advances in Apertium}
+
+%\author{Tanmai Khanna \and
+%        Jonathan N Washington \and
+%        Francis M Tyers \and
+%        Sevilay Bayatlı \and
+%        Daniel G Swanson \and
+%        Flammie A Pirinen \and
+%        Irene Tang \and
+%        Hèctor {Alòs i Font}
+%}
+
+%\authorrunning{Khanna et al.}
+
+\author{Tanmai Khanna \\
+              Language Technologies Research Centre\\
+              IIIT Hyderabad, Telangana India 500032\\
+              \url{tanmai.khanna@research.iiit.ac.in}
+           \and
+           Jonathan N Washington \\
+              Swarthmore College\\
+              Swarthmore, PA USA 19081\\
+              \url{jonathan.washington@swarthmore.edu}
+           \and
+           Francis M Tyers \\
+              Indiana University\\
+              Bloomington, IN USA 47401\\
+              \url{ftyers@iu.edu}
+           \and
+           Sevilay Bayatlı \\
+              Beykent Üniversitesi\\
+              İstanbul, Turkey\\
+              \url{sewaletaha@beykent.edu.tr}
+           \and
+           Daniel G Swanson \\
+              Swarthmore College\\
+              Swarthmore, PA USA 19081\\
+              \url{dswanso1@gmail.com}
+           \and
+           Flammie A Pirinen \\
+              UiT---Norgga árktalaš universitehta\\
+              NO-9000, Romssa\\
+              \url{tommi.pirinen@uit.no}
+           \and
+           Irene Tang \\
+              University of Chicago\\
+              Chicago, IL USA 60637\\
+              \url{itang1@uchicago.edu}
+           \and
+           Hèctor {Alòs i Font} \\
+              Centre de Recerca en Sociolingüística i Comunicació\\
+              Universitat de Barcelona\\
+              \url{hectoralos@gmail.com}
+}
+
+\date{This version: \today}
+
+
+\maketitle
+
+\begin{abstract}
+    This paper presents an overview of Apertium, a free and open-source
+    rule-based machine translation platform.  Translation in Apertium happens
+    through a pipeline of modular tools, and the platform continues to be
+    improved as more language pairs are added.  Several advances have been
+    implemented since the last publication, including some new optional modules:
+    a module that allows rules to process recursive structures at the structural
+    transfer stage, a module that deals with contiguous and discontiguous
+    multi-word expressions, and a module that resolves anaphora to aid
+    translation.  Also highlighted is the hybridisation of Apertium through
+    statistical modules that augment the pipeline, and statistical methods that
+    augment existing modules.  This includes morphological disambiguation,
+    weighted structural transfer, and lexical selection modules that learn from
+    limited data.  The paper also discusses how a platform like Apertium can be
+    a critical part of access to language technology for so-called low-resource
+    languages, which might be ignored or deemed unapproachable by popular
+    corpus-based translation technologies.  Finally, the paper presents some of
+    the released and unreleased language pairs, concluding with a brief look at
+    some supplementary Apertium tools that prove valuable to users as well as
+    language developers.  All Apertium-related code, including language data, is
+    free/open-source and available at \url{https://github.com/apertium}.
+
+
+%\keywords{
+    Keywords: machine translation \and low-resource languages \and rule-based
+    machine translation \and hybrid machine translation%}
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+\footnote{Several of the advances described in this paper were supported by
+Google Summer of Code funding, for which the authors are very grateful.}
+
+Apertium~\cite{forcada2011apertium} is a free/open-source platform for
+rule-based machine translation (RBMT). It was designed to use the shallow
+transfer based approach to translation, and most modules in the pipeline work on
+rules written by language developers and linguists. The platform provides an
+accessible way to create language data and rules, such that apart from language
+developers, speakers of a language with a limited understanding of programming
+and/or linguistics can create decent translation systems for their languages as
+well. This is a superior model for creating translation systems for low-resource
+languages both because it involves stakeholders from the language communities,
+and because the languages lack widely available corpora that would be needed for
+fully data-driven approaches. Apart from developing RBMT systems for
+low-resource languages, the Apertium open source organisation also develops and
+supports tools for the creation of RBMT systems.
+
+
+Several advances to the Apertium platform (Release version 3.6) have been
+implemented since the previous publication~\cite{forcada2011apertium}. These
+include organisational improvements, additional tools, additional methods to
+augment RBMT with corpus-based methods, new modules for more precise
+translation, a few additional tools not directly involved in the RBMT pipeline,
+and resources for many more languages and translation pairs.
+
+Organisational changes include a migration of the codebase from subversion
+(hosted by SourceForge) to git (hosted by GitHub), a switch from two-letter ISO
+codes (ISO 639-1) to three-letter ISO codes (ISO 639-3), and a three-directory
+model for translation pairs (one for components specific to each language, and
+one for the common components). Additionally, morphological transducers for a
+number of languages make use of Helsinki Finite-State Technology (HFST)
+\cite{linden2011hfst}, morphological disambiguation has been improved in many
+languages by using Visual Interactive Syntax Learning Constraint Grammar (VISL
+CG-3) \cite{bick2015cg}, and several new features have been incorporated into
+the lexical selection module.
+
+Section~\ref{sec:ApertiumOV} overviews the design of the Apertium RBMT platform.
+Section~\ref{sec:HyberdisationOFApertium} discusses modules used by Apertium to
+augment RBMT using corpus-based methods. Section~\ref{sec:NewModules} introduces
+the new modules in the pipeline: a module that allows rules to process recursive
+structures at the structural transfer stage, a module that deals with contiguous
+and discontiguous multiword expressions, and one that resolves anaphors to aid
+translation. Section~\ref{sec:LinguisticsOfEnden} discusses Apertium's
+contribution to language revitalisation and reclamation efforts.
+Section~\ref{sec:OtherValuableTools} introduces several supplementary Apertium
+tools. Section~\ref{sec:Conclusion} concludes.
+
+\section{Overview of the Apertium platform}\label{sec:ApertiumOV}
+
+The overall design of Apertium is a pipeline with a series of modules. Each
+stage of the pipeline reads from and writes to text streams in a consistent
+format so that modules can easily be added or removed according to the needs of
+the languages in question.
+
+Apertium consists of both the management of the pipeline (the main
+\texttt{apertium} executable) and all the stages in this pipeline, except where
+outside tools (such as HFST for morphological analysis and generation, or CG for
+morphological disambiguation) are used. Each stage consists of a general
+processor which modifies the stream based on hand-crafted ``rules'' (coded
+linguistic generalisations) for a given language or language pair.
+Figure~\ref{fig:pipeline} shows the entire pipeline, including optional modules.
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=\textwidth]{pipeline_box}
+    \caption{The architecture of Apertium, a transfer-based machine translation
+    system.  Each rounded box is a module available for language-specific or
+    pair-specific development.  Broken lines show optional modules.  Lines with
+    arrows represent the flow of data through the pipeline.  The stages in the
+    pipeline are grouped by whether they are relevant to source-language
+    analysis, bilingual transfer, or target-language generation---the three
+    logical sections of the pipeline.  The deformatter and reformatter are
+    language-agnostic and provided by Apertium.}\label{fig:pipeline}
+\end{figure*}
+
+A short overview of each of the stages of the pipeline is provided below.  The
+new ones are discussed in further detail in Section~\ref{sec:NewModules}.
+
+\begin{itemize}
+    \item[$-$]\textbf{Deformatter:} Encapsulates any document formatting tags so
+        that they go through the rest of the translation pipeline untouched.
+        This is a language-agnostic part of Apertium.
+\end{itemize}
+
+\begin{itemize}
+    \item[$-$]\textbf{Source Language morphological analyser:} Segments the
+        surface form of text (words or multi-word lexical units) using a
+        finite-state transducer (FST) and delivers one or more lexical forms (or
+        ``analyses''), each of which includes a lemma and a part-of-speech label
+        (encoded as a ``tag''), as well as any relevant subcategory and
+        grammatical (e.g., inflectional) information (also encoded as tags).
+\end{itemize}
+
+\begin{itemize}
+    \item \textbf{Source Language morphological disambiguator:} Tries to choose
+        the best sequence of morphological analyses for an ambiguous sentence.
+        \\The original Apertium disambiguator used a first-order hidden Markov
+        model (HMM). Other statistical models, such as averaged weighted
+        Perceptron, have since been added and are currently in use for various
+        languages. Additionally, CG \cite{bick2015cg} is often combined with a
+        statistical model for a two-step process.  The different approaches are
+        discussed in Section~\ref{sec:MorphologicalDis}.
+\end{itemize}
+
+\begin{itemize}
+    \item \textbf{Source Language retokenization:} Adjusts token boundaries for
+        multi-word expressions, which can be non-contiguous (such as separable
+        verbs in Germanic languages), in preparation for translation.  Often
+        this consists of combining component parts into single multi-word
+        expressions.  This module is discussed in more detail in
+        Section~\ref{sec:ApertiumSeparable}.
+\end{itemize}
+
+\begin{itemize}
+    \item \textbf{Lexical transfer:} Reads each source-language (SL) lexical
+        form and delivers a set of corresponding target-language (TL) lexical
+        forms by looking it up in a bilingual dictionary, implemented as an FST.
+\end{itemize}
+
+\begin{itemize}
+    \item \textbf{Lexical selection:} Based on context rules, chooses the most
+        adequate translation of ambiguous SL lexical forms. The original
+        module~\cite{tyers2012flexible} has been extended with new features
+        like macros.  This is discussed in more detail in
+        Section~\ref{sec:lexicalSel}.
+\end{itemize}
+
+\begin{itemize}
+    \item \textbf{Source Language anaphora resolution:} Resolves references to
+        earlier items in discourse. Using saliency metrics, this module attaches
+        the lexical unit of the antecedent to its corresponding anaphor to aid
+        translation. This module is discussed in more detail in
+        Section~\ref{sec:AnaphoraResol}.
+\end{itemize}
+
+\begin{itemize}
+    \item \textbf{Shallow structural transfer:} Apertium's shallow structural
+        transfer module implements a sequence of one or more finite-state
+        constraint rules on the output of the lexical selection module. It
+        generally consists of three sub-modules: a chunker mode, an interchunk
+        mode, and a postchunk mode.
+
+        Apertium 1.0 had one single structural transfer step.  This was
+        considered enough for the translators between the closely related
+        Iberian Romance languages which constituted the first Apertium
+        translators. The one-step strategy is still used in the current released
+        versions of many of them, including the Catalan-Spanish translation
+        pair, which since then has been continuously improved and is widely
+        used.\footnote{In 2020, the Softcatalà-hosted Apertium translators
+        served an average of 4.6 million requests per month from Spanish to
+        Catalan and 1.1 million from Catalan to Spanish (data kindly provided by
+        Xavier Ivars).}\\ Beginning with the implementation of the
+        Spanish-English and Catalan-English language pairs, a three-step
+        transfer architecture was developed, leading to the release of Apertium
+        2.0. The first step creates chunks in the source language and reorders
+        words inside the chunk as per the transfer rules. The second step
+        reorders chunks based on the target language syntax, and the final step
+        makes the stream ready for the generator. This is currently the standard
+        Apertium structural transfer architecture. Several pairs have additional
+        transfer steps, such as Catalan-Esperanto (5 steps) and French-Occitan
+        (4 steps).
+
+        In the Catalan-Esperanto translator there are three ``interchunk" steps
+        aimed at a deeper syntactic analysis, with the overarching objective of
+        generating the correct case morphology on various types of nominals in
+        the target language (Esperanto), since the source language (Catalan)
+        lacks case morphology except in its pronominal system.  The shallow
+        transfer system is used creatively in other ways as well.
+\end{itemize}
+
+\begin{itemize}
+    \item \textbf{Recursive structural transfer:}
+        This module is a recently developed alternative to the shallow
+        structural transfer module (chunker, interchunk, and postchunk). Its
+        linguistic data is specified as context-free grammars (CFGs) and it uses
+        a Generalized Left-right Right-reduce (GLR) parser rather than
+        finite-state chunking to more effectively implement long-distance
+        reordering.  This module is discussed further in
+        Section~\ref{sec:RecursiveStruc}.
+\end{itemize}
+
+\begin{itemize}
+    \item \textbf{Target Language retokenization:} Adjusts token boundaries for
+        multi-word expressions, which can be non-contiguous (such as separable
+        verbs in Germanic languages), in preparation for target-language
+        morphological generation.  Often this consists of separating multi-word
+        expressions into their component parts.  This module is discussed in
+        more detail in Section~\ref{sec:ApertiumSeparable}.
+\end{itemize}
+
+\begin{itemize}
+    \item \textbf {Target Language morphological generator:} Delivers the
+        sequence of TL surface forms for each corresponding TL lexical form
+        received from earlier modules in the pipeline.
+\end{itemize}
+
+\begin{itemize}
+    \item \textbf{Target Language Post-generator:} Performs mainly orthographic
+        operations across tokens, for example elision (such as \textit{lo + òme
+        = l'òme} in Occitan), fusion (such as \textit{da + il = dal} in
+        Italian), epenthesis (such as \textit{a > an} in English, or \textit{с >
+        со} and \textit{о > об} in Russian), or dissimilation (such as
+        \textit{la + agua > el agua} in Spanish).
+\end{itemize}
+
+\begin{itemize}
+    \item \textbf{Reformatter:} De-encapsulates any formatting information to
+        prepare a finally formatted document in the target language. This is a
+        language-agnostic part of Apertium.
+\end{itemize}
+
+The reader is referred to the Apertium
+wiki\footnote{\url{http://wiki.apertium.org/wiki/Pipeline}} for more information
+about file naming conventions, mode naming conventions, and dates of
+introduction for each stage of the pipeline. Any further additions to the
+pipeline will be documented on this wiki.
+
+It should be added that a major difference in the organisation of Apertium
+language pairs as compared to the original model is the three-directory
+structure currently used for most (but not all) of the released translation
+pairs. Initially, every translation pair was developed in a single
+self-contained repository that included all relevant linguistic data. Currently,
+monolingual data, such as morphological dictionaries, morphological
+disambiguators and post-generators, are shared by different translators,
+allowing much easier reuse of data and cooperation in the improvement of
+linguistic resources \cite{marting2014fst}. Thus, for instance, compiling the
+\texttt{apertium-spa-cat} pair now depends on the \texttt{apertium-spa} and
+\texttt{apertium-cat} modules, which are also used by other translation pairs.
+
+\section{Use of corpus-based approaches in Apertium modules}
+\label{sec:HyberdisationOFApertium}
+
+Several methods of incorporating corpus-based approaches into Apertium RBMT
+systems are available. These methods fall into the domains of morphological
+disambiguation (Section~\ref{sec:MorphologicalDis}), lexical selection
+(Section~\ref{sec:lexicalSel}), and structural transfer
+(Section~\ref{sec:StructuralTr}).
+
+\subsection{Morphological disambiguation}\label{sec:MorphologicalDis}
+
+The goal of morphological disambiguation is to choose the correct morphological
+analysis if there are multiple possible analyses for a given lexical unit.
+
+The oldest and most commonly used morphological disambiguation method in
+Apertium \cite{sanchez2006speeding, sanchez2007training} is a module that relies on patterns
+learned from a corpus. This bigram-based morphological disambiguator chooses one
+analysis from among those returned by the morphological analyser based on a
+probabilistic model of sequences of part-of-speech tags given the surrounding
+context.
+
+Some Apertium disambiguators are implemented instead using statistical methods
+based on Hidden Markov Models (HMM), which processes the result of the
+application of constraint-grammar rules~\cite{karlsson1995constraint}. The
+perceptron tagger~\cite{zhang2011syntactic} in the English language
+module (\texttt{apertium-eng}) follows one such method.
+
+Furthermore, VISL CG-3 \cite{bick2015cg} has become a popular method among
+Apertium developers of implementing morphological disambiguation using
+hand-crafted heuristics.  For many languages, it is combined with one of the
+other methods for a two-step disambiguation stage.
+
+\subsection{Lexical selection}\label{sec:lexicalSel}
+
+The goal of lexical selection is to choose an adequate translation in the target
+language from among several possible translations for a given source-language
+lexical unit.  An FST-based module that allows the writing of rules has been in
+use for some time~\cite{tyers2012flexible}.
+
+Apart from manually written rules, a system has also been developed that learns
+rules through a maximum-entropy model trained in an unsupervised
+manner~\cite{tyers2014unsupervised}.  The training method requires only a source language
+corpus, a statistical target-language language model, and the RBMT system
+itself.  All possible translations are scored against the TL language model, and
+these scores are normalized to provide fractional counts to train
+source-language maximum-entropy lexical selection models.
+
+\subsection{Structural transfer module}\label{sec:StructuralTr}
+
+Structural transfer handles differences between the source and target languages
+in terms of word order and morphological information by applying transfer rules.
+In the chunker module, these transfer rules function by matching a source
+language pattern of lexical items, creating chunks and applying a sequence of
+actions to convert the word order and morphological properties of the chunk as
+per the target language. There can, however, be more than one potential sequence
+of actions for each source language pattern, as well as overlapping patterns. To
+generate an accurate translation, transfer rules are applied to the input using
+a left-right-longest match algorithm.
+
+Work has been done to extract, or ``learn'', chunking rules using Alignment
+Templates~\cite{hutchison2006using,sanchez2007automatic,
+martinez2008using,sanchez2009inferring, sanchez-cartagena2015generalised}.  A
+parallel corpus is searched for sequences of lexical units that exhibit
+differences in order or morphological information.
+
+In addition, chunker rules can now be weighted so as to apply different rules in
+different overlapping lexical environments. These weights can be learned using
+an unsupervised maximum entropy approach~\cite{bayatli2019unsupervised}.
+
+The basic goal of this method is to choose between conflicting structural
+transfer rules based on the lexical environment.  For example, the Spanish
+sentence \emph{Encontré el pastel muy bueno} has (at least) two different
+(hypothetical) translations to English depending on the syntactic parse in
+Spanish: (a) ``I found the cake very good'' or (b) ``I found the very good
+cake''.  That is, \emph{muy bueno} may be parsed (a) as a complement to the verb
+\emph{encuentro} or (b) as a modifier to the noun \emph{el pastel}.  These
+parses correspond to different sets of transfer rules, each of which could be
+matched: (a) a single verb phrase consisting of V DET N ADV ADJ, or (b) a verb
+V, followed by a noun phrase DET N ADV ADJ.  The noun phrase rule would specify
+that the elements be output in a different order, DET ADV ADJ N, and both rules
+that match the verb would add a lexical unit for the pronominal subject.
+
+A model is produced by running SL text through all possible transfer rules,
+comparing the potential translations that are output to a TL language model, and
+dividing the scores by the series of SL lemmas that matched each transfer rule
+pattern for a given potential translation.  If the example above were part of
+the training data, then the potential translation \emph{I found the cake very
+good} would score higher than \emph{I found the very good cake} against an
+English language model due to having a higher probability.  These different
+scores are then distributed as weights, along with the input lemmas, attached to
+the rules that each translation is the result of.  In this example, the weight
+assigned to the V DET N ADV ADJ rule for the Spanish lemmas is higher than the
+sum of the weights assigned to the V and DET N ADV ADJ rules for these same
+lemmas, and hence the V DET N ADV ADJ rule will be selected.
+
+During translation, when a string of SL text matches multiple transfer rules,
+the system is able to choose between them (infer the ``correct'' one) based on
+the weights associated with the rules that the SL lemmas trigger.  For example,
+if this same sentence were being translated, the V DET N ADV ADJ rule would be
+matched, resulting in the output ``I found the cake very good''.
+
+A contrasting example, \emph{Encontré un pastel muy bueno}, would match the same
+two sets of rules, but would result in translation occurring through the other
+rule set.  This is because the lemmas of the potential translation \emph{I found
+a very good cake} would result in higher combined weights for the V and DET N
+ADV ADJ rules than the V DET N ADV ADJ rule.  This reason for this is that
+translations containing these lemmas would have scored higher against an English
+language model than translations like \emph{I find a cake very good}, resulting
+in higher weights for this set of Spanish lemmas attached to this set of rules.
+
+In both examples of Spanish inputs, using this approach and a suitable corpus to
+train an English language model, the set of transfer rules that results in the
+more likely English translation is chosen.
+
+This method has been tested using the Kazakh--Turkish, Kyrgyz--Turkish, and
+Spanish--English translation pairs, and it has been observed that the results
+are better when there is a greater number of ambiguous rules.  The module has
+not yet been included in any released translation system.
+
+\section{New modules}\label{sec:NewModules}
+
+Several previously-unpublished modules are now available for the Apertium
+pipeline.  Discussed in this section are \texttt{apertium-recursive}, which
+provides for true recursive transfer; \texttt{apertium-separable}, which enables
+the processing of multi-word expressions; and \texttt{apertium-anaphora}, which
+allows the resolution of anaphors in the source text.
+
+\subsection{Recursive structural transfer}\label{sec:RecursiveStruc}
+
+\begin{figure}
+\begin{minipage}{\textwidth}
+    \centering
+    \begin{verbatim}
+            NP -> det n { 2 + 1 } |
+                  NP PP { 2 _ 1 } ;
+
+            PP -> pr NP { 2 + 1 } ;
+    \end{verbatim}
+    \caption{A simple set of recursive rules translating a subset of noun
+    phrases and prepositional phrases from English to Basque.  A noun phrase
+    (\texttt{NP}) in the source language consists of a determiner (\texttt{det})
+    and a noun (\texttt{n}), and may optionally include a prepositional phrase
+    (\texttt{PP}), and a prepositional phrase consists of a preposition
+    (\texttt{pr}) and a noun phrase.  All three output rules reverse the order
+    of the two nodes: the order of a determiner and a noun is reversed, the
+    order of a noun phrase and a prepositional phrase is reversed, and the order
+    of an adposition (preposition/postposition) and a noun phrase is reversed.
+    The action part of the rules (building up the target translation) appears
+    between braces \texttt{\{\ldots\}}.  The indices, \texttt{1} and \texttt{2},
+    indicate the position of the unit matched in the input, \texttt{\_}
+    represents a space in the output, and \texttt{+} indicates that the words on
+    either side of it will be conjoined without a space. }
+    \label{fig:recursion}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+        \centering
+    \missingfigure{forest: 1}
+%%        \begin{forest}
+%%        [NP
+%%            [NP
+%%                [\hspace{-1em}{ \node{\textbf{the} \\ \texttt{det.def.sp} \\ \textit{a} \\ \texttt{det.art.sp}} }  ]
+%%                [\hspace{-1em}{ \node{\textbf{house} \\ \texttt{n.sg} \\ \textit{etxe} \\ \texttt{n.sg}} }  ]
+%%
+%%            [PP
+%%                [\node{\textbf{by} \\ \texttt{pr} \\ \textit{ko} \\ \texttt{post}} ]
+%%                [ NP
+%%                    [ NP
+%%                        [{ \node{\textbf{the} \\ \texttt{det.def.sp} \\ \textit{a} \\ \texttt{det.art.sp} } }  ]
+%%                        [{ \node{ \textbf{side} \\ \texttt{n.sg} \\ \textit{ertz} \\ \texttt{n.sg} } }  ]
+%%                    ]
+%%                    [PP
+%%                        [\hspace{-0.2em}{\node{\textbf{of} \\ \texttt{pr} \\ \textit{en} \\ \texttt{post} } }  ]
+%%                        [NP
+%%                            [\hspace{-1.5em} {\node{ \textbf{that} \\ \texttt{det.dem.sg} \\ \textit{hura} \\ \texttt{det.dem.sg} } }  ]
+%%                            [{\hspace{-0.5em}\node{ \textbf{road} \\ \texttt{n.sg} \\ \textit{kale} \\ \texttt{n.sg} } } ]
+%%                        ]
+%%                    ]
+%%                ]
+%%            ]
+%%        ]
+%%        \end{forest}
+        \caption{A source language parse tree for the phrase \emph{the house by
+        the side of that road} built using the rules in
+        figure~\ref{fig:recursion}. When no further application of the rules is
+        possible, this tree will be transformed into the tree shown in
+        figure~\ref{tree:recursion-eus}.}\label{tree:recursion-eng}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+    \centering
+    \missingfigure{forest: 2}
+%%        \begin{forest}
+%%        [NP
+%%            [PP
+%%                [NP
+%%                    [PP
+%%                        [NP
+%%                            [{ \node{ \textbf{kale} \\ \texttt{n} } }  ]
+%%                            [{ \node{ \textbf{hura} \\ \texttt{det.dem.sg} } }  ]
+%%                        ]
+%%                        [{ \node{ \textbf{en} \\ \texttt{post} } }  ]
+%%                    ]
+%%                    [NP
+%%                        [{ \node{ \textbf{ertz} \\ \texttt{n} } }  ]
+%%                        [{ \node{ \textbf{a} \\ \texttt{det.art.sg} } }  ]
+%%                    ]
+%%                ]
+%%                [{ \node{ \textbf{ko} \\ \texttt{post} } }  ]
+%%            ]
+%%            [NP
+%%                [{ \node{ \textbf{etxe} \\ \texttt{n} } }  ]
+%%                [{ \node{ \textbf{a} \\ \texttt{det.art.sg} } }  ]
+%%            ]
+%%        ]
+%%        \end{forest}
+        \caption{The target language tree resulting from applying the action
+        steps of the rules in figure~\ref{fig:recursion} to the tree in
+        figure~\ref{tree:recursion-eng}.  The analyses yielded by this tree will
+        generate the Basque phrase \emph{kale haren ertzeko etxea} `the house by
+        the side of the road'. The final step of combining definite articles and
+        postpositions with the immediately preceding words is not
+        shown.}\label{tree:recursion-eus}
+    \end{minipage}
+
+\end{figure}
+
+Given the range of possible syntactic structures, it is common for any two
+languages to have significantly different word orders.  For example, in Welsh,
+verbs tend to be at the beginning of a sentence; in English they tend to be in
+the middle; and in Kyrgyz, they tend to be at the end.
+
+These differences are problematic for Apertium's finite-state chunking module,
+which matches fixed sequences of words that must be contiguous.  This limitation
+means it is fairly easy to write rules which perform operations such as changing
+the order of nouns and adjectives, since these are usually adjacent, but
+changing larger structures is much harder. Switching the order of the subject
+and the main verb, for instance, would generally require writing a rule for each
+sequence of words that can make up each of those parts. The English-Spanish pair
+has more than 30 chunking rules for handling noun phrases with different numbers
+of determiners and adjectives, and those rules don't attempt to deal with all
+structures that may occur in noun phrases, such as relative clauses.
+
+To deal with the limitations of finite-state chunking, the
+\texttt{apertium-recursive} module \cite{swanson2020tree} was developed by
+Daniel Swanson as part of Google Summer of Code
+2019\footnote{\url{https://summerofcode.withgoogle.com/archive/2019/projects/6746718069063680/}.}
+to apply structural transfer rules recursively using context-free grammars
+(CFGs) and a Generalized Left-right Right-reduce (GLR) parser. This makes it
+possible to process nested structures such as relative clauses or prepositional
+phrases within prepositional phrases. An example of the latter is shown in
+Figures~\ref{tree:recursion-eng} and \ref{tree:recursion-eus}, with the relevant
+rules in Figure~\ref{fig:recursion}.  In this example, the word order of a set
+of nested prepositional phrases needs to be completely reversed (or in
+linguistic terms, the order of noun phrases (NPs) and adpositional phrases (PPs)
+each needs to be reversed), regardless of the number of prepositional phrases
+involved in order to translate from English to Basque.
+
+A recursive approach to transfer can be helpful for translation pairs between
+syntactically more similar languages as well. For example, in the case of the
+English-Spanish noun phrase rules mentioned above, the more than 30 rules
+required for handling determiners, adjectives, and nouns can be simplified to
+less than 10 rules in \texttt{apertium-recursive} because more complicated
+structures can be handled by composing simpler ones. In fact, the majority of
+these can be covered by just 3 rules saying that a noun phrase is composed of a
+noun, or an adjective and a noun phrase, or a determiner and a noun phrase.
+These 3 rules can immediately handle any number of determiners and adjectives.
+
+\subsection{Processing multi-word expressions}\label{sec:ApertiumSeparable}
+
+Multi-word expressions (MWEs) are compound expressions composed of two or more
+words, such as phrasal verbs (\emph{take out}, \emph{wake up}, \emph{make a
+call}) and phrasal nouns (\emph{telephone pole}). Separable multi-word
+expressions are those that may be split by an intermediary word or phrase (such
+as \emph{take out} in \emph{take the trash out}). This phenomenon can be seen in
+a number of languages. In English, the multi-word ``take away'' can remain
+unified, such as in \emph{\textbf{take away the item}}, or be split up, such as
+in \emph{\textbf{take the item away}}---both phrasings have identical meanings.
+This phenomenon can also be seen in some German verbs, where the separable
+particle can detach from its lexical core, such as with the separable verb
+\emph{anrufen} `to call': \emph{\textbf{rufe meine Freundin an}} `call my
+friend'. See \cite{constant2017multiword} for more on this phenomenon.
+
+Separable MWEs are particularly problematic for Apertium's rule-based
+translation. Prior to the introduction of the \texttt{apertium-separable}
+module, the individual components of both non-separable and separable
+multi-words were translated as individual tokens, often leading to less-optimal
+translations. For example, during the English-to-Spanish translation of
+\emph{\textbf{take the trash away}}, the phrase's individual components were
+translated to produce \emph{tomar la basura fuera} which isn't a phrase that
+native speakers of Spanish would produce. The more optimal solution is to
+process \emph{take away} as a single unit in order to obtain the correct
+expression \emph{sacar la basura}. Similarly, the Arpitan verbal expression
+\emph{tornar fâre} `to redo' has negative forms of the type \emph{tornar pas
+fâre} which were not previously recognised nor correctly generated.
+
+\texttt{Apertium-separable} provides a framework to address mistranslations
+arising from this sort of non-contiguous word ordering.
+Section~\ref{sec:separable-module} describes the module and
+section~\ref{sec:separable-usage} describes its usage.
+
+\subsubsection{The apertium-separable module}\label{sec:separable-module}
+
+The \texttt{apertium-separable} module was developed by Irene Tang as part of
+Google Summer of Code
+2017\footnote{\url{https://summerofcode.withgoogle.com/archive/2017/projects/4690909727817728/}.}
+to handle both contiguous and discontiguous (or ``separable'') MWEs. The module
+accepts an XML-format dictionary as input, which contains a list of phrase types
+and a list of mappings between MWEs and their component elements---and in the
+case of non-contiguous MWEs, a specification of the possible phrase types that
+might separate the elements of the MWE.
+
+As an example, one phrase-type entry that the \texttt{eng} dictionary might
+include is the definition a noun phrase (NP) as (among other patterns) any
+sequence of words such that the first contains a \tag{det} tag, the second an
+\tag{adj} tag, and the last a \tag{n} tag. The \texttt{eng} dictionary should
+then also include an entry specifying how \emph{take away} as an MWE followed by
+such a noun phrase may be mapped to its component elements.  These phrase-type
+and vocabulary entries work together as a framework for handling MWEs.
+
+The XML dictionary is compiled into a finite state transducer. As a parser feeds
+the input text into the transducer one character or tag at a time, it looks out
+for sequences of characters and tags that match anything in the dictionary. If a
+match is found, then the parser outputs the corresponding substitution.
+
+
+Processors for this module may be included in two places in the Apertium RBMT
+pipeline: immediately following morphological tagging and preceding lexical
+transfer, and immediately following structural transfer and preceding
+morphological generation.  The former use allows ``assembly'' of source-language
+MWEs for transfer, and the latter ``disassembles'' transferred target-language
+MWEs for morphological generation.
+
+\subsubsection{Usage}\label{sec:separable-usage}
+Both contiguous and discontiguous multi-word expressions can also be handled by
+this module.  Processing seemingly simple contiguous MWEs in this way allows for
+more robust bilingual dictionary entries with fairly vanilla morphological
+transducers. For example, it may not make sense to have an entry for
+\examp{little brother} in an English morphological transducer that already
+contains the component words, but it is useful to have an entry like this in a
+bilingual dictionary with a language like Kyrgyz, which has two words for
+brother with the difference in meaning associated with relative age to a
+sibling.  In this situation, the \texttt{apertium-separable} module processes
+the analysis of \examp{little brother} as an adjective and a noun
+(\morphform{\^{}little\tag{adj}\$} \morphform{\^{}brother\tag{n}\tag{sg}\$}) and
+retokenizes it as a multi-word noun (\morphform{\^{}little
+brother\tag{n}\tag{sg}\$}). Note that the assembly of the MWE (as described
+here) would occur in the English-Kyrgyz translation direction before bilingual
+dictionary lookup, and the disassembly of the MWE (the reverse) would occur in
+the Kyrgyz-English translation direction before morphological generation.
+
+The module is used extensively in the French-Catalan pair, particularly in the
+verbal phrases included in the dictionaries. Thus, for example, it is defined
+that \examp{faire appel} `to do appeal' should be translated as \examp{apel·lar}
+`to appeal'.  However, there are often adverbs between the verb \emph{faire} and
+the noun \examp{appel}, for example when negated: \examp{ne fait pas appel}
+`does not appeal'. The module is used to reorder the phrase before lexical
+transfer as \emph{ne fait appel pas} (with \emph{fait appel} as a single lexical
+unit).  Since the adverb now follows the multi-word verb instead of appearing
+between its components, structural transfer does not need to treat such a
+sentence any differently than sentences containing single-word verbs.  Similar
+examples are found in the [unreleased] Kazakh-Kyrgyz pair.
+
+\subsection{Anaphora resolution}\label{sec:AnaphoraResol}
+
+The \texttt{apertium-anaphora} module was developed by Tanmai Khanna as part of
+Google Summer of Code
+2019\footnote{\url{https://summerofcode.withgoogle.com/archive/2019/projects/5434868157120512/}.}
+to handle anaphora resolution in the Apertium pipeline. Anaphora resolution is
+the process of resolving references to earlier items in the discourse. This is
+necessary in a Machine Translation pipeline as languages have different ways of
+using anaphors, and sometimes it is necessary to know the antecedent of an
+anaphor to translate it correctly.
+
+For example, in Catalan, the masculine singular possessive determiner is
+\examp{el seu}.  Its gender and number are inflectional properties relating to
+how it agrees with nouns, but its referent may be any gender or number.  Hence
+it could be translated to English as any of \examp{his/her/its/their}, the
+gender and number of which relate to the referent and not to a modified noun. To
+pick the correct translation in English, then, it is necessary to know what
+\examp{el seu} refers to. Without a module in an Apertium translation pipeline
+to do this, a default translation of the anaphor appears in the target language.
+For instance, in the case of English possessive determiners, the default is
+currently \examp{his}.
+
+While there are several statistical methods to resolve anaphors using machine
+learning, Apertium is focused on supporting low-resource language pairs, which
+usually don't have enough data available for these methods to be viable.  Common
+rule-based approaches, on the other hand, often use parse trees
+\cite{lappin1994algorithm,baldwin1997cogniac,trouilleux2002rule,lee2013deterministic,loaiciga2015rule,zeldes2016when}.
+The \texttt{apertium-anaphora} module uses a rule-based approach to anaphora
+resolution which does not require any training data, nor rely on parse trees.
+Based on Mitkov's algorithm \cite{mitkov1999multilingual}, it gives saliency
+scores to candidate antecedents in the context (the current and previous three
+sentences) based on \textbf{saliency indicators}, which are syntactic or lexical
+indicators that are expected to correlate to a higher or lower likelihood that a
+candidate antecedent is the correct one, using positive and negative scores
+respectively.  For example, indefinite nouns can be given a small negative score
+and proper nouns can be given a small positive score, as it has been shown
+empirically that they are less or more likely to be the antecedent of anaphors,
+respectively \cite{mitkov1999multilingual}.  After the scores of all the
+indicators are applied, the candidate with the highest score, hence considered
+most salient, is chosen as the antecedent.  A complete example of this is
+presented in section~\ref{sec:ARExampleUsage}.  These saliency indicators are
+added in the \texttt{apertium-anaphora} module as manually written rules.  These
+rules are written for and are applied based on source-language forms only.
+Because of this, a ruleset can be reused for multiple translation pairs with the
+same source language.
+
+Apart from manually written rules, a universal indicator is the Referential
+Distance indicator.  This indicator, which was also discovered empirically
+\cite{mitkov1999multilingual}, tells the algorithm that as the distance
+between the anaphor and candidate antecedent increases, the candidate is less
+likely to be the correct antecedent of the anaphor.  Penalisation of candidates
+that are further from the anaphor is implemented by adding to candidates in the
+same sentence as the anaphor a \texttt{+1} score, candidates in the preceding
+sentence a \texttt{+0} score, in the sentence before the preceding sentence a
+\texttt{-1} score, and so on.
+
+In the next few sections, some unique features of this module are discussed
+(\ref{sec:ARUniqueFeatures}), an example highlighting the process and benefit of
+having anaphora resolution in the Machine Translation pipeline is shown
+(\ref{sec:ARExampleUsage}), a preliminary evaluation of the module is presented
+(\ref{sec:AREvaluation}), and future work for this module is outlined
+(\ref{sec:ARFutureIdeas}).
+
+\subsubsection{Some unique features}\label{sec:ARUniqueFeatures}
+Unlike \cite{mitkov1999multilingual} original algorithm, this module is
+extremely customisable.  The linguistic patterns to be detected and the scores
+to be assigned are all defined in an XML file specific to each translation
+direction. These patterns help identify and rank potential antecedents, and can
+include references to various types of surrounding words and even the anaphor
+whose antecedent is being resolved.  The translation pair developer also has the
+ability to define multiple types of anaphors---such as possessive determiners,
+reflexive pronouns, zero anaphors, etc.---so as to be able to write separate
+rules for the resolution of each of them.
+
+\subsubsection{Example Usage}\label{sec:ARExampleUsage}
+
+\begin{table}[ht]
+\caption{A Catalan-English translation example which highlights a use case for \texttt{apertium-anaphora}.}
+\label{tab:ARExample}
+\begin{tabular}{p{0.37\linewidth}  p{0.55\linewidth}}
+\toprule
+\textbf{Input sentence (Catalan)}&Els grups del Parlament han mostrat aquest dimarts \textbf{el seu} suport al batle d'Alaró.\\
+\midrule
+\textbf{Reference translation (English)}&Parliamentary groups showed \textbf{their} support for the mayor of Alaró on Tuesday.\\
+\midrule
+\textbf{Apertium translation without \texttt{apertium-anaphora} (English)}&The bands of the Parliament have shown this Tuesday \textbf{his} support at the mayor of Alaró.\\
+\midrule
+\textbf{Apertium translation with \texttt{apertium-anaphora} (English)}&The bands of the Parliament have shown this Tuesday \textbf{their} support at the mayor of Alaró.\\
+
+\bottomrule
+\end{tabular}
+\end{table}
+
+A sample translation which highlights the usage of \texttt{apertium-anaphora}
+has been given in Table~\ref{tab:ARExample}. The source sentence goes through a
+series of modules in the translation pipeline, as described in
+Section~\ref{sec:ApertiumOV}. The output of the lexical selection module
+contains a stream of lexical units, including the morphological analysis and the
+translation of each lexical unit. This is taken as the input to the
+\texttt{apertium-anaphora} module. The lexical unit of the example anaphor,
+\textit{el seu}, at this stage in the stream is as follows:
+
+\begin{verbatim} ^el seu<det><pos><m><sg>/his<det><pos><m><sg>$ \end{verbatim}
+
+The antecedent of the possessive determiner \textit{el seu} is \textit{els
+grups} `the groups', which is plural, and hence it should be translated as
+\textit{their} in English and not \textit{his}.  The anaphora resolution module
+attempts to resolve this anaphor and identify its antecedent by applying all
+rules that match the context.  For instance, the \texttt{First NP} rule gives a
+positive score to the first noun of the sentence (\textit{grups}), as the first
+noun of a sentence is more likely to be the antecedent of an anaphor. The
+\texttt{Preposition NP} rule gives a negative score to a noun that is part of a
+prepositional phrase (\textit{Parlament}), as a noun inside a prepositional
+phrase is less likely to be the antecedent of an anaphor. Both of these
+tendencies have been observed empirically \cite{mitkov1999multilingual}, and
+have been implemented as language-specific rules.
+
+After application of all the rules on all candidate antecedents, the one with
+the highest score is considered the most salient antecedent for the anaphor.  If
+the rules are successful, then the correct antecedent should have the highest
+score (in this case, \textit{bands}).  The anaphora resolution module then
+attaches this antecedent (in the target language) to the lexical unit of the
+anaphor:
+
+\begin{verbatim}
+^el seu<det><pos><m><sg>/his<det><pos><m><sg>/band<n><pl>$
+\end{verbatim}
+
+Based on the properties of the attached antecedent, the anaphor is modified
+during structural transfer (\textit{his} $\rightarrow$ \textit{their}, as the
+antecedent is plural), resulting in the following lexical unit:
+
+\begin{verbatim}
+^their<det><pos><m><sg>$
+\end{verbatim}
+
+The final Apertium translation, after each lexical unit output from structural
+transfer has gone through morphological generation, can be seen in
+Table~\ref{tab:ARExample}. The translation of the anaphor is fixed due to the
+use of \texttt{apertium-anaphora} in the pipeline. While the final Apertium
+translation is still not ideal, other aspects of this translation may be fixed
+through adjustments to other modules in the translation pipeline: the
+preposition \examp{for} instead of \examp{at} in lexical selection, not using
+the article \examp{the} with \examp{Parliament} in structural transfer or
+lexical selection, the placement of the adjunct \examp{this Tuesday} in
+structural transfer, and \examp{groups} for \examp{bands} in lexical selection.
+
+\subsubsection{Preliminary evaluation}\label{sec:AREvaluation}
+
+The \texttt{apertium-anaphora} module has been manually evaluated on two
+language pairs---Spanish--English and Catalan--Italian---by rating the
+translation of anaphors with and without the module in the pipeline. Since this
+is a preliminary evaluation, only third person possessive determiners were
+marked as anaphors.
+
+In Spanish, there is a possessive determiner \textit{su}, which can be
+translated to English as \textit{his/her/its/their} depending on the gender,
+number, and animacy of the antecedent. The first 1000 sentences from the Spanish
+Europarl corpus were translated to English using Apertium with and without
+\texttt{apertium-anaphora} in the translation pipeline, and a basic rule-set was
+used for the anaphora resolution.\footnote{The rule set used is the one
+contained in the revision of
+\url{https://github.com/apertium/apertium-eng-spa/blob/anaphora-transfer/apertium-eng-spa.spa-eng.arx}
+as of the time of publication.}  120 sentences out of these had at least one
+possessive determiner, and a manual evaluation was done to check the accuracy of
+the translated anaphors in English.
+
+In Catalan, there is a possessive determiner \textit{el seu} which can translate
+as \textit{il suo} `his/her/its' or \textit{il loro} `their' in Italian,
+depending on the number of the antecedent. A corpus was created using articles
+from Kataluna Esperantisto\footnote{The journal can be found at
+\url{https://esperanto.cat/Kataluna-Esperantisto}.}, a freely available journal,
+and random paragraphs were translated.  A total of 108 sentences had at least
+one possessive determiner, and a manual evaluation was done to check the
+accuracy of the translated anaphors in Italian.
+
+The results of these evaluations\footnote{The complete evaluation data can be
+found at
+\url{https://github.com/apertium/apertium-anaphora/tree/master/evaluation}.} are
+shown in Table~\ref{tab:AREval}. Without a module for anaphora resolution, the
+anaphor just translates to whatever is provided in the bilingual dictionary,
+which in these pairs is the male singular possessive determiner.
+
+\begin{table}[ht]
+\centering
+\caption{A preliminary evaluation of translation with and without anaphora
+    resolution (AR) in the pipeline. Accuracy is the percentage of anaphors
+    translated correctly.}
+\label{tab:AREval}
+\begin{tabular}{llll}
+\\
+\midrule
+& \textbf{Number of} & \multicolumn{2}{c}{\textbf{Accuracy (\%)}} \\
+\textbf{Systems}&\textbf{anaphors evaluated}&\textbf{Without AR}&\textbf{With AR}\\
+\midrule
+\textbf{Spanish--English}&120&29.2&54.2\\
+\textbf{Catalan--Italian}&108&83.3&75.0\\
+\bottomrule
+\end{tabular}
+
+\end{table}
+
+For Spanish--English translation, use of the module led to an increase in
+accuracy of anaphor translation, but for Catalan--Italian it resulted in a
+slight decrease in the accuracy of resolution. It is important to note here that
+the results without anaphora resolution for Catalan--Italian, where all targeted
+anaphors by default are translated as singular, still showed an accuracy of
+83.3\%.  This indicates that the test data was not evenly distributed in terms
+of the grammatical number of the antecedents of these anaphors.
+
+It is also important to note that the saliency indicators and their respective
+scores can be tuned to the domain of the text to get better results. In the
+preliminary evaluation, the rule-set was modified after an initial look at the
+results. For example, since the Spanish-English evaluation data was transcribed
+speech data (Europarl), we were able to add an ``impeding indicator'' to
+patterns that contained a proper noun followed by a comma, which attaches a
+slight negative score to such patterns.  These are patterns that are likely to
+be the speaker addressing an interlocutor, such as \textit{Madam President},
+\textit{Mister Speaker}, etc.  The interlocutor in these examples is likely to
+not be the antecedent for a third-person possessive determiner anaphor that
+follows in the context.
+
+\subsubsection{Future Work}\label{sec:ARFutureIdeas}
+For now, the linguistic markers used by the anaphora resolution module and their
+corresponding scores need to be manually defined by language experts.  The
+markers provide linguistic cues for anaphora resolution and the scores are
+arrived upon empirically.
+
+If these scores can be learnt from a corpus, it would make it much simpler to
+have an anaphora module with decent accuracy. Since the scope of the rules would
+be largely defined, it would require much less data to learn the scores as
+compared to training a corpus-based (machine learning) model to perform anaphora
+resolution from scratch.
+
+Another idea is to learn these scores from related languages, as the linguistic
+cues for anaphora resolution shouldn't vary much among related language pairs.
+For example, the rules and scores can be learnt from Spanish, which has abundant
+data, and applied to Catalan, which is a low-resource language.
+
+\section{Supporting minoritised languages} \label{sec:LinguisticsOfEnden}
+
+It is argued by \cite{kornai2013digital} that many languages that are not considered
+endangered do not have a sufficient level of access to language technology to
+survive (i.e., maintain intergenerational transmission) in the digital age.  He
+presents evidence of a ``massive die-off caused by the digital divide,'' and
+suggests that access to language technology is critical for the continued
+survival of any currently used language.
+
+We consider MT to be a crucial part of this access to language technology.
+Specifically, MT allows speakers of a low-resource language to access resources
+in other languages by translating them into their own language.  Additionally,
+MT enables much more efficient translation of content into low-resource
+languages---for example, a small team of speakers of a low-resource language may
+use MT to quickly translate Wikipedia pages from a language with large numbers
+of high-quality Wikipedia pages.  This, of course, requires some attention to
+post-editing the results of MT, but that is often far less work than translating
+the information by hand.
+
+It must be stated that the Apertium community does not consider MT to be a
+single solution for making production-ready translations of texts like marketing
+materials, literature, and legal documents---a perception that we have
+encountered anecdotally.  Any production-ready translation absolutely requires
+at a minimum an editor who knows the target language well, and preferably also
+with expertise in translation from the source language.  In such environments,
+MT is simply a solution that reduces the time investment for human translators
+to produce a quality translation.  It is also meant as a tool for people who do
+not know the source language to make sense of material in that language.  In
+these ways, MT can be a useful tool for speakers of low-resource languages.
+
+Apertium is designed for rule-based MT.  In reference to using corpus-based
+approaches to developing MT systems for low-resource languages,
+\cite{martín-mor2017technologies} states that ``most minoritised languages \dots{} do not
+have a sufficient number of texts in digital format, because of a lack of
+digital texts, a lack of consensus on the standardisation models, etc. In those
+cases, Rule-Based Machine Translation (RBMT) is especially useful, since rules
+can be manually written even when languages are not fully standardised''.   In
+other words, what can be done with corpus-based approaches is limited when the
+amount of parallel text is limited.  That said, Apertium is open to leveraging
+corpus-based methods as much as possible given the limitations, as outlined in
+Section~\ref{sec:HyberdisationOFApertium}.  In reality, many Apertium pairs are
+technically hybrid MT systems, although the level of incorporation of
+corpus-based methods can vary from absolutely none to a rather large amount with
+recent advancements.
+
+\subsection{Released translation pairs}\label{sec:ReleasedLan}
+
+\begin{table*}[t]
+\centering
+\caption{Released translation systems per language family and sub-family.}
+\label{tab:Lang}
+\scalebox{0.97}{
+\begin{tabular}{llrrr}
+\\
+\midrule
+ & & & \multicolumn{2}{c}{\textbf{Translation systems}} \\
+\textbf{Language family}&&\textbf{Languages} &\textbf{In-family}& \textbf{Out-of-family} \\
+\midrule
+\textbf{Afro-Asiatic}&\textbf{Semitic}&2&1&0  \\
+\textbf{Austronesic}&\textbf{Malayo-Polynesian}&2&1&0\\
+\textbf{Indo-European}&&34&44&3 \\
+&\textbf{Celtic}&2&0&2 \\
+&\textbf{Germanic}&8&7&9 \\
+&\textbf{Indo-Iranian}&2&1&0 \\
+&\textbf{Romance}&12&19&8 \\
+&\textbf{Slavic}&9&6&2 \\
+&\textbf{Constructed}&1&0&4\\
+\textbf{Turkic}&&4&2&0 \\
+\textbf{Uralic}&\textbf{Finno-Ugric}&1&0&1 \\
+\textbf{Basque}&&1&0&2 \\
+\textbf{Total}&&44&48&3 \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+
+\begin{table*}[ht]
+\centering
+\caption{Released translation pairs with available evaluation data. Coverage is
+    the percentage of tokens which receive at least one analysis from the
+    morphological analyser. WER (Word Error Rate), PER (Position-independent
+    Word Error Rate), and BLEU scores are computed against a reference
+    translation. A relatively low WER/PER score or a relatively high BLEU score
+    generally denotes better translation quality.}
+\label{tab:NmRB}
+\scalebox{0.87}{
+\begin{threeparttable}
+\begin{tabular}{lrrrr}
+\\
+\midrule
+\textbf{Systems}&\textbf{Coverage (\%)}&\textbf{WER (\%)} &\textbf {PER (\%)}& \textbf{BLEU (0--1)} \\
+\midrule
+\textbf{Aragonese--Spanish}\tnote{a} &94.33&11.61--14.12&&0.72--0.79 \\
+\textbf{Belarusian--Russian}\tnote{b}
+&84.3&25.72&  & \\
+\textbf{Breton--French}\tnote{c}
+&87--90&38&22& \\
+\textbf{Catalan--Aragonese}\tnote{w}
+&87.6--93.2&19.37&17.85& \\
+\textbf{Catalan--Italian}\tnote{d}
+&94.7&14.2&  & \\
+\textbf{Catalan--Romanian}\tnote{e}
+&88.7&&29& \\
+\textbf{Catalan--Sardinian}\tnote{f}
+&94.4&20.5&13.9& \\
+\textbf{Danish--Bokmål Norwegian}\tnote{g}
+&88.1--95.9&10.87&  & \\
+\textbf{Danish--Nynorsk Norwegian}\tnote{h}
+&87.3--92.7&13.64--22.64& \\
+\textbf{French--Arpitan}\tnote{v}
+&92.8--95.8&5.7&  & \\
+\textbf{French--Occitan}\tnote{i}
+&92.3&10.0&  & \\
+\textbf{Italian--Catalan}\tnote{j}
+&91.2&15.7&  & \\
+\textbf{Italian--Sardinian}\tnote{k}
+&89.3--96.4&9.9&  & \\
+\textbf{North Sámi--Bokmål Norwegian}\tnote{l}
+&77.52--94.72&39.68--53.31&  & \\
+\textbf{Nynorsk--Bokmål Norwegian}\tnote{m}
+&92.6--99.2&10.71&  & \\
+\textbf{Portuguese--Catalan}\tnote{n}
+&91.4&14.0&  & \\
+\textbf{Romanian--Catalan}\tnote{o}
+&86.8&&46& \\
+\textbf{Russian--Belarusian}\tnote{q}
+&83.6&23.93&  & \\
+\textbf{Spanish--Aragonese}\tnote{r} &95.22&16.83--19.37&&0.65--0.71 \\
+\textbf{Serbo-Croatian--Macedonian}\tnote{s}
+&74.5--90.96&48.33&48.33&0.36 \\
+\textbf{Swedish--Danish}\tnote{t}
+&83.7--88.0&31&  & \\
+\textbf{Ukranian--Russian}\tnote{p}&80.9--90.0&14.74&& \\
+\textbf{Welsh--English}\tnote{u}
+&&53.40--64.94&27.22--34.35&0.16--0.32 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item[a] \cite{martinez2012free} \\
+\item[b] \url{http://wiki.apertium.org/wiki/Belarusian_and_Russian/Work_plan} \\
+\item[c] \cite{tyers2009rule, tyers2010rule} \\
+\item[d] \url{http://wiki.apertium.org/wiki/Hectoralos/GSOC_2019_final_report} \\
+\item[e] \url{http://wiki.apertium.org/wiki/Romanian_and_Catalan/GSOC_2018} \\
+\item[f] \cite{fronteddu2017eina} \\
+\item[g] \url{http://wiki.apertium.org/wiki/Scandinavian_MT_project}\\
+\item[h] \url{http://wiki.apertium.org/wiki/Scandinavian_MT_project} \\
+\item[i] \url{http://wiki.apertium.org/wiki/User:Capsot/GSOC_2018_Occitan_French}\\
+\item[j] \url{http://wiki.apertium.org/wiki/Hectoralos/GSOC_2019_final_report} \\
+\item[k] \cite{tyers2017rule} \\
+\item[l] \cite{trosterud2012evaluating} \\
+\item[m] \url{http://wiki.apertium.org/wiki/Scandinavian_MT_project} \\
+\item[n] \url{http://wiki.apertium.org/wiki/Hectoralos/GSOC_2019_final_report} \\
+\item[o] \url{http://wiki.apertium.org/wiki/Romanian_and_Catalan/GSOC_2018} \\
+\item[p] \url{http://wiki.apertium.org/wiki/Russian_and_Ukrainian/Work_plan} \\
+\item[q] \url{http://wiki.apertium.org/wiki/Belarusian_and_Russian/Work_plan} \\
+\item[r] \cite{martinez2012free} \\
+\item[s] \cite{peradin2012rule} \\
+\item[t] \url{http://wiki.apertium.org/wiki/Scandinavian_MT_project}\\
+\item[u] \cite{tyers2009apertiumcy}\\
+\item[v] \url{https://wiki.apertium.org/wiki/Hectoralos/GSOC_2020_rapport_final}\\
+\item[w] \url{http://wiki.apertium.org/wiki/Aragonese_and_Catalan/Evaluation}
+\end{tablenotes}
+\end{threeparttable}
+}
+\end{table*}
+
+
+As of December 2020, there are 51 translation pairs released, corresponding to
+44 languages of 6 language families (Table ~\ref{tab:Lang}). See
+Appendix~\ref{app:translationPairs} for the full list. The vast majority of the
+languages are Indo-European---and many of these are Romance, Slavic, or Germanic
+languages. Non Indo-European languages are Afro-Asiatic (Arabic and Maltese),
+Austronesian (Indonesian and Malay), Turkic (Crimean Tatar, Kazakh, Tatar and
+Turkish), Uralic (North-Sámi) and isolates (Basque). Table~\ref{tab:NmRB} shows
+quality metrics for some of the released pairs.
+
+For the most part, translation systems are constructed between languages of the
+same family. There are only three released translators between unrelated
+languages: North Sámi--Norwegian (Bokmål), Basque--English, and Basque--Spanish.
+Examples of translation systems developed for translation between closely
+related languages include Malay--Indonesian, Maltese--Arabic, Dutch--Afrikaans
+\cite{otte2011rapid}, Crimean Tatar--Turkish \cite{gokirmak2017dependency}, and
+Kazakh--Tatar \cite{salimzyanov2013free}. Even inside subfamilies, translation
+systems for Romance languages typically target another Romance language (and not
+other Indo-European languages), and the same is true of Germanic into Germanic
+and even South Slavic into South Slavic, West Slavic into West Slavic, and East
+Slavic into East Slavic. There is a heavier density of translation pairs between
+Romance languages (19 for 12 languages), between Slavic languages (6 for 9
+languages), and between Scandinavian languages (5 for 5 languages or language
+varieties). Two languages tend to break the close-proximity rule: English and
+Esperanto, which have a significant number of connections with languages outside
+their sub-family.\footnote{We consider Esperanto within a specific constructed
+subfamily of Indo-European languages.} Despite this, there is no central
+language in Apertium: there are 9 translators into both English and Spanish, 8
+into Catalan, 4 into both Norwegian (Bokmål) and Esperanto, 3 into both French
+and Portuguese, etc.
+
+The initial objective of Apertium was to create free and open-source resources
+for the languages of Spain. In light of the increasing breadth of the published
+pairs and ongoing work leveraging the Apertium platform (see
+Table~\ref{tab:NmRB}), particularly thanks to funding from the Google Summer of
+Code programme, it may be stated that Apertium has since become a major venue
+for creating resources for minoritised and low-resource languages in Europe and
+has shown potential as a language technology platform supporting languages all
+around the world.
+
+Eleven of the forty-four languages with released translators are considered
+vulnerable or endangered~\cite{moseley2010atlas}: Aragonese, Arpitan, Asturian,
+Basque, Belarusian, Breton, gCrimean Tatar, North Sámi, Occitan, Sardinian, and
+Welsh. Other languages hold minority status in their states, like Afrikaans,
+Catalan, Galician, Silesian, and Tatar. Recent work on other under-resourced
+and/or minoritised languages includes Bashqort~\cite{tyers2012prototype},
+Bengali~\cite{faridee2009development},
+Chukchi\footnote{\url{https://summerofcode.withgoogle.com/archive/2017/projects/4736366453719040/}},
+Gagauz~\cite{bayatli2018finite},
+Guarani\footnote{\url{https://summerofcode.withgoogle.com/archive/2018/projects/5434804640153600/}},
+Qaraqalpaq\footnote{\url{https://www.google-melange.com/archive/gsoc/2014/orgs/apertium/projects/beknazar.html},
+\url{https://summerofcode.withgoogle.com/archive/2019/projects/6137485212516352/},
+\url{https://summerofcode.withgoogle.com/archive/2020/projects/4815970624864256/}},
+Karelian~\cite{pirinen2019workflows}, Kurmanji
+Kurdish\footnote{\url{https://summerofcode.withgoogle.com/archive/2016/projects/5069737520267264/}},
+Sorani Kurdish~\cite{TranslatorsWithoutBorders2016},
+Lingala\footnote{\url{https://summerofcode.withgoogle.com/archive/2019/projects/4582884889853952/}},
+Malayalam\footnote{\url{https://www.google-melange.com/archive/gsoc/2014/orgs/apertium/projects/aboobacker.html}},
+Marathi~\cite{ravishankar2017finite},
+Punjabi\footnote{\url{https://summerofcode.withgoogle.com/archive/2020/projects/6209442061746176/}},
+Cuzco
+Quechua\footnote{\url{https://www.google-melange.com/archive/gsoc/2012/orgs/apertium/projects/pato_yap.html}},
+Lule-Saami~\cite{tyers2009developing}, South-Saami~\cite{antonsen2017northsaami,
+tyers2009developing},
+Sakha\footnote{\url{https://summerofcode.withgoogle.com/archive/2018/projects/4877442304966656/}},
+Sicilian\footnote{\url{https://summerofcode.withgoogle.com/archive/2016/projects/5883995808071680/}},
+Iraqi Türkman\footnote{ \url{https://github.com/apertium/apertium-tki},
+\url{https://wiki.apertium.org/wiki/Apertium-tki}}, and
+Uyghur\footnote{\url{https://summerofcode.withgoogle.com/archive/2018/projects/5988796768190464/},
+\url{https://summerofcode.withgoogle.com/archive/2019/projects/5106764196872192/}}.
+In some cases, coordinated efforts are under way to develop resources for entire
+language families, such as for Turkic languages \cite{washington2020free}.
+
+\subsection{Other languages and work ahead}\label{OtherLanguages}
+
+\begin{table*}[t]
+\centering
+\caption{A selection of unreleased translation pairs with published results.
+    Coverage is the percentage of tokens which receive at least one analysis
+    from the morphological analyser. WER (Word Error Rate), PER
+    (Position-independent Word Error Rate), and BLEU scores are computed against
+    a reference translation. A relatively low WER/PER score or a relatively high
+    BLEU score generally denotes better translation quality.}
+\label{tab:WER&PER&OOV}
+\scalebox{0.93}{
+\begin{threeparttable}
+\begin{tabular}{lrrrr}
+\\
+\midrule
+\textbf{Systems}&\textbf{Coverage (\%)}&\textbf{WER (\%)} &\textbf {PER (\%)}& \textbf{BLEU (0--1)} \\
+\midrule
+\textbf{Kazakh--Turkish}\tnote{x}&83.42&45.77  &41.69 &0.17  \\
+\textbf{North Sámi---Finnish}\tnote{y}&76.81&34.24& - & - \\
+\textbf{North-Saami--South-Saami}\tnote{z}&87.4&54.84& 30.94  & \\
+\textbf{Tatar--Bashkir}\tnote{aa}&70.19&8.97& - & -\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item[x] \cite{bayatli2018rule} \\
+\item[y] \cite{johnson2017north} \\
+\item[z] \cite{antonsen2017northsaami} \\
+\item[aa] \cite{tyers2012prototype} \\
+\end{tablenotes}
+\end{threeparttable}
+}
+\end{table*}
+
+
+In Table~\ref{tab:WER&PER&OOV}, we show the performance of some unreleased
+machine-translation systems from previous reports or publications.
+
+An improvement in performance could be possible for these systems with time by
+improving morphological disambiguation, adding more stems into the dictionaries,
+and adding or refining lexical and structural transfer rules.
+
+In addition to the languages pairs which have been mentioned in
+Table~\ref{tab:WER&PER&OOV}, there are many other pairs that are in various
+stages of development but have not been systematically evaluated yet, such as
+Basque--English, Cuzco Quechua--Spa\-nish, Guaraní--Spa\-nish,
+Karelian--Finnish, Kazakh--Kyrgyz, Kazakh--Russian, Lingala--English,
+Marathi--Hin\-di, Sorani Kurdish--Kurmanji Kurdish, Turkish--Uzbek, and
+Uzbek--Qaraqalpaq, among others.
+
+\section{Supplementary tools}\label{sec:OtherValuableTools}
+
+This section highlights supplementary tools maintained by Apertium that are
+useful for developers as well as end-users. Apertium-viewer
+(Section~\ref{sec:ApertiumViewer}) is particularly useful for developers
+interacting with Apertium resources.  The Apertium website software
+(Section~\ref{sec:website}) provides access to free and unlimited translation,
+morphological analysis, and several under-development features like dictionary
+lookup and a spell-checking interface, each of which can prove very useful for
+end-users who do not wish to install any software locally.
+
+\subsection{Apertium-viewer}\label{sec:ApertiumViewer}
+Apertium-viewer is a tool that makes it straightforward for users to view and
+edit the output of the various stages of an Apertium translation. It reads a
+translation pair's ``mode'' configuration file, where the specific pipeline for
+the translator is defined. It displays how a text changes as it cascades through
+the modules, from the source to the target language. The user can change the
+text string at every stage for debugging purposes. This tool can be useful for
+understanding translation pairs and debugging translations.
+
+\subsection{Website software}\label{sec:website}
+Apertium offers an open-source web API and customisable website
+front-end\footnote{\url{https://apertium.org}} \cite{cherivirala2018apertium}.
+Apart from translating text, users can provide a URL to a webpage, which will be
+translated with the formatting preserved. Note that the Apertium API and website
+software can also be deployed by anyone for any purpose. The software also
+provides a front-end to morphological transducers, and there are a number of
+beta features under development.
+
+One of these features is multi-step translation, where a user can use the
+interface to translate from one language to another for which there isn't an
+Apertium translation pair via one or more pivot languages.\footnote{This feature
+is enabled and available at \url{https://beta.apertium.org/}.}
+
+Another feature under development is dictionary lookup, where a user may use the
+Apertium website as an online dictionary.  That is, a word is not simply
+translated, but all possible translations of the word are provided.  The
+community hopes to include some additional features with dictionary lookup,
+including automatic reverse lookups (so that a user has a better understanding
+of the results), grammatical information (such as the gender of nouns or the
+conjugation paradigms of verbs), and information about MWEs.
+
+A suggestions feature allows users to suggest corrections to translations. This
+is especially helpful as developers can incorporate these corrections back into
+the systems.
+
+One last feature under development is a spell-checking interface.  This feature
+provides users with a simple interface to check the spelling of words in a text,
+and to be offered suggestions for misspelled words. It is noteworthy that there
+are no known spell checkers available for some of the languages with
+dictionaries in Apertium, such as Arpitan.
+
+\section{Conclusion}\label{sec:Conclusion}
+We have presented the latest updates to Apertium, a free and open-source
+platform for machine translation, with a focus on MT for low-resource languages.
+These updates include approaches to hybridisation of Apertium modules with
+corpus-based approaches, new modules that are available for the Apertium RBMT
+pipeline, and newly released languages pairs.
+
+The new modules in the pipeline are all optional since they may be useful for
+some specific languages pairs, but would not significantly improve others.  With
+an increasing number of released language pairs, Apertium becomes a preferred
+vehicle for translation to and from low-resource languages, which are not as
+easily implemented using widely advocated neural approaches to MT due to
+sparsity of available text, and are also not considered economical for corporate
+work.  In addition, the different sub-components of translation pairs can be and
+are used independently to produce other types of resources for these languages,
+such as electronic dictionaries, a tool for searches in electronic corpora
+\cite[e.g.,]{Saykhunov2019}, spell
+checkers,\footnote{Including, for example,
+\url{http://grammar.corpus.tatar/index_en.php?of=search/spellchecker.php}} and
+tools supporting language learning and revitalisation
+\cite[e.g.,]{katinskaia2018revita,ivanova2019tools}.
+
+
+\bibliography{apertium2019}
+
+\clearpage
+\appendix
+
+\section{List of released languages and translation pairs}\label{app:translationPairs}
+
+The released languages are:\footnote{An asterisk (*) indicates that the language
+has been released since the previous publication~\cite{forcada2011apertium}.
+Norwegian Bokmål and Norwegian Nynorsk are considered two different languages in
+Apertium since there is a translator from one to the other, which is not the
+case between different varieties of Catalan, Occitan and Portuguese that are
+supported in Apertium.}
+
+\begin{multicols}{3}
+\begin{itemize}
+\item Afrikaans*
+\item Arabic*
+\item Aragonese*
+\item Arpitan*
+\item Asturian
+\item Basque
+\item Belarusian*
+\item Breton
+\item Bulgarian
+\item Catalan
+\item Danish
+\item Dutch*
+\item English
+\item Esperanto
+\item French
+\item Galician
+\item Hindi*
+\item Icelandic
+\item Indonesian*
+\item Italian
+\item Kazakh*
+\item Macedonian
+\item Malaysian*
+\item Maltese*
+\item Norwegian Bokmål
+\item Norwegian Nynorsk
+\item Occitan
+\item Polish*
+\item Portuguese
+\item Romanian
+\item Russian*
+\item North Sámi*
+\item Sardinian*
+\item Serbo-Croatian*
+\item Silesian*
+\item Slovenian*
+\item Spanish
+\item Swedish
+\item Tatar*
+\item Crimean Tatar*
+\item Turkish*
+\item Ukrainian*
+\item Urdu*
+\item Welsh
+\end{itemize}
+\end{multicols}
+
+
+\noindent The released language pairs (with indication of the translation directions and novelty) are:
+\begin{multicols}{2}
+\begin{itemize}
+    \item Afrikaans {⇆} Dutch*
+    \item Aragonese {⇆} Catalan*
+    \item Aragonese {⇆} Spanish*
+    \item Basque {→} English*
+    \item Basque {→} Spanish
+    \item Belarusian {⇆} Russian*
+    \item Breton {→} French
+    \item Bulgarian {⇆} Macedonian
+    \item Catalan {⇆} English
+    \item Catalan {→} Esperanto
+    \item Catalan {⇆} French
+    \item Catalan {⇆} Italian
+    \item Catalan {⇆} Occitan
+    \item Catalan {⇆} Portuguese
+    \item Catalan {⇆} Romanian*
+    \item Catalan {→} Sardinian*
+    \item Catalan {⇆} Spanish
+    \item Danish {⇆} Norwegian*
+    \item Danish {⇆} Swedish
+    \item English {⇆} Esperanto
+    \item English {⇆} Galician
+    \item English {⇆} Spanish
+    \item French {→} Arpitan*
+    \item French {→} Esperanto
+    \item French {→} Occitan*
+    \item French {⇆} Spanish
+    \item Galician {⇆} Portuguese
+    \item Galician {⇆} Spanish
+    \item Hindi {⇆} Urdu*
+    \item Icelandic {→} English
+    \item Icelandic {⇆} Swedish*
+    \item Indonesian {⇆} Malaysian*
+    \item Italian {→} Sardinian*
+    \item Kazakh {⇆} Tatar*
+    \item Macedonian {→} English
+    \item Maltese {→} Arabic*
+    \item Norwegian {⇆} Swedish*
+    \item Norwegian Bokmål {⇆} Nynorsk
+    \item Occitan {⇆} Spanish
+    \item Polish {→} Silesian*
+    \item Portuguese {⇆} Spanish
+    \item Romanian {→} Spanish
+    \item Russian {⇆} Ukrainian*
+    \item North Sámi {→} Norwegian*
+    \item Serbo-Croatian {→} English*
+    \item Serbo-Croatian {→} Macedonian*
+    \item Serbo-Croatian {⇆} Slovenian*
+    \item Spanish {→} Asturian
+    \item Spanish {→} Esperanto
+    \item Crimean Tatar {→} Turkish*
+    \item Welsh {→} English
+\end{itemize}
+\end{multicols}
+
+It should be noted that many of the pairs already released in the last
+publication~\cite{forcada2011apertium} have been updated. For example, the
+Catalan-French pair previously had a bilingual dictionary of 10,554 entries,
+while in December 2020 it has 71,537.
+
+\bibliographystyle{unsrt}
+
+\end{document}
+
