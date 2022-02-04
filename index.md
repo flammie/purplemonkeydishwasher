@@ -34,7 +34,7 @@ ResearchGate, academia.edu, please avoid these if possible).
 
 ## Short academic history
 
-* UiT Norges arktiske universitet, Divvun.no, Giellatekno (2020–)
+* UiT Norges arktiske universitet, Divvun (2020–)
 * Universität Hamburg, HZSK, CLARIN-D (2016–)
 * Dublin City University (2014–2016): [Abu-Matran](http://abumatran.eu)
 * University of Helsinki (2007–2014): [HFST](https://hfst.github.io) project,
@@ -82,6 +82,12 @@ be as accurate and up-to-date as google scholar.
 
 Name as used on the paper, will be updated when I get to it.
 
+1. Tanmai Khanna, Jonathan N. Washington, Francis M. Tyers, Sevilay Bayatlı,
+   Daniel G. Swanson, **Flammie A Pirinen**, Irene Tang, Hector Alòs i Font
+   (2021) [Recent advances in Apertium, a free/open-source rule-based machine
+   translation platform for low-resource
+   languages](2021-mt-apertium/Khanna-2021-mt-apertium.html), in *Machine
+   Translation* 35.
 1. Linda Wiechetek, **Flammie A Pirinen**, Mika Hämäläinen, Chiara Argese,
    (2021) [Rules Ruling Neural Networks – Neural vs. Rule-Based Grammar
    Checking for a Low Resource
