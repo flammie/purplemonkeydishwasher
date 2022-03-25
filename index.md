@@ -82,6 +82,10 @@ be as accurate and up-to-date as google scholar.
 
 Name as used on the paper, will be updated when I get to it.
 
+1. Jack Rueter, Niko Partanen, **Flammie A. Pirinen** (2021) [Numerals and what
+   counts](2022-udw/Rueter-2022-numerals.html), in Universal Dependencies
+   Workshop at SyntaxFest, ~~Sofia~~ (actually Online). [ACL anthology
+   version](https://aclanthology.org/2021.udw-1.13)
 1. Tanmai Khanna, Jonathan N. Washington, Francis M. Tyers, Sevilay Bayatlı,
    Daniel G. Swanson, **Flammie A Pirinen**, Irene Tang, Hector Alòs i Font
    (2021) [Recent advances in Apertium, a free/open-source rule-based machine

@@ -1,0 +1,506 @@
+\documentclass[free]{flammie}
+
+\usepackage{expex}
+
+\title{Numerals and what
+counts\footnotepubrights{\aclanthologypostprintdoi{2021.udw-1.13}}}
+
+\author{Jack Rueter \\
+  Department of Digital Humanities \\
+%  Affiliation / Address line 2 \\
+%     \\
+  University of Helsinki \\
+  {\tt jack.rueter@helsinki.fi} \\
+  Niko Partanen \\
+  Department of Finnish, \\Finno-Ugrian and Scandinavian Studies \\
+  University of Helsinki \\
+  {\tt niko.partanen@helsinki.fi} \\
+  Flammie A. Pirinen \\
+  Divvun \\
+  Uit Norgga árktalaš universitehta \\
+  Tromsø, Norway \\
+  {\tt tommi.pirinen@uit.no} \\}
+
+\date{}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+  This study discusses the way different numerals and related expressions are
+    currently annotated in the Universal Dependencies project, with a specific
+    focus on the Uralic language family and only occasional references to the
+    other language groups.  We analyse different annotation conventions between
+    individual treebanks, and aim to highlight some areas where further
+    development work and systematization could prove beneficial.  At the same
+    time, the Universal Dependencies project already offers a wide range of
+    conventions to mark nuanced variation in numerals and counting expressions,
+    and the harmonization of conventions between different languages could be
+    the next step to take.  The discussion here makes  specific reference to
+    Universal Dependencies version 2.8, and some differences found may already
+    have been harmonized in version 2.9.  Regardless of whether this takes place
+    or not, we believe that the study still forms an important documentation of
+    this period in the project.
+\end{abstract}
+
+
+\section{Introduction}\label{intro}
+
+Numerous treebanks in the Uralic languages have become available within the
+\textit{Universal Dependencies} (UD) project~\cite{ud281}. In recent
+years, at least within the Uralic language family, we have seen new treebanks
+emerging in languages with closely related siblings that already have an
+existing treebank. Examples of such languages are Skolt Saami, in relation to
+Northern Saami \cite{tyers2017annotation}, Komi-Permyak, in relation to
+Komi-Zyrian \cite{partanen2018first}, or Moksha in relation to Erzya
+\cite{rueter2018towards}. Although the entirety of Uralic languages is still not
+fully represented within the Universal Dependencies project, the situation has
+improved in many ways since the last survey on the state of this language family
+in UD was conducted \cite{partanen-rueter-2019-survey}. While more extensive
+surveys are useful, we think there are situations where individual nuanced
+features should be compared between the languages, so that consistency could be
+maintained and improved upon. At the same time, this may provide a thoughtful
+point of departure for new discussions around such features, as we believe the
+questions discussed here are relevant beyond the realm of Uralic languages.
+Even in other treatment of UD on different language groups, such as Slavic,
+numerals have been recognized as one category that demands special attention
+\cite{zeman2015slavic}. Recently Schneider and Zeldes have also discussed
+inconsistent nominal constructions in the English treebanks
+\cite{schneider2021mischievous}, and even the issues we describe in the
+Uralic treebanks here can well be described in a similar vein. These are not
+dramatic issues, but small points of divergence that we could pay attention to,
+but if we decide to do so, we would also need to devise strategies to
+operationalize the edits in numerous languages with a long history of treebank
+work.
+
+We can additionally point to recent discussions within the Universal
+Dependencies project where the various ways to annotate English numerical
+expressions have been
+discussed.\footnote{\url{https://github.com/UniversalDependencies/docs/issues/654}}
+Conversations such as these are relevant for Universal Dependencies developers
+more widely, and for the sake of consistency such decisions should be at least
+considered for the other languages in the project.  Our study also discusses
+some numeral types in the Uralic languages that are known, but not yet attested
+in the treebanks. Thereby, their description provides an important starting
+point for future work on these languages, during which these forms will
+inevitably be encountered.
+
+\section{Numerals in Universal Dependencies}
+
+In this paper, we discuss numerals in the Uralic languages. Probably the
+simplest approach would be to gather all numeral-type words on the basis of
+their \textit{Universal part-of-speech numeral} (UPOS NUM) value or features
+making reference to numerals in different Uralic languages. Among the features
+at least \texttt{NumType} is one that would be presumed to be present with all
+numerals, although it also occurs widely with other parts of
+speech.\footnote{https://universaldependencies.org/u/feat/NumType.html} The
+possible, currently documented numeral types are cardinal numerals, ordinal
+numerals, multiplicatives, fractions, distributives, sets or collective numerals
+and ranges. These concepts provide a good base for a relatively elaborate and
+nuanced system, but at this phase the UD system appears slightly asymmetric.
+
+Potential asymmetry might be dealt with by adding a binary for the split between
+numerals and counted nouns versus nouns with sequential deixis-like marking. In
+the Erzya, Moksha languages, sequential deixis is readily attested in
+combination with multiplicatives and sets, but due to the fact that ordinals
+only comprise three combinatorial instances in Erzya, it may strike us as
+fruitless to introduce a plus/minus binary for ordinal. The Erzya examples below
+illustrate this.
+
+\begin{itemize}
+\item nummod [-Ord] \textit{vejke} `one'
+\item nummod [-Ord][+Approx] \textit{kavtoška} `couple'
+\item nummod [-Ord][+Sets] \textit{kavonst} `two pairs/sets'
+\item  nummod [-Ord][+Dist] \textit{kavtoń-kavtoń} `two-by-two'
+\item  advmod [-Ord][+Mult] \textit{kavkśt'} `twice, two iterations of the verb'
+\item  advmod [-Ord][+Mult] \textit{kavońkirda} `twofold, double the amount'
+\item advmod [-Ord][+Mult][+Approx] \textit{kavkst'eška} `a couple of times'
+\item advmod [+Ord][+Mult] \textit{omboćed'e} `for the/a second time' % омбоцеде
+\item advmod [+Ord][+Mult] \textit{ombońkirda} `a second time'
+\item amod [+Ord][+Sets] \textit{ombonst} `a second set' %омбонст
+\item amod [+Ord] \textit{omboće} `second'  % омбоце
+\item  det [-Ord][+Tot] \textit{kavońeńek} `the both of us' % кавоненек
+\item  det [-Ord][+Approx][+Tot] \textit{kevet'eješkańest} `the approximately 15 of them' % кавоненек
+\item det [+Ord] \textit{ombot'ks} `the second' % омботькс
+\end{itemize}
+
+Above, we can observe that the approximatives and distributives including
+universal quantifiers are not associated with sequential deixis in Erzya.
+Whereas, sequence and range might readily be combined. In counting iterations of
+a predicate, Erzya shows a clear distinction between it and quantification of
+mass (`twice' and `twofold' cannot be equated), but this distinction becomes
+less obvious when applied to a sequential deixis system. A glimpse at
+Komi-Permyak and Komi-Zyrian will remind us that multiplicatives may also be
+used in a distributive context \cite[22]{rueter2020questions}. Multiplicatives,
+sets, distributives, etc. should not be distinguished from ordinals any more
+than they are from cardinals, since the term cardinal might readily be treated
+as a \textsc{zero} like nominative singular.  The last three items within the
+list above are also exceptional as they would demand syntactic dependency `det',
+which according to the guidelines is not allowed. Analogically, chosen
+conventions could possibly also be extended to the annotations of items such as
+English `both' and Swedish `bägge'.
+
+Conceivably, numerals might be divided into various categories according to
+their semantic use. The most predominant numeral types might therefore be
+associated with quantification, sequence, and entity naming.  Quantification
+articulates distinctions in the mechanisms of counting. Singular entity counting
+is typified by the use of cardinals (such as in Finnish \textit{yksi} `one',
+\textit{kaksi} `two', \textit{kolme} `three', etc.), and there may be different
+marking patterns for the counted noun.
+
+In many languages, there are standards by which the head noun of a
+\textit{nummod} dependency takes special marking.  In Komi-Zyrian, Komi-Permyak
+and Hungarian, for example, the counted noun shows no deviance from its regular
+nominative singular marking strategies when qualified by any cardinal numeral.
+In Balto-Finnic, Finnish, Estonian, Livvi and Karelian, the partitive singular
+marks the counted nouns when they are qualified by numerals two and above, even
+though their syntactic position would otherwise call for a nominative
+singular---for other cases a fitting semantic or syntactic case is used, i.e.
+phrase agrees in case.
+
+\pex
+\a
+\begingl
+\gla kolme šukupolvie //
+\glb three.\textsc{nom.sg} generation.\textsc{par.sg}//
+\glft `two generations' (krl: vepkar-1652.40)//
+\label{gloss:krl-numcoord1}
+\endgl
+\a
+\begingl
+\gla kuutta kertua enemmän //
+\glb six.\textsc{par.sg} time.\textsc{par.sg} more //
+\glft `six times more' (krl: vepkar-1740.21)//
+\label{gloss:krl-numcoord2}
+\endgl
+\a
+\begingl
+\gla šuašša muašša //
+\glb hundred.\textsc{ine.sg} land.\textsc{ine.sg} //
+\glft `in a hundred lands' (krl: vepkar-1740.6)//
+\label{gloss:krl-numcoord3}
+\endgl
+\xe
+
+Contrastively, the Mordvin languages, Erzya and Moksha, exhibit a variation that
+has yet to be researched in depth, i.e. counted nouns do not obligatorily take
+special marking when qualified by cardinal numerals two and upward, see
+Markov~\cite[42]{markov1961prialatyrski} and
+Rueter~\cite[107]{rueter2013quantification}, but perhaps also in dialect
+studies
+\cite{ryabov2016erzdialectresearch,rueter2016erzisogloss,levina2021korpus,agafonova2021azorkschi}.
+
+A similar phenomenon can be observed in Moksha \cite{rueterForthMordvin}.  The
+Saami languages attest to two different strategies: Northern Saami takes
+genitive singular marking of its counted nouns when qualified by numerals two
+and above, whereas Skolt Saami makes a three-way split, a genitive singular
+marking the numeral range 2--6, and the partitive marking seven and upward (with
+the decline in language proficiency the use of the partitive has become less
+certain).
+
+
+Sets of entities, i.e. sets with more than single members, are counted
+synthetically across the languages with various strategies.  In Finnish, for
+example, pairs of scissors are counted by using plural forms of the cardinal
+numerals and the \textsc{np} head noun alike, e.g. \textit{yhdet sakset} `one
+pair of scissors' (here both the numeral and the noun it qualifies are in the
+plural, and unlike Russian the distinction is retained for numerals five and
+above, too).  In contrast, Erzya has its own numeral forms typically derived in
+\textit{-Onst}, hence \textit{kavonst vasońpejeĺt'} `two pairs of scissors' with
+the counted noun in the plural.  Although numerals of the sets type are
+typically introduced for counting pairs, they are, in fact, often used with
+larger sets, such as sets of six cups and saucers.
+
+Iterations of predications are often counted with adverb derivations of cardinal
+numerals, but the productivity of these derivations still requires assessment
+from language to language. While Finnish only minimally utilizes the word forms
+in \textit{-sti}: \textit{kahdesti} `twice', \textit{kolmesti} `thrice' and
+\textit{tuhannesti} `a thousand times', the Hungarian, Komi-Zyrian,
+Komi-Permyak, Erzya and Moksha languages use regular derivations for indicating
+`X times', \textit{-szer/-ször/-szor}, \textit{-ïś}, \textit{-iś},
+\textit{-kśt'} and \textit{-kśt'}, respectively. Needless to say, matters become
+confusing when these iterative numerals are categorized as multiplicatives in
+UD. The result, at least in Erzya, is that `being paid \textit{kavkśt' = twice}'
+and `being paid \textit{kavońkirda = double} or \textit{twofold}' are registered
+as the same thing, which is by no means always the state of affairs
+semantically, but from a syntactic perspective it is plausible.
+
+Distributive numerals are not a simple class. They can be further categorized
+into subclasses, as immediately becomes apparent in the two Hungarian
+strategies: \textit{két-két} `two each' with a noun head, and
+\textit{kettesével} `two at a time' with a verb head. Whereas the former may be
+used as a definite numeral in the context \textit{Berta és Rudi két-két csomagot
+hozott} `Berta and Rudi brought two suitcases each', implying that a total of
+four suitcases were brought, the latter expression is indefinite. The indefinite
+distributive numeral \textit{kettesével} `two at a time' in nearly the same
+context \textit{Berta és Rudi kettesével hozta a csomagokat} `Berta and Rudi
+brought the suitcases two at a time'\footnote{cf.
+http://en.utdb.nullpoint.info/type/hungarian/distributive-numerals/dupldnn-sufdnv}
+would indicate that each iteration of the predication involves two suitcases,
+but there is no indication regarding the number of iterations -- it could be any
+number of times. In this context, definiteness is lent by the object, i.e. `the
+suitcases'.
+
+
+Approximative numerals are numerals with values slightly less or more than the
+number given. Finnish, for example, attests \textit{parikymmentä} `about twenty'
+from the words \textit{pari} `couple' and \textit{kymmentä} `ten (partitive)'.
+In addition to constructions with the element \textit{pari}, there are fairly
+regular derivations formed from other basic numerals as well: \textit{kolmisen}
++ \textit{kymmentä} `approximately thirty'.
+
+In Erzya, as in Moksha, approximative forms in \textit{-ška} are found for
+counting entities \textit{vet'eška lomań} `about five people' and iterations
+\textit{kolmoškakst'} `about three times'. With the use of an approximative
+numeral, the likelihood rises that no plural marking is indicated on the counted
+noun. The predominance of nominative singular marking of the \textsc{np} head
+also holds when the approximative is marked with an N–(N + 1) strategy, i.e.
+\textit{vet'e-koto lomań} `five-or-six people'. The use of adjacent numerals to
+indicate approximate values is also found in Komi-Zyrian, i.e.
+\textit{vit-kvajt} and \textit{vit-ö-kvajt} both translate to five or six.
+
+In Finnish, the expression of range with numerals follows the same pattern as is
+observed in point of departure to end destination, i.e. the elative case marks
+the starting point, and the illative marks the end point. In the range 5--7
+kilometers, the Finnish involves \textit{viidestä seitsemään kilometriä}
+five+elative, seven+illative and kilometer+partitive, which is the same counted
+noun strategy observed in basic numerals.
+
+Fractions in Finnish can be expressed in at least two different ways. One way is
+to join the ordinal nominative singular with the noun \textit{osa} `part', hence
+\textit{viides} + \textit{osa} = \textit{viidesosa}, where only the end is
+declined and as such is distinguished from `the fifth part' of something, where
+we would actually be talking of sequences. Syntactically, \textit{neljä
+viidesosaa} `four fifths' functions in the same manner as any noun with a
+cardinal qualifier, i.e. the \textsc{np} head is marked with the partitive
+singular when in an otherwise nominative-singular position
+nummod(\textit{viidesosaa}, \textit{neljä}). The second derivational expression
+for `fifth' is \textit{viidennes}, it too is treated syntactically as a counted
+noun, as appears to be the case in other Uralic languages.
+
+Universal quantifiers, such as the Finnish \textit{molemmat} `both', have more
+complex counterparts in Hungarian \textit{mindkettő} (literally `all' + `two'),
+which may also take associative marking for first, second and third persons
+plural in \textit{mindkettünk}, \textit{mindkettetek}, \textit{mindkettük},
+respectively. The Hungarian \textit{mindhárom} `all three', `tous les trois'
+then comes as no surprise, and one begins to expect subsequent \textit{mindnégy}
+`all four'. Komi-Zyrian and Erzya attest to yet another aspect: the associative
+personal reference can also be in the singular, allowing for access. If we are
+speaking of a singular `person' and mention that `the (lit.) three of him/her
+are moving to town' \cite{rueter2013quantification}, we access a definite
+universal quantifier pronoun with reference to this single person. This feature
+is not observed in Hill Mari or Udmurt \cite[111--112]{kelmakov2008udmurtin}.
+Ordinal numerals can be associated with multiplicative, iterative and sets
+features. This has been observed in the presentation of some morphology for
+Erzya, above.
+
+Numerals appear in entity naming, for example the Finnish \textit{viitonen}
+$\sim$ \textit{vitonen} `fiver' may be used when making reference to money, on
+the one hand, but it could also be used in reference to a street car, where we
+would be more likely to translate it as `street car five' or `street car number
+five'. Thus is fits directly into a list of problems in apposition, such as `the
+color purple', `the word terrorist' and many others including numerals discussed
+by Schneider and Zeldes~\cite{schneider2021mischievous}. An extension to
+this numeral issue is found in Finnish \textit{viitonen} in reference to `house
+number five', but the same \texttt{5} is transformed to the cardinal-form
+\textit{viisi} if the house is \texttt{5a} or \texttt{5b} -- \textit{viisi a} or
+\textit{viisi b}, respectively (no partitive, of course, so we are not counting
+letters). Here, the Erzya solution is to use the ordinal \textit{vet'eće} `the
+fifth' for \texttt{5} and \textit{vet'eće a} `fifth a' for \texttt{5a}, which
+results in ambiguous homonymy.
+
+There are differences observed across languages, where synthetic versus analytic
+expressions of the same numerical values might be dealt with differently. Thus,
+our first overview discusses the largest spread of numeral types, forms across
+languages. Once the collection is complete, the numeral words can be classified
+according to the dependencies and features. In Finnish, for example, we predict
+four different and regular dependencies: nummod (for cardinals and plural
+cardinals with plurale tantum), advmod (for counting iterations of a
+predication, e.g. once, twice, thrice), advcl (for distributive quantification),
+amod (for ordinals). Other languages, it will be noted, may have extensive det
+(this is not really productive in Finnish, but would be the equivalent for
+`both' and its analogues with universal quantification of numbers three and up,
+probably with person marking as well, e.g. `the two of us').
+
+\subsection{Numeral type}
+
+According to the Universal Dependencies documentation, some numerals can be
+classified as adjectives and some as
+adverbs.\footnote{\url{https://universaldependencies.org/u/pos/NUM.html}}
+Thereby, in the UD guidelines both \textit{ADV} and \textit{ADJ} are often found
+as the part of speech categories for numeral expressions. At the same time,
+there are also situations where the NumType feature occurs with different parts
+of speech.
+
+In several treebanks in the Romance languages, for example, there are pronouns
+such as Spanish \textit{mucho} and \textit{poco} which have a feature value
+NumType=Card. Such marking on pronouns is not common in the treebanks, although
+we do find English \textit{first}, \textit{second}, \textit{third} and
+\textit{latter} receiving POS tag \textit{PRON} and feature NumType=Ord. This is
+also the style in Finnish, with \textit{toinen} `second; another' being marked
+similarly, and Erzya and Komi-Zyrian treebanks offer similar examples. As the
+combination PRON and NumType can be found only in treebanks for 10 different
+languages, we believe it is highly likely that similar annotations could be
+extended to many other languages within the project.
+
+Nouns that are marked with NumType appear in a bit larger array of languages,
+all in all within 13 languages, among them, Uralic languages North Saami, Erzya
+and Estonian. In North Saami, these instances are collective nouns with
+NumType=Coll. In Erzya word \textit{pel'} `half' is marked with NumType=Frac. In
+Estonian the only occurrences are with gene names containing numbers, such as
+IL-5, where NumType=Card is attested. These are all reasonable uses of NumType,
+as these noun types do have countable properties that are relatively well
+captured by the NumType feature. But again as the solutions seem language
+specific the annotations could be somehow harmonized or extended to more
+languages.
+
+In Finnish, Icelandic and Korean treebanks we find examples of punctuation being
+marked with NumType=Card. No matter how the annotation is motivated, being this
+rare and narrowly distributed is possibly problematic for the comparability of
+the languages.  The Estonian treebanks EDT and EWT only use NumType with two
+values, Card and Ord.  This does not appear to rule out fractions, but they are
+dealt with differently, i.e. 3/4 is given the features NumForm=Digit and
+NumType=Card. Of course, here the value \textit{Digit} indicates not written as
+words.  A second issue in EWT is that the feature \texttt{NumType=Ord} is used
+with both UPOS \textit{NUM} and \textit{ADJ}. It seems that ordinal digital
+numerals consisting of an Arabic numeral followed by a full stop are treated as
+\textit{ADJ}, whereas automobiles from different years have an abbreviated year
+digit pair followed by an apostrophe. This latter type has the UPOS value
+\textit{NUM}, should this be the case?  We will not widely compare the
+differences between multiple treebanks on the same language, although we do
+acknowledge this is an issue that needs further attention.
+
+
+Having discussed the general use of NumType feature and some rarer patterns that
+can be found, we will next describe more in detail different numeral types and
+their occurrences, with references both to Uralic and other language families,
+as necessary.
+
+\subsubsection{Cardinal numerals}
+
+The cardinal numeral type in UD is typified as an expression for counting
+singular items. Thus, this feature might be associated with the UD part of
+speech NUM (as in one, two, three, etc.). This feature value is also used with
+non-numerals (as in \textit{many}, \textit{few}, Czech \textit{kolik} 'how
+many', etc.). Here, however, individual languages make a split between use of
+UPOS \textit{DET} and \textit{NUM}. The latter of which, apparently, is defended
+in Czech by a strong grammatical tradition, might be used for the interrogative
+\textit{kolik} 'how many', which evokes cardinal numerals.  Czech includes yet a
+third type of words as cardinals which seem to indicate the total number, e.g.
+\textit{čtvero} (as in \textit{Čtvero ročních dob} `The Four Season', all four),
+\textit{desatero} (as in `the Ten Commandments', all ten). This presumably
+explains the definition of \textit{oba} `both', which in Czech is marked as UPOS
+\textit{NUM}, whereas Talbanken deals with \textit{bägge} `both' as a
+\textit{DET}. And then there is the one instance of \textit{desatero} in the
+treebank \textit{Desatero investora} `Lit. The ten investors', where the word
+\textit{desatero} has the UPOS \textit{NOUN}.
+
+This third group of cardinals, which is not observed in Swedish as a consistent
+counting system, appears with a nummod dependency in Czech to match the UPOS
+\textit{NUM}. In Swedish and other languages without this counting system, words
+with the meaning `both' are generally dealt with as \textit{DET}, and they have
+a feature \textit{PronType=Tot}.
+
+\subsubsection{Ordinal numerals}
+
+Ordinals can be seen to represent subtypes of adjectives and adverbs. In
+addition to the amod dependency associated with the words \textit{first},
+\textit{second}, \textit{third}, there are analogical interrogatives, etc.),
+there is also an advmod dependency, associated with ordinal multiplicatives,
+such as the Czech \textit{poprvé} `for the first time'.  By applying the feature
+value NumType=Ord to both UPOS \textit{ADJ} and \textit{ADV}, we could remove
+the NumType=OrdMult feature value used in Komi-Zyrian \textit{ńol'öd} `fourth'
+UPOS \textit{ADJ} and \textit{ńol'ödyś} `for the fourth time' UPOS \textit{ADV}
+and similarly in Erzya, Moksha and Komi-Permyak. The downside is that the
+parallel between cardinal and ordinal multiplicatives becomes less obvious. If
+we were to do so, we would be faced with the challenge of addressing numerals
+with three features: ordinal multiplicative and distributive.
+
+Numerals can be classified according to what they actually enumerate or do they
+at all.  In Erzya, the numeral type (a) « вейке, кавто, колмо,
+ниле... » \textit{vejke, kavto, kolmo, ńil'e} is used for counting
+individual entities. The pertinent dependency is nummod.  (b) «
+веенст, кавонст, колмонст, ниленст... » \textit{vejenst, kavonst,
+kolmonst, ńil'enst} is used for counting set entities from pairs of scissors to
+sets of cups. The pertinent dependency is nummod. NumType=Sets (c)
+\textit{vest', kavkst', kolmokst', ńil'ekst'} « весть, кавксть,
+колмоксть, нилексть... » is used for counting iterations of a
+given predication. Thus this has a advmod dependency. NumType=Mult (d)
+Delimiting associative collectives « ськамост, кавонест, колмонест,
+ниленест... » \textit{śkamost, kavońest, kolmońest, ńilenest}
+provide universal quantification values found in the expressions `alone',
+`both', `all three' with the addition of associative reference to number and
+person. These numerals are used in secondary predication with reference to the
+subject or object. Features include PronType=Tot (e) Distributive, imperfect
+\textit{kavtoń-kavtoń, kolmoń-kolmoń, ńil'eń-ńil'eń} «кавтонь-кавтонь,
+колмонь-колмонь, нилень-нилень...» NumType=Dist Aspect=Imp (f) Distributive,
+perfect \textit{kavtoń-kavto, kolmoń-kolmo, ńil'eń-ńil'e} «кавтонь-кавто,
+колмонь-колмо, нилень-ниле,...» NumType=Dist Aspect=Perf (g) \textit{vejeńkirda,
+kavońkirda, kolmońkirda, ńil'eńkirda} «веенькирда, кавонькирда, колмонькирда,
+ниленькирда,...» has an advmod or amod dependency, and the feature value
+NumType=Mult.
+
+\subsection{Numeral dependencies}
+
+Among the dependency relations assigned to the numerals, the most common is
+\textit{nummod}. In many Slavic treebanks an additional relation of \textit{det}
+is used, as in \textit{det:nummod}. This is not used in other treebanks. In Beja
+treebank there is an individual occurrence of \textit{nummod:det}. Another
+subtype of \textit{nummod}, \textit{nummod:entity}, appears to be used only in
+the Russian treebanks, especially in relation to the symbol `№'. Additionally
+\textit{nummod:flat} appears only in one Polish treebank. Phenomena attested and
+seen necessary to annotate in the Slavic languages could also be very relevant
+for work with the Uralic languages, many of which have been in extensive contact
+with Russian.
+
+Our analysis also indicates that the relation \textit{nummod} in the Uralic
+languages virtually always connects to part of speech \textit{NUM}. With the
+other languages, there is extensive variation, even though this relation is
+always the most common. Whether this is simply a matter of annotation
+conventions, linguistic description traditions or actual linguistically relevant
+differences, remains to be studied.
+
+\section{Discussion}
+
+As we have shown, numerals and related expressions are an area for fruitful and
+needed further discussion in the Universal Dependencies project. Which forms all
+get numeric features extends widely beyond just numerals themselves, and many
+lexical items that have counting properties could be annotated with NumType
+features, and already be annotated in different treebanks. Which of the
+individual solutions in different treebanks should be described better in the
+documentation and adapted further, and which should be harmonized in comparable
+uses of the treebanks, remains to be discussed, but we hope our observations
+help at least a bit along this path. Of course, how work on various
+inconsistencies should or could be coordinated across the hundreds of treebanks
+already in the Universal Dependencies project is not entirely clear, and remains
+certainly a large challenge. At the same time, new treebanks are still
+continuously emerging, and paying attention to various strategies used in
+existing treebanks should help the maintainers of these new languages to adapt
+their conventions. When diverse language families are included, new questions
+inevitably arise. For example, in Apurinã there are very few actual cardinal
+numbers and quantification is expressed in verbal constructions
+\cite{facundes2021numexpr,rueter2021apurina}.
+
+The issue how to handle Komi-Zyrian numerals was also recently discussed in the
+relation to Komi morphological analyser \cite[67]{rueter2021komifst}, which
+points to the fact that the best possible annotation scheme is often a very
+relevant question for uses beyond the Universal Dependencies project itself. We
+also believe that the classification and annotation of numerals is important
+from the point of view of basic linguistic research and language description. As
+the description of Erzya counting expressions in this study showed, the system
+is already very complicated and nuanced in this one language, and is just
+starting to be adequately described in the newest grammatical descriptions
+\cite{suihkonen2013typology}. We presume the description of many smaller Uralic
+languages remains much less complete, not to even mention less studied language
+families of the world, which also have started to have significant presence in
+the Universal Dependencies project. This kind of easily accessible information
+about counting expression at large could be immediately beneficial, for example,
+in typological research, and systematic annotations and documentation in
+projects such as Universal Dependencies is one modern way to distribute this
+description.
+
+
+
+\bibliographystyle{unsrt}
+\bibliography{anthology,udw2022}
+
+\end{document}
