@@ -115,7 +115,7 @@ self-archiving policy, visit
 \url{http://www.springer.com/gp/open-access/authors-rights/self-archiving-policy/2124}.}
 
 \newcommand{\aclanthologypostprintdoi}[1]{The final publication is available at
-ACL anthology: \url{http://FIXME/#1}. All modern ACL conferences are
+ACL anthology: \url{http://aclanthology.org/#1}. All modern ACL conferences are
 open access with Creative Commons licenses.}
 
 % My packages
