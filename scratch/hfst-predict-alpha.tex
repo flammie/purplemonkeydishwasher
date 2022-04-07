@@ -1,0 +1,155 @@
+\documentclass{beamer}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{url}
+
+\mode<presentation>
+{
+    \usetheme{Divvun}
+}
+
+
+\title{HFST-predict experiments
+\scriptsize{UiT---UoA sessions \today.
+\url{https://github.com/flammie/hfst-predict}}}
+\author{Flammie }
+\institute{UiT}
+\date{\today}
+
+\begin{document}
+
+%\selectlanguage{english}
+
+\maketitle
+
+\section{HFST-predict}
+
+\begin{frame}
+    \frametitle{Introduction}
+    \begin{itemize}
+        \item Currently:
+            \texttt{hfst-ospell}\footnote{\url{https://github.com/hfst/hfst-ospell}}
+            $\sim$
+            \texttt{divvunspell}\footnote{\url{https://github.com/divvun/divvunspell}}
+            $\rightarrow$
+            LibreO, MSO, Google something, mobile keyboarDs?
+        \item Experiments:
+            \texttt{hfst-predict}\footnote{\url{https://github.com/flammie/hfst-predict}}
+        \item todo: implement in \texttt{divvunspell} features (analysis,
+            prediction)?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Spelling correction vs.\ prediction}
+    \begin{itemize}
+        \item Correction: full non-word to dictionary word:-form
+            \textit{xat[space]} --- \textit{cat} etc.
+        \item Prediction: word-part to dictionary word-form:
+            \textit{kod\ldots} --- \textit{kodissa}
+        \item NB:\ prediction should include correction: if you write
+            \textit{ahku\ldots} --- \textit{áhkus}
+        \item we want to predict parts or part (compound part, morphs,\ldots):
+            \textit{kod\ldots} --- \textit{kodin\ldots} ---
+            \textit{kodinkonekauppakeskuspaikkajajne}?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{HFST-ospell logic}
+    \begin{enumerate}
+        \item input word \textit{caqt} (string)
+        \item error model \texttt{q:0::1} or \texttt{q:r::1} (2-tape
+            FSA)\begin{itemize}
+                \item Levenshtein Damerau Edit Distance!
+                \item and change diacritics
+                \item and try linguistic corrections
+                \item and other known confusables
+            \end{itemize}
+        \item dictionary: \textit{caqt} ``?'' or \textit{cat} ``common'' or
+            \textit{cart} ``maybe less common'' (FSA)
+        \item (actually an analyser: \texttt{caqt+? inf} \texttt{cat+N+Sg}
+            \texttt{cart+N+Sg} (2tape FSA))
+        \item NB:\ dictionary is used both for checking input and suggestions
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Future logics}
+    \begin{enumerate}
+        \item input word
+        \item error model
+        \item \textbf{prediction model} \begin{itemize}
+                \item \texttt{0:?*}!
+                \item up until morph / word boundaries
+                \item there is no difference b/w error and prediction model in
+                    FSA calculus
+        \end{itemize}
+        \item dictionary (including unfinished morph concatenations? Cannot be
+            same as input acceptor then?)
+        \item (weigh-er)
+        \item (analyser; could be used as dictionary accepting words and
+            predictons with some tagging)
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Limitations}
+    \begin{itemize}
+        \item Trade-offs for pre-combining models (speed,
+            size):\begin{itemize}
+                \item This is why error model + dictionary was originally kept
+                    apart mostly (c.f. Pirinen et al. 2008 or smth)
+                \item prediction + dictionary is also too heavy in general case
+                \item dictionary + likelihoods can be heavy
+                \item prediction / error model?
+            \end{itemize}
+        \item we need good dictionaries of morphemic completions (c.f.\
+            \texttt{>}
+            in our FSA?)
+        \item Weights in any model can be used
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Prediction.zhfst?}
+    \begin{itemize}
+        \item 0---* error / prediction / mutation models (1 + 1)
+        \item 1---* acceptor / analyser models (1 + 1)
+        \item 0---* weighing models (as needed by optimising)
+    \end{itemize}
+    e.g. 1 error + 1 acceptor like old spellers, or + 1 prediction model and +1
+    acceptor model (analyser or accepting morphs)
+\end{frame}
+
+\begin{frame}
+    \frametitle{What's missing?}
+    hfst-ospell:
+    \begin{itemize}
+        \item just support for few more automata / type
+    \end{itemize}
+    divvun-spell:
+    \begin{itemize}
+        \item that above plus
+        \item analysis functionality
+    \end{itemize}
+    Possibly more?
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Diversion? User interface etc.\ issues}
+    \begin{itemize}
+        \item there's no pre-exising ui for morph / compound completion in
+            mobile keyboards and the UI is pretty overloaded
+    \end{itemize}
+\end{frame}
+
+
+\end{document}
+
+
