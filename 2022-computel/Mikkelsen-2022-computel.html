@@ -1,0 +1,1473 @@
+<!DOCTYPE html><html>
+<head>
+<title>Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data</title>
+<!--Generated on Tue Jun 14 01:59:05 2022 by LaTeXML (version 0.8.5) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Document created on .-->
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../latexml/LaTeXML.css" type="text/css">
+<link rel="stylesheet" href="../latexml/ltx-article.css" type="text/css">
+</head>
+<body>
+<div class="ltx_page_main">
+<div class="ltx_page_content">
+<article class="ltx_document ltx_authors_1line">
+<h1 class="ltx_title ltx_title_document">Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very
+Low Resource Language without Data</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Inga Lill Sigga Mikkelsen
+<br class="ltx_break">
+<br class="ltx_break"><span class="ltx_text ltx_font_typewriter">inga.l.mikkelsen@uit.no</span> 
+<br class="ltx_break">
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+Linda Wiechetek 
+<br class="ltx_break">UiT Norgga árktalaš universitehta 
+<br class="ltx_break">Divvun 
+<br class="ltx_break">Norway 
+<br class="ltx_break"><span class="ltx_text ltx_font_typewriter">linda.wiechetek@uit.no</span> 
+<br class="ltx_break">
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+Flammie A Pirinen 
+<br class="ltx_break">
+<br class="ltx_break"><span class="ltx_text ltx_font_typewriter">flammie.pirinen@uit.no</span> 
+<br class="ltx_break">
+</span></span>
+</div>
+<div class="ltx_dates">()</div>
+
+<div class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+    
+<p class="ltx_p">Grammar checkers (GEC) are needed for digital language survival. Very low
+resource languages like Lule Sámi with less than 3,000 speakers need to
+hurry to build these tools, but do not have the big corpus data that are
+required for the construction of machine learning tools. We present a
+rule-based tool and a workflow where the work done for a related language
+can speed up the process. We use an existing grammar to infer rules for the
+new language, and we do not need a large gold corpus of annotated grammar
+errors, but a smaller corpus of regression tests is built while developing
+the tool. We present a test case for Lule Sámi reusing resources from North
+Sámi, show how we achieve a categorisation of the most frequent errors, and
+present a preliminary evaluation of the system. We hope this serves as an
+inspiration for small languages that need advanced tools in a limited amount
+of time, but do not have big data.</p>
+  
+</div>
+<section id="S1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">1 </span>Introduction</h2>
+
+<div id="S1.p1" class="ltx_para">
+<p class="ltx_p">Language tools for very low resource languages are urgently needed to support
+language maintenance, but also it takes a long time to develop them. An
+existing multilingual infrastructure and existing tools that can be reused can
+speed up the process. In this article, we describe the process of making a Lule
+Sámi GEC together with a preliminary categorization of frequent Lule Sámi
+errors. Lule Sámi is on the lower end of lower resource language. It can
+benefit from North Sámi which is closely related and has a well-functioning
+grammar checker.</p>
+</div>
+<div id="S1.p2" class="ltx_para">
+<p class="ltx_p">The reuse of existing knowledge is an important concept in effective development
+of new grammar checkers in multilingual infrastructures. With this work we
+would like to set an example of how high-end complex NLP tools can be made, in
+less time, by taking existing tools as a frame. The following tools were already
+ready-made: an FST-based morphological analyser, a morpho-syntactic
+disambiguator developed for correct text, and a multi-lingual infrastructure
+that contains scripts to build the grammar checker (among other applications).
+Our work took altogether 120 hours, (40 hours of meetings of two linguists (one
+of them native speaker) and 40 hours of work of one native speaker linguist).</p>
+</div>
+<div id="S1.p3" class="ltx_para">
+<p class="ltx_p">For related languages we can even reuse rules and sets (prenominal modifiers,
+sentence barriers). But for example, lexemes have to be translated. This
+article will show in detail what can be reused, and which factors need special
+focus as they are language specific – many times it is systematic homonymies,
+and definitely idiosyncratic homonymies. In addition, we will evaluate the Lule
+Sámi grammar checker and point out future steps for improvement.</p>
+</div>
+</section>
+<section id="S2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2 </span>Background</h2>
+
+<section id="S2.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.1 </span>Language and resources</h3>
+
+<div id="S2.SS1.p1" class="ltx_para">
+<p class="ltx_p">Lule Sámi is spoken in northern Sweden and Norway, with an estimated 800–3,000
+speakers <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib213" title="The saami languages: an introduction" class="ltx_ref">13</a>, <a href="#bib.bib109" title="Julevsámegiella" class="ltx_ref">6</a>, <a href="#bib.bib230" title="Språksituationen för samerna i sverige" class="ltx_ref">14</a>, <a href="#bib.bib205" title="Words and varieties : lexical variation in saami" class="ltx_ref">12</a>, <a href="#bib.bib150" title="Atlas of the world’s languages in danger" class="ltx_ref">9</a>]</cite>. The Lule Sámi written
+language was approved in 1983 <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib125" title="Hvordan den nyeste nordsamiske rettskrivingen ble til" class="ltx_ref">8</a>]</cite>. The first Lule Sámi
+spell checker was launched in 2007. Lule Sámi is a morphologically complex
+language, for more details see <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Jussi2022</span>]</cite>.</p>
+</div>
+<div id="S2.SS1.p2" class="ltx_para">
+<p class="ltx_p">In 2013 the Lule Sámi gold corpus of writing errors was
+built.<span id="footnote1" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup>
+              <span class="ltx_tag ltx_tag_note">1</span>
+              
+              
+              
+            <a href="https://github.com/giellalt/lang-smj/" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/giellalt/lang-smj/</a></span></span></span> The gold corpus
+consists of 32,202 words with 3,772 marked writing errors. The goal of this
+error marked-up corpus was to test if the spellchecker corresponds to relevant
+quality requirements, by running the spell checker on an error corpus, where
+spelling errors were manually marked and corrected. It was supposed to be
+usable for testing grammar checkers with some processing, and therefore also
+marked syntactic, morpho-syntactic and lexical errors. The texts gathered for
+the gold corpus were written by native Lule Sámi speakers and had neither been
+spellchecked nor proofread.</p>
+</div>
+<div id="S2.SS1.p3" class="ltx_para">
+<p class="ltx_p">Speakers of Lule Sámi do not have a long written tradition, this amount of
+errors in the gold corpus show that native speakers of Lule Sámi are in need of
+tools helping them in the writing process. 1,774 of the errors in the gold
+corpus are non-word errors (i.e. misspellings that result in a non-existent
+form, non-word error, as opposed to real word errors where the misspelling
+results in an existing ‘wrong’ form), found by the spellchecker, the remaining
+1,998 errors are morpho-syntactic, syntactic, word choice and formatting errors,
+which only a grammar checker can detect and correct. Lule Sámi is by UNESCO
+classified as a severely endangered language. For the (re)vitalisation of a
+language, it is important that the language is actually being used. With a
+(re)vitalisation perspective, a grammar checker for Lule Sámi will make it
+easier for people to use Lule Sámi in writing, which will increase the use of
+written Lule Sámi.</p>
+</div>
+<div id="S2.SS1.p4" class="ltx_para">
+<p class="ltx_p">The marking and correcting of errors for the gold corpus is the first systematic
+work on Lule Sámi writing errors. So far, this gold corpus has not been used to
+analyse and describe error types characteristic for Lule Sámi. Our own
+experiences from proofreading and from the work with North Sámi were therefore
+the starting point for developing grammar rules.</p>
+</div>
+</section>
+<section id="S2.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.2 </span>Framework</h3>
+
+<div id="S2.SS2.p1" class="ltx_para">
+<p class="ltx_p">The technological implementation of our grammar checker is based on
+well-established technologies in the rule-based natural language processing:
+finite-state automata for morphological
+analysis <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib22" title="Finite state morphology" class="ltx_ref">2</a>, <a href="#bib.bib120" title="Hfst—a system for creating nlp tools" class="ltx_ref">7</a>]</cite> and constraint
+grammar <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib91" title="Constraint grammar as a framework for parsing unrestricted text" class="ltx_ref">5</a>, <a href="#bib.bib29" title="CG-3 – beyond classical constraint grammar" class="ltx_ref">3</a>]</cite> for syntactic and semantic as
+well as other sentence-level processing. The Lule Sámi has an existing
+morphological analyser and lexicon publicly
+available<span id="footnote2" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">2</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">2</sup>
+              <span class="ltx_tag ltx_tag_note">2</span>
+              
+              
+              
+            <a href="https://github.com/giellalt/lang-smj/" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/giellalt/lang-smj/</a></span></span></span>, which were
+originally imported from North Sámi with all rules and set specifications and
+then adapted to Lule Sámi. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib10" title="Reusing grammatical resources for new languages" class="ltx_ref">1</a>]</cite> report F-scores of 0.95
+for part-of-speech (PoS) disambiguation, 0.88 for disambiguation of inflection
+and derivation, and 0.86 for assignment of grammatical functions (syntax) for
+the Lule Sámi analyser.</p>
+</div>
+<div id="S2.SS2.p2" class="ltx_para">
+<p class="ltx_p">The system is built on a pipeline of modules: we process the input text with
+morphological analysers and tokenisers to get annotated texts, then disambiguate
+and then apply grammar rules on the disambiguated sentences, c.f.
+Figure <a href="#S2.F1" title="Figure 1 ‣ 2.2 Framework ‣ 2 Background ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>.</p>
+</div>
+<figure id="S2.F1" class="ltx_figure"><img src="GramCheckLightFlow-08-2021.png.png" id="S2.F1.g1" class="ltx_graphics ltx_centering" width="486" height="345" alt="Structure of a grammar checker">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 1: </span>Structure of a grammar checker</figcaption>
+</figure>
+<div id="S2.SS2.p3" class="ltx_para">
+<p class="ltx_p">It is noteworthy, that the system is part of a multilingual infrastructure
+<a href="https://github.com/giellalt" title="" class="ltx_ref ltx_href ltx_font_italic">GiellaLT</a>, which includes numerous
+languages — 130 altogether.</p>
+</div>
+<div id="S2.SS2.p4" class="ltx_para">
+<p class="ltx_p">The grammar checker takes input from the finite-state transducer (<span class="ltx_text ltx_font_italic">FST</span>)
+to a number of other modules, the core of which are several Constraint Grammar
+modules for tokenisation disambiguation, morpho-syntactic disambiguation and a
+module for error detection and correction. The full modular structure
+(Figure <a href="#S2.F1" title="Figure 1 ‣ 2.2 Framework ‣ 2 Background ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>) is described in Wiechetek <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib264" title="Many shades of grammar checking – launching a constraint grammar tool for North Sámi" class="ltx_ref">15</a>]</cite>.
+We are using finite-state morphology <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib22" title="Finite state morphology" class="ltx_ref">2</a>]</cite> to model word
+formation processes.</p>
+</div>
+<div id="S2.SS2.p5" class="ltx_para">
+<p class="ltx_p">The technology behind our <span class="ltx_text ltx_font_italic">FSTs</span> is described in
+Pirinen <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib185" title="State-of-the-art in weighted finite-state spell-checking" class="ltx_ref">11</a>]</cite>. Constraint Grammar is a rule-based formalism for
+writing disambiguation and syntactic annotation
+grammars <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib91" title="Constraint grammar as a framework for parsing unrestricted text" class="ltx_ref">5</a>, <a href="#bib.bib89" title="Constraint grammar: a language-independent system for parsing unrestricted text" class="ltx_ref">4</a>]</cite>. In our work, we
+use the free open source implementation VISLCG-3 <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib29" title="CG-3 – beyond classical constraint grammar" class="ltx_ref">3</a>]</cite>. All
+components are compiled and built using the <span class="ltx_text ltx_font_italic">GiellaLT</span>
+infrastructure <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib152" title="Building an open-source development infrastructure for language technology projects" class="ltx_ref">10</a>]</cite>. The code and data for the
+model is available for
+download <span id="footnote3" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">3</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">3</sup>
+              <span class="ltx_tag ltx_tag_note">3</span>
+              
+              
+              
+            <a href="https://github.com/giellalt/lang-smj/" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/giellalt/lang-smj/</a></span></span></span>.</p>
+</div>
+<div id="S2.SS2.p6" class="ltx_para">
+<p class="ltx_p">The syntactic context is specified in handwritten Constraint Grammar rules. The
+ADD-rule below adds an error tag (identified by the tag
+<span class="ltx_text ltx_font_typewriter">&amp;real-negSg3-negSg2</span>) to the negation verb <span class="ltx_text ltx_font_italic">ij</span> ‘(to) not’ as in
+example <a href="#S2.F1" title="Figure 1 ‣ 2.2 Framework ‣ 2 Background ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a> if it is a 3rd person singular verb and to its left there
+is a 2nd person singular pronoun in nominative case. The context condition
+further specifies that there cannot be any tokens specifying a sentence barrier,
+a subjunction, conjunction or a finite verb in between for the rule to apply.</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S2.SS2.p7" class="ltx_para">
+<p class="ltx_p">. Dån <span class="ltx_text ltx_font_bold">ittjij</span> boade guossáj.
+<br class="ltx_break">you <span class="ltx_text ltx_font_smallcaps">neg.past.sg3</span> come guest<span class="ltx_text ltx_font_smallcaps">.ill
+<br class="ltx_break"></span>‘You didn’t visit.’</p>
+</div>
+<span class="ltx_ERROR undefined">{Verbatim}</span>
+<div id="S2.SS2.p8" class="ltx_para">
+<p class="ltx_p">[frame=single,framerule=0.2mm,framesep=3mm,fontsize=<span class="ltx_text" style="font-size:80%;">,baselinestretch=1]
+ADD (&amp;real-negSg3-negSg2) TARGET (”ij”)
+IF (0 (Sg3))
+(*-1 (Pron Nom Sg2)
+BARRIER S-BOUNDARY OR
+CS OR CC OR VFIN) ;
+</span></p>
+</div>
+</section>
+</section>
+<section id="S3" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">3 </span>Setup</h2>
+
+<div id="S3.p1" class="ltx_para">
+<p class="ltx_p">In this section, we answer the question of how to set up a grammar checker for a
+new language in <span class="ltx_text ltx_font_italic">GiellaLT</span>. The resources we need are:</p>
+</div>
+<div id="S3.p2" class="ltx_para">
+<ol id="S3.I1" class="ltx_enumerate">
+<li id="S3.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> 
+<div id="S3.I1.i1.p1" class="ltx_para">
+<p class="ltx_p">Word-based tools:</p>
+<ul id="S3.I1.i1.I1" class="ltx_itemize">
+<li id="S3.I1.i1.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S3.I1.i1.I1.i1.p1" class="ltx_para">
+<p class="ltx_p">a tokeniser / handling of multiword entities etc.</p>
+</div>
+</li>
+<li id="S3.I1.i1.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S3.I1.i1.I1.i2.p1" class="ltx_para">
+<p class="ltx_p">an FST-based morphological analyser</p>
+</div>
+</li>
+<li id="S3.I1.i1.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S3.I1.i1.I1.i3.p1" class="ltx_para">
+<p class="ltx_p">a spellchecker</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li id="S3.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">2.</span> 
+<div id="S3.I1.i2.p1" class="ltx_para">
+<p class="ltx_p">Sentence-based tools:
+</p>
+<ul id="S3.I1.i2.I1" class="ltx_itemize">
+<li id="S3.I1.i2.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S3.I1.i2.I1.i1.p1" class="ltx_para">
+<p class="ltx_p">a disambiguator (that can deal with erroneous input)</p>
+</div>
+</li>
+<li id="S3.I1.i2.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S3.I1.i2.I1.i2.p1" class="ltx_para">
+<p class="ltx_p">a syntactic analyser</p>
+</div>
+</li>
+<li id="S3.I1.i2.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S3.I1.i2.I1.i3.p1" class="ltx_para">
+<p class="ltx_p">a number of phonological or morpho-syntactic sets to categorise
+groups of words</p>
+</div>
+</li>
+<li id="S3.I1.i2.I1.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S3.I1.i2.I1.i4.p1" class="ltx_para">
+<p class="ltx_p">error detection/correction rules for a set of frequent errors</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li id="S3.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">3.</span> 
+<div id="S3.I1.i3.p1" class="ltx_para">
+<p class="ltx_p">A set of frequent error types</p>
+</div>
+</li>
+<li id="S3.I1.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">4.</span> 
+<div id="S3.I1.i4.p1" class="ltx_para">
+<p class="ltx_p">Regression tests (error-marked up test sentences)</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="S3.p3" class="ltx_para">
+<p class="ltx_p">Unlike machine learning, this approach is not dependent on a large amount of
+text data or a gold corpus. To develop a grammar checker, we only need several
+test sentences containing the errors in
+question. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib266" title="No more fumbling in the dark - quality assurance of high-level NLP tools in a multi-lingual infrastructure" class="ltx_ref">16</a>]</cite> However, in the absence of a fully
+error marked-up text corpus, finding frequent errors is a challenge. We
+therefore provide a scheme based on our experience with finding common errors
+(for the North Sámi grammar checker) as a guideline for work on new languages.
+This scheme serves any language, but our experience is based on morphologically
+richer languages.</p>
+</div>
+<div id="S3.p4" class="ltx_para">
+<p class="ltx_p">Error types can be divided into three main categories:
+</p>
+<ol id="S3.I2" class="ltx_enumerate">
+<li id="S3.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> 
+<div id="S3.I2.i1.p1" class="ltx_para">
+<p class="ltx_p">phonology-/typography-based errors</p>
+</div>
+</li>
+<li id="S3.I2.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">2.</span> 
+<div id="S3.I2.i2.p1" class="ltx_para">
+<p class="ltx_p">(morpho-)syntactic errors</p>
+</div>
+</li>
+<li id="S3.I2.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">3.</span> 
+<div id="S3.I2.i3.p1" class="ltx_para">
+<p class="ltx_p">writing convention-based errors</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="S3.p5" class="ltx_para">
+<p class="ltx_p">Phonology-/typography-based errors can be based on diacritics, vowel/consonant
+length, silent endings in certain contexts (<span class="ltx_text ltx_font_italic">-ij</span> pronounced
+<span class="ltx_text ltx_font_italic">-i</span>), divergence pronunciation/writing and homophone words.</p>
+</div>
+<div id="S3.p6" class="ltx_para">
+<p class="ltx_p">Writing/formatting conventions apply to compounding (one vs. several words,
+hyphen), quotation marks, comma and punctuation in general. Morpho-syntactic
+and syntactic errors can be subdivided into verb-, NP-internal and VP-internal
+issues. NP-internal issues can be about prepositions and postpositions and
+their case restrictions, adjective agreement /forms in attributive/predicative
+positions, and relative pronoun agreement with its anaphora in number, gender
+and animacy.</p>
+</div>
+<div id="S3.p7" class="ltx_para">
+<p class="ltx_p">Verb internal issues concern the auxiliary construction, negation phrases (where
+negation is expressed by a verb) and other periphrastic verb constructions.</p>
+</div>
+<div id="S3.p8" class="ltx_para">
+<p class="ltx_p">VP internal issues, on the other hand, are more global and concern subject-verb
+agreement, subclauses formation, subcategorisation in general and case marking
+of object/adverbial and word order.</p>
+</div>
+<div id="S3.p9" class="ltx_para">
+<p class="ltx_p">In addition to that, the choice of error types will depend on efficiency as
+well, that means which error types can rules generalize over, and which error
+types are very word specific. Very word specific work that cannot be
+generalized may not be so efficient.</p>
+</div>
+<section id="S3.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.1 </span>Reuse of resources</h3>
+
+<div id="S3.SS1.p1" class="ltx_para">
+<p class="ltx_p">Reusing (particularly North Sámi) resources to create Lule Sámi tools goes back
+as far as 2005, where the North Sámi descriptive morpho-syntactic
+analyser/disambiguator was used to disambiguate Lule Sámi text and adapting work
+started. A disambiguator is a tool that resolves homonymy in a given syntactic
+context, and is an essential tool in sentence-level text processing. This tool
+was already available when we started our work. However, the initial goal of
+sentence analysis is based on correct input. We therefore had to adapt the tool
+to fit error input, e.g. by removing rules that were too strict and paying
+closer attention to misspelled word forms that can be confused with correct
+forms. In the course of time, other tools or modules have been copied over to
+Lule Sámi and been reused with or without adaptations, thereby creating
+lower-cost tools for Lule Sámi, cf. Table <a href="#S3.T1" title="Table 1 ‣ 3.1 Reuse of resources ‣ 3 Setup ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>. Another tool that was
+already available when we started to build our GEC was the Lule Sámi
+morphological analyser. It had previously been constructed from scratch,
+starting from a common template used in the <span class="ltx_text ltx_font_italic">GiellaLT</span> infrastructure.</p>
+</div>
+<figure id="S3.T1" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text ltx_font_bold">Tool</span></th>
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold">Reuse</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold">Adaption</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" colspan="3">
+<span class="ltx_ERROR undefined">\toprule</span>  Analysis tools</th>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">
+<span class="ltx_ERROR undefined">\midrule</span><span class="ltx_text ltx_font_bold">FST</span>
+</th>
+<td class="ltx_td ltx_align_left">existing</td>
+<td class="ltx_td ltx_align_left">NONE</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text ltx_font_bold">disambiguator</span></th>
+<td class="ltx_td ltx_align_left">from sme</td>
+<td class="ltx_td ltx_align_left">set specs</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_th ltx_th_row"></th>
+<td class="ltx_td"></td>
+<td class="ltx_td ltx_align_left">rules</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text ltx_font_bold">tokeniser</span></th>
+<td class="ltx_td ltx_align_left">from sme</td>
+<td class="ltx_td ltx_align_left">NONE</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" colspan="3">
+<span class="ltx_ERROR undefined">\midrule</span>  Error detection/correction tools</th>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">
+<span class="ltx_ERROR undefined">\midrule</span><span class="ltx_text ltx_font_bold">disambiguator</span>
+</th>
+<td class="ltx_td ltx_align_left">from sme</td>
+<td class="ltx_td ltx_align_left">to fit err input</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text ltx_font_bold">real w err rules</span></th>
+<td class="ltx_td ltx_align_left">NEW</td>
+<td class="ltx_td ltx_align_left">—</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text ltx_font_bold">congr rules</span></th>
+<td class="ltx_td ltx_align_left">from sme</td>
+<td class="ltx_td ltx_align_left">sets</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_th ltx_th_row"></th>
+<td class="ltx_td ltx_align_left">from sme</td>
+<td class="ltx_td ltx_align_left">homonymies</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" colspan="3">
+<span class="ltx_ERROR undefined">\midrule</span>  Other</th>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">
+<span class="ltx_ERROR undefined">\midrule</span><span class="ltx_text ltx_font_bold">regression tests</span>
+</th>
+<td class="ltx_td ltx_align_left">NEW</td>
+<td class="ltx_td ltx_align_left">—</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text ltx_font_bold">corpus mark-up</span></th>
+<td class="ltx_td ltx_align_left">from sme</td>
+<td class="ltx_td ltx_align_left">applied to</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_th ltx_th_row"></th>
+<td class="ltx_td"></td>
+<td class="ltx_td ltx_align_left">smj text</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_ERROR undefined">\bottomrule</span></th>
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 1: </span>Reuse of resources for Lule Sámi (sme= North Sámi, smj= Lule Sámi)</figcaption>
+</figure>
+<div id="S3.SS1.p2" class="ltx_para">
+<p class="ltx_p">Based on our experience, we have found a following workflow to be very effective
+in creating a new grammar checker: We use the normative morphological analyser
+and a tokeniser with grammatical tokenisation disambiguation. This is relevant
+when deciding if two words written apart have a syntactic relation or are simple
+compound errors. In addition, there, we use a FST-based spellchecker. The
+descriptive disambiguator/syntactic analyser was first taken as it is to be
+included in the Lule Sámi grammar checker. However, we found that the need for
+adaptions was urgent, and we needed a separate version of it specifically for
+potentially erroneous input. The difference to the descriptive disambiguator
+lays in the objective. The descriptive disambiguator aims at a reduction of
+homonymy (risking to some degree that correct analyses get lost). The grammar
+checker disambiguator, on the other hand, needs disambiguation only to get an
+idea of the sentence to find the error, but is dependent on finding
+error-analyses even if they do not make sense in the context, so homonymy is not
+to be reduced to a point where error readings disappear. The descriptive
+disambiguator is adapted on the fly, so basically every time testing runs into
+problems, the respective rules are traced and either eliminated or adapted to
+erroneous input. In some cases, we also noticed general errors in the rules
+that lead to an improvement of the descriptive disambiguator.</p>
+</div>
+<div id="S3.SS1.p3" class="ltx_para">
+<p class="ltx_p">The error detection/correction module needed to be written from scratch at first
+glance. However, at second glance, there are parts that could be reused as well.
+Simple sets and lists were copied over from the Lule Sámi descriptive
+disambiguator. Semantic groupings of words developed in the process of North
+Sámi grammar checking were directly copied over from the North Sámi grammar
+checker, and lexical items translated to Lule Sámi as in the case of the
+following set <span class="ltx_text ltx_font_italic">DOPPE</span> (the first of which is the North Sámi original, and
+the second of which is the translated Lule Sámi one), which generalises over
+static place-adverbs:</p>
+</div>
+<div id="S3.SS1.p4" class="ltx_para">
+<pre class="ltx_verbatim ltx_font_typewriter">
+LIST DOPPE = "badjin" "bajil"
+"dakko" "dá" "dákko" "dáppe" "dás"
+"diekko" "dieppe" "do" "dokko"
+"doppe" "duo" "duokko" "duoppe"
+"olgun" ;
+
+LIST DOPPE = "badjen" "dáppe"
+"duoppe" "dåppe" "dággu" "daggu"
+"duoggu" "dåggu" "dánna" "danna"
+"duonna" "dånna" "dåhku" "duohku"
+"ålggon" ;
+</pre>
+</div>
+<div id="S3.SS1.p5" class="ltx_para">
+<p class="ltx_p">As regards rules, the error types based on orthographic or phonetic similarity
+needed to be written from scratch, as they differ in North Sámi and Lule Sámi,
+as do possible contexts of errors that need to pay attention to homonymies.
+Especially systematic homonymies are partly different to North Sámi. However,
+some of them are the same in North Sámi and Lule Sámi, cf. Table
+<a href="#S3.T2" title="Table 2 ‣ 3.1 Reuse of resources ‣ 3 Setup ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>. One of them is the homonymy between plural inessive (Lule
+Sámi) /locative (North Sámi) and singular comitative nouns, and between singular
+elative (Lule Sámi) /locative (North Sámi) and 3rd person singular possessive
+accusative singular nouns.</p>
+</div>
+<figure id="S3.T2" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text ltx_font_bold">Homonymy</span></th>
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold">Lule S.</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold">North S.</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" colspan="3">
+<span class="ltx_ERROR undefined">\toprule</span>  <span class="ltx_text ltx_font_bold">Verbs</span>
+</th>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">
+<span class="ltx_ERROR undefined">\midrule</span><span class="ltx_text ltx_font_smallcaps">Prs Pl3</span> — <span class="ltx_text ltx_font_smallcaps">Prt Sg2</span>
+</th>
+<td class="ltx_td ltx_align_left">sjaddi</td>
+<td class="ltx_td ltx_align_left">—</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">
+<span class="ltx_text ltx_font_smallcaps">Inf</span> — <span class="ltx_text ltx_font_smallcaps">Prs Pl1</span>
+</th>
+<td class="ltx_td ltx_align_left">—</td>
+<td class="ltx_td ltx_align_left">šaddat</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">
+<span class="ltx_text ltx_font_smallcaps">Prs Sg2</span> — <span class="ltx_text ltx_font_smallcaps">Prs Sg3</span>
+</th>
+<td class="ltx_td ltx_align_left">la</td>
+<td class="ltx_td ltx_align_left">—</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">
+<span class="ltx_text ltx_font_smallcaps">Prs Sg2</span> — <span class="ltx_text ltx_font_smallcaps">Inf</span>
+</th>
+<td class="ltx_td ltx_align_left">—</td>
+<td class="ltx_td ltx_align_left">leat</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text ltx_font_smallcaps">Prs ConNeg</span></th>
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" colspan="3">
+<span class="ltx_ERROR undefined">\midrule</span>  <span class="ltx_text ltx_font_bold">Nouns</span>
+</th>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">
+<span class="ltx_ERROR undefined">\midrule</span><span class="ltx_text ltx_font_smallcaps">Pl Nom</span> — <span class="ltx_text ltx_font_smallcaps">Sg Gen</span>
+</th>
+<td class="ltx_td ltx_align_left">dile/mánno</td>
+<td class="ltx_td ltx_align_left">—</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">
+<span class="ltx_text ltx_font_smallcaps">Pl Ine</span> — <span class="ltx_text ltx_font_smallcaps">Sg Com</span>
+</th>
+<td class="ltx_td ltx_align_left">gielajn</td>
+<td class="ltx_td ltx_align_left">gielain</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">
+<span class="ltx_text ltx_font_smallcaps">Sg Ela</span> —</th>
+<td class="ltx_td ltx_align_left">girkus</td>
+<td class="ltx_td ltx_align_left">girkkos</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text ltx_font_smallcaps">Sg Acc PxSg3</span></th>
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_ERROR undefined">\bottomrule</span></th>
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 2: </span>Homonymies comparison between Lule Sámi and North
+Sámi</figcaption>
+</figure>
+<div id="S3.SS1.p6" class="ltx_para">
+<p class="ltx_p">Not all rules needed to be written from scratch, certain rule types were reused
+from North Sámi. Subject-verb agreement rules are well-suited to be copy-pasted
+from North Sámi to Lule Sámi. With some tag adaptations, they were included into
+the Lule Sámi grammar checker.</p>
+</div>
+</section>
+<section id="S3.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.2 </span>Errors in Lule Sámi </h3>
+
+<div id="S3.SS2.p1" class="ltx_para">
+<p class="ltx_p">When working with the Lule Sámi grammar checker, we wanted to start with errors
+made by high proficiency writers rather than language learners. That way we can
+have a functioning grammar checker for texts with very few errors and introduce
+more complex errors along the way. Texts written by second language learners or
+students generally have more and other types of errors and more complex errors,
+which will require a different grammar checker.</p>
+</div>
+<div id="S3.SS2.p2" class="ltx_para">
+<p class="ltx_p">Typical errors of high proficiency writers happen when the written norm deviates
+from the spoken dialectal variation. One example for that is the negation
+paradigm, which in some dialects resembles the North Sámi paradigm rather than
+the norm of written Lule Sámi.</p>
+</div>
+<div id="S3.SS2.p3" class="ltx_para">
+<p class="ltx_p">In the Lule Sámi written norm, the negation verb is inflected for both person,
+number and tense (present and past) followed by the main verb in connegative
+form, which is always the same, whilst in North Sámi only person and number is
+marked on the negation verb. Tense is marked on the main verb with two different
+connegative forms, see Table <a href="#S3.T3" title="Table 3 ‣ 3.2 Errors in Lule Sámi ‣ 3 Setup ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>.
+</p>
+</div>
+<figure id="S3.T3" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_th_row" colspan="2">Lule Sámi</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column" colspan="2">North Sámi</th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">
+<span class="ltx_ERROR undefined">\toprule</span><span class="ltx_text ltx_font_bold">Present</span>
+</th>
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold">Past</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold">Present</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold">Past</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">
+<span class="ltx_ERROR undefined">\midrule</span><span class="ltx_text ltx_font_italic">iv vuolge</span>
+</th>
+<td class="ltx_td ltx_align_left">ittjiv vuolge</td>
+<td class="ltx_td ltx_align_left">in vuolgge</td>
+<td class="ltx_td ltx_align_left">in vuolgán</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text ltx_font_italic">i vuolge</span></th>
+<td class="ltx_td ltx_align_left">ittji vuolge</td>
+<td class="ltx_td ltx_align_left">it vuolgge</td>
+<td class="ltx_td ltx_align_left">it vuolgán</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text ltx_font_italic">ij vuolge</span></th>
+<td class="ltx_td ltx_align_left">ittjij vuolge</td>
+<td class="ltx_td ltx_align_left">ii vuolgge</td>
+<td class="ltx_td ltx_align_left">ii vuolgán</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_ERROR undefined">\bottomrule</span></th>
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 3: </span>Negation comparison for ‘not leave’</figcaption>
+</figure>
+<div id="S3.SS2.p4" class="ltx_para">
+<p class="ltx_p">There is no full consensus on the exact border between North Sámi and Lule
+Sámi <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib272" title="Future time reference in lule saami, with some remarks on finnish" class="ltx_ref">17</a>]</cite>, so in Lule Sámi text one can find variation regarding negation
+that reflects dialectical variation. In Lule Sámi text both the North Sámi
+negation system, as ex. <a href="#S3.T3" title="Table 3 ‣ 3.2 Errors in Lule Sámi ‣ 3 Setup ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>, and a system with ‘double’ past marking
+on both the negation verb and with the main verb <a href="#S3.T3" title="Table 3 ‣ 3.2 Errors in Lule Sámi ‣ 3 Setup ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a> are used.</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S3.SS2.p5" class="ltx_para">
+<p class="ltx_p">. Aktak <span class="ltx_text ltx_font_bold">ij</span> <span class="ltx_text ltx_font_bold">vuolggám</span> nuorráj dan biejve.
+<br class="ltx_break">someone not<span class="ltx_text ltx_font_smallcaps">.neg.pres.3sg</span> go<span class="ltx_text ltx_font_smallcaps">.pastp</span> sea<span class="ltx_text ltx_font_smallcaps">.sg.ill</span> that day
+
+<br class="ltx_break">‘No one went on the sea that day.’</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S3.SS2.p6" class="ltx_para">
+<p class="ltx_p">. Gå ålgus vuolggi, de <span class="ltx_text ltx_font_bold">ittji</span> <span class="ltx_text ltx_font_bold">vuojnnám</span> åvvå
+majdik.
+<br class="ltx_break">when outside go<span class="ltx_text ltx_font_smallcaps">.past.2sg</span>, then not<span class="ltx_text ltx_font_smallcaps">.neg.past.2sg</span>
+see<span class="ltx_text ltx_font_smallcaps">.pastp</span> all nothing 
+<br class="ltx_break">‘When you went outside, you didn’t see anything at all’</p>
+</div>
+<div id="S3.SS2.p7" class="ltx_para">
+<p class="ltx_p">Most of the systematic morpho-syntactic errors made by high proficiency writers
+reflect ongoing languages changes and might not even be corrected by a
+proofreader. A grammar checker is a good way of making people aware of such
+changes.</p>
+</div>
+<div id="S3.SS2.p8" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_italic">Soajttet</span> is a modal verb meaning ‘(to) maybe’ and usually stands with
+the infinitive form of the main verb. However, the present singular third-person
+form <span class="ltx_text ltx_font_italic">soajttá</span> ‘(s/he) maybe’ is by many writers being used as an adverb,
+not as a modal verb, as example <a href="#S3.T3" title="Table 3 ‣ 3.2 Errors in Lule Sámi ‣ 3 Setup ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a> shows. The modal auxiliary is
+not followed by an infinitive as it should, but a finite verb in third-person
+singular.</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S3.SS2.p9" class="ltx_para">
+<p class="ltx_p">. EU <span class="ltx_text ltx_font_bold">soajttá</span> máhtti mijáv viehkedit. 
+<br class="ltx_break">EU may<span class="ltx_text ltx_font_smallcaps">.pres.3sg</span> can<span class="ltx_text ltx_font_smallcaps">.pres.3pl</span> us help<span class="ltx_text ltx_font_smallcaps">.inf</span> 
+<br class="ltx_break">‘EU might be able to help us’
+</p>
+</div>
+<div id="S3.SS2.p10" class="ltx_para">
+<p class="ltx_p">Within noun phrases, writers frequently make agreement errors. According to the
+norm the noun should be in singular with numerals and demonstratives agreeing in
+case and number, according to <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib273" title="Lule saami" class="ltx_ref">18</a>]</cite> there is variation in the
+contemporary language indicating that this agreement system is changing. The
+errors in the Divvun gold corpus show us that the change has gone further than
+described in <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib273" title="Lule saami" class="ltx_ref">18</a>]</cite>, and numerals are handled in the same way as
+attributive adjectives, see Table <a href="#S3.T4" title="Table 4 ‣ 3.2 Errors in Lule Sámi ‣ 3 Setup ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>. Some writers seem to make use
+of this “new” paradigm, as in ex. <a href="#S3.T3" title="Table 3 ‣ 3.2 Errors in Lule Sámi ‣ 3 Setup ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>, while others seem to be
+somewhere in between, as ex. <a href="#S3.T3" title="Table 3 ‣ 3.2 Errors in Lule Sámi ‣ 3 Setup ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a> shows. In this last example, the case
+of the numeral is correct, but the noun is in plural.</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S3.SS2.p11" class="ltx_para">
+<p class="ltx_p">. Alvos Státtáv máhtá vuojnnet gåjt <span class="ltx_text ltx_font_bold">gietjav</span>
+<span class="ltx_text ltx_font_bold">báhppagieldajs</span>.
+<br class="ltx_break">colossal Stáddá can see at.least seven<span class="ltx_text ltx_font_smallcaps">.num.nom.sg</span>
+parish<span class="ltx_text ltx_font_smallcaps">.pl.ela
+<br class="ltx_break"></span>‘You can see the colossal Stáddá from at least seven parishes’</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S3.SS2.p12" class="ltx_para">
+<p class="ltx_p">.Suohkana juogeduvvin gietja sáme <span class="ltx_text ltx_font_bold">rabdaguovlojda</span>.
+<br class="ltx_break">municipality divide seven<span class="ltx_text ltx_font_smallcaps">.num.ill.attr</span> outskirt.area<span class="ltx_text ltx_font_smallcaps">.pl.ill.</span>
+
+<br class="ltx_break">‘The municipalities got divided into seven outskirt areas.’</p>
+</div>
+<figure id="S3.T4" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_align_middle">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" colspan="2">
+<span class="ltx_ERROR undefined">\toprule</span><span class="ltx_text ltx_font_italic" style="font-size:90%;"> </span><span class="ltx_text" style="font-size:90%;"> </span><span class="ltx_text ltx_font_bold" style="font-size:90%;">‘(these) two cows’</span>
+</td>
+<td class="ltx_td"></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" colspan="2">
+<span class="ltx_ERROR undefined">\midrule</span><span class="ltx_text ltx_font_italic" style="font-size:90%;"> </span><span class="ltx_text" style="font-size:90%;"> </span><span class="ltx_text ltx_font_bold" style="font-size:90%;">Norm</span>
+</td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Systematical errors</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left">
+<span class="ltx_ERROR undefined">\midrule</span><span class="ltx_text" style="font-size:90%;">Nom</span>
+</td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">(dá) guokta gusá</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">(dá) guokta gusá</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">Gen</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">(dán) guovte gusá</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">(dáj) guokta gusáj</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">Acc</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">(dá) guokta gusá</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">(dájt) guokta gusájt</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">Ine</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">(dán) guovten gusán</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">(dájn) guokta gusájn</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">Ill</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">(dán) guovte gussaj</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">(dájda) guokta gusájda</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">Ela</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">(dát) guovtet gusás</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">(dájs) guokta gusájs</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">Com</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">(dájna) guovtijn gusájn</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">(dáj) guokta gusáj</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_ERROR undefined">\bottomrule</span></td>
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 4: </span>NP with demonstrative pronouns and numerals</figcaption>
+</figure>
+<div id="S3.SS2.p13" class="ltx_para">
+<p class="ltx_p">Another noun phrase internal error is the use of and adjective in predicative
+form in an attributive position, as example <a href="#S3.T4" title="Table 4 ‣ 3.2 Errors in Lule Sámi ‣ 3 Setup ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>. This is not a very
+common error, but might be more frequent in texts written by second language
+learners, since the predicative form is the one in dictionaries and the
+adjective inflection system is one of the most complex area of the
+morphology <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib273" title="Lule saami" class="ltx_ref">18</a>]</cite>. Along with this rule, we also made rules for
+correcting errors where the attributive form of an adjective is used in a
+predicative position.</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S3.SS2.p14" class="ltx_para">
+<p class="ltx_p">. Mij tjuovojma <span class="ltx_text ltx_font_bold">roa<span class="ltx_ERROR undefined">\textipa</span>ŋkok</span> bálggáv.
+<br class="ltx_break">We follow crooked<span class="ltx_text ltx_font_smallcaps">.sg.nom</span> path<span class="ltx_text ltx_font_smallcaps">.sg.acc
+<br class="ltx_break"></span>‘We followed a crooked path’</p>
+</div>
+<div id="S3.SS2.p15" class="ltx_para">
+<p class="ltx_p">There are also agreement errors where relative pronouns fail to agree with their
+anaphora in number, as in ex. <a href="#S3.T4" title="Table 4 ‣ 3.2 Errors in Lule Sámi ‣ 3 Setup ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>, and not agreeing with its anaphora
+in animacy, as in ex. <a href="#S3.T4" title="Table 4 ‣ 3.2 Errors in Lule Sámi ‣ 3 Setup ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>. A similar error regards the agreement of
+reflexive pronouns with their anaphora in number.</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S3.SS2.p16" class="ltx_para">
+<p class="ltx_p">. Da sáme <span class="ltx_text ltx_font_bold">gænna</span> ietjanisá ællim muorravuovdde
+<br class="ltx_break">Those s<span class="ltx_text ltx_font_smallcaps">.pl.nom</span> who<span class="ltx_text ltx_font_smallcaps">.sg.ine</span> themselves have.not wood.forrest
+<br class="ltx_break">‘Those s without their own wood forrest’</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S3.SS2.p17" class="ltx_para">
+<p class="ltx_p">. Åhtsåp jådediddjev <span class="ltx_text ltx_font_bold">mij</span>:
+<br class="ltx_break">Search leader<span class="ltx_text ltx_font_smallcaps">.sg.acc</span> which<span class="ltx_text ltx_font_smallcaps">.nhum.sg.nom
+<br class="ltx_break"></span>‘We are looking for a leader who:’</p>
+</div>
+<div id="S3.SS2.p18" class="ltx_para">
+<p class="ltx_p">Conditional mood is according to <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib273" title="Lule saami" class="ltx_ref">18</a>]</cite> largely missing in Lule
+Sámi, and instead a periphrastic conditional consisting of the auxiliary lulu-
+‘would’ and the infinitive is used. The conditional auxiliary <span class="ltx_text ltx_font_italic">lulu-</span> is
+by some writers handled as if it is a separate verb with present and past tense,
+not a mood, making errors like <a href="#S3.T4" title="Table 4 ‣ 3.2 Errors in Lule Sámi ‣ 3 Setup ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a> and the non-word
+error <a href="#S3.T4" title="Table 4 ‣ 3.2 Errors in Lule Sámi ‣ 3 Setup ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>.</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S3.SS2.p19" class="ltx_para">
+<p class="ltx_p">.Vuorasulmutja <span class="ltx_text ltx_font_bold">lulu</span> huvsov ja sujtov oadtjot.
+<br class="ltx_break">old.people<span class="ltx_text ltx_font_smallcaps">.pl.nom</span> be<span class="ltx_text ltx_font_smallcaps">.cond.2sg</span> care and nursing get<span class="ltx_text ltx_font_smallcaps">.if</span>
+
+<br class="ltx_break">‘Old people would get care and nursing ’</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S3.SS2.p20" class="ltx_para">
+<p class="ltx_p">. …sávvá ienebu <span class="ltx_text ltx_font_bold">lulujin</span> kursajda
+oassálasstet.
+<br class="ltx_break">…wish more *would<span class="ltx_text ltx_font_smallcaps">.3pl</span> course attend.
+<br class="ltx_break">‘…wishes more people would attend courses.’</p>
+</div>
+<div id="S3.SS2.p21" class="ltx_para">
+<p class="ltx_p">Another big group of errors are real-word errors. These are mostly based on
+phonetic similarity between the confused forms. In this work, we focused on
+general rules that are not limited to one single word, but rather forms that
+apply to a group of lemmata. In Table <a href="#S3.T5" title="Table 5 ‣ 3.2 Errors in Lule Sámi ‣ 3 Setup ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a> the first error
+(<span class="ltx_text ltx_font_italic">álgge</span>-<span class="ltx_text ltx_font_italic">álkke</span>) is an error limited only to this specific word.
+When in a hurry of building resources for very low resource languages, one has
+to make sure to work in an efficient way, and writing rules for correcting
+specific words does not get us fast-forward. The rest of errors in
+Table <a href="#S3.T5" title="Table 5 ‣ 3.2 Errors in Lule Sámi ‣ 3 Setup ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a> are errors being corrected by rules that generalise
+over groups of words, or for the frequent negation auxiliary (function words are
+more efficient).</p>
+</div>
+<figure id="S3.T5" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_align_middle">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;"><span class="ltx_text ltx_wrap ltx_font_bold">Error</span></td>
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;"><span class="ltx_text ltx_wrap ltx_font_bold">Correct form</span></td>
+<td class="ltx_td ltx_align_justify" style="width:170.7pt;"><span class="ltx_text ltx_wrap ltx_font_bold">Type of error</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;">
+<span class="ltx_ERROR undefined">\toprule</span><span class="ltx_text ltx_font_bold">álgge</span> ‘beginner’</td>
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;">
+<span class="ltx_text ltx_font_bold">álkke</span> ‘easy’</td>
+<td class="ltx_td ltx_align_justify" style="width:170.7pt;">Only for this
+single word</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;">
+<span class="ltx_ERROR undefined">\midrule</span><span class="ltx_text ltx_font_bold">hábbmima</span> <span class="ltx_text ltx_font_smallcaps">NomAct Sg Gen</span> <span class="ltx_text ltx_wrap ltx_font_italic">‘the designing’s’</span>
+</td>
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;">
+<span class="ltx_text ltx_font_bold">hábbmijma</span> <span class="ltx_text ltx_font_smallcaps">Prt Pl1</span> ‘we designed’</td>
+<td class="ltx_td ltx_align_justify" style="width:170.7pt;">Systematic for all
+contracted -it verbs</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;">
+<span class="ltx_ERROR undefined">\midrule</span><span class="ltx_text ltx_font_bold">bælosti</span> <span class="ltx_text ltx_font_smallcaps">Prs Pl3</span> ‘they defend’</td>
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;">
+<span class="ltx_text ltx_font_bold">bælostij</span>
+<span class="ltx_text ltx_font_smallcaps">Prt Sg3</span> ‘s/he defended’</td>
+<td class="ltx_td ltx_align_justify" style="width:170.7pt;">Systematic for all odd syllable -it
+verbs and auxiliary/copula <span class="ltx_text ltx_wrap ltx_font_italic">liehket</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;">
+<span class="ltx_ERROR undefined">\midrule</span><span class="ltx_text ltx_font_bold">i/ittji</span> <span class="ltx_text ltx_wrap ltx_font_smallcaps">Prs/Prt Sg2</span>
+</td>
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;">
+<span class="ltx_text ltx_font_bold">ij/ittjij</span>
+<span class="ltx_text ltx_wrap ltx_font_smallcaps">Prs/Prt Sg3</span>
+</td>
+<td class="ltx_td ltx_align_justify" style="width:170.7pt;">Missing “j” for negation verbs Sg2</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;">‘you do/did not’</td>
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;">‘s/he do/did not’</td>
+<td class="ltx_td ltx_align_justify" style="width:170.7pt;"></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;">
+<span class="ltx_ERROR undefined">\midrule</span><span class="ltx_text ltx_font_bold">ij/ittjij</span> <span class="ltx_text ltx_wrap ltx_font_smallcaps">Prs/Prt Sg3</span>
+</td>
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;">
+<span class="ltx_text ltx_font_bold">i/ittji</span>
+<span class="ltx_text ltx_wrap ltx_font_smallcaps">Prs/Prt Sg2</span>
+</td>
+<td class="ltx_td ltx_align_justify" style="width:170.7pt;">Extra “j” for negation verbs Sg3</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;">‘s/he do/did not’</td>
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;">‘you do/did not’</td>
+<td class="ltx_td ltx_align_justify" style="width:170.7pt;"></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;"><span class="ltx_ERROR undefined">\bottomrule</span></td>
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;"></td>
+<td class="ltx_td ltx_align_justify" style="width:170.7pt;"></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 5: </span>Real word errors comparison</figcaption>
+</figure>
+<div id="S3.SS2.p22" class="ltx_para">
+<p class="ltx_p">The errors we have worked with in Table <a href="#S3.T5" title="Table 5 ‣ 3.2 Errors in Lule Sámi ‣ 3 Setup ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a> are all real word
+errors with the ij-sound written ‘i’, or the other way around, with ‘i’ written
+‘ij’. We classified them as real word errors, even though some errors can also
+be seen as agreement errors. High proficiency writers are typically not insecure
+about agreement, but errors of this type can still happen when typing fast.
+Another complicating factor is that the -i sound can also be written -ij. Odd
+syllable nouns in illative case end in -ij, even though the pronouncation is not
+-ij. ‘To the dog’ is spelled <span class="ltx_text ltx_font_italic">bednagij</span> even though the actual pronounced
+more like <span class="ltx_text ltx_font_italic">bednagi</span>. However, the spelling error <span class="ltx_text ltx_font_italic">bednagi</span> will be
+picked up by the spell checker since it is a non-word.</p>
+</div>
+<div id="S3.SS2.p23" class="ltx_para">
+<p class="ltx_p">Both Lule Sámi and North Sámi verbs are inflected with three persons and three
+numbers in past and present tense. The subject verb agreement rules were copied
+from North Sámi to the Lule Sámi grammar checker.</p>
+</div>
+</section>
+</section>
+<section id="S4" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">4 </span>Evaluation</h2>
+
+<div id="S4.p1" class="ltx_para">
+<p class="ltx_p">The first version of the Lule Sámi grammar checker has 64 rules and 17 rule
+types, three of which have a regression test of 50 or more test sentences. We
+also ran an initial evaluation of each regression test, and plan to run the
+grammar checker on the error-marked up corpus of 32,202 words<span id="footnote4" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">4</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">4</sup>
+            <span class="ltx_tag ltx_tag_note">4</span>
+            
+            
+            
+          Can be
+found on GitHub:
+<a href="https://github.com/giellalt/lang-smj/tools/grammarcheckers" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/giellalt/lang-smj/tools/grammarcheckers</a></span></span></span>.</p>
+</div>
+<div id="S4.p2" class="ltx_para">
+<p class="ltx_p">Figure <a href="#S4.T6" title="Table 6 ‣ 4 Evaluation ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">6</span></span></a> shows an evaluation of three error types with a
+sufficiently large regression tests. The other error types will be evaluated in
+the final version of the paper. The rules for relative pronoun and
+numeral/determiner agreement and for modal verb maybe-constructions give good
+results for both precision and recall. Precision and recall of the modal verb
+constructions are as good as 98 The quality is measured using basic precision,
+recall and <math id="S4.p2.m1" class="ltx_Math" alttext="f_{1}" display="inline"><msub><mi>f</mi><mn>1</mn></msub></math> scores, such that recall <math id="S4.p2.m2" class="ltx_Math" alttext="R=\frac{t_{p}}{t_{p}+f_{n}}" display="inline"><mrow><mi>R</mi><mo>=</mo><mfrac><msub><mi>t</mi><mi>p</mi></msub><mrow><msub><mi>t</mi><mi>p</mi></msub><mo>+</mo><msub><mi>f</mi><mi>n</mi></msub></mrow></mfrac></mrow></math>, precision
+<math id="S4.p2.m3" class="ltx_Math" alttext="P=\frac{t_{p}}{t_{p}+f_{p}}" display="inline"><mrow><mi>P</mi><mo>=</mo><mfrac><msub><mi>t</mi><mi>p</mi></msub><mrow><msub><mi>t</mi><mi>p</mi></msub><mo>+</mo><msub><mi>f</mi><mi>p</mi></msub></mrow></mfrac></mrow></math> and <math id="S4.p2.m4" class="ltx_Math" alttext="f_{1}" display="inline"><msub><mi>f</mi><mn>1</mn></msub></math> score as harmonic mean of the two: <math id="S4.p2.m5" class="ltx_Math" alttext="F_{1}=2\frac{P\times R}{P+R}" display="inline"><mrow><msub><mi>F</mi><mn>1</mn></msub><mo>=</mo><mrow><mn>2</mn><mo>⁢</mo><mfrac><mrow><mi>P</mi><mo>×</mo><mi>R</mi></mrow><mrow><mi>P</mi><mo>+</mo><mi>R</mi></mrow></mfrac></mrow></mrow></math>, where <math id="S4.p2.m6" class="ltx_Math" alttext="t_{p}" display="inline"><msub><mi>t</mi><mi>p</mi></msub></math> is a count of true positives, <math id="S4.p2.m7" class="ltx_Math" alttext="f_{p}" display="inline"><msub><mi>f</mi><mi>p</mi></msub></math> false
+positives, <math id="S4.p2.m8" class="ltx_Math" alttext="t_{n}" display="inline"><msub><mi>t</mi><mi>n</mi></msub></math> true negatives and <math id="S4.p2.m9" class="ltx_Math" alttext="f_{n}" display="inline"><msub><mi>f</mi><mi>n</mi></msub></math> false negatives.</p>
+</div>
+<figure id="S4.T6" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_ERROR undefined">\toprule</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Precision</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Recall</span></td>
+<td class="ltx_td ltx_align_right"><math id="S4.T6.m1" class="ltx_Math" alttext="F_{1}" display="inline"><msub><mi mathsize="90%">F</mi><mn mathsize="90%">1</mn></msub></math></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">
+<span class="ltx_ERROR undefined">\midrule</span><span class="ltx_text" style="font-size:90%;">Rel pronoun agreement</span>
+</th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">81.43</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">83.82</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">82.61</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Modal verb (‘maybe’)</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">98.00</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">98.00</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">98.00</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Num/det agreement</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">74.14</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">67.19</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">70.49</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_ERROR undefined">\bottomrule</span></th>
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering" style="font-size:90%;"><span class="ltx_tag ltx_tag_table">Table 6: </span>Performance of the grammar checker on three error types based on
+regression tests</figcaption>
+</figure>
+<div id="S4.p3" class="ltx_para">
+<p class="ltx_p">We also ran a test run of the automatic evaluation on the marked-up gold corpus
+of Lule Sámi, to see if the grammar checker finds true errors and also to
+improve the error mark-up of grammatical errors in the corpus, keeping in mind
+that the corpus had been originally marked up for predominantly spelling errors.</p>
+</div>
+<div id="S4.p4" class="ltx_para">
+<p class="ltx_p">A lot of errors found by the grammar checker are true positives. Many of them
+were either not marked up or—more frequently—marked up with a different
+scope. Since the start of marking up the corpora for spelling errors, the
+mark-up guidelines have been developed further in connection with
+<span class="ltx_text ltx_font_italic">GramDivvun</span>, the North Sámi grammar checker, and adapted to automatic
+evaluation, where the grammar checker output is tested against the corpus
+mark-up.</p>
+</div>
+<div id="S4.p5" class="ltx_para">
+<p class="ltx_p">There are examples of when the grammar checker actually found grammatical errors
+that the human proof-reader missed out. Thirdly, there are examples where the
+original marking is not consistent with the newer guidelines for how much the
+scope of the error should be with regard to how much the grammar checker
+actually marks up. Example <a href="#S4.T6" title="Table 6 ‣ 4 Evaluation ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">6</span></span></a> is one of the cases where an
+error in relative pronoun agreement has been identified correctly by the grammar
+checker. This error type had a particularly high number of true positives in our
+preliminary evaluation, showing that this is a frequent error type. Another very
+frequent true positive that has not been adapted to current mark-up standards
+regards numeral error types, as in <a href="#S4.T6" title="Table 6 ‣ 4 Evaluation ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">6</span></span></a>. The old mark-up would
+have a bigger scope including context for the error, i.e. <span class="ltx_text ltx_font_italic">daj gålmmå
+tiemáj birra¿dan gålmå tiemá birra</span>. The current guidelines only mark up the
+form that is to be corrected, meaning <span class="ltx_text ltx_font_italic">daj¿dan</span>, <span class="ltx_text ltx_font_italic">gålmmå¿gålmå</span>
+and <span class="ltx_text ltx_font_italic">tiemáj¿tiemá</span> which are corrected in three steps and by three
+separate rules.</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S4.p6" class="ltx_para">
+<p class="ltx_p">. Da ulmutja <span class="ltx_text ltx_font_bold">ma</span> Hamsuna mielas li buorre ulmutja Hamsun gåvvi
+buorak láhkáj.
+<br class="ltx_break">Those people<span class="ltx_text ltx_font_smallcaps">.pl.nom</span> which<span class="ltx_text ltx_font_smallcaps">.nhum.pl.nom</span> Hamsun mind is good
+people Hamsun describe good way.
+<br class="ltx_break">‘Those people who, according to Hamsun, are good, he describes in a good manner’</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S4.p7" class="ltx_para">
+<p class="ltx_p">. Tjállagin li artihkkala <span class="ltx_text ltx_font_bold">daj</span> <span class="ltx_text ltx_font_bold">gålmmå</span> <span class="ltx_text ltx_font_bold">tiemáj</span> birra
+ma li ássje majna Árran la barggam …
+<br class="ltx_break">Text is article these<span class="ltx_text ltx_font_smallcaps">.dem.pl.gen</span> three<span class="ltx_text ltx_font_smallcaps">.num.sg.nom</span> theme about
+which is topics with Árran is work …
+<br class="ltx_break">‘In the text there are articles about these three themes, which are topics Árran
+has worked with’</p>
+</div>
+<div id="S4.p8" class="ltx_para">
+<p class="ltx_p">However, there are also several false positives, as in ex. <a href="#S4.T6" title="Table 6 ‣ 4 Evaluation ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">6</span></span></a>,
+where <span class="ltx_text ltx_font_italic">gålmmå</span> is not an error. The difficulty here is that the
+subsequent noun form is homonymous between nominative and genitive, and the
+numeral should have only been corrected if it was a genitive phrase.
+False positives occurred specifically for this error type (in the case of
+nominative/genitive nouns), showing that more work with the respective rules is
+necessary to improve the performance of the grammar checker.</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S4.p9" class="ltx_para">
+<p class="ltx_p">. Ja gå Knut lij <span class="ltx_text ltx_font_bold">gålmmå</span> jage vuoras de jåhtin Hábmelij, sadjáj
+Hamsund.
+<br class="ltx_break">And when Knut was three<span class="ltx_text ltx_font_smallcaps">.sg.nom</span> year<span class="ltx_text ltx_font_smallcaps">.sg.gen</span> old then move
+Hábmel, place Hamsund
+<br class="ltx_break">‘And when Knut was three years old, they moved to Hábmel, to a place called
+Hamsund’</p>
+</div>
+<div id="S4.p10" class="ltx_para">
+<p class="ltx_p">In ex. <a href="#S4.T6" title="Table 6 ‣ 4 Evaluation ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">6</span></span></a>, on the other hand, the agreement error finding of the
+grammar checker in <span class="ltx_text ltx_font_italic">álgij</span> ‘s/he started’ and its correction to
+<span class="ltx_text ltx_font_italic">álggin</span> ‘they started’ is a false positive. This is based on there being
+two subject candidates, because of singular nominative and plural genitive being
+homonyms, (<span class="ltx_text ltx_font_italic">cuhppa</span>) and the other one plural (<span class="ltx_text ltx_font_italic">biejve</span>, which in
+this sentence is singular genitive). The grammar checker confuses the first of
+them for a subject and therefore wrongly adapts the verb to it.</p>
+</div>
+<span class="ltx_ERROR undefined">\exg</span>
+<div id="S4.p11" class="ltx_para">
+<p class="ltx_p">. Bierjjedagá sjnjilltjamáno 20. biejve <span class="ltx_text ltx_font_bold">álgij</span> cuhppa, ja hiejtij
+lávvodak iehkeda.
+<br class="ltx_break">Friday March 20. day<span class="ltx_text ltx_font_smallcaps">.sg.gen</span> begin<span class="ltx_text ltx_font_smallcaps">.past.sg3</span>
+cup<span class="ltx_text ltx_font_smallcaps">.sg.nom</span>, and end saturday evening
+<br class="ltx_break">‘The cup started Friday on March 20 and ended Saturday evening’</p>
+</div>
+<div id="S4.p12" class="ltx_para">
+<p class="ltx_p">Additionally, we tested the grammar checker on a manually proofread Lule Sámi
+corpus used for a new text to speech (TTS) tool. The grammar checker did find
+errors that the proofreader had missed and was therefore useful in a project
+where we want the text to be perfect. Most of the responses from the grammar
+checker on this corpus were however false positives, with the grammar checker
+marking correct forms as errors. These ‘bad’ results were in turn used to
+improve and fine tune the grammar checker rules. We find this a very beneficial
+way of working—using our tools to double-check a proofread corpus, and at the
+same time using the results of the corpus to improve our tools.</p>
+</div>
+<div id="S4.p13" class="ltx_para">
+<p class="ltx_p">When running the grammar checker on a university level thesis, the grammar
+checker found many real errors. It was interesting that some highly frequent
+repeated errors were due to changes in the language norm.</p>
+</div>
+<div id="S4.p14" class="ltx_para">
+<p class="ltx_p">The overall results show us that the grammar checker actually finds real errors,
+but the main challenge with making it usable to users is to restrict the rules.
+At this point there is too much noise with more false positives than true
+positives.</p>
+</div>
+</section>
+<section id="S5" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">5 </span>Conclusion</h2>
+
+<div id="S5.p1" class="ltx_para">
+<p class="ltx_p">We have shown that by using a related language grammar checker as a starting
+point, we were able to create a basic level grammar checker for Lule Sámi,
+categorise a fair amount of frequent error types and collect regression tests
+for each of them in a reasonable amount of time (120 hours between two
+linguists, one of them a native speaker). The importance for language
+revitalisation cannot be measured before integrating the tools in the respective
+text processing programs for the language community to use. But we know from
+experience with the spell checker, that the tools have a wide group of users,
+and their importance can usually be felt in the number of complaints that are
+sent when something is wrong with the distribution or other technical issues.</p>
+</div>
+<div id="S5.p2" class="ltx_para">
+<p class="ltx_p">In the future, we want to offer a high-performance tool for the most common
+error types to the Lule Sámi users. We aim to release a beta version together
+with the commonly distributed spellchecker in 2022.<span id="footnote5" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">5</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">5</sup>
+            <span class="ltx_tag ltx_tag_note">5</span>
+            
+            
+            
+          c.f.
+<a href="https://divvun.no/en/index.html" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://divvun.no/en/index.html</a></span></span></span> From the developer side we aim at
+regression tests of at least 100 examples per error type with at least 90</p>
+</div>
+</section>
+<section id="Sx1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">Acknowledgments</h2>
+
+<div id="Sx1.p1" class="ltx_para">
+<p class="ltx_p">We want to thank Børre Gaup for running the evaluation on the gold corpus and
+helping with the technical side of error mark-up and automatic evaluation.</p>
+</div>
+</section>
+<section id="bib" class="ltx_bibliography">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+
+<ul id="bib.L1" class="ltx_biblist">
+<li id="bib.bib10" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Antonsen, L. Wiechetek, and T. Trosterud</span><span class="ltx_text ltx_bib_year"> (2010)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Reusing grammatical resources for new languages</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 7th International Conference on Language Resources and Evaluation (LREC 2010)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Stroudsburg</span>, <span class="ltx_text ltx_bib_pages"> pp. 2782–2789</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p1" title="2.2 Framework ‣ 2 Background ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib22" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. R. Beesley and L. Karttunen</span><span class="ltx_text ltx_bib_year"> (2003)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Finite state morphology</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">CSLI publications</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text isbn ltx_bib_external">ISBN 978-1575864341</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p1" title="2.2 Framework ‣ 2 Background ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.2</span></a>,
+<a href="#S2.SS2.p4" title="2.2 Framework ‣ 2 Background ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib29" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. Bick and T. Didriksen</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">CG-3 – beyond classical constraint grammar</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 20th Nordic Conference of Computational
+Linguistics, NODALIDA 2015, May 11-13, 2015, Vilnius, Lithuania</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 31–39</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1650-3740</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p1" title="2.2 Framework ‣ 2 Background ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.2</span></a>,
+<a href="#S2.SS2.p5" title="2.2 Framework ‣ 2 Background ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib89" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. Karlsson, A. Voutilainen, J. Heikkilä, and A. Anttila</span><span class="ltx_text ltx_bib_year"> (1995)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Constraint grammar: a language-independent system for parsing unrestricted text</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">Mouton de Gruyter</span>, <span class="ltx_text ltx_bib_place">Berlin</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p5" title="2.2 Framework ‣ 2 Background ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib91" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. Karlsson</span><span class="ltx_text ltx_bib_year"> (1990)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Constraint grammar as a framework for parsing unrestricted text</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 13th International Conference of Computational Linguistics</span>,  <span class="ltx_text ltx_bib_editor">H. Karlgren (Ed.)</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume">3</span>, <span class="ltx_text ltx_bib_place">Helsinki</span>, <span class="ltx_text ltx_bib_pages"> pp. 168–173</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p1" title="2.2 Framework ‣ 2 Background ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.2</span></a>,
+<a href="#S2.SS2.p5" title="2.2 Framework ‣ 2 Background ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib109" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. A. Kuoljok</span><span class="ltx_text ltx_bib_year"> (2002)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Julevsámegiella</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Bårjås: Julevsámegiella uddni - ja idet?</span>, <span class="ltx_text ltx_bib_pages"> pp. 10–18</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS1.p1" title="2.1 Language and resources ‣ 2 Background ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.1</span></a>.
+</span>
+</li>
+<li id="bib.bib120" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Lindén, E. Axelson, S. Drobac, S. Hardwick, J. Kuokkala, J. Niemi, T. A. Pirinen, and M. Silfverberg</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Hfst—a system for creating nlp tools</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">International workshop on systems and frameworks for computational morphology</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 53–71</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p1" title="2.2 Framework ‣ 2 Background ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib125" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">O. H. Magga</span><span class="ltx_text ltx_bib_year"> (1994)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Hvordan den nyeste nordsamiske rettskrivingen ble til</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Festskrift til Ørnulv Vorren</span>, <span class="ltx_text ltx_bib_pages"> pp. 269–282</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS1.p1" title="2.1 Language and resources ‣ 2 Background ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.1</span></a>.
+</span>
+</li>
+<li id="bib.bib150" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_editor">C. Moseley (Ed.)</span><span class="ltx_text ltx_bib_year"> (2010)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Atlas of the world’s languages in danger</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_edition">3rd edition</span>,  <span class="ltx_text ltx_bib_publisher">UNESCO Publishing</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">Online version: http://www.unesco.org/languages-atlas/</span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS1.p1" title="2.1 Language and resources ‣ 2 Background ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.1</span></a>.
+</span>
+</li>
+<li id="bib.bib152" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. N. Moshagen, F. Pirinen, and T. Trosterud</span><span class="ltx_text ltx_bib_year"> (2013-05)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Building an open-source development infrastructure for language technology projects</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 19th Nordic Conference of Computational Linguistics (NODALIDA 2013)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Oslo, Norway</span>, <span class="ltx_text ltx_bib_pages"> pp. 343–352</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://www.aclweb.org/anthology/W13-5631" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p5" title="2.2 Framework ‣ 2 Background ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib185" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. A. Pirinen and K. Lindén</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">State-of-the-art in weighted finite-state spell-checking</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 15th International Conference on Computational
+Linguistics and Intelligent Text Processing - Volume 8404</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">CICLing 2014</span>, <span class="ltx_text ltx_bib_pages"> pp. 519–532</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p5" title="2.2 Framework ‣ 2 Background ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib205" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">H. Rydving</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Words and varieties : lexical variation in saami</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">Société Finno-Ougrienne</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS1.p1" title="2.1 Language and resources ‣ 2 Background ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.1</span></a>.
+</span>
+</li>
+<li id="bib.bib213" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">P. Sammallahti</span><span class="ltx_text ltx_bib_year"> (1998)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">The saami languages: an introduction</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">Davvi girji</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS1.p1" title="2.1 Language and resources ‣ 2 Background ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.1</span></a>.
+</span>
+</li>
+<li id="bib.bib230" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Svonni</span><span class="ltx_text ltx_bib_year"> (2008)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Språksituationen för samerna i sverige</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Samiskan i Sverige, rapport från språkkampanjerådet</span>, <span class="ltx_text ltx_bib_pages"> pp. 22–35</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS1.p1" title="2.1 Language and resources ‣ 2 Background ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.1</span></a>.
+</span>
+</li>
+<li id="bib.bib264" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Wiechetek, S. N. Moshagen, B. Gaup, and T. Omma</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Many shades of grammar checking – launching a constraint grammar tool for North Sámi</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the NoDaLiDa 2019 Workshop on Constraint Grammar -
+Methods, Tools and Applications</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">NEALT Proceedings Series 33:8</span>, <span class="ltx_text ltx_bib_pages"> pp. 35–44</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p4" title="2.2 Framework ‣ 2 Background ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib266" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Wiechetek, F. A. Pirinen, B. Gaup, and T. Omma</span><span class="ltx_text ltx_bib_year"> (2021-09)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">No more fumbling in the dark - quality assurance of high-level NLP tools in a multi-lingual infrastructure</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Seventh International Workshop on
+Computational Linguistics of Uralic Languages</span>,
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p3" title="3 Setup ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3</span></a>.
+</span>
+</li>
+<li id="bib.bib272" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[17]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Ylikoski</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Future time reference in lule saami, with some remarks on finnish</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Estonian and Finno-Ugric Linguistics</span> <span class="ltx_text ltx_bib_volume">7</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages"> pp. 209–244</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="http://ojs.utlib.ee/index.php/jeful/issue/view/7.2" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS2.p4" title="3.2 Errors in Lule Sámi ‣ 3 Setup ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.2</span></a>.
+</span>
+</li>
+<li id="bib.bib273" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[18]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Ylikoski</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Lule saami</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">The Oxford Guide to the Uralic Languages</span>, <span class="ltx_text ltx_bib_pages"> pp. 130–146</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS2.p10" title="3.2 Errors in Lule Sámi ‣ 3 Setup ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.2</span></a>,
+<a href="#S3.SS2.p13" title="3.2 Errors in Lule Sámi ‣ 3 Setup ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.2</span></a>,
+<a href="#S3.SS2.p18" title="3.2 Errors in Lule Sámi ‣ 3 Setup ‣ Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low Resource Language without Data" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.2</span></a>.
+</span>
+</li>
+</ul>
+</section>
+<div class="ltx_pagination ltx_role_newpage"></div>
+</article>
+</div>
+<footer class="ltx_page_footer">
+<div class="ltx_page_logo">Generated  on Tue Jun 14 01:59:05 2022 by <a href="http://dlmf.nist.gov/LaTeXML/">LaTeXML <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="[LOGO]"></a>
+</div></footer>
+</div>
+</body>
+</html>

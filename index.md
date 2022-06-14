@@ -82,6 +82,13 @@ be as accurate and up-to-date as google scholar.
 
 Name as used on the paper, will be updated when I get to it.
 
+1. Inga Lill Sigga Mikkelsen, Linda Wiechetek, and **Flammie A Pirinen**. 2022.
+   [Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low
+   Resource Language without Data.](2022-computel/Mikkelsen-2022-computel.html)
+   In *Proceedings of the Fifth Workshop on the Use of Computational Methods in
+   the Study of Endangered Languages*, pages 149–158, Dublin, Ireland.
+   Association for Computational Linguistics. [ACL anthology
+   version](https://aclanthology.org/2022.computel-1.19/#)
 1. Jack Rueter, Niko Partanen, **Flammie A. Pirinen** (2021) [Numerals and what
    counts](2022-udw/Rueter-2022-numerals.html), in Universal Dependencies
    Workshop at SyntaxFest, ~~Sofia~~ (actually Online). [ACL anthology
