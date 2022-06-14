@@ -13,7 +13,13 @@ converted to HTML,.
 
 Most stuff prior to 2021 will be under name *Tommi A Pirinen*.
 
-* <div itemscope itemtype="https://schema.org/Person"><a itemprop="sameAs" content="https://orcid.org/0000-0003-1207-5395" href="https://orcid.org/0000-0003-1207-5395" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0003-1207-5395</a></div>
+* <div itemscope itemtype="https://schema.org/Person"><a itemprop="sameAs"
+  content="https://orcid.org/0000-0003-1207-5395"
+  href="https://orcid.org/0000-0003-1207-5395" target="orcid.widget"
+  rel="noopener noreferrer" style="vertical-align:top;"><img
+  src="https://orcid.org/sites/default/files/images/orcid_16x16.png"
+  style="width:1em;margin-right:.5em;" alt="ORCID iD
+  icon">orcid.org/0000-0003-1207-5395</a></div>
 * [Tommi A Pirinen on Semantic
    Scholar](https://www.semanticscholar.org/author/Tommi-A.-Pirinen/1823491)
 * [Flammie on Google
@@ -82,6 +88,12 @@ be as accurate and up-to-date as google scholar.
 
 Name as used on the paper, will be updated when I get to it.
 
+1. Linda Wiechetek, Katri Hiovain-Asikainen, Inga Lill Sigga Mikkelsen,
+   Sjur N. Moshagen, **Flammie A. Pirinen**, Trond Trosterud, Børre Gaup. 2022.
+   [Unmasking the Myth of Effortless Big Data --- \\ Making an Open Source
+   Multilingual Infrastructure and Building Language Resources from
+   Scratch](2022-lrec/Wiechetek-2022-lrec.html). In *Proceedings of Language
+   Resources and Evaluation Conference 2022*, pages tba, Marseille, France.
 1. Inga Lill Sigga Mikkelsen, Linda Wiechetek, and **Flammie A Pirinen**. 2022.
    [Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low
    Resource Language without Data.](2022-computel/Mikkelsen-2022-computel.html)
