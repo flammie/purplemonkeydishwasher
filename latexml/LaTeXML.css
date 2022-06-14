@@ -118,9 +118,15 @@ td.ltx_subfloat { width:50%; }
 .ltx_td.ltx_align_center, .ltx_th.ltx_align_center { white-space:nowrap; }
 .ltx_td.ltx_align_left.ltx_wrap,   .ltx_th.ltx_align_left.ltx_wrap,
 .ltx_td.ltx_align_right.ltx_wrap,  .ltx_th.ltx_align_right.ltx_wrap,
-.ltx_td.ltx_align_center.ltx_wrap, .ltx_th.ltx_align_center.ltx_wrap { white-space:normal; }
+.ltx_td.ltx_align_center.ltx_wrap, .ltx_th.ltx_align_center.ltx_wrap,
+.ltx_td.ltx_align_justify,  .ltx_th.ltx_align_justify { white-space:normal; }
 
+.ltx_tabular .ltx_tabular { width:100%; }
 .ltx_inline-block { display:inline-block; }
+
+/* avoid padding when aligning adjacent columns, e.g. for split decimals */
+.ltx_norightpad { padding-right:0!important; }
+.ltx_noleftpad { padding-left:0!important; }
 
 /* equations in non-aligned mode (not normally used) */
 .ltx_eqn_div { display:block; width:95%; text-align:center; }
@@ -130,10 +136,14 @@ td.ltx_subfloat { width:50%; }
 .ltx_eqn_row   { display:table-row; }
 .ltx_eqn_cell  { display:table-cell; width:auto; }
 
-table.ltx_eqn_align tr.ltx_equation td.ltx_align_left + td.ltx_align_right { padding-left:3em; }
+/* Padding between column pairs in ams align */
+table.ltx_eqn_align tr.ltx_equation td.ltx_align_left + td.ltx_align_right,
+table.ltx_eqn_align tr.ltx_equation td.ltx_align_left + td.ltx_align_center,
+table.ltx_eqn_align tr.ltx_equation td.ltx_align_center + td.ltx_align_right,
+table.ltx_eqn_align tr.ltx_equation td.ltx_align_center + td.ltx_align_center  { padding-left:3em; }
 table.ltx_eqn_eqnarray tr.ltx_eqn_lefteqn + tr td.ltx_align_right { min-width:2em; }
 
-.ltx_eqn_eqno { max-width:0em; overflow:visible; }
+.ltx_eqn_eqno { max-width:0em; overflow:visible; white-space: nowrap; }
 .ltx_eqn_eqno.ltx_align_right .ltx_tag { float:right; }
 
 .ltx_eqn_center_padleft,
@@ -174,7 +184,7 @@ dl.ltx_description dl.ltx_description dd { margin-left:3em; }
 .ltx_bibliography dd { margin-left:3em; }
 /*.ltx_biblist { list-style-type:none; }*/
 .ltx_bibitem { list-style-type:none; }
-.ltx_bibtag { font-weight:bold; margin-left:-2em; width:3em; }
+.ltx_bibitem .ltx_tag { font-weight:bold; margin-left:-2em; width:3em; }
 /*.bibitem-tag + div { display:inline; }*/
 .ltx_bib_title { font-style:italic; }
 .ltx_bib_article .bib-title { font-style:normal !important; }
@@ -188,7 +198,7 @@ dl.ltx_description dl.ltx_description dd { margin-left:3em; }
 /* Listings */
 .ltx_listing {
     display:block;
-    margin: 1ex 3em 1ex 3em;
+    margin: 1ex 3em 1ex 0em;
     overflow-x:auto;
     text-align: left; }
 .ltx_float .ltx_listing {
@@ -322,9 +332,9 @@ span.ltx_rowspan { position:absolute; top:0; bottom:0; }
  Low-level Basics */
 /* Note that LaTeX(ML)'s font model doesn't map quite exactly to CSS's */
 /* Font Families => font-family */
-.ltx_font_serif      { font-family: "Linux Libertine", "Liberation Serif", serif; }
-.ltx_font_sansserif  { font-family: "Ubuntu", "Oxygen", "Cantarell", sans-serif; }
-.ltx_font_typewriter { font-family: "Terminus", monospace; }
+.ltx_font_serif      { font-family: serif; }
+.ltx_font_sansserif  { font-family: sans-serif; }
+.ltx_font_typewriter { font-family: monospace; }
 /* dingbats should be converted to unicode? */
 /* Math font families handled within math: script, symbol, fraktur, blackboard ? */
 /* Font Series => font-weight */
@@ -472,7 +482,7 @@ body {
   /*font-family: 'Latin Modern', Georgia, Cambria, 'Times New Roman', Times, serif;*/
   line-height: 1.8;
 
-  max-width: 80ch;
+  max-width: 120ch;
   min-height: 100vh;
   overflow-x: hidden;
   margin: 0 auto;
