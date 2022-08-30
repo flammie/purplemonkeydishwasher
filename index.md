@@ -88,13 +88,27 @@ be as accurate and up-to-date as google scholar.
 
 Name as used on the paper, will be updated when I get to it.
 
+1. Heiki-Jaan Kaalep, **Flammie Pirinen**, Sjur Nørstebø Moshagen (2022)
+   [You can’t suggest that?!–Comparisons and improvements of speller error
+   models](2022-trondschrift/Kaalep-2022-trondschrift.html) in *Nordlyd
+   Vol. 46 No. 1 (2022): Morfologi, målstrev og maskinar –
+   Trond Trosterud {fyller | täyttää | deavdá | turns} 60!*
+1. Linda Wiechetek, **Flammie Pirinen**, Børre Gaup, Chiara Argese,
+   Thomas Omma (2022) [Mii \*eai leat gal vuollánan – Vi \*ha neimen ikke
+   gitt opp–En hybrid grammatikkontroll for å rette
+   kongruensfeil](2022-trondschrift/Wiechetek-2022-trondschrift.html) in
+   *Nordlyd Vol. 46 No. 1 (2022): Morfologi, målstrev og maskinar –
+   Trond Trosterud {fyller | täyttää | deavdá | turns} 60!*
+1. **Flammie Pirinen**, Linda Wiechetek (2022) [Building an Extremely Low
+   Resource Language to High Resource Language Machine Translation System
+   from Scratch](2022-konvens/Pirinen-2022-konvens.html)
 1. Linda Wiechetek, Katri Hiovain-Asikainen, Inga Lill Sigga Mikkelsen,
-   Sjur N. Moshagen, **Flammie A. Pirinen**, Trond Trosterud, Børre Gaup. 2022.
+   Sjur N. Moshagen, **Flammie A. Pirinen**, Trond Trosterud, Børre Gaup. (2022)
    [Unmasking the Myth of Effortless Big Data --- \\ Making an Open Source
    Multilingual Infrastructure and Building Language Resources from
    Scratch](2022-lrec/Wiechetek-2022-lrec.html). In *Proceedings of Language
    Resources and Evaluation Conference 2022*, pages tba, Marseille, France.
-1. Inga Lill Sigga Mikkelsen, Linda Wiechetek, and **Flammie A Pirinen**. 2022.
+1. Inga Lill Sigga Mikkelsen, Linda Wiechetek, and **Flammie A Pirinen**. (2022)
    [Reusing a Multi-lingual Setup to Bootstrap a Grammar Checker for a Very Low
    Resource Language without Data.](2022-computel/Mikkelsen-2022-computel.html)
    In *Proceedings of the Fifth Workshop on the Use of Computational Methods in
