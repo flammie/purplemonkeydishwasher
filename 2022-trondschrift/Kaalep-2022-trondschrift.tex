@@ -64,7 +64,7 @@ To that end, our goal is to reduce the noise level (increase precision) by
 generating as few irrelevant suggestions as possible, and when in doubt, give no
 suggestion at all rather than risk giving irrelevant suggestions; this is in
 contrast with e.g. Hunspell\footnote{\url{https://hunspell.github.io/}}
-(\cite{hunmorph}) and the rest of the Xspell family (Ispell,
+(\cite{tron2005hunmorph}) and the rest of the Xspell family (Ispell,
 Aspell\footnote{\url{http://aspell.net}}, Myspell,
 nuspell\footnote{\url{https://nuspell.github.io}}, etc). While pursuing this
 goal, we try to understand the reasons behind mistyping, and assume that
@@ -114,17 +114,17 @@ well is~\cite{pirinen2014state}. Within the Sámi language context, the work has
 been done from~\cite{gaup2005xerox} onwards.
 
 Substantial work on analysing North Sámi spelling errors was done in
-\cite{antonsen2013}, and the insights gained were important for the work done
-with the North Sámi speller in this article. To the best of our knowledge, no
-other Sámi languages have been analysed with regard to spelling errors, their
-classification and frequency.
+\cite{antonsen2013callinmeattahusaid}, and the insights gained were important
+for the work done with the North Sámi speller in this article. To the best of
+our knowledge, no other Sámi languages have been analysed with regard to
+spelling errors, their classification and frequency.
 
 Estonian spelling errors, that emerge while typing on a computer keyboard, have
 not been described in publications. However, the Estonian spellers that were
-created by Filosoft Ltd. in the beginning of the 1990ies (e.g. for Microsoft
+created by Filosoft Ltd.\ in the beginning of the 1990ies (e.g.\ for Microsoft
 Word) contain a suggestion module, and since their \textit{C}-language source
 code has been made public\footnote{\url{https://github.com/Filosoft/vabamorf}},
-it has been possible to re-implement it as an FST.
+it has been possible to re-implement it as an FST.\@
 
 There is some prior work done on the general problem of error-correction using
 neural networks and this is often suggested as the state-of-the-art currently,
@@ -136,38 +136,39 @@ wanted to use.
 
 One of our central themes in this article lies in the usage and importance of a
 public error corpus and/or list; an elaborate model for ordering correction
-candidates: c.f.  \cite{flor2019benchmark}.  Different sources have different
+candidates: c.f.~\cite{flor2019benchmark}.  Different sources have different
 types of errors, thus different strategies should be used, and different
-recall-precision figures are expected:   \cite{beeksma2018detecting}.
+recall-precision figures are expected:~\cite{beeksma2018detecting}.
 
 The GiellaLT framework~\cite{moshagen2013building} originated from the initial
 work on proofing tools and morphological analysers for the Sámi languages, where
-Trond Trosterud has been a major driving force (see e.g. \cite{trosterud2005}
-and \cite{trosterud2007}). The framework itself is language independent, but
-favours rule-based technologies suitable for morphology rich, complex, and
-low-resource languages. The overall goal is to support all language technology
-needs of indigenous and minority languages, from text input to speech
-technology. It is constantly being developed, and is the home for keyboards for
-50 languages, and language models for more than 130 languages. Many languages
-and keyboards are in daily use, and is core to the digital life of several
-indigenous and minority language communities.
+Trond Trosterud has been a major driving force (see
+e.g.~\cite{trosterud2005samisk} and~\cite{trosterud2007disambiguering}). The
+framework itself is language independent, but favours rule-based technologies
+suitable for morphology rich, complex, and low-resource languages. The overall
+goal is to support all language technology needs of indigenous and minority
+languages, from text input to speech technology. It is constantly being
+developed, and is the home for keyboards for 50 languages, and language models
+for more than 130 languages. Many languages and keyboards are in daily use, and
+is core to the digital life of several indigenous and minority language
+communities.
 
 \section{Methods}
 
 In this article we study two approaches to error-correction, a rule-based method
 using two-level \textit{finite-state transducers}
 (FST)~\cite{pirinen2014state}, and data-driven \textit{neural network-based}
-(NN)~\cite{hochreiter1997long,bollmann-sogaard-2016-improving} \textit{language
+(NN)~\cite{hochreiter1997long,bollmann2016improving} \textit{language
 models}. We call a method that corrects incorrect word-forms into correct ones
 \textit{an error model}.
 
 \subsection{FST methods}
 
 The finite-state spelling correction follows the model described
-in~\cite{pirinen2012}: a transducer that modifies the erroneous string is
-composed with the speller transducer, which accepts only valid wordforms. As a
-result, the suggestion transducer presents only modifications that are also
-valid wordforms to the user.
+in~\cite{pirinen2010finitestate}: a transducer that modifies the erroneous
+string is composed with the speller transducer, which accepts only valid
+wordforms. As a result, the suggestion transducer presents only modifications
+that are also valid wordforms to the user.
 
 Ideally, there would be only one suggestion, and this would be the right one.
 The more suggestions there are, and the lower down the ranked list the correct
@@ -245,23 +246,24 @@ these lists are derived from.
 The present day North Sámi orthography is from 1979, with some smaller
 adjustments from 1985\footnote{There have been several older orthographies going
 back all the way to 1748.}. The present orthography is thoroughly described
-in~\cite{ref_Nic}.
+in~\cite{nickel2011nordsamisk}.
 
 As a result of the Norwegian assimilation policy towards the Sámi people
 throughout a major part of the 20th century, it is clear that most texts written
 in the modern orthography are pretty recent. Modern North Sámi literacy is
 correspondingly young, which is reflected in texts in the form of spelling and
-other grammatical errors. In the material used in~\cite{antonsen2013} there is
-about 4\% spelling errors, which is considerably more than in e.g. Norwegian or
-English texts produced by native speakers. In~\cite{flor_futagi_2015}, where
-the majority of the texts are written by non-native speakers of English at
-various levels of mastering the language, the average number of spelling errors
-is 2.74\%. And for the most advanced writers contributing to the data set, the
-average number of misspellings is well below 1\%. That is, the average number of
-spelling errors in North Sámi texts is considerably higher than in similar
-English texts. This is expected given the short history of the orthography, the
-sociolinguistic setting, the paucity of available text and thus written language
-exposure, and the minority language status of North Sámi.
+other grammatical errors. In the material used
+in~\cite{antonsen2013callinmeattahusaid} there is about 4\% spelling errors,
+which is considerably more than in e.g. Norwegian or English texts produced by
+native speakers. In~\cite{flor2015patterns}, where the majority of the texts are
+written by non-native speakers of English at various levels of mastering the
+language, the average number of spelling errors is 2.74\%. And for the most
+advanced writers contributing to the data set, the average number of
+misspellings is well below 1\%. That is, the average number of spelling errors
+in North Sámi texts is considerably higher than in similar English texts. This
+is expected given the short history of the orthography, the sociolinguistic
+setting, the paucity of available text and thus written language exposure, and
+the minority language status of North Sámi.
 
 The material used in developing, testing and evaluating the error models in this
 paper has been collected over many years while developing various language
@@ -291,15 +293,16 @@ evaluate the resulting error model.
 \subsection{South Sámi}
 
 The present day South Sámi orthography was formally decided upon in 1978,
-although \cite{bull_bergsland_1974} used an early version of that orthography.
+although~\cite{bull1974lohkede} used an early version of that orthography.
 South Sámi differs from most other Sámi languages and dialects due to a vast and
-complex system of umlaut, c.f.~\cite{Bergsland1994} and \cite{Magga2012}.
-Although South Sámi does not have consonant gradation as opposed to the other
-Sámi languages, it does have alternations in consonant clusters and surrounding
-vowels depending on the syllable and foot structure of the word. Various
-inflectional endings add zero, one or more syllables to the base form, which
-forces a recast of the foot structure, which can set off a chain reaction of
-various consonant and vowel changes. Two examples:
+complex system of umlaut, c.f.~\cite{Bergsland1994sydsamisk}
+and~\cite{Magga2012sorsamisk}.  Although South Sámi does not have consonant
+gradation as opposed to the other Sámi languages, it does have alternations in
+consonant clusters and surrounding vowels depending on the syllable and foot
+structure of the word. Various inflectional endings add zero, one or more
+syllables to the base form, which forces a recast of the foot structure, which
+can set off a chain reaction of various consonant and vowel changes. Two
+examples:
 
 \pex<gåetie>
 \a
@@ -420,10 +423,10 @@ not used when building the manually crafted regex error model.
 
 Estonian orthography in its present form was adopted during the third quarter of
 the 19th century. It is modelled after Finnish orthography; the proposal was
-made by Adolf Ivar Arwidsson \cite{Arwidsson1822}. Prior to this,
+made by Adolf Ivar Arwidsson~\cite{Arwidsson1822ehstniche}. Prior to this,
 Estonian orthography was modelled after High German, but uneducated Estonian
-peasants spontaneously tended towards the Finnish style orthography \cite[p.
-204]{Kask1970}
+peasants spontaneously tended towards the Finnish style orthography~\cite[p.
+204]{Kask1970eesti}
 
 The main difference from the previous orthography lies in the simplicity of the
 rules for marking phone length: nowadays, the rule of thumb is that a short
@@ -478,42 +481,45 @@ total to the right.
 Accented letter errors are easy to correct: there are very few alternatives one
 should offer, and the reasoning behind the suggestions is transparent, making it
 easy for the writer to decide whether to accept or not. An example for Estonian
-would be \textit{*tshempion} - \textit{tšempion}. For North Sámi, this type of
-errors is very frequent - one third of misspellings belong to this class, and we
+would be \textit{*tshempion}---\textit{tšempion}. For North Sámi, this type of
+errors is very frequent---one third of misspellings belong to this class, and we
 can even identify subclasses: vowel \textit{á} vs \textit{a} (e.g.
-\textit{*Amerihka} - \textit{Amerihká}), or consonants \textit{č}, \textit{đ},
+\textit{*Amerihka}---\textit{Amerihká}), or consonants \textit{č}, \textit{đ},
 \textit{ŋ}, \textit{š}, \textit{\samit}, \textit{ž} vs \textit{c}, \textit{d},
-\textit{n}, \textit{s}, \textit{t}, \textit{z} (e.g. \textit{*Cuovvovaccat} -
-\textit{Čuovvovaččat}, \textit{*Sámediggerádi} - \textit{Sámediggeráđi},
-\textit{*CD-singel} - \textit{CD-siŋgel}, \textit{*oktašas} - \textit{oktasaš},
-\textit{*olbmo\samit} - \textit{olbmot}, \textit{*gazaldaga} -
-\textit{gažaldaga}). In fact, \textit{a}-\textit{á} confusion is the single most
-frequent spelling error in North Sámi texts, around 40\% in general according to
-\cite[p 24]{antonsen2013}\footnote{she includes real-word errors, which we do
-not, which probably explains the difference in relative size for this error type
-in her investigation compared to our findings.}.  The source of these errors in
-North Sámi is likely several. One is lack of keyboard support that makes it hard
-to type the correct letter. That was a major issue in social media texts
-investigated by Antonsen op.cit., but for several years now there has been
-available a North Sámi keyboard app for mobile phones, so this is less of a
-problem today. Another possible source is insecurity in the correct spelling,
-often in combination with dialectal variation. The \textit{a}-\textit{á}
-confusion can at least partly be attributed to the fact that the orthography
-does not follow the phonology in various dialects, the variation is greater and
-more complex than the orthography reflects. Also final \textit{\samit} instead
-of final \textit{t} is most likely based on pronunciation: in some dialects, the
-plosive \textit{t} is reduced to a pure fricative \textit{h} sound when followed
-by a word beginning with a vowel. As almost all misspellings of \textit{\samit}
-for correct \textit{t} can be found in this position, it is very likely that
-phonology plays a role. For a more detailed analysis of spelling errors in North
-Sámi, see \cite{antonsen2013}.
+\textit{n}, \textit{s}, \textit{t}, \textit{z} (e.g.
+\textit{*Cuovvovaccat}---\textit{Čuovvovaččat},
+\textit{*Sámediggerádi}---\textit{Sámediggeráđi},
+\textit{*CD-singel}---\textit{CD-siŋgel}, \textit{*oktašas}---\textit{oktasaš},
+\textit{*olbmo\samit}---\textit{olbmot},
+\textit{*gazaldaga}---\textit{gažaldaga}). In fact, \textit{a}---\textit{á}
+confusion is the single most frequent spelling error in North Sámi texts, around
+40\% in general according to~\cite[p
+24]{antonsen2013callinmeattahusaid}\footnote{she includes real-word errors,
+which we do not, which probably explains the difference in relative size for
+this error type in her investigation compared to our findings.}.  The source of
+these errors in North Sámi is likely several. One is lack of keyboard support
+that makes it hard to type the correct letter. That was a major issue in social
+media texts investigated by Antonsen op.cit., but for several years now there
+has been available a North Sámi keyboard app for mobile phones, so this is less
+of a problem today. Another possible source is insecurity in the correct
+spelling, often in combination with dialectal variation. The
+\textit{a}-\textit{á} confusion can at least partly be attributed to the fact
+that the orthography does not follow the phonology in various dialects, the
+variation is greater and more complex than the orthography reflects. Also final
+\textit{\samit} instead of final \textit{t} is most likely based on
+pronunciation: in some dialects, the plosive \textit{t} is reduced to a pure
+fricative \textit{h} sound when followed by a word beginning with a vowel. As
+almost all misspellings of \textit{\samit} for correct \textit{t} can be found
+in this position, it is very likely that phonology plays a role. For a more
+detailed analysis of spelling errors in North Sámi,
+see~\cite{antonsen2013callinmeattahusaid}.
 
 Accented letters in South Sámi covers only three pairs: \textit{i} vs \textit{ï}
-(e.g. \textit{*jih} - \textit{jïh}, \textit{*hïjven} - \textit{hijven}),
-\textit{*ø} vs \textit{ö} (e.g. \textit{*bøøremes} - \textit{bööremes}), and
-\textit{*ä} vs \textit{æ} (e.g. \textit{*nännoste} - \textit{nænnoste}). But
+(e.g. \textit{*jih}---\textit{jïh}, \textit{*hïjven}---\textit{hijven}),
+\textit{*ø} vs \textit{ö} (e.g. \textit{*bøøremes}---\textit{bööremes}), and
+\textit{*ä} vs \textit{æ} (e.g. \textit{*nännoste}---\textit{nænnoste}). But
 they cover more than half of all misspellings in our test data. Out of a total
-set of 8~325 misspelling instances, 4~285 -- or 51.5\% -- are errors of this
+set of 8~325 misspelling instances, 4~285---or 51.5\%---are errors of this
 type. The conjuction \textit{jïh} (=\textit{and}) alone counts for more than
 10\% (884 occurrences) of all misspellings. The three pairs fall into two
 categories, one purely orthographic, and one phonological. The \textit{*ø/ö} and
@@ -535,10 +541,10 @@ misspellings both in frequency and often simplicity of correction.
 \textbf{Deleting} (or omitting) a letter is a very frequent error. It may be
 caused by failing to hit a key, or by failing a phone-to-letter mapping rule. A
 suggestion to correct this error by doubling a letter, or (in case of North
-Sámi) by creating a diphthong, e.g. \textit{*departementa} -
-\textit{departemeanta}, might seem more plausible than a suggestion to insert a
-letter in some random position of the same word. Thus, it makes sense to
-identify this subclass of deletions.
+Sámi) by creating a diphthong, e.g.
+\textit{*departementa}---\textit{departemeanta}, might seem more plausible than
+a suggestion to insert a letter in some random position of the same word. Thus,
+it makes sense to identify this subclass of deletions.
 
 If the misspelling means that an extra letter has been \textbf{added}, we also
 identify a subclass of resulting doubles or diphthongs, the classification thus
@@ -546,22 +552,22 @@ being similar to the deletion errors.
 
 \textbf{Substitution} errors are relatively more frequent in the Sámi corpora
 than in Estonian. They also involve cases where one letter is substituted by two
-(e.g. North Sámi \textit{*direktora} - \textit{direktevra}), or two by one (e.g.
-North Sámi \textit{*Osllu} - \textit{Oslo}), or two adjacent letters by two
+(e.g. North Sámi \textit{*direktora}---\textit{direktevra}), or two by one (e.g.
+North Sámi \textit{*Osllu}---\textit{Oslo}), or two adjacent letters by two
 different ones, as in consonant gradation mix-ups (e.g.
-\textit{*Sámedikkeválgii} - \textit{Sámediggeválgii}).
+\textit{*Sámedikkeválgii}---\textit{Sámediggeválgii}).
 
 In Estonian, the main source of errors is the typing process, as evidenced by
 the relatively high proportion of \textbf{transpositions} (e.g.
-\textit{*komapnii} - \textit{kompanii}) and repetitions (e.g.
-\textit{*poliititika} - \textit{poliitika}). Errors relating to incorrectly
+\textit{*komapnii}---\textit{kompanii}) and repetitions (e.g.
+\textit{*poliititika}---\textit{poliitika}). Errors relating to incorrectly
 writing phones are relatively few.  In North Sámi, the main source of errors is
-the phone-to-letter process, i.e. applying rules of orthography. Many
+the phone-to-letter process, i.e.\ applying rules of orthography. Many
 substitution errors may be blamed on it. This is also documented and discussed
-by \cite{antonsen2013}.
+by~\cite{antonsen2013callinmeattahusaid}.
 
 In South Sámi as well, the main source of errors is the phone-to-letter process,
-i.e. applying rules of orthography. In addition, another major source of error
+i.e.\ applying rules of orthography. In addition, another major source of error
 is the morphophonology of the language, especially as related to syllable
 structure and its consequences for \textbf{suffix} realisation, as exemplified
 by \textit{*edtjibie} vs \textit{edtjebe}. But the biggest class of errors in
@@ -606,8 +612,7 @@ Other                       &                    &    &  6 &    &  8 &   &  36 \
 Total                       &                    &    & 100\% & &100\%&  & 100\%\\
 \bottomrule
 \end{tabular}
-    \caption{Error types, percentage of all errors.}
-    \label{tab:error_classes}
+    \caption{Error types, percentage of all errors.\label{tab:error_classes}}
 \end{table}
 
 
@@ -652,7 +657,7 @@ utilized very rarely, and does not impact the performance very much. It is also
 applied to the new regex models described below, mainly because it would be more
 work to avoid using it.
 
-For Estonian, the regex model is the first one implemented in FST. It is based
+For Estonian, the regex model is the first one implemented in FST.\@ It is based
 on the earlier work by Filosoft; no earlier baseline models have been developed
 for Estonian.
 
@@ -682,7 +687,7 @@ still be counted as one error.
 
 For Estonian, the misspelling list indicates that in case the keyboard does not
         provide a convenient way to type the accented letters, users may come up
-        with an alternative orthography, e.g. use \textit{sh} or \textit{s\^{}}
+        with an alternative orthography, e.g.\ use \textit{sh} or \textit{s\^{}}
         instead of the correct \textit{š}. If this is the case, then one may
         expect unlimited substitutions of this kind in a wordform (in addition
         to other errors). Nordic letters that are not part of the Sámi
@@ -697,20 +702,22 @@ For Estonian, the misspelling list indicates that in case the keyboard does not
         regex (like one that is needed for repetition) is very costly in terms
         of FST memory, thus they are not used in the Sámi FSTs.
 
-\item Morphology errors, i.e. violating the rules that govern how a word is
+\item Morphology errors, i.e.\ violating the rules that govern how a word is
     modified when it is inflected or compounded.  These errors are corrected by
-        highly specialised regexes containing string pairs, e.g. a pair of
+        highly specialised regexes containing string pairs, e.g.\ a pair of
         inflectional suffixes.
 
-\item Orthography, i.e. the convention of writing phones and their combinations.
-    Letters and combinations that sound similar, like \textit{i} and \textit{j},
-        belong to this group. For Estonian, the set of orthography-related
-        regexes is smaller than for the Sámi languages, reflecting the
-        proportion of this type of errors in the misspelling list. Also, it is
-        rather common for a Sámi word to contain more than one orthography error
-        (as defined currently); it is possible that a better understanding of
-        the errors will allow us to see in the future how they might really be
-        the manifestation of single errors in the mental process of the writer.
+\item Orthography, i.e.\ the convention of writing phones and their
+    combinations.  Letters and combinations that sound similar, like \textit{i}
+        and \textit{j}, belong to this group. For Estonian, the set of
+        orthography-related regexes is smaller than for the Sámi languages,
+        reflecting the proportion of this type of errors in the misspelling
+        list. Also, it is rather common for a Sámi word to contain more than one
+        orthography error (as defined currently); it is possible that a better
+        understanding of the errors will allow us to see in the future how they
+        might really be the manifestation of single errors in the mental process
+        of the writer.
+
 \end{itemize}
 
 There are different ways to write and combine regexes to yield an FST that
@@ -754,7 +761,7 @@ these experiments in real low-resource settings.
 \section{Evaluation}
 
 
-The data in Table \ref{tab:performance} gives an overview of the performance of
+The data in Table~\ref{tab:performance} gives an overview of the performance of
 the various error models, for a number of parameters:
 
 \begin{itemize}
@@ -781,7 +788,7 @@ the various error models, for a number of parameters:
 \item \textbf{Error model size in megabytes:} FST size is provided in the table
     to compare the models. The FST size is directly proportional to the use of
         regexes that consider longer context, like when checking letter pair,
-        triple etc. repetitions, or counting the allowed number of edit
+        triple etc.\ repetitions, or counting the allowed number of edit
         operations. The neural model size is the size of the neural network and
         dependent on the hyperparameters used.
 \end{itemize}
@@ -820,8 +827,7 @@ FST/ NMT error model size, Mb    & 13    & 38    & 30    & 31    &  38   &  7.9 
     \end{tabular}
     \caption{FST / machine learnt performance; BL = baseline, RGX = handmade
     regex, ML = machine learnt. ML spelling error list size is specified as
-    training data size / test \& evaluation data size.}
-    \label{tab:performance}
+    training data size / test \& evaluation data size.\label{tab:performance}}
 \end{table}
 
 
@@ -852,7 +858,7 @@ correct are errors that the rule based model has no problem correcting.
 Second, building hand-tuned regular expressions is an exercise worth
 undertaking, but requires thorough analysis of the error landscape. The Estonian
 error model performs really well, and the North Sámi handwritten regex model
-(labelled RGX in Table \ref{tab:performance}) makes a major leap forward in both
+(labelled RGX in Table~\ref{tab:performance}) makes a major leap forward in both
 recall and precision, making 10+ percentage jumps compared to the baseline.
 Admittedly, the baseline error model was not that good in the first place, but
 with the handwritten regex, North Sámi is close behind the Estonian model in
@@ -871,7 +877,7 @@ one would have to focus on the remaining classes of misspellings, but as shown
 above, those are quite heterogeneous. And finally, the misspelling data
 available to regex development and testing was quite small, and that may
 influence the numbers. We used another data source for ML training and testing,
-hence the very different dataset sizes for ML and RGX.
+hence the very different dataset sizes for ML and RGX.\@
 
 The reasons for the difference between the North and South Sámi baseline models
 can probably be attributed to several factors.  One possible factor is the
@@ -887,12 +893,12 @@ a separate study, and is outside the scope of this article.
 
 We did not use a list of unseen misspellings when evaluating the BL and RGX
 models. We are aware that when writing regexes, it is possible to come up with
-specific ones for a selected set of words, i.e. end up with overfitting to the
+specific ones for a selected set of words, i.e.\ end up with overfitting to the
 data. We tried to avoid this, and interested readers might check the source
 code\footnote{\url{https://github.com/giellalt/lang-sma/},
 \url{https://github.com/giellalt/lang-sme/},
 \url{https://github.com/giellalt/lang-est-x-utee/}}. However, in case of a
-corpus with different parameters than we had (e.g. a different type of text,
+corpus with different parameters than we had (e.g.\ a different type of text,
 different types of text producers), we expect the precision figures to be
 different.
 
@@ -915,14 +921,14 @@ information, one should try to improve the ordering independently of the
 context. This is an area for future research.
 
 
-On the other hand, if the context is available, e.g. via a grammar checker API,
+On the other hand, if the context is available, e.g.\ via a grammar checker API,
 it should be possible to filter or promote specific suggestions based on the
-syntactic context. One such example is \cite{pirinent_et_al_2012}, using a POS
+syntactic context. One such example is \cite{pirinen2012improving}, using a POS
 trigram model to promote suggestions matching the trigram model. Another
 approach is to use the full sentence as the context, in combination with
 syntactic disambiguation and parsing, for example using the VislCG3 formalism.
-Examples of such systems are \cite{Bick2006ACG} and
-\cite{wiechetek-etal-2019-seeing}, the last one being implemented within the
+Examples of such systems are~\cite{Bick2006constraint}
+and~\cite{wiechetek2019seeing}, the last one being implemented within the
 GiellaLT framework, and as such principally available to all languages. That
 would thus be the next logical step.
 
@@ -940,7 +946,7 @@ perhaps more efficiently than the network, thus the main positive side of the
 neural model may be in the added robustness.  All in all, it is good to know
 that chasing machine learning ghosts can now be put aside, as we have
 demonstrated that there are better alternatives with a lower environmental
-impact (see \cite{strubell2019energy} for an evaluation of the environmental
+impact (see~\cite{strubell2019energy} for an evaluation of the environmental
 impact of modern machine learning).
 
 
@@ -950,11 +956,11 @@ impact of modern machine learning).
 
 The work was partly supported by the Centre of Excellence in Estonian Studies
 (CEES, TK-145).  The computations for ML model building were performed on
-resources provided by UNINETT Sigma2 - the National Infrastructure for High
+resources provided by UNINETT Sigma2---the National Infrastructure for High
 Performance Computing and Data Storage in Norway.
 
 \bibliography{trondschrift}
-
+\bibliographystyle{unsrt}
 
 \newpage
 \appendix

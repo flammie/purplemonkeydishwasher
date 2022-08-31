@@ -2,7 +2,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>You can’t suggest that?! Comparisons and improvements of speller error models</title>
-<!--Generated on Tue Aug 30 17:45:00 2022 by LaTeXML (version 0.8.6) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Generated on Wed Aug 31 03:43:24 2022 by LaTeXML (version 0.8.6) http://dlmf.nist.gov/LaTeXML/.-->
 
 <link rel="stylesheet" href="../latexml/LaTeXML.css" type="text/css">
 <link rel="stylesheet" href="../latexml/ltx-article.css" type="text/css">
@@ -74,7 +74,7 @@ contrast with e.g. Hunspell</span><span id="footnote2" class="ltx_note ltx_role_
             
             
           <a href="https://hunspell.github.io/" title="" class="ltx_ref ltx_url ltx_font_typewriter" style="font-size:90%;">https://hunspell.github.io/</a></span></span></span><span class="ltx_text" style="font-size:90%;">
-(</span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">hunmorph</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">) and the rest of the Xspell family (Ispell,
+(</span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib271" title="Hunmorph: open source word analysis" class="ltx_ref">29</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">) and the rest of the Xspell family (Ispell,
 Aspell</span><span id="footnote3" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">3</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">3</sup>
             <span class="ltx_tag ltx_tag_note"><span class="ltx_text" style="font-size:90%;">3</span></span>
             
@@ -142,7 +142,7 @@ models. Finally, there is a discussion on the outcome, and a conclusion.
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">A lot of work has been done on spelling corrections—we give an overview of the
 literature here—although most of it looks at English and closely or
 typologically related languages. See
-e.g. </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">kukich1992techniques</span>, <span class="ltx_ref ltx_missing_citation ltx_ref_self">hladek2020survey</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">. Working with languages with
+e.g. </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib133" title="Techniques for automatically correcting words in text" class="ltx_ref">17</a>, <a href="#bib.bib99" title="Survey of automatic spelling correction" class="ltx_ref">13</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">. Working with languages with
 a complex morphology and phonology does offer some additional challenges, and
 minority and indigenous languages with a recent writing culture adds to that
 challenge, also, not a lot of work has been done in this area.</span></p>
@@ -150,20 +150,20 @@ challenge, also, not a lot of work has been done in this area.</span></p>
 <div id="S2.p2" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Finite-state language models have been used in spell-checking and correction for
 a while, one of the most recent approaches that is the basis of our system as
-well is </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">pirinen2014state</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">. Within the Sámi language context, the work has
-been done from </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">gaup2005xerox</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> onwards.</span></p>
+well is </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib219" title="State-of-the-art in weighted finite-state spell-checking" class="ltx_ref">26</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">. Within the Sámi language context, the work has
+been done from </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib84" title="From xerox to aspell: a first prototype of a north sámi speller based on twol technology" class="ltx_ref">12</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> onwards.</span></p>
 </div>
 <div id="S2.p3" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Substantial work on analysing North Sámi spelling errors was done in
-</span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">antonsen2013</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">, and the insights gained were important for the work done
-with the North Sámi speller in this article. To the best of our knowledge, no
-other Sámi languages have been analysed with regard to spelling errors, their
-classification and frequency.</span></p>
+</span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib13" title="Cállinmeattáhusaid guorran." class="ltx_ref">1</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">, and the insights gained were important
+for the work done with the North Sámi speller in this article. To the best of
+our knowledge, no other Sámi languages have been analysed with regard to
+spelling errors, their classification and frequency.</span></p>
 </div>
 <div id="S2.p4" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Estonian spelling errors, that emerge while typing on a computer keyboard, have
 not been described in publications. However, the Estonian spellers that were
-created by Filosoft Ltd. in the beginning of the 1990ies (e.g. for Microsoft
+created by Filosoft Ltd. in the beginning of the 1990ies (e.g. for Microsoft
 </span><span class="ltx_text" style="font-size:90%;">Word) contain a suggestion module, and since their </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">C</span><span class="ltx_text" style="font-size:90%;">-language source
 code has been made public</span><span id="footnote5" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">5</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">5</sup>
             <span class="ltx_tag ltx_tag_note"><span class="ltx_text" style="font-size:90%;">5</span></span>
@@ -177,29 +177,30 @@ it has been possible to re-implement it as an FST.</span></p>
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">There is some prior work done on the general problem of error-correction using
 neural networks and this is often suggested as the state-of-the-art currently,
 so we have chosen to experiment on this approach as well.
-In </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">li2020context</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> the authors use a neural model to determine the context
+In </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib140" title="Context-aware stand-alone neural spelling correction" class="ltx_ref">19</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> the authors use a neural model to determine the context
 of the word, resulting in a better guess as to what was the word that the author
 wanted to use.</span></p>
 </div>
 <div id="S2.p6" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">One of our central themes in this article lies in the usage and importance of a
 public error corpus and/or list; an elaborate model for ordering correction
-candidates: c.f. </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">flor2019benchmark</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">. Different sources have different
+candidates: c.f. </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib75" title="A benchmark corpus of english misspellings and a minimally-supervised model for spelling correction" class="ltx_ref">10</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">. Different sources have different
 types of errors, thus different strategies should be used, and different
-recall-precision figures are expected: </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">beeksma2018detecting</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">.</span></p>
+recall-precision figures are expected: </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib30" title="Detecting and correcting spelling errors in high-quality dutch wikipedia text" class="ltx_ref">3</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">.</span></p>
 </div>
 <div id="S2.p7" class="ltx_para">
-<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">The GiellaLT framework </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">moshagen2013building</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> originated from the initial
+<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">The GiellaLT framework </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib182" title="Building an open-source development infrastructure for language technology projects" class="ltx_ref">21</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> originated from the initial
 work on proofing tools and morphological analysers for the Sámi languages, where
-Trond Trosterud has been a major driving force (see e.g. </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">trosterud2005</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">
-and </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">trosterud2007</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">). The framework itself is language independent, but
-favours rule-based technologies suitable for morphology rich, complex, and
-low-resource languages. The overall goal is to support all language technology
-needs of indigenous and minority languages, from text input to speech
-</span><span class="ltx_text" style="font-size:90%;">technology. It is constantly being developed, and is the home for keyboards for
-50 languages, and language models for more than 130 languages. Many languages
-and keyboards are in daily use, and is core to the digital life of several
-indigenous and minority language communities.</span></p>
+Trond Trosterud has been a major driving force (see
+e.g. </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib272" title="Samisk språkteknologi" class="ltx_ref">22</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> and </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib274" title="Disambiguering av homonymi i nord- og lulesamisk" class="ltx_ref">30</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">). The
+framework itself is language independent, but favours rule-based technologies
+suitable for morphology rich, complex, and low-resource languages. The overall
+goal is to support all language technology needs of indigenous and minority
+</span><span class="ltx_text" style="font-size:90%;">languages, from text input to speech technology. It is constantly being
+developed, and is the home for keyboards for 50 languages, and language models
+for more than 130 languages. Many languages and keyboards are in daily use, and
+is core to the digital life of several indigenous and minority language
+communities.</span></p>
 </div>
 </section>
 <section id="S3" class="ltx_section">
@@ -209,8 +210,8 @@ indigenous and minority language communities.</span></p>
 <div id="S3.p1" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">In this article we study two approaches to error-correction, a rule-based method
 using two-level </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">finite-state transducers</span><span class="ltx_text" style="font-size:90%;">
-(FST) </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">pirinen2014state</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">, and data-driven </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">neural network-based</span><span class="ltx_text" style="font-size:90%;">
-(NN) </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">hochreiter1997long</span>, <span class="ltx_ref ltx_missing_citation ltx_ref_self">bollmann-sogaard-2016-improving</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">language
+(FST) </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib219" title="State-of-the-art in weighted finite-state spell-checking" class="ltx_ref">26</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">, and data-driven </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">neural network-based</span><span class="ltx_text" style="font-size:90%;">
+(NN) </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib330" title="Long short-term memory" class="ltx_ref">14</a>, <a href="#bib.bib42" title="Improving historical spelling normalization with bi-directional LSTMs and multi-task learning" class="ltx_ref">7</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">language
 models</span><span class="ltx_text" style="font-size:90%;">. We call a method that corrects incorrect word-forms into correct ones
 </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">an error model</span><span class="ltx_text" style="font-size:90%;">.</span></p>
 </div>
@@ -220,16 +221,16 @@ models</span><span class="ltx_text" style="font-size:90%;">. We call a method th
 
 <div id="S3.SS1.p1" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">The finite-state spelling correction follows the model described
-in </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">pirinen2012</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">: a transducer that modifies the erroneous string is
-composed with the speller transducer, which accepts only valid wordforms. As a
-result, the suggestion transducer presents only modifications that are also
-valid wordforms to the user.</span></p>
+in </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib212" title="Finite-state spell-checking with weighted language and error models" class="ltx_ref">25</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">: a transducer that modifies the erroneous
+string is composed with the speller transducer, which accepts only valid
+wordforms. As a result, the suggestion transducer presents only modifications
+that are also valid wordforms to the user.</span></p>
 </div>
 <div id="S3.SS1.p2" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Ideally, there would be only one suggestion, and this would be the right one.
 The more suggestions there are, and the lower down the ranked list the correct
-one is, the worse for the user; and the worst case is a long list of suggestions
-</span><span class="ltx_text" style="font-size:90%;">without the correct one amongst them. So the suggestion transducer has a dual
+</span><span class="ltx_text" style="font-size:90%;">one is, the worse for the user; and the worst case is a long list of suggestions
+without the correct one amongst them. So the suggestion transducer has a dual
 goal: keep the number of the suggestions low, and rank them correctly. One may
 ask whether it is better to provide no suggestion at all than to present the
 correct one ranked as 9th, for example. Presently, we have no answer to this
@@ -260,8 +261,8 @@ operations and recognized wordforms. For example, interchanging </span><span cla
 another weight. Suggestion ranking will follow from adding up all these weights,
 and limiting their number may be based on cutting the list either above some
 absolute weight, or above some absolute number of candidates. However, it is not
-obvious how one should determine the right final weights and cutting points.
-</span><span class="ltx_text" style="font-size:90%;">This article concentrates on modifications of the erroneous wordforms: what kind
+</span><span class="ltx_text" style="font-size:90%;">obvious how one should determine the right final weights and cutting points.
+This article concentrates on modifications of the erroneous wordforms: what kind
 of modifications should be made, and whether we can argue for attaching certain
 weights to these modifications, in order to signal their likelihood.</span></p>
 </div>
@@ -292,15 +293,14 @@ using OpenNMT-py</span><span id="footnote7" class="ltx_note ltx_role_footnote"><
               
               
               
-            <a href="https://opennmt.net/OpenNMT-py" title="" class="ltx_ref ltx_url ltx_font_typewriter" style="font-size:90%;">https://opennmt.net/OpenNMT-py</a></span></span></span><span class="ltx_text" style="font-size:90%;"> </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">opennmt</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">
+            <a href="https://opennmt.net/OpenNMT-py" title="" class="ltx_ref ltx_url ltx_font_typewriter" style="font-size:90%;">https://opennmt.net/OpenNMT-py</a></span></span></span><span class="ltx_text" style="font-size:90%;"> </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib124" title="OpenNMT: open-source toolkit for neural machine translation" class="ltx_ref">16</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">
 in its default settings, i.e. a translation model following the OpenNMT tutorial
-on their website</span><span id="footnote8" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">8</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">8</sup>
+</span><span class="ltx_text" style="font-size:90%;">on their website</span><span id="footnote8" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">8</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">8</sup>
               <span class="ltx_tag ltx_tag_note"><span class="ltx_text" style="font-size:90%;">8</span></span>
               
               
               
-            <a href="https://opennmt.net/OpenNMT-py/quickstart.html" title="" class="ltx_ref ltx_url ltx_font_typewriter" style="font-size:90%;">https://opennmt.net/OpenNMT-py/quickstart.html</a></span></span></span><span class="ltx_text" style="font-size:90%;">.
-</span></p>
+            <a href="https://opennmt.net/OpenNMT-py/quickstart.html" title="" class="ltx_ref ltx_url ltx_font_typewriter" style="font-size:90%;">https://opennmt.net/OpenNMT-py/quickstart.html</a></span></span></span><span class="ltx_text" style="font-size:90%;">.</span></p>
 </div>
 <div id="S3.SS2.p2" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">To limit the creativeness of neural suggestions, we restrict the corrections to
@@ -337,24 +337,26 @@ adjustments from 1985</span><span id="footnote9" class="ltx_note ltx_role_footno
               
             <span class="ltx_text" style="font-size:90%;">There have been several older orthographies going
 back all the way to 1748.</span></span></span></span><span class="ltx_text" style="font-size:90%;">. The present orthography is thoroughly described
-in </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">ref_Nic</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">.</span></p>
+in </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib190" title="Nordsamisk grammatikk" class="ltx_ref">23</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">.
+</span></p>
 </div>
 <div id="S4.SS1.p2" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">As a result of the Norwegian assimilation policy towards the Sámi people
 throughout a major part of the 20th century, it is clear that most texts written
 in the modern orthography are pretty recent. Modern North Sámi literacy is
 correspondingly young, which is reflected in texts in the form of spelling and
-other grammatical errors. In the material used in </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">antonsen2013</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> there is
-about 4% spelling errors, which is considerably more than in e.g. Norwegian or
-English texts produced by native speakers. In </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">flor_futagi_2015</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">, where
-the majority of the texts are written by non-native speakers of English at
-various levels of mastering the language, the average number of spelling errors
-is 2.74%. And for the most advanced writers contributing to the data set, the
-average number of misspellings is well below 1%. That is, the average number of
-spelling errors in North Sámi texts is considerably higher than in similar
-English texts. This is expected given the short history of the orthography, the
-sociolinguistic setting, the paucity of available text and thus written language
-exposure, and the minority language status of North Sámi.</span></p>
+other grammatical errors. In the material used
+in </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib13" title="Cállinmeattáhusaid guorran." class="ltx_ref">1</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> there is about 4% spelling errors,
+which is considerably more than in e.g. Norwegian or English texts produced by
+native speakers. In </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib76" title="Patterns of misspellings in L2 and L1 English: a view from the ETS Spelling Corpus" class="ltx_ref">11</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">, where the majority of the texts are
+written by non-native speakers of English at various levels of mastering the
+language, the average number of spelling errors is 2.74%. And for the most
+advanced writers contributing to the data set, the average number of
+misspellings is well below 1%. That is, the average number of spelling errors
+in North Sámi texts is considerably higher than in similar English texts. This
+is expected given the short history of the orthography, the sociolinguistic
+setting, the paucity of available text and thus written language exposure, and
+the minority language status of North Sámi.</span></p>
 </div>
 <div id="S4.SS1.p3" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">The material used in developing, testing and evaluating the error models in this
@@ -369,9 +371,9 @@ technology tools for North Sámi.</span><span id="footnote10" class="ltx_note lt
 been collected in a separate text file, together with the expected correction
 (usually based on the incorrect word form itself, sometimes also considering the
 context where the misspelling was found). By the time of writing, the list of
-typos contains 11 706 entries. Since the focus of research described here is
+</span><span class="ltx_text" style="font-size:90%;">typos contains 11 706 entries. Since the focus of research described here is
 evaluating and developing error models, the list was filtered by removing
-</span><span class="ltx_text" style="font-size:90%;">multiword expressions, false negatives</span><span id="footnote11" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">11</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">11</sup>
+multiword expressions, false negatives</span><span id="footnote11" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">11</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">11</sup>
               <span class="ltx_tag ltx_tag_note"><span class="ltx_text" style="font-size:90%;">11</span></span>
               
               
@@ -388,7 +390,7 @@ found in SIKOR</span><span id="footnote12" class="ltx_note ltx_role_footnote"><s
               
               
               
-            <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">sikor_06.11.2018</span><span class="ltx_text" style="font-size:90%;">]</span></cite></span></span></span><span class="ltx_text" style="font-size:90%;">. That is, the collection of
+            <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib341" title="SIKOR uit norgga árktalaš universitehta ja norgga sámedikki sámi teakstačoakkáldat, veršuvdna 06.11.2018" class="ltx_ref">27</a><span class="ltx_text" style="font-size:90%;">]</span></cite></span></span></span><span class="ltx_text" style="font-size:90%;">. That is, the collection of
 typos can be considered relatively representative of errors made by North Sámi
 writers of various genres.</span></p>
 </div>
@@ -406,26 +408,25 @@ evaluate the resulting error model.</span></p>
 
 <div id="S4.SS2.p1" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">The present day South Sámi orthography was formally decided upon in 1978,
-although </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">bull_bergsland_1974</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> used an early version of that orthography.
+although </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib47" title="Lohkede saemien. sørsamisk lesebok" class="ltx_ref">8</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> used an early version of that orthography.
 South Sámi differs from most other Sámi languages and dialects due to a vast and
-complex system of umlaut, c.f. </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">Bergsland1994</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> and </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">Magga2012</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">.
-Although South Sámi does not have consonant gradation as opposed to the other
-Sámi languages, it does have alternations in consonant clusters and surrounding
-vowels depending on the syllable and foot structure of the word. Various
-</span><span class="ltx_text" style="font-size:90%;">inflectional endings add zero, one or more syllables to the base form, which
-forces a recast of the foot structure, which can set off a chain reaction of
-various consonant and vowel changes. Two examples:</span></p>
+complex system of umlaut, c.f. </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib34" title="Sydsamisk grammatikk" class="ltx_ref">5</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">
+and </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib153" title="Sørsamisk grammatikk" class="ltx_ref">20</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">. Although South Sámi does not have consonant
+</span><span class="ltx_text" style="font-size:90%;">gradation as opposed to the other Sámi languages, it does have alternations in
+consonant clusters and surrounding vowels depending on the syllable and foot
+structure of the word. Various inflectional endings add zero, one or more
+syllables to the base form, which forces a recast of the foot structure, which
+can set off a chain reaction of various consonant and vowel changes. Two
+examples:</span></p>
 </div>
-<span class="ltx_ERROR undefined">\pex</span>
 <div id="S4.SS2.p2" class="ltx_para">
-<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">¡gåetie¿
-</span><span class="ltx_ERROR undefined">\a</span><span class="ltx_ERROR undefined">\begingl</span><span class="ltx_ERROR undefined">\gla</span><span class="ltx_text" style="font-size:90%;">gåetie gåatan gåatetje gåatatjasse //
-</span><span class="ltx_ERROR undefined">\glb</span><span class="ltx_text" style="font-size:90%;">gåetie+N+Sg+Nom gåetie+N+Sg+Ill gåetie+Dimin+N+Sg+Nom gåetie+Dimin+N+Sg+Ill //
-</span><span class="ltx_ERROR undefined">\glft</span><span class="ltx_text" style="font-size:90%;">‘House, into the house, little house, into the little house’ //
-</span><span class="ltx_ERROR undefined">\endgl</span><span class="ltx_ERROR undefined">\a</span><span class="ltx_ERROR undefined">\begingl</span><span class="ltx_ERROR undefined">\gla</span><span class="ltx_text" style="font-size:90%;">åeruve åerievasse åerievadtje åerievadtjese //
-</span><span class="ltx_ERROR undefined">\glb</span><span class="ltx_text" style="font-size:90%;">åeruve+N+Sg+Nom åeruve+N+Sg+Ill åeruve+Dimin+N+Sg+Nom åeruve+Dimin+N+Sg+Ill //
-</span><span class="ltx_ERROR undefined">\glft</span><span class="ltx_text" style="font-size:90%;">‘Squirrel, into the squirrel, little squirrel, into the little squirrel’ //
-</span><span class="ltx_ERROR undefined">\endgl</span><span class="ltx_ERROR undefined">\xe</span></p>
+<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">gåetie¿
+</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">g</span><span class="ltx_text" style="font-size:90%;">åetie gåatan gåatetje gåatatjasse //
+</span><span class="ltx_text ltx_font_typewriter" style="font-size:90%;">g</span><span class="ltx_text" style="font-size:90%;">åetie+N+Sg+Nom gåetie+N+Sg+Ill gåetie+Dimin+N+Sg+Nom gåetie+Dimin+N+Sg+Ill //
+‘House, into the house, little house, into the little house’ //
+</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">å</span><span class="ltx_text" style="font-size:90%;">eruve åerievasse åerievadtje åerievadtjese //
+</span><span class="ltx_text ltx_font_typewriter" style="font-size:90%;">å</span><span class="ltx_text" style="font-size:90%;">eruve+N+Sg+Nom åeruve+N+Sg+Ill åeruve+Dimin+N+Sg+Nom åeruve+Dimin+N+Sg+Ill //
+‘Squirrel, into the squirrel, little squirrel, into the little squirrel’ //</span></p>
 </div>
 <div id="S4.SS2.p3" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">That is, the vowel of the second and third syllables changes as follows:
@@ -433,8 +434,8 @@ various consonant and vowel changes. Two examples:</span></p>
 -a-</span><span class="ltx_text" style="font-size:90%;"> for </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">åeruve</span><span class="ltx_text" style="font-size:90%;">. The default illative case ending has two forms:
 </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">-asse</span><span class="ltx_text" style="font-size:90%;"> and </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">-ese</span><span class="ltx_text" style="font-size:90%;">, and the diminutive derivation also has two
 forms: </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">-etje</span><span class="ltx_text" style="font-size:90%;"> and </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">-adtje</span><span class="ltx_text" style="font-size:90%;">. The form of the suffixes (illative
-and diminutive in example </span><span class="ltx_ERROR undefined">\getref</span><span class="ltx_text" style="font-size:90%;">gåetie) are solely dependent on the syllable
-</span><span class="ltx_text" style="font-size:90%;">count, whereas some vowel changes also depend on the stem type. The umlaut of
+and diminutive in example </span><span class="ltx_ref ltx_missing_label ltx_ref_self" style="font-size:90%;">LABEL:gåetie</span><span class="ltx_text" style="font-size:90%;">) are solely dependent on the syllable
+count, whereas some vowel changes also depend on the stem type. The umlaut of
 the root vowel is triggered by the underlying vowel of both case and
 derivational suffixes.</span></p>
 </div>
@@ -445,60 +446,55 @@ considerable portion of the population is in practice L2 speakers. This is
 reflected in the misspelling list used for testing as a number of errors
 relating to mixing vowel and inflectional endings, essentially miscounting the
 syllables and thus applying the wrong suffix; an example of this taken from the
-list can be seen in (</span><span class="ltx_ERROR undefined">\nextx</span><span class="ltx_text" style="font-size:90%;">). (</span><span class="ltx_ERROR undefined">\nextx</span><span class="ltx_text" style="font-size:90%;">) also contains other errors, like using
+list can be seen in (</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">next example</span><span class="ltx_text" style="font-size:90%;">). (</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">next example</span><span class="ltx_text" style="font-size:90%;">) also contains other errors, like using
 </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">ø</span><span class="ltx_text" style="font-size:90%;"> for correct </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">ö</span><span class="ltx_text" style="font-size:90%;">, and mixing </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">s</span><span class="ltx_text" style="font-size:90%;"> and </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">sj</span><span class="ltx_text" style="font-size:90%;">.
 Identifying each and every such case reliably is not trivial, identifying the
 proportion of these errors to the rest is left as a topic for future research.</span></p>
 </div>
-<span class="ltx_ERROR undefined">\pex</span>
 <div id="S4.SS2.p5" class="ltx_para">
-<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">¡vhkesjadtedh¿
-</span><span class="ltx_ERROR undefined">\a</span><span class="ltx_ERROR undefined">\begingl</span><span class="ltx_ERROR undefined">\gla</span><span class="ltx_text" style="font-size:90%;">*Vyøhkesadtibie //
-</span><span class="ltx_ERROR undefined">\glb</span><span class="ltx_text" style="font-size:90%;">vyöhkesjadtedh+V+IV+Ind+Prs+Pl1 //
-</span><span class="ltx_ERROR undefined">\glft</span><span class="ltx_text" style="font-size:90%;">‘We help each other’ (wrong syllabification and thus suffix form) //
-</span><span class="ltx_ERROR undefined">\endgl</span><span class="ltx_ERROR undefined">\a</span><span class="ltx_ERROR undefined">\begingl</span><span class="ltx_ERROR undefined">\gla</span><span class="ltx_text" style="font-size:90%;">Vyöhkesjadtebe //
-</span><span class="ltx_ERROR undefined">\glb</span><span class="ltx_text" style="font-size:90%;">vyöhkesjadtedh+V+IV+Ind+Prs+Pl1 //
-</span><span class="ltx_ERROR undefined">\glft</span><span class="ltx_text" style="font-size:90%;">‘We help each other’ (correct syllabification and suffix) //
-</span><span class="ltx_ERROR undefined">\endgl</span><span class="ltx_ERROR undefined">\xe</span></p>
+<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">vhkesjadtedh¿
+</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*</span><span class="ltx_text" style="font-size:90%;">Vyøhkesadtibie //
+</span><span class="ltx_text ltx_font_typewriter" style="font-size:90%;">v</span><span class="ltx_text" style="font-size:90%;">yöhkesjadtedh+V+IV+Ind+Prs+Pl1 //
+‘We help each other’ (wrong syllabification and thus suffix form) //
+</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">V</span><span class="ltx_text" style="font-size:90%;">yöhkesjadtebe //
+</span><span class="ltx_text ltx_font_typewriter" style="font-size:90%;">v</span><span class="ltx_text" style="font-size:90%;">yöhkesjadtedh+V+IV+Ind+Prs+Pl1 //
+‘We help each other’ (correct syllabification and suffix) //</span></p>
 </div>
 <div id="S4.SS2.p6" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Identifying the syllabic structure is not made easier by historic processes
 leading to exceptions, so that instead of the regular pattern </span><math id="S4.SS2.p6.m1" class="ltx_Math" alttext="2+2+\cdots n\cdots+2/3" display="inline"><mrow><mn mathsize="90%">2</mn><mo mathsize="90%" stretchy="false">+</mo><mn mathsize="90%">2</mn><mo mathsize="90%" stretchy="false">+</mo><mrow><mi mathsize="90%" mathvariant="normal">⋯</mi><mo>⁢</mo><mi mathsize="90%">n</mi><mo>⁢</mo><mi mathsize="90%" mathvariant="normal">⋯</mi></mrow><mo mathsize="90%" stretchy="false">+</mo><mrow><mn mathsize="90%">2</mn><mo mathsize="90%" stretchy="false">/</mo><mn mathsize="90%">3</mn></mrow></mrow></math><span class="ltx_text" style="font-size:90%;">, you get </span><math id="S4.SS2.p6.m2" class="ltx_Math" alttext="3+2" display="inline"><mrow><mn mathsize="90%">3</mn><mo mathsize="90%" stretchy="false">+</mo><mn mathsize="90%">2</mn></mrow></math><span class="ltx_text" style="font-size:90%;">, or </span><math id="S4.SS2.p6.m3" class="ltx_Math" alttext="2+1" display="inline"><mrow><mn mathsize="90%">2</mn><mo mathsize="90%" stretchy="false">+</mo><mn mathsize="90%">1</mn></mrow></math><span class="ltx_text" style="font-size:90%;">, instead of the expected </span><math id="S4.SS2.p6.m4" class="ltx_Math" alttext="2+3" display="inline"><mrow><mn mathsize="90%">2</mn><mo mathsize="90%" stretchy="false">+</mo><mn mathsize="90%">3</mn></mrow></math><span class="ltx_text" style="font-size:90%;">, and </span><math id="S4.SS2.p6.m5" class="ltx_Math" alttext="3" display="inline"><mn mathsize="90%">3</mn></math><span class="ltx_text" style="font-size:90%;">.
-Examples of these can be seen in (</span><span class="ltx_ERROR undefined">\nextx</span><span class="ltx_text" style="font-size:90%;">).</span></p>
+Examples of these can be seen in (</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">next example</span><span class="ltx_text" style="font-size:90%;">).</span></p>
 </div>
-<span class="ltx_ERROR undefined">\pex</span>
 <div id="S4.SS2.p7" class="ltx_para">
-<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">¡dåeriedidh¿
-</span><span class="ltx_ERROR undefined">\a</span><span class="ltx_ERROR undefined">\begingl</span><span class="ltx_ERROR undefined">\gla</span><span class="ltx_text" style="font-size:90%;">dåerie•dieh //
-</span><span class="ltx_ERROR undefined">\glb</span><span class="ltx_text" style="font-size:90%;">dåeriedidh+V+TV+Ind+Prs+Pl3 //
-</span><span class="ltx_ERROR undefined">\glft</span><span class="ltx_text" style="font-size:90%;">‘They are following’ (syllable structure: 2 + 1 ) //
-</span><span class="ltx_ERROR undefined">\endgl</span><span class="ltx_ERROR undefined">\a</span><span class="ltx_ERROR undefined">\begingl</span><span class="ltx_ERROR undefined">\gla</span><span class="ltx_text" style="font-size:90%;">dåerede•minie //
-</span><span class="ltx_ERROR undefined">\glb</span><span class="ltx_text" style="font-size:90%;">dåeriedidh+V+TV+Ger //
-</span><span class="ltx_ERROR undefined">\glft</span><span class="ltx_text" style="font-size:90%;">‘(In the process of) following’ (syllable structure: 3 + 2) //
-</span><span class="ltx_ERROR undefined">\endgl</span><span class="ltx_ERROR undefined">\xe</span></p>
+<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">dåeriedidh¿
+</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">d</span><span class="ltx_text" style="font-size:90%;">åerie•dieh //
+</span><span class="ltx_text ltx_font_typewriter" style="font-size:90%;">d</span><span class="ltx_text" style="font-size:90%;">åeriedidh+V+TV+Ind+Prs+Pl3 //
+‘They are following’ (syllable structure: 2 + 1 ) //
+</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">d</span><span class="ltx_text" style="font-size:90%;">åerede•minie //
+</span><span class="ltx_text ltx_font_typewriter" style="font-size:90%;">d</span><span class="ltx_text" style="font-size:90%;">åeriedidh+V+TV+Ger //
+‘(In the process of) following’ (syllable structure: 3 + 2) //
+</span></p>
 </div>
 <div id="S4.SS2.p8" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Complicating the issue further are loan words: how should their syllables be
 counted and fit into the foot structure of South Sámi phonotactics? An example
-of this can be seen in (</span><span class="ltx_ERROR undefined">\nextx</span><span class="ltx_text" style="font-size:90%;">), with the misspelled form in (</span><span class="ltx_ERROR undefined">\nextx</span><span class="ltx_text" style="font-size:90%;">a), and the
-correct form in (</span><span class="ltx_ERROR undefined">\nextx</span><span class="ltx_text" style="font-size:90%;">b). It is very clear that the misspelling of the case
+of this can be seen in (</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">next example</span><span class="ltx_text" style="font-size:90%;">), with the misspelled form in (</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">next example</span><span class="ltx_text" style="font-size:90%;">a), and the
+correct form in (</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">next example</span><span class="ltx_text" style="font-size:90%;">b). It is very clear that the misspelling of the case
 suffix is caused by applying a wrong foot structure to the word form.</span></p>
 </div>
-<span class="ltx_ERROR undefined">\pex</span>
 <div id="S4.SS2.p9" class="ltx_para">
-<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">¡wikipedia¿
-</span><span class="ltx_ERROR undefined">\a</span><span class="ltx_ERROR undefined">\begingl</span><span class="ltx_ERROR undefined">\gla</span><span class="ltx_text" style="font-size:90%;">Wikipe•dij:ese //
-</span><span class="ltx_ERROR undefined">\glb</span><span class="ltx_text" style="font-size:90%;">wikipedije+N+Sg+Ill //
-</span><span class="ltx_ERROR undefined">\glft</span><span class="ltx_text" style="font-size:90%;">‘Into Wikipedia’ (wrong syllable structure: 3 + 3, and thus wrong suffix form) //
-</span><span class="ltx_ERROR undefined">\endgl</span><span class="ltx_ERROR undefined">\a</span><span class="ltx_ERROR undefined">\begingl</span><span class="ltx_ERROR undefined">\gla</span><span class="ltx_text" style="font-size:90%;">Wiki•pedi•jasse //
-</span><span class="ltx_ERROR undefined">\glb</span><span class="ltx_text" style="font-size:90%;">wikipedije+N+Sg+Ill //
-</span><span class="ltx_ERROR undefined">\glft</span><span class="ltx_text" style="font-size:90%;">‘Into Wikipedia’ (Correct syllable structure: 2 + 2 + 2) //
-</span><span class="ltx_ERROR undefined">\endgl</span><span class="ltx_ERROR undefined">\xe</span></p>
+<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">wikipedia¿
+</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">W</span><span class="ltx_text" style="font-size:90%;">ikipe•dij:ese //
+</span><span class="ltx_text ltx_font_typewriter" style="font-size:90%;">w</span><span class="ltx_text" style="font-size:90%;">ikipedije+N+Sg+Ill //
+‘Into Wikipedia’ (wrong syllable structure: 3 + 3, and thus wrong suffix form) //
+</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">W</span><span class="ltx_text" style="font-size:90%;">iki•pedi•jasse //
+</span><span class="ltx_text ltx_font_typewriter" style="font-size:90%;">w</span><span class="ltx_text" style="font-size:90%;">ikipedije+N+Sg+Ill //
+‘Into Wikipedia’ (Correct syllable structure: 2 + 2 + 2) //</span></p>
 </div>
 <div id="S4.SS2.p10" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Finally, the South Sámi orthographic rules recommend that one uses Norwegian
 </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">æ</span><span class="ltx_text" style="font-size:90%;"> and Swedish </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">ö</span><span class="ltx_text" style="font-size:90%;">. Up until recently, following these rules
-</span><span class="ltx_text" style="font-size:90%;">require that one knows how to produce the vowel letter from the other side of
+require that one knows how to produce the vowel letter from the other side of
 the border, and it also requires an extra key press: AltGr + the standard vowel.
 In practice, most people didn’t care, and the South Sámi list is full of
 Norwegian </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">ø</span><span class="ltx_text" style="font-size:90%;">’s and Swedish </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">ä</span><span class="ltx_text" style="font-size:90%;">’s. These are considered
@@ -510,7 +506,7 @@ found, ≈4.2% of the corpus.</span></p>
 <div id="S4.SS2.p11" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">As was the case with North Sámi, the list of typos for South Sámi is collected
 while developing the morphological analyser, based on material that is mostly
-found in SIKOR (</span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">sikor_06.11.2018</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">). The cleaned version of that manually
+found in SIKOR (</span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib341" title="SIKOR uit norgga árktalaš universitehta ja norgga sámedikki sámi teakstačoakkáldat, veršuvdna 06.11.2018" class="ltx_ref">27</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">). The cleaned version of that manually
 built list mentioned above contains only 1 154 entries. A separate list of
 typo-correction pairs was extracted from a manually marked up corpus of
 gold-standard text. That token list contains 8 325 non-unique entries, and was
@@ -525,10 +521,10 @@ not used when building the manually crafted regex error model.</span></p>
 
 <div id="S4.SS3.p1" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Estonian orthography in its present form was adopted during the third quarter of
-the 19th century. It is modelled after Finnish orthography; the proposal was
-made by Adolf Ivar Arwidsson </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">Arwidsson1822</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">. Prior to this,
+</span><span class="ltx_text" style="font-size:90%;">the 19th century. It is modelled after Finnish orthography; the proposal was
+made by Adolf Ivar Arwidsson </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib19" title="Ueber die ehstniche orthographie. won einem finnländer" class="ltx_ref">2</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">. Prior to this,
 Estonian orthography was modelled after High German, but uneducated Estonian
-</span><span class="ltx_text" style="font-size:90%;">peasants spontaneously tended towards the Finnish style orthography </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">Kask1970</span><span class="ltx_text" style="font-size:90%;">, p.
+peasants spontaneously tended towards the Finnish style orthography </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib20" title="Eesti kirjakeele ajaloost" class="ltx_ref">15</a><span class="ltx_text" style="font-size:90%;">, p.
 204]</span></cite><span class="ltx_text" style="font-size:90%;"></span></p>
 </div>
 <div id="S4.SS3.p2" class="ltx_para">
@@ -552,10 +548,10 @@ implement in practice, given the various co-articulation effects in real speech.
 </div>
 <div id="S4.SS3.p3" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">In addition to the principle of phone length and letter correspondence, the
-Estonian orthography also to some extent follows the principle of keeping the
+</span><span class="ltx_text" style="font-size:90%;">Estonian orthography also to some extent follows the principle of keeping the
 traditional form of words (even if it deviates from the current pronunciation),
 and the principle of retaining the form of morphemes while inflecting the word
-</span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">EKK</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">. Orthography errors tend to happen when these two additional
+</span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib70" title="Eesti keele käsiraamat" class="ltx_ref">9</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">. Orthography errors tend to happen when these two additional
 principles collide with the phonemic principle.</span></p>
 </div>
 <div id="S4.SS3.p4" class="ltx_para">
@@ -589,67 +585,70 @@ writing the language, i.e. its orthography.</span></p>
 </div>
 <div id="S5.p2" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">The full list of registered typos was run through a semi-automatic
-classification system, and tagged according to identified class. The resulting
+</span><span class="ltx_text" style="font-size:90%;">classification system, and tagged according to identified class. The resulting
 classification combines edit distance with character classes that are involved
 and is summarized in Table </span><a href="#S5.T1" title="Table 1 ‣ 5 Error types ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref" style="font-size:90%;"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a><span class="ltx_text" style="font-size:90%;">. In cases where subclasses
-</span><span class="ltx_text" style="font-size:90%;">are identified, the figures for those are listed to the left in each column, the
+are identified, the figures for those are listed to the left in each column, the
 total to the right.</span></p>
 </div>
 <div id="S5.p3" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Accented letter errors are easy to correct: there are very few alternatives one
 should offer, and the reasoning behind the suggestions is transparent, making it
 easy for the writer to decide whether to accept or not. An example for Estonian
-would be </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*tshempion</span><span class="ltx_text" style="font-size:90%;"> - </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">tšempion</span><span class="ltx_text" style="font-size:90%;">. For North Sámi, this type of
-errors is very frequent - one third of misspellings belong to this class, and we
+would be </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*tshempion</span><span class="ltx_text" style="font-size:90%;">—</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">tšempion</span><span class="ltx_text" style="font-size:90%;">. For North Sámi, this type of
+errors is very frequent—one third of misspellings belong to this class, and we
 can even identify subclasses: vowel </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">á</span><span class="ltx_text" style="font-size:90%;"> vs </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">a</span><span class="ltx_text" style="font-size:90%;"> (e.g.
-</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*Amerihka</span><span class="ltx_text" style="font-size:90%;"> - </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">Amerihká</span><span class="ltx_text" style="font-size:90%;">), or consonants </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">č</span><span class="ltx_text" style="font-size:90%;">, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">đ</span><span class="ltx_text" style="font-size:90%;">,
+</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*Amerihka</span><span class="ltx_text" style="font-size:90%;">—</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">Amerihká</span><span class="ltx_text" style="font-size:90%;">), or consonants </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">č</span><span class="ltx_text" style="font-size:90%;">, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">đ</span><span class="ltx_text" style="font-size:90%;">,
 </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">ŋ</span><span class="ltx_text" style="font-size:90%;">, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">š</span><span class="ltx_text" style="font-size:90%;">, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">t-</span><span class="ltx_text" style="font-size:90%;">, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">ž</span><span class="ltx_text" style="font-size:90%;"> vs </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">c</span><span class="ltx_text" style="font-size:90%;">, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">d</span><span class="ltx_text" style="font-size:90%;">,
-</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">n</span><span class="ltx_text" style="font-size:90%;">, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">s</span><span class="ltx_text" style="font-size:90%;">, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">t</span><span class="ltx_text" style="font-size:90%;">, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">z</span><span class="ltx_text" style="font-size:90%;"> (e.g. </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*Cuovvovaccat</span><span class="ltx_text" style="font-size:90%;"> -
-</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">Čuovvovaččat</span><span class="ltx_text" style="font-size:90%;">, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*Sámediggerádi</span><span class="ltx_text" style="font-size:90%;"> - </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">Sámediggeráđi</span><span class="ltx_text" style="font-size:90%;">,
-</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*CD-singel</span><span class="ltx_text" style="font-size:90%;"> - </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">CD-siŋgel</span><span class="ltx_text" style="font-size:90%;">, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*oktašas</span><span class="ltx_text" style="font-size:90%;"> - </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">oktasaš</span><span class="ltx_text" style="font-size:90%;">,
-</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*olbmot-</span><span class="ltx_text" style="font-size:90%;"> - </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">olbmot</span><span class="ltx_text" style="font-size:90%;">, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*gazaldaga</span><span class="ltx_text" style="font-size:90%;"> -
-</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">gažaldaga</span><span class="ltx_text" style="font-size:90%;">). In fact, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">a</span><span class="ltx_text" style="font-size:90%;">-</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">á</span><span class="ltx_text" style="font-size:90%;"> confusion is the single most
-frequent spelling error in North Sámi texts, around 40% in general according to
-</span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">antonsen2013</span><span class="ltx_text" style="font-size:90%;">, p 24]</span></cite><span id="footnote14" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">14</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">14</sup>
+</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">n</span><span class="ltx_text" style="font-size:90%;">, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">s</span><span class="ltx_text" style="font-size:90%;">, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">t</span><span class="ltx_text" style="font-size:90%;">, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">z</span><span class="ltx_text" style="font-size:90%;"> (e.g.
+</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*Cuovvovaccat</span><span class="ltx_text" style="font-size:90%;">—</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">Čuovvovaččat</span><span class="ltx_text" style="font-size:90%;">,
+</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*Sámediggerádi</span><span class="ltx_text" style="font-size:90%;">—</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">Sámediggeráđi</span><span class="ltx_text" style="font-size:90%;">,
+</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*CD-singel</span><span class="ltx_text" style="font-size:90%;">—</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">CD-siŋgel</span><span class="ltx_text" style="font-size:90%;">, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*oktašas</span><span class="ltx_text" style="font-size:90%;">—</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">oktasaš</span><span class="ltx_text" style="font-size:90%;">,
+</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*olbmot-</span><span class="ltx_text" style="font-size:90%;">—</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">olbmot</span><span class="ltx_text" style="font-size:90%;">,
+</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*gazaldaga</span><span class="ltx_text" style="font-size:90%;">—</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">gažaldaga</span><span class="ltx_text" style="font-size:90%;">). In fact, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">a</span><span class="ltx_text" style="font-size:90%;">—</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">á</span><span class="ltx_text" style="font-size:90%;">
+confusion is the single most frequent spelling error in North Sámi texts, around
+40% in general according to </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib13" title="Cállinmeattáhusaid guorran." class="ltx_ref">1</a><span class="ltx_text" style="font-size:90%;">, p
+24]</span></cite><span id="footnote14" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">14</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">14</sup>
             <span class="ltx_tag ltx_tag_note"><span class="ltx_text" style="font-size:90%;">14</span></span>
             
             
             
-          <span class="ltx_text" style="font-size:90%;">she includes real-word errors, which we do
-not, which probably explains the difference in relative size for this error type
-in her investigation compared to our findings.</span></span></span></span><span class="ltx_text" style="font-size:90%;">. The source of these errors in
-North Sámi is likely several. One is lack of keyboard support that makes it hard
-to type the correct letter. That was a major issue in social media texts
-investigated by Antonsen op.cit., but for several years now there has been
-available a North Sámi keyboard app for mobile phones, so this is less of a
-problem today. Another possible source is insecurity in the correct spelling,
-</span><span class="ltx_text" style="font-size:90%;">often in combination with dialectal variation. The </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">a</span><span class="ltx_text" style="font-size:90%;">-</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">á</span><span class="ltx_text" style="font-size:90%;">
-confusion can at least partly be attributed to the fact that the orthography
-does not follow the phonology in various dialects, the variation is greater and
-more complex than the orthography reflects. Also final </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">t-</span><span class="ltx_text" style="font-size:90%;"> instead
-of final </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">t</span><span class="ltx_text" style="font-size:90%;"> is most likely based on pronunciation: in some dialects, the
-plosive </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">t</span><span class="ltx_text" style="font-size:90%;"> is reduced to a pure fricative </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">h</span><span class="ltx_text" style="font-size:90%;"> sound when followed
-by a word beginning with a vowel. As almost all misspellings of </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">t-</span><span class="ltx_text" style="font-size:90%;">
-for correct </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">t</span><span class="ltx_text" style="font-size:90%;"> can be found in this position, it is very likely that
-phonology plays a role. For a more detailed analysis of spelling errors in North
-Sámi, see </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">antonsen2013</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">.</span></p>
+          <span class="ltx_text" style="font-size:90%;">she includes real-word errors,
+which we do not, which probably explains the difference in relative size for
+this error type in her investigation compared to our findings.</span></span></span></span><span class="ltx_text" style="font-size:90%;">. The source of
+</span><span class="ltx_text" style="font-size:90%;">these errors in North Sámi is likely several. One is lack of keyboard support
+that makes it hard to type the correct letter. That was a major issue in social
+media texts investigated by Antonsen op.cit., but for several years now there
+has been available a North Sámi keyboard app for mobile phones, so this is less
+of a problem today. Another possible source is insecurity in the correct
+spelling, often in combination with dialectal variation. The
+</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">a</span><span class="ltx_text" style="font-size:90%;">-</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">á</span><span class="ltx_text" style="font-size:90%;"> confusion can at least partly be attributed to the fact
+that the orthography does not follow the phonology in various dialects, the
+variation is greater and more complex than the orthography reflects. Also final
+</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">t-</span><span class="ltx_text" style="font-size:90%;"> instead of final </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">t</span><span class="ltx_text" style="font-size:90%;"> is most likely based on
+pronunciation: in some dialects, the plosive </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">t</span><span class="ltx_text" style="font-size:90%;"> is reduced to a pure
+fricative </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">h</span><span class="ltx_text" style="font-size:90%;"> sound when followed by a word beginning with a vowel. As
+almost all misspellings of </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">t-</span><span class="ltx_text" style="font-size:90%;"> for correct </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">t</span><span class="ltx_text" style="font-size:90%;"> can be found
+in this position, it is very likely that phonology plays a role. For a more
+detailed analysis of spelling errors in North Sámi,
+see </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib13" title="Cállinmeattáhusaid guorran." class="ltx_ref">1</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">.</span></p>
 </div>
 <div id="S5.p4" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Accented letters in South Sámi covers only three pairs: </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">i</span><span class="ltx_text" style="font-size:90%;"> vs </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">ï</span><span class="ltx_text" style="font-size:90%;">
-(e.g. </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*jih</span><span class="ltx_text" style="font-size:90%;"> - </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">jïh</span><span class="ltx_text" style="font-size:90%;">, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*hïjven</span><span class="ltx_text" style="font-size:90%;"> - </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">hijven</span><span class="ltx_text" style="font-size:90%;">),
-</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*ø</span><span class="ltx_text" style="font-size:90%;"> vs </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">ö</span><span class="ltx_text" style="font-size:90%;"> (e.g. </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*bøøremes</span><span class="ltx_text" style="font-size:90%;"> - </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">bööremes</span><span class="ltx_text" style="font-size:90%;">), and
-</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*ä</span><span class="ltx_text" style="font-size:90%;"> vs </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">æ</span><span class="ltx_text" style="font-size:90%;"> (e.g. </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*nännoste</span><span class="ltx_text" style="font-size:90%;"> - </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">nænnoste</span><span class="ltx_text" style="font-size:90%;">). But
+(e.g. </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*jih</span><span class="ltx_text" style="font-size:90%;">—</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">jïh</span><span class="ltx_text" style="font-size:90%;">, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*hïjven</span><span class="ltx_text" style="font-size:90%;">—</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">hijven</span><span class="ltx_text" style="font-size:90%;">),
+</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*ø</span><span class="ltx_text" style="font-size:90%;"> vs </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">ö</span><span class="ltx_text" style="font-size:90%;"> (e.g. </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*bøøremes</span><span class="ltx_text" style="font-size:90%;">—</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">bööremes</span><span class="ltx_text" style="font-size:90%;">), and
+</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*ä</span><span class="ltx_text" style="font-size:90%;"> vs </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">æ</span><span class="ltx_text" style="font-size:90%;"> (e.g. </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*nännoste</span><span class="ltx_text" style="font-size:90%;">—</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">nænnoste</span><span class="ltx_text" style="font-size:90%;">). But
 they cover more than half of all misspellings in our test data. Out of a total
-set of 8 325 misspelling instances, 4 285 – or 51.5% – are errors of this
+set of 8 325 misspelling instances, 4 285—or 51.5%—are errors of this
 type. The conjuction </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">jïh</span><span class="ltx_text" style="font-size:90%;"> (=</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">and</span><span class="ltx_text" style="font-size:90%;">) alone counts for more than
 10% (884 occurrences) of all misspellings. The three pairs fall into two
-categories, one purely orthographic, and one phonological. The </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*ø/ö</span><span class="ltx_text" style="font-size:90%;"> and
+</span><span class="ltx_text" style="font-size:90%;">categories, one purely orthographic, and one phonological. The </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*ø/ö</span><span class="ltx_text" style="font-size:90%;"> and
 </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*ä/æ</span><span class="ltx_text" style="font-size:90%;"> pairs are purely orthographic: as South Sámi is spoken in both
 Sweden and Norway, the idea is to make a compromise such that one sound is
 written using a Swedish letter (</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">ö</span><span class="ltx_text" style="font-size:90%;">) and one using a Norwegian letter
 </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">æ</span><span class="ltx_text" style="font-size:90%;">. Due to the lack of a South Sámi keyboard, people have usually fallen
 back to using either a Norwegian or a Swedish keyboard, disregarding the
-</span><span class="ltx_text" style="font-size:90%;">orthographic norm. In the case of </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">i</span><span class="ltx_text" style="font-size:90%;"> vs </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">ï</span><span class="ltx_text" style="font-size:90%;"> it is a real
+orthographic norm. In the case of </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">i</span><span class="ltx_text" style="font-size:90%;"> vs </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">ï</span><span class="ltx_text" style="font-size:90%;"> it is a real
 phonological opposition, although the distinction was not made in early versions
 of the South Sámi orthography. The distinction is also not clear to all
 speakers.</span></p>
@@ -664,42 +663,42 @@ misspellings both in frequency and often simplicity of correction.</span></p>
 <p class="ltx_p"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Deleting</span><span class="ltx_text" style="font-size:90%;"> (or omitting) a letter is a very frequent error. It may be
 caused by failing to hit a key, or by failing a phone-to-letter mapping rule. A
 suggestion to correct this error by doubling a letter, or (in case of North
-Sámi) by creating a diphthong, e.g. </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*departementa</span><span class="ltx_text" style="font-size:90%;"> -
-</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">departemeanta</span><span class="ltx_text" style="font-size:90%;">, might seem more plausible than a suggestion to insert a
-letter in some random position of the same word. Thus, it makes sense to
-identify this subclass of deletions.</span></p>
+Sámi) by creating a diphthong, e.g.
+</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*departementa</span><span class="ltx_text" style="font-size:90%;">—</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">departemeanta</span><span class="ltx_text" style="font-size:90%;">, might seem more plausible than
+a suggestion to insert a letter in some random position of the same word. Thus,
+it makes sense to identify this subclass of deletions.</span></p>
 </div>
 <div id="S5.p7" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">If the misspelling means that an extra letter has been </span><span class="ltx_text ltx_font_bold" style="font-size:90%;">added</span><span class="ltx_text" style="font-size:90%;">, we also
-identify a subclass of resulting doubles or diphthongs, the classification thus
+</span><span class="ltx_text" style="font-size:90%;">identify a subclass of resulting doubles or diphthongs, the classification thus
 being similar to the deletion errors.</span></p>
 </div>
 <div id="S5.p8" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Substitution</span><span class="ltx_text" style="font-size:90%;"> errors are relatively more frequent in the Sámi corpora
 than in Estonian. They also involve cases where one letter is substituted by two
-(e.g. North Sámi </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*direktora</span><span class="ltx_text" style="font-size:90%;"> - </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">direktevra</span><span class="ltx_text" style="font-size:90%;">), or two by one (e.g.
-</span><span class="ltx_text" style="font-size:90%;">North Sámi </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*Osllu</span><span class="ltx_text" style="font-size:90%;"> - </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">Oslo</span><span class="ltx_text" style="font-size:90%;">), or two adjacent letters by two
+(e.g. North Sámi </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*direktora</span><span class="ltx_text" style="font-size:90%;">—</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">direktevra</span><span class="ltx_text" style="font-size:90%;">), or two by one (e.g.
+North Sámi </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*Osllu</span><span class="ltx_text" style="font-size:90%;">—</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">Oslo</span><span class="ltx_text" style="font-size:90%;">), or two adjacent letters by two
 different ones, as in consonant gradation mix-ups (e.g.
-</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*Sámedikkeválgii</span><span class="ltx_text" style="font-size:90%;"> - </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">Sámediggeválgii</span><span class="ltx_text" style="font-size:90%;">).</span></p>
+</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*Sámedikkeválgii</span><span class="ltx_text" style="font-size:90%;">—</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">Sámediggeválgii</span><span class="ltx_text" style="font-size:90%;">).</span></p>
 </div>
 <div id="S5.p9" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">In Estonian, the main source of errors is the typing process, as evidenced by
 the relatively high proportion of </span><span class="ltx_text ltx_font_bold" style="font-size:90%;">transpositions</span><span class="ltx_text" style="font-size:90%;"> (e.g.
-</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*komapnii</span><span class="ltx_text" style="font-size:90%;"> - </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">kompanii</span><span class="ltx_text" style="font-size:90%;">) and repetitions (e.g.
-</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*poliititika</span><span class="ltx_text" style="font-size:90%;"> - </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">poliitika</span><span class="ltx_text" style="font-size:90%;">). Errors relating to incorrectly
+</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*komapnii</span><span class="ltx_text" style="font-size:90%;">—</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">kompanii</span><span class="ltx_text" style="font-size:90%;">) and repetitions (e.g.
+</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*poliititika</span><span class="ltx_text" style="font-size:90%;">—</span><span class="ltx_text ltx_font_italic" style="font-size:90%;">poliitika</span><span class="ltx_text" style="font-size:90%;">). Errors relating to incorrectly
 writing phones are relatively few. In North Sámi, the main source of errors is
-the phone-to-letter process, i.e. applying rules of orthography. Many
+the phone-to-letter process, i.e. applying rules of orthography. Many
 substitution errors may be blamed on it. This is also documented and discussed
-by </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">antonsen2013</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">.</span></p>
+by </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib13" title="Cállinmeattáhusaid guorran." class="ltx_ref">1</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">.</span></p>
 </div>
 <div id="S5.p10" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">In South Sámi as well, the main source of errors is the phone-to-letter process,
-i.e. applying rules of orthography. In addition, another major source of error
+i.e. applying rules of orthography. In addition, another major source of error
 is the morphophonology of the language, especially as related to syllable
 structure and its consequences for </span><span class="ltx_text ltx_font_bold" style="font-size:90%;">suffix</span><span class="ltx_text" style="font-size:90%;"> realisation, as exemplified
 by </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*edtjibie</span><span class="ltx_text" style="font-size:90%;"> vs </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">edtjebe</span><span class="ltx_text" style="font-size:90%;">. But the biggest class of errors in
 South Sámi is the unclassified </span><span class="ltx_text ltx_font_bold" style="font-size:90%;">other</span><span class="ltx_text" style="font-size:90%;"> group — these are typos that are
-not easily classified by the means used in this work.</span></p>
+</span><span class="ltx_text" style="font-size:90%;">not easily classified by the means used in this work.</span></p>
 </div>
 <figure id="S5.T1" class="ltx_table">
 <table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
@@ -898,7 +897,7 @@ not easily classified by the means used in this work.</span></p>
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">The error models we study are: the baseline, a new regex model, and a machine
 learned model. The baseline model is a general edit distance 2 model built from
 the alphabet of the language, with some language-specific tweaks described
-below, whereas the regex model focuses on documented and generalisable error
+</span><span class="ltx_text" style="font-size:90%;">below, whereas the regex model focuses on documented and generalisable error
 types for the language in question.</span></p>
 </div>
 <section id="S6.SS1" class="ltx_subsection">
@@ -923,7 +922,7 @@ online</span><span id="footnote16" class="ltx_note ltx_role_footnote"><sup class
             <a href="https://giellalt.uit.no/proof/TheSpellerErrorModel.html" title="" class="ltx_ref ltx_url ltx_font_typewriter" style="font-size:90%;">https://giellalt.uit.no/proof/TheSpellerErrorModel.html</a></span></span></span><span class="ltx_text" style="font-size:90%;">.</span></p>
 </div>
 <div id="S6.SS1.p2" class="ltx_para">
-<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">The starting point is a Levenshtein edit distance </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">levenshtein1966binary</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">
+<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">The starting point is a Levenshtein edit distance </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib139" title="Binary codes capable of correcting deletions, insertions, and reversals" class="ltx_ref">18</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">
 error model based on the alphabets of the language, with an editing distance of
 two. It is possible to adjust the weight of specific edits in the edit distance
 2 error model. Adjacent swaps are not enabled by default (they are
@@ -939,7 +938,7 @@ that is, up to twice for both North and South Sámi.</span></p>
 </div>
 <div id="S6.SS1.p4" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Another extension to the default model is one of suffix edits. That is, a simple
-transducer mapping input strings to output strings, as the string edits
+</span><span class="ltx_text" style="font-size:90%;">transducer mapping input strings to output strings, as the string edits
 described above, but now restricted to the end of the word. As described above,
 errors in suffixes are relatively common in especially South Sámi, and this
 module is meant to target such errors.</span></p>
@@ -969,7 +968,8 @@ Levenshtein distance. The reasoning is that when calculating the amount of
 difference between two words, one should view them not as mere symbol strings,
 but as the traces of a series of mental and physical actions. A change in one
 action may result in multiple changes in the letter sequence, but it should
-still be counted as one error.</span></p>
+still be counted as one error.
+</span></p>
 </div>
 <div id="S6.SS2.p2" class="ltx_para">
 <ul id="S6.I1" class="ltx_itemize">
@@ -979,7 +979,7 @@ still be counted as one error.</span></p>
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Keyboard and orthography (mis)matches. In addition to the Latin letters
 that form the core of the alphabet, languages typically need some (usually
 accented) modifications of some of these letters, corresponding to the
-</span><span class="ltx_text" style="font-size:90%;">phones not covered by the core alphabet. These accented letters tend to
+phones not covered by the core alphabet. These accented letters tend to
 be positioned in the periphery of the standard keyboard, and/or need
 key combinations to be used for appearing in the text. It is to be
 expected that such letters also tend to be mistyped. Also, an accent on
@@ -990,7 +990,7 @@ letters would be easy.</span></p>
 <div id="S6.I1.i1.p2" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">For Estonian, the misspelling list indicates that in case the keyboard does not
 provide a convenient way to type the accented letters, users may come up
-with an alternative orthography, e.g. use </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">sh</span><span class="ltx_text" style="font-size:90%;"> or </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">s^</span><span class="ltx_text" style="font-size:90%;">
+with an alternative orthography, e.g. use </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">sh</span><span class="ltx_text" style="font-size:90%;"> or </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">s^</span><span class="ltx_text" style="font-size:90%;">
 instead of the correct </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">š</span><span class="ltx_text" style="font-size:90%;">. If this is the case, then one may
 expect unlimited substitutions of this kind in a wordform (in addition
 to other errors). Nordic letters that are not part of the Sámi
@@ -1004,7 +1004,7 @@ operations is not limited.</span></p>
 <span class="ltx_tag ltx_tag_item"><span class="ltx_text" style="font-size:90%;">•</span></span> 
 <div id="S6.I1.i2.p1" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Keyboard errors, like transposition of letters and repetition of letter
-sequences, happen so likely in Estonian that regexes for them are needed,
+</span><span class="ltx_text" style="font-size:90%;">sequences, happen so likely in Estonian that regexes for them are needed,
 while in Sámi, they are highly unlikely. Encoding a context-dependent
 regex (like one that is needed for repetition) is very costly in terms
 of FST memory, thus they are not used in the Sámi FSTs.</span></p>
@@ -1013,24 +1013,25 @@ of FST memory, thus they are not used in the Sámi FSTs.</span></p>
 <li id="S6.I1.i3" class="ltx_item" style="list-style-type:none;">
 <span class="ltx_tag ltx_tag_item"><span class="ltx_text" style="font-size:90%;">•</span></span> 
 <div id="S6.I1.i3.p1" class="ltx_para">
-<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Morphology errors, i.e. violating the rules that govern how a word is
+<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Morphology errors, i.e. violating the rules that govern how a word is
 modified when it is inflected or compounded. These errors are corrected by
-highly specialised regexes containing string pairs, e.g. a pair of
+highly specialised regexes containing string pairs, e.g. a pair of
 inflectional suffixes.</span></p>
 </div>
 </li>
 <li id="S6.I1.i4" class="ltx_item" style="list-style-type:none;">
 <span class="ltx_tag ltx_tag_item"><span class="ltx_text" style="font-size:90%;">•</span></span> 
 <div id="S6.I1.i4.p1" class="ltx_para">
-<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Orthography, i.e. the convention of writing phones and their combinations.
-Letters and combinations that sound similar, like </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">i</span><span class="ltx_text" style="font-size:90%;"> and </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">j</span><span class="ltx_text" style="font-size:90%;">,
-belong to this group. For Estonian, the set of orthography-related
-regexes is smaller than for the Sámi languages, reflecting the
-proportion of this type of errors in the misspelling list. Also, it is
-rather common for a Sámi word to contain more than one orthography error
-(as defined currently); it is possible that a better understanding of
-the errors will allow us to see in the future how they might really be
-the manifestation of single errors in the mental process of the writer.</span></p>
+<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Orthography, i.e. the convention of writing phones and their
+combinations. Letters and combinations that sound similar, like </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">i</span><span class="ltx_text" style="font-size:90%;">
+and </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">j</span><span class="ltx_text" style="font-size:90%;">, belong to this group. For Estonian, the set of
+orthography-related regexes is smaller than for the Sámi languages,
+reflecting the proportion of this type of errors in the misspelling
+list. Also, it is rather common for a Sámi word to contain more than one
+orthography error (as defined currently); it is possible that a better
+understanding of the errors will allow us to see in the future how they
+might really be the manifestation of single errors in the mental process
+of the writer.</span></p>
 </div>
 </li>
 </ul>
@@ -1038,14 +1039,14 @@ the manifestation of single errors in the mental process of the writer.</span></
 <div id="S6.SS2.p3" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">There are different ways to write and combine regexes to yield an FST that
 converts an input string into another. It is common knowledge among programmers
-that every existing program can be turned into one that either 1) is smaller
+</span><span class="ltx_text" style="font-size:90%;">that every existing program can be turned into one that either 1) is smaller
 when compiled, 2) runs faster, or 3) is more readable, but it is not possible to
 achieve all these three goals simultaneously. The same is true for FST’s. It is
 well known that an obvious and simple (for the human eye) set of regular
 expressions may well result in a huge transducer. Aiming at a smaller
 transducer, one must note that as a rule of thumb, a simpler and smaller
 transducer puts fewer restrictions on the language it accepts, in other words,
-</span><span class="ltx_text" style="font-size:90%;">the set of possible string pairs passing through a simpler typo modification
+the set of possible string pairs passing through a simpler typo modification
 transducer is larger, thus resulting in more time the speller FST has to spend
 checking them. Consequently, the number of possible modifications must be
 controlled, and this forces one to either complicate the regexes or allow the
@@ -1068,14 +1069,14 @@ to French we make the model learn the mapping of misspelled to correct
 word-forms, and instead of a sentence of words as a context, we have the letters
 in a word-form. The idea is that if we have enough such mappings, the neural
 model will learn to translate the misspelled strings into correctly spelt ones,
-as long as the word list is representative of the errors that are being made.
+</span><span class="ltx_text" style="font-size:90%;">as long as the word list is representative of the errors that are being made.
 The error correction models that are learnt are character-based, so in principle
 a representative sample should have some examples of each substitution, deletion
 and insertion in various enough contexts, so it will learn to make them exactly
 in the places needed. As is usual with machine learning, the modelling is
 data-hungry, which means that for ideal usable models we need hundreds of
 thousands of examples, something that we cannot easily deliver with a
-</span><span class="ltx_text" style="font-size:90%;">low-resource languages. However, in recent years the requirement of the amount
+low-resource languages. However, in recent years the requirement of the amount
 of data has been getting smaller, which has made it more plausible to perform
 these experiments in real low-resource settings.</span></p>
 </div>
@@ -1086,7 +1087,7 @@ these experiments in real low-resource settings.</span></p>
 <span class="ltx_tag ltx_tag_section">7 </span>Evaluation</h2>
 
 <div id="S7.p1" class="ltx_para">
-<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">The data in Table </span><a href="#S7.T2" title="Table 2 ‣ 7 Evaluation ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref" style="font-size:90%;"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">2</span></span></a><span class="ltx_text" style="font-size:90%;"> gives an overview of the performance of
+<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">The data in Table </span><a href="#S7.T2" title="Table 2 ‣ 7 Evaluation ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref" style="font-size:90%;"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">2</span></span></a><span class="ltx_text" style="font-size:90%;"> gives an overview of the performance of
 the various error models, for a number of parameters:</span></p>
 </div>
 <div id="S7.p2" class="ltx_para">
@@ -1111,7 +1112,7 @@ ie the correct suggestion is always on top.</span></p>
 <div id="S7.I1.i3.p1" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Average number of suggestions per misspelling:</span><span class="ltx_text" style="font-size:90%;"> Ideally this
 should also be 1, ie there should be no other suggestions than the correct
-one. That is, the higher the number, the higher the noise level.</span></p>
+</span><span class="ltx_text" style="font-size:90%;">one. That is, the higher the number, the higher the noise level.</span></p>
 </div>
 </li>
 <li id="S7.I1.i4" class="ltx_item" style="list-style-type:none;">
@@ -1133,7 +1134,7 @@ neural models will generally always generate suggestions</span></p>
 <span class="ltx_tag ltx_tag_item"><span class="ltx_text" style="font-size:90%;">•</span></span> 
 <div id="S7.I1.i6.p1" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Only bad suggestions:</span><span class="ltx_text" style="font-size:90%;"> How many of the misspellings get only wrong
-</span><span class="ltx_text" style="font-size:90%;">suggestions?</span></p>
+suggestions?</span></p>
 </div>
 </li>
 <li id="S7.I1.i7" class="ltx_item" style="list-style-type:none;">
@@ -1157,7 +1158,7 @@ intel Core i7 CPU and an nVidia Quadro T1000</span></span></span></span><span cl
 <p class="ltx_p"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Error model size in megabytes:</span><span class="ltx_text" style="font-size:90%;"> FST size is provided in the table
 to compare the models. The FST size is directly proportional to the use of
 regexes that consider longer context, like when checking letter pair,
-triple etc. repetitions, or counting the allowed number of edit
+triple etc. repetitions, or counting the allowed number of edit
 operations. The neural model size is the size of the neural network and
 dependent on the hyperparameters used.</span></p>
 </div>
@@ -1318,20 +1319,20 @@ that the GiellaLT philosophy is correct: for languages with little to none
 electronic resources, rule-based is the only option, and we clearly establish
 that this includes the error models in spelling checkers. If machine learning
 methods are not currently viable for North Sámi, the language in this experiment
-with the largest resources, then clearly it will not work for lesser resourced
+</span><span class="ltx_text" style="font-size:90%;">with the largest resources, then clearly it will not work for lesser resourced
 languages.</span></p>
 </div>
 <div id="S7.p5" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Upon closer inspection of the ML model, it also became clear that it was mostly
 simple edit distance one errors that got correct suggestions, which means that
 it can’t contribute meaningfully in a hybrid setup either — the errors it can
-</span><span class="ltx_text" style="font-size:90%;">correct are errors that the rule based model has no problem correcting.</span></p>
+correct are errors that the rule based model has no problem correcting.</span></p>
 </div>
 <div id="S7.p6" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Second, building hand-tuned regular expressions is an exercise worth
 undertaking, but requires thorough analysis of the error landscape. The Estonian
 error model performs really well, and the North Sámi handwritten regex model
-(labelled RGX in Table </span><a href="#S7.T2" title="Table 2 ‣ 7 Evaluation ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref" style="font-size:90%;"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">2</span></span></a><span class="ltx_text" style="font-size:90%;">) makes a major leap forward in both
+(labelled RGX in Table </span><a href="#S7.T2" title="Table 2 ‣ 7 Evaluation ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref" style="font-size:90%;"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">2</span></span></a><span class="ltx_text" style="font-size:90%;">) makes a major leap forward in both
 recall and precision, making 10+ percentage jumps compared to the baseline.
 Admittedly, the baseline error model was not that good in the first place, but
 with the handwritten regex, North Sámi is close behind the Estonian model in
@@ -1346,13 +1347,12 @@ surpass the baseline. The South Sámi spelling error lists have a large portion
 of errors due to pure orthographic conventions, mixing </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*ø</span><span class="ltx_text" style="font-size:90%;"> for
 </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">ö</span><span class="ltx_text" style="font-size:90%;">, and to a less degree </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">*ä</span><span class="ltx_text" style="font-size:90%;"> for </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">æ</span><span class="ltx_text" style="font-size:90%;">. Since these errors
 are frequent, and at the same time very easy to correct, any speller would be
-expected to perform relatively well. To really improve the South Sámi speller
+</span><span class="ltx_text" style="font-size:90%;">expected to perform relatively well. To really improve the South Sámi speller
 one would have to focus on the remaining classes of misspellings, but as shown
 above, those are quite heterogeneous. And finally, the misspelling data
 available to regex development and testing was quite small, and that may
 influence the numbers. We used another data source for ML training and testing,
-hence the very different dataset sizes for ML and RGX.
-</span></p>
+hence the very different dataset sizes for ML and RGX.</span></p>
 </div>
 <div id="S7.p8" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">The reasons for the difference between the North and South Sámi baseline models
@@ -1370,7 +1370,7 @@ a separate study, and is outside the scope of this article.</span></p>
 <div id="S7.p9" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">We did not use a list of unseen misspellings when evaluating the BL and RGX
 models. We are aware that when writing regexes, it is possible to come up with
-specific ones for a selected set of words, i.e. end up with overfitting to the
+specific ones for a selected set of words, i.e. end up with overfitting to the
 data. We tried to avoid this, and interested readers might check the source
 code</span><span id="footnote18" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">18</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">18</sup>
             <span class="ltx_tag ltx_tag_note"><span class="ltx_text" style="font-size:90%;">18</span></span>
@@ -1380,13 +1380,13 @@ code</span><span id="footnote18" class="ltx_note ltx_role_footnote"><sup class="
           <a href="https://github.com/giellalt/lang-sma/" title="" class="ltx_ref ltx_url ltx_font_typewriter" style="font-size:90%;">https://github.com/giellalt/lang-sma/</a><span class="ltx_text" style="font-size:90%;">,
 </span><a href="https://github.com/giellalt/lang-sme/" title="" class="ltx_ref ltx_url ltx_font_typewriter" style="font-size:90%;">https://github.com/giellalt/lang-sme/</a><span class="ltx_text" style="font-size:90%;">,
 </span><a href="https://github.com/giellalt/lang-est-x-utee/" title="" class="ltx_ref ltx_url ltx_font_typewriter" style="font-size:90%;">https://github.com/giellalt/lang-est-x-utee/</a></span></span></span><span class="ltx_text" style="font-size:90%;">. However, in case of a
-corpus with different parameters than we had (e.g. a different type of text,
+corpus with different parameters than we had (e.g. a different type of text,
 different types of text producers), we expect the precision figures to be
 different.</span></p>
 </div>
 <div id="S7.p10" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">While having a real held out error corpus for evaluation would be ideal, it is
-</span><span class="ltx_text" style="font-size:90%;">not easily attainable in the context of lesser resourced languages, where we
+not easily attainable in the context of lesser resourced languages, where we
 often want to use all available data during development phase for practical
 reasons.</span></p>
 </div>
@@ -1408,14 +1408,14 @@ information, one should try to improve the ordering independently of the
 context. This is an area for future research.</span></p>
 </div>
 <div id="S8.p2" class="ltx_para">
-<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">On the other hand, if the context is available, e.g. via a grammar checker API,
-it should be possible to filter or promote specific suggestions based on the
-syntactic context. One such example is </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">pirinent_et_al_2012</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">, using a POS
+<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">On the other hand, if the context is available, e.g. via a grammar checker API,
+</span><span class="ltx_text" style="font-size:90%;">it should be possible to filter or promote specific suggestions based on the
+syntactic context. One such example is </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib217" title="Improving finite-state spell-checker suggestions with part of speech n-grams" class="ltx_ref">24</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">, using a POS
 trigram model to promote suggestions matching the trigram model. Another
 approach is to use the full sentence as the context, in combination with
 syntactic disambiguation and parsing, for example using the VislCG3 formalism.
-Examples of such systems are </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">Bick2006ACG</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> and
-</span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">wiechetek-etal-2019-seeing</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">, the last one being implemented within the
+Examples of such systems are </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib36" title="A constraint grammar based spellchecker for danish with a special focus on dyslexics" class="ltx_ref">6</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">
+and </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib307" title="Seeing more than whitespace—tokenisation and disambiguation in a north Sámi grammar checker" class="ltx_ref">31</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">, the last one being implemented within the
 GiellaLT framework, and as such principally available to all languages. That
 would thus be the next logical step.</span></p>
 </div>
@@ -1434,8 +1434,8 @@ perhaps more efficiently than the network, thus the main positive side of the
 neural model may be in the added robustness. All in all, it is good to know
 that chasing machine learning ghosts can now be put aside, as we have
 demonstrated that there are better alternatives with a lower environmental
-impact (see </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">strubell2019energy</span><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> for an evaluation of the environmental
-impact of modern machine learning).</span></p>
+impact (see </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib266" title="Energy and policy considerations for deep learning in NLP" class="ltx_ref">28</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> for an evaluation of the environmental
+</span><span class="ltx_text" style="font-size:90%;">impact of modern machine learning).</span></p>
 </div>
 <div class="ltx_pagination ltx_role_newpage"></div>
 </section>
@@ -1445,7 +1445,7 @@ impact of modern machine learning).</span></p>
 <div id="Sx1.p1" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">The work was partly supported by the Centre of Excellence in Estonian Studies
 (CEES, TK-145). The computations for ML model building were performed on
-resources provided by UNINETT Sigma2 - the National Infrastructure for High
+resources provided by UNINETT Sigma2—the National Infrastructure for High
 Performance Computing and Data Storage in Norway.</span></p>
 </div>
 </section>
@@ -1453,6 +1453,416 @@ Performance Computing and Data Storage in Norway.</span></p>
 <h2 class="ltx_title ltx_title_bibliography" style="font-size:90%;">References</h2>
 
 <ul id="bib.L1" class="ltx_biblist">
+<li id="bib.bib13" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Antonsen</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Cállinmeattáhusaid guorran.</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">University of Tromsø</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">[English summary: Tracking misspellings.]</span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p3" title="2 Earlier work ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§2</span></span></a>,
+<a href="#S4.SS1.p2" title="4.1 North Sámi ‣ 4 Lists of misspellings ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§4.1</span></span></a>,
+<a href="#S5.p3" title="5 Error types ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§5</span></span></a>,
+<a href="#S5.p9" title="5 Error types ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§5</span></span></a>.
+</span>
+</li>
+<li id="bib.bib19" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. I. Arwidsson</span><span class="ltx_text ltx_bib_year"> (1822)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Ueber die ehstniche orthographie. won einem finnländer</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Beiträge zur genauern Kenntniss der ehstnischen Sprache. Funfzehntes Heft</span>, <span class="ltx_text ltx_bib_pages"> pp. 124–130</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS3.p1" title="4.3 Estonian ‣ 4 Lists of misspellings ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§4.3</span></span></a>.
+</span>
+</li>
+<li id="bib.bib30" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Beeksma, M. Van Gompel, F. Kunneman, L. Onrust, B. Regnerus, D. Vinke, E. Brito, C. Bauckhage, and R. Sifa</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Detecting and correcting spelling errors in high-quality dutch wikipedia text</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Computational Linguistics in the Netherlands Journal</span> <span class="ltx_text ltx_bib_volume">8</span>, <span class="ltx_text ltx_bib_pages"> pp. 122–137</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p6" title="2 Earlier work ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§2</span></span></a>.
+</span>
+</li>
+<li id="bib.bib28" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. R. Beesley and L. Karttunen</span><span class="ltx_text ltx_bib_year"> (2003)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Finite state morphology</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">CSLI publications</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text isbn ltx_bib_external">ISBN 978-1575864341</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#footnote19" title="footnote 19 ‣ Appendix A Appendix. Some tips and tricks for FST ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">footnote 19</span></span></a>.
+</span>
+</li>
+<li id="bib.bib34" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Bergsland</span><span class="ltx_text ltx_bib_year"> (1994)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Sydsamisk grammatikk</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">Davvi Girji o. s.</span>, <span class="ltx_text ltx_bib_place">Karasjok</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS2.p1" title="4.2 South Sámi ‣ 4 Lists of misspellings ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§4.2</span></span></a>.
+</span>
+</li>
+<li id="bib.bib36" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. Bick</span><span class="ltx_text ltx_bib_year"> (2006)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A constraint grammar based spellchecker for danish with a special focus on dyslexics</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S8.p2" title="8 Discussions and speculations, conclusion ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§8</span></span></a>.
+</span>
+</li>
+<li id="bib.bib42" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Bollmann and A. Søgaard</span><span class="ltx_text ltx_bib_year"> (2016-12)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Improving historical spelling normalization with bi-directional LSTMs and multi-task learning</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of COLING 2016, the 26th International
+Conference on Computational Linguistics: Technical Papers</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Osaka, Japan</span>, <span class="ltx_text ltx_bib_pages"> pp. 131–139</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://aclanthology.org/C16-1013" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p1" title="3 Methods ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§3</span></span></a>.
+</span>
+</li>
+<li id="bib.bib47" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. H. Bull and K. Bergsland</span><span class="ltx_text ltx_bib_year"> (1974)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Lohkede saemien. sørsamisk lesebok</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">Grunnskolerådet, Kirke- og undervisningsdepartementet: Universitetsforlaget</span>, <span class="ltx_text ltx_bib_place">Oslo</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS2.p1" title="4.2 South Sámi ‣ 4 Lists of misspellings ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§4.2</span></span></a>.
+</span>
+</li>
+<li id="bib.bib70" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Erelt, T. Erelt, and K. Ross</span><span class="ltx_text ltx_bib_year"> (2007)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Eesti keele käsiraamat</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">EKI</span>, <span class="ltx_text ltx_bib_place">Tallinn</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS3.p3" title="4.3 Estonian ‣ 4 Lists of misspellings ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§4.3</span></span></a>.
+</span>
+</li>
+<li id="bib.bib75" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Flor, M. Fried, and A. Rozovskaya</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A benchmark corpus of english misspellings and a minimally-supervised model for spelling correction</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Fourteenth Workshop on Innovative Use of NLP for Building Educational Applications</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 76–86</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.18653/v1/W19-4407" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p6" title="2 Earlier work ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§2</span></span></a>.
+</span>
+</li>
+<li id="bib.bib76" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Flor, Y. Futagi, M. Lopez, and M. Mulholland</span><span class="ltx_text ltx_bib_year"> (2015-05)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Patterns of misspellings in L2 and L1 English: a view from the ETS Spelling Corpus</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Bergen Language and Linguistics Studies</span> <span class="ltx_text ltx_bib_volume">6</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://bells.uib.no/index.php/bells/article/view/811" title="" class="ltx_ref ltx_bib_external">Link</a>,
+<a href="https://dx.doi.org/10.15845/bells.v6i0.811" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p2" title="4.1 North Sámi ‣ 4 Lists of misspellings ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§4.1</span></span></a>.
+</span>
+</li>
+<li id="bib.bib84" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">B. Gaup, S. Moshagen, T. Omma, M. Palismaa, T. Pieski, and T. Trosterud</span><span class="ltx_text ltx_bib_year"> (2005)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">From xerox to aspell: a first prototype of a north sámi speller based on twol technology</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">International Workshop on Finite-State Methods and Natural
+Language Processing</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 306–307</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1007/11780885%5F37" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p2" title="2 Earlier work ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§2</span></span></a>.
+</span>
+</li>
+<li id="bib.bib99" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Hládek, J. Staš, and M. Pleva</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Survey of automatic spelling correction</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Electronics</span> <span class="ltx_text ltx_bib_volume">9</span> (<span class="ltx_text ltx_bib_number">10</span>), <span class="ltx_text ltx_bib_pages"> pp. 1670</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.3390/electronics9101670" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Earlier work ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§2</span></span></a>.
+</span>
+</li>
+<li id="bib.bib330" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Hochreiter and J. Schmidhuber</span><span class="ltx_text ltx_bib_year"> (1997)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Long short-term memory</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Neural computation</span> <span class="ltx_text ltx_bib_volume">9</span> (<span class="ltx_text ltx_bib_number">8</span>), <span class="ltx_text ltx_bib_pages"> pp. 1735–1780</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p1" title="3 Methods ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§3</span></span></a>.
+</span>
+</li>
+<li id="bib.bib20" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Kask</span><span class="ltx_text ltx_bib_year"> (1970)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Eesti kirjakeele ajaloost</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">Tartu Riiklik Ülikool</span>, <span class="ltx_text ltx_bib_place">Tartu</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS3.p1" title="4.3 Estonian ‣ 4 Lists of misspellings ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§4.3</span></span></a>.
+</span>
+</li>
+<li id="bib.bib124" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">G. Klein, Y. Kim, Y. Deng, J. Senellart, and A. M. Rush</span><span class="ltx_text ltx_bib_year"> (2017)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">OpenNMT: open-source toolkit for neural machine translation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proc. ACL</span>,
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://doi.org/10.18653/v1/P17-4012" title="" class="ltx_ref ltx_bib_external">Link</a>,
+<a href="https://dx.doi.org/10.18653/v1/P17-4012" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS2.p1" title="3.2 NN methods ‣ 3 Methods ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§3.2</span></span></a>.
+</span>
+</li>
+<li id="bib.bib133" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[17]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Kukich</span><span class="ltx_text ltx_bib_year"> (1992)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Techniques for automatically correcting words in text</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">ACM Comput. Surv.</span> <span class="ltx_text ltx_bib_volume">24</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages"> pp. 377–439</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0360-0300</span>,
+<a href="https://dx.doi.org/http%3A//doi.acm.org/10.1145/146370.146380" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Earlier work ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§2</span></span></a>.
+</span>
+</li>
+<li id="bib.bib139" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[18]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">V. I. Levenshtein</span><span class="ltx_text ltx_bib_year"> (1966)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Binary codes capable of correcting deletions, insertions, and reversals</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Soviet Physics—Doklady 10, 707–710. Translated from Doklady Akademii Nauk SSSR</span>, <span class="ltx_text ltx_bib_pages"> pp. 845–848</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">Untranslated version 1965</span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S6.SS1.p2" title="6.1 Baseline error models for South and North Sámi ‣ 6 Error models ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§6.1</span></span></a>.
+</span>
+</li>
+<li id="bib.bib140" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[19]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">X. Li, H. Liu, and L. Huang</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Context-aware stand-alone neural spelling correction</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2011.06642</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.18653/v1/2020.findings-emnlp.37" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p5" title="2 Earlier work ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§2</span></span></a>.
+</span>
+</li>
+<li id="bib.bib153" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[20]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">O. H. Magga and L. M. Magga</span><span class="ltx_text ltx_bib_year"> (2012)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Sørsamisk grammatikk</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">Davvi Girji</span>, <span class="ltx_text ltx_bib_place">Karasjok</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS2.p1" title="4.2 South Sámi ‣ 4 Lists of misspellings ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§4.2</span></span></a>.
+</span>
+</li>
+<li id="bib.bib182" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[21]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. N. Moshagen, F. Pirinen, and T. Trosterud</span><span class="ltx_text ltx_bib_year"> (2013-05)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Building an open-source development infrastructure for language technology projects</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 19th Nordic Conference of Computational Linguistics (NODALIDA 2013)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Oslo, Norway</span>, <span class="ltx_text ltx_bib_pages"> pp. 343–352</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://www.aclweb.org/anthology/W13-5631" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p7" title="2 Earlier work ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§2</span></span></a>.
+</span>
+</li>
+<li id="bib.bib272" class="ltx_bibitem ltx_bib_incollection">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[22]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. N. Moshagen and T. Trosterud</span><span class="ltx_text ltx_bib_year"> (2005)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Samisk språkteknologi</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Nordisk Sprogteknologi 2004: Aarbog for Nordisk Sprogteknologisk
+Forskningsprogram 2000-2004</span>,  <span class="ltx_text ltx_bib_editor">H. Holmboe (Ed.)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 57–62</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://books.google.fi/books?id=xTf54GEklKcC" title="" class="ltx_ref ltx_bib_external">Link</a>,
+<span class="ltx_text isbn ltx_bib_external">ISBN 9788763502481</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p7" title="2 Earlier work ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§2</span></span></a>.
+</span>
+</li>
+<li id="bib.bib190" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[23]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. P. Nickel and P. Sammallahti</span><span class="ltx_text ltx_bib_year"> (2011)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Nordsamisk grammatikk</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_edition">2. hapmi = utgave, 1.deaddileapmi = opplag edition</span>,  <span class="ltx_text ltx_bib_publisher">Davvi Girji</span>, <span class="ltx_text ltx_bib_place">Karasjok</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text isbn ltx_bib_external">ISBN 978-82-7374-201-8</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p1" title="4.1 North Sámi ‣ 4 Lists of misspellings ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§4.1</span></span></a>.
+</span>
+</li>
+<li id="bib.bib217" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[24]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. A. Pirinen, M. Silfverberg, and K. Lindén</span><span class="ltx_text ltx_bib_year"> (2012)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Improving finite-state spell-checker suggestions with part of speech n-grams</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">IJCLA</span>,
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S8.p2" title="8 Discussions and speculations, conclusion ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§8</span></span></a>.
+</span>
+</li>
+<li id="bib.bib212" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[25]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. A. Pirinen and K. Lindén</span><span class="ltx_text ltx_bib_year"> (2010)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Finite-state spell-checking with weighted language and error models</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Seventh SaLTMiL workshop on creation and
+use of basic lexical resources for less-resourced languagages</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Valletta, Malta</span>, <span class="ltx_text ltx_bib_pages"> pp. 13–18</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="http://siuc01.si.ehu.es/%7Ejipsagak/SALTMIL2010%5C_Proceedings.pdf" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS1.p1" title="3.1 FST methods ‣ 3 Methods ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§3.1</span></span></a>.
+</span>
+</li>
+<li id="bib.bib219" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[26]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. A. Pirinen and K. Lindén</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">State-of-the-art in weighted finite-state spell-checking</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 15th International Conference on Computational
+Linguistics and Intelligent Text Processing - Volume 8404</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">CICLing 2014</span>, <span class="ltx_text ltx_bib_pages"> pp. 519–532</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p2" title="2 Earlier work ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§2</span></span></a>,
+<a href="#S3.p1" title="3 Methods ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§3</span></span></a>.
+</span>
+</li>
+<li id="bib.bib341" class="ltx_bibitem ltx_bib_misc">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[27]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">SIKOR</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">SIKOR uit norgga árktalaš universitehta ja norgga sámedikki sámi teakstačoakkáldat, veršuvdna 06.11.2018</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">onlineAccessed: 2018-11-06</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="..." title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS2.p11" title="4.2 South Sámi ‣ 4 Lists of misspellings ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§4.2</span></span></a>,
+<a href="#footnote12" title="footnote 12 ‣ 4.1 North Sámi ‣ 4 Lists of misspellings ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">footnote 12</span></span></a>.
+</span>
+</li>
+<li id="bib.bib266" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[28]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. Strubell, A. Ganesh, and A. McCallum</span><span class="ltx_text ltx_bib_year"> (2019-07)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Energy and policy considerations for deep learning in NLP</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 57th Conference of the Association for Computational Linguistics</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Florence, Italy</span>, <span class="ltx_text ltx_bib_pages"> pp. 3645–3650</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://www.aclweb.org/anthology/P19-1355" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S8.p3" title="8 Discussions and speculations, conclusion ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§8</span></span></a>.
+</span>
+</li>
+<li id="bib.bib271" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[29]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">V. Trón, A. Kornai, G. Gyepesi, L. Németh, P. Halácsy, and D. Varga</span><span class="ltx_text ltx_bib_year"> (2005)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Hunmorph: open source word analysis</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Workshop on Software</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 77–85</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p2" title="1 Introduction ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§1</span></span></a>.
+</span>
+</li>
+<li id="bib.bib274" class="ltx_bibitem ltx_bib_incollection">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[30]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Trosterud and L. Wiechetek</span><span class="ltx_text ltx_bib_year"> (2007)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Disambiguering av homonymi i nord- og lulesamisk</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Sámit, sánit, sátnehámit. Riepmočála Pekka Sammallahtii miessemánu 21. beaivve 2007</span>,  <span class="ltx_text ltx_bib_editor">A. Aikio and J. Ylikoski (Eds.)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">Suomalais-Ugrilaisen Seuran Toimituksia 253</span>, <span class="ltx_text ltx_bib_pages"> pp. 347–354</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p7" title="2 Earlier work ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§2</span></span></a>.
+</span>
+</li>
+<li id="bib.bib307" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[31]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Wiechetek, S. Moshagen, and K. B. Unhammer</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Seeing more than whitespace—tokenisation and disambiguation in a north Sámi grammar checker</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 3rd Workshop on the Use of Computational
+Methods in the Study of Endangered Languages Volume 1 (Papers)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 46–55</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S8.p2" title="8 Discussions and speculations, conclusion ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§8</span></span></a>.
+</span>
+</li>
 </ul>
 </section>
 <div class="ltx_pagination ltx_role_newpage"></div>
@@ -1468,7 +1878,7 @@ problems.</span><span id="footnote19" class="ltx_note ltx_role_footnote"><sup cl
             
             
           <span class="ltx_text" style="font-size:90%;">We use the Xerox regular expression notation,
-c.f.</span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><span class="ltx_ref ltx_missing_citation ltx_ref_self">beesley2003finite</span><span class="ltx_text" style="font-size:90%;">]</span></cite></span></span></span><span class="ltx_text" style="font-size:90%;"></span></p>
+c.f.</span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib28" title="Finite state morphology" class="ltx_ref">4</a><span class="ltx_text" style="font-size:90%;">]</span></cite></span></span></span><span class="ltx_text" style="font-size:90%;"></span></p>
 </div>
 <section id="A1.SS1" class="ltx_subsection">
 <h3 class="ltx_title ltx_title_subsection" style="font-size:90%;">
@@ -1525,7 +1935,7 @@ modification-plus-checking workflow this makes no real harm.</span></p>
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">This way of expressing transposition makes a smaller transducer than would be
 the alternative with explicitly listed pairwise expressions, because using the
 ?-mark imposes fewer restrictions on the language than explicitly listing the
-</span><span class="ltx_text" style="font-size:90%;">transposition pairs.</span></p>
+transposition pairs.</span></p>
 </div>
 <div id="A1.SS1.p6" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">In addition, defining a transposition via a letter disappearing and appearing,
@@ -1565,8 +1975,7 @@ to delete this repeated part.</span></p>
 <div id="A1.SS2.p2" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Repetition-expressing regexes are notorious for blowing the transducer’s size
 up. In order to alleviate that, one may use the ?-mark again, under-specifying
-the context and thus arriving at a smaller compiled transducer.
-</span></p>
+the context and thus arriving at a smaller compiled transducer.</span></p>
 </div>
 <div id="A1.SS2.p3" class="ltx_para">
 <div class="ltx_listing ltx_lstlisting ltx_listing">
@@ -1607,7 +2016,7 @@ tag, if the same letter also appears as next-to-next. This transducer is then
 composed with another one, which requires exactly two adjacent </span><span class="ltx_text ltx_font_typewriter" style="font-size:90%;">&lt;COR&gt;</span><span class="ltx_text" style="font-size:90%;">
 tags to be in the resulting string. This ensures that there were exactly two
 adjacent letters that were substituted, meaning that there was a repetition
-pattern like </span><span class="ltx_text ltx_font_typewriter" style="font-size:90%;">abab</span><span class="ltx_text" style="font-size:90%;"> in the wordform. Once </span><span class="ltx_text ltx_font_typewriter" style="font-size:90%;">&lt;COR&gt;</span><span class="ltx_text" style="font-size:90%;"> tags are
+</span><span class="ltx_text" style="font-size:90%;">pattern like </span><span class="ltx_text ltx_font_typewriter" style="font-size:90%;">abab</span><span class="ltx_text" style="font-size:90%;"> in the wordform. Once </span><span class="ltx_text ltx_font_typewriter" style="font-size:90%;">&lt;COR&gt;</span><span class="ltx_text" style="font-size:90%;"> tags are
 removed, the removal of two repeated letters is finished.</span></p>
 </div>
 </section>
@@ -1617,7 +2026,7 @@ removed, the removal of two repeated letters is finished.</span></p>
 
 <div id="A1.SS3.p1" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Finally, below is an example on how to express a linguistic abstraction in a
-</span><span class="ltx_text" style="font-size:90%;">regex shorthand. Sámi writers tend to be confused on how to write similarly
+regex shorthand. Sámi writers tend to be confused on how to write similarly
 sounding phones. For example, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">k-sound</span><span class="ltx_text" style="font-size:90%;"> may be written in North Sámi as
 </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">g</span><span class="ltx_text" style="font-size:90%;">, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">gg</span><span class="ltx_text" style="font-size:90%;">, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">k</span><span class="ltx_text" style="font-size:90%;">, </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">kk</span><span class="ltx_text" style="font-size:90%;">, or </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">hk</span><span class="ltx_text" style="font-size:90%;">, and the list
 of misspellings contains many word pairs where these letters are confused, e.g.
@@ -1646,16 +2055,14 @@ down </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">k-soun
 other. The regex also redundantly substitutes a combination for itself,
 resulting in a ”modification” that is the same as the original; such
 modifications get discarded by the speller module, so they make no harm except
-waste a little extra time.
-
-</span></p>
+waste a little extra time.</span></p>
 </div>
 </section>
 </section>
 </article>
 </div>
 <footer class="ltx_page_footer">
-<div class="ltx_page_logo">Generated  on Tue Aug 30 17:45:00 2022 by <a href="http://dlmf.nist.gov/LaTeXML/">LaTeXML <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="[LOGO]"></a>
+<div class="ltx_page_logo">Generated  on Wed Aug 31 03:43:24 2022 by <a href="http://dlmf.nist.gov/LaTeXML/">LaTeXML <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="[LOGO]"></a>
 </div></footer>
 </div>
 </body>
