@@ -10,9 +10,10 @@ LATEXMLPOST=latexmlpost
 
 .PHONY: all
 
-PREFIX=$(AUTHOR2)-$(YEAR)-$(CONFERENCE)
-PAPER=$(PREFIX).pdf
-WEB=$(PREFIX).html
+PREFIX1=$(AUTHOR1)-$(YEAR)-$(CONFERENCE)
+PREFIX2=$(AUTHOR2)-$(YEAR)-$(CONFERENCE)
+PAPER=$(PREFIX1).pdf $(PREFIX2).pdf
+WEB=$(PREFIX1).html $(PREFIX2).html
 ## bibtexes cannot always handle hyphens
 BIB=$(CONFERENCE).bib
 

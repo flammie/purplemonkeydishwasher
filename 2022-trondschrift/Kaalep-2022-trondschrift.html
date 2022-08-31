@@ -2,7 +2,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>You can’t suggest that?! Comparisons and improvements of speller error models</title>
-<!--Generated on Wed Aug 31 03:43:24 2022 by LaTeXML (version 0.8.6) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Generated on Wed Aug 31 04:49:11 2022 by LaTeXML (version 0.8.6) http://dlmf.nist.gov/LaTeXML/.-->
 
 <link rel="stylesheet" href="../latexml/LaTeXML.css" type="text/css">
 <link rel="stylesheet" href="../latexml/ltx-article.css" type="text/css">
@@ -74,7 +74,7 @@ contrast with e.g. Hunspell</span><span id="footnote2" class="ltx_note ltx_role_
             
             
           <a href="https://hunspell.github.io/" title="" class="ltx_ref ltx_url ltx_font_typewriter" style="font-size:90%;">https://hunspell.github.io/</a></span></span></span><span class="ltx_text" style="font-size:90%;">
-(</span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib271" title="Hunmorph: open source word analysis" class="ltx_ref">29</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">) and the rest of the Xspell family (Ispell,
+(</span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib283" title="Hunmorph: open source word analysis" class="ltx_ref">29</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">) and the rest of the Xspell family (Ispell,
 Aspell</span><span id="footnote3" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">3</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">3</sup>
             <span class="ltx_tag ltx_tag_note"><span class="ltx_text" style="font-size:90%;">3</span></span>
             
@@ -142,7 +142,7 @@ models. Finally, there is a discussion on the outcome, and a conclusion.
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">A lot of work has been done on spelling corrections—we give an overview of the
 literature here—although most of it looks at English and closely or
 typologically related languages. See
-e.g. </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib133" title="Techniques for automatically correcting words in text" class="ltx_ref">17</a>, <a href="#bib.bib99" title="Survey of automatic spelling correction" class="ltx_ref">13</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">. Working with languages with
+e.g. </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib140" title="Techniques for automatically correcting words in text" class="ltx_ref">17</a>, <a href="#bib.bib106" title="Survey of automatic spelling correction" class="ltx_ref">13</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">. Working with languages with
 a complex morphology and phonology does offer some additional challenges, and
 minority and indigenous languages with a recent writing culture adds to that
 challenge, also, not a lot of work has been done in this area.</span></p>
@@ -150,8 +150,8 @@ challenge, also, not a lot of work has been done in this area.</span></p>
 <div id="S2.p2" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Finite-state language models have been used in spell-checking and correction for
 a while, one of the most recent approaches that is the basis of our system as
-well is </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib219" title="State-of-the-art in weighted finite-state spell-checking" class="ltx_ref">26</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">. Within the Sámi language context, the work has
-been done from </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib84" title="From xerox to aspell: a first prototype of a north sámi speller based on twol technology" class="ltx_ref">12</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> onwards.</span></p>
+well is </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib231" title="State-of-the-art in weighted finite-state spell-checking" class="ltx_ref">26</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">. Within the Sámi language context, the work has
+been done from </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib90" title="From xerox to aspell: a first prototype of a north sámi speller based on twol technology" class="ltx_ref">12</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> onwards.</span></p>
 </div>
 <div id="S2.p3" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Substantial work on analysing North Sámi spelling errors was done in
@@ -177,22 +177,22 @@ it has been possible to re-implement it as an FST.</span></p>
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">There is some prior work done on the general problem of error-correction using
 neural networks and this is often suggested as the state-of-the-art currently,
 so we have chosen to experiment on this approach as well.
-In </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib140" title="Context-aware stand-alone neural spelling correction" class="ltx_ref">19</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> the authors use a neural model to determine the context
+In </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib147" title="Context-aware stand-alone neural spelling correction" class="ltx_ref">19</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> the authors use a neural model to determine the context
 of the word, resulting in a better guess as to what was the word that the author
 wanted to use.</span></p>
 </div>
 <div id="S2.p6" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">One of our central themes in this article lies in the usage and importance of a
 public error corpus and/or list; an elaborate model for ordering correction
-candidates: c.f. </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib75" title="A benchmark corpus of english misspellings and a minimally-supervised model for spelling correction" class="ltx_ref">10</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">. Different sources have different
+candidates: c.f. </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib81" title="A benchmark corpus of english misspellings and a minimally-supervised model for spelling correction" class="ltx_ref">10</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">. Different sources have different
 types of errors, thus different strategies should be used, and different
-recall-precision figures are expected: </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib30" title="Detecting and correcting spelling errors in high-quality dutch wikipedia text" class="ltx_ref">3</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">.</span></p>
+recall-precision figures are expected: </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib31" title="Detecting and correcting spelling errors in high-quality dutch wikipedia text" class="ltx_ref">3</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">.</span></p>
 </div>
 <div id="S2.p7" class="ltx_para">
-<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">The GiellaLT framework </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib182" title="Building an open-source development infrastructure for language technology projects" class="ltx_ref">21</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> originated from the initial
+<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">The GiellaLT framework </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib191" title="Building an open-source development infrastructure for language technology projects" class="ltx_ref">21</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> originated from the initial
 work on proofing tools and morphological analysers for the Sámi languages, where
 Trond Trosterud has been a major driving force (see
-e.g. </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib272" title="Samisk språkteknologi" class="ltx_ref">22</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> and </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib274" title="Disambiguering av homonymi i nord- og lulesamisk" class="ltx_ref">30</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">). The
+e.g. </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib284" title="Samisk språkteknologi" class="ltx_ref">22</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> and </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib286" title="Disambiguering av homonymi i nord- og lulesamisk" class="ltx_ref">30</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">). The
 framework itself is language independent, but favours rule-based technologies
 suitable for morphology rich, complex, and low-resource languages. The overall
 goal is to support all language technology needs of indigenous and minority
@@ -210,8 +210,8 @@ communities.</span></p>
 <div id="S3.p1" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">In this article we study two approaches to error-correction, a rule-based method
 using two-level </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">finite-state transducers</span><span class="ltx_text" style="font-size:90%;">
-(FST) </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib219" title="State-of-the-art in weighted finite-state spell-checking" class="ltx_ref">26</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">, and data-driven </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">neural network-based</span><span class="ltx_text" style="font-size:90%;">
-(NN) </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib330" title="Long short-term memory" class="ltx_ref">14</a>, <a href="#bib.bib42" title="Improving historical spelling normalization with bi-directional LSTMs and multi-task learning" class="ltx_ref">7</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">language
+(FST) </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib231" title="State-of-the-art in weighted finite-state spell-checking" class="ltx_ref">26</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">, and data-driven </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">neural network-based</span><span class="ltx_text" style="font-size:90%;">
+(NN) </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib342" title="Long short-term memory" class="ltx_ref">14</a>, <a href="#bib.bib44" title="Improving historical spelling normalization with bi-directional LSTMs and multi-task learning" class="ltx_ref">7</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">language
 models</span><span class="ltx_text" style="font-size:90%;">. We call a method that corrects incorrect word-forms into correct ones
 </span><span class="ltx_text ltx_font_italic" style="font-size:90%;">an error model</span><span class="ltx_text" style="font-size:90%;">.</span></p>
 </div>
@@ -221,7 +221,7 @@ models</span><span class="ltx_text" style="font-size:90%;">. We call a method th
 
 <div id="S3.SS1.p1" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">The finite-state spelling correction follows the model described
-in </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib212" title="Finite-state spell-checking with weighted language and error models" class="ltx_ref">25</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">: a transducer that modifies the erroneous
+in </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib224" title="Finite-state spell-checking with weighted language and error models" class="ltx_ref">25</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">: a transducer that modifies the erroneous
 string is composed with the speller transducer, which accepts only valid
 wordforms. As a result, the suggestion transducer presents only modifications
 that are also valid wordforms to the user.</span></p>
@@ -293,7 +293,7 @@ using OpenNMT-py</span><span id="footnote7" class="ltx_note ltx_role_footnote"><
               
               
               
-            <a href="https://opennmt.net/OpenNMT-py" title="" class="ltx_ref ltx_url ltx_font_typewriter" style="font-size:90%;">https://opennmt.net/OpenNMT-py</a></span></span></span><span class="ltx_text" style="font-size:90%;"> </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib124" title="OpenNMT: open-source toolkit for neural machine translation" class="ltx_ref">16</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">
+            <a href="https://opennmt.net/OpenNMT-py" title="" class="ltx_ref ltx_url ltx_font_typewriter" style="font-size:90%;">https://opennmt.net/OpenNMT-py</a></span></span></span><span class="ltx_text" style="font-size:90%;"> </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib131" title="OpenNMT: open-source toolkit for neural machine translation" class="ltx_ref">16</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">
 in its default settings, i.e. a translation model following the OpenNMT tutorial
 </span><span class="ltx_text" style="font-size:90%;">on their website</span><span id="footnote8" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">8</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">8</sup>
               <span class="ltx_tag ltx_tag_note"><span class="ltx_text" style="font-size:90%;">8</span></span>
@@ -337,7 +337,7 @@ adjustments from 1985</span><span id="footnote9" class="ltx_note ltx_role_footno
               
             <span class="ltx_text" style="font-size:90%;">There have been several older orthographies going
 back all the way to 1748.</span></span></span></span><span class="ltx_text" style="font-size:90%;">. The present orthography is thoroughly described
-in </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib190" title="Nordsamisk grammatikk" class="ltx_ref">23</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">.
+in </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib202" title="Nordsamisk grammatikk" class="ltx_ref">23</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">.
 </span></p>
 </div>
 <div id="S4.SS1.p2" class="ltx_para">
@@ -348,7 +348,7 @@ correspondingly young, which is reflected in texts in the form of spelling and
 other grammatical errors. In the material used
 in </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib13" title="Cállinmeattáhusaid guorran." class="ltx_ref">1</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> there is about 4% spelling errors,
 which is considerably more than in e.g. Norwegian or English texts produced by
-native speakers. In </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib76" title="Patterns of misspellings in L2 and L1 English: a view from the ETS Spelling Corpus" class="ltx_ref">11</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">, where the majority of the texts are
+native speakers. In </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib82" title="Patterns of misspellings in L2 and L1 English: a view from the ETS Spelling Corpus" class="ltx_ref">11</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">, where the majority of the texts are
 written by non-native speakers of English at various levels of mastering the
 language, the average number of spelling errors is 2.74%. And for the most
 advanced writers contributing to the data set, the average number of
@@ -390,7 +390,7 @@ found in SIKOR</span><span id="footnote12" class="ltx_note ltx_role_footnote"><s
               
               
               
-            <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib341" title="SIKOR uit norgga árktalaš universitehta ja norgga sámedikki sámi teakstačoakkáldat, veršuvdna 06.11.2018" class="ltx_ref">27</a><span class="ltx_text" style="font-size:90%;">]</span></cite></span></span></span><span class="ltx_text" style="font-size:90%;">. That is, the collection of
+            <cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib353" title="SIKOR uit norgga árktalaš universitehta ja norgga sámedikki sámi teakstačoakkáldat, veršuvdna 06.11.2018" class="ltx_ref">27</a><span class="ltx_text" style="font-size:90%;">]</span></cite></span></span></span><span class="ltx_text" style="font-size:90%;">. That is, the collection of
 typos can be considered relatively representative of errors made by North Sámi
 writers of various genres.</span></p>
 </div>
@@ -408,10 +408,10 @@ evaluate the resulting error model.</span></p>
 
 <div id="S4.SS2.p1" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">The present day South Sámi orthography was formally decided upon in 1978,
-although </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib47" title="Lohkede saemien. sørsamisk lesebok" class="ltx_ref">8</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> used an early version of that orthography.
+although </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib50" title="Lohkede saemien. sørsamisk lesebok" class="ltx_ref">8</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> used an early version of that orthography.
 South Sámi differs from most other Sámi languages and dialects due to a vast and
-complex system of umlaut, c.f. </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib34" title="Sydsamisk grammatikk" class="ltx_ref">5</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">
-and </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib153" title="Sørsamisk grammatikk" class="ltx_ref">20</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">. Although South Sámi does not have consonant
+complex system of umlaut, c.f. </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib35" title="Sydsamisk grammatikk" class="ltx_ref">5</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">
+and </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib161" title="Sørsamisk grammatikk" class="ltx_ref">20</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">. Although South Sámi does not have consonant
 </span><span class="ltx_text" style="font-size:90%;">gradation as opposed to the other Sámi languages, it does have alternations in
 consonant clusters and surrounding vowels depending on the syllable and foot
 structure of the word. Various inflectional endings add zero, one or more
@@ -506,7 +506,7 @@ found, ≈4.2% of the corpus.</span></p>
 <div id="S4.SS2.p11" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">As was the case with North Sámi, the list of typos for South Sámi is collected
 while developing the morphological analyser, based on material that is mostly
-found in SIKOR (</span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib341" title="SIKOR uit norgga árktalaš universitehta ja norgga sámedikki sámi teakstačoakkáldat, veršuvdna 06.11.2018" class="ltx_ref">27</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">). The cleaned version of that manually
+found in SIKOR (</span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib353" title="SIKOR uit norgga árktalaš universitehta ja norgga sámedikki sámi teakstačoakkáldat, veršuvdna 06.11.2018" class="ltx_ref">27</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">). The cleaned version of that manually
 built list mentioned above contains only 1 154 entries. A separate list of
 typo-correction pairs was extracted from a manually marked up corpus of
 gold-standard text. That token list contains 8 325 non-unique entries, and was
@@ -522,9 +522,9 @@ not used when building the manually crafted regex error model.</span></p>
 <div id="S4.SS3.p1" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">Estonian orthography in its present form was adopted during the third quarter of
 </span><span class="ltx_text" style="font-size:90%;">the 19th century. It is modelled after Finnish orthography; the proposal was
-made by Adolf Ivar Arwidsson </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib19" title="Ueber die ehstniche orthographie. won einem finnländer" class="ltx_ref">2</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">. Prior to this,
+made by Adolf Ivar Arwidsson </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib20" title="Ueber die ehstniche orthographie. won einem finnländer" class="ltx_ref">2</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">. Prior to this,
 Estonian orthography was modelled after High German, but uneducated Estonian
-peasants spontaneously tended towards the Finnish style orthography </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib20" title="Eesti kirjakeele ajaloost" class="ltx_ref">15</a><span class="ltx_text" style="font-size:90%;">, p.
+peasants spontaneously tended towards the Finnish style orthography </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib21" title="Eesti kirjakeele ajaloost" class="ltx_ref">15</a><span class="ltx_text" style="font-size:90%;">, p.
 204]</span></cite><span class="ltx_text" style="font-size:90%;"></span></p>
 </div>
 <div id="S4.SS3.p2" class="ltx_para">
@@ -551,7 +551,7 @@ implement in practice, given the various co-articulation effects in real speech.
 </span><span class="ltx_text" style="font-size:90%;">Estonian orthography also to some extent follows the principle of keeping the
 traditional form of words (even if it deviates from the current pronunciation),
 and the principle of retaining the form of morphemes while inflecting the word
-</span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib70" title="Eesti keele käsiraamat" class="ltx_ref">9</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">. Orthography errors tend to happen when these two additional
+</span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib75" title="Eesti keele käsiraamat" class="ltx_ref">9</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">. Orthography errors tend to happen when these two additional
 principles collide with the phonemic principle.</span></p>
 </div>
 <div id="S4.SS3.p4" class="ltx_para">
@@ -922,7 +922,7 @@ online</span><span id="footnote16" class="ltx_note ltx_role_footnote"><sup class
             <a href="https://giellalt.uit.no/proof/TheSpellerErrorModel.html" title="" class="ltx_ref ltx_url ltx_font_typewriter" style="font-size:90%;">https://giellalt.uit.no/proof/TheSpellerErrorModel.html</a></span></span></span><span class="ltx_text" style="font-size:90%;">.</span></p>
 </div>
 <div id="S6.SS1.p2" class="ltx_para">
-<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">The starting point is a Levenshtein edit distance </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib139" title="Binary codes capable of correcting deletions, insertions, and reversals" class="ltx_ref">18</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">
+<p class="ltx_p"><span class="ltx_text" style="font-size:90%;">The starting point is a Levenshtein edit distance </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib146" title="Binary codes capable of correcting deletions, insertions, and reversals" class="ltx_ref">18</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">
 error model based on the alphabets of the language, with an editing distance of
 two. It is possible to adjust the weight of specific edits in the edit distance
 2 error model. Adjacent swaps are not enabled by default (they are
@@ -1410,12 +1410,12 @@ context. This is an area for future research.</span></p>
 <div id="S8.p2" class="ltx_para">
 <p class="ltx_p"><span class="ltx_text" style="font-size:90%;">On the other hand, if the context is available, e.g. via a grammar checker API,
 </span><span class="ltx_text" style="font-size:90%;">it should be possible to filter or promote specific suggestions based on the
-syntactic context. One such example is </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib217" title="Improving finite-state spell-checker suggestions with part of speech n-grams" class="ltx_ref">24</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">, using a POS
+syntactic context. One such example is </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib229" title="Improving finite-state spell-checker suggestions with part of speech n-grams" class="ltx_ref">24</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">, using a POS
 trigram model to promote suggestions matching the trigram model. Another
 approach is to use the full sentence as the context, in combination with
 syntactic disambiguation and parsing, for example using the VislCG3 formalism.
-Examples of such systems are </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib36" title="A constraint grammar based spellchecker for danish with a special focus on dyslexics" class="ltx_ref">6</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">
-and </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib307" title="Seeing more than whitespace—tokenisation and disambiguation in a north Sámi grammar checker" class="ltx_ref">31</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">, the last one being implemented within the
+Examples of such systems are </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib37" title="A constraint grammar based spellchecker for danish with a special focus on dyslexics" class="ltx_ref">6</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">
+and </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib319" title="Seeing more than whitespace—tokenisation and disambiguation in a north Sámi grammar checker" class="ltx_ref">31</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;">, the last one being implemented within the
 GiellaLT framework, and as such principally available to all languages. That
 would thus be the next logical step.</span></p>
 </div>
@@ -1434,7 +1434,7 @@ perhaps more efficiently than the network, thus the main positive side of the
 neural model may be in the added robustness. All in all, it is good to know
 that chasing machine learning ghosts can now be put aside, as we have
 demonstrated that there are better alternatives with a lower environmental
-impact (see </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib266" title="Energy and policy considerations for deep learning in NLP" class="ltx_ref">28</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> for an evaluation of the environmental
+impact (see </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib278" title="Energy and policy considerations for deep learning in NLP" class="ltx_ref">28</a><span class="ltx_text" style="font-size:90%;">]</span></cite><span class="ltx_text" style="font-size:90%;"> for an evaluation of the environmental
 </span><span class="ltx_text" style="font-size:90%;">impact of modern machine learning).</span></p>
 </div>
 <div class="ltx_pagination ltx_role_newpage"></div>
@@ -1469,7 +1469,7 @@ Performance Computing and Data Storage in Norway.</span></p>
 <a href="#S5.p9" title="5 Error types ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§5</span></span></a>.
 </span>
 </li>
-<li id="bib.bib19" class="ltx_bibitem ltx_bib_article">
+<li id="bib.bib20" class="ltx_bibitem ltx_bib_article">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. I. Arwidsson</span><span class="ltx_text ltx_bib_year"> (1822)</span>
 </span>
@@ -1480,7 +1480,7 @@ Performance Computing and Data Storage in Norway.</span></p>
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS3.p1" title="4.3 Estonian ‣ 4 Lists of misspellings ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§4.3</span></span></a>.
 </span>
 </li>
-<li id="bib.bib30" class="ltx_bibitem ltx_bib_article">
+<li id="bib.bib31" class="ltx_bibitem ltx_bib_article">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Beeksma, M. Van Gompel, F. Kunneman, L. Onrust, B. Regnerus, D. Vinke, E. Brito, C. Bauckhage, and R. Sifa</span><span class="ltx_text ltx_bib_year"> (2018)</span>
 </span>
@@ -1491,7 +1491,7 @@ Performance Computing and Data Storage in Norway.</span></p>
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p6" title="2 Earlier work ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§2</span></span></a>.
 </span>
 </li>
-<li id="bib.bib28" class="ltx_bibitem ltx_bib_book">
+<li id="bib.bib29" class="ltx_bibitem ltx_bib_book">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. R. Beesley and L. Karttunen</span><span class="ltx_text ltx_bib_year"> (2003)</span>
 </span>
@@ -1504,7 +1504,7 @@ Performance Computing and Data Storage in Norway.</span></p>
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#footnote19" title="footnote 19 ‣ Appendix A Appendix. Some tips and tricks for FST ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">footnote 19</span></span></a>.
 </span>
 </li>
-<li id="bib.bib34" class="ltx_bibitem ltx_bib_book">
+<li id="bib.bib35" class="ltx_bibitem ltx_bib_book">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Bergsland</span><span class="ltx_text ltx_bib_year"> (1994)</span>
 </span>
@@ -1515,7 +1515,7 @@ Performance Computing and Data Storage in Norway.</span></p>
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS2.p1" title="4.2 South Sámi ‣ 4 Lists of misspellings ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§4.2</span></span></a>.
 </span>
 </li>
-<li id="bib.bib36" class="ltx_bibitem ltx_bib_inproceedings">
+<li id="bib.bib37" class="ltx_bibitem ltx_bib_inproceedings">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. Bick</span><span class="ltx_text ltx_bib_year"> (2006)</span>
 </span>
@@ -1524,7 +1524,7 @@ Performance Computing and Data Storage in Norway.</span></p>
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S8.p2" title="8 Discussions and speculations, conclusion ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§8</span></span></a>.
 </span>
 </li>
-<li id="bib.bib42" class="ltx_bibitem ltx_bib_inproceedings">
+<li id="bib.bib44" class="ltx_bibitem ltx_bib_inproceedings">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Bollmann and A. Søgaard</span><span class="ltx_text ltx_bib_year"> (2016-12)</span>
 </span>
@@ -1540,7 +1540,7 @@ Conference on Computational Linguistics: Technical Papers</span>,
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p1" title="3 Methods ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§3</span></span></a>.
 </span>
 </li>
-<li id="bib.bib47" class="ltx_bibitem ltx_bib_book">
+<li id="bib.bib50" class="ltx_bibitem ltx_bib_book">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. H. Bull and K. Bergsland</span><span class="ltx_text ltx_bib_year"> (1974)</span>
 </span>
@@ -1551,7 +1551,7 @@ Conference on Computational Linguistics: Technical Papers</span>,
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS2.p1" title="4.2 South Sámi ‣ 4 Lists of misspellings ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§4.2</span></span></a>.
 </span>
 </li>
-<li id="bib.bib70" class="ltx_bibitem ltx_bib_book">
+<li id="bib.bib75" class="ltx_bibitem ltx_bib_book">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Erelt, T. Erelt, and K. Ross</span><span class="ltx_text ltx_bib_year"> (2007)</span>
 </span>
@@ -1562,7 +1562,7 @@ Conference on Computational Linguistics: Technical Papers</span>,
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS3.p3" title="4.3 Estonian ‣ 4 Lists of misspellings ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§4.3</span></span></a>.
 </span>
 </li>
-<li id="bib.bib75" class="ltx_bibitem ltx_bib_inproceedings">
+<li id="bib.bib81" class="ltx_bibitem ltx_bib_inproceedings">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Flor, M. Fried, and A. Rozovskaya</span><span class="ltx_text ltx_bib_year"> (2019)</span>
 </span>
@@ -1577,7 +1577,7 @@ Conference on Computational Linguistics: Technical Papers</span>,
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p6" title="2 Earlier work ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§2</span></span></a>.
 </span>
 </li>
-<li id="bib.bib76" class="ltx_bibitem ltx_bib_article">
+<li id="bib.bib82" class="ltx_bibitem ltx_bib_article">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Flor, Y. Futagi, M. Lopez, and M. Mulholland</span><span class="ltx_text ltx_bib_year"> (2015-05)</span>
 </span>
@@ -1591,7 +1591,7 @@ Conference on Computational Linguistics: Technical Papers</span>,
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p2" title="4.1 North Sámi ‣ 4 Lists of misspellings ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§4.1</span></span></a>.
 </span>
 </li>
-<li id="bib.bib84" class="ltx_bibitem ltx_bib_inproceedings">
+<li id="bib.bib90" class="ltx_bibitem ltx_bib_inproceedings">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">B. Gaup, S. Moshagen, T. Omma, M. Palismaa, T. Pieski, and T. Trosterud</span><span class="ltx_text ltx_bib_year"> (2005)</span>
 </span>
@@ -1607,7 +1607,7 @@ Language Processing</span>,
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p2" title="2 Earlier work ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§2</span></span></a>.
 </span>
 </li>
-<li id="bib.bib99" class="ltx_bibitem ltx_bib_article">
+<li id="bib.bib106" class="ltx_bibitem ltx_bib_article">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Hládek, J. Staš, and M. Pleva</span><span class="ltx_text ltx_bib_year"> (2020)</span>
 </span>
@@ -1620,7 +1620,7 @@ Language Processing</span>,
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Earlier work ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§2</span></span></a>.
 </span>
 </li>
-<li id="bib.bib330" class="ltx_bibitem ltx_bib_article">
+<li id="bib.bib342" class="ltx_bibitem ltx_bib_article">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[14]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Hochreiter and J. Schmidhuber</span><span class="ltx_text ltx_bib_year"> (1997)</span>
 </span>
@@ -1631,7 +1631,7 @@ Language Processing</span>,
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p1" title="3 Methods ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§3</span></span></a>.
 </span>
 </li>
-<li id="bib.bib20" class="ltx_bibitem ltx_bib_book">
+<li id="bib.bib21" class="ltx_bibitem ltx_bib_book">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[15]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Kask</span><span class="ltx_text ltx_bib_year"> (1970)</span>
 </span>
@@ -1642,7 +1642,7 @@ Language Processing</span>,
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS3.p1" title="4.3 Estonian ‣ 4 Lists of misspellings ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§4.3</span></span></a>.
 </span>
 </li>
-<li id="bib.bib124" class="ltx_bibitem ltx_bib_inproceedings">
+<li id="bib.bib131" class="ltx_bibitem ltx_bib_inproceedings">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[16]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">G. Klein, Y. Kim, Y. Deng, J. Senellart, and A. M. Rush</span><span class="ltx_text ltx_bib_year"> (2017)</span>
 </span>
@@ -1656,7 +1656,7 @@ Language Processing</span>,
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS2.p1" title="3.2 NN methods ‣ 3 Methods ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§3.2</span></span></a>.
 </span>
 </li>
-<li id="bib.bib133" class="ltx_bibitem ltx_bib_article">
+<li id="bib.bib140" class="ltx_bibitem ltx_bib_article">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[17]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Kukich</span><span class="ltx_text ltx_bib_year"> (1992)</span>
 </span>
@@ -1670,7 +1670,7 @@ Language Processing</span>,
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Earlier work ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§2</span></span></a>.
 </span>
 </li>
-<li id="bib.bib139" class="ltx_bibitem ltx_bib_article">
+<li id="bib.bib146" class="ltx_bibitem ltx_bib_article">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[18]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">V. I. Levenshtein</span><span class="ltx_text ltx_bib_year"> (1966)</span>
 </span>
@@ -1683,7 +1683,7 @@ Language Processing</span>,
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S6.SS1.p2" title="6.1 Baseline error models for South and North Sámi ‣ 6 Error models ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§6.1</span></span></a>.
 </span>
 </li>
-<li id="bib.bib140" class="ltx_bibitem ltx_bib_article">
+<li id="bib.bib147" class="ltx_bibitem ltx_bib_article">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[19]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">X. Li, H. Liu, and L. Huang</span><span class="ltx_text ltx_bib_year"> (2020)</span>
 </span>
@@ -1696,7 +1696,7 @@ Language Processing</span>,
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p5" title="2 Earlier work ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§2</span></span></a>.
 </span>
 </li>
-<li id="bib.bib153" class="ltx_bibitem ltx_bib_book">
+<li id="bib.bib161" class="ltx_bibitem ltx_bib_book">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[20]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">O. H. Magga and L. M. Magga</span><span class="ltx_text ltx_bib_year"> (2012)</span>
 </span>
@@ -1707,7 +1707,7 @@ Language Processing</span>,
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS2.p1" title="4.2 South Sámi ‣ 4 Lists of misspellings ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§4.2</span></span></a>.
 </span>
 </li>
-<li id="bib.bib182" class="ltx_bibitem ltx_bib_inproceedings">
+<li id="bib.bib191" class="ltx_bibitem ltx_bib_inproceedings">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[21]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. N. Moshagen, F. Pirinen, and T. Trosterud</span><span class="ltx_text ltx_bib_year"> (2013-05)</span>
 </span>
@@ -1722,7 +1722,7 @@ Language Processing</span>,
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p7" title="2 Earlier work ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§2</span></span></a>.
 </span>
 </li>
-<li id="bib.bib272" class="ltx_bibitem ltx_bib_incollection">
+<li id="bib.bib284" class="ltx_bibitem ltx_bib_incollection">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[22]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. N. Moshagen and T. Trosterud</span><span class="ltx_text ltx_bib_year"> (2005)</span>
 </span>
@@ -1739,7 +1739,7 @@ Forskningsprogram 2000-2004</span>,  <span class="ltx_text ltx_bib_editor">H. Ho
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p7" title="2 Earlier work ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§2</span></span></a>.
 </span>
 </li>
-<li id="bib.bib190" class="ltx_bibitem ltx_bib_book">
+<li id="bib.bib202" class="ltx_bibitem ltx_bib_book">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[23]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. P. Nickel and P. Sammallahti</span><span class="ltx_text ltx_bib_year"> (2011)</span>
 </span>
@@ -1752,7 +1752,7 @@ Forskningsprogram 2000-2004</span>,  <span class="ltx_text ltx_bib_editor">H. Ho
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p1" title="4.1 North Sámi ‣ 4 Lists of misspellings ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§4.1</span></span></a>.
 </span>
 </li>
-<li id="bib.bib217" class="ltx_bibitem ltx_bib_inproceedings">
+<li id="bib.bib229" class="ltx_bibitem ltx_bib_inproceedings">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[24]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. A. Pirinen, M. Silfverberg, and K. Lindén</span><span class="ltx_text ltx_bib_year"> (2012)</span>
 </span>
@@ -1763,7 +1763,7 @@ Forskningsprogram 2000-2004</span>,  <span class="ltx_text ltx_bib_editor">H. Ho
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S8.p2" title="8 Discussions and speculations, conclusion ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§8</span></span></a>.
 </span>
 </li>
-<li id="bib.bib212" class="ltx_bibitem ltx_bib_inproceedings">
+<li id="bib.bib224" class="ltx_bibitem ltx_bib_inproceedings">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[25]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. A. Pirinen and K. Lindén</span><span class="ltx_text ltx_bib_year"> (2010)</span>
 </span>
@@ -1779,7 +1779,7 @@ use of basic lexical resources for less-resourced languagages</span>,
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS1.p1" title="3.1 FST methods ‣ 3 Methods ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§3.1</span></span></a>.
 </span>
 </li>
-<li id="bib.bib219" class="ltx_bibitem ltx_bib_inproceedings">
+<li id="bib.bib231" class="ltx_bibitem ltx_bib_inproceedings">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[26]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. A. Pirinen and K. Lindén</span><span class="ltx_text ltx_bib_year"> (2014)</span>
 </span>
@@ -1794,7 +1794,7 @@ Linguistics and Intelligent Text Processing - Volume 8404</span>,
 <a href="#S3.p1" title="3 Methods ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§3</span></span></a>.
 </span>
 </li>
-<li id="bib.bib341" class="ltx_bibitem ltx_bib_misc">
+<li id="bib.bib353" class="ltx_bibitem ltx_bib_misc">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[27]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">SIKOR</span><span class="ltx_text ltx_bib_year"> (2018)</span>
 </span>
@@ -1808,7 +1808,7 @@ Linguistics and Intelligent Text Processing - Volume 8404</span>,
 <a href="#footnote12" title="footnote 12 ‣ 4.1 North Sámi ‣ 4 Lists of misspellings ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">footnote 12</span></span></a>.
 </span>
 </li>
-<li id="bib.bib266" class="ltx_bibitem ltx_bib_inproceedings">
+<li id="bib.bib278" class="ltx_bibitem ltx_bib_inproceedings">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[28]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. Strubell, A. Ganesh, and A. McCallum</span><span class="ltx_text ltx_bib_year"> (2019-07)</span>
 </span>
@@ -1823,7 +1823,7 @@ Linguistics and Intelligent Text Processing - Volume 8404</span>,
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S8.p3" title="8 Discussions and speculations, conclusion ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§8</span></span></a>.
 </span>
 </li>
-<li id="bib.bib271" class="ltx_bibitem ltx_bib_inproceedings">
+<li id="bib.bib283" class="ltx_bibitem ltx_bib_inproceedings">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[29]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">V. Trón, A. Kornai, G. Gyepesi, L. Németh, P. Halácsy, and D. Varga</span><span class="ltx_text ltx_bib_year"> (2005)</span>
 </span>
@@ -1836,7 +1836,7 @@ Linguistics and Intelligent Text Processing - Volume 8404</span>,
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p2" title="1 Introduction ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§1</span></span></a>.
 </span>
 </li>
-<li id="bib.bib274" class="ltx_bibitem ltx_bib_incollection">
+<li id="bib.bib286" class="ltx_bibitem ltx_bib_incollection">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[30]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Trosterud and L. Wiechetek</span><span class="ltx_text ltx_bib_year"> (2007)</span>
 </span>
@@ -1849,7 +1849,7 @@ Linguistics and Intelligent Text Processing - Volume 8404</span>,
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p7" title="2 Earlier work ‣ You can’t suggest that?! Comparisons and improvements of speller error models" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">§2</span></span></a>.
 </span>
 </li>
-<li id="bib.bib307" class="ltx_bibitem ltx_bib_inproceedings">
+<li id="bib.bib319" class="ltx_bibitem ltx_bib_inproceedings">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[31]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Wiechetek, S. Moshagen, and K. B. Unhammer</span><span class="ltx_text ltx_bib_year"> (2019)</span>
 </span>
@@ -1878,7 +1878,7 @@ problems.</span><span id="footnote19" class="ltx_note ltx_role_footnote"><sup cl
             
             
           <span class="ltx_text" style="font-size:90%;">We use the Xerox regular expression notation,
-c.f.</span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib28" title="Finite state morphology" class="ltx_ref">4</a><span class="ltx_text" style="font-size:90%;">]</span></cite></span></span></span><span class="ltx_text" style="font-size:90%;"></span></p>
+c.f.</span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" style="font-size:90%;">[</span><a href="#bib.bib29" title="Finite state morphology" class="ltx_ref">4</a><span class="ltx_text" style="font-size:90%;">]</span></cite></span></span></span><span class="ltx_text" style="font-size:90%;"></span></p>
 </div>
 <section id="A1.SS1" class="ltx_subsection">
 <h3 class="ltx_title ltx_title_subsection" style="font-size:90%;">
@@ -2062,7 +2062,7 @@ waste a little extra time.</span></p>
 </article>
 </div>
 <footer class="ltx_page_footer">
-<div class="ltx_page_logo">Generated  on Wed Aug 31 03:43:24 2022 by <a href="http://dlmf.nist.gov/LaTeXML/">LaTeXML <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="[LOGO]"></a>
+<div class="ltx_page_logo">Generated  on Wed Aug 31 04:49:11 2022 by <a href="http://dlmf.nist.gov/LaTeXML/">LaTeXML <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="[LOGO]"></a>
 </div></footer>
 </div>
 </body>
