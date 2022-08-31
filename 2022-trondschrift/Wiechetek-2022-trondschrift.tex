@@ -1,6 +1,7 @@
 \documentclass{flammie}
 
-\title{Mii *eai leat gal vuollánan -- Vi *ha neimen ikke gitt opp: \\ En hybrid grammatikkontroll for å rette kongruensfeil}
+\title{Mii *eai leat gal vuollánan---Vi *ha neimen ikke gitt opp: \\ En hybrid
+grammatikkontroll for å rette kongruensfeil}
 
 \newcommand{\shorttitle}{Mii *eai leat gal vuollánan}
 
@@ -66,14 +67,15 @@ morfologisk og syntaktisk analyse, maskinoversetting og stavekontroll, og det
 jobbes stadig vekk med å utvikle nye verktøy.  Ett av verktøyene det er behov
 for er en grammatikkontroll som kan være med på å øke skriftlig språkkompetanse
 og dermed føre til økt bruk av samisk på nettet og i den daglige skriftlige
-kommunikasjonen (dvs. på sosiale medier, epost, osv.).
+kommunikasjonen (dvs.\ på sosiale medier, epost, osv.).
 
 Nordsamisk er et finsk-ugrisk språk som snakkes i Norge, Sverige og Finland og
 har omtrent 25 700 talere~\cite{Ethnologue2018}.  Språktypologisk er det et
-syntetisk språk, der de fleste ordklassene, f.eks. substantiv og adjektiv, bøyes
-etter kasus, person, tall og mer.  Samisk er et minoritetsspråk som konkurrerer
-med majoritetsspråket i et flerspråklig samfunn og trenger derfor hjelpemidler
-som fremmer skriftspråket -- både i opplæring og administrativ sammenheng.
+syntetisk språk, der de fleste ordklassene, f.eks.\ substantiv og adjektiv,
+bøyes etter kasus, person, tall og mer.  Samisk er et minoritetsspråk som
+konkurrerer med majoritetsspråket i et flerspråklig samfunn og trenger derfor
+hjelpemidler som fremmer skriftspråket---både i opplæring og administrativ
+sammenheng.
 
 I denne artikkelen drøfter vi en av de mest frekvente feiltypene i nordsamisk:
 kongruensfeil mellom subjekt og verbal.  Deretter tar vi opp den metodiske
@@ -91,11 +93,12 @@ utfordring for språk som samisk som ikke har tilstrekkelig med data og samtidig
 en rik morfologi som fører til at de enkelte formene blir sjeldnere.  Data som
 grammatikkontroll blir trent på må i tillegg inkludere feiloppmerking, og
 feiloppmerking er en tidkrevende jobb. De fleste tilnærminger velger derfor å
-lage et syntetisk feilkorpus nettopp pga den betydelige ressursbruken.
-\cite{Milkowski2007,dahlmeier-etal-2013-building} Samtidig kan
-maskinlæringsbaserte metoder ha større dekningsgrad for feil man ikke har jobbet
-med spesifikt. Vi har oppnådd gode resultater med maskinlæring for
-særskrivingsfeil, dvs. lokale grammatikkfeil~\cite{Wiechetek2021}.
+lage et syntetisk feilkorpus nettopp pga den betydelige
+ressursbruken.~\cite{Milkowski2007automated,dahlmeier-etal-2013-building}
+Samtidig kan maskinlæringsbaserte metoder ha større dekningsgrad for feil man
+ikke har jobbet med spesifikt. Vi har oppnådd gode resultater med maskinlæring
+for særskrivingsfeil, dvs.\ lokale
+grammatikkfeil~\cite{Wiechetek-etal-2021-rules}.
 
 Vi ønsker derfor å undersøke nytten og begrensningene metoden har for andre
 feiltyper og muligheten for å  kombinere maskinlæringsbaserte og regelbaserte
@@ -120,7 +123,7 @@ allsidig og representativt materiale.  For å kompensere for datamangelen har vi
 derfor laget et nevralt nettverk (maskinlæring) (\textit{NeuSam}) som benytter
 seg av syntetiske data. Dataene har vi konstruert ved hjelp av regelbasert
 morfosyntaktisk analyse for å erstatte korrekte former med feilaktige. Etterpå
-blir dataene filtrert av regelbaserte verktøy - den nordsamiske
+blir dataene filtrert av regelbaserte verktøy---den nordsamiske
 grammatikkontrollen \textit{GramDivvun}, slik at de syntetiske dataene bare
 inneholder reelle feil.
 
@@ -128,9 +131,9 @@ inneholder reelle feil.
 
 Vi tar utgangspunkt i automatisk feilretting i nordsamisk.  Den første
 nordsamiske grammatikkontrollen \textit{GramDivvun} har blitt utviklet siden
-2012 og er basert på håndskrevne regler \cite{Wiechetek2012}, og ble offentlig
-lansert i 2020.  Arbeidet til \textit{GramDivvun} er riktignok ikke bare et
-verktøy for en stor mengde grammatikkfeil på alle områder, dvs. fra
+2012 og er basert på håndskrevne regler~\cite{Wiechetek2012constraint}, og ble
+offentlig lansert i 2020.  Arbeidet til \textit{GramDivvun} er riktignok ikke
+bare et verktøy for en stor mengde grammatikkfeil på alle områder, dvs.\ fra
 ekteordsfeil, til særskrivings- og samsvarsfeil, men også et forskingsresultat
 for variasjonen i og hyppigheten av nordsamiske grammatikkfeil.  Ekteordsfeil er
 korrekt skrevne ord som er brukt i feil sammenheng. De er vanligvis basert på
@@ -138,8 +141,8 @@ enten ortografisk eller fonetisk likhet (f.eks. \textit{å} vs. \textit{og}).  I
 denne artikkelen fokuserer vi på retting av samsvarsfeil mellom subjekt og
 verbal av samme type som i eksempel~\ref{samsvar1}.  Samsvarsfeil er en
 arketypisk grammatikkfeil som er tilstede i mange språk og som krever en analyse
-av hele setningen.  I motsetning til retting av engelske samsvarsfeil i eksempel
-~\ref{samsvar1}, slik \cite{ng-etal-2013-conll} tar for seg, er samiske
+av hele setningen. I motsetning til retting av engelske samsvarsfeil i
+eksempel~\ref{samsvar1}, slik~\cite{ng-etal-2013-conll} tar for seg, er samiske
 samsvarsfeil langt mer komplekse.  Årsaken til dette er at samisk har mange
 flere verbformer enn engelsk og kombinasjoner av tall (entall, totall, flertall)
 og person (1.,2.,3.) som må kongruere med verbet. I det samiske
@@ -163,13 +166,13 @@ homonyme.
 Kongruens i nordsamisk gjelder kasus, tall og person, avhengig av kontekst.  I
 nordsamisk er det kongruens mellom subjekt (som er i nominativ) og verb, verb og
 subjektspredikat, demonstrative pronomener/numeraler og substantiv, og
-relativpronomen og anafora. \cite[s.509ff.]{Nickel1994}\footnote{subjekt og
-verbal (tall og person - Gal \textit{mun boađán}), verbal og
+relativpronomen og anafora.~\cite[s.509ff.]{Nickel1994samisk}\footnote{subjekt
+og verbal (tall og person---Gal \textit{mun boađán}), verbal og
 utfyllningspredikativ (Olmmái \textit{lea rikkis}), mellom predikativer (Mus lea
 \textit{juolgi bávččas}), objekt og objektpredikativ, relativsetninger (Dat
 \textit{olmmoš, gii} áigu boahtit.), sammenligning og apposisjoner,
 (\textit{Máret} lea liikka stuoris go \textit{don} og Oidnet go don
-\textit{Mihkkala}, min nuoramus \textit{bártni}?}
+\textit{Mihkkala}, min nuoramus \textit{bártni})?}
 
 En \textit{kongruensfeil} forutsetter en finitt verbform som ikke samsvarer i
 tall og person med subjektet som hører til verbalet. Subjektet kan stå enten til
@@ -180,7 +183,7 @@ subjektet og verbalet.  I det følgende eksemplet~\ref{samsvar3} blir subjektet
 eksempelsetning~\ref{samsvar4} derimot er det finitte verbet til venstre for
 subjektet bare en hovedsetning som introduserer en bisetning uten en
 subjunksjon. Det er \textit{liikojedje} som er verbalet til \textit{mánát}
-`barna'.  I eksempelsetning ~\ref{samsvar5} er det en relativsetning mellom
+`barna'.  I eksempelsetning~\ref{samsvar5} er det en relativsetning mellom
 subjektet \textit{máŋgasat} `mange' og verbalet \textit{gehččet} `de ser'.
 
 \exg. \underline{Makkár} \underline{váikkuhusat} jáhkát don \textbf{ledje} dáid lágain sidjiide [\ldots]\label{samsvar3}\\
@@ -200,7 +203,7 @@ til et subjekt, kan det være ordformer som bare ser ut som finitte verb, men
 ikke er det. Dette kan skyldes homonymi med finitte verb eller ekteordsfeil.
 Formen \textit{erret} `skille' i eksempelsetning~\ref{samsvar6} er egentlig en
 ekteordsfeil for adverbet \textit{earret} `bortsett fra'. Men formen har to
-verbanalyser, både 1. person flertall og 2. person entall. Det kunne altså
+verbanalyser, både 1.\ person flertall og 2.\ person entall. Det kunne altså
 tenkes at det er verbalet til \textit{sii} `de'.
 
 \exg. Guossit geat áigot leat sámediggeviesus, *\textbf{erret} sii geat áigot leat publikumareálan\label{samsvar6}\\
@@ -208,20 +211,20 @@ gjest\textsc{.nom.pl} som\textsc{.nom.pl} vil\textsc{.3pl} være Sametinghus\tex
 `Gjestene som vil være i Sametingshuset, bortsett fra de som skal være i publikumsarealet'
 
 Det finnes også systematiske homonymirelasjoner mellom forskjellige former som
-er presentert i tabell \ref{systematiskhomonymi}.  Det er for eksempel noe
+er presentert i tabell~\ref{systematiskhomonymi}.  Det er for eksempel noe
 homonymi mellom perfektum partisipp og første person entall, f.eks.
 \textit{orron} `jeg var; har vært'.  Alle infinitiver er homonyme med første
 person presens flertallsverbformer. Infinitiver av ulikestavelses verb og
 \textit{leat} `å være' er også homonyme med tredje person flertall.  Tredje
 person presens flertall samsvarer også med andre person preteritum entall ved
-alle verb bortsett fra \textit{leat} `være'.  Videre samsvarer 1. person presens
-totall og 3. person preteritum flertall bortsett fra \textit{leat} `være',
-ulikestavelsesverb og sammendradde verb.  Første person preteritum entall
-samsvarer med perfektum partisipp-formen ved verb som ender på -ut, f.eks.
-\textit{gorgŋon} `jeg har klatret'.  I tillegg gjelder denne homonymien for
-\textit{leat} `være', ulikestavelses- og sammendradde verb.  Noen verb som har
-endelsen \textit{-ut} har for eksempel passive eller inkoative 3. person
-entallsformer som er homonyme med aktive 3. person flertallspreteritumsformer,
+alle verb bortsett fra \textit{leat} `være'.  Videre samsvarer 1.\ person
+presens totall og 3.\ person preteritum flertall bortsett fra \textit{leat}
+`være', ulikestavelsesverb og sammendradde verb.  Første person preteritum
+entall samsvarer med perfektum partisipp-formen ved verb som ender på -ut,
+f.eks.  \textit{gorgŋon} `jeg har klatret'.  I tillegg gjelder denne homonymien
+for \textit{leat} `være', ulikestavelses- og sammendradde verb.  Noen verb som
+har endelsen \textit{-ut} har for eksempel passive eller inkoative 3.\ person
+entallsformer som er homonyme med aktive 3.\ person flertallspreteritumsformer,
 f.eks. \textit{orro} `hun/han blir boende, de bodde'.
 
 
@@ -255,7 +258,7 @@ substantivanalyser (`sanger') og tredje person entall form av \textit{lávlut}
 I noen tilfeller er også subjektshomonymi relevant, slik som i
 setning~\ref{samsvar16}, der tidsskriftet \textit{Dieđut} er homonymt med
 flertallssubstantivet \textit{dieđut} `nyheter' og basert på det kunne det
-tenkes at verbformen må være 3. person flertall.
+tenkes at verbformen må være 3.\ person flertall.
 
 \exg. \underline{Dieđut} \textbf{lea} máŋggadieđalaš čála-ráidu [\ldots]\label{samsvar16}\\
 Dieđut\textsc{.nom.sg};nyhet\textsc{.pl} være\textsc{.3sg} tverrvitenskapelig skriftserie \\
@@ -266,9 +269,9 @@ syntaktiske fenomen bidrar til utfordringene. En av de største årsakene til
 unntak er koordinerte subjekt. Mens verbalet \textit{ledje} i
 eksempelsetning~\ref{samsvar7} tar hensyn til både første, andre og tredje
 elementet i koordinasjonen, er det i de fleste tilfellene tillatt med både 3.
-person entall eller 3. person flertall.  Setning \ref{samsvar7} koordinerer
+person entall eller 3.\ person flertall.  Setning~\ref{samsvar7} koordinerer
 konkrete personer, i~\ref{samsvar8} er det derimot mer abstrakte eller
-uspesifiserte begrep som er koordinert .
+uspesifiserte begrep som er koordinert.
 
 
 \exg. \underline{Persson, Åberg ja Granberg} \textbf{ledje} dat golbma buoremusa juohke vuodjimis.\label{samsvar7}\\
@@ -277,20 +280,20 @@ uspesifiserte begrep som er koordinert .
 
 I eksempelsetning~\ref{samsvar8} inneholder det koordinerte subjektet
 \textit{man ollu riggodagat ja ruhta} et flertalls- og et entallssubstantiv.
-Verbet \textit{manai} er derimot i 3. person entall. Både 3. person entall og 3.
-person flertall er tillatt.
+Verbet \textit{manai} er derimot i 3.\ person entall. Både 3.\ person entall og
+3.\ person flertall er tillatt.
 
 \exg. [\ldots] go sii oidne man ollu riggodagat ja \underline{ruhta} dokko \textbf{manai}.\label{samsvar8}\\
 [\ldots] når \textsc{3pl} se\textsc{.pst.3pl} hvor mye rikdom\textsc{.nom.pl} og penger\textsc{.nom.sg} dit gå\textsc{.pst.3sg}\\
 `[\ldots] når de så hvor mye rikdom og penger som gikk dit.'
 
-I setning \ref{samsvar22} oppfattes de koordinerte nominalfrasene i subjektet
+I setning~\ref{samsvar22} oppfattes de koordinerte nominalfrasene i subjektet
 som en logisk enhet, og bare det nærmeste elementet samsvarer med det finitte
 verbet. Dessuten er samsvar i koordinasjon avhengig av semantisk kategori til
-substantivene. Ifølge~\cite{Nickel1994} <<står verbalet i \textit{entall} [hvis
-subjektsordene er \textit{navn på stoffer}]. [\ldots] Hvis subjektsordene er
-\textit{abstrakte begrep} som nært hører sammen, står verbalet i
-\textit{entall}.>>(s.512)
+substantivene. Ifølge~\cite{Nickel1994samisk} <<står verbalet i \textit{entall}
+[hvis subjektsordene er \textit{navn på stoffer}]. [\ldots] Hvis subjektsordene
+er \textit{abstrakte begrep} som nært hører sammen, står verbalet i
+\textit{entall}.>> (s.512)
 
 \exg. Sihke jierbmi ja \underline{ipmárdus} \textbf{lea} buorre su iežas adnui.\label{samsvar22}\\
 Både klokhet og forståelse være\textsc{.3sg} bra \textsc{3pl.gen} eget  bruk\textsc{.ill}\\
@@ -300,8 +303,8 @@ Hvis koordinasjonen derimot inneholder et personlig pronomen, er det flertalls-
 eller totallsformer av samme person som kreves, for eksempel \textbf{leimmet}
 `vi var' i eksempelsetning~\ref{samsvar9}. Det samme gjelder relativpronomener
 med et personlig pronomen som antesedent, \textit{midjiide} `til oss' i
-eksempelsetning~\ref{samsvar15}, der verbalformen blir 1. person flertall
-istedenfor 3. person flertall som relativpronomenet.
+eksempelsetning~\ref{samsvar15}, der verbalformen blir 1.\ person flertall
+istedenfor 3.\ person flertall som relativpronomenet.
 
 
 \exg. Oahpaheaddjit \textbf{leimmet} fas \underline{Isak Johansen, Johan Jernsletten ja mun}.\label{samsvar9}\\
@@ -315,7 +318,7 @@ samme gjelde\textsc{.3sg} {\textsc{1pl.ill} som\textsc{.nom.3pl}} jobbe\textsc{.
 
 Når verbalet er kopulaverbet \textit{leat} `være' og det dreier seg om en
 habitiv eller adverbialkonstruksjon som i~\ref{samsvar12}, så samsvarer det bare
-med det nærmeste leddet. \cite[s.512]{Nickel1994}\footnote{<<Hvis predikativet
+med det nærmeste leddet.~\cite[s.512]{Nickel1994samisk}\footnote{<<Hvis predikativet
 består av flere sidestilte ord i nominativ, så er det vanligvis samsvar i tall
 mellom verbalet og det ordet i predikativet som står nærmest. Dette gjelder
 setninger med habitiv eller adverbial i nominatdelen>> (p.512)} I den følgende
@@ -325,15 +328,15 @@ seg om en konstruksjon med et stedsadverbial i begynnelsen, \textit{dáppe}
 
 \exg. Mun dieđán dáppe \textbf{lea} \underline{kultuvra} ja árbevierru girkostallat.\label{samsvar12}\\
 \textsc{1sg} vite\textsc{.1sg} her være\textsc{.3sg} kultur\textsc{.nom.sg} og tradisjon\textsc{.nom.sg} gå.i.kirken\textsc{.inf}\\
-'Jeg vet at her er det kultur og tradisjon å gå i kirken.'
+`Jeg vet at her er det kultur og tradisjon å gå i kirken.'
 
 Visse typer veldig vanlige skrivefeil (ekteordsfeil) kan komplisere søket etter
 kongruensfeil.  I følgende setning~\ref{samsvar17} er det finitte verbet
 korrekt.  Men i og med at \textit{diehttit} `å vite' inneholder en skrivefeil
 (to t-er istedenfor en), blir den mente infinitiven et flertallssubstantiv.
 Dermed blir det en mulig flertallssubjektskandidat for det finitte verbet, som
-kunne tolkes som en kongruensfeil - dvs. at det burde være 3. person flertall
-istedenfor 3. person entall.
+kunne tolkes som en kongruensfeil---dvs.\ at det burde være 3.\ person flertall
+istedenfor 3.\ person entall.
 
 \exg. {Ovddamearkka dihte} mo *diehttit \textbf{mieđiha} go buohcci vai lea go son duođaid nuppi oaivilis.\label{samsvar17}\\
 {For eksempel} hvordan viter\textsc{.nom.pl} samtykke\textsc{.3sg} \textsc{qst} syk eller være\textsc{.3sg} \textsc{qst} \textsc{3sg} egentlig annen mening\textsc{.loc}\\
@@ -343,11 +346,11 @@ En konstruksjon der det kan være vanskelig å finne kongruensfeil, er
 asymmetriske subjektpredikats\-konstruksjoner der subjektet og predikativet ikke
 har samme tall, som vist i eksempelsetning~\ref{samsvar30}. På språk der
 subjektet kan være pre- eller postverbalt, slik som i nordsamisk, kan det være
-vanskelig å identifisere subjektet.  \cite{Lorusso2019} nevner utfordringene i
-NLP-applikasjoner som for eksempel parsere eller maskinoversetting. Verbalet i
-italiensk samsvarer med subjektet uavhengig av ordstillinga, på engelsk
-samsvarer verbalet med den preverbale nominalfrasen som i eksempel
-\ref{agreement}.~\cite{Lorusso2019}
+vanskelig å identifisere subjektet.~\cite{Lorusso2019asymmetries} nevner
+utfordringene i NLP-applikasjoner som for eksempel parsere eller
+maskinoversetting. Verbalet i italiensk samsvarer med subjektet uavhengig av
+ordstillinga, på engelsk samsvarer verbalet med den preverbale nominalfrasen som
+i eksempel~\ref{agreement}.~\cite{Lorusso2019asymmetries}
 
 \exg. Davviriikkaid \underline{sápmelaččat} *\textbf{lea} unna minoritehta [\ldots]\label{samsvar30}\\
 nordområde\textsc{.gen.pl} same\textsc{.nom.pl} være\textsc{3p.sg} liten minoritet\textsc{.nom.sg}\\
@@ -374,14 +377,14 @@ er i daglig bruk og er veldokumentert. Noen av de mest populære systemene i bru
 er fortsatt regelbasert, slik som
 \textit{LanguageTool}\footnote{\url{https://languagetool.org}} (basert på åpen
 kildekode). \textit{Grammarly}\footnote{\url{https://grammarly.com}}, som er
-lukket programvare, bruker maskinlæringsmetoder til en viss grad
-\footnote{\url{https://www.grammarly.com/blog/engineering/grammarly-nlp-building-future-communication/}}.
+lukket programvare, bruker maskinlæringsmetoder til en viss
+grad\footnote{\url{https://www.grammarly.com/blog/engineering/grammarly-nlp-building-future-communication/}}.
 
 På begynnelsen av 90-tallet introduserte Fred Karlsson konseptet
 føringsgrammatikk (Constraint Grammar).  Denne teknologien har produsert gode
-tekstprosesseringsverktøy, bl.a. grammatikkontroller, som har blitt godt mottatt
-og brukt i mange språksamfunn \cite{Arppe2000,Birn2000,Hagen2001b}.  I
-\textit{GiellaLT}-infrastrukturen blir det utviklet føringsgrammatikker der
+tekstprosesseringsverktøy, bl.a.\ grammatikkontroller, som har blitt godt mottatt
+og brukt i mange språksamfunn~\cite{Arppe2000ei,Birn2000detecting,Hagen2001det}.
+I \textit{GiellaLT}-infrastrukturen blir det utviklet føringsgrammatikker der
 lingvisten har kontroll over hvordan grammatikkontrollene fungerer og hvilke
 problem de skal løse. Det er ikke bare tekniske årsaker for metodevalget.
 Kunnskapsøkning om grammatikken til det språket som jobbes med, kvalitetssikring
@@ -393,17 +396,17 @@ menneskelige standard) ligger bak preferansen om å jobbe regelbasert.
 I dette eksperimentet bruker vi
 \textit{GiellaLT}-infrastrukturen\footnote{\url{https://giellalt.github.io}} for
 å lage digitale grammatikker og leksikon og for å lage verktøy som bruker disse
-grammatikkene og leksikonene \cite{moshagen2014open}.  Infrastrukturen er bygd
+grammatikkene og leksikonene~\cite{moshagen2014open}.  Infrastrukturen er bygd
 opp slik at verktøyene  (tastatur, stavekontroller, etc.) er laget på samme måte
 for alle språkene, og skiller på denne måten mellom språkspesifikke data og
 språkuavhengige metoder.  \textit{GiellaLT} har for tiden repositorier for 136
-forskjellige språk -- for det meste (sirkumpolære) minoritetsspråk eller andre
+forskjellige språk---for det meste (sirkumpolære) minoritetsspråk eller andre
 mindre språk.  Denne artikkelen bygger på den nordsamiske delen av
 infrastrukturen\footnote{\url{https://github.com/giellalt/lang-sme}} og er et
 eksperiment for å eventuelt introdusere nye nevrale metoder til det
 språkuavhengige byggesystemet.
 
-For å evaluere og trene den nevrale modellen bruker vi SIKOR.  SIKOR inneholder
+For å evaluere og trene den nevrale modellen bruker vi SIKOR.\@  SIKOR inneholder
 ca. 39M ord og består av to korpora:
 \textit{GT-Bound}\footnote{\url{https://gtsvn.uit.no/boundcorpus/orig/sme/}}
 (tekster som er dekket av opphavsrett og som er tilgjengelig på forespørsel) og
@@ -420,11 +423,11 @@ mange forskjellige feiltyper.
 \subsection{Regelbasert metode (\textit{GramDivvun})}
 
 Kongruensfeilretting ved hjelp av håndskrevne regler er basert på endelige
-tilstandsautomater (FST)~\cite{beesley2003finite,Pirinen2014} og
+tilstandsautomater (FST)~\cite{beesley2003finite,Pirinen2014state} og
 føringsgrammatikker (Constraint Grammar)~\cite{karlsson1990constraint}.  Den
 nordsamiske regelbaserte grammatikkontrollen \textit{GramDivvun} retter både
 skrive- og mange grammatikkfeil i tillegg til tegnsettings- og formateringsfeil.
-\textit{GramDivvun} er bl.a. tilgjengelig som en plugin for Microsoft Office og
+\textit{GramDivvun} er bl.a.\ tilgjengelig som en plugin for Microsoft Office og
 Google Docs\footnote{https://divvun.no/no/korrektur/gramcheck.html} og er åpen
 kildekode.\footnote{den presise versjonen som er brukt i eksperimentet finnes
 her for reproduksjon:
@@ -433,9 +436,9 @@ også
 \url{https://github.com/giellalt/giella-core/releases/tag/experiment-2022-03-30}
 og
 \url{https://github.com/giellalt/giella-shared/releases/tag/experiment-2022-03-30}}
-Den inkluderer bl.a. en nyere versjon av stavekontrollen fra
+Den inkluderer bl.a.\ en nyere versjon av stavekontrollen fra
 2007\footnote{\url{http://divvun.no/korrektur/korrektur.html}}, cf.\
-also~\cite{GaupEtAl2005}, og seks føringsgrammatikkmoduler, se\
+also~\cite{Gaup2005xerox}, og seks føringsgrammatikkmoduler, se\
 figur~\ref{systemarchitecture}.
 
     \begin{figure*}[ht]
@@ -452,12 +455,12 @@ regler for pre- og postverbal subjektsposisjon.  I tillegg er det spesifikke
 regler for passivkonstruksjoner, negasjonskontekster, relativsetninger, kopula,
 adposisjoner og koordinerte subjekter.  Regelsettet for pronominale
 førstepersonsflertallskontekster er litt mer komplekst siden formen \textit{mii}
-er homonymt og kan være både 1. person flertall (`vi') og et spørrepronomen i 3.
-person entall (`hva').
+er homonymt og kan være både 1.\ person flertall (`vi') og et spørrepronomen i
+3.\ person entall (`hva').
 
 Reglene som legger til feiltaggene til en feilaktig verbform har følgende format
 (forenklet) og følger `Constraint Grammar'-formalismen. Regelen nedenfor (som er
-en av 48) går ut i fra en 3. person entallshøyrekontekst.
+en av 48) går ut i fra en 3.\ person entallshøyrekontekst.
 
 \begin{Verbatim}[frame=single,framerule=0.2mm,framesep=3mm,fontsize=\footnotesize,baselinestretch=1]
 ADD (&kongruensfeiltag)
@@ -474,7 +477,7 @@ IF i høyre kontekst det er et personlig pronomen i 3. person entall
 \subsection{Nevral metode (\textit{NeuSam})}
 
 
-\subsubsection{Datagenerering (syntetiske feil)} \label{sec:datagenerering}
+\subsubsection{Datagenerering (syntetiske feil)}\label{sec:datagenerering}
 
 Nevrale nettverk krever en stor mengde av parallelt korpus mellom korrekte og
 feilaktige setninger.  Siden det kan ta flere år å bygge et slikt korpus, er det
@@ -491,9 +494,9 @@ Utfordringene med strategien har vært:
   \item Siden datamengden øker eksponensielt om vi erstatter en form med mange andre, spesielt når det er flere verb i setningen, har vi valgt å bare introdusere en feil av gangen i setningen, istedenfor å kombinere alle variantene.
 \end{itemize}
 
-Den korrekte setningen \ref{doarjjui1} som inneholder et 3. person
-entallssubjekt og en 3. person entallsverbform kan brukes for å generere opptil
-8 setninger med en syntetisk feil (eksempel \ref{doarjjui2}). Dette gjøres ved å
+Den korrekte setningen \ref{doarjjui1} som inneholder et 3.\ person
+entallssubjekt og en 3.\ person entallsverbform kan brukes for å generere opptil
+8 setninger med en syntetisk feil (eksempel~\ref{doarjjui2}). Dette gjøres ved å
 erstatte den korrekte verbformen med forskjellige feilaktige former som er
 forskjellig i person og tall (som ikke er homonyme med den rette formen).
 
@@ -513,7 +516,7 @@ verbformen som kan ha kongruens med et subjekt med andre verbformer som ikke har
 kongruens med subjektet. En oversikt av erstatninger som ble gjort vises i
 tabell~\ref{table:ersetzt}.  I den første gruppen valgte vi bare et verb og
 erstattet det med andre former (f.eks tar vi et verb i første person entall og
-erstatter det med 2. person entall og 3. person entall, og alle totalls- og
+erstatter det med 2.\ person entall og 3.\ person entall, og alle totalls- og
 flertallsformene). I den andre gruppen genererte vi frekvente  grammatikkfeil,
 som tilsvarer feil basert på vår erfaring med korpussøk.  Ordene i den andre
 gruppen har også en begrensing av fonologisk form, f.eks. \textsc{Ind Prs
@@ -570,8 +573,7 @@ valgte vi å redusere feilkilden ved å bare trene \textit{NeuSam} med setninger
         \texttt{encoder type} & \texttt{brnn} \\
         \hline
    \end{tabular}
-   \caption{Parametre gitt til OpenNMT}
-   \label{table:params}
+   \caption{Parametre gitt til OpenNMT}\label{table:params}
     \end{minipage}
 \end{table}
 
@@ -581,10 +583,10 @@ valgte vi å redusere feilkilden ved å bare trene \textit{NeuSam} med setninger
 \begin{figure}
    \centering
    \includegraphics[width=1\textwidth]{stuff}
-   \caption{Et diagram av \textit{NeuSam} og treningsprosessen \label{fig:my_label}}
+   \caption{Et diagram av \textit{NeuSam} og treningsprosessen\label{fig:my_label}}
 \end{figure}
 
-Vi har brukt OpenNMT-py~\cite{klein-etal-2017-opennmt} for eksperimenteringen
+Vi har brukt OpenNMT-py~\cite{klein2017opennmt} for eksperimenteringen
 med nevrale nettverk. Vi fulgte metoden som er beskrevet i OpenNMT-py sin
 `tutorial'\footnote{\url{https://opennmt.net/OpenNMT-py/quickstart.html}} med
 standardparametrene.
@@ -595,7 +597,7 @@ Dette gjorde vi for å unngå OpenNMTs automatiske tokenisering. Disse parametre
 vises også i tabellen~\ref{table:params}.\footnote{Vi inkluderer hele
 konfigurasjonen av opennmt-py og skript til trening i
 \url{https://gtsvn.uit.no/hybrid_gramcheck} ved publisering}. Trening av
-modellen ble gjort på en GPU-supercomputer fra <<\textit{UNINETT Sigma2 - the
+modellen ble gjort på en GPU-supercomputer fra <<\textit{UNINETT Sigma2---the
 National Infrastructure for High Performance Computing and Data Storage in
 Norway}>>. Det tok i gjennomsnitt fem timer å generere hver treningsmodell.
 
@@ -646,7 +648,7 @@ syntetiske feil.
 \section{Resultater}
 
 Vi har evaluert \textit{NeuSam} og \textit{GramDivvun} på det oppmerkede
-korpuset på 406~000 ord som er en del av SIKOR.  Korpuset består av mange
+korpuset på 406~000 ord som er en del av SIKOR.\@  Korpuset består av mange
 administrative og nyhetstekster, litt skjønnlitteratur og en del L2-tekster som
 ble samlet inn for spesielle formål. Oppmerkingen fulgte opprinnelig noen
 retningslinjer for skrivefeil og fonologiske prosesser, og den har skjedd over
@@ -661,14 +663,14 @@ kunne ikke sjekke mot et dataprogram som krever konsekvent oppmerking.
 
 
 Vi ønsket å sammenligne presisjon og dekning og sjekke om \textit{NeuSam} retter
-feil som \textit{GramDivvun} ikke oppdager.  Tabell \ref{tab:accuracy-ekte}
+feil som \textit{GramDivvun} ikke oppdager.  Tabell~\ref{tab:accuracy-ekte}
 viser at \textit{GramDivvun} er betydelig bedre enn \textit{NeuSam} på å finne
 kongruensfeil. Man ser også at mange av korreksjonene til \textit{NeuSam} ikke
 har noen lingvistisk forklaring, mens mange av korreksjonene til
 \textit{GramDivvun} kan være nyttig for brukeren i og med at de viser til en
 annen feil i setningen.
 
-I eksempelsetning \ref{earafeaila} blir verbformen \textit{livčče} `de skulle'
+I eksempelsetning~\ref{earafeaila} blir verbformen \textit{livčče} `de skulle'
 rettet til entall \textit{livččii} `hun/han skulle' fordi subjektet
 \textit{Maáŋga mearraolbmáidgirku} inneholder et tallord med en skrivefeil.
 Dermed oppfattes bare entallssubstantivet \textit{mearraolbmáidgirku} som
@@ -682,8 +684,8 @@ informasjonen som er tilgjengelig (altså før skrivefeilen blir rettet).
 
 
 Falske negativer er det flest av i koordinasjon med to eller flere substantiv,
-der det finitte verbet skal være i entall isteden for flertall. Et eksempel er
-\ref{koord1}, der tredje person flertallsformen \textit{leat} skal rettes til
+der det finitte verbet skal være i entall isteden for flertall. Et eksempel
+er~\ref{koord1}, der tredje person flertallsformen \textit{leat} skal rettes til
 tredje person entallsformen \textit{lea}. Kongruens i koordinasjon er avhengig
 av flere faktorer, blant annet semantisk tilhørighet, syntaks
 (kopulakonstruksjoner og adverbialkonstruksjoner behandles forskjellig fra
@@ -699,14 +701,14 @@ At \textit{NeuSam} ikke finner flesteparten av de oppmerkede feilene, skyldes
 sannsynligvis at treningsmaterialet ikke er representativt nok. Et annet problem
 er at når rettingen går galt, blir rettelsen helt uforståelig. Et eksempel er at
 samme ordrekkefølge blir repetert uendelig mange ganger \textit{johtá guovllus
-sahtá guovllus sahtá guovllus sahtá guovllus sahtá guovll...}. Dette lar seg
+sahtá guovllus sahtá guovllus sahtá guovllus sahtá guovll\ldots}. Dette lar seg
 fikse ved å endre på lengderestriksjoner for setninger, men følgen er at man
 ikke kan rette lengre setninger.
 
 
-Den større modellen gir følgende feilaktige resultat for eksempel \ref{feil4}:
+Den større modellen gir følgende feilaktige resultat for eksempel~\ref{feil4}:
 Istedenfor å bare rette verbformen \textit{logat} `du leser' til \textit{lohká}
-`hun/han leser' blir setningen rettet til \ref{feil5}, dvs. \textit{NeuSam} tar
+`hun/han leser' blir setningen rettet til~\ref{feil5}, dvs. \textit{NeuSam} tar
 bort hele setningen \textit{logan dál oppalaččat} uten at dette skulle være
 lingvistisk fundert.
 
@@ -716,7 +718,7 @@ lingvistisk fundert.
 \c. In dovdda dán ášši, logan dál oppalaččat,  \textbf{lohká} Sámedikki presideanta Egil Olli.\label{feil6}
 
 
-\textit{NeuSam} produserer også noen falske positiver, f.eks.  i~\ref{feil7}
+\textit{NeuSam} produserer også noen falske positiver, f.eks.\ i~\ref{feil7}
 blir \textit{šaddet} rettet til \textit{šaddá} (3Pl>3Sg), men det burde ikke
 rettes siden \textit{stuorát doalut} er et flertallssubjekt.
 
@@ -744,9 +746,9 @@ filteringen blir nøyaktigheten til \textit{NeuSam} 12 prosentpoeng verre.  Det
 at den regelbaserte modellen blir brukt for å automatisk generere data viser at
 korpuset ikke blir gratis.
 
-Vår hypotese -- at regelbaserte metoder kan kompensere for mangel av data, også
-for maskinlæringsmodeller -- har vist seg å ikke holde stikk når det gjelder
-retting av globale grammatikkfeil.  Evalueringen på et ekte korpus (dvs. med
+Vår hypotese---at regelbaserte metoder kan kompensere for mangel av data, også
+for maskinlæringsmodeller---har vist seg å ikke holde stikk når det gjelder
+retting av globale grammatikkfeil.  Evalueringen på et ekte korpus (dvs.\ med
 ekte feil i en naturlig distribusjon) i tabell~\ref{tab:accuracy} viser at for
 den regelbaserte modellen er presisjonen nesten tre ganger bedre og dekningen
 fem ganger bedre enn for den maskinlæringsbaserte modellen. \textit{GramDivvun}
@@ -760,9 +762,9 @@ taler for at det syntetiske feilkorpuset kanskje ikke er representativt nok til
 kongruensfeil en oppgave som krever mer enn enkle erstatninger og en enkel
 kontekstanalyse. Mange kontekster tillater flere former uten at disse er feil.
 Det å introdusere kongruensfeil kan anses som en oppgave som er minst like
-vanskelig som, om ikke vanskeligere enn, selve feilfinningen. Dvs. at vi trenger
-et verktøy som er like bra som den regelbaserte grammatikkontrollen for å lage
-et korpus for en maskinlæringsbasert grammatikkontroll.  Mens
+vanskelig som, om ikke vanskeligere enn, selve feilfinningen. Dvs.\ at vi
+trenger et verktøy som er like bra som den regelbaserte grammatikkontrollen for
+å lage et korpus for en maskinlæringsbasert grammatikkontroll.  Mens
 maskinlæringsmetoder fungerer for mer lokale feil som for eksempel
 sammensettingsfeil, er det for krevende å lage feilkorpus for mer avanserte
 feil.  Dette gir et bra utgangspunkt for framtidig forskning, men med de

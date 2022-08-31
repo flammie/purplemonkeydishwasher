@@ -1,8 +1,8 @@
 <!DOCTYPE html><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil</title>
-<!--Generated on Tue Aug 30 17:32:21 2022 by LaTeXML (version 0.8.6) http://dlmf.nist.gov/LaTeXML/.-->
+<title>Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil</title>
+<!--Generated on Wed Aug 31 04:48:42 2022 by LaTeXML (version 0.8.6) http://dlmf.nist.gov/LaTeXML/.-->
 
 <link rel="stylesheet" href="../latexml/LaTeXML.css" type="text/css">
 <link rel="stylesheet" href="../latexml/ltx-article.css" type="text/css">
@@ -12,8 +12,9 @@
 <div class="ltx_page_main">
 <div class="ltx_page_content">
 <article class="ltx_document ltx_authors_1line">
-<h1 class="ltx_title ltx_title_document">Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: 
-<br class="ltx_break">En hybrid grammatikkontroll for å rette kongruensfeil</h1>
+<h1 class="ltx_title ltx_title_document">Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: 
+<br class="ltx_break">En hybrid
+grammatikkontroll for å rette kongruensfeil</h1>
 <div class="ltx_authors">
 <span class="ltx_creator ltx_role_author">
 <span class="ltx_personname">Linda Wiechetek<math id="m1" class="ltx_Math" alttext="{}^{1}" display="inline"><msup><mi></mi><mn>1</mn></msup></math>, Flammie A Pirinen<math id="m2" class="ltx_Math" alttext="{}^{1}" display="inline"><msup><mi></mi><mn>1</mn></msup></math>, Børre Gaup<math id="m3" class="ltx_Math" alttext="{}^{1}" display="inline"><msup><mi></mi><mn>1</mn></msup></math>,
@@ -25,7 +26,8 @@ Chiara Argese<math id="m4" class="ltx_Math" alttext="{}^{2}" display="inline"><m
 
 <div class="ltx_abstract">
 <h6 class="ltx_title ltx_title_abstract">Abstract</h6>
-    <span class="ltx_ERROR undefined">{english}</span>
+    
+<p class="ltx_p">In English:</p>
     
 <p class="ltx_p">Machine learning is the dominating paradigm in natural language processing
 nowadays. It requires vast amounts of manually annotated or synthetically
@@ -43,11 +45,10 @@ when supplemented by rule-based methods generating massive data, can not
 compete with the state-of-the-art rule-based approach.</p>
   
 </div>
-<span class="ltx_ERROR undefined">\setmainlanguage</span>
 <div id="p1" class="ltx_para">
-<p class="ltx_p">[variant = bokmal]norwegian
-<span class="ltx_ERROR undefined">\setotherlanguages</span>english
-<span class="ltx_ERROR undefined">\pghyphenation</span>[variant = bokmal]norwegianfram-halds-skulen
+<p class="ltx_p">Set main language [variant = bokmal]norwegian
+Set other languages english
+variant = bokmal]norwegianfram-halds-skulen
   </p>
 </div>
 <section id="S1" class="ltx_section">
@@ -65,15 +66,16 @@ morfologisk og syntaktisk analyse, maskinoversetting og stavekontroll, og det
 jobbes stadig vekk med å utvikle nye verktøy. Ett av verktøyene det er behov
 for er en grammatikkontroll som kan være med på å øke skriftlig språkkompetanse
 og dermed føre til økt bruk av samisk på nettet og i den daglige skriftlige
-kommunikasjonen (dvs. på sosiale medier, epost, osv.).</p>
+kommunikasjonen (dvs. på sosiale medier, epost, osv.).</p>
 </div>
 <div id="S1.p2" class="ltx_para">
 <p class="ltx_p">Nordsamisk er et finsk-ugrisk språk som snakkes i Norge, Sverige og Finland og
-har omtrent 25 700 talere <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Ethnologue2018</span>]</cite>. Språktypologisk er det et
-syntetisk språk, der de fleste ordklassene, f.eks. substantiv og adjektiv, bøyes
-etter kasus, person, tall og mer. Samisk er et minoritetsspråk som konkurrerer
-med majoritetsspråket i et flerspråklig samfunn og trenger derfor hjelpemidler
-som fremmer skriftspråket – både i opplæring og administrativ sammenheng.</p>
+har omtrent 25 700 talere <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib76" title="Ethnologue: languages of the world" class="ltx_ref">6</a>]</cite>. Språktypologisk er det et
+syntetisk språk, der de fleste ordklassene, f.eks. substantiv og adjektiv,
+bøyes etter kasus, person, tall og mer. Samisk er et minoritetsspråk som
+konkurrerer med majoritetsspråket i et flerspråklig samfunn og trenger derfor
+hjelpemidler som fremmer skriftspråket—både i opplæring og administrativ
+sammenheng.</p>
 </div>
 <div id="S1.p3" class="ltx_para">
 <p class="ltx_p">I denne artikkelen drøfter vi en av de mest frekvente feiltypene i nordsamisk:
@@ -93,11 +95,12 @@ utfordring for språk som samisk som ikke har tilstrekkelig med data og samtidig
 en rik morfologi som fører til at de enkelte formene blir sjeldnere. Data som
 grammatikkontroll blir trent på må i tillegg inkludere feiloppmerking, og
 feiloppmerking er en tidkrevende jobb. De fleste tilnærminger velger derfor å
-lage et syntetisk feilkorpus nettopp pga den betydelige ressursbruken.
-<cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Milkowski2007</span>, <span class="ltx_ref ltx_missing_citation ltx_ref_self">dahlmeier-etal-2013-building</span>]</cite> Samtidig kan
-maskinlæringsbaserte metoder ha større dekningsgrad for feil man ikke har jobbet
-med spesifikt. Vi har oppnådd gode resultater med maskinlæring for
-særskrivingsfeil, dvs. lokale grammatikkfeil <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Wiechetek2021</span>]</cite>.</p>
+lage et syntetisk feilkorpus nettopp pga den betydelige
+ressursbruken. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib176" title="Automated building of error corpora of polish" class="ltx_ref">12</a>, <a href="#bib.bib65" title="Building a large annotated corpus of learner English: the NUS corpus of learner English" class="ltx_ref">5</a>]</cite>
+Samtidig kan maskinlæringsbaserte metoder ha større dekningsgrad for feil man
+ikke har jobbet med spesifikt. Vi har oppnådd gode resultater med maskinlæring
+for særskrivingsfeil, dvs. lokale
+grammatikkfeil <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib324" title="Rules ruling neural networks - neural vs. rule-based grammar checking for a low resource language" class="ltx_ref">18</a>]</cite>.</p>
 </div>
 <div id="S1.p5" class="ltx_para">
 <p class="ltx_p">Vi ønsker derfor å undersøke nytten og begrensningene metoden har for andre
@@ -106,7 +109,7 @@ metoder for å lage en bedre grammatikkontroll.</p>
 </div>
 <div id="S1.p6" class="ltx_para">
 <p class="ltx_p">Tekstdata som er tilgjengelig digitalt er stort sett samlet i det nordsamiske
-korpuset SIKOR <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">sikor_06.11.2018</span>]</cite>, og bare en liten del er merket opp for
+korpuset SIKOR <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib353" title="SIKOR uit norgga árktalaš universitehta ja norgga sámedikki sámi teakstačoakkáldat, veršuvdna 06.11.2018" class="ltx_ref">17</a>]</cite>, og bare en liten del er merket opp for
 grammatikkfeil. Nordsamisk har en relativt ny skriftnormering og det er
 varierende skriftlig kompetanse blant skribentene. I tillegg har retteverktøy
 ikke vært tilgjengelig så lenge. Derfor inneholder korpuset mange flere skrive-
@@ -124,7 +127,7 @@ allsidig og representativt materiale. For å kompensere for datamangelen har vi
 derfor laget et nevralt nettverk (maskinlæring) (<span class="ltx_text ltx_font_italic">NeuSam</span>) som benytter
 seg av syntetiske data. Dataene har vi konstruert ved hjelp av regelbasert
 morfosyntaktisk analyse for å erstatte korrekte former med feilaktige. Etterpå
-blir dataene filtrert av regelbaserte verktøy - den nordsamiske
+blir dataene filtrert av regelbaserte verktøy—den nordsamiske
 grammatikkontrollen <span class="ltx_text ltx_font_italic">GramDivvun</span>, slik at de syntetiske dataene bare
 inneholder reelle feil.</p>
 </div>
@@ -136,22 +139,22 @@ inneholder reelle feil.</p>
 <div id="S2.p1" class="ltx_para">
 <p class="ltx_p">Vi tar utgangspunkt i automatisk feilretting i nordsamisk. Den første
 nordsamiske grammatikkontrollen <span class="ltx_text ltx_font_italic">GramDivvun</span> har blitt utviklet siden
-2012 og er basert på håndskrevne regler <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Wiechetek2012</span>]</cite>, og ble offentlig
-lansert i 2020. Arbeidet til <span class="ltx_text ltx_font_italic">GramDivvun</span> er riktignok ikke bare et
-verktøy for en stor mengde grammatikkfeil på alle områder, dvs. fra
+2012 og er basert på håndskrevne regler <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib317" title="Constraint Grammar based correction of grammatical errors for North Sámi" class="ltx_ref">19</a>]</cite>, og ble
+offentlig lansert i 2020. Arbeidet til <span class="ltx_text ltx_font_italic">GramDivvun</span> er riktignok ikke
+bare et verktøy for en stor mengde grammatikkfeil på alle områder, dvs. fra
 ekteordsfeil, til særskrivings- og samsvarsfeil, men også et forskingsresultat
 for variasjonen i og hyppigheten av nordsamiske grammatikkfeil. Ekteordsfeil er
 korrekt skrevne ord som er brukt i feil sammenheng. De er vanligvis basert på
 enten ortografisk eller fonetisk likhet (f.eks. <span class="ltx_text ltx_font_italic">å</span> vs. <span class="ltx_text ltx_font_italic">og</span>). I
 denne artikkelen fokuserer vi på retting av samsvarsfeil mellom subjekt og
-verbal av samme type som i eksempel <a href="#S2" title="2 Problemstilling ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>. Samsvarsfeil er en
+verbal av samme type som i eksempel <a href="#S2" title="2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>. Samsvarsfeil er en
 arketypisk grammatikkfeil som er tilstede i mange språk og som krever en analyse
-av hele setningen. I motsetning til retting av engelske samsvarsfeil i eksempel
- <a href="#S2" title="2 Problemstilling ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>, slik <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">ng-etal-2013-conll</span>]</cite> tar for seg, er samiske
+av hele setningen. I motsetning til retting av engelske samsvarsfeil i
+eksempel <a href="#S2" title="2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>, slik <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib197" title="The CoNLL-2013 shared task on grammatical error correction" class="ltx_ref">14</a>]</cite> tar for seg, er samiske
 samsvarsfeil langt mer komplekse. Årsaken til dette er at samisk har mange
 flere verbformer enn engelsk og kombinasjoner av tall (entall, totall, flertall)
 og person (1.,2.,3.) som må kongruere med verbet. I det samiske
-eksemplet <a href="#S2" title="2 Problemstilling ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a><span id="footnote1" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup>
+eksemplet <a href="#S2" title="2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a><span id="footnote1" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup>
             <span class="ltx_tag ltx_tag_note">1</span>
             
             
@@ -172,11 +175,9 @@ pronomenet og ikke med flertallssubstantivet, det burde derfor være
 på engelsk siden verbformene i <span class="ltx_text ltx_font_italic">we have</span> og <span class="ltx_text ltx_font_italic">they have</span> er
 homonyme.</p>
 </div>
-<span class="ltx_ERROR undefined">\ex</span>
 <div id="S2.p2" class="ltx_para">
-<p class="ltx_p">. People still *<span class="ltx_text ltx_font_bold">prefers</span> to bear the risk and allow their pets to have maximum freedom.</p>
+<p class="ltx_p"><span class="ltx_text ltx_font_italic">.</span> People still *<span class="ltx_text ltx_font_bold">prefers</span> to bear the risk and allow their pets to have maximum freedom.</p>
 </div>
-<span class="ltx_ERROR undefined">\exg</span>
 <div id="S2.p3" class="ltx_para">
 <p class="ltx_p">. <span class="ltx_text ltx_framed_underline">Mii</span> sámit maid *<span class="ltx_text ltx_font_bold">áigot</span> gullot.
 <br class="ltx_break"><span class="ltx_text ltx_font_smallcaps">1pl</span> same<span class="ltx_text ltx_font_smallcaps">.3pl</span> også vil<span class="ltx_text ltx_font_smallcaps">.3pl</span> høre<span class="ltx_text ltx_font_smallcaps">.pass.inf
@@ -186,60 +187,57 @@ homonyme.</p>
 <p class="ltx_p">Kongruens i nordsamisk gjelder kasus, tall og person, avhengig av kontekst. I
 nordsamisk er det kongruens mellom subjekt (som er i nominativ) og verb, verb og
 subjektspredikat, demonstrative pronomener/numeraler og substantiv, og
-relativpronomen og anafora. <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Nickel1994</span>, s.509ff.]</cite><span id="footnote3" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">3</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">3</sup>
+relativpronomen og anafora. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib201" title="Samisk grammatikk" class="ltx_ref">15</a>, s.509ff.]</cite><span id="footnote3" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">3</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">3</sup>
             <span class="ltx_tag ltx_tag_note">3</span>
             
             
             
-          subjekt og
-verbal (tall og person - Gal <span class="ltx_text ltx_font_italic">mun boađán</span>), verbal og
+          subjekt
+og verbal (tall og person—Gal <span class="ltx_text ltx_font_italic">mun boađán</span>), verbal og
 utfyllningspredikativ (Olmmái <span class="ltx_text ltx_font_italic">lea rikkis</span>), mellom predikativer (Mus lea
 <span class="ltx_text ltx_font_italic">juolgi bávččas</span>), objekt og objektpredikativ, relativsetninger (Dat
 <span class="ltx_text ltx_font_italic">olmmoš, gii</span> áigu boahtit.), sammenligning og apposisjoner,
 (<span class="ltx_text ltx_font_italic">Máret</span> lea liikka stuoris go <span class="ltx_text ltx_font_italic">don</span> og Oidnet go don
-<span class="ltx_text ltx_font_italic">Mihkkala</span>, min nuoramus <span class="ltx_text ltx_font_italic">bártni</span>?</span></span></span></p>
+<span class="ltx_text ltx_font_italic">Mihkkala</span>, min nuoramus <span class="ltx_text ltx_font_italic">bártni</span>)?</span></span></span></p>
 </div>
 <div id="S2.p5" class="ltx_para">
 <p class="ltx_p">En <span class="ltx_text ltx_font_italic">kongruensfeil</span> forutsetter en finitt verbform som ikke samsvarer i
 tall og person med subjektet som hører til verbalet. Subjektet kan stå enten til
 venstre eller til høyre for verbalet, og det kan være andre setningsledd mellom
-subjektet og verbalet. I det følgende eksemplet <a href="#S2" title="2 Problemstilling ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> blir subjektet
+subjektet og verbalet. I det følgende eksemplet <a href="#S2" title="2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> blir subjektet
 <span class="ltx_text ltx_font_italic">makkár váikkuhusat</span> ‘hvilken konsekvenser’ og verbalet <span class="ltx_text ltx_font_italic">ledje</span>
 ‘var’ avbrutt av hovedsetningen <span class="ltx_text ltx_font_italic">jáhkát don</span> ‘tror du’. I
-eksempelsetning <a href="#S2" title="2 Problemstilling ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> derimot er det finitte verbet til venstre for
+eksempelsetning <a href="#S2" title="2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> derimot er det finitte verbet til venstre for
 subjektet bare en hovedsetning som introduserer en bisetning uten en
 subjunksjon. Det er <span class="ltx_text ltx_font_italic">liikojedje</span> som er verbalet til <span class="ltx_text ltx_font_italic">mánát</span>
-‘barna’. I eksempelsetning  <a href="#S2" title="2 Problemstilling ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> er det en relativsetning mellom
+‘barna’. I eksempelsetning <a href="#S2" title="2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> er det en relativsetning mellom
 subjektet <span class="ltx_text ltx_font_italic">máŋgasat</span> ‘mange’ og verbalet <span class="ltx_text ltx_font_italic">gehččet</span> ‘de ser’.</p>
 </div>
-<span class="ltx_ERROR undefined">\exg</span>
 <div id="S2.p6" class="ltx_para">
 <p class="ltx_p">. <span class="ltx_text ltx_framed_underline">Makkár</span> <span class="ltx_text ltx_framed_underline">váikkuhusat</span> jáhkát don <span class="ltx_text ltx_font_bold">ledje</span> dáid lágain sidjiide […]
 <br class="ltx_break">hvilken konsekvens<span class="ltx_text ltx_font_smallcaps">.nom.pl</span> tro<span class="ltx_text ltx_font_smallcaps">.2sg</span> <span class="ltx_text ltx_font_smallcaps">2sg</span> være<span class="ltx_text ltx_font_smallcaps">.pst.3pl</span> disse<span class="ltx_text ltx_font_smallcaps">.gen</span> lov<span class="ltx_text ltx_font_smallcaps">.loc.pl</span> de<span class="ltx_text ltx_font_smallcaps">.ill.pl
 <br class="ltx_break"></span>‘Hvilke konsekvenser tror du disse lovene hadde for dem […]’</p>
 </div>
-<span class="ltx_ERROR undefined">\exg</span>
 <div id="S2.p7" class="ltx_para">
 <p class="ltx_p">. <span class="ltx_text ltx_font_italic">Orui</span> <span class="ltx_text ltx_framed_underline">mánát</span> <span class="ltx_text ltx_font_bold">liikojedje</span> oaidnit bihtá.
 <br class="ltx_break">virke<span class="ltx_text ltx_font_smallcaps">.pst.3sg</span> barn<span class="ltx_text ltx_font_smallcaps">.pl.nom</span> like<span class="ltx_text ltx_font_smallcaps">.pst.3pl</span> se forestilling<span class="ltx_text ltx_font_smallcaps">.acc
 <br class="ltx_break"></span>‘Det virket som om barna likte å se forestillingen.’</p>
 </div>
-<span class="ltx_ERROR undefined">\exg</span>
 <div id="S2.p8" class="ltx_para">
 <p class="ltx_p">. Sávan <span class="ltx_text ltx_framed_underline">máŋgasat</span>, geat eai leat sápmelaččat, <span class="ltx_text ltx_font_bold">gehččet</span> dán dokumentára
 <br class="ltx_break">ønske<span class="ltx_text ltx_font_italic">.</span>1sg mange<span class="ltx_text ltx_font_smallcaps">.pl</span>, som<span class="ltx_text ltx_font_smallcaps">.nom.pl</span> ikke<span class="ltx_text ltx_font_smallcaps">.3pl</span> være same<span class="ltx_text ltx_font_smallcaps">.nom.pl</span>, se<span class="ltx_text ltx_font_smallcaps">.pl3</span> denne<span class="ltx_text ltx_font_smallcaps">.acc</span> dokumentar<span class="ltx_text ltx_font_smallcaps">.acc
-<br class="ltx_break"></span>‘Jeg ønsker at mange som ikke er samer, ser denne dokumentaren’</p>
+<br class="ltx_break"></span>‘Jeg ønsker at mange som ikke er samer, ser denne dokumentaren’
+</p>
 </div>
 <div id="S2.p9" class="ltx_para">
 <p class="ltx_p">I tillegg til at det kan finnes flere verb som er potensielle verbalkandidater
 til et subjekt, kan det være ordformer som bare ser ut som finitte verb, men
 ikke er det. Dette kan skyldes homonymi med finitte verb eller ekteordsfeil.
-Formen <span class="ltx_text ltx_font_italic">erret</span> ‘skille’ i eksempelsetning <a href="#S2" title="2 Problemstilling ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> er egentlig en
+Formen <span class="ltx_text ltx_font_italic">erret</span> ‘skille’ i eksempelsetning <a href="#S2" title="2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> er egentlig en
 ekteordsfeil for adverbet <span class="ltx_text ltx_font_italic">earret</span> ‘bortsett fra’. Men formen har to
-verbanalyser, både 1. person flertall og 2. person entall. Det kunne altså
+verbanalyser, både 1. person flertall og 2. person entall. Det kunne altså
 tenkes at det er verbalet til <span class="ltx_text ltx_font_italic">sii</span> ‘de’.</p>
 </div>
-<span class="ltx_ERROR undefined">\exg</span>
 <div id="S2.p10" class="ltx_para">
 <p class="ltx_p">. Guossit geat áigot leat sámediggeviesus, *<span class="ltx_text ltx_font_bold">erret</span> sii geat áigot leat publikumareálan
 <br class="ltx_break">gjest<span class="ltx_text ltx_font_smallcaps">.nom.pl</span> som<span class="ltx_text ltx_font_smallcaps">.nom.pl</span> vil<span class="ltx_text ltx_font_smallcaps">.3pl</span> være Sametinghus<span class="ltx_text ltx_font_smallcaps">.loc</span>, skille<span class="ltx_text ltx_font_smallcaps">.1pl;2sg</span> <span class="ltx_text ltx_font_smallcaps">3pl</span> som vil<span class="ltx_text ltx_font_smallcaps">.3pl</span> være publikumsareal<span class="ltx_text ltx_font_smallcaps">.loc
@@ -247,20 +245,20 @@ tenkes at det er verbalet til <span class="ltx_text ltx_font_italic">sii</span> 
 </div>
 <div id="S2.p11" class="ltx_para">
 <p class="ltx_p">Det finnes også systematiske homonymirelasjoner mellom forskjellige former som
-er presentert i tabell <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a>. Det er for eksempel noe
+er presentert i tabell <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a>. Det er for eksempel noe
 homonymi mellom perfektum partisipp og første person entall, f.eks.
 <span class="ltx_text ltx_font_italic">orron</span> ‘jeg var; har vært’. Alle infinitiver er homonyme med første
 person presens flertallsverbformer. Infinitiver av ulikestavelses verb og
 <span class="ltx_text ltx_font_italic">leat</span> ‘å være’ er også homonyme med tredje person flertall. Tredje
 person presens flertall samsvarer også med andre person preteritum entall ved
-alle verb bortsett fra <span class="ltx_text ltx_font_italic">leat</span> ‘være’. Videre samsvarer 1. person presens
-totall og 3. person preteritum flertall bortsett fra <span class="ltx_text ltx_font_italic">leat</span> ‘være’,
-ulikestavelsesverb og sammendradde verb. Første person preteritum entall
-samsvarer med perfektum partisipp-formen ved verb som ender på -ut, f.eks.
-<span class="ltx_text ltx_font_italic">gorgŋon</span> ‘jeg har klatret’. I tillegg gjelder denne homonymien for
-<span class="ltx_text ltx_font_italic">leat</span> ‘være’, ulikestavelses- og sammendradde verb. Noen verb som har
-endelsen <span class="ltx_text ltx_font_italic">-ut</span> har for eksempel passive eller inkoative 3. person
-entallsformer som er homonyme med aktive 3. person flertallspreteritumsformer,
+alle verb bortsett fra <span class="ltx_text ltx_font_italic">leat</span> ‘være’. Videre samsvarer 1. person
+presens totall og 3. person preteritum flertall bortsett fra <span class="ltx_text ltx_font_italic">leat</span>
+‘være’, ulikestavelsesverb og sammendradde verb. Første person preteritum
+entall samsvarer med perfektum partisipp-formen ved verb som ender på -ut,
+f.eks. <span class="ltx_text ltx_font_italic">gorgŋon</span> ‘jeg har klatret’. I tillegg gjelder denne homonymien
+for <span class="ltx_text ltx_font_italic">leat</span> ‘være’, ulikestavelses- og sammendradde verb. Noen verb som
+har endelsen <span class="ltx_text ltx_font_italic">-ut</span> har for eksempel passive eller inkoative 3. person
+entallsformer som er homonyme med aktive 3. person flertallspreteritumsformer,
 f.eks. <span class="ltx_text ltx_font_italic">orro</span> ‘hun/han blir boende, de bodde’.</p>
 </div>
 <figure id="S2.T1" class="ltx_table">
@@ -316,11 +314,10 @@ substantivanalyser (‘sanger’) og tredje person entall form av <span class="l
 </div>
 <div id="S2.p13" class="ltx_para">
 <p class="ltx_p">I noen tilfeller er også subjektshomonymi relevant, slik som i
-setning <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a>, der tidsskriftet <span class="ltx_text ltx_font_italic">Dieđut</span> er homonymt med
+setning <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a>, der tidsskriftet <span class="ltx_text ltx_font_italic">Dieđut</span> er homonymt med
 flertallssubstantivet <span class="ltx_text ltx_font_italic">dieđut</span> ‘nyheter’ og basert på det kunne det
-tenkes at verbformen må være 3. person flertall.</p>
+tenkes at verbformen må være 3. person flertall.</p>
 </div>
-<span class="ltx_ERROR undefined">\exg</span>
 <div id="S2.p14" class="ltx_para">
 <p class="ltx_p">. <span class="ltx_text ltx_framed_underline">Dieđut</span> <span class="ltx_text ltx_font_bold">lea</span> máŋggadieđalaš čála-ráidu […]
 <br class="ltx_break">Dieđut<span class="ltx_text ltx_font_smallcaps">.nom.sg</span>;nyhet<span class="ltx_text ltx_font_smallcaps">.pl</span> være<span class="ltx_text ltx_font_smallcaps">.3sg</span> tverrvitenskapelig skriftserie 
@@ -330,40 +327,38 @@ tenkes at verbformen må være 3. person flertall.</p>
 <p class="ltx_p">Det er ikke bare homonymi som kan føre til feiltolkinger av setningen. En del
 syntaktiske fenomen bidrar til utfordringene. En av de største årsakene til
 unntak er koordinerte subjekt. Mens verbalet <span class="ltx_text ltx_font_italic">ledje</span> i
-eksempelsetning <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a> tar hensyn til både første, andre og tredje
+eksempelsetning <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a> tar hensyn til både første, andre og tredje
 elementet i koordinasjonen, er det i de fleste tilfellene tillatt med både 3.
-person entall eller 3. person flertall. Setning <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a> koordinerer
-konkrete personer, i <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a> er det derimot mer abstrakte eller
-uspesifiserte begrep som er koordinert .</p>
+person entall eller 3. person flertall. Setning <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a> koordinerer
+konkrete personer, i <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a> er det derimot mer abstrakte eller
+uspesifiserte begrep som er koordinert.
+</p>
 </div>
-<span class="ltx_ERROR undefined">\exg</span>
 <div id="S2.p16" class="ltx_para">
 <p class="ltx_p">. <span class="ltx_text ltx_framed_underline">Persson, Åberg ja Granberg</span> <span class="ltx_text ltx_font_bold">ledje</span> dat golbma buoremusa juohke vuodjimis.
 <br class="ltx_break">Persson, Åberg og Granberg være<span class="ltx_text ltx_font_smallcaps">.pst.3pl</span> de tre beste hver kjøring<span class="ltx_text ltx_font_smallcaps">.loc
 <br class="ltx_break"></span>‘Persson, Åberg og Granberg var de tre beste i hver kjøring.’</p>
 </div>
 <div id="S2.p17" class="ltx_para">
-<p class="ltx_p">I eksempelsetning <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a> inneholder det koordinerte subjektet
+<p class="ltx_p">I eksempelsetning <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a> inneholder det koordinerte subjektet
 <span class="ltx_text ltx_font_italic">man ollu riggodagat ja ruhta</span> et flertalls- og et entallssubstantiv.
-Verbet <span class="ltx_text ltx_font_italic">manai</span> er derimot i 3. person entall. Både 3. person entall og 3.
-person flertall er tillatt.</p>
+Verbet <span class="ltx_text ltx_font_italic">manai</span> er derimot i 3. person entall. Både 3. person entall og
+3. person flertall er tillatt.</p>
 </div>
-<span class="ltx_ERROR undefined">\exg</span>
 <div id="S2.p18" class="ltx_para">
 <p class="ltx_p">. […] go sii oidne man ollu riggodagat ja <span class="ltx_text ltx_framed_underline">ruhta</span> dokko <span class="ltx_text ltx_font_bold">manai</span>.
 <br class="ltx_break"> når <span class="ltx_text ltx_font_smallcaps">3pl</span> se<span class="ltx_text ltx_font_smallcaps">.pst.3pl</span> hvor mye rikdom<span class="ltx_text ltx_font_smallcaps">.nom.pl</span> og penger<span class="ltx_text ltx_font_smallcaps">.nom.sg</span> dit gå<span class="ltx_text ltx_font_smallcaps">.pst.3sg
 <br class="ltx_break"></span>‘[…] når de så hvor mye rikdom og penger som gikk dit.’</p>
 </div>
 <div id="S2.p19" class="ltx_para">
-<p class="ltx_p">I setning <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a> oppfattes de koordinerte nominalfrasene i subjektet
+<p class="ltx_p">I setning <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a> oppfattes de koordinerte nominalfrasene i subjektet
 som en logisk enhet, og bare det nærmeste elementet samsvarer med det finitte
 verbet. Dessuten er samsvar i koordinasjon avhengig av semantisk kategori til
-substantivene. Ifølge <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Nickel1994</span>]</cite> ¡¡står verbalet i <span class="ltx_text ltx_font_italic">entall</span> [hvis
-subjektsordene er <span class="ltx_text ltx_font_italic">navn på stoffer</span>]. […] Hvis subjektsordene er
-<span class="ltx_text ltx_font_italic">abstrakte begrep</span> som nært hører sammen, står verbalet i
-<span class="ltx_text ltx_font_italic">entall</span>.¿¿(s.512)</p>
+substantivene. Ifølge <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib201" title="Samisk grammatikk" class="ltx_ref">15</a>]</cite> ¡¡står verbalet i <span class="ltx_text ltx_font_italic">entall</span>
+[hvis subjektsordene er <span class="ltx_text ltx_font_italic">navn på stoffer</span>]. […] Hvis subjektsordene
+er <span class="ltx_text ltx_font_italic">abstrakte begrep</span> som nært hører sammen, står verbalet i
+<span class="ltx_text ltx_font_italic">entall</span>.¿¿ (s.512)</p>
 </div>
-<span class="ltx_ERROR undefined">\exg</span>
 <div id="S2.p20" class="ltx_para">
 <p class="ltx_p">. Sihke jierbmi ja <span class="ltx_text ltx_framed_underline">ipmárdus</span> <span class="ltx_text ltx_font_bold">lea</span> buorre su iežas adnui.
 <br class="ltx_break">Både klokhet og forståelse være<span class="ltx_text ltx_font_smallcaps">.3sg</span> bra <span class="ltx_text ltx_font_smallcaps">3pl.gen</span> eget bruk<span class="ltx_text ltx_font_smallcaps">.ill
@@ -372,18 +367,16 @@ subjektsordene er <span class="ltx_text ltx_font_italic">navn på stoffer</span>
 <div id="S2.p21" class="ltx_para">
 <p class="ltx_p">Hvis koordinasjonen derimot inneholder et personlig pronomen, er det flertalls-
 eller totallsformer av samme person som kreves, for eksempel <span class="ltx_text ltx_font_bold">leimmet</span>
-‘vi var’ i eksempelsetning <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a>. Det samme gjelder relativpronomener
+‘vi var’ i eksempelsetning <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a>. Det samme gjelder relativpronomener
 med et personlig pronomen som antesedent, <span class="ltx_text ltx_font_italic">midjiide</span> ‘til oss’ i
-eksempelsetning <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a>, der verbalformen blir 1. person flertall
-istedenfor 3. person flertall som relativpronomenet.</p>
+eksempelsetning <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a>, der verbalformen blir 1. person flertall
+istedenfor 3. person flertall som relativpronomenet.</p>
 </div>
-<span class="ltx_ERROR undefined">\exg</span>
 <div id="S2.p22" class="ltx_para">
 <p class="ltx_p">. Oahpaheaddjit <span class="ltx_text ltx_font_bold">leimmet</span> fas <span class="ltx_text ltx_framed_underline">Isak Johansen, Johan Jernsletten ja mun</span>.
 <br class="ltx_break">lærer<span class="ltx_text ltx_font_smallcaps">.nom.pl</span> være<span class="ltx_text ltx_font_smallcaps">.pst.1pl</span> igjen Isak Johansen, Johan Jernsletten og <span class="ltx_text ltx_font_smallcaps">1sg
 <br class="ltx_break"></span>‘Det var Isak Johansen, Johan Jernsletten og jeg som var lærerne.’</p>
 </div>
-<span class="ltx_ERROR undefined">\exg</span>
 <div id="S2.p23" class="ltx_para">
 <p class="ltx_p">. Seamma guoská <span class="ltx_text ltx_framed_underline">midjiide geat</span> <span class="ltx_text ltx_font_bold">bargat</span> láhččit rámmaeavttuid juohkehačča ovdáneapmái.
 <br class="ltx_break">samme gjelde<span class="ltx_text ltx_font_smallcaps">.3sg</span> <span class="ltx_text ltx_font_smallcaps">1pl.ill</span> som<span class="ltx_text ltx_font_smallcaps">.nom.3pl</span> jobbe<span class="ltx_text ltx_font_smallcaps">.1pl</span> tilrettelegge<span class="ltx_text ltx_font_smallcaps">.inf</span> rammevilkår<span class="ltx_text ltx_font_smallcaps">.acc.pl</span> enkelte<span class="ltx_text ltx_font_smallcaps">.gen</span> utvikling<span class="ltx_text ltx_font_smallcaps">.ill
@@ -391,8 +384,8 @@ istedenfor 3. person flertall som relativpronomenet.</p>
 </div>
 <div id="S2.p24" class="ltx_para">
 <p class="ltx_p">Når verbalet er kopulaverbet <span class="ltx_text ltx_font_italic">leat</span> ‘være’ og det dreier seg om en
-habitiv eller adverbialkonstruksjon som i <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a>, så samsvarer det bare
-med det nærmeste leddet. <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Nickel1994</span>, s.512]</cite><span id="footnote4" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">4</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">4</sup>
+habitiv eller adverbialkonstruksjon som i <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a>, så samsvarer det bare
+med det nærmeste leddet. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib201" title="Samisk grammatikk" class="ltx_ref">15</a>, s.512]</cite><span id="footnote4" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">4</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">4</sup>
             <span class="ltx_tag ltx_tag_note">4</span>
             
             
@@ -401,27 +394,24 @@ med det nærmeste leddet. <cite class="ltx_cite ltx_citemacro_cite">[<span class
 består av flere sidestilte ord i nominativ, så er det vanligvis samsvar i tall
 mellom verbalet og det ordet i predikativet som står nærmest. Dette gjelder
 setninger med habitiv eller adverbial i nominatdelen¿¿ (p.512)</span></span></span> I den følgende
-konstruksjonen <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a> er det bare entall som er mulig siden det dreier
+konstruksjonen <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a> er det bare entall som er mulig siden det dreier
 seg om en konstruksjon med et stedsadverbial i begynnelsen, <span class="ltx_text ltx_font_italic">dáppe</span>
-‘her’.
-</p>
+‘her’.</p>
 </div>
-<span class="ltx_ERROR undefined">\exg</span>
 <div id="S2.p25" class="ltx_para">
 <p class="ltx_p">. Mun dieđán dáppe <span class="ltx_text ltx_font_bold">lea</span> <span class="ltx_text ltx_framed_underline">kultuvra</span> ja árbevierru girkostallat.
 <br class="ltx_break"><span class="ltx_text ltx_font_smallcaps">1sg</span> vite<span class="ltx_text ltx_font_smallcaps">.1sg</span> her være<span class="ltx_text ltx_font_smallcaps">.3sg</span> kultur<span class="ltx_text ltx_font_smallcaps">.nom.sg</span> og tradisjon<span class="ltx_text ltx_font_smallcaps">.nom.sg</span> gå.i.kirken<span class="ltx_text ltx_font_smallcaps">.inf
-<br class="ltx_break"></span>’Jeg vet at her er det kultur og tradisjon å gå i kirken.’</p>
+<br class="ltx_break"></span>‘Jeg vet at her er det kultur og tradisjon å gå i kirken.’</p>
 </div>
 <div id="S2.p26" class="ltx_para">
 <p class="ltx_p">Visse typer veldig vanlige skrivefeil (ekteordsfeil) kan komplisere søket etter
-kongruensfeil. I følgende setning <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a> er det finitte verbet
+kongruensfeil. I følgende setning <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a> er det finitte verbet
 korrekt. Men i og med at <span class="ltx_text ltx_font_italic">diehttit</span> ‘å vite’ inneholder en skrivefeil
 (to t-er istedenfor en), blir den mente infinitiven et flertallssubstantiv.
 Dermed blir det en mulig flertallssubjektskandidat for det finitte verbet, som
-kunne tolkes som en kongruensfeil - dvs. at det burde være 3. person flertall
-istedenfor 3. person entall.</p>
+kunne tolkes som en kongruensfeil—dvs. at det burde være 3. person flertall
+istedenfor 3. person entall.</p>
 </div>
-<span class="ltx_ERROR undefined">\exg</span>
 <div id="S2.p27" class="ltx_para">
 <p class="ltx_p">. Ovddamearkka dihte mo *diehttit <span class="ltx_text ltx_font_bold">mieđiha</span> go buohcci vai lea go son duođaid nuppi oaivilis.
 <br class="ltx_break">For eksempel hvordan viter<span class="ltx_text ltx_font_smallcaps">.nom.pl</span> samtykke<span class="ltx_text ltx_font_smallcaps">.3sg</span> <span class="ltx_text ltx_font_smallcaps">qst</span> syk eller være<span class="ltx_text ltx_font_smallcaps">.3sg</span> <span class="ltx_text ltx_font_smallcaps">qst</span> <span class="ltx_text ltx_font_smallcaps">3sg</span> egentlig annen mening<span class="ltx_text ltx_font_smallcaps">.loc
@@ -430,25 +420,23 @@ istedenfor 3. person entall.</p>
 <div id="S2.p28" class="ltx_para">
 <p class="ltx_p">En konstruksjon der det kan være vanskelig å finne kongruensfeil, er
 asymmetriske subjektpredikatskonstruksjoner der subjektet og predikativet ikke
-har samme tall, som vist i eksempelsetning <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a>. På språk der
+har samme tall, som vist i eksempelsetning <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a>. På språk der
 subjektet kan være pre- eller postverbalt, slik som i nordsamisk, kan det være
-vanskelig å identifisere subjektet. <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Lorusso2019</span>]</cite> nevner utfordringene i
-NLP-applikasjoner som for eksempel parsere eller maskinoversetting. Verbalet i
-italiensk samsvarer med subjektet uavhengig av ordstillinga, på engelsk
-samsvarer verbalet med den preverbale nominalfrasen som i eksempel
-<a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a>. <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Lorusso2019</span>]</cite></p>
+vanskelig å identifisere subjektet. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib156" title="Asymmetries in extraction from nominal copular sentences: a challenging case study for nlp tools" class="ltx_ref">11</a>]</cite> nevner
+utfordringene i NLP-applikasjoner som for eksempel parsere eller
+maskinoversetting. Verbalet i italiensk samsvarer med subjektet uavhengig av
+ordstillinga, på engelsk samsvarer verbalet med den preverbale nominalfrasen som
+i eksempel <a href="#S2.T1" title="Table 1 ‣ 2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">1</span></span></a>. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib156" title="Asymmetries in extraction from nominal copular sentences: a challenging case study for nlp tools" class="ltx_ref">11</a>]</cite></p>
 </div>
-<span class="ltx_ERROR undefined">\exg</span>
 <div id="S2.p29" class="ltx_para">
 <p class="ltx_p">. Davviriikkaid <span class="ltx_text ltx_framed_underline">sápmelaččat</span> *<span class="ltx_text ltx_font_bold">lea</span> unna minoritehta […]
 <br class="ltx_break">nordområde<span class="ltx_text ltx_font_smallcaps">.gen.pl</span> same<span class="ltx_text ltx_font_smallcaps">.nom.pl</span> være<span class="ltx_text ltx_font_smallcaps">3p.sg</span> liten minoritet<span class="ltx_text ltx_font_smallcaps">.nom.sg
 <br class="ltx_break"></span>‘Nordens samer er en liten minoritet […]’</p>
 </div>
-<span class="ltx_ERROR undefined">\ex</span>
 <div id="S2.p30" class="ltx_para">
-<p class="ltx_p">. 
-<span class="ltx_ERROR undefined">\a</span>. the pictures are/*is the cause.
-.̱ the cause *are/is the pictures</p>
+<p class="ltx_p"><span class="ltx_text ltx_font_italic">.</span> 
+ the pictures are/*is the cause.
+ the cause *are/is the pictures</p>
 </div>
 </section>
 <section id="S3" class="ltx_section">
@@ -461,7 +449,7 @@ samsvarer verbalet med den preverbale nominalfrasen som i eksempel
 
 <div id="S3.SS1.p1" class="ltx_para">
 <p class="ltx_p">Maskinlæringsmetoder som ikke krever lingvistisk ekspertise dominerer per idag
-moderne språkteknologi (f.eks. <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">chollampatt2018multilayer</span>, <span class="ltx_ref ltx_missing_citation ltx_ref_self">boyd2018using</span>]</cite>).
+moderne språkteknologi (f.eks. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib58" title="A multilayer convolutional encoder-decoder neural network for grammatical error correction" class="ltx_ref">4</a>, <a href="#bib.bib46" title="Using wikipedia edits in low resource grammatical error correction" class="ltx_ref">3</a>]</cite>).
 Fokuset i maskinlæring har vært på maskinoversetting og andre typer verktøy.
 Maskinlærte stavekontroller skiller vanligvis ikke på vanlige skrivefeil og
 grammatiske feil. I det siste har store datamengder ført til at resultatene har
@@ -484,8 +472,8 @@ kildekode). <span class="ltx_text ltx_font_italic">Grammarly<span id="footnote6"
                 
                 
               <a href="https://grammarly.com" title="" class="ltx_ref ltx_url ltx_font_typewriter ltx_font_upright">https://grammarly.com</a></span></span></span></span>, som er
-lukket programvare, bruker maskinlæringsmetoder til en viss grad
-<span id="footnote7" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">7</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">7</sup>
+lukket programvare, bruker maskinlæringsmetoder til en viss
+grad<span id="footnote7" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">7</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">7</sup>
               <span class="ltx_tag ltx_tag_note">7</span>
               
               
@@ -495,9 +483,9 @@ lukket programvare, bruker maskinlæringsmetoder til en viss grad
 <div id="S3.SS1.p3" class="ltx_para">
 <p class="ltx_p">På begynnelsen av 90-tallet introduserte Fred Karlsson konseptet
 føringsgrammatikk (Constraint Grammar). Denne teknologien har produsert gode
-tekstprosesseringsverktøy, bl.a. grammatikkontroller, som har blitt godt mottatt
-og brukt i mange språksamfunn <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Arppe2000</span>, <span class="ltx_ref ltx_missing_citation ltx_ref_self">Birn2000</span>, <span class="ltx_ref ltx_missing_citation ltx_ref_self">Hagen2001b</span>]</cite>. I
-<span class="ltx_text ltx_font_italic">GiellaLT</span>-infrastrukturen blir det utviklet føringsgrammatikker der
+tekstprosesseringsverktøy, bl.a. grammatikkontroller, som har blitt godt mottatt
+og brukt i mange språksamfunn <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Arppe2000ei</span>, <a href="#bib.bib43" title="Detecting grammar errors with Lingsoft’s Swedish grammar checker" class="ltx_ref">2</a>, <a href="#bib.bib98" title="”Det er fort gjort og skrive feil.” en presentasjon av en automatisk grammatikkontroll for bokmål" class="ltx_ref">8</a>]</cite>.
+I <span class="ltx_text ltx_font_italic">GiellaLT</span>-infrastrukturen blir det utviklet føringsgrammatikker der
 lingvisten har kontroll over hvordan grammatikkontrollene fungerer og hvilke
 problem de skal løse. Det er ikke bare tekniske årsaker for metodevalget.
 Kunnskapsøkning om grammatikken til det språket som jobbes med, kvalitetssikring
@@ -518,11 +506,11 @@ menneskelige standard) ligger bak preferansen om å jobbe regelbasert.</p>
               
             <a href="https://giellalt.github.io" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://giellalt.github.io</a></span></span></span> for
 å lage digitale grammatikker og leksikon og for å lage verktøy som bruker disse
-grammatikkene og leksikonene <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">moshagen2014open</span>]</cite>. Infrastrukturen er bygd
+grammatikkene og leksikonene <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib193" title="Open-source infrastructures for collaborative work on under-resourced languages" class="ltx_ref">13</a>]</cite>. Infrastrukturen er bygd
 opp slik at verktøyene (tastatur, stavekontroller, etc.) er laget på samme måte
 for alle språkene, og skiller på denne måten mellom språkspesifikke data og
 språkuavhengige metoder. <span class="ltx_text ltx_font_italic">GiellaLT</span> har for tiden repositorier for 136
-forskjellige språk – for det meste (sirkumpolære) minoritetsspråk eller andre
+forskjellige språk—for det meste (sirkumpolære) minoritetsspråk eller andre
 mindre språk. Denne artikkelen bygger på den nordsamiske delen av
 infrastrukturen<span id="footnote9" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">9</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">9</sup>
               <span class="ltx_tag ltx_tag_note">9</span>
@@ -566,11 +554,11 @@ mange forskjellige feiltyper.</p>
 
 <div id="S4.SS1.p1" class="ltx_para">
 <p class="ltx_p">Kongruensfeilretting ved hjelp av håndskrevne regler er basert på endelige
-tilstandsautomater (FST) <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">beesley2003finite</span>, <span class="ltx_ref ltx_missing_citation ltx_ref_self">Pirinen2014</span>]</cite> og
-føringsgrammatikker (Constraint Grammar) <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">karlsson1990constraint</span>]</cite>. Den
+tilstandsautomater (FST) <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib29" title="Finite state morphology" class="ltx_ref">1</a>, <a href="#bib.bib231" title="State-of-the-art in weighted finite-state spell-checking" class="ltx_ref">16</a>]</cite> og
+føringsgrammatikker (Constraint Grammar) <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib120" title="Constraint grammar as a framework for parsing unrestricted text" class="ltx_ref">9</a>]</cite>. Den
 nordsamiske regelbaserte grammatikkontrollen <span class="ltx_text ltx_font_italic">GramDivvun</span> retter både
 skrive- og mange grammatikkfeil i tillegg til tegnsettings- og formateringsfeil.
-<span class="ltx_text ltx_font_italic">GramDivvun</span> er bl.a. tilgjengelig som en plugin for Microsoft Office og
+<span class="ltx_text ltx_font_italic">GramDivvun</span> er bl.a. tilgjengelig som en plugin for Microsoft Office og
 Google Docs<span id="footnote12" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">12</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">12</sup>
               <span class="ltx_tag ltx_tag_note">12</span>
               
@@ -589,13 +577,13 @@ også
 <a href="https://github.com/giellalt/giella-core/releases/tag/experiment-2022-03-30" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/giellalt/giella-core/releases/tag/experiment-2022-03-30</a>
 og
 <a href="https://github.com/giellalt/giella-shared/releases/tag/experiment-2022-03-30" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/giellalt/giella-shared/releases/tag/experiment-2022-03-30</a></span></span></span>
-Den inkluderer bl.a. en nyere versjon av stavekontrollen fra
+Den inkluderer bl.a. en nyere versjon av stavekontrollen fra
 2007<span id="footnote14" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">14</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">14</sup>
               <span class="ltx_tag ltx_tag_note">14</span>
               
               
               
-            <a href="http://divvun.no/korrektur/korrektur.html" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://divvun.no/korrektur/korrektur.html</a></span></span></span>, cf. also <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">GaupEtAl2005</span>]</cite>, og seks føringsgrammatikkmoduler, se figur <a href="#S4.F1" title="Figure 1 ‣ 4.1 Regelbasert metode (GramDivvun) ‣ 4 Metodevalg ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>.</p>
+            <a href="http://divvun.no/korrektur/korrektur.html" title="" class="ltx_ref ltx_url ltx_font_typewriter">http://divvun.no/korrektur/korrektur.html</a></span></span></span>, cf. also <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib90" title="From xerox to aspell: a first prototype of a north sámi speller based on twol technology" class="ltx_ref">7</a>]</cite>, og seks føringsgrammatikkmoduler, se figur <a href="#S4.F1" title="Figure 1 ‣ 4.1 Regelbasert metode (GramDivvun) ‣ 4 Metodevalg ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>.</p>
 </div>
 <figure id="S4.F1" class="ltx_figure">
 <div class="ltx_inline-block ltx_align_center ltx_transformed_outer" style="width:302.9pt;height:214.6pt;vertical-align:-0.0pt;"><span class="ltx_transformed_inner" style="transform:translate(-101.0pt,71.5pt) scale(0.6,0.6) ;"><img src="x2.png" id="S4.F1.g1" class="ltx_graphics" width="789" height="559" alt="Modulær struktur av ">
@@ -610,26 +598,16 @@ regler for pre- og postverbal subjektsposisjon. I tillegg er det spesifikke
 regler for passivkonstruksjoner, negasjonskontekster, relativsetninger, kopula,
 adposisjoner og koordinerte subjekter. Regelsettet for pronominale
 førstepersonsflertallskontekster er litt mer komplekst siden formen <span class="ltx_text ltx_font_italic">mii</span>
-er homonymt og kan være både 1. person flertall (‘vi’) og et spørrepronomen i 3.
-person entall (‘hva’).</p>
+er homonymt og kan være både 1. person flertall (‘vi’) og et spørrepronomen i
+3. person entall (‘hva’).</p>
 </div>
 <div id="S4.SS1.p3" class="ltx_para">
 <p class="ltx_p">Reglene som legger til feiltaggene til en feilaktig verbform har følgende format
 (forenklet) og følger ‘Constraint Grammar’-formalismen. Regelen nedenfor (som er
-en av 48) går ut i fra en 3. person entallshøyrekontekst.</p>
+en av 48) går ut i fra en 3. person entallshøyrekontekst.</p>
 </div>
-<span class="ltx_ERROR undefined">{Verbatim}</span>
 <div id="S4.SS1.p4" class="ltx_para">
-<p class="ltx_p">[frame=single,framerule=0.2mm,framesep=3mm,fontsize=<span class="ltx_text" style="font-size:80%;">,baselinestretch=1]
-ADD (&amp;kongruensfeiltag)
-TARGET finitte verbformer bortsett fra konnegativ/negasjonsverb
-IF i høyre kontekst det er et personlig pronomen i 3. person entall
-som ikke inneholder en feil
-det ikke finnes et annet verb i 3. person entall til høyre for det og
-verbet har ingen 3. person entalls-/perf.part.-/konnegativ-/adverbslesing
-verbet har ingen 3. person flertallslesing med et koordinert subjekt til høyre
-[…];
-</span></p>
+<p class="ltx_p"><span class="ltx_text ltx_font_typewriter" style="font-size:80%;width:0.0pt;"><span class="ltx_rule" style="width:469.8pt;height:0.6pt;background:black;display:inline-block;"> </span></span><span class="ltx_text ltx_font_typewriter" style="font-size:80%;width:0.0pt;"><span class="ltx_rule" style="width:0.6pt;background:black;display:inline-block;"> </span> <span class="ltx_rule" style="width:0.6pt;background:black;display:inline-block;"> </span></span><span class="ltx_text ltx_font_typewriter" style="font-size:80%;width:469.8pt;"><span class="ltx_rule" style="width:0.6pt;background:black;display:inline-block;"> </span>ADD (&amp;kongruensfeiltag)<span class="ltx_rule" style="width:0.6pt;background:black;display:inline-block;"> </span></span><span class="ltx_text ltx_font_typewriter" style="font-size:80%;width:469.8pt;"><span class="ltx_rule" style="width:0.6pt;background:black;display:inline-block;"> </span>TARGET finitte verbformer bortsett fra konnegativ/negasjonsverb<span class="ltx_rule" style="width:0.6pt;background:black;display:inline-block;"> </span></span><span class="ltx_text ltx_font_typewriter" style="font-size:80%;width:469.8pt;"><span class="ltx_rule" style="width:0.6pt;background:black;display:inline-block;"> </span>IF i høyre kontekst det er et personlig pronomen i 3. person entall<span class="ltx_rule" style="width:0.6pt;background:black;display:inline-block;"> </span></span><span class="ltx_text ltx_font_typewriter" style="font-size:80%;width:469.8pt;"><span class="ltx_rule" style="width:0.6pt;background:black;display:inline-block;"> </span>   som ikke inneholder en feil<span class="ltx_rule" style="width:0.6pt;background:black;display:inline-block;"> </span></span><span class="ltx_text ltx_font_typewriter" style="font-size:80%;width:469.8pt;"><span class="ltx_rule" style="width:0.6pt;background:black;display:inline-block;"> </span>   det ikke finnes et annet verb i 3. person entall til høyre for det og<span class="ltx_rule" style="width:0.6pt;background:black;display:inline-block;"> </span></span><span class="ltx_text ltx_font_typewriter" style="font-size:80%;width:469.8pt;"><span class="ltx_rule" style="width:0.6pt;background:black;display:inline-block;"> </span>   verbet har ingen 3. person entalls-/perf.part.-/konnegativ-/adverbslesing<span class="ltx_rule" style="width:0.6pt;background:black;display:inline-block;"> </span></span><span class="ltx_text ltx_font_typewriter" style="font-size:80%;width:469.8pt;"><span class="ltx_rule" style="width:0.6pt;background:black;display:inline-block;"> </span>   verbet har ingen 3. person flertallslesing med et koordinert subjekt til høyre<span class="ltx_rule" style="width:0.6pt;background:black;display:inline-block;"> </span></span><span class="ltx_text ltx_font_typewriter" style="font-size:80%;width:469.8pt;"><span class="ltx_rule" style="width:0.6pt;background:black;display:inline-block;"> </span>   [...];<span class="ltx_rule" style="width:0.6pt;background:black;display:inline-block;"> </span></span><span class="ltx_text ltx_font_typewriter" style="font-size:80%;width:0.0pt;"><span class="ltx_rule" style="width:0.6pt;background:black;display:inline-block;"> </span> <span class="ltx_rule" style="width:0.6pt;background:black;display:inline-block;"> </span></span><span class="ltx_text ltx_font_typewriter" style="font-size:80%;width:0.0pt;"><span class="ltx_rule" style="width:469.8pt;height:0.6pt;background:black;display:inline-block;"> </span></span><span class="ltx_ERROR undefined">\@endparenv</span></p>
 </div>
 </section>
 <section id="S4.SS2" class="ltx_subsection">
@@ -668,23 +646,21 @@ Utfordringene med strategien har vært:</p>
 </ul>
 </div>
 <div id="S4.SS2.SSS1.p3" class="ltx_para">
-<p class="ltx_p">Den korrekte setningen <a href="#S4.SS2.SSS1" title="4.2.1 Datagenerering (syntetiske feil) ‣ 4.2 Nevral metode (NeuSam) ‣ 4 Metodevalg ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.2.1</span></a> som inneholder et 3. person
-entallssubjekt og en 3. person entallsverbform kan brukes for å generere opptil
-8 setninger med en syntetisk feil (eksempel <a href="#S4.SS2.SSS1" title="4.2.1 Datagenerering (syntetiske feil) ‣ 4.2 Nevral metode (NeuSam) ‣ 4 Metodevalg ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.2.1</span></a>). Dette gjøres ved å
+<p class="ltx_p">Den korrekte setningen <a href="#S4.SS2.SSS1" title="4.2.1 Datagenerering (syntetiske feil) ‣ 4.2 Nevral metode (NeuSam) ‣ 4 Metodevalg ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.2.1</span></a> som inneholder et 3. person
+entallssubjekt og en 3. person entallsverbform kan brukes for å generere opptil
+8 setninger med en syntetisk feil (eksempel <a href="#S4.SS2.SSS1" title="4.2.1 Datagenerering (syntetiske feil) ‣ 4.2 Nevral metode (NeuSam) ‣ 4 Metodevalg ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.2.1</span></a>). Dette gjøres ved å
 erstatte den korrekte verbformen med forskjellige feilaktige former som er
 forskjellig i person og tall (som ikke er homonyme med den rette formen).</p>
 </div>
-<span class="ltx_ERROR undefined">\exg</span>
 <div id="S4.SS2.SSS1.p4" class="ltx_para">
 <p class="ltx_p">. Son <span class="ltx_text ltx_font_bold">doarjjui</span> áinnas unnit *giliid.
 <br class="ltx_break"><span class="ltx_text ltx_font_smallcaps">3sg</span> støtte<span class="ltx_text ltx_font_smallcaps">.pst.3sg</span> selvfølgelig mindre språk<span class="ltx_text ltx_font_smallcaps">.acc.pl
 <br class="ltx_break"></span>‘Hun støttet selvfølgelig mindre språk.’</p>
 </div>
-<span class="ltx_ERROR undefined">\ex</span>
 <div id="S4.SS2.SSS1.p5" class="ltx_para">
-<p class="ltx_p">. 
-<span class="ltx_ERROR undefined">\a</span>. Son <span class="ltx_text ltx_font_bold">dorjot</span> áinnas unnit giliid.
-.̱ Son <span class="ltx_text ltx_font_bold">doarjjuiga</span> áinnas unnit giliid.</p>
+<p class="ltx_p"><span class="ltx_text ltx_font_italic">.</span> 
+ Son <span class="ltx_text ltx_font_bold">dorjot</span> áinnas unnit giliid.
+ Son <span class="ltx_text ltx_font_bold">doarjjuiga</span> áinnas unnit giliid.</p>
 </div>
 <div id="S4.SS2.SSS1.p6" class="ltx_para">
 <p class="ltx_p">Vi brukte et skript<span id="footnote15" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">15</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">15</sup>
@@ -696,9 +672,9 @@ forskjellig i person og tall (som ikke er homonyme med den rette formen).</p>
 leser gjennom hver setning i korpuset, og for hver analyse erstatter skriptet
 verbformen som kan ha kongruens med et subjekt med andre verbformer som ikke har
 kongruens med subjektet. En oversikt av erstatninger som ble gjort vises i
-tabell <a href="#S4.T3" title="Table 3 ‣ 4.2.1 Datagenerering (syntetiske feil) ‣ 4.2 Nevral metode (NeuSam) ‣ 4 Metodevalg ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>. I den første gruppen valgte vi bare et verb og
+tabell <a href="#S4.T3" title="Table 3 ‣ 4.2.1 Datagenerering (syntetiske feil) ‣ 4.2 Nevral metode (NeuSam) ‣ 4 Metodevalg ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>. I den første gruppen valgte vi bare et verb og
 erstattet det med andre former (f.eks tar vi et verb i første person entall og
-erstatter det med 2. person entall og 3. person entall, og alle totalls- og
+erstatter det med 2. person entall og 3. person entall, og alle totalls- og
 flertallsformene). I den andre gruppen genererte vi frekvente grammatikkfeil,
 som tilsvarer feil basert på vår erfaring med korpussøk. Ordene i den andre
 gruppen har også en begrensing av fonologisk form, f.eks. <span class="ltx_text ltx_font_smallcaps">Ind Prs
@@ -810,10 +786,10 @@ valgte vi å redusere feilkilden ved å bare trene <span class="ltx_text ltx_fon
 <span class="ltx_tag ltx_tag_subsubsection">4.2.2 </span>Trening og testing</h4>
 
 <figure id="S4.F2" class="ltx_figure"><img src="x3.png" id="S4.F2.g1" class="ltx_graphics ltx_centering" width="674" height="269" alt="Et diagram av ">
-<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 2: </span>Et diagram av <span class="ltx_text ltx_font_italic">NeuSam</span> og treningsprosessen </figcaption>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 2: </span>Et diagram av <span class="ltx_text ltx_font_italic">NeuSam</span> og treningsprosessen</figcaption>
 </figure>
 <div id="S4.SS2.SSS2.p1" class="ltx_para">
-<p class="ltx_p">Vi har brukt OpenNMT-py <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">klein-etal-2017-opennmt</span>]</cite> for eksperimenteringen
+<p class="ltx_p">Vi har brukt OpenNMT-py <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib130" title="OpenNMT: open-source toolkit for neural machine translation" class="ltx_ref">10</a>]</cite> for eksperimenteringen
 med nevrale nettverk. Vi fulgte metoden som er beskrevet i OpenNMT-py sin
 ‘tutorial’<span id="footnote17" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">17</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">17</sup>
                 <span class="ltx_tag ltx_tag_note">17</span>
@@ -827,7 +803,7 @@ standardparametrene.</p>
 <p class="ltx_p">90 % av dataene vi samlet i stegene ovenfor ble brukt for å trene modellene. Vi
 reformaterte dataene våre slik at de ble tolket som en bokstavbasert modell.
 Dette gjorde vi for å unngå OpenNMTs automatiske tokenisering. Disse parametrene
-vises også i tabellen <a href="#S4.T3" title="Table 3 ‣ 4.2.1 Datagenerering (syntetiske feil) ‣ 4.2 Nevral metode (NeuSam) ‣ 4 Metodevalg ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>.<span id="footnote18" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">18</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">18</sup>
+vises også i tabellen <a href="#S4.T3" title="Table 3 ‣ 4.2.1 Datagenerering (syntetiske feil) ‣ 4.2 Nevral metode (NeuSam) ‣ 4 Metodevalg ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>.<span id="footnote18" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">18</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">18</sup>
                 <span class="ltx_tag ltx_tag_note">18</span>
                 
                 
@@ -835,14 +811,14 @@ vises også i tabellen <a href="#S4.T3" title="Table 3 ‣ 4.2.1 Datagenerering
               Vi inkluderer hele
 konfigurasjonen av opennmt-py og skript til trening i
 <a href="https://gtsvn.uit.no/hybrid_gramcheck" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://gtsvn.uit.no/hybrid_gramcheck</a> ved publisering</span></span></span>. Trening av
-modellen ble gjort på en GPU-supercomputer fra ¡¡<span class="ltx_text ltx_font_italic">UNINETT Sigma2 - the
+modellen ble gjort på en GPU-supercomputer fra ¡¡<span class="ltx_text ltx_font_italic">UNINETT Sigma2—the
 National Infrastructure for High Performance Computing and Data Storage in
 Norway</span>¿¿. Det tok i gjennomsnitt fem timer å generere hver treningsmodell.</p>
 </div>
 <div id="S4.SS2.SSS2.p3" class="ltx_para">
 <p class="ltx_p">Vi har generert to forskjellige nevrale modeller med forskjellige datasett: en
 med et større datasett der vi bruker alle syntetisk genererte setninger som
-omtalt i seksjonen <a href="#S4.SS2.SSS1" title="4.2.1 Datagenerering (syntetiske feil) ‣ 4.2 Nevral metode (NeuSam) ‣ 4 Metodevalg ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.2.1</span></a>. I den andre lager vi en modell
+omtalt i seksjonen <a href="#S4.SS2.SSS1" title="4.2.1 Datagenerering (syntetiske feil) ‣ 4.2 Nevral metode (NeuSam) ‣ 4 Metodevalg ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.2.1</span></a>. I den andre lager vi en modell
 basert på setninger som etter syntetisk feilgenerering blir filtrert gjennom
 <span class="ltx_text ltx_font_italic">GramDivvun</span>. Input til testene av de nevrale modellene er den tiendelen
 av vårt genererte korpus som ikke har blitt brukt i treningen av modellene, og
@@ -853,7 +829,7 @@ feil. Formelen for nøyaktighet er ganske enkel:
 <span class="ltx_text ltx_font_italic">alle</span> er antall setninger i testsettet.</p>
 </div>
 <div id="S4.SS2.SSS2.p4" class="ltx_para">
-<p class="ltx_p">I tabell <a href="#S4.T5" title="Table 5 ‣ 4.2.2 Trening og testing ‣ 4.2 Nevral metode (NeuSam) ‣ 4 Metodevalg ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a> ser vi at modellen basert på filtrerte setninger er
+<p class="ltx_p">I tabell <a href="#S4.T5" title="Table 5 ‣ 4.2.2 Trening og testing ‣ 4.2 Nevral metode (NeuSam) ‣ 4 Metodevalg ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a> ser vi at modellen basert på filtrerte setninger er
 mer nøyaktig. Den større modellen har 9 % dårligere resultat enn den mindre
 modellen. Det betyr at modellen basert på ufilterte setninger egentlig har lært
 å fikse feil deler av eller ikke fikser alle feil i nesten 1 av 10 setninger med
@@ -929,7 +905,7 @@ kunne ikke sjekke mot et dataprogram som krever konsekvent oppmerking.</p>
 </div>
 <div id="S5.p2" class="ltx_para">
 <p class="ltx_p">Vi ønsket å sammenligne presisjon og dekning og sjekke om <span class="ltx_text ltx_font_italic">NeuSam</span> retter
-feil som <span class="ltx_text ltx_font_italic">GramDivvun</span> ikke oppdager. Tabell <a href="#S4.T5" title="Table 5 ‣ 4.2.2 Trening og testing ‣ 4.2 Nevral metode (NeuSam) ‣ 4 Metodevalg ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>
+feil som <span class="ltx_text ltx_font_italic">GramDivvun</span> ikke oppdager. Tabell <a href="#S4.T5" title="Table 5 ‣ 4.2.2 Trening og testing ‣ 4.2 Nevral metode (NeuSam) ‣ 4 Metodevalg ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>
 viser at <span class="ltx_text ltx_font_italic">GramDivvun</span> er betydelig bedre enn <span class="ltx_text ltx_font_italic">NeuSam</span> på å finne
 kongruensfeil. Man ser også at mange av korreksjonene til <span class="ltx_text ltx_font_italic">NeuSam</span> ikke
 har noen lingvistisk forklaring, mens mange av korreksjonene til
@@ -937,7 +913,7 @@ har noen lingvistisk forklaring, mens mange av korreksjonene til
 annen feil i setningen.</p>
 </div>
 <div id="S5.p3" class="ltx_para">
-<p class="ltx_p">I eksempelsetning <a href="#S5" title="5 Resultater ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a> blir verbformen <span class="ltx_text ltx_font_italic">livčče</span> ‘de skulle’
+<p class="ltx_p">I eksempelsetning <a href="#S5" title="5 Resultater ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a> blir verbformen <span class="ltx_text ltx_font_italic">livčče</span> ‘de skulle’
 rettet til entall <span class="ltx_text ltx_font_italic">livččii</span> ‘hun/han skulle’ fordi subjektet
 <span class="ltx_text ltx_font_italic">Maáŋga mearraolbmáidgirku</span> inneholder et tallord med en skrivefeil.
 Dermed oppfattes bare entallssubstantivet <span class="ltx_text ltx_font_italic">mearraolbmáidgirku</span> som
@@ -945,7 +921,6 @@ subjekt, og flertallsbetydninga blir tapt. Dette regnes som en falsk positiv i
 evalueringen, men grammatikkontrollen har ‘tenkt’ rett ut i fra den
 informasjonen som er tilgjengelig (altså før skrivefeilen blir rettet).</p>
 </div>
-<span class="ltx_ERROR undefined">\exg</span>
 <div id="S5.p4" class="ltx_para">
 <p class="ltx_p">. <span class="ltx_text ltx_framed_underline">Maáŋga mearraolbmáidgirku</span> <span class="ltx_text ltx_font_bold">livčče</span> vuollebáhcagiin šaddan rahčat […]
 <br class="ltx_break">mange sjømannskirke<span class="ltx_text ltx_font_smallcaps">.nom;gen.sg</span> ville<span class="ltx_text ltx_font_smallcaps">.pot.3pl</span> underskudd<span class="ltx_text ltx_font_smallcaps">.com.pl</span> bli<span class="ltx_text ltx_font_smallcaps">.pastp</span> kjempe<span class="ltx_text ltx_font_smallcaps">.inf
@@ -953,8 +928,8 @@ informasjonen som er tilgjengelig (altså før skrivefeilen blir rettet).</p>
 </div>
 <div id="S5.p5" class="ltx_para">
 <p class="ltx_p">Falske negativer er det flest av i koordinasjon med to eller flere substantiv,
-der det finitte verbet skal være i entall isteden for flertall. Et eksempel er
-<a href="#S5" title="5 Resultater ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>, der tredje person flertallsformen <span class="ltx_text ltx_font_italic">leat</span> skal rettes til
+der det finitte verbet skal være i entall isteden for flertall. Et eksempel
+er <a href="#S5" title="5 Resultater ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>, der tredje person flertallsformen <span class="ltx_text ltx_font_italic">leat</span> skal rettes til
 tredje person entallsformen <span class="ltx_text ltx_font_italic">lea</span>. Kongruens i koordinasjon er avhengig
 av flere faktorer, blant annet semantisk tilhørighet, syntaks
 (kopulakonstruksjoner og adverbialkonstruksjoner behandles forskjellig fra
@@ -962,7 +937,6 @@ andre) og pragmatikk (er den introduserte entiteten kjent?). Grunnen til at
 feilen ikke blir oppdaget er at vi ennå ikke laget en regel som retter fra
 flertalls- til entallsverb i koordinasjon.</p>
 </div>
-<span class="ltx_ERROR undefined">\exg</span>
 <div id="S5.p6" class="ltx_para">
 <p class="ltx_p">. Álggahanvahkku prográmmas <span class="ltx_text ltx_font_bold">leat</span> <span class="ltx_text ltx_framed_underline">almmolaš rahpanbeaivi</span>, <span class="ltx_text ltx_framed_underline">diehtojuohkin Sámi allaskuvlla birra</span>, <span class="ltx_text ltx_framed_underline">fáddarortnet ođđa studeanttaide</span>.
 <br class="ltx_break">startuken<span class="ltx_text ltx_font_smallcaps">.gen</span> program<span class="ltx_text ltx_font_smallcaps">.loc</span> være<span class="ltx_text ltx_font_smallcaps">.3sg</span> offisiell åpningsdag, informasjon Samisk høgskole om, fadderordningen nye student<span class="ltx_text ltx_font_smallcaps">.ill.pl</span>.
@@ -978,25 +952,23 @@ fikse ved å endre på lengderestriksjoner for setninger, men følgen er at man
 ikke kan rette lengre setninger.</p>
 </div>
 <div id="S5.p8" class="ltx_para">
-<p class="ltx_p">Den større modellen gir følgende feilaktige resultat for eksempel <a href="#S5" title="5 Resultater ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>:
+<p class="ltx_p">Den større modellen gir følgende feilaktige resultat for eksempel <a href="#S5" title="5 Resultater ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>:
 Istedenfor å bare rette verbformen <span class="ltx_text ltx_font_italic">logat</span> ‘du leser’ til <span class="ltx_text ltx_font_italic">lohká</span>
-‘hun/han leser’ blir setningen rettet til <a href="#S5" title="5 Resultater ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>, dvs. <span class="ltx_text ltx_font_italic">NeuSam</span> tar
+‘hun/han leser’ blir setningen rettet til <a href="#S5" title="5 Resultater ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>, dvs. <span class="ltx_text ltx_font_italic">NeuSam</span> tar
 bort hele setningen <span class="ltx_text ltx_font_italic">logan dál oppalaččat</span> uten at dette skulle være
 lingvistisk fundert.</p>
 </div>
-<span class="ltx_ERROR undefined">\ex</span>
 <div id="S5.p9" class="ltx_para">
-<p class="ltx_p">.
-<span class="ltx_ERROR undefined">\a</span>. In dovdda dán ášši, <span class="ltx_text ltx_font_italic">logan dál oppalaččat,</span> <span class="ltx_text ltx_font_bold">logat</span> Sámedikki presideanta Egil Olli.
-.̱ In dovdda dán ášši, <span class="ltx_text ltx_font_bold">lohká</span> Sámedikki presideanta Egil Olli.
+<p class="ltx_p"><span class="ltx_text ltx_font_italic">.</span>
+ In dovdda dán ášši, <span class="ltx_text ltx_font_italic">logan dál oppalaččat,</span> <span class="ltx_text ltx_font_bold">logat</span> Sámedikki presideanta Egil Olli.
+ In dovdda dán ášši, <span class="ltx_text ltx_font_bold">lohká</span> Sámedikki presideanta Egil Olli.
 .̧ In dovdda dán ášši, logan dál oppalaččat, <span class="ltx_text ltx_font_bold">lohká</span> Sámedikki presideanta Egil Olli.</p>
 </div>
 <div id="S5.p10" class="ltx_para">
-<p class="ltx_p"><span class="ltx_text ltx_font_italic">NeuSam</span> produserer også noen falske positiver, f.eks. i <a href="#S5" title="5 Resultater ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>
+<p class="ltx_p"><span class="ltx_text ltx_font_italic">NeuSam</span> produserer også noen falske positiver, f.eks. i <a href="#S5" title="5 Resultater ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>
 blir <span class="ltx_text ltx_font_italic">šaddet</span> rettet til <span class="ltx_text ltx_font_italic">šaddá</span> (3Pl¿3Sg), men det burde ikke
 rettes siden <span class="ltx_text ltx_font_italic">stuorát doalut</span> er et flertallssubjekt.</p>
 </div>
-<span class="ltx_ERROR undefined">\exg</span>
 <div id="S5.p11" class="ltx_para">
 <p class="ltx_p">. Duogážin manne heastasearvi lea fárus doaluin, lea danin vai <span class="ltx_text ltx_font_bold">šaddet</span> stuorát doalut […]
 <br class="ltx_break">bakgrunn<span class="ltx_text ltx_font_smallcaps">.ess</span> hvorfor hesteforening være<span class="ltx_text ltx_font_smallcaps">.3sg</span> med arrangement<span class="ltx_text ltx_font_smallcaps">.loc.pl</span>, være<span class="ltx_text ltx_font_smallcaps">.3sg</span> derfor at bli<span class="ltx_text ltx_font_smallcaps">.3pl</span> stor<span class="ltx_text ltx_font_smallcaps">.comp</span> arrangement<span class="ltx_text ltx_font_smallcaps">.nom.pl
@@ -1026,10 +998,10 @@ at den regelbaserte modellen blir brukt for å automatisk generere data viser at
 korpuset ikke blir gratis.</p>
 </div>
 <div id="S6.p2" class="ltx_para">
-<p class="ltx_p">Vår hypotese – at regelbaserte metoder kan kompensere for mangel av data, også
-for maskinlæringsmodeller – har vist seg å ikke holde stikk når det gjelder
-retting av globale grammatikkfeil. Evalueringen på et ekte korpus (dvs. med
-ekte feil i en naturlig distribusjon) i tabell <a href="#S4.T5" title="Table 5 ‣ 4.2.2 Trening og testing ‣ 4.2 Nevral metode (NeuSam) ‣ 4 Metodevalg ‣ Mii *eai leat gal vuollánan – Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a> viser at for
+<p class="ltx_p">Vår hypotese—at regelbaserte metoder kan kompensere for mangel av data, også
+for maskinlæringsmodeller—har vist seg å ikke holde stikk når det gjelder
+retting av globale grammatikkfeil. Evalueringen på et ekte korpus (dvs. med
+ekte feil i en naturlig distribusjon) i tabell <a href="#S4.T5" title="Table 5 ‣ 4.2.2 Trening og testing ‣ 4.2 Nevral metode (NeuSam) ‣ 4 Metodevalg ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a> viser at for
 den regelbaserte modellen er presisjonen nesten tre ganger bedre og dekningen
 fem ganger bedre enn for den maskinlæringsbaserte modellen. <span class="ltx_text ltx_font_italic">GramDivvun</span>
 presterer så bra (79% presisjon) at vi har en modell som er til nytte for
@@ -1042,9 +1014,9 @@ taler for at det syntetiske feilkorpuset kanskje ikke er representativt nok til
 kongruensfeil en oppgave som krever mer enn enkle erstatninger og en enkel
 kontekstanalyse. Mange kontekster tillater flere former uten at disse er feil.
 Det å introdusere kongruensfeil kan anses som en oppgave som er minst like
-vanskelig som, om ikke vanskeligere enn, selve feilfinningen. Dvs. at vi trenger
-et verktøy som er like bra som den regelbaserte grammatikkontrollen for å lage
-et korpus for en maskinlæringsbasert grammatikkontroll. Mens
+vanskelig som, om ikke vanskeligere enn, selve feilfinningen. Dvs. at vi
+trenger et verktøy som er like bra som den regelbaserte grammatikkontrollen for
+å lage et korpus for en maskinlæringsbasert grammatikkontroll. Mens
 maskinlæringsmetoder fungerer for mer lokale feil som for eksempel
 sammensettingsfeil, er det for krevende å lage feilkorpus for mer avanserte
 feil. Dette gir et bra utgangspunkt for framtidig forskning, men med de
@@ -1065,12 +1037,267 @@ UNINETT Sigma2.</p>
 <h2 class="ltx_title ltx_title_bibliography">References</h2>
 
 <ul id="bib.L1" class="ltx_biblist">
+<li id="bib.bib29" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. R. Beesley and L. Karttunen</span><span class="ltx_text ltx_bib_year"> (2003)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Finite state morphology</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">CSLI publications</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text isbn ltx_bib_external">ISBN 978-1575864341</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p1" title="4.1 Regelbasert metode (GramDivvun) ‣ 4 Metodevalg ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib43" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Birn</span><span class="ltx_text ltx_bib_year"> (2000)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Detecting grammar errors with Lingsoft’s Swedish grammar checker</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 12th Nordic Conference of Computational Linguistics (NoDaLiDa 1999)</span>,  <span class="ltx_text ltx_bib_editor">T. Nordgård (Ed.)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Department of Linguistics, Norwegian University of Science and Technology (NTNU), Trondheim, Norway</span>, <span class="ltx_text ltx_bib_pages"> pp. 28–40</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS1.p3" title="3.1 Relatert forskning ‣ 3 Bakgrunn ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.1</span></a>.
+</span>
+</li>
+<li id="bib.bib46" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Boyd</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Using wikipedia edits in low resource grammatical error correction</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 2018 EMNLP Workshop W-NUT: The 4th Workshop on Noisy User-generated Text</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 79–84</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org//10.18653/v1/W18-6111" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS1.p1" title="3.1 Relatert forskning ‣ 3 Bakgrunn ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.1</span></a>.
+</span>
+</li>
+<li id="bib.bib58" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Chollampatt and H. T. Ng</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A multilayer convolutional encoder-decoder neural network for grammatical error correction</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the AAAI Conference on Artificial Intelligence</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume">32</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS1.p1" title="3.1 Relatert forskning ‣ 3 Bakgrunn ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.1</span></a>.
+</span>
+</li>
+<li id="bib.bib65" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Dahlmeier, H. T. Ng, and S. M. Wu</span><span class="ltx_text ltx_bib_year"> (2013-06)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Building a large annotated corpus of learner English: the NUS corpus of learner English</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Eighth Workshop on Innovative Use of NLP for Building Educational Applications</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Atlanta, Georgia</span>, <span class="ltx_text ltx_bib_pages"> pp. 22–31</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://aclanthology.org/W13-1703" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p4" title="1 Innledning ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib76" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_editor">D. M. Eberhard, G. F. Simons, and C. D. Fennig (Eds.)</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Ethnologue: languages of the world</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_edition">twenty-fifth edition</span>,  <span class="ltx_text ltx_bib_publisher">SIL International</span>, <span class="ltx_text ltx_bib_place">Dallas, Texas</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="http://www.ethnologue.com%20(Accessed%202022-05-25)" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p2" title="1 Innledning ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib90" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">B. Gaup, S. Moshagen, T. Omma, M. Palismaa, T. Pieski, and T. Trosterud</span><span class="ltx_text ltx_bib_year"> (2005)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">From xerox to aspell: a first prototype of a north sámi speller based on twol technology</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">International Workshop on Finite-State Methods and Natural
+Language Processing</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 306–307</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1007/11780885%5F37" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p1" title="4.1 Regelbasert metode (GramDivvun) ‣ 4 Metodevalg ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib98" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Hagen and P. Lane</span><span class="ltx_text ltx_bib_year"> (2001)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">”Det er fort gjort og skrive feil.” en presentasjon av en automatisk grammatikkontroll for bokmål</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 93–102</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS1.p3" title="3.1 Relatert forskning ‣ 3 Bakgrunn ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.1</span></a>.
+</span>
+</li>
+<li id="bib.bib120" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. Karlsson</span><span class="ltx_text ltx_bib_year"> (1990)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Constraint grammar as a framework for parsing unrestricted text</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 13th International Conference of Computational Linguistics</span>,  <span class="ltx_text ltx_bib_editor">H. Karlgren (Ed.)</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume">3</span>, <span class="ltx_text ltx_bib_place">Helsinki</span>, <span class="ltx_text ltx_bib_pages"> pp. 168–173</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p1" title="4.1 Regelbasert metode (GramDivvun) ‣ 4 Metodevalg ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib130" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">G. Klein, Y. Kim, Y. Deng, J. Senellart, and A. M. Rush</span><span class="ltx_text ltx_bib_year"> (2017)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">OpenNMT: open-source toolkit for neural machine translation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proc. ACL</span>,
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://doi.org/10.18653/v1/P17-4012" title="" class="ltx_ref ltx_bib_external">Link</a>,
+<a href="https://dx.doi.org/10.18653/v1/P17-4012" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS2.SSS2.p1" title="4.2.2 Trening og testing ‣ 4.2 Nevral metode (NeuSam) ‣ 4 Metodevalg ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib156" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">P. Lorusso, M. Greco, C. Chesi, and A. Moro</span><span class="ltx_text ltx_bib_year"> (2019-10)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Asymmetries in extraction from nominal copular sentences: a challenging case study for nlp tools</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Sixth Italian Conference on Computational Linguistics Bari (CliC-it 2019)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. </span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p28" title="2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib176" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Miłkowski</span><span class="ltx_text ltx_bib_year"> (2007)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Automated building of error corpora of polish</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Corpus Linguistics, Computer Tools, and Applications – State of the Art. PALC</span>, <span class="ltx_text ltx_bib_pages"> pp. 631–639</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p4" title="1 Innledning ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib193" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Moshagen, J. Rueter, F. Pirinen, T. Trosterud, and F. M. Tyers</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Open-source infrastructures for collaborative work on under-resourced languages</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of e Ninth International Conference on
+Language Resources and Evaluation, LREC</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 71–77</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS2.p1" title="3.2 Våre ressurser ‣ 3 Bakgrunn ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.2</span></a>.
+</span>
+</li>
+<li id="bib.bib197" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">H. T. Ng, S. M. Wu, Y. Wu, C. Hadiwinoto, and J. Tetreault</span><span class="ltx_text ltx_bib_year"> (2013-08)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">The CoNLL-2013 shared task on grammatical error correction</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Seventeenth Conference on Computational Natural Language Learning: Shared Task</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Sofia, Bulgaria</span>, <span class="ltx_text ltx_bib_pages"> pp. 1–12</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://aclanthology.org/W13-3601" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib201" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. P. Nickel</span><span class="ltx_text ltx_bib_year"> (1994)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Samisk grammatikk</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_edition">second edition</span>,  <span class="ltx_text ltx_bib_publisher">Davvi Girji</span>, <span class="ltx_text ltx_bib_place">Kárášjohka</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p19" title="2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>,
+<a href="#S2.p24" title="2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>,
+<a href="#S2.p4" title="2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib231" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. A. Pirinen and K. Lindén</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">State-of-the-art in weighted finite-state spell-checking</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 15th International Conference on Computational
+Linguistics and Intelligent Text Processing - Volume 8404</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">CICLing 2014</span>, <span class="ltx_text ltx_bib_pages"> pp. 519–532</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.SS1.p1" title="4.1 Regelbasert metode (GramDivvun) ‣ 4 Metodevalg ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib353" class="ltx_bibitem ltx_bib_misc">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[17]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">SIKOR</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">SIKOR uit norgga árktalaš universitehta ja norgga sámedikki sámi teakstačoakkáldat, veršuvdna 06.11.2018</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">onlineAccessed: 2018-11-06</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="..." title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p6" title="1 Innledning ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib324" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[18]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Wiechetek, F. Pirinen, M. Hämäläinen, and C. Argese</span><span class="ltx_text ltx_bib_year"> (2021-09)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Rules ruling neural networks - neural vs. rule-based grammar checking for a low resource language</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the International Conference on Recent Advances
+in Natural Language Processing (RANLP 2021)</span>,
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p4" title="1 Innledning ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span>
+</li>
+<li id="bib.bib317" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[19]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Wiechetek</span><span class="ltx_text ltx_bib_year"> (22)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Constraint Grammar based correction of grammatical errors for North Sámi</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Workshop on Language Technology for
+Normalisation of Less-Resourced Languages (SALTMIL 8/AFLAT 2012)</span>,  <span class="ltx_text ltx_bib_editor">G. D. Pauw, G. de Schryver, M.L. Forcada, K. Sarasola, F.M. Tyers, and P.W. Wagacha (Eds.)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Istanbul, Turkey</span>, <span class="ltx_text ltx_bib_pages"> pp. 35–40</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Problemstilling ‣ Mii *eai leat gal vuollánan—Vi *ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
 </ul>
 </section>
 </article>
 </div>
 <footer class="ltx_page_footer">
-<div class="ltx_page_logo">Generated  on Tue Aug 30 17:32:21 2022 by <a href="http://dlmf.nist.gov/LaTeXML/">LaTeXML <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="[LOGO]"></a>
+<div class="ltx_page_logo">Generated  on Wed Aug 31 04:48:42 2022 by <a href="http://dlmf.nist.gov/LaTeXML/">LaTeXML <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="[LOGO]"></a>
 </div></footer>
 </div>
 </body>
