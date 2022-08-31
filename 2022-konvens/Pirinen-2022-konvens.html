@@ -2,7 +2,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Building an Extremely Low Resource Language to High Resource Language Machine Translation System from Scratch</title>
-<!--Generated on Tue Aug 30 16:21:30 2022 by LaTeXML (version 0.8.6) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Generated on Wed Aug 31 02:46:03 2022 by LaTeXML (version 0.8.6) http://dlmf.nist.gov/LaTeXML/.-->
 <!--Document created on .-->
 
 <link rel="stylesheet" href="../latexml/LaTeXML.css" type="text/css">
@@ -48,7 +48,8 @@ relevance for Sámi school children learning German. In addition, there is a
 strong Finno-Ugric tradition in the German linguistics space that has in the
 past produced important publications on the Sámi language, so the system is
 immediately useful for researchers and enthusiasts as well as language
-users.</p>
+users.
+</p>
   
 </div>
 <section id="S1" class="ltx_section">
@@ -67,7 +68,7 @@ the translations. This presupposes the availability of perhaps several millions
 of professionally translated sentences, which is unfeasible for under-resourced
 marginalised languages, where very little parallel corpora or even monolingual
 corpora are available. To put the low-resourcedness of North Sámi in context,
-the largest available monolingual corpus <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib318" title="SIKOR uit norgga árktalaš universitehta ja norgga sámedikki sámi teakstačoakkáldat, veršuvdna 06.11.2018" class="ltx_ref">2</a>]</cite> is only 38
+the largest available monolingual corpus <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib323" title="SIKOR uit norgga árktalaš universitehta ja norgga sámedikki sámi teakstačoakkáldat, veršuvdna 06.11.2018" class="ltx_ref">9</a>]</cite> is only 38
 million tokens, and for the bilingual corpora at most 10,000s of aligned
 phrases, most of which are from Linux program GUI
 translations<span id="footnote1" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup>
@@ -89,7 +90,7 @@ development of a baseline machine translator.</p>
 <div id="S1.SS1.p2" class="ltx_para">
 <p class="ltx_p">The rule-based system took us only some 100 hours to write and is the work of
 one programmer/linguist/advanced learner of German and native speaker of
-Finnish, an expert on Apertium - and one computational linguist, native speaker
+Finnish, an expert on Apertium—and one computational linguist, native speaker
 of German with high proficiency in North Sámi (but not a native speaker of it).
 The system described here is a work-in-progress, yet it is a proof-of-concept
 that rapid building of a machine translation system is plausible without big
@@ -156,8 +157,8 @@ mentioned repos</span></span></span></p>
 <div id="S1.SS2.p1" class="ltx_para">
 <p class="ltx_p">North Sámi is a Finno-Ugric language belonging to the Uralic languages spoken in
 Norway, Sweden, and Finland by approximately 25,700
-speakers <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Ethnologue2022</span>]</cite>. It is a synthetic language, where the open
-<span class="ltx_text ltx_font_italic">parts-of-speech</span> (PoS) – e.g. nouns, adjectives – inflect for case,
+speakers <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib63" title="Ethnologue: languages of the world" class="ltx_ref">4</a>]</cite>. It is a synthetic language, where the open
+<span class="ltx_text ltx_font_italic">parts-of-speech</span> (PoS)—e.g. nouns, adjectives—inflect for case,
 person, number, and more. The grammatical categories are expressed by a
 combination of suffixes and stem-internal processes affecting root vowels and
 consonants alike, making it perhaps the most fusional of all Uralic languages.
@@ -165,18 +166,18 @@ In addition to compounding, inflection and derivation are common morphological
 processes in North Sámi. German, on the other hand, is an Indo-European
 language. In contrast to all previous work, there is neither language family
 similarity, nor geographical proximity or political relation. The latter would
-be the case for Sámi - Norwegian where despite language typological
+be the case for Sámi—Norwegian where despite language typological
 unrelatedness there are (even syntactic) loans due to coexistence and
 interaction of the languages.</p>
 </div>
 <div id="S1.SS2.p2" class="ltx_para">
 <p class="ltx_p">As German was the previous century’s language of science, a lot of scientific
 literature on the Sámi language was published in German. Newer publications
-include the North Sámi - German, German - North Sámi dictionary
-<cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Sammallahti2006</span>]</cite> of high quality (containing valencies, idiomatic phrases,
-examples of use). German has also been one of the languages that school
-children get to pick as a foreign language at school. For both these reasons,
-it makes sense to have MT systems between these two languages.</p>
+include the North Sámi—German, German—North Sámi
+dictionary <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib235" title="Sámi-duiskka sátnegirji=saamisch-deutsches wörterbuch" class="ltx_ref">8</a>]</cite> of high quality (containing valencies,
+idiomatic phrases, examples of use). German has also been one of the languages
+that school children get to pick as a foreign language at school. For both
+these reasons, it makes sense to have MT systems between these two languages.</p>
 </div>
 <div id="S1.SS2.p3" class="ltx_para">
 <p class="ltx_p">Morphologically, the languages have similar features: both are morphologically
@@ -196,12 +197,13 @@ sub-clauses, question clauses or after adverbial extensions, etc.</p>
 <span class="ltx_tag ltx_tag_section">2 </span>Background</h2>
 
 <div id="S2.p1" class="ltx_para">
-<p class="ltx_p">Previous MT systems involving North Sámi are North Sámi - Lule
-Sámi <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">tyers2009dpm</span>]</cite> <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Wiechetek2010</span>]</cite>, North Sámi -
-Norwegian <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib254" title="Evaluating North Sámi to Norwegian assimilation rbmt" class="ltx_ref">3</a>]</cite>, North Sámi - South Sámi
-<cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Antonsen2016ANS</span>]</cite>, North Sámi - Finnish <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">pirinen-etal-2017-north</span>]</cite>.
-The systems were all based on previous versions of Apertium, the
-state-of-the-art in rule-based machine translation.</p>
+<p class="ltx_p">Previous MT systems involving North Sámi are North Sámi—Lule
+Sámi <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib264" title="Developing prototypes for machine translation between two Sámi languages" class="ltx_ref">11</a>, <a href="#bib.bib286" title="Shooting at flies in the dark: rule-based lexical selection for a minority language pair" class="ltx_ref">13</a>]</cite>, North
+Sámi—Norwegian <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib257" title="Evaluating North Sámi to Norwegian assimilation rbmt" class="ltx_ref">10</a>]</cite>, North Sámi—South Sámi
+<cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib15" title="A North Saami to South Saami machine translation prototype" class="ltx_ref">1</a>]</cite>, North
+Sámi—Finnish <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib97" title="North-Sámi to Finnish rule-based machine translation system" class="ltx_ref">5</a>]</cite>. The systems were all based on
+previous versions of Apertium, the state-of-the-art in rule-based machine
+translation.</p>
 </div>
 <div id="S2.p2" class="ltx_para">
 <p class="ltx_p">There is an Apertium-based system for translating North Sámi to
@@ -215,17 +217,17 @@ use. As German and Norwegian (Bokmål) are related languages, we expect to be
 able to use them as a reference when implementing our system.</p>
 </div>
 <div id="S2.p3" class="ltx_para">
-<p class="ltx_p">We chose to use Apertium <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">khanna2021apertium</span>]</cite> as it is popular in the
+<p class="ltx_p">We chose to use Apertium <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib110" title="Recent advances in Apertium, a free/open-source rule-based machine translation platform for low-resource languages" class="ltx_ref">7</a>]</cite> as it is popular in the
 context of under-resourced languages. The system is based, roughly speaking, on
 doing a morpho-syntactic analysis of the source text, transferring the analysis
 to the target language morpho-syntactic description, and generating it into the
 target text. There is a diagrammatic presentation of the system pipeline in
 Figure <a href="#S2.F1" title="Figure 1 ‣ 2 Background ‣ Building an Extremely Low Resource Language to High Resource Language Machine Translation System from Scratch" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>. This means that the system consists of morphological
 analyser-generators of target and source languages, based on finite-state
-morphology <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Beesley2003</span>]</cite>, and a constraint
-grammar <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib99" title="Constraint grammar as a framework for parsing unrestricted text" class="ltx_ref">1</a>, <span class="ltx_ref ltx_missing_citation ltx_ref_self">Didriksen2016</span>]</cite> for syntactic and semantic
-analysis suitable for transferring the source language structures to target
-language structures.</p>
+morphology <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib26" title="Finite state morphology" class="ltx_ref">2</a>]</cite>, and a constraint
+grammar <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib101" title="Constraint grammar as a framework for parsing unrestricted text" class="ltx_ref">6</a>, <a href="#bib.bib58" title="Constraint grammar manual: 3rd version of the CG formalism variant" class="ltx_ref">3</a>]</cite> for syntactic and
+semantic analysis suitable for transferring the source language structures to
+target language structures.</p>
 </div>
 <div id="S2.p4" class="ltx_para">
 <p class="ltx_p">See examples <a href="#S2" title="2 Background ‣ Building an Extremely Low Resource Language to High Resource Language Machine Translation System from Scratch" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> and <a href="#S2" title="2 Background ‣ Building an Extremely Low Resource Language to High Resource Language Machine Translation System from Scratch" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> for a concrete example. In
@@ -274,11 +276,10 @@ slight adjustments to both monolingual systems, but our main work is in the
 bilingual part. In Figure <a href="#S2.F1" title="Figure 1 ‣ 2 Background ‣ Building an Extremely Low Resource Language to High Resource Language Machine Translation System from Scratch" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>, the part we work on concerns the
 part under <span class="ltx_text ltx_font_italic">transfer</span>, specifically we have used the <span class="ltx_text ltx_font_italic">recursive
 structural transfer</span> path in this experiment, which is a newly built part of
-Apertium in 2021 <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">khanna2021apertium</span>]</cite>.</p>
+Apertium in 2021 <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib110" title="Recent advances in Apertium, a free/open-source rule-based machine translation platform for low-resource languages" class="ltx_ref">7</a>]</cite>.</p>
 </div>
-<figure id="S2.F1" class="ltx_figure"><span class="ltx_ERROR ltx_centering undefined">\includegraphics</span>
-<p class="ltx_p ltx_align_center">[width=.98]pipeline_box.pdf</p>
-<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 1: </span>Apertium pipeline structure from <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">khanna2021apertium</span>]</cite>
+<figure id="S2.F1" class="ltx_figure"><img src="x4.png" id="S2.F1.g1" class="ltx_graphics ltx_centering" width="660" height="232" alt="Apertium pipeline structure from ">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 1: </span>Apertium pipeline structure from <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib110" title="Recent advances in Apertium, a free/open-source rule-based machine translation platform for low-resource languages" class="ltx_ref">7</a>]</cite>
 </figcaption>
 </figure>
 <div id="S2.p9" class="ltx_para">
@@ -614,7 +615,7 @@ future, we will continue adding words as well as improve the description.</p>
 affected the quality of our output. Noise in source texts is a much bigger
 problem in extremely low-resource languages like North Sámi and is due to newer
 or lacking language norms, lesser literacy and lesser use of the language in
-writing. <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">wiechetek-EtAl:2022:LREC</span>]</cite> We found the following types of noise:
+writing. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib295" title="Unmasking the myth of effortless big data - making an open source multi-lingual infrastructure and building language resources from scratch" class="ltx_ref">12</a>]</cite> We found the following types of noise:
 formatting errors and syllable splitting (potentially caused by corpus
 collection methods), spelling errors like accent errors and compound
 misspellings, grammatically doubtful sentences (potentially due to translations)
@@ -651,8 +652,74 @@ transfer problems that have been either ignored or marginalised in the past.</p>
 <h2 class="ltx_title ltx_title_bibliography">References</h2>
 
 <ul id="bib.L1" class="ltx_biblist">
-<li id="bib.bib99" class="ltx_bibitem ltx_bib_inproceedings">
+<li id="bib.bib15" class="ltx_bibitem ltx_bib_article">
 <span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Antonsen, T. Trosterud, and F. M. Tyers</span><span class="ltx_text ltx_bib_year"> (2017)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A North Saami to South Saami machine translation prototype</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Lecture Notes in Artificial Intelligence</span> <span class="ltx_text ltx_bib_volume">4</span>, <span class="ltx_text ltx_bib_pages"> pp. 11–27</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.3384/nejlt.2000-1533.1642" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Background ‣ Building an Extremely Low Resource Language to High Resource Language Machine Translation System from Scratch" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib26" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. R. Beesley and L. Karttunen</span><span class="ltx_text ltx_bib_year"> (2003)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Finite state morphology</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">CSLI publications</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text isbn ltx_bib_external">ISBN 978-1575864341</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p3" title="2 Background ‣ Building an Extremely Low Resource Language to High Resource Language Machine Translation System from Scratch" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib58" class="ltx_bibitem ltx_bib_manual">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Didriksen</span><span class="ltx_text ltx_bib_year"> (2010)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Constraint grammar manual: 3rd version of the CG formalism variant</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">GrammarSoft ApS</span>, <span class="ltx_text ltx_bib_place">Denmark</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="http://visl.sdu.dk/cg3/vislcg3.pdf%20(Accessed%202017-11-29)" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p3" title="2 Background ‣ Building an Extremely Low Resource Language to High Resource Language Machine Translation System from Scratch" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib63" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_editor">D. M. Eberhard, G. F. Simons, and C. D. Fennig (Eds.)</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Ethnologue: languages of the world</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_edition">twenty-fifth edition</span>,  <span class="ltx_text ltx_bib_publisher">SIL International</span>, <span class="ltx_text ltx_bib_place">Dallas, Texas</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="http://www.ethnologue.com%20(Accessed%202022-05-25)" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.SS2.p1" title="1.2 Languages ‣ 1 Introduction ‣ Building an Extremely Low Resource Language to High Resource Language Machine Translation System from Scratch" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1.2</span></a>.
+</span>
+</li>
+<li id="bib.bib97" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. Johnson, T. A. Pirinen, T. Puolakainen, F. Tyers, T. Trosterud, and K. Unhammer</span><span class="ltx_text ltx_bib_year"> (2017)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">North-Sámi to Finnish rule-based machine translation system</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 21st Nordic Conference on
+Computational Linguistics, NoDaLiDa, 22-24 May 2017, Gothenburg, Sweden</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 115–122</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Background ‣ Building an Extremely Low Resource Language to High Resource Language Machine Translation System from Scratch" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib101" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. Karlsson</span><span class="ltx_text ltx_bib_year"> (1990)</span>
 </span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Constraint grammar as a framework for parsing unrestricted text</span>.
@@ -664,8 +731,34 @@ transfer problems that have been either ignored or marginalised in the past.</p>
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p3" title="2 Background ‣ Building an Extremely Low Resource Language to High Resource Language Machine Translation System from Scratch" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
 </span>
 </li>
-<li id="bib.bib318" class="ltx_bibitem ltx_bib_misc">
-<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<li id="bib.bib110" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Khanna, J. N. Washington, F. M. Tyers, S. Bayatlı, D. Swanson, F. Pirinen, I. Tang, and H. Alos i Font</span><span class="ltx_text ltx_bib_year"> (2021-10)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Recent advances in Apertium, a free/open-source rule-based machine translation platform for low-resource languages</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Machine Translation</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1007/s10590-021-09260-6" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.F1" title="Figure 1 ‣ 2 Background ‣ Building an Extremely Low Resource Language to High Resource Language Machine Translation System from Scratch" class="ltx_ref"><span class="ltx_text ltx_ref_tag">Figure 1</span></a>,
+<a href="#S2.p3" title="2 Background ‣ Building an Extremely Low Resource Language to High Resource Language Machine Translation System from Scratch" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>,
+<a href="#S2.p8" title="2 Background ‣ Building an Extremely Low Resource Language to High Resource Language Machine Translation System from Scratch" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib235" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">P. Sammallahti and K. P. Nickel</span><span class="ltx_text ltx_bib_year"> (2006)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Sámi-duiskka sátnegirji=saamisch-deutsches wörterbuch</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">Davvi Girji</span>, <span class="ltx_text ltx_bib_place">Kárášjohka</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.SS2.p2" title="1.2 Languages ‣ 1 Introduction ‣ Building an Extremely Low Resource Language to High Resource Language Machine Translation System from Scratch" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1.2</span></a>.
+</span>
+</li>
+<li id="bib.bib323" class="ltx_bibitem ltx_bib_misc">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">SIKOR</span><span class="ltx_text ltx_bib_year"> (2018)</span>
 </span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">SIKOR uit norgga árktalaš universitehta ja norgga sámedikki sámi teakstačoakkáldat, veršuvdna 06.11.2018</span>.
@@ -677,8 +770,8 @@ transfer problems that have been either ignored or marginalised in the past.</p>
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.SS1.p1" title="1.1 Motivation ‣ 1 Introduction ‣ Building an Extremely Low Resource Language to High Resource Language Machine Translation System from Scratch" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§1.1</span></a>.
 </span>
 </li>
-<li id="bib.bib254" class="ltx_bibitem ltx_bib_inproceedings">
-<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<li id="bib.bib257" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Trosterud and K. B. Unhammer</span><span class="ltx_text ltx_bib_year"> (2012)</span>
 </span>
 <span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Evaluating North Sámi to Norwegian assimilation rbmt</span>.
@@ -690,12 +783,53 @@ transfer problems that have been either ignored or marginalised in the past.</p>
 <span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Background ‣ Building an Extremely Low Resource Language to High Resource Language Machine Translation System from Scratch" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
 </span>
 </li>
+<li id="bib.bib264" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. M. Tyers, L. Wiechetek, and T. Trosterud</span><span class="ltx_text ltx_bib_year"> (2009)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Developing prototypes for machine translation between two Sámi languages</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 13th Annual Conference of the European Association of Machine Translation, EAMT09</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 120–128</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Background ‣ Building an Extremely Low Resource Language to High Resource Language Machine Translation System from Scratch" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib295" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Wiechetek, K. Hiovain-Asikainen, I. L. S. Mikkelsen, S. Moshagen, F. Pirinen, T. Trosterud, and B. Gaup</span><span class="ltx_text ltx_bib_year"> (2022-06)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Unmasking the myth of effortless big data - making an open source multi-lingual infrastructure and building language resources from scratch</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Language Resources and Evaluation Conference</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Marseille, France</span>, <span class="ltx_text ltx_bib_pages"> pp. 1167–1177</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://aclanthology.org/2022.lrec-1.125" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S5.p7" title="5 Discussion and error analysis ‣ Building an Extremely Low Resource Language to High Resource Language Machine Translation System from Scratch" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§5</span></a>.
+</span>
+</li>
+<li id="bib.bib286" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Wiechetek, F. M. Tyers, and T. Omma</span><span class="ltx_text ltx_bib_year"> (2010)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Shooting at flies in the dark: rule-based lexical selection for a minority language pair</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 7th International Conference on NLP (IceTAL 2010)</span>,  <span class="ltx_text ltx_bib_editor">H. Loftsson, E. Rögnvaldsson, and S. Helgadóttir (Eds.)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">Lecture Notes in Computer Science</span>, Vol. <span class="ltx_text ltx_bib_volume">6233</span>, <span class="ltx_text ltx_bib_place">Berlin, Heidelberg</span>, <span class="ltx_text ltx_bib_pages"> pp. 418–429</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p1" title="2 Background ‣ Building an Extremely Low Resource Language to High Resource Language Machine Translation System from Scratch" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
 </ul>
 </section>
 </article>
 </div>
 <footer class="ltx_page_footer">
-<div class="ltx_page_logo">Generated  on Tue Aug 30 16:21:30 2022 by <a href="http://dlmf.nist.gov/LaTeXML/">LaTeXML <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="[LOGO]"></a>
+<div class="ltx_page_logo">Generated  on Wed Aug 31 02:46:03 2022 by <a href="http://dlmf.nist.gov/LaTeXML/">LaTeXML <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="[LOGO]"></a>
 </div></footer>
 </div>
 </body>

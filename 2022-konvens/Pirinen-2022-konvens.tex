@@ -1,5 +1,6 @@
 \documentclass{flammie}
 
+\usepackage{graphicx}
 \usepackage{linguex}
 \usepackage{listings}
 
@@ -78,7 +79,7 @@ development of a baseline machine translator.
 
 The rule-based system took us only some 100 hours to write and is the work of
 one programmer/linguist/advanced learner of German and native speaker of
-Finnish, an expert on Apertium - and one computational linguist, native speaker
+Finnish, an expert on Apertium---and one computational linguist, native speaker
 of German with high proficiency in North Sámi (but not a native speaker of it).
 The system described here is a work-in-progress, yet it is a proof-of-concept
 that rapid building of a machine translation system is plausible without big
@@ -120,7 +121,7 @@ mentioned repos}
 North Sámi is a Finno-Ugric language belonging to the Uralic languages spoken in
 Norway, Sweden, and Finland by approximately 25,700
 speakers~\cite{Ethnologue2022}. It is a synthetic language, where the open
-\textit{parts-of-speech} (PoS) -- e.g. nouns, adjectives -- inflect for case,
+\textit{parts-of-speech} (PoS)---e.g.\ nouns, adjectives---inflect for case,
 person, number, and more. The grammatical categories are expressed by a
 combination of suffixes and stem-internal processes affecting root vowels and
 consonants alike, making it perhaps the most fusional of all Uralic languages.
@@ -128,17 +129,17 @@ In addition to compounding, inflection and derivation are common morphological
 processes in North Sámi.  German, on the other hand, is an Indo-European
 language.  In contrast to all previous work, there is neither language family
 similarity, nor geographical proximity or political relation. The latter would
-be the case for Sámi - Norwegian where despite language typological
+be the case for Sámi---Norwegian where despite language typological
 unrelatedness there are (even syntactic) loans due to coexistence and
 interaction of the languages.
 
 As German was the previous century's language of science, a lot of scientific
 literature on the Sámi language was published in German. Newer publications
-include the North Sámi - German, German - North Sámi dictionary
-\cite{Sammallahti2006} of high quality (containing valencies, idiomatic phrases,
-examples of use).  German has also been one of the languages that school
-children get to pick as a foreign language at school.  For both these reasons,
-it makes sense to have MT systems between these two languages.
+include the North Sámi---German, German---North Sámi
+dictionary~\cite{Sammallahti2006sami} of high quality (containing valencies,
+idiomatic phrases, examples of use).  German has also been one of the languages
+that school children get to pick as a foreign language at school.  For both
+these reasons, it makes sense to have MT systems between these two languages.
 
 Morphologically, the languages have similar features: both are morphologically
 richer and suffixing, and mark case for nominals and some tense, aspect, and
@@ -152,12 +153,13 @@ sub-clauses, question clauses or after adverbial extensions, etc.
 
 \section{Background}
 
-Previous MT systems involving North Sámi are North Sámi - Lule
-Sámi~\cite{tyers2009dpm} \cite{Wiechetek2010}, North Sámi -
-Norwegian~\cite{trosterud2012evaluating}, North Sámi - South Sámi
-\cite{Antonsen2016ANS}, North Sámi - Finnish~\cite{pirinen-etal-2017-north}.
-The systems were all based on previous versions of Apertium, the
-state-of-the-art in rule-based machine translation.
+Previous MT systems involving North Sámi are North Sámi---Lule
+Sámi~\cite{tyers2009developing,Wiechetek2010shooting}, North
+Sámi---Norwegian~\cite{trosterud2012evaluating}, North Sámi---South Sámi
+\cite{Antonsen2017northsaami}, North
+Sámi---Finnish~\cite{johnson2017north}.  The systems were all based on
+previous versions of Apertium, the state-of-the-art in rule-based machine
+translation.
 
 There is an Apertium-based system for translating North Sámi to
 Norwegian,\footnote{\url{https://gtweb.uit.no/jorgal}} that has been in end-user
@@ -165,17 +167,17 @@ use.  As German and Norwegian (Bokmål) are related languages, we expect to be
 able to use them as a reference when implementing our system.
 
 
-We chose to use Apertium~\cite{khanna2021apertium} as it is popular in the
+We chose to use Apertium~\cite{khanna2021recent} as it is popular in the
 context of under-resourced languages.  The system is based, roughly speaking, on
 doing a morpho-syntactic analysis of the source text, transferring the analysis
 to the target language morpho-syntactic description, and generating it into the
 target text.  There is a diagrammatic presentation of the system pipeline in
 Figure~\ref{fig:my_label}.  This means that the system consists of morphological
 analyser-generators of target and source languages, based on finite-state
-morphology~\cite{Beesley2003}, and a constraint
-grammar~\cite{karlsson1990constraint,Didriksen2016} for syntactic and semantic
-analysis suitable for transferring the source language structures to target
-language structures.
+morphology~\cite{Beesley2003finite}, and a constraint
+grammar~\cite{karlsson1990constraint,Didriksen2016constraint} for syntactic and
+semantic analysis suitable for transferring the source language structures to
+target language structures.
 
 See examples~\ref{example-sme}~and~\ref{example-deu} for a concrete example.  In
 our experiment, we had pre-existing morphological analysers for North
@@ -207,12 +209,12 @@ slight adjustments to both monolingual systems, but our main work is in the
 bilingual part. In Figure~\ref{fig:my_label}, the part we work on concerns the
 part under \textit{transfer}, specifically we have used the \textit{recursive
 structural transfer} path in this experiment, which is a newly built part of
-Apertium in 2021~\cite{khanna2021apertium}.
+Apertium in 2021~\cite{khanna2021recent}.
 
 \begin{figure*}[htb]
     \centering
     \includegraphics[width=.98\textwidth]{pipeline_box.pdf}
-    \caption{Apertium pipeline structure from \cite{khanna2021apertium}
+    \caption{Apertium pipeline structure from \cite{khanna2021recent}
     \label{fig:my_label}}
 \end{figure*}
 
@@ -412,7 +414,7 @@ In a qualitative evaluation we found a lot of noise in the source text that
 affected the quality of our output.  Noise in source texts is a much bigger
 problem in extremely low-resource languages like North Sámi and is due to newer
 or lacking language norms, lesser literacy and lesser use of the language in
-writing. \cite{wiechetek-EtAl:2022:LREC} We found the following types of noise:
+writing.~\cite{wiechetek2022unmasking} We found the following types of noise:
 formatting errors and syllable splitting (potentially caused by corpus
 collection methods), spelling errors like accent errors and compound
 misspellings, grammatically doubtful sentences (potentially due to translations)
