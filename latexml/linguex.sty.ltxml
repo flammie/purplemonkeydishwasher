@@ -16,9 +16,8 @@ use warnings;
 use LaTeXML::Package;
 
 # dummy for now, basically we just want to change xml:lang and stuff?
-DefMacro('\setmainlanguage{}', 'Set main language #1');
-DefMacro('\setotherlanguages{}', 'Set other languages #1');
-DefMacro('\pghyphenation{}', '');
-DefEnvironment('{english}', 'In English: #body');
-
+DefMacro('\a{}', '\vspace{1em}');
+DefMacro('\b{}', '\vspace{1em}');
+DefMacro('\ex{}', '\textit{#1}');
+DefMacro('\exg{}', '#1');
 1;

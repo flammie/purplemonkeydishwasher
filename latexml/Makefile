@@ -8,3 +8,5 @@ install:
 	install -d ${perldir}/LaTeXML/Package/
 	install -m 644 flammie.cls.ltxml ${perldir}/LaTeXML/Package/
 	install -m 644 polyglossia.sty.ltxml ${perldir}/LaTeXML/Package/
+	install -m 644 expex.sty.ltxml ${perldir}/LaTeXML/Package/
+	install -m 644 linguex.sty.ltxml ${perldir}/LaTeXML/Package/
