@@ -7,7 +7,9 @@ Currently working at/in/on:
 
 This site contains a list of publications and other academic works and a CVs for
 Dr Flammie A Pirinen. The publications are author's versions automatically
-converted to HTML,.
+converted to HTML.
+
+For details on HTML conversions and such see [my latexml](latexml.html) page.
 
 ## Academic profiles
 
@@ -40,14 +42,14 @@ ResearchGate, academia.edu, please avoid these if possible).
 
 ## Short academic history
 
-* UiT Norges arktiske universitet, Divvun (2020–)
-* Universität Hamburg, HZSK, CLARIN-D (2016–)
-* Dublin City University (2014–2016): [Abu-Matran](http://abumatran.eu)
+* University of Joensuu (2003–2007): Computer Science (Bachelors),
+  Finnish linguistics, etc.
 * University of Helsinki (2007–2014): [HFST](https://hfst.github.io) project,
   finite-state spell-checking (PhD), Open source morphology of Finnish (masters),
   TTS system [simple4all](http://simple4all.org)
-* University of Joensuu (2003–2007): Computer Science (Bachelors),
-  Finnish linguistics, etc.
+* Dublin City University (2014–2016): [Abu-Matran](http://abumatran.eu)
+* Universität Hamburg, HZSK, CLARIN-D (2016–202X)
+* UiT Norges arktiske universitet, Divvun (2020–)
 
 ## Research interests
 
