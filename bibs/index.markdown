@@ -11,5 +11,7 @@ mods2html.xsl](mods2html.xsl).
 * [pirinen.html](pirinen.html) is a generated html page that shows all those
   documents, it's not as nice as [this front page](../index.html) but I made
   it as an engineering exercise and it was fun
-
-
+* [master.bib](master.bib) is a bib file for everything I have cited in this
+  repo, give or take a few
+* [master.html](master.html) is a generated html for all my cites, kind of cool
+  actually if you think a bout ti :-D
