@@ -83,8 +83,9 @@ scholar](https://scholar.google.com) offers a great way to [browse my
 publications](http://scholar.google.com/citations?user=XNOLAagAAAAJ) and see
 their incoming citations.
 
-Here is a [bib-file of all my publications](bibs/pirinen.bib), it may or may not
-be as accurate and up-to-date as google scholar.
+I have curated [some bibliographies](bibs/) and wrote scripts to convert them
+to other formats. Or just use [pirinen.bib](bibs/pirinen.bib) directly to find
+a suitable bibtex snippet.
 
 ### Edited volumes and conference proceedings
 
