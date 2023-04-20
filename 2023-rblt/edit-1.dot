@@ -1,0 +1,15 @@
+// This graph generated with hfst-fst2txt
+digraph "xre(?)" {
+charset = UTF8;
+rankdir = LR;
+node [shape=circle,style=filled,fillcolor=yellow]
+q0 [label="q0"] 
+q1 [shape=doublecircle,label="q1"] 
+q2 [shape=doublecircle,label="q2"] 
+q3 [shape=doublecircle,label="q3"] 
+q0 -> q1 [label="t:a "];
+q0 -> q2 [label="a:t "];
+q0 -> q3 [label="0:t, a:0, t:0, 0:a "];
+q1 -> q3 [label="a:t "];
+q2 -> q3 [label="t:a "];
+}

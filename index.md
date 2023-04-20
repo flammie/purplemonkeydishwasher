@@ -42,14 +42,14 @@ ResearchGate, academia.edu, please avoid these if possible).
 
 ## Short academic history
 
-* University of Joensuu (2003–2007): Computer Science (Bachelors),
-  Finnish linguistics, etc.
-* University of Helsinki (2007–2014): [HFST](https://hfst.github.io) project,
-  finite-state spell-checking (PhD), Open source morphology of Finnish (masters),
-  TTS system [simple4all](http://simple4all.org)
-* Dublin City University (2014–2016): [Abu-Matran](http://abumatran.eu)
-* Universität Hamburg, HZSK, CLARIN-D (2016–202X)
-* UiT Norges arktiske universitet, Divvun (2020–)
+1. University of Joensuu (2003–2007): Computer Science (Bachelors),
+   Finnish linguistics, etc.
+1.  University of Helsinki (2007–2014): [HFST](https://hfst.github.io) project,
+   finite-state spell-checking (PhD), Open source morphology of Finnish (masters),
+   TTS system [simple4all](http://simple4all.org)
+1. Dublin City University (2014–2016): [Abu-Matran](http://abumatran.eu)
+1. Universität Hamburg, HZSK, CLARIN-D (2016–202X)
+1. UiT Norges arktiske universitet, Divvun (2020–)
 
 ## Research interests
 
@@ -85,6 +85,50 @@ their incoming citations.
 
 Here is a [bib-file of all my publications](bibs/pirinen.bib), it may or may not
 be as accurate and up-to-date as google scholar.
+
+### Edited volumes and conference proceedings
+
+1. Arvi Hurskainen, Kimmo Koskenniemi, **Flammie A Pirinen**, eds. (2023),
+   [Rule-based language technology](2023-rblt/). Published in NEJLT monographies
+   [publisher's version](https://dspace.ut.ee/handle/10062/89595)
+1. **Tommi A Pirinen**, Francis Tyers, Trond Trosterud, Michael Rießler (2021),
+   *Proceedings of the seventh international workshop for computational linguistics
+   of Uralic languages* held in Syktyvkar / Online, published by ACL anthology: SIG
+   workshops [ACL anthology
+   version](https://aclanthology.org/volumes/2020.iwclul-1/)
+1. **Tommi A Pirinen**, Francis Tyers, Trond Trosterud, Michael Rießler (2019),
+   *Proceedings of the sixth international workshop for computational linguistics
+   of Uralic languages* held in Wien, published by ACL anthology: SIG
+   workshops [ACL anthology
+   version](https://aclanthology.org/volumes/W19-03/)
+1. **Tommi A Pirinen**, Francis Tyers, Trond Trosterud, Michael Rießler (2018),
+   *Proceedings of the fifth international workshop for computational linguistics
+   of Uralic languages* held in Tarto, published by ACL anthology: SIG
+   workshops [ACL anthology
+   version](https://aclanthology.org/volumes/W18-02/)
+1. **Tommi A Pirinen**, Francis Tyers, Trond Trosterud, Michael Rießler (2017),
+   *Proceedings of the fourth international workshop for computational linguistics
+   of Uralic languages* held in Helsinki, published by ACL anthology: SIG
+   workshops [ACL anthology
+   version](https://aclanthology.coli.uni-saarland.de/sigs/sigur#W18-01)
+1. **Tommi A Pirinen** et al. (2017) *Acta Linguistica Hungarica, special
+   issue*. Volume 64, Issue 3, September 2017. [publisher's version](http://akademiai.com/toc/2062/64/3)
+1. **Tommi A Pirinen**, Francis Tyers, Trond Trosterud, Michael Rießler (2017),
+   *Proceedings of the third international workshop for computational linguistics
+   of Uralic languages* held in St. Petersburg, published by ACL anthology: SIG
+   workshops [ACL anthology
+   version](https://aclanthology.coli.uni-saarland.de/sigs/sigur#W17-06)
+1. **Tommi A Pirinen**, Francis Tyers, Veronika Vincze (2016),
+   *Proceedings of the second international workshop for computational linguistics
+   of Uralic languages* held in Szeged, published in Szeged
+   workshops
+1. **Tommi A Pirinen**, Francis Tyers, Trond Trosterud (2016), *NEJLT (Nordic
+   European Journal of Language Technology, special issue in Uralic Language
+   Technology*, published in NEJLT [publisher's version](http://www.nejlt.ep.liu.se//2016/v4/index.htm)
+1. **Tommi A Pirinen**, Francis Tyers, Trond Trosterud (2015),
+   *Proceedings of the first international workshop for computational linguistics
+   of Uralic languages* held in Tromsø, published by university library
+   [library's version](http://septentrio.uit.no/index.php/SCS/issue/view/291)
 
 ###  Publications in conferences and journals
 
@@ -310,26 +354,6 @@ Name as used on the paper, will be updated when I get to it.
    Thesis, University of Helsinki (in Finnish).
 
 
-### Edited volumes
-
-1. **Tommi A Pirinen** et al. (2017) *Acta Linguistica Hungarica, special
-   issue*. Volume 64, Issue 3, September 2017. [publisher's version](http://akademiai.com/toc/2062/64/3)
-1. **Tommi A Pirinen**, Francis Tyers, Trond Trosterud, Michael Rießler (2017),
-   *Proceedings of the third international workshop for computational linguistics
-   of Uralic languages* held in St. Petersburg, published by ACL anthology: SIG
-   workshops [ACL anthology
-   version](https://aclanthology.coli.uni-saarland.de/sigs/sigur#W17-06)
-1. **Tommi A Pirinen**, Francis Tyers, Veronika Vincze (2016),
-   *Proceedings of the second international workshop for computational linguistics
-   of Uralic languages* held in Szeged, published in Szeged
-   workshops
-1. **Tommi A Pirinen**, Francis Tyers, Trond Trosterud (2016), *NEJLT (Nordic
-   European Journal of Language Technology, special issue in Uralic Language
-   Technology*, published in NEJLT [publisher's version](http://www.nejlt.ep.liu.se//2016/v4/index.htm)
-1. **Tommi A Pirinen**, Francis Tyers, Trond Trosterud (2015),
-   *Proceedings of the first international workshop for computational linguistics
-   of Uralic languages* held in Tromsø, published by university library
-   [library's version](http://septentrio.uit.no/index.php/SCS/issue/view/291)
 
 ### Presentations, tutorials, invited speeches
 
