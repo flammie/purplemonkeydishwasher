@@ -135,6 +135,16 @@ a suitable bibtex snippet.
 
 Name as used on the paper, will be updated when I get to it.
 
+1. **Flammie A Pirinen**, Sjur Nørstebø Moshagen, Katri Hiovain-Asikainen.
+   (2023)
+   [GiellaLT–a stable infrastructure for Nordic minority languages and
+   beyond](2023-nodalida/Pirinen-2023-nodalida.html). In *Proceedings of
+   the 24th Nordic Conference on Computational Linguistics (NoDaLiDa)*, pages
+   634–649, Tórshavn, Faroe Islands. [ACL anthology
+   version](https://aclanthology.org/2023.nodalida-1.63/)
+1. Flammie A Pirinen (2023) [Can you make a VISL CG 3 with
+   weights?](2023-cgws/Pirinen-2023-cgws). In *Proceedings of CG Worksop at
+   Nodalida 2023*, Tórshavn, Faroe Islands, to appear.
 1. Heiki-Jaan Kaalep, **Flammie Pirinen**, Sjur Nørstebø Moshagen (2022)
    [You can’t suggest that?!–Comparisons and improvements of speller error
    models](2022-trondschrift/Kaalep-2022-trondschrift.html) in *Nordlyd

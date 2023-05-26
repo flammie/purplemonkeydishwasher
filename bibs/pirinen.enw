@@ -572,6 +572,32 @@
 %U https://doi.org/10.18653/v1/2022.computel-1.19
 %P 149-158
 
+%0 Journal Article
+%T You can’t suggest that?!: Comparisons and improvements of speller error models
+%A Kaalep, Heiki-Jaan
+%A Pirinen, Flammie
+%A Moshagen, Sjur
+%J Nordlyd
+%D 2022
+%V 46
+%N 1
+%F kaalep2022you
+%P 125-139
+
+%0 Journal Article
+%T Mii* eai leat gal vuollánan–Vi* ha neimen ikke gitt opp: En hybrid grammatikkontroll for å rette kongruensfeil
+%A Wiechetek, Linda
+%A Pirinen, Flammie
+%A Gaup, Børre
+%A Argese, Chiara
+%A Omma, Thomas
+%J Nordlyd
+%D 2022
+%V 46
+%N 1
+%F wiechetek2022mii
+%P 285-297
+
 %0 Conference Proceedings
 %T Unmasking the Myth of Effortless Big Data — \ Making an Open Source Multilingual Infrastructure and Building Language Resources from Scratchauthor
 %S Proceedings of Language Resources and Evaluation Conference
@@ -608,4 +634,118 @@
 %I Northern European Association for Language Technology (NEALT)
 %F hurskainen2023rule
 %U http://hdl.handle.net/10062/89595
+
+%0 Book Section
+%A Pirinen, Flammie A.
+%A Antonsen, Lene
+%A Axelson, Erik
+%A Bick, Eckhard
+%A Gaup, Børre
+%A Hardwick, Sam
+%A Hiovain-Asikainen, Katri
+%A Hurskainen, Arvi
+%A Karlsson, Fred
+%A Koskenniemi, Kimmo
+%A Lindén, Krister
+%A Listenmaa, Inari
+%A Mikkelsen, Inga
+%A Moshagen, Sjur Nørstebø
+%A Ranta, Aarne
+%A Rueter, Jack
+%A Swanson, Daniel G.
+%A Trosterud, Trond
+%A Wiechetek, Linda
+%E Hurskainen, Arvi
+%E Koskenniemi, Kimmo
+%E Pirinen, Tommi
+%B Introduction
+%S NEJLT Monographs
+%D 2023
+%V 2
+%I Northern European Association for Language Technology (NEALT)
+%F pirinen2023introduction
+%U http://hdl.handle.net/10062/89595
+
+%0 Book Section
+%A Pirinen, Flammie A.
+%A Antonsen, Lene
+%A Axelson, Erik
+%A Bick, Eckhard
+%A Gaup, Børre
+%A Hardwick, Sam
+%A Hiovain-Asikainen, Katri
+%A Hurskainen, Arvi
+%A Karlsson, Fred
+%A Koskenniemi, Kimmo
+%A Lindén, Krister
+%A Listenmaa, Inari
+%A Mikkelsen, Inga
+%A Moshagen, Sjur Nørstebø
+%A Ranta, Aarne
+%A Rueter, Jack
+%A Swanson, Daniel G.
+%A Trosterud, Trond
+%A Wiechetek, Linda
+%E Hurskainen, Arvi
+%E Koskenniemi, Kimmo
+%E Pirinen, Tommi
+%B Finite-State Technology in Rule-Based Natural Language Processing
+%S NEJLT Monographs
+%D 2023
+%V 2
+%I Northern European Association for Language Technology (NEALT)
+%F pirinen2023finite
+%U http://hdl.handle.net/10062/89595
+
+%0 Book Section
+%A Moshagen, Sjur Nørstebø
+%A Pirinen, Flammie
+%A Antonsen, Lene
+%A Gaup, Børre
+%A Mikkelsen, Inga
+%A Trosterud, Trond
+%A Wiechetek, Linda
+%A Hiovain-Asikainen, Katri
+%A Axelson, Erik
+%A Bick, Eckhard
+%A Hardwick, Sam
+%A Hurskainen, Arvi
+%A Karlsson, Fred
+%A Koskenniemi, Kimmo
+%A Lindén, Krister
+%A Listenmaa, Inari
+%A Pirinen, Flammie A.
+%A Ranta, Aarne
+%A Rueter, Jack
+%A Swanson, Daniel G.
+%E Hurskainen, Arvi
+%E Koskenniemi, Kimmo
+%E Pirinen, Tommi
+%B The GiellaLT infrastructure: A multilingual infrastructure for rule-based NLP
+%S NEJLT Monographs
+%D 2023
+%V 2
+%I Northern European Association for Language Technology (NEALT)
+%F moshagen2023giellalt
+%U http://hdl.handle.net/10062/89595
+
+%0 Conference Proceedings
+%T GiellaLT — a stable infrastructure for Nordic minority languages and beyond
+%A Pirinen, Flammie
+%A Moshagen, Sjur
+%A Hiovain-Asikainen, Katri
+%S Proceedings of the 24th Nordic Conference on Computational Linguistics (NoDaLiDa)
+%D 2023
+%8 May
+%I University of Tartu Library
+%C Tórshavn, Faroe Islands
+%F pirinen2023giellalt
+%U https://aclanthology.org/2023.nodalida-1.63
+%P 643-649
+
+%0 Conference Proceedings
+%T Can you make a constraint grammar with only weights?
+%A Pirinen, Flammie A.
+%D 2023
+%F pirinen2023can
 
