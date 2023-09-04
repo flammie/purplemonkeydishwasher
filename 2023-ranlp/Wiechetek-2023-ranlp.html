@@ -1,0 +1,1405 @@
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>A Manual Evaluation Method of Neural MT for Indigenous Languages</title>
+<!--Generated on Mon Sep  4 02:23:48 2023 by LaTeXML (version 0.8.6) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Document created on September 4, 2023.-->
+
+<link rel="stylesheet" href="../latexml/LaTeXML.css" type="text/css">
+<link rel="stylesheet" href="../latexml/ltx-article.css" type="text/css">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+<div class="ltx_page_main">
+<div class="ltx_page_content">
+<article class="ltx_document ltx_authors_1line">
+<h1 class="ltx_title ltx_title_document">A Manual Evaluation Method of Neural MT for Indigenous Languages</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Linda Wiechetek 
+<br class="ltx_break"><span class="ltx_text" style="font-size:90%;">UiT Norgga árktalaš universitehta 
+<br class="ltx_break"><span class="ltx_text ltx_font_typewriter">linda.wiechetek@uit.no</span> 
+<br class="ltx_break"></span>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Flammie A. Pirinen 
+<br class="ltx_break"><span class="ltx_text" style="font-size:90%;">UiT Norgga árktalaš universitehta 
+<br class="ltx_break"><span class="ltx_text ltx_font_typewriter">flammie.pirinen@uit.no</span> 
+<br class="ltx_break"></span>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Per E Kummervold 
+<br class="ltx_break"><span class="ltx_text" style="font-size:90%;">National Library of Norway 
+<br class="ltx_break"><span class="ltx_text ltx_font_typewriter">per.kummervold@nb.no</span> 
+<br class="ltx_break"></span>
+</span></span>
+</div>
+<div class="ltx_dates">(September 4, 2023)</div>
+
+<div class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+    
+<p class="ltx_p">Indigenous language expertise is not encoded in written text in the same way as
+it is for languages that have a long literal tradition. In many cases it is,
+on the contrary, mostly conserved orally. Therefore the evaluation of
+neural MT systems solely based on an algorithm learning from written texts
+is not adequate to measure the quality of a system that is used by the
+language community. If extensively using tools based on a big amount of
+non-native language this can even contribute to language change in a way
+that is not desired by the language community. It can also pollute the
+internet with automatically created texts that outweigh native texts. We
+propose a manual evaluation method focusing on flow and content separately,
+and additionally we use existing rule-based NLP to evaluate other factors
+such as spelling, grammar and grammatical richness. Our main conclusion is
+that language expertise of a native speaker is necessary to properly
+evaluate a given system. We test the method by manually evaluating two
+neural MT tools for an indigenous low resource language. We present an
+experiment on two different neural translations to and from North Sámi, an
+indigenous language of North Europe.</p>
+  
+</div>
+<section id="S1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">1 </span>Introduction</h2>
+
+<div id="S1.p1" class="ltx_para">
+<p class="ltx_p">Indigenous languages with few speakers are often left out in the development of
+high-level NLP tools that require a lot of data and have therefore not been
+subject to evaluation either. However, recently neural machine translation has
+become more effective and more available for even lesser resourced languages
+than before. While the technology has made the use of neural machine
+translators plausible, it is not clear whether the quality of the translation
+really is good enough for the common use cases within language communities.
+High-resource languages typically apply data-hungry evaluation methods. The
+demand for big data is known to be problematic for smaller languages. An
+additional factor is, that while big languages with a long literary tradition
+have their language expertise encoded in large amounts of written texts,
+typically this is not the case for indigenous languages with a much shorter
+literary tradition. Here language expertise is often transmitted orally and may
+not be reflected in written text at all, partly due to lack of literacy and
+tradition. It is problematic if we base our knowledge of a language on existing
+written text for a language community that does not have a long tradition in
+writing. Written texts need to be treated much more critically with regard to
+who wrote it (was it even a native speaker?), if it was a translation, and which
+genre it belongs to.</p>
+</div>
+<div id="S1.p2" class="ltx_para">
+<p class="ltx_p">Written texts can have systematic spelling and grammar errors. Their authors
+can be second language learners instead of language experts, or they can be
+synthetically created by machine translation programs. Taking into account the
+distribution of human resource and language expertise is an important factor in
+the thought process. Language communities that put a great deal of work into
+preserving and strengthening their language typically use a lot of resources in
+teaching the younger generation. That also means that expertise may be found to
+a great deal in oral contexts rather than being reflected in text corpora.
+Basing evaluation on algorithms that learn from written corpora is therefore a
+thinking error in these contexts.</p>
+</div>
+<div id="S1.p3" class="ltx_para">
+<p class="ltx_p">Consequently, we find a manual evaluation of neural MT tools by language experts
+in this context unavoidable. By <span class="ltx_text ltx_font_italic">language experts</span> we mean native
+speakers with a profound understanding of their own language, which allows them
+to make judgements about the grammaticality and idiomaticity of a sentence.
+Especially since indigenous written grammars are far from exhaustive, good
+language intuition is a key qualification.</p>
+</div>
+<div id="S1.p4" class="ltx_para">
+<p class="ltx_p">In this article we suggest a grading system for a language expert evaluator that
+is an expert of both source and target language. The scale distinguishes between
+flow and content, where flow (which has a main focus on the target sentence) is
+evaluated before content (which again requires an analysis of the source
+sentence). Our main hypothesis is, we need native language/linguistic expertise
+to even know how good the translation is.</p>
+</div>
+<div id="S1.p5" class="ltx_para">
+<p class="ltx_p">We do a small-scale but detailed manual evaluation of two neural MT tools for an
+indigenous low resource language (North Sámi). Our aim is to develop a workflow
+for future evaluations of similar languages and systems and those with even less
+resources, than the ones we work on, should they become available in the popular
+NMT toolkits.</p>
+</div>
+</section>
+<section id="S2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2 </span>Background</h2>
+
+<div id="S2.p1" class="ltx_para">
+<p class="ltx_p">Methods of evaluating machine translation are often based on two approaches:
+automatic that requires high quality parallel texts and human-based, which
+requires a large amount of humans doing annotation or rating of large number of
+sentences for example. In a low-resource minority language situation, neither
+of these resources is easily available; there are no parallel texts and very few
+humans to do annotation or rating. That is to say, the amount of
+sentence-aligned parallel texts that is needed to automatically verify quality
+is larger than amount of any translated texts in the language in the foreseeable
+future and the amount of people required to do a meaningful comparison is well
+larger than available people as well, it is physically impossible to do perform
+such tests. The typical automatic evaluation metrics like word error rate
+require either post-editing or parallel corpora which typically are not
+available in large quantities in indigenous low-resource contexts.</p>
+</div>
+<div id="S2.p2" class="ltx_para">
+<p class="ltx_p">Thus we will be able to identify the criteria that matter for a good translation
+of or into the language in question. Based on their feedback, automatic
+processes to perform an adequate evaluation can be developed.</p>
+</div>
+<div id="S2.p3" class="ltx_para">
+<p class="ltx_p">Also with regard to human resources the indigenous context is a challenging one.
+Those that are language experts with a linguistic background and a high degree
+of literacy are typically recruited by schools, media, as translators or any
+other context where language knowledge is highly sought-after.</p>
+</div>
+<div id="S2.p4" class="ltx_para">
+<p class="ltx_p">Generally, the machine translation use cases can be divided in two main
+categories: translations that can be read to understand the source texts
+(assimilation, gisting) and translations that can be edited for further use
+(dissemination). If the tools are useful as a basis for post-editing has to be
+decided by members of the the language communities, which is why we also think
+that feedback from the community is needed to evaluate the quality. Because of
+the systems’ fluency, new machine translation tools tend to get adopted quickly
+by businesses (e.g. Facebook, Google reviews) and even official bodies. An
+early and critical evaluation by language community is therefore essential.
+Machine-learning MT is now almost a standard and being used in every day life
+without much thought. How does it look like in an extremely low resource
+language context? <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib211" title="Translation quality assessment" class="ltx_ref">5</a>]</cite></p>
+</div>
+<section id="S2.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.1 </span>Languages</h3>
+
+<div id="S2.SS1.p1" class="ltx_para">
+<p class="ltx_p">North Sámi is a Finno-Ugric language belonging to the Uralic language family, it
+is spoken in Norway, Sweden, and Finland by approximately 25,700
+speakers <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib81" title="Ethnologue: languages of the world" class="ltx_ref">1</a>]</cite>. It is a synthetic language, where the open
+<span class="ltx_text ltx_font_italic">parts-of-speech</span> (PoS) — e.g. nouns, adjectives — inflect for case,
+person, number, and more. The grammatical categories are expressed by a
+combination of suffixes and stem-internal processes affecting root vowels and
+consonants alike, making it perhaps the most fusional of all Uralic languages.
+In addition to compounding, inflection and derivation are common morphological
+processes in North Sámi. The Sámi languages are typically described as verb
+heavy languages, with at least few hundred distinct inflectional verb forms
+(both finite and non-finite, varies a bit based on paradigms and depending on
+what you include as inflectional). <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib293" title="The saami languages: an introduction" class="ltx_ref">8</a>]</cite> notes that in a list
+of the most common North Sámi words, verbs are in first place (33%)- English
+and Norwegian, on the other hand, are Indo-European languages, with relatively
+low morphological complexity: less than 10 word-forms per word in productive
+inflection. The word order in English and Norwegian is stricter than in North
+Sámi and our hypothesis is that the distribution of parts-of-speech and
+derivations is different as well. We expect this to have an effect on the
+translated language and non-translated, as well as different profiles between
+machine and human translated texts.</p>
+</div>
+<div id="S2.SS1.p2" class="ltx_para">
+<p class="ltx_p">The syntactic differences between Sámi and the two Germanic languages are
+notable. While the neutral word order for all of them is Subject-Verb-Object
+(SVO), there are a number of mismatching features in the syntax. Unlike
+Norwegian and English, Sámi has pro-drop (pronoun dropping) for 1. and 2. person. Sámi uses mostly postpositions as opposed to prepositions. Other
+differences are adverbial positioning, word order in sub-clauses, question
+clauses or after adverbial extensions, etc.</p>
+</div>
+</section>
+<section id="S2.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.2 </span>Previous research</h3>
+
+<div id="S2.SS2.p1" class="ltx_para">
+<p class="ltx_p">There has been a lot of research in the evaluating of machine translation.</p>
+</div>
+<div id="S2.SS2.p2" class="ltx_para">
+<p class="ltx_p">There are many ways to evaluate the machine translation quality, some are
+standardised like MQM (Multidimensional Quality Metrics) and others are
+purpose-built for one specific experiment or study. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib176" title="Metrics for translation quality assessment: a case for standardising error typologies" class="ltx_ref">3</a>]</cite> use
+a very fine-grained system for categorising translation
+errors. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib271" title="Error classification and analysis for machine translation quality assessment" class="ltx_ref">7</a>]</cite> use a less fine-grained system.</p>
+</div>
+<div id="S2.SS2.p3" class="ltx_para">
+<p class="ltx_p">OpenAI has used following criteria <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib318" title="Learning to summarize with human feedback" class="ltx_ref">10</a>]</cite> for their human
+evaluation work of a summarisation system, we have taken some inspiration from
+that, for example in our 7-grade scale for judgments. The machine translation
+systems we evaluate are based on neural machine translation. The translation
+system between English and North Sámi is described
+in <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib380" title="Machine translation for low-resource Finno-Ugric languages" class="ltx_ref">14</a>]</cite>. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib181" title="Ethical considerations for machine translation of indigenous languages: giving a voice to the speakers" class="ltx_ref">4</a>]</cite> have studied
+machine translation in similar contexts than as we work in.</p>
+</div>
+<div id="S2.SS2.p4" class="ltx_para">
+<p class="ltx_p">Human evaluation of machine translated texts often is based on crowd-sourced
+quick evaluations based on superficial reading of the sentences without context
+(c.f. WMT shared tasks <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib363" title="Findings of the WMT 2022 shared tasks in unsupervised MT and very low resource supervised MT" class="ltx_ref">12</a>]</cite>,
+AppRaise <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib86" title="Appraise evaluation framework for machine translation" class="ltx_ref">2</a>]</cite>). While this kind of quick eyeballing
+by average language users can give some impression of fluency of the
+translations it may be insufficient to determine if the text is translated
+accurately and language is truly idiomatic. A lot of evaluation approaches use
+scales of fluency and adequacy, in a way to measure separately the overall
+readability of the text from the accuracy of the translated content.</p>
+</div>
+</section>
+<section id="S2.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.3 </span>Data</h3>
+
+<div id="S2.SS3.p1" class="ltx_para">
+<p class="ltx_p">The corpora available for a low resource language like North Sámi is very
+limited. In Table <a href="#S2.T1" title="Table 1 ‣ 2.3 Data ‣ 2 Background ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a> we list the corpora that we have used
+in the experiments: the largest electronically available Sámi
+corpus <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib314" title="SIKOR uit norgga árktalaš universitehta ja norgga sámedikki sámi teakstačoakkáldat, veršuvdna 06.11.2018" class="ltx_ref">9</a>]</cite> has been used both for training the North
+Sámi—Norwegian and English—North Sámi machine translation. We did not train
+the English—North Sámi model ourselves but used TARTUNLP that is partly
+trained on <span class="ltx_text ltx_font_italic">SIKOR</span>, cf. Section <a href="#S3.SS2" title="3.2 English to North Sámi NMT ‣ 3 Methods ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.2</span></a>.</p>
+</div>
+<div id="S2.SS3.p2" class="ltx_para">
+<p class="ltx_p">We also use part of <span class="ltx_text ltx_font_italic">SIKOR</span> to calculate the linguistic features of
+non-machine translated, open domain texts. <span class="ltx_text ltx_font_italic">Alice in
+Wonderland<span id="footnote1" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup>
+                <span class="ltx_tag ltx_tag_note"><span class="ltx_text ltx_font_upright">1</span></span>
+                
+                
+                
+              <a href="https://www.gutenberg.org/ebooks/11" title="" class="ltx_ref ltx_url ltx_font_typewriter ltx_font_upright">https://www.gutenberg.org/ebooks/11</a></span></span></span></span> (henceforth
+referred to as ‘Alice’; we evaluated here the first three chapters), CTV.ca news
+item: <span class="ltx_text ltx_font_italic">What’s behind the increase in orca-human interactions, boat
+attacks?</span> (CTV), BBC.co.uk news item: <span class="ltx_text ltx_font_italic">Multi-cancer blood test shows real
+promise in NHS study</span> (BBC) and <span class="ltx_text ltx_font_italic">ILO-169 declaration of indigenous
+peoples’
+rights<span id="footnote2" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">2</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">2</sup>
+                <span class="ltx_tag ltx_tag_note"><span class="ltx_text ltx_font_upright">2</span></span>
+                
+                
+                
+              <a href="https://www.ilo.org/dyn/normlex/en/f?p=NORMLEXPUB:55:0::NO::P55_TYPE,P55_LANG,P55_DOCUMENT,P55_NODE:REV,en,C169,/Document" title="" class="ltx_ref ltx_url ltx_font_typewriter ltx_font_upright">https://www.ilo.org/dyn/normlex/en/f?p=NORMLEXPUB:55:0::NO::P55_TYPE,P55_LANG,P55_DOCUMENT,P55_NODE:REV,en,C169,/Document</a></span></span></span></span>
+(ILO-169) are texts we have manually harvested from the internet and represent
+different genres: fiction, news texts in two variants of English and a legal /
+political text respectively. These texts were used as sources for machine
+translation from English.</p>
+</div>
+<figure id="S2.T1" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_tt"><span class="ltx_text ltx_font_bold">Corpus</span></th>
+<td class="ltx_td ltx_align_right ltx_border_tt"><span class="ltx_text ltx_font_bold">Size</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t">SIKOR</th>
+<td class="ltx_td ltx_align_right ltx_border_t">23,923,558</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t">Alice in Wonderland</th>
+<td class="ltx_td ltx_align_right ltx_border_t">3,509</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">CTV</th>
+<td class="ltx_td ltx_align_right">722</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row">BBC</th>
+<td class="ltx_td ltx_align_right">413</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb">ILO-169</th>
+<td class="ltx_td ltx_align_right ltx_border_bb">2,978</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 1: </span>Sizes of corpora in simple, space-separated tokens (<span class="ltx_text ltx_font_typewriter">wc
+-w</span>).</figcaption>
+</figure>
+<div id="S2.SS3.p3" class="ltx_para">
+<p class="ltx_p">The data used for training the Sámi—Norwegian machine training system is described in 3.1.</p>
+</div>
+</section>
+</section>
+<section id="S3" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">3 </span>Methods</h2>
+
+<div id="S3.p1" class="ltx_para">
+<p class="ltx_p">Despite limited amount of corpora North Sámi has in recent years gained some
+experimental neural machine translators. By evaluating their current
+state-of-the-art we present a manual evaluation method and relevant criteria. As
+a test case we looked at one system to and another one from North Sámi.</p>
+</div>
+<div id="S3.p2" class="ltx_para">
+<p class="ltx_p">Previously North Sámi has been unreachable for neural approaches to language
+technology due to low resourcedness. The majority of resources are therefore
+rule-based tools. For machine translation, language pairs included other
+closely related Sámi languages, as well as Finnish, which is in same language
+family, but not closely related. There also exists translators for Norwegian,
+which is another majority language in North Sámi territory. Many of the
+existing majority-to-minority language translators are primarily developed in
+one direction first <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib333" title="Evaluating North Sámi to Norwegian assimilation RBMT" class="ltx_ref">11</a>]</cite>. The rule-based
+machine translators are based on other language technology resources, such as
+dictionaries, morphological analysers, syntactic analysers and so forth. We use
+these morphological analysers, as well as spell-checkers and grammar checkers as
+tools to find out if there are differences between the human and machine
+translated texts for potential spelling errors, grammatical errors as well as
+differences in distributions of the grammatical features. The systems for
+linguistic analysis and grammar and spell-checking have been acquired from the
+GiellaLT infrastructure<span id="footnote3" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">3</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">3</sup>
+            <span class="ltx_tag ltx_tag_note">3</span>
+            
+            
+            
+          <a href="https://github.com/giellalt/" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://github.com/giellalt/</a></span></span></span>, that
+contains freely available open source language technology tools for minority
+languages <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib268" title="GiellaLT — a stable infrastructure for Nordic minority languages and beyond" class="ltx_ref">6</a>]</cite>.</p>
+</div>
+<div id="S3.p3" class="ltx_para">
+<p class="ltx_p">We used the existing neural machine translation systems as a black box, we fed
+in the source texts and evaluated the target translations without post-editing
+in between; only the cases where formatting went destructively wrong (line
+breaks and spaces added or disappeared in unusual places, like intra-word
+spaces) were corrected.</p>
+</div>
+<section id="S3.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.1 </span>North Sámi to Norwegian NMT</h3>
+
+<div id="S3.SS1.p1" class="ltx_para">
+<p class="ltx_p">In the development of the North Sámi—Norwegian machine translator, we utilized
+a standard sequence-to-sequence model based on mT5 <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib378" title="MT5: a massively multilingual pre-trained text-to-text transformer" class="ltx_ref">13</a>]</cite>. Our
+starting point was the pretrained NorthT5
+checkpoint<span id="footnote4" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">4</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">4</sup>
+              <span class="ltx_tag ltx_tag_note">4</span>
+              
+              
+              
+            <a href="https://huggingface.co/north/t5_large_NCC" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://huggingface.co/north/t5_large_NCC</a></span></span></span>, a
+checkpoint that is additionally pretrainedfrom the mT5 checkpoint using
+additional Scandinavian and English data. Notably, while both these are
+multilingual models, North Sámi is not included in the listed training corpus.</p>
+</div>
+<div id="S3.SS1.p2" class="ltx_para">
+<p class="ltx_p">We retrieved a set of bilingual translations from <span class="ltx_text ltx_font_italic">SIKOR</span>. This was
+divided into a train and test set, and we proceeded to fine-tune a translation
+model on the train set with 3,800 parallel North Sámi—Norwegian sentences for
+10,000 steps. After training, the model was applied to translate sentences in
+the test set, and a professional translator evaluated the output. As mentioned
+earlier, human resources are limited, which is why finding even a single
+adequate evaluator can be difficult.</p>
+</div>
+</section>
+<section id="S3.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">3.2 </span>English to North Sámi NMT</h3>
+
+<div id="S3.SS2.p1" class="ltx_para">
+<p class="ltx_p">The English-North Sámi machine translation was built by university of Tartu NLP
+group as a part of their low resource Uralic neural machine
+translators<span id="footnote5" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">5</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">5</sup>
+              <span class="ltx_tag ltx_tag_note">5</span>
+              
+              
+              
+            <a href="https://translate.ut.ee" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://translate.ut.ee</a></span></span></span> and it is based on North
+Sámi corpus <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib314" title="SIKOR uit norgga árktalaš universitehta ja norgga sámedikki sámi teakstačoakkáldat, veršuvdna 06.11.2018" class="ltx_ref">9</a>]</cite> and its parallel parts have been used to
+train the machine translation <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib380" title="Machine translation for low-resource Finno-Ugric languages" class="ltx_ref">14</a>]</cite>. The output
+was analyzed by our rule-based tools. Hand-picked examples show shortcomings of
+the system. As we were short on human resources for this task, i.e. language
+experts, we were not able to apply the same method as for North Sámi to
+Norwegian.</p>
+</div>
+</section>
+</section>
+<section id="S4" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">4 </span>Evaluation method</h2>
+
+<div id="S4.p1" class="ltx_para">
+<p class="ltx_p">We evaluate separately for the from and to North Sámi scenarios.</p>
+</div>
+<section id="S4.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.1 </span>North Sámi as a source language</h3>
+
+<div id="S4.SS1.p1" class="ltx_para">
+<p class="ltx_p">We study the evaluation of the translations by a language expert. We want to
+gain an insight on how useful the translated texts are for their use cases
+within the speaker community: for the speakers who are proficient in the source
+and target languages with different levels and aims, and relevant to the user
+experience. We expect that the results of the neural machine translation may
+partially reflect the style and features of the available corpora in the
+language, which is not necessarily representative of the norms and standards in
+the same proportion as with largely resourced majority languages. We also study
+to what extent the translated texts look translationese versus texts written by
+native speakers. The commonly translated languages in a neural MT setting at
+the moment are Indo-European majority languages: English, Norwegian etc., that
+are in a whole different language family, it is possible that this reflects in
+the (machine) translated texts more heavily. As it is well-known that neural
+machine translations get more fluent-looking before they get content-accurate,
+we also attempt to study how expensive it is to evaluate the translations on
+this. A professional translator with North Sámi and Norwegian as her native
+languages evaluated the machine translation from North Sámi to Norwegian
+described in Section <a href="#S3.SS1" title="3.1 North Sámi to Norwegian NMT ‣ 3 Methods ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3.1</span></a>.</p>
+</div>
+<div id="S4.SS1.p2" class="ltx_para">
+<p class="ltx_p">For evaluation we developed a 7-level scale for two main criteria inspired by
+the scale automatic summaries described in <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib318" title="Learning to summarize with human feedback" class="ltx_ref">10</a>, p.23]</cite>
+and based on initial comments on translation quality of our professional North
+Sámi translator. In developing categories for MT evaluation and looking at
+actual translations we found to main categories: flow and content. First
+reactions to the quality of a translation typically focus on the output and if
+there is a good flow in the target language, rather than meticulously comparing
+the input to the output. However, when knowing the source language in addition
+to the target language, one will have a second look at the source sentence, and
+be more critical to the well-sounding translation when parts of the source
+sentence are missing or incorrectly translated.</p>
+</div>
+<div id="S4.SS1.p3" class="ltx_para">
+<p class="ltx_p">A professional translator who is trained in exactness, idiomaticity, and
+polysemy will quickly be able to identify not only critical errors that change
+the whole meaning of the sentence, but also other errors that reduce the quality
+of the translation.</p>
+</div>
+<div id="S4.SS1.p4" class="ltx_para">
+<p class="ltx_p">We will therefore distinguish between the first impression of the output with
+regard to idiomaticity, grammatical and semantic coherence of the text on the
+one hand, and the exactness of which grammatical structures and content are
+transferred from the source language into the target language on the other hand.
+In order to get an unbiased result, the method is the following:</p>
+</div>
+<div id="S4.SS1.p5" class="ltx_para">
+<ol id="S4.I1" class="ltx_enumerate">
+<li id="S4.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> 
+<div id="S4.I1.i1.p1" class="ltx_para">
+<p class="ltx_p">read the target translation and evaluate the flow</p>
+</div>
+</li>
+<li id="S4.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">2.</span> 
+<div id="S4.I1.i2.p1" class="ltx_para">
+<p class="ltx_p">read the Sámi translation and decide on the quality of the translation
+of the content</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="S4.SS1.p6" class="ltx_para">
+<p class="ltx_p">The score of 1 stands for the worst possible result, while a score of 7 stands
+for the best possible result.</p>
+</div>
+<div id="S4.SS1.p7" class="ltx_para">
+<p class="ltx_p">The scale for flow is the shown in Table <a href="#S4.T2" title="Table 2 ‣ 4.1 North Sámi as a source language ‣ 4 Evaluation method ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">2</span></span></a>. Candidates for flow
+errors are agreement, valency and word order errors, errors in definiteness,
+missing articles, morphology and spelling errors, punctuation errors, missing
+conjunctions and non-idiomaticity.</p>
+</div>
+<figure id="S4.T2" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_tt"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Grade</span></th>
+<th class="ltx_td ltx_align_justify ltx_th ltx_th_column ltx_border_tt" style="width:170.7pt;"><span class="ltx_text ltx_font_bold ltx_align_top" style="font-size:90%;">Description</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">7</span></th>
+<td class="ltx_td ltx_align_justify ltx_border_t" style="width:170.7pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">Perfect flow</span></p>
+</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">6</span></th>
+<td class="ltx_td ltx_align_justify" style="width:170.7pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">Good flow (nothing stopping it)</span></p>
+</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">5</span></th>
+<td class="ltx_td ltx_align_justify" style="width:170.7pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">Spelling error, smaller idiomatic error</span></p>
+</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">4</span></th>
+<td class="ltx_td ltx_align_justify" style="width:170.7pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">Grammatical error, bigger idiomatic error</span></p>
+</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">3</span></th>
+<td class="ltx_td ltx_align_justify" style="width:170.7pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">Several grammatical/idiomatic errors</span></p>
+</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">2</span></th>
+<td class="ltx_td ltx_align_justify" style="width:170.7pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">A lot of grammatical/idiomatic errors</span></p>
+</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb"><span class="ltx_text" style="font-size:90%;">1</span></th>
+<td class="ltx_td ltx_align_justify ltx_border_bb" style="width:170.7pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">Sentence is unintelligible, cannot be understood or unrelated to the original</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption" style="font-size:90%;"><span class="ltx_tag ltx_tag_table">Table 2: </span> Flow grades and descriptions.</figcaption>
+</figure>
+<div id="S4.SS1.p8" class="ltx_para">
+<p class="ltx_p">The scale for content is shown in Table <a href="#S4.T3" title="Table 3 ‣ 4.1 North Sámi as a source language ‣ 4 Evaluation method ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>. Error candidates
+are (central) verb meanings in either sub-clause or main clause, where a the
+meaning difference is not a slight connotation deviation as it would be with
+synonyms, but a bigger lexical error. Secondly participants, which change the
+content of a sentence. If a sentence about reindeer would suddenly refer to dogs
+instead, the meaning of the sentence would be critically changed. Other critical
+errors can involve time and place errors or errors in quantities and temporal
+descriptions. Lastly, relevant extra content or missing content.</p>
+</div>
+<figure id="S4.T3" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_tt"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Grade</span></th>
+<th class="ltx_td ltx_align_justify ltx_th ltx_th_column ltx_border_tt" style="width:170.7pt;"><span class="ltx_text ltx_font_bold ltx_align_top" style="font-size:90%;">Description</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">7</span></th>
+<td class="ltx_td ltx_align_justify ltx_border_t" style="width:170.7pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">Perfect, translation contains every single detail and translates it accurately</span></p>
+</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">6</span></th>
+<td class="ltx_td ltx_align_justify" style="width:170.7pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">Good content (good enough synonyms)</span></p>
+</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">5</span></th>
+<td class="ltx_td ltx_align_justify" style="width:170.7pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">Smaller content errors of the type above/missing information, extra content</span></p>
+</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">4</span></th>
+<td class="ltx_td ltx_align_justify" style="width:170.7pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">Big content error/missing information</span></p>
+</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">3</span></th>
+<td class="ltx_td ltx_align_justify" style="width:170.7pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">Several big content errors/missing information</span></p>
+</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">2</span></th>
+<td class="ltx_td ltx_align_justify" style="width:170.7pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">A lot of big content errors/missing information (more than 50%)</span></p>
+</td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb"><span class="ltx_text" style="font-size:90%;">1</span></th>
+<td class="ltx_td ltx_align_justify ltx_border_bb" style="width:170.7pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">Nothing is as it should be, translation is (almost) unrelated to original
+(more than 90%)</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_table">Table 3: </span> Content grades and descriptions.</figcaption>
+</figure>
+<div id="S4.SS1.p9" class="ltx_para">
+<p class="ltx_p">The human translation of ex. <a href="#S4.T3" title="Table 3 ‣ 4.1 North Sámi as a source language ‣ 4 Evaluation method ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a> is exx. <a href="#S4.T3" title="Table 3 ‣ 4.1 North Sámi as a source language ‣ 4 Evaluation method ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a> and
+the <a href="#S4.T3" title="Table 3 ‣ 4.1 North Sámi as a source language ‣ 4 Evaluation method ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>.<span id="footnote6" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">6</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">6</sup>
+              <span class="ltx_tag ltx_tag_note">6</span>
+              
+              
+              
+            Linguistic examples follow Leipzig glossing
+standards: <a href="https://www.eva.mpg.de/lingua/resources/glossing-rules.php" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://www.eva.mpg.de/lingua/resources/glossing-rules.php</a></span></span></span> In
+a blind evaluation, the evaluator gave good flow scores to both (6) and slightly
+better content scores to the neural translation (5) than the human translation
+(4). <span class="ltx_text ltx_font_italic">verddevuođa sullasaš ortnegat</span> is translated into ‘the same system
+with ear clips’ which includes extra information compared to the more literal
+neural translation saying ‘verde-like relations’. This yields several issues:</p>
+</div>
+<div id="S4.SS1.p10" class="ltx_para">
+<ol id="S4.I2" class="ltx_enumerate">
+<li id="S4.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span> 
+<div id="S4.I2.i1.p1" class="ltx_para">
+<p class="ltx_p">If we only evaluate one sentence at a time, we may not get contextual
+information, where simply the distribution of content onto different
+sentences is different in manual translation.</p>
+</div>
+</li>
+<li id="S4.I2.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">2.</span> 
+<div id="S4.I2.i2.p1" class="ltx_para">
+<p class="ltx_p">Automatic translation evaluation based on parallel corpora will have
+to take into account that the output sentence may be of better quality
+than the target sentence.</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="S4.SS1.p11" class="ltx_para">
+<p class="ltx_p">. Departemeanta deattuha ahte vejolašvuohta addit sierralobi ii galgga
+mielddisbuktit ahte verddevuođa sullasaš ortnegat galget fas
+ásahuvvot.
+<br class="ltx_break">department<span class="ltx_text ltx_font_smallcaps">.n.sg.nom</span> accentuate<span class="ltx_text ltx_font_smallcaps">.v.pres.3.sg</span> that<span class="ltx_text ltx_font_smallcaps">.c</span>
+possibility<span class="ltx_text ltx_font_smallcaps">.n.sg.nom</span> give<span class="ltx_text ltx_font_smallcaps">.v.inf</span>
+special.dispensation<span class="ltx_text ltx_font_smallcaps">.n.sg.acc</span> not.<span class="ltx_text ltx_font_smallcaps">.v.neg.3.sg</span>
+shall<span class="ltx_text ltx_font_smallcaps">v.conneg</span> entail<span class="ltx_text ltx_font_smallcaps">.v.inf</span> that<span class="ltx_text ltx_font_smallcaps">.c</span>
+verddevuohta<span class="ltx_text ltx_font_smallcaps">.n.sg.gen</span> like<span class="ltx_text ltx_font_smallcaps">.a</span> arrangement<span class="ltx_text ltx_font_smallcaps">.n.pl.nom</span>
+shall<span class="ltx_text ltx_font_smallcaps">.v.past.3.pl</span> again<span class="ltx_text ltx_font_smallcaps">.adv</span> build<span class="ltx_text ltx_font_smallcaps">.v.pass.inf</span>.
+<br class="ltx_break"></p>
+</div>
+<div id="S4.SS1.p12" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_italic">.</span>
+ The department would like to emphasise that the possibility to give special
+dispensations should not lead to that the same system using ear clips should be
+reestablished.
+<br class="ltx_break"> The departments accentuates that the possibility to give special
+dispensations should not lead to a reestablishment of <span class="ltx_text ltx_font_italic">verde</span>-like
+relations.</p>
+</div>
+<div id="S4.SS1.p13" class="ltx_para">
+<p class="ltx_p">Ex. <a href="#S4.T3" title="Table 3 ‣ 4.1 North Sámi as a source language ‣ 4 Evaluation method ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a> is a good example where the flow in the neural translation is
+good (6), and content scores low (2) in the neural translation in
+ex. <a href="#S4.T3" title="Table 3 ‣ 4.1 North Sámi as a source language ‣ 4 Evaluation method ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>. The reason for that is missing of substantial content,
+i.e. a translation of <span class="ltx_text ltx_font_italic">Almmolašvuođagažaldat ja oktavuohta dábálaš
+láhkaprosedyraide</span>.</p>
+</div>
+<div id="S4.SS1.p14" class="ltx_para">
+<p class="ltx_p">. Almmolašvuođagažaldat ja oktavuohta dábálaš láhkaprosedyraide leat
+guovddážis dán dáfus.
+<br class="ltx_break">publicity.question<span class="ltx_text ltx_font_smallcaps">.sg.nom</span> and relation<span class="ltx_text ltx_font_smallcaps">.n.sg.nom</span> normal
+legal.procedure<span class="ltx_text ltx_font_smallcaps">.pl.ill</span> be<span class="ltx_text ltx_font_smallcaps">.v.pres.3.pl</span>
+central<span class="ltx_text ltx_font_smallcaps">.sg.px3sg</span> this<span class="ltx_text ltx_font_smallcaps">.sg.gen</span> context
+<br class="ltx_break">‘Publicity questions and relations to normal legal procedures are in the center in this context.’</p>
+</div>
+<div id="S4.SS1.p15" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_italic">.</span>
+ The issue of publicity and the relationship with ordinary legal procedures
+is central in this context.
+<br class="ltx_break"> This is a core point in this context.</p>
+</div>
+<div id="S4.SS1.p16" class="ltx_para">
+<p class="ltx_p">Table <a href="#S4.T4" title="Table 4 ‣ 4.1 North Sámi as a source language ‣ 4 Evaluation method ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">4</span></span></a> is based on 34 sentences and sentence fragments. It shows
+only slight differences between human and neural translations. It is however
+revealing that even human translations do not get perfect scores. This means
+that automatic evaluations that contrast machine vs. manual translations will
+not necessarily be able to make judgements about the machine translation
+quality, but only its similarity to the (possibly bad) human translation. One
+important factor that was revealed while discussing the evaluation was that in
+many cases sentences cannot be adequately evaluated without their context as
+certain terms only get their meaning from the context in which they are used.
+Therefore, an evaluation of out-of-context sentences’ MT test sets can never be
+entirely satisfactory.</p>
+</div>
+<figure id="S4.T4" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_th ltx_th_row ltx_border_tt"></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Neural MT</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Human</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text" style="font-size:90%;">Flow</span></th>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">5.8</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">6</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text" style="font-size:90%;">Content</span></th>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">5.5</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">5.6</span></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb ltx_border_t"><span class="ltx_text" style="font-size:90%;">Average</span></th>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t"><span class="ltx_text" style="font-size:90%;">5.6</span></td>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t"><span class="ltx_text" style="font-size:90%;">5.8</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption" style="font-size:90%;"><span class="ltx_tag ltx_tag_table">Table 4: </span> Score for neural vs. human ML evaluation</figcaption>
+</figure>
+</section>
+<section id="S4.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.2 </span>North Sámi as a target language</h3>
+
+<div id="S4.SS2.p1" class="ltx_para">
+<p class="ltx_p">For North Sámi as target language, we use the Tartu neural machine translation
+system for Uralic low resource languages
+by <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib380" title="Machine translation for low-resource Finno-Ugric languages" class="ltx_ref">14</a>]</cite>. We picked samples from different
+genres, fiction, news, legal texts, and evaluated these both manually and with
+our rule-based tools. The only text in our corpora that has pre-existing
+translations for both North Sámi and English is the ILO declaration.</p>
+</div>
+<div id="S4.SS2.p2" class="ltx_para">
+<p class="ltx_p">Ex. <a href="#S4.SS2" title="4.2 North Sámi as a target language ‣ 4 Evaluation method ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.2</span></a> from a news text is translated into
+ex. <a href="#S4.SS2" title="4.2 North Sámi as a target language ‣ 4 Evaluation method ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.2</span></a>. Flow scores 3 and content scores 4. Flow is
+negatively affected by both, a case error and word order error
+<span class="ltx_text ltx_font_italic">boazodolliid (Gen Pl) orohagaide (Ill Pl)</span> <math id="S4.SS2.p2.m1" class="ltx_Math" alttext="&gt;" display="inline"><mo>&gt;</mo></math> <span class="ltx_text ltx_font_italic">orohaga (Gen Sg)
+boazodolliid (Pl Acc)</span>. In addition, the output sentence contains a
+non-idiomatic term / lexical error <span class="ltx_text ltx_font_italic">bohccofuođđut</span> (Nom) which should be
+<span class="ltx_text ltx_font_italic">bieggaturbiinnaid</span> (Acc). It also involves a case error.</p>
+</div>
+<div id="S4.SS2.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_italic">.</span> “I have apologised (today) on behalf of the government to the reindeer
+herding districts for the fact that the permits (to build wind farms)
+constituted a violation of human rights”, Aasland told a at a news
+conference.
+<br class="ltx_break">
+<br class="ltx_break"></p>
+</div>
+<div id="S4.SS2.p4" class="ltx_para">
+<p class="ltx_p">. Mun lean áššáskuhttán (dál) ráđđehusa bealis boazodolliid orohagaide dan
+go lobit (bohccefuođđuid hukset) ledje olmmošvuoigatvuođaid rihkkun”, Aasland
+muitalii ođaskonferánssas.
+<br class="ltx_break">I<span class="ltx_text ltx_font_smallcaps">.nom</span> have<span class="ltx_text ltx_font_smallcaps">.pres.sg1</span> accuse<span class="ltx_text ltx_font_smallcaps">.ptcp</span> (now)
+government<span class="ltx_text ltx_font_smallcaps">.sg.gen</span> side<span class="ltx_text ltx_font_smallcaps">.sg.loc</span> reindeer.herder<span class="ltx_text ltx_font_smallcaps">.pl.acc</span>
+dwelling<span class="ltx_text ltx_font_smallcaps">.pl.ill</span> it<span class="ltx_text ltx_font_smallcaps">.sg.gen</span> <span class="ltx_text ltx_font_smallcaps">qst</span> permit<span class="ltx_text ltx_font_smallcaps">.pl.nom</span>
+(wild.reindeer<span class="ltx_text ltx_font_smallcaps">.pl.gen</span> build<span class="ltx_text ltx_font_smallcaps">.inf</span>) have<span class="ltx_text ltx_font_smallcaps">.past.3.pl</span>
+human.right<span class="ltx_text ltx_font_smallcaps">.pl.acc</span> violation<span class="ltx_text ltx_font_smallcaps">.sg.gen</span>”, Aasland<span class="ltx_text ltx_font_smallcaps">.sg.nom</span>,
+tell<span class="ltx_text ltx_font_smallcaps">.past.3.sg</span> news.conference<span class="ltx_text ltx_font_smallcaps">.sg.loc</span>. 
+<br class="ltx_break">‘I have accused (now) on the side of the government the reindeer herders
+dwellings as the permits (to build wild reindeer) were a violation of the human
+rights”, Aasland told on the news conference.’</p>
+</div>
+<div id="S4.SS2.p5" class="ltx_para">
+<p class="ltx_p">We evaluate the translations on linguistic level using several approaches. We
+use spelling checking and correction to find out where machine translation has
+created non-words and whether those are near to right words by automatic
+spelling corrections, we also use grammatical error correction to find out some
+of the grammatical errors and suspicious constructions the MT system has
+constructed, we evaluate the errors found this way using linguistic and language
+understanding. We also calculate some linguistic metrics such as
+morpho-syntactic form distributions from the translated texts and compare those
+to texts that are not machine translated; to see if machine translation uses
+same kind of word-forms and grammatical structures as non-translated or
+professionally translated texts.</p>
+</div>
+<div id="S4.SS2.p6" class="ltx_para">
+<p class="ltx_p">As is expected, the output text of <span class="ltx_text ltx_font_italic">Alice</span> involves a number of non-word
+and probably also real word spelling errors, the latter of which are not handled
+entirely by the grammar checker yet. There are several spelling errors such as
+*<span class="ltx_text ltx_font_italic">teleskopa</span> for <span class="ltx_text ltx_font_italic">teleskohpa</span> and *<span class="ltx_text ltx_font_italic">beallahemiin</span> for
+<span class="ltx_text ltx_font_italic">bealjahemiin</span>.</p>
+</div>
+<div id="S4.SS2.p7" class="ltx_para">
+<p class="ltx_p">Grammatical errors include incorrect attributive forms such as
+*<span class="ltx_text ltx_font_italic">golmmageardánis</span> for <span class="ltx_text ltx_font_italic">golmmageardán</span> in ex. <a href="#S4.SS2" title="4.2 North Sámi as a target language ‣ 4 Evaluation method ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.2</span></a>,
+although here the main error is a lexical error. Three-legged in the original
+sentence ex. <a href="#S4.SS2" title="4.2 North Sámi as a target language ‣ 4 Evaluation method ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.2</span></a> is translated with <span class="ltx_text ltx_font_italic">golmmageardánis</span>
+‘three-times’.
+</p>
+</div>
+<div id="S4.SS2.p8" class="ltx_para">
+<p class="ltx_p">. Fáhkka son bođii unna golmmageardánis beavdái, buot duddjojuvvon čavga
+*glássas
+<br class="ltx_break">suddenly s/he<span class="ltx_text ltx_font_smallcaps">.nom</span> come<span class="ltx_text ltx_font_smallcaps">.past.3.sg</span> small
+three-times<span class="ltx_text ltx_font_smallcaps">.sg.loc</span> table<span class="ltx_text ltx_font_smallcaps">.sg.ill</span>, all craft<span class="ltx_text ltx_font_smallcaps">.pass.ptcp</span>
+tight glass.
+<br class="ltx_break">‘Suddenly she came to a three-time table, all crafted in tight glass.’</p>
+</div>
+<div id="S4.SS2.p9" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_italic">.</span> ‘Suddenly she came upon a little three-legged table, all made of solid
+glass’</p>
+</div>
+<div id="S4.SS2.p10" class="ltx_para">
+<p class="ltx_p">In ex. <a href="#S4.SS2" title="4.2 North Sámi as a target language ‣ 4 Evaluation method ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.2</span></a>, both flow and content are affected. The sentence sounds
+weird as such even from a logical point of view as to using future tense and the
+adverb <span class="ltx_text ltx_font_italic">ikte</span> in the same sentence. The comparison with the source
+sentence <a href="#S4.SS2" title="4.2 North Sámi as a target language ‣ 4 Evaluation method ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.2</span></a> shows that the adverb is a wrong translation of
+<span class="ltx_text ltx_font_italic">never</span> and <span class="ltx_text ltx_font_italic">fall</span> is wrongly translated as <span class="ltx_text ltx_font_italic">čakča</span>
+‘autumn’ instead of a form of <span class="ltx_text ltx_font_italic">gáhččat</span> ‘to fall’. I.e. when translating
+a word with polysemy to a target language without the same polysemy, the MT
+system fails. The verb <span class="ltx_text ltx_font_italic">loahpahuvvat</span> has a spelling error, it should be
+loahpahuvvot and is therefore erroneously analyzed as a compound noun with
+possessive suffix ending instead of as a passive verb.</p>
+</div>
+<div id="S4.SS2.p11" class="ltx_para">
+<p class="ltx_p">. Boahtá go čakča ikte loahpahuvvat?
+<br class="ltx_break">come<span class="ltx_text ltx_font_smallcaps">.pres.3.sg</span> <span class="ltx_text ltx_font_smallcaps">QST</span> autumn<span class="ltx_text ltx_font_smallcaps">.sg.nom</span> yesterday
+be.finished<span class="ltx_text ltx_font_smallcaps">.sg.nom.px2sg</span>?
+<br class="ltx_break">‘Will autumn be finished yesterday?’</p>
+</div>
+<div id="S4.SS2.p12" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_italic">.</span> Would the fall never come to an end?
+<br class="ltx_break"></p>
+</div>
+<div id="S4.SS2.p13" class="ltx_para">
+<p class="ltx_p">Table <a href="#S4.T5" title="Table 5 ‣ 4.2 North Sámi as a target language ‣ 4 Evaluation method ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">5</span></span></a> shows translation errors by type.</p>
+</div>
+<figure id="S4.T5" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_justify ltx_th ltx_th_column" style="width:113.8pt;"><span class="ltx_text ltx_font_bold ltx_align_top" style="font-size:90%;">Type</span></th>
+<th class="ltx_td ltx_align_justify ltx_th ltx_th_column" style="width:156.5pt;"><span class="ltx_text ltx_font_bold ltx_align_top" style="font-size:90%;">error</span></th>
+<th class="ltx_td ltx_align_justify ltx_th ltx_th_column" style="width:156.5pt;"><span class="ltx_text ltx_font_bold ltx_align_top" style="font-size:90%;">correct</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_border_t" style="width:113.8pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">Nonsense words based on orthographic similarity</span></p>
+</td>
+<td class="ltx_td ltx_align_justify ltx_border_t" style="width:156.5pt;"><span class="ltx_text ltx_font_italic ltx_align_top" style="font-size:90%;">Rabihtta-Hole</span></td>
+<td class="ltx_td ltx_align_justify ltx_border_t" style="width:156.5pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text ltx_font_italic" style="font-size:90%;">njoammilbiedju</span><span class="ltx_text" style="font-size:90%;"> ‘rabbit hole’</span></p>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td" style="width:113.8pt;"></td>
+<td class="ltx_td ltx_align_justify" style="width:156.5pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">“Vel!” for “Well!”</span></p>
+</td>
+<td class="ltx_td ltx_align_justify" style="width:156.5pt;"><span class="ltx_text ltx_font_italic ltx_align_top" style="font-size:90%;">de</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">Postpostition vs. preposition</span></p>
+</td>
+<td class="ltx_td ltx_align_justify" style="width:156.5pt;"><span class="ltx_text ltx_font_italic ltx_align_top" style="font-size:90%;">haga govaid</span></td>
+<td class="ltx_td ltx_align_justify" style="width:156.5pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text ltx_font_italic" style="font-size:90%;">govaid haga</span><span class="ltx_text" style="font-size:90%;">
+‘without pictures’</span></p>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">Wrong PoS</span></p>
+</td>
+<td class="ltx_td ltx_align_justify" style="width:156.5pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text ltx_font_italic" style="font-size:90%;">hui oađđin</span><span class="ltx_text" style="font-size:90%;"> ‘very sleep’ (noun)</span></p>
+</td>
+<td class="ltx_td ltx_align_justify" style="width:156.5pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text ltx_font_italic" style="font-size:90%;">hui váiban</span><span class="ltx_text" style="font-size:90%;">
+‘very tired’ (adjective)</span></p>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">Lexical error</span></p>
+</td>
+<td class="ltx_td ltx_align_justify" style="width:156.5pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text ltx_font_italic" style="font-size:90%;">álggii čuožžut su bálgáide</span><span class="ltx_text" style="font-size:90%;"> ‘started to stand his
+paths’</span></p>
+</td>
+<td class="ltx_td ltx_align_justify" style="width:156.5pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text ltx_font_italic" style="font-size:90%;">álggii čuovvut su bálgáide</span><span class="ltx_text" style="font-size:90%;"> ‘started to follow his
+paths’</span></p>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td" style="width:113.8pt;"></td>
+<td class="ltx_td ltx_align_justify" style="width:156.5pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text ltx_font_italic" style="font-size:90%;">su <span class="ltx_text ltx_font_bold">čivga</span> lei lohkame</span><span class="ltx_text" style="font-size:90%;"> ‘baby animal’</span></p>
+</td>
+<td class="ltx_td ltx_align_justify" style="width:156.5pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text ltx_font_italic" style="font-size:90%;">su
+<span class="ltx_text ltx_font_bold">oabbá</span> lei lohkame</span><span class="ltx_text" style="font-size:90%;"> ‘sister’</span></p>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">Literal/Non-idiomatic</span></p>
+</td>
+<td class="ltx_td ltx_align_justify" style="width:156.5pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text ltx_font_italic" style="font-size:90%;">Aliceas ii lean boddu smiehttat</span><span class="ltx_text" style="font-size:90%;"> ‘Alice did
+not have a break to think’</span></p>
+</td>
+<td class="ltx_td ltx_align_justify" style="width:156.5pt;"><span class="ltx_text ltx_font_italic ltx_align_top" style="font-size:90%;">Alice ii ribahan smiehttat</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">Polysemy error</span></p>
+</td>
+<td class="ltx_td ltx_align_justify" style="width:156.5pt;"><span class="ltx_text ltx_font_italic ltx_align_top" style="font-size:90%;">girjái <span class="ltx_text ltx_font_bold">ahte</span> (subjunction ‘that’) su čivga
+lei lohkame</span></td>
+<td class="ltx_td ltx_align_justify" style="width:156.5pt;"><span class="ltx_text ltx_font_italic ltx_align_top" style="font-size:90%;">girjái maid (relative pronoun ‘that’) su čivga
+lei lohkame</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td" style="width:113.8pt;"></td>
+<td class="ltx_td ltx_align_justify" style="width:156.5pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text ltx_font_italic" style="font-size:90%;">mii lea girjji geavaheapmi</span><span class="ltx_text" style="font-size:90%;"> ‘how can the book be used’</span></p>
+</td>
+<td class="ltx_td ltx_align_justify" style="width:156.5pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text ltx_font_italic" style="font-size:90%;">mii lea girjji <span class="ltx_text ltx_font_bold">ávki</span></span><span class="ltx_text" style="font-size:90%;"> ‘what is the use of the book’</span></p>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">Periphrastic </span><math id="S4.T5.m1" class="ltx_Math" alttext="&gt;" display="inline"><mo mathsize="90%" stretchy="false">&gt;</mo></math><span class="ltx_text" style="font-size:90%;"> synthetic construction</span></p>
+</td>
+<td class="ltx_td ltx_align_justify" style="width:156.5pt;"><span class="ltx_text ltx_font_italic ltx_align_top" style="font-size:90%;">ALICE lei šaddagoahtán
+váiban čohkkedit</span></td>
+<td class="ltx_td ltx_align_justify" style="width:156.5pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text ltx_font_italic" style="font-size:90%;">ALICE lei váibagoahtán čohkkedeamis</span><span class="ltx_text" style="font-size:90%;"> ‘Alice
+started to be tired of sitting’</span></p>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">Valency error</span></p>
+</td>
+<td class="ltx_td ltx_align_justify" style="width:156.5pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text ltx_font_italic" style="font-size:90%;">váiban čohkkedit</span><span class="ltx_text" style="font-size:90%;"> (infinitive)</span></p>
+</td>
+<td class="ltx_td ltx_align_justify" style="width:156.5pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text ltx_font_italic" style="font-size:90%;">váiban
+čohkkedeamis</span><span class="ltx_text" style="font-size:90%;"> (locative) ‘tired of sitting’</span></p>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify" style="width:113.8pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text" style="font-size:90%;">Agreement error</span></p>
+</td>
+<td class="ltx_td ltx_align_justify" style="width:156.5pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text ltx_font_italic" style="font-size:90%;">das eai lean govat <span class="ltx_text ltx_font_bold">iige</span> ságastallamat</span><span class="ltx_text" style="font-size:90%;">
+‘there weren’t pictures and there wasn’t conversations either’</span></p>
+</td>
+<td class="ltx_td ltx_align_justify" style="width:156.5pt;">
+<p class="ltx_p ltx_align_top"><span class="ltx_text ltx_font_italic" style="font-size:90%;">das eai lean govat <span class="ltx_text ltx_font_bold">eaige</span> ságastallamat</span><span class="ltx_text" style="font-size:90%;"> ‘there were
+neither pictures and there weren’t conversations either’</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering" style="font-size:90%;"><span class="ltx_tag ltx_tag_table">Table 5: </span>Error types found in English-North Sámi neural
+MT</figcaption>
+</figure>
+</section>
+<section id="S4.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.3 </span>Some automatic measures</h3>
+
+<div id="S4.SS3.p1" class="ltx_para">
+<p class="ltx_p">The emphasis in our study is in the linguistic evaluation of the translations,
+but we were also interested if we can quantify if the translations are similar
+to texts written by native speakers in terms of grammatical features, and also
+how many errors there are.</p>
+</div>
+<div id="S4.SS3.p2" class="ltx_para">
+<p class="ltx_p">Table <a href="#S4.T6" title="Table 6 ‣ 4.3 Some automatic measures ‣ 4 Evaluation method ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag"><span class="ltx_text" style="font-size:90%;">6</span></span></a> shows how many spelling and grammar errors are detected
+in the target text. Grammatical errors include subject-verb agreement errors,
+compound errors.</p>
+</div>
+<figure id="S4.T6" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_align_middle">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_tt"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Text</span></td>
+<td class="ltx_td ltx_align_right ltx_border_tt">
+<span class="ltx_text ltx_font_bold" style="font-size:90%;">Spelling</span><span class="ltx_text" style="font-size:90%;"> (</span><span class="ltx_text ltx_font_bold" style="font-size:90%;">%</span><span class="ltx_text" style="font-size:90%;">)</span>
+</td>
+<td class="ltx_td ltx_align_left ltx_border_tt"><span class="ltx_text" style="font-size:90%;">Grammar</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold" style="font-size:90%;">Alice</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">232 (5%)</span></td>
+<td class="ltx_td"></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold" style="font-size:90%;">BBC</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">23 (5%)</span></td>
+<td class="ltx_td"></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold" style="font-size:90%;">CTV</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">33 (4%)</span></td>
+<td class="ltx_td"></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text ltx_font_bold" style="font-size:90%;">ILO-169</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">0</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">3 (0.1%)</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_bb ltx_border_t"><span class="ltx_text ltx_font_bold" style="font-size:90%;">SIKOR</span></td>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t"><span class="ltx_text" style="font-size:90%;">399,282 (1.8%)</span></td>
+<td class="ltx_td ltx_border_bb ltx_border_t"></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering" style="font-size:90%;"><span class="ltx_tag ltx_tag_table">Table 6: </span> Automatically detected spelling (non-word) and
+grammar errors (real-word) in machine translated texts </figcaption>
+</figure>
+<div id="S4.SS3.p3" class="ltx_para">
+<p class="ltx_p">The amount of non-words that the system has generated is quite notable, although
+several of these are reflected in non-translated corpus as well, for example
+confusion between á and a. It is more surprising that the neural MT has not
+generated many grammatical errors, at least ones that can be automatically
+detected.
+</p>
+</div>
+<div id="S4.SS3.p4" class="ltx_para">
+<p class="ltx_p">Table <a href="#S4.T7" title="Table 7 ‣ 4.3 Some automatic measures ‣ 4 Evaluation method ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7</span></a> contains distributions of grammatical features in
+machine translated texts and large corpus.</p>
+</div>
+<figure id="S4.T7" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_tt"><span class="ltx_text ltx_font_bold">Text</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_th_row ltx_border_tt" colspan="2"><span class="ltx_text ltx_font_bold">Poss</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_tt" colspan="2"><span class="ltx_text ltx_font_bold">Dual</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_tt" colspan="2"><span class="ltx_text ltx_font_bold">Actio</span></th>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_th ltx_th_row"></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_th_row">n</th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column">%</th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column">n</th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column">%</th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column">n</th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column">%</th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t"><span class="ltx_text ltx_font_bold">Alice</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row ltx_border_t">34</th>
+<td class="ltx_td ltx_align_right ltx_border_t">0.8%</td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+<td class="ltx_td ltx_border_t"></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text ltx_font_bold">BBC</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row">1</th>
+<td class="ltx_td ltx_align_right">0.2%</td>
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text ltx_font_bold">CTV</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row">4</th>
+<td class="ltx_td ltx_align_right">0.5%</td>
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row"><span class="ltx_text ltx_font_bold">ILO-169</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row">23</th>
+<td class="ltx_td ltx_align_right">0.7%</td>
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+<td class="ltx_td"></td>
+</tr>
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb ltx_border_t"><span class="ltx_text ltx_font_bold">SIKOR</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row ltx_border_bb ltx_border_t">130,257</th>
+<td class="ltx_td ltx_align_right ltx_border_bb ltx_border_t">0.5%</td>
+<td class="ltx_td ltx_border_bb ltx_border_t"></td>
+<td class="ltx_td ltx_border_bb ltx_border_t"></td>
+<td class="ltx_td ltx_border_bb ltx_border_t"></td>
+<td class="ltx_td ltx_border_bb ltx_border_t"></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 7: </span> Distribution of grammatical features in machine
+translated documents (first four) and the large corpus (SIKOR).</figcaption>
+</figure>
+<div id="S4.SS3.p5" class="ltx_para">
+<p class="ltx_p">There does not appear to be large difference between the machine translated and
+reference corpus, with the exception of lack of dual forms. This is not totally
+unsurprising, the forms are rare in use in general and do not have any
+comparable equivalent in source language: virtually all word-forms that concern
+two individuals fall under generic plurals in English, very few lexical
+selections can be used to refer two people specifically.</p>
+</div>
+</section>
+</section>
+<section id="S5" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">5 </span>Conclusion</h2>
+
+<div id="S5.p1" class="ltx_para">
+<p class="ltx_p">We manually evaluated two neural machine translation systems in an indigenous
+low-resource context, one of which has North Sámi as a source language and the
+other of which has North Sámi as a target language. Translation is done either
+into or from a higher resource language, i.e. Norwegian and English, which are
+both morphologically simple compared to North Sámi. The Sámi to Norwegian
+evaluation is done by a native North Sámi speaker who has worked as a
+professional translator. We developed a scale according to which first the flow
+of the target language is evaluated and then the representation and exactness of
+the source language content in the target language. Both scales have 7 grades.
+Flow and content evaluation can differ very much from each other as flow mostly
+focuses on the target sentence, while content takes into account the source
+sentence to a much higher degree. The evaluation shows that flow typically
+scores higher than content, which means that a clear understanding of both
+source and target sentence is necessary to evaluate how well the matching is
+done. This supports our hypothesis that high-level language expertise is
+necessary to evaluate the quality of a translation.</p>
+</div>
+<div id="S5.p2" class="ltx_para">
+<p class="ltx_p">For the English to Sámi evaluation we applied a different evaluation method. We
+applied high-quality rule-based proofing tools for Sámi for spellchecking and
+basic grammar checking of the target text. As human resources for indigenous
+languages are typically low, we find that this method — while it cannot replace
+human evaluation — can be revealing as regards certain shortcomings of the MT
+system, which affect its quality. We discovered that spelling errors in the
+neural translation are more than twice as much as in the Sámi text collection
+SIKOR. Additionally, a low-scale manual evaluation of the fictional text
+<span class="ltx_text ltx_font_italic">Alice</span>, showed that shortcomings of the system included a variety of
+different morpho-syntactic errors as well of non-idiomatic constructions and
+nonsense translations.</p>
+</div>
+<div id="S5.p3" class="ltx_para">
+<p class="ltx_p">The second system evaluation regards the newly released multi-lingual neural MT
+tool by Tartu university, where we had a look at English-North Sámi machine
+translation. None of the developers has knowledge of North Sámi and is therefore
+not able to properly evaluate the results in all its relevant details. We regard
+it as important that these systems are evaluated by those that have knowledge of
+the language, and give a reliable picture of what can and what cannot be
+expected of such a system. As a user can have varying knowledge themselves about
+either source or target language, expectations to the system can be different.
+We apply our rule-based proofing tools to test both spelling and grammar,
+provide an overview of prevailing error types of the MT tool, and show if the
+outcome reflects the morpho-syntactic reality of the monolingual Sámi corpus
+SIKOR written by native language users.</p>
+</div>
+<div id="S5.p4" class="ltx_para">
+<p class="ltx_p">In the future we would like to manually evaluate neural MT both from and to an
+indigenous language (starting with North Sámi) on a larger scale in order to get
+more insights in refining the criteria of our evaluation method to come to
+adequate conclusions of the systems’ quality. As this highly depends on human
+resources and language expertise, we also plan to focus on recruitment of
+language experts.</p>
+</div>
+</section>
+<section id="Sx1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">Acknowledgments</h2>
+
+<div id="Sx1.p1" class="ltx_para">
+<p class="ltx_p">Máret Láila Anti contributed with her language expertise in North Sámi and
+Norwegian, as well as her professional knowledge regarding translation practices
+and Sámi linguistics.</p>
+</div>
+<div id="Sx1.p2" class="ltx_para">
+<p class="ltx_p">This research was supported by Cloud TPUs from Google’s TPU Research Cloud (TRC).</p>
+</div>
+</section>
+<section id="bib" class="ltx_bibliography">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+
+<ul id="bib.L1" class="ltx_biblist">
+<li id="bib.bib81" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_editor">D. M. Eberhard, G. F. Simons, and C. D. Fennig (Eds.)</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Ethnologue: languages of the world</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_edition">twenty-fifth edition</span>,  <span class="ltx_text ltx_bib_publisher">SIL International</span>, <span class="ltx_text ltx_bib_place">Dallas, Texas</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="http://www.ethnologue.com%20(Accessed%202022-05-25)" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS1.p1" title="2.1 Languages ‣ 2 Background ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.1</span></a>.
+</span>
+</li>
+<li id="bib.bib86" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Federmann</span><span class="ltx_text ltx_bib_year"> (2018-08)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Appraise evaluation framework for machine translation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 27th International Conference on
+Computational Linguistics: System Demonstrations</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Santa Fe, New Mexico</span>, <span class="ltx_text ltx_bib_pages"> pp. 86–88</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://aclanthology.org/C18-2019" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p4" title="2.2 Previous research ‣ 2 Background ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib176" class="ltx_bibitem ltx_bib_inbook">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Lommel</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Metrics for translation quality assessment: a case for standardising error typologies</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Translation Quality Assessment: From Principles to Practice</span>,  <span class="ltx_text ltx_bib_editor">J. Moorkens, S. Castilho, F. Gaspari, and S. Doherty (Eds.)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 109–127</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text isbn ltx_bib_external">ISBN 978-3-319-91241-7</span>,
+<a href="https://dx.doi.org/10.1007/978-3-319-91241-7%5F6" title="" class="ltx_ref doi ltx_bib_external">Document</a>,
+<a href="https://doi.org/10.1007/978-3-319-91241-7_6" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p2" title="2.2 Previous research ‣ 2 Background ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib181" class="ltx_bibitem ltx_bib_misc">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Mager, E. Mager, K. Kann, and N. T. Vu</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Ethical considerations for machine translation of indigenous languages: giving a voice to the speakers</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text ltx_bib_external">2305.19474</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p3" title="2.2 Previous research ‣ 2 Background ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib211" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_editor">J. Moorkens, S. Castilho, F. Gaspari, and S. Doherty (Eds.)</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Translation quality assessment</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">Machine Translation: Technologies and Applications</span>, Vol. <span class="ltx_text ltx_bib_volume">1</span>,  <span class="ltx_text ltx_bib_publisher">Springer</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.p4" title="2 Background ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span>
+</li>
+<li id="bib.bib268" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. Pirinen, S. Moshagen, and K. Hiovain-Asikainen</span><span class="ltx_text ltx_bib_year"> (2023-05)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">GiellaLT — a stable infrastructure for Nordic minority languages and beyond</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 24th Nordic Conference on Computational
+Linguistics (NoDaLiDa)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Tórshavn, Faroe Islands</span>, <span class="ltx_text ltx_bib_pages"> pp. 643–649</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://aclanthology.org/2023.nodalida-1.63" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p2" title="3 Methods ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3</span></a>.
+</span>
+</li>
+<li id="bib.bib271" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Popović</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Error classification and analysis for machine translation quality assessment</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Translation Quality Assessment: From Principles to Practice</span>,  <span class="ltx_text ltx_bib_editor">J. Moorkens, S. Castilho, F. Gaspari, and S. Doherty (Eds.)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Cham</span>, <span class="ltx_text ltx_bib_pages"> pp. 129–158</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text isbn ltx_bib_external">ISBN 978-3-319-91241-7</span>,
+<a href="https://dx.doi.org/10.1007/978-3-319-91241-7%5F7" title="" class="ltx_ref doi ltx_bib_external">Document</a>,
+<a href="https://doi.org/10.1007/978-3-319-91241-7_7" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p2" title="2.2 Previous research ‣ 2 Background ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib293" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">P. Sammallahti</span><span class="ltx_text ltx_bib_year"> (1998)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">The saami languages: an introduction</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">Davvi girji</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS1.p1" title="2.1 Languages ‣ 2 Background ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.1</span></a>.
+</span>
+</li>
+<li id="bib.bib314" class="ltx_bibitem ltx_bib_misc">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">SIKOR</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">SIKOR uit norgga árktalaš universitehta ja norgga sámedikki sámi teakstačoakkáldat, veršuvdna 06.11.2018</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">onlineAccessed: 2018-11-06</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="..." title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS3.p1" title="2.3 Data ‣ 2 Background ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.3</span></a>,
+<a href="#S3.SS2.p1" title="3.2 English to North Sámi NMT ‣ 3 Methods ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.2</span></a>.
+</span>
+</li>
+<li id="bib.bib318" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">N. Stiennon, L. Ouyang, J. Wu, D. Ziegler, R. Lowe, C. Voss, A. Radford, D. Amodei, and P. F. Christiano</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Learning to summarize with human feedback</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Advances in Neural Information Processing Systems</span> <span class="ltx_text ltx_bib_volume">33</span>, <span class="ltx_text ltx_bib_pages"> pp. 3008–3021</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p3" title="2.2 Previous research ‣ 2 Background ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.2</span></a>,
+<a href="#S4.SS1.p2" title="4.1 North Sámi as a source language ‣ 4 Evaluation method ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.1</span></a>.
+</span>
+</li>
+<li id="bib.bib333" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Trosterud and K. B. Unhammer</span><span class="ltx_text ltx_bib_year"> (2012-June13-15)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Evaluating North Sámi to Norwegian assimilation RBMT</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Third International Workshop on
+Free/Open-Source Rule-Based Machine Translation</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Gothenburg, Sweden</span>, <span class="ltx_text ltx_bib_pages"> pp. 13–26</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://aclanthology.org/2012.freeopmt-1.3" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p2" title="3 Methods ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3</span></a>.
+</span>
+</li>
+<li id="bib.bib363" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Weller-di Marco and A. Fraser</span><span class="ltx_text ltx_bib_year"> (2022-12)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Findings of the WMT 2022 shared tasks in unsupervised MT and very low resource supervised MT</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Seventh Conference on Machine Translation
+(WMT)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Abu Dhabi, United Arab Emirates (Hybrid)</span>, <span class="ltx_text ltx_bib_pages"> pp. 801–805</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://aclanthology.org/2022.wmt-1.73" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p4" title="2.2 Previous research ‣ 2 Background ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.2</span></a>.
+</span>
+</li>
+<li id="bib.bib378" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Xue, N. Constant, A. Roberts, M. Kale, R. Al-Rfou, A. Siddhant, A. Barua, and C. Raffel</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">MT5: a massively multilingual pre-trained text-to-text transformer</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2010.11934</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.SS1.p1" title="3.1 North Sámi to Norwegian NMT ‣ 3 Methods ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.1</span></a>.
+</span>
+</li>
+<li id="bib.bib380" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Yankovskaya, M. Tars, A. Tättar, and M. Fishel</span><span class="ltx_text ltx_bib_year"> (2023-05)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Machine translation for low-resource Finno-Ugric languages</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 24th Nordic Conference on Computational Linguistics (NoDaLiDa)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_place">Tórshavn, Faroe Islands</span>, <span class="ltx_text ltx_bib_pages"> pp. 762–771</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://aclanthology.org/2023.nodalida-1.77" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS2.p3" title="2.2 Previous research ‣ 2 Background ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§2.2</span></a>,
+<a href="#S3.SS2.p1" title="3.2 English to North Sámi NMT ‣ 3 Methods ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§3.2</span></a>,
+<a href="#S4.SS2.p1" title="4.2 North Sámi as a target language ‣ 4 Evaluation method ‣ A Manual Evaluation Method of Neural MT for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§4.2</span></a>.
+</span>
+</li>
+</ul>
+</section>
+</article>
+</div>
+<footer class="ltx_page_footer">
+<div class="ltx_page_logo">Generated  on Mon Sep  4 02:23:48 2023 by <a href="http://dlmf.nist.gov/LaTeXML/">LaTeXML <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="[LOGO]"></a>
+</div></footer>
+</div>
+</body>
+</html>

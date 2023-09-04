@@ -135,6 +135,11 @@ a suitable bibtex snippet.
 
 Name as used on the paper, will be updated when I get to it.
 
+1. Linda Wiechetek, **Flammie A Pirinen**, Per Egil Kummervold.
+   (2023). [A Manual Evaluation Method of Neural MT for Indigenous
+   Languages](2023-ranlp/Wiechetek-2023-ranlp.html).
+   In *Proceedings of The 3rd Workshop on Human Evaluation of NLP Systems
+   (HumEval)* at RANLP 2023, Varna, Bulgaria.
 1. **Flammie A Pirinen**, Sjur Nørstebø Moshagen, Katri Hiovain-Asikainen.
    (2023)
    [GiellaLT–a stable infrastructure for Nordic minority languages and

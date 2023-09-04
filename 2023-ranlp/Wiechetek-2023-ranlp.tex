@@ -1,0 +1,1000 @@
+\documentclass{flammie}
+
+\usepackage{linguex}
+
+\title{A Manual Evaluation Method of Neural MT for Indigenous Languages}
+
+\author{Linda Wiechetek \\
+  \small{UiT Norgga árktalaš universitehta} \\
+  \texttt{linda.wiechetek@uit.no} \\\and%
+  Flammie A. Pirinen \\
+  \small{UiT Norgga árktalaš universitehta} \\
+  \texttt{flammie.pirinen@uit.no} \\\and%
+  Per E Kummervold \\
+  \small{National Library of Norway} \\
+  \texttt{per.kummervold@nb.no} \\}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+
+
+Indigenous language expertise is not encoded in written text in the same way as
+it is for languages that have a long literal tradition. In many cases it is,
+on the contrary, mostly conserved orally.  Therefore the evaluation of
+neural MT systems solely based on an algorithm learning from written texts
+is not adequate to measure the quality of a system that is used by the
+language community.  If extensively using tools based on a big amount of
+non-native language this can even contribute to language change in a way
+that is not desired by the language community. It can also pollute the
+internet with automatically created texts that outweigh native texts.  We
+propose a manual evaluation method focusing on flow and content separately,
+and additionally we use existing rule-based NLP to evaluate other factors
+such as spelling, grammar and grammatical richness. Our main conclusion is
+that language expertise of a native speaker is necessary to properly
+evaluate a given system.  We test the method by manually evaluating two
+neural MT tools for an indigenous low resource language.  We present an
+experiment on two different neural translations to and from North Sámi, an
+indigenous language of North Europe.
+
+
+
+
+
+
+\end{abstract}
+
+
+\section{Introduction}
+
+Indigenous languages with few speakers are often left out in the development of
+high-level NLP tools that require a lot of data and have therefore not been
+subject to evaluation either.  However, recently neural machine translation has
+become more effective and more available for even lesser resourced languages
+than before.  While the technology has made the use of neural machine
+translators plausible, it is not clear whether the quality of the translation
+really is good enough for the common use cases within language communities.
+High-resource languages typically apply data-hungry evaluation methods. The
+demand for big data is known to be problematic for smaller languages.  An
+additional factor is, that while big languages with a long literary tradition
+have their language expertise encoded in large amounts of written texts,
+typically this is not the case for indigenous languages with a much shorter
+literary tradition. Here language expertise is often transmitted orally and may
+not be reflected in written text at all, partly due to lack of literacy and
+tradition.  It is problematic if we base our knowledge of a language on existing
+written text for a language community that does not have a long tradition in
+writing.  Written texts need to be treated much more critically with regard to
+who wrote it (was it even a native speaker?), if it was a translation, and which
+genre it belongs to.
+
+Written texts can  have systematic spelling and grammar errors. Their authors
+can be second language learners instead of language experts, or they can be
+synthetically created by machine translation programs.  Taking into account the
+distribution of human resource and language expertise is an important factor in
+the thought process. Language communities that put a great deal of work into
+preserving and strengthening their language typically use a lot of resources in
+teaching the younger generation. That also means that expertise may be found to
+a great deal in oral contexts rather than being reflected in text corpora.
+Basing evaluation  on algorithms that learn from written corpora is therefore a
+thinking error in these contexts.
+
+
+
+
+Consequently, we find a manual evaluation of neural MT tools by language experts
+in this context unavoidable.  By \textit{language experts} we mean native
+speakers with a profound understanding of their own language, which allows them
+to make judgements about the grammaticality and idiomaticity of a sentence.
+Especially since indigenous written grammars are far from exhaustive, good
+language intuition is a key qualification.
+
+
+In this article we suggest a grading system for a language expert evaluator that
+is an expert of both source and target language. The scale distinguishes between
+flow and content, where flow (which has a main focus on the target sentence) is
+evaluated before content (which again requires an analysis of the source
+sentence).  Our main hypothesis is, we need native language/linguistic expertise
+to even know how good the translation is.
+
+
+We do a small-scale but detailed manual evaluation of two neural MT tools for an
+indigenous low resource language (North Sámi).  Our aim is to develop a workflow
+for future evaluations of similar languages and systems and those with even less
+resources, than the ones we work on, should they become available in the popular
+NMT tool\-kits.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Background}
+
+Methods of evaluating machine translation are often based on two approaches:
+automatic that requires high quality parallel texts and human-based, which
+requires a large amount of humans doing annotation or rating of large number of
+sentences for example.  In a low-resource minority language situation, neither
+of these resources is easily available; there are no parallel texts and very few
+humans to do annotation or rating.  That is to say, the amount of
+sentence-aligned parallel texts that is needed to automatically verify quality
+is larger than amount of any translated texts in the language in the foreseeable
+future and the amount of people required to do a meaningful comparison is well
+larger than available people as well, it is physically impossible to do perform
+such tests.  The typical automatic evaluation metrics like word error rate
+require either post-editing or parallel corpora which typically are not
+available in large quantities in indigenous low-resource contexts.
+
+Thus we will be able to identify the criteria that matter for a good translation
+of or into the language in question.  Based on their feedback, automatic
+processes to perform an adequate evaluation can be developed.
+
+Also with regard to human resources the indigenous context is a challenging one.
+Those that are language experts with a linguistic background and a high degree
+of literacy are typically recruited by schools, media, as translators or any
+other context where language knowledge is highly sought-after.
+
+
+Generally, the machine translation use cases can be divided in two main
+categories: translations that can be read to understand the source texts
+(assimilation, gisting) and translations that can be edited for further use
+(dissemination).  If the tools are useful as a basis for post-editing has to be
+decided by members of the the language communities, which is why we also think
+that feedback from the community is needed to evaluate the quality.  Because of
+the systems' fluency, new machine translation tools tend to get adopted quickly
+by businesses (e.g.\ Facebook, Google reviews) and even official bodies. An
+early and critical evaluation by language community is therefore essential.
+Machine-learning MT is now almost a standard and being used in every day life
+without much thought.  How does it look like in an extremely low resource
+language context?~\cite{Moorkens2018translation}
+
+\subsection{Languages}
+
+North Sámi is a Finno-Ugric language belonging to the Uralic language family, it
+is spoken in Norway, Sweden, and Finland by approximately 25,700
+speakers~\cite{Ethnologue2022}. It is a synthetic language, where the open
+\textit{parts-of-speech} (PoS) --- e.g.\ nouns, adjectives --- inflect for case,
+person, number, and more. The grammatical categories are expressed by a
+combination of suffixes and stem-internal processes affecting root vowels and
+consonants alike, making it perhaps the most fusional of all Uralic languages.
+In addition to compounding, inflection and derivation are common morphological
+processes in North Sámi.  The Sámi languages are typically described as verb
+heavy languages, with at least few hundred distinct inflectional verb forms
+(both finite and non-finite, varies a bit based on paradigms and depending on
+what you include as inflectional).~\cite{Sammallahti1998saami} notes that in a list
+of the most common North Sámi words, verbs are in first place (33\%)- English
+and Norwegian, on the other hand, are Indo-European languages, with relatively
+low morphological complexity: less than 10 word-forms per word in productive
+inflection.  The word order in English and Norwegian is stricter than in North
+Sámi and our hypothesis is that the distribution of parts-of-speech and
+derivations is different as well.  We expect this to have an effect on the
+translated language and non-translated, as well as different profiles between
+machine and human translated texts.
+
+The syntactic differences between Sámi and the two Germanic languages are
+notable. While the neutral word order for all of them is Subject-Verb-Object
+(SVO), there are a number of mismatching features in the syntax. Unlike
+Norwegian and English, Sámi has pro-drop (pronoun dropping) for 1.\ and 2.\
+person. Sámi uses mostly postpositions as opposed to prepositions. Other
+differences are adverbial positioning, word order in sub-clauses, question
+clauses or after adverbial extensions, etc.
+
+
+\subsection{Previous research}
+
+
+
+
+There has been a lot of research in the evaluating of machine translation.
+
+There are many ways to evaluate the machine translation quality, some are
+standardised like MQM (Multidimensional Quality Metrics) and others are
+purpose-built for one specific experiment or study.~\cite{Lommel2018metrics} use
+a very fine-grained system for categorising translation
+errors.~\cite{Popovic2018error} use a less fine-grained system.
+
+OpenAI has used following criteria~\cite{stiennon2020learning} for their human
+evaluation work of a summarisation system, we have taken some inspiration from
+that, for example in our 7-grade scale for judgments.  The machine translation
+systems we evaluate are based on neural machine translation.  The translation
+system between English and North Sámi is described
+in~\cite{yankovskaya-etal-2023-machine}.~\cite{mager2023ethical} have studied
+machine translation in similar contexts than as we work in.
+
+Human evaluation of machine translated texts often is based on crowd-sourced
+quick evaluations based on superficial reading of the sentences without context
+(c.f.\ WMT shared tasks~\cite{weller-di-marco-fraser-2022-findings},
+AppRaise~\cite{federmann-2018-appraise}).  While this kind of quick eyeballing
+by average language users can give some impression of fluency of the
+translations it may be insufficient to determine if the text is translated
+accurately and language is truly idiomatic.  A lot of evaluation approaches use
+scales of fluency and adequacy, in a way to measure separately the overall
+readability of the text from the accuracy of the translated content.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Data}
+
+The corpora available for a low resource language like North Sámi is very
+limited.  In Table~\ref{tab:corpus-sizes} we list the corpora that we have used
+in the experiments: the largest electronically available Sámi
+corpus~\cite{sikor_06.11.2018} has been used both for training the North
+Sámi---Norwegian and English---North Sámi machine translation. We did not train
+the English---North Sámi model ourselves but used TARTUNLP that is partly
+trained on \textit{SIKOR}, cf.\ Section~\ref{eng-sme}.
+
+We also use part of  \textit{SIKOR} to calculate the linguistic features of
+non-machine translated, open domain texts. \textit{Alice in
+Wonderland}\footnote{\url{https://www.gutenberg.org/ebooks/11}} (henceforth
+referred to as `Alice'; we evaluated here the first three chapters), CTV.ca news
+item: \textit{What's behind the increase in orca-human interactions, boat
+attacks?} (CTV), BBC.co.uk news item: \textit{Multi-cancer blood test shows real
+promise in NHS study} (BBC) and \textit{ILO-169 declaration of indigenous
+peoples'
+rights}\footnote{\url{https://www.ilo.org/dyn/normlex/en/f?p=NORMLEXPUB:55:0::NO::P55_TYPE,P55_LANG,P55_DOCUMENT,P55_NODE:REV,en,C169,/Document}}
+(ILO-169) are texts we have manually harvested from the internet and represent
+different genres: fiction, news texts in two variants of English and a legal /
+political text respectively. These texts were used as sources for machine
+translation from English.
+
+\begin{table}[htb]
+    \centering
+    \begin{tabular}{lr}
+    \toprule
+         \bf Corpus & \bf Size \\
+
+
+
+         \midrule
+         SIKOR & 23,923,558 \\
+         \midrule
+         Alice in Wonderland & 3,509 \\
+         CTV & 722 \\
+         BBC & 413 \\
+         ILO-169 & 2,978 \\
+         \bottomrule
+    \end{tabular}
+    \caption{Sizes of corpora in simple, space-separated tokens (\texttt{wc
+    -w}).\label{tab:corpus-sizes}}
+\end{table}
+
+The data used for training the Sámi---Norwegian machine training system is described in 3.1.
+
+
+
+
+\section{Methods}
+
+Despite limited amount of corpora North Sámi has in recent years gained some
+experimental neural machine translators.  By evaluating their current
+state-of-the-art we present a manual evaluation method and relevant criteria. As
+a test case we looked at one system to and another one from North Sámi.
+
+Previously North Sámi has been unreachable for neural approaches to language
+technology due to low resourcedness.  The majority of resources are therefore
+rule-based tools.  For machine translation, language pairs included other
+closely related Sámi languages, as well as Finnish, which is in same language
+family, but not closely related.  There also exists translators for Norwegian,
+which is another majority language in North Sámi territory.  Many of the
+existing majority-to-minority language translators are primarily developed in
+one direction first~\cite{trosterud-unhammer-2012-evaluating}.  The rule-based
+machine translators are based on other language technology resources, such as
+dictionaries, morphological analysers, syntactic analysers and so forth.  We use
+these morphological analysers, as well as spell-checkers and grammar checkers as
+tools to find out if there are differences between the human and machine
+translated texts for potential spelling errors, grammatical errors as well as
+differences in distributions of the grammatical features.  The systems for
+linguistic analysis and grammar and spell-checking have been acquired from the
+GiellaLT infrastructure\footnote{\url{https://github.com/giellalt/}}, that
+contains freely available open source language technology tools for minority
+languages~\cite{pirinen-etal-2023-giellalt}.
+
+We used the existing neural machine translation systems as a black box, we fed
+in the source texts and evaluated the target translations without post-editing
+in between; only the cases where formatting went destructively wrong (line
+breaks and spaces added or disappeared in unusual places, like intra-word
+spaces) were corrected.
+
+
+
+\subsection{North Sámi to Norwegian NMT}\label{smenob}
+
+In the development of the North Sámi---Norwegian machine translator, we utilized
+a standard sequence-to-sequence model based on mT5~\cite{xue2020mt5}. Our
+starting point was the pretrained NorthT5
+checkpoint\footnote{\url{https://huggingface.co/north/t5_large_NCC}}, a
+checkpoint that is additionally pretrainedfrom the mT5 checkpoint using
+additional Scandinavian and English data. Notably, while both these are
+multilingual models, North Sámi is not included in the listed training corpus.
+
+We retrieved a set of bilingual translations from \textit{SIKOR}. This was
+divided into a train and test set, and we proceeded to fine-tune a translation
+model on the train set with 3,800 parallel North Sámi---Norwegian sentences for
+10,000 steps. After training, the model was applied to translate sentences in
+the test set, and a professional translator evaluated the output. As mentioned
+earlier, human resources are limited, which is why finding even a single
+adequate evaluator can be difficult.
+
+\subsection{English to North Sámi NMT}\label{eng-sme}
+
+The English-North Sámi machine translation was built by university of Tartu NLP
+group as a part of their low resource Uralic neural machine
+translators\footnote{\url{https://translate.ut.ee}} and it is based on North
+Sámi corpus~\cite{sikor_06.11.2018} and its parallel parts have been used to
+train the machine translation~\cite{yankovskaya-etal-2023-machine}.  The output
+was analyzed by our rule-based tools. Hand-picked examples show shortcomings of
+the system. As we were short on human resources for this task, i.e.\ language
+experts,  we were not able to apply the same method as for North Sámi to
+Norwegian.
+
+\section{Evaluation method}
+
+We evaluate separately for the from and to North Sámi scenarios.
+
+\subsection{North Sámi as a source language}
+
+We study the evaluation of the translations by a language expert.  We want to
+gain an insight on how useful the translated texts are for their use cases
+within the speaker community: for the speakers who are proficient in the source
+and target languages with different levels and aims, and relevant to the user
+experience.  We expect that the results of the neural machine translation may
+partially reflect the style and features of the available corpora in the
+language, which is not necessarily representative of the norms and standards in
+the same proportion as with largely resourced majority languages.  We also study
+to what extent the translated texts look translationese versus texts written by
+native speakers.  The commonly translated languages in a neural MT setting at
+the moment are Indo-European majority languages: English, Norwegian etc., that
+are in a whole different language family,  it is possible that this reflects in
+the (machine) translated texts more heavily.  As it is well-known that neural
+machine translations get more fluent-looking before they get content-accurate,
+we also attempt to study how expensive it is to evaluate the translations on
+this.  A professional translator with North Sámi and Norwegian as her native
+languages evaluated the machine translation from North Sámi to Norwegian
+described in Section~\ref{smenob}.
+
+For evaluation we developed a 7-level scale for two main criteria inspired by
+the scale automatic summaries described in~\cite[p.23]{stiennon2020learning}
+and based on initial comments on translation quality of our professional North
+Sámi translator.  In developing categories for MT evaluation and looking at
+actual translations we found to main categories: flow and content.  First
+reactions to the quality of a translation typically focus on the output and if
+there is a good flow in the target language, rather than meticulously comparing
+the input to the output.  However, when knowing the source language in addition
+to the target language, one will have a second look at the source sentence, and
+be more critical to the well-sounding translation when parts of the source
+sentence are missing or incorrectly translated.
+
+A professional translator who is trained in exactness, idiomaticity, and
+polysemy will quickly be able to identify not only critical errors that change
+the whole meaning of the sentence, but also other errors that reduce the quality
+of the translation.
+
+
+
+
+
+We will therefore distinguish between the first impression of the output with
+regard to idiomaticity, grammatical and semantic coherence of the text on the
+one hand, and the exactness of which grammatical structures and content are
+transferred from the source language into the target language on the other hand.
+In order to get an unbiased result, the method is the following:
+
+\begin{enumerate}
+    \item read the target translation and evaluate the flow
+    \item read the Sámi translation and decide on the quality of the translation
+        of the content
+\end{enumerate}
+
+The score of 1 stands for the worst possible result, while a score of 7 stands
+for the best possible result.
+
+The scale for flow is the shown in Table~\ref{flow-table}.  Candidates for flow
+errors are agreement, valency and word order errors, errors in definiteness,
+missing articles, morphology and spelling errors, punctuation errors, missing
+conjunctions and non-idiomaticity.
+
+
+\begin{table}[h]
+\small
+\begin{center}
+\begin{tabular}{lp{6cm}}
+\toprule
+    \bf Grade & \bf Description \\
+    \midrule
+7 & Perfect flow \\
+6 & Good flow (nothing stopping it) \\
+5 & Spelling error, smaller idiomatic error \\
+4 & Grammatical error, bigger idiomatic error \\
+3 & Several grammatical/idiomatic errors\\
+2 & A lot of grammatical/idiomatic errors \\
+1 & Sentence is unintelligible, cannot be understood or unrelated to the original \\
+\bottomrule
+\end{tabular}
+\end{center}
+\caption{\label{flow-table} Flow grades and descriptions.}
+\end{table}
+
+
+The scale for content is shown in Table~\ref{content-table}.  Error candidates
+are (central) verb meanings in either sub-clause or  main clause, where a the
+meaning difference is not a slight connotation deviation as it would be with
+synonyms, but a bigger lexical error.  Secondly participants, which change the
+content of a sentence. If a sentence about reindeer would suddenly refer to dogs
+instead, the meaning of the sentence would be critically changed. Other critical
+errors can involve time and place errors or errors in quantities and temporal
+descriptions. Lastly, relevant extra content or missing content.
+
+\begin{table}[h]
+\begin{center}
+\small
+\begin{tabular}{lp{6cm}}
+\toprule
+    \bf Grade & \bf Description \\
+    \midrule
+7 & Perfect, translation contains every single detail and translates it accurately \\
+6 & Good content (good enough synonyms) \\
+5 & Smaller content errors of the type above/missing information, extra content \\
+4 & Big content error/missing information \\
+3 & Several big content errors/missing information\\
+    2 & A lot of big content errors/missing information (more than 50\%) \\
+1 & Nothing is as it should be, translation is (almost) unrelated to original
+    (more than 90\%) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\caption{\label{content-table} Content grades and descriptions.}
+\end{table}
+
+
+The human translation of ex.~\ref{MLevalex} is exx.~\ref{MLevalexhuman} and
+the~\ref{MLevalexneural}.\footnote{Linguistic examples follow Leipzig glossing
+standards: \url{https://www.eva.mpg.de/lingua/resources/glossing-rules.php}} In
+a blind evaluation, the evaluator gave good flow scores to both (6) and slightly
+better content scores to the neural translation (5) than the human translation
+(4). \textit{verddevuođa sullasaš ortnegat} is translated into `the same system
+with ear clips' which includes extra information compared to the more literal
+neural translation saying `verde-like relations'.  This yields several issues:
+
+\begin{enumerate}
+    \item If we only evaluate  one sentence at a time, we may not get contextual
+        information, where simply the distribution of content onto different
+        sentences is different in manual translation.
+    \item Automatic translation evaluation based on parallel corpora will have
+        to take into account that the output sentence may be of better quality
+        than the target sentence.
+\end{enumerate}
+
+\exg. Departemeanta deattuha ahte vejolašvuohta addit sierralobi ii galgga
+mielddisbuktit ahte verddevuođa sullasaš ortnegat galget fas
+ásahuvvot.\label{MLevalex}\\
+department\textsc{.n.sg.nom} accentuate\textsc{.v.pres.3.sg} that\textsc{.c}
+possibility\textsc{.n.sg.nom} give\textsc{.v.inf}
+special.dispensation\textsc{.n.sg.acc} not.\textsc{.v.neg.3.sg}
+shall\textsc{v.conneg} entail\textsc{.v.inf} that\textsc{.c}
+verddevuohta\textsc{.n.sg.gen} like\textsc{.a} arrangement\textsc{.n.pl.nom}
+shall\textsc{.v.past.3.pl} again\textsc{.adv} build\textsc{.v.pass.inf}.\\
+
+
+\ex.
+\a. The department would like to emphasise that the possibility to give special
+dispensations should not lead to that the same system using ear clips should be
+reestablished.\label{MLevalexhuman}\\
+\b. The departments accentuates that the possibility to give special
+dispensations should not lead to a reestablishment of \textit{verde}-like
+relations.\label{MLevalexneural}
+
+
+Ex.~\ref{dafus} is a good example where the flow in the neural translation is
+good (6), and content scores low (2) in the neural translation in
+ex.~\ref{dafusneural}.  The reason for that is missing of substantial content,
+i.e.\ a translation of \textit{Almmolašvuođagažaldat ja oktavuohta dábálaš
+láhkaprosedyraide}.
+
+\exg. Almmolašvuođagažaldat ja oktavuohta dábálaš láhkaprosedyraide leat
+guovddážis dán dáfus.\label{dafus}\\
+publicity.question\textsc{.sg.nom} and relation\textsc{.n.sg.nom} normal
+legal.procedure\textsc{.pl.ill} be\textsc{.v.pres.3.pl}
+central\textsc{.sg.px3sg} this\textsc{.sg.gen} context\\
+`Publicity questions and relations to normal legal procedures are in the center in this context.'
+
+\ex.
+\a. The issue of publicity and the relationship with ordinary legal procedures
+is central in this context.\label{dafushuman}\\
+\b. This is a core point in this context.\label{dafusneural}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Table~\ref{MLeval} is based on 34 sentences and sentence fragments. It shows
+only slight differences between human and neural translations. It is however
+revealing that even human translations do not get perfect scores. This means
+that automatic evaluations that contrast machine vs.\ manual translations will
+not necessarily be able to make judgements about the machine translation
+quality, but only its similarity to the (possibly bad) human translation.  One
+important factor that was revealed while discussing the evaluation was that in
+many cases sentences cannot be adequately evaluated without their context as
+certain terms only get their meaning from the context in which they are used.
+Therefore, an evaluation of out-of-context sentences' MT test sets can never be
+entirely satisfactory.
+
+\begin{table}[h]
+\small
+\begin{center}
+\begin{tabular}{lrr}
+\toprule
+    & \bf Neural MT & \bf Human \\
+    \midrule
+Flow & 5.8 &  6 \\
+Content & 5.5 & 5.6  \\
+\midrule
+Average & 5.6 & 5.8 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\caption{\label{MLeval} Score for neural vs.\ human ML evaluation}
+\end{table}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{North Sámi as a target language}
+
+For North Sámi as target language, we use the Tartu neural machine translation
+system for Uralic low resource languages
+by~\cite{yankovskaya-etal-2023-machine}.  We picked samples from different
+genres, fiction, news, legal texts, and evaluated these both manually and with
+our rule-based tools. The only text in our corpora that has pre-existing
+translations for both North Sámi and English is the ILO declaration.
+
+Ex.~\ref{tartuwindfarms} from a news text is translated into
+ex.~\ref{tartuwindfarmsneural}. Flow scores 3 and content scores 4.  Flow is
+negatively affected by both, a case error and word order error
+\textit{boazodolliid (Gen Pl) orohagaide (Ill Pl)} $>$ \textit{orohaga (Gen Sg)
+boazodolliid (Pl Acc)}.  In addition, the output sentence contains a
+non-idiomatic term / lexical error \textit{bohccofuođđut} (Nom) which should be
+\textit{bieggaturbiinnaid} (Acc). It also involves a case error.
+
+
+\ex. ``I have apologised (today) on behalf of the government to the reindeer
+herding districts for the fact that the permits (to build wind farms)
+constituted a violation of human rights'', Aasland told a at a news
+conference.\label{tartuwindfarms}\\
+\\
+
+
+
+\exg. Mun lean áššáskuhttán (dál) ráđđehusa bealis boazodolliid orohagaide dan
+go lobit (bohccefuođđuid hukset) ledje olmmošvuoigatvuođaid rihkkun'', Aasland
+muitalii ođaskonferánssas.\label{tartuwindfarmsneural}\\
+I\textsc{.nom} have\textsc{.pres.sg1} accuse\textsc{.ptcp} (now)
+government\textsc{.sg.gen} side\textsc{.sg.loc} reindeer.herder\textsc{.pl.acc}
+dwelling\textsc{.pl.ill} it\textsc{.sg.gen} \textsc{qst} permit\textsc{.pl.nom}
+(wild.reindeer\textsc{.pl.gen} build\textsc{.inf}) have\textsc{.past.3.pl}
+human.right\textsc{.pl.acc} violation\textsc{.sg.gen}'', Aasland\textsc{.sg.nom},
+tell\textsc{.past.3.sg} news.conference\textsc{.sg.loc}. \\
+`I have accused (now) on the side of the government the reindeer herders
+dwellings as the permits (to build wild reindeer) were a violation of the human
+rights'', Aasland told on the news conference.'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+We evaluate the translations on linguistic level using several approaches.  We
+use spelling checking and correction to find out where machine translation has
+created non-words and whether those are near to right words by automatic
+spelling corrections, we also use grammatical error correction to find out some
+of the grammatical errors and suspicious constructions the MT system has
+constructed, we evaluate the errors found this way using linguistic and language
+understanding.  We also calculate some linguistic metrics such as
+morpho-syntactic form distributions from the translated texts and compare those
+to texts that are not machine translated; to see if machine translation uses
+same kind of word-forms and grammatical structures as non-translated or
+professionally translated texts.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+As is expected, the output text of \textit{Alice} involves a number of non-word
+and probably also real word spelling errors, the latter of which are not handled
+entirely by the grammar checker yet.  There are several spelling errors such as
+*\textit{teleskopa} for \textit{teleskohpa} and *\textit{beallahemiin} for
+\textit{bealjahemiin}.
+
+
+Grammatical errors include incorrect attributive forms such as
+*\textit{golmmageardánis} for \textit{golmmageardán} in ex.~\ref{golmmag},
+although here the main error is a lexical error. Three-legged in the original
+sentence ex.~\ref{golmmagorig} is translated with \textit{golmmageardánis}
+`three-times'.
+
+\exg. Fáhkka son bođii unna golmmageardánis beavdái, buot duddjojuvvon čavga
+*glássas\label{golmmag}\\
+suddenly s/he\textsc{.nom} come\textsc{.past.3.sg} small
+three-times\textsc{.sg.loc} table\textsc{.sg.ill}, all craft\textsc{.pass.ptcp}
+tight glass.\\
+`Suddenly she came to a three-time table, all crafted in tight glass.'
+
+\ex. `Suddenly she came upon a little three-legged table, all made of solid
+glass'\label{golmmagorig}
+
+
+
+In ex.~\ref{cakca}, both flow and content are affected. The sentence sounds
+weird as such even from a logical point of view as to using future tense and the
+adverb \textit{ikte} in the same sentence. The comparison with the source
+sentence~\ref{cakcaorig} shows that the adverb is a wrong translation of
+\textit{never} and \textit{fall} is wrongly translated as \textit{čakča}
+`autumn' instead of a form of \textit{gáhččat} `to fall'. I.e.\ when translating
+a word with polysemy to a target language without the same polysemy, the MT
+system fails.  The verb \textit{loahpahuvvat} has a spelling error, it should be
+{loahpahuvvot} and is therefore erroneously analyzed as a compound noun with
+possessive suffix ending instead of as a passive verb.
+
+
+
+
+\exg. Boahtá go čakča ikte loahpahuvvat?\label{cakca}\\
+come\textsc{.pres.3.sg} \textsc{QST} autumn\textsc{.sg.nom} yesterday
+be.finished\textsc{.sg.nom.px2sg}?\\
+`Will autumn be finished yesterday?'
+
+
+\ex. Would the fall never come to an end?\label{cakcaorig}\\
+
+
+
+Table~\ref{tab:erroro-types} shows translation errors by type.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{table*}[h]
+\small
+    \centering
+    \begin{tabular}{p{4cm}p{5.5cm}p{5.5cm}}
+     \bf Type & \bf error & \bf correct \\
+      \midrule
+     Nonsense words based on orthographic similarity & \textit{Rabihtta-Hole} &
+        \textit{njoammilbiedju} `rabbit hole'\\
+     & ``Vel!'' for ``Well!'' & \textit{de} \\
+     Postpostition vs.\ preposition & \textit{haga govaid} & \textit{govaid haga}
+        `without pictures'\\
+     Wrong PoS & \textit{hui oađđin} `very sleep' (noun) & \textit{hui váiban}
+        `very tired' (adjective)\\
+     Lexical error & \textit{álggii čuožžut su bálgáide} `started to stand his
+        paths' & \textit{álggii čuovvut su bálgáide} `started to follow his
+        paths' \\
+      & \textit{su \textbf{čivga} lei lohkame} `baby animal' & \textit{su
+        \textbf{oabbá} lei lohkame} `sister' \\
+     Literal/Non-idiomatic & \textit{Aliceas ii lean boddu smiehttat} `Alice did
+        not have a break to think' & \textit{Alice ii ribahan smiehttat} \\
+     Polysemy error & \textit{girjái \textbf{ahte} (subjunction `that') su čivga
+        lei lohkame}  & \textit{girjái maid (relative pronoun `that') su čivga
+        lei lohkame} \\
+     & \textit{mii lea girjji geavaheapmi} `how can the book be used' &
+        \textit{mii lea girjji \textbf{ávki}} `what is the use of the book'\\
+     Periphrastic $>$ synthetic construction & \textit{ALICE lei šaddagoahtán
+        váiban čohkkedit} & \textit{ALICE lei váibagoahtán čohkkedeamis} `Alice
+        started to be tired of sitting' \\
+    Valency error & \textit{váiban čohkkedit} (infinitive) & \textit{váiban
+        čohkkedeamis} (locative) `tired of sitting' \\
+     Agreement error & \textit{das eai lean govat \textbf{iige} ságastallamat}
+        `there weren't pictures and there wasn't conversations either' &
+        \textit{das eai lean govat \textbf{eaige} ságastallamat} `there were
+        neither pictures and there weren't conversations either' \\
+    \end{tabular}
+    \caption{Error types found in English-North Sámi neural
+    MT\label{tab:erroro-types}}
+\end{table*}
+
+\subsection{Some automatic measures}
+
+The emphasis in our study is in the linguistic evaluation of the translations,
+but we were also interested if we can quantify if the translations are similar
+to texts written by native speakers in terms of grammatical features, and also
+how many errors there are.
+
+Table~\ref{table:errors} shows how many spelling and grammar errors are detected
+in the target text.  Grammatical errors include subject-verb agreement errors,
+compound errors.
+
+\begin{table}
+\small
+\centering
+\begin{tabular}{lrl}
+\toprule
+    \textbf{Text} & \textbf{Spelling} (\textbf{\%}) & Grammar \\
+    \bf Alice & 232 (5\%) & \\
+    \bf BBC &  23 (5\%) & \\
+    \bf CTV &  33 (4\%) & \\
+    \bf ILO-169 & 0 & 3 (0.1\%) \\
+\midrule
+    \bf SIKOR & 399,282 (1.8\%) & \\
+\bottomrule
+\end{tabular}
+\caption{\label{table:errors} Automatically detected spelling (non-word) and
+    grammar errors (real-word) in machine translated texts }
+\end{table}
+
+The amount of non-words that the system has generated is quite notable, although
+several of these are reflected in non-translated corpus as well, for example
+confusion between á and a.  It is more surprising that the neural MT has not
+generated many grammatical errors, at least ones that can be automatically
+detected.
+
+Table~\ref{table:forms} contains distributions of grammatical features in
+machine translated texts and large corpus.
+
+
+\begin{table*}
+\centering
+\begin{tabular}{lrrrrrr}
+\toprule
+\textbf{Text} & \multicolumn{2}{r}{\textbf{Poss}} & \multicolumn{2}{r}{\bf Dual} & \multicolumn{2}{r}{\bf Actio}   \\
+& n & \% & n & \%& n & \%\\
+\midrule
+\bf Alice & 34 & 0.8\% \\
+\bf BBC &  1 & 0.2\% \\
+\bf CTV &  4 & 0.5\% \\
+\bf ILO-169 & 23 & 0.7\% \\
+\midrule
+\bf SIKOR & 130,257 & 0.5\% \\
+\bottomrule
+\end{tabular}
+\caption{\label{table:forms} Distribution of grammatical features in machine
+    translated documents (first four) and the large corpus (SIKOR).}
+\end{table*}
+
+There does not appear to be large difference between the machine translated and
+reference corpus, with the exception of lack of dual forms.  This is not totally
+unsurprising, the forms are rare in use in general and do not have any
+comparable equivalent in source language: virtually all word-forms that concern
+two individuals fall under generic plurals in English, very few lexical
+selections can be used to refer two people specifically.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Conclusion}
+
+We manually evaluated two neural machine translation systems in an indigenous
+low-resource context, one of which has North Sámi as a source language and the
+other of which has North Sámi as a target language.  Translation is done either
+into or from a higher resource language, i.e. Norwegian and English, which are
+both morphologically simple compared to North Sámi.  The Sámi to Norwegian
+evaluation is done by a native North Sámi speaker who has worked as a
+professional translator. We developed a scale according to which first the flow
+of the target language is evaluated and then the representation and exactness of
+the source language content in the target language. Both scales have 7 grades.
+Flow and content evaluation can differ very much from each other as flow mostly
+focuses on the target sentence, while content takes into account the source
+sentence to a much higher degree. The evaluation shows that flow typically
+scores higher than content, which means that a clear understanding of both
+source and target sentence is necessary to evaluate how well the matching is
+done. This supports our hypothesis that high-level language expertise is
+necessary to evaluate the quality of a translation.
+
+For the English to Sámi evaluation we applied a different evaluation method. We
+applied high-quality rule-based proofing tools for Sámi for spellchecking and
+basic grammar checking of the target text. As human resources for indigenous
+languages are typically low, we find that this method --- while it cannot replace
+human evaluation --- can be revealing as regards certain shortcomings of the MT
+system, which affect its quality.  We discovered that spelling errors in the
+neural translation are more than twice as much as in the Sámi text collection
+SIKOR.\@ Additionally, a low-scale manual evaluation of the fictional text
+\textit{Alice}, showed that shortcomings of the system included a variety of
+different morpho-syntactic errors as well of non-idiomatic constructions and
+nonsense translations.
+
+The second system evaluation regards the newly released multi-lingual neural MT
+tool by Tartu university, where we had a look at English-North Sámi machine
+translation. None of the developers has knowledge of North Sámi and is therefore
+not able to properly evaluate the results in all its relevant details. We regard
+it as important that these systems are evaluated by those that have knowledge of
+the language, and give a reliable picture of what can and what cannot be
+expected of such a system. As a user can have varying knowledge themselves about
+either source or target language, expectations to the system can be different.
+We apply our rule-based proofing tools to test both spelling and grammar,
+provide an overview of prevailing error types of the MT tool, and show if the
+outcome reflects the morpho-syntactic reality of the monolingual Sámi corpus
+SIKOR written by native language users.
+
+
+
+In the future we would like to manually evaluate neural MT both from and to an
+indigenous language (starting with North Sámi) on a larger scale in order to get
+more insights in refining the criteria of our evaluation method to come to
+adequate conclusions of the systems' quality. As this highly depends on human
+resources and language expertise, we also plan to focus on recruitment of
+language experts.
+
+
+
+
+\section*{Acknowledgments}
+
+Máret Láila Anti contributed with her language expertise in North Sámi and
+Norwegian, as well as her professional knowledge regarding translation practices
+and Sámi linguistics.
+
+This research was supported by Cloud TPUs from Google’s TPU Research Cloud (TRC).
+
+\bibliographystyle{unsrt}
+\bibliography{ranlp2023}
+
+
+
+
+
+\end{document}
