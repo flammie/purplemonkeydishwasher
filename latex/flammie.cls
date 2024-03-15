@@ -124,7 +124,7 @@ open access with Creative Commons licenses.}
 \RequirePackage{fontspec}
 \RequirePackage{xunicode}
 \RequirePackage{xltxtra}
-\RequirePackage{url}
+\RequirePackage{xurl}
 \RequirePackage{xcolor}
 \RequirePackage[colorlinks=true,
                 linkcolor=blue!40!black,
