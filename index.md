@@ -135,6 +135,13 @@ a suitable bibtex snippet.
 
 Name as used on the paper, will be updated when I get to it.
 
+1. Linda Wiechetek, **Flammie A Pirinen**, Børre Gaup, Trond Trosterud,
+   Maja Lisa Kappfjell, Sjur Moshagen (2024).
+   [The Ethical Question–Use of Indigenous Corpora for Large Language
+   Models](2024-lrec/Wiechetek-2024-lrec.html). In
+   *Proceedings of the 2024 Joint International Conference on Computational
+   Linguistics and Language Resources Evaluation Confence (COLING-LREC)*.
+   [ACL anthology version](https://aclanthology.org/2024.lrec-main.1383/)
 1. Linda Wiechetek, **Flammie A Pirinen**, Per Egil Kummervold.
    (2023). [A Manual Evaluation Method of Neural MT for Indigenous
    Languages](2023-ranlp/Wiechetek-2023-ranlp.html).
