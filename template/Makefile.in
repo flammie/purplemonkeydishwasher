@@ -1,5 +1,5 @@
 
-LATEX=xelatex
+LATEX=lualatex
 BIBTEX=bibtex
 AUTHOR=@AUTHOR@
 YEAR=@YEAR@

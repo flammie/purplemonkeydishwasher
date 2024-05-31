@@ -122,8 +122,8 @@ open access with Creative Commons licenses.}
 \RequirePackage{booktabs}
 \RequirePackage{polyglossia}
 \RequirePackage{fontspec}
-\RequirePackage{xunicode}
-\RequirePackage{xltxtra}
+%\RequirePackage{xunicode}
+%\RequirePackage{xltxtra}
 \RequirePackage{xurl}
 \RequirePackage{xcolor}
 \RequirePackage[colorlinks=true,

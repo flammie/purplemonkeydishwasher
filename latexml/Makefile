@@ -1,5 +1,5 @@
 
-perl_version=5.34
+perl_version=5.38
 prefix=/usr
 libdir=${prefix}/lib64
 perldir=${libdir}/perl5/vendor_perl/${perl_version}

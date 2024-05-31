@@ -22,15 +22,15 @@ foreach my $option (qw(screen kindle
 
 LoadClass('article');
 
-DefMacro('\footnotepubrights', 
-         '\footnote{This is Flammie’s draft, official version may differ. #1}');
-DefMacro('\springerpostprintdoi', 
-         'The Springer version may be available at \url{http://dx.doi.org/#1}.
+DefMacro('\footnotepubrights{}', 
+         '\footnote{This is Flammie’s draft, official version may differ. {#1}}');
+DefMacro('\springerpostprintdoi{}', 
+         'The Springer version may be available at \url{http://dx.doi.org/{#1}}.
           For Springer’s self-archiving policy, see
          \url{https://www.springer.com/gp/open-access/authors-rights/self-archiving-policy/21234}.');
-DefMacro('\aclanthologypostprintdoi', 
-         'The ACL anthology version is available at \url{http://aclanthology.org/#1}.
-          ACL is Creative Commons blah.');
+DefMacro('\aclanthologypostprintdoi{}', 
+         'The ACL anthology version is available at \url{http://aclanthology.org/{#1}}.
+          ACL is typically licenced CC-BY.');
 
 RequirePackage('booktabs');
 RequirePackage('polyglossia');
