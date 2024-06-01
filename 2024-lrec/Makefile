@@ -29,6 +29,8 @@ clean:
 
 
 %.html: %.tex
-	$(LATEXML) --inputencoding=utf-8 $< | $(LATEXMLPOST) --dest=$@ -
+	$(LATEXML) --dest=bib.xml $(BIB)
+	$(LATEXML) --dest=$%.xml --inputencoding=utf-8 $<
+	$(LATEXMLPOST) --dest=$@ --bibliography=bib.xml $%.xml
 	sed -i -e 's:"LaTeXML.css":"../latexml/LaTeXML.css":'\
 		-e 's:"ltx-article.css":"../latexml/ltx-article.css":' $@
