@@ -89,6 +89,11 @@ a suitable bibtex snippet.
 
 ### Edited volumes and conference proceedings
 
+1. Mika Hämäläinen, **Flammie Pirinen**, Melany Macias, Mario Crespo Avila
+   (Editors)
+   *Proceedings of the 9th International Workshop on Computational Linguistics
+   for Uralic Languages*, held in Helsinki, [published in ACL anthology SIGUR
+   workshops series under 2024](https://aclanthology.org/volumes/2024.iwclul-1/)
 1. Arvi Hurskainen, Kimmo Koskenniemi, **Flammie A Pirinen**, eds. (2023),
    [Rule-based language technology](2023-rblt/). Published in NEJLT monographies
    [publisher's version](https://dspace.ut.ee/handle/10062/89595)
@@ -133,8 +138,15 @@ a suitable bibtex snippet.
 
 ###  Publications in conferences and journals
 
-Name as used on the paper, will be updated when I get to it.
+Names written as used on the paper, will be uptdated if I get to it.
 
+1. **Flammie A Pirinen** (2024). [Keeping Up Appearances—or how to get all
+   Uralic languages included into bleeding edge research and software:
+   generate, convert, and LLM your way into multilingual
+   datasets](2024-iwclul/Pirinen-2024-iwclul.html). In
+   *Proceedings of the 9th International Workshop on Computational Linguistics
+   for Uralic Languages*, Helsinki, Finland. [ACL Anthology
+   version](https://aclanthology.org/2024.iwclul-1.16/).
 1. Linda Wiechetek, **Flammie A Pirinen**, Børre Gaup, Trond Trosterud,
    Maja Lisa Kappfjell, Sjur Moshagen (2024).
    [The Ethical Question–Use of Indigenous Corpora for Large Language
