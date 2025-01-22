@@ -1,45 +1,42 @@
----
-layout: default
-title: Tommi A Pirinen–Curriculum Vitae
----
-
 see also: [my academic publications](index.html),
 [TeX CV](cv/Pirinen-Curriculum-Vitae.tex) and
 [HTML by latexml](cv/Pirinen-Curriculum-Vitae.html) from my previous job
 application run (some specific hand picked selected articles for example)
 
-# Curriculum Vitae — Tommi Pirinen
+# Curriculum Vitae — Flammie Pirinen
 
-* Name: Tommi Antero Pirinen
+* Name: Flammie Antero Pirinen
 * Date of Birth: 1984-02-28
-* Address: Eichholz 25
-    D-20459 Hamburg
-    Germany
-* E-mail: tommi.antero.pirinen@uni-hamburg.de
+* Address: Norway
+* E-mail: flammie@iki.fi
 
 ## Education
 
 * **PhD** in Language Technology in *University of Helsinki* 2014
 * **MA** in Language Technology in *University of Helsinki* 2008
 * **B.Sc.** in Computer Science in *University of Joensuu* 2005
-* **Ylioppilastutkinto** (Matriculation examination certificate) in *Joensuun Lyseon Lukio* 2001
-
+* **Ylioppilastutkinto** (Matriculation examination certificate) in *Joensuun
+  Lyseon Lukio* 2001
 
 
 ## Language skills
 
 * Finnish (native)
 * English (excellent)
-* Swedish, Hungarian, Estonian, German, French (basic, reading level)
+* Norwegian, Swedish, German (conversational)
+* Hungarian, Estonian, French (basic)
 
 ## Computer literacy
 
 * Operating systems: Linux, Mac OS X, DOS, Windows (pre-7)
-* Programming and markup languages: C, C++, Java, PHP, Ruby, Python, Perl; XML, SGML, HTML, XHTML; CSS, XSLT...
+* Programming and markup languages: Rust, C, C++, Java, PHP, Ruby, Python, Perl;
+  XML, SGML, HTML, XHTML; CSS, XSLT...
 * Other: Localisation, Free/Open Source Software, Natural language processing
 
 ## Work experience
 
+* Arctic University of Norway, 2020–
+    * Divvun
 * Univeristy of Hamburg, HZSK 2016–
     * CLARIN-D, CLARIAH-DE
 * Dublin City University, CNGL 2014—2016
@@ -78,4 +75,4 @@ finite-state automata libraries and language models. Please see e.g. [my github
 profile](https://github.com/flammie).
 
 ------
-<small>Last updated: November 2019</small>
+<small>Last updated: November 2024</small>
