@@ -12,13 +12,14 @@ LATEXMLPOST=latexmlpost
 
 PREFIX=$(AUTHOR)-$(YEAR)-$(CONFERENCE)-$(TITLE)
 PAPER=$(PREFIX).pdf
+ONLINE=$(PREFIX).html
 BEAMER=$(PREFIX)-beamer.pdf
 POSTER=$(PREFIX)-poster.pdf
 BOASTER=$(PREFIX)-beamer-boaster.pdf
 ## bibtexes cannot always handle hyphens
 BIB=$(CONFERENCE)$(YEAR).bib
 
-all: $(PAPER) $(BEAMER) $(BOASTER)
+all: $(PAPER) $(ONLINE) $(BEAMER) $(BOASTER)
 
 $(BOASTER): $(POSTER)
 
