@@ -1,0 +1,426 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Exploring Limitations and Risks of LLM-Based Grammatical Error Correction for Indigenous Languages</title>
+<!--Generated on Fri Mar 14 04:53:02 2025 by LaTeXML (version 0.8.8) http://dlmf.nist.gov/LaTeXML/.-->
+
+<link rel="stylesheet" href="../latexml/LaTeXML.css" type="text/css">
+<link rel="stylesheet" href="../latexml/ltx-article.css" type="text/css">
+<link rel="stylesheet" href="ltx-ulem.css" type="text/css">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+<div class="ltx_page_main">
+<div class="ltx_page_content">
+<article class="ltx_document ltx_authors_1line">
+<div id="p1" class="ltx_para">
+<p class="ltx_p">[</p>
+</div>
+<h1 class="ltx_title ltx_title_document">Exploring Limitations and Risks of LLM-Based Grammatical Error Correction
+for Indigenous Languages</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Flammie A Pirinen 
+<br class="ltx_break">Divvun 
+<br class="ltx_break">UiT Norgga árktalaš universitehta 
+<br class="ltx_break">Tromsø, Norway 
+<br class="ltx_break"><span class="ltx_text ltx_font_typewriter">flammie.pirinen@uit.no</span> 
+<br class="ltx_break">
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Linda Wiechetek 
+<br class="ltx_break">Divvun 
+<br class="ltx_break">UiT Norgga árktalaš universitehta 
+<br class="ltx_break">Tromsø, Norway 
+<br class="ltx_break"><span class="ltx_text ltx_font_typewriter">linda.wiechetek@uit.no</span> 
+<br class="ltx_break">
+</span></span>
+</div>
+
+<div class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+    
+<p class="ltx_p">Rule-based grammatical error correction has long been seen as the most
+effective way to create user-friendly end-user systems for grammatical error
+correction (GEC). However, in the recent years the large language models and
+generative AI systems based on that technology have been progressed fast to
+challenge the traditional GEC approach. In this article we show which
+possibilities and limitations this approach bears for Indigenous languages
+that have more limited digital presence in the large language model data and
+a different literacy background than English. We show experiments in North
+Sámi, an Indigenous language of Northern Europe.</p>
+  
+</div>
+<section id="S1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">1 </span>Introduction</h2>
+
+<div id="S1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_text ltx_font_italic">Grammatical error correction</span> (GEC) is a crucial for supporting writers
+in their writing process, especially new writers and those who do a large
+workload in production and translation of administrative texts, educational
+material, news articles, fiction.</p>
+</div>
+<div id="S1.p2" class="ltx_para">
+<p class="ltx_p">For writers of Indigenous languages proofing tools have an even higher
+significance which is due to literacy in these languages. Indigenous and
+minority languages that compete with an official majority language typically
+stand much stronger orally than written, and competent speakers are not
+necessarily competent in writing to the same degree as in speech. However, a
+feeling of competence is an important factor in text production, and writers
+typically feel more confident when they can verify grammar and spelling. An
+increase in high-quality text production (representative of the language we want
+as an output) again is an important factor in developing large language models.
+In other words, we need a sufficient amount of the type of language we want to
+be produced as an input to the models, and in order to build a text corpus, we
+need someone to writing skills and motivate native speakers to write. Behind
+that is usually the work of highly motivated native language experts who
+actively push forward a language revitalization
+process <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">olthuis2013revitalising</span>]</cite>. As a part of this process, language
+technology can provide the necessary tools like spell- and grammarcheckers.</p>
+</div>
+<div id="S1.p3" class="ltx_para">
+<p class="ltx_p">Up until late it has been obvious that linguistically demanding tasks like
+grammatical error correction require a component of expert-built, rule-steered
+grammar, not only to be accurate enough, but also to have the legitimacy of an
+expert controlling the language norms and ongoing standardisation. However, in
+the few recent years it has raised into a question if more data-driven
+approaches can also work for this problem. In this article we perform some
+experiments to find out to which extent this is plausible and what kind of
+limitations there are.</p>
+</div>
+<div id="S1.p4" class="ltx_para">
+<p class="ltx_p">The <span class="ltx_text ltx_font_italic">research question</span> we solve in this article is to evaluate how
+efficient the contemporary large language models are in the actual task of
+grammatical error correction—specifically in endangered language context with
+North Sámi as example study. We set to find out the effort needed to
+use them and develop existing systems. We also consider how much work it might
+take to fix problems in the large language models versus rule-based models when
+it comes to, e.g. bad suggestions and mistakes in the error detection (i.e. false positives). Regardless of the paradigm, the improvement of the system is
+driven by developers with language skills or developers with linguists
+co-operating, a resource that is very sparse. Another dimension is how
+time-critical the system is; a high quality GEC is a time critical resource for
+Indigenous language maintenance and revitalisation in digital era and leaving a
+low quality or disfunctional GEC with a promise of potential better version in
+the future is unacceptable.</p>
+</div>
+</section>
+<section id="S2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2 </span>Background</h2>
+
+<div id="S2.p1" class="ltx_para">
+<p class="ltx_p">Grammatical error correction system for Indigenous languages in the Sámi region
+have existed for over a decade. <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">Wiechetek2012constraint</span>]</cite> These systems use
+rule-based approaches to natural language processing: Finite-State
+Morphology <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">beesley2003finite</span>]</cite> for modelling lexica and morphology and
+Constraint Grammar <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">karlsson1990constraint</span>]</cite> for modelling linguistic
+grammars including syntax. Rule-based approaches have historically been
+considered as an ideal fit for grammatical error correction, since it directly
+concerns writing grammatical rules. In a rule-based approach it is possible to
+target exact grammatical phenomena and also provide user feedback precise to the
+situation: “if there is a first singular personal pronoun and verb in third
+singular form, mark an error and tell user about the mismatch, suggest using
+first singular form of the verb instead” would be a typical grammatical order
+of action in a GEC tool build on rule-based natural language processing system.
+Historically, statistical and data-driven approaches have been limited to
+flagging unlikely word-forms and suggesting more likely forms, without
+addressing complex grammatical constructions or the logical error that leads to
+the error and eventually helps the writer to understand what has gone wrong.
+The missing link between error and cause in these approaches deprives the user
+of understanding their mistakes and improving their grammar. However, it has
+been suggested that the LLM-based approaches may be able to overcome this
+limitation, and, at least the most popular chatbot-driven user interface to
+large language models does indeed generate explanations alongside corrections
+when requested. Inspired by these innovations we decided to test the current
+capabilities of large language models and compare them to the rule-based
+approach.</p>
+</div>
+<div id="S2.p2" class="ltx_para">
+<p class="ltx_p">The open source LanguageTool <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">naber2003rule</span>]</cite> and the closed-source browser
+plugin / webapp Grammarly <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">alikaniotis2019unreasonable</span>]</cite> are two of the most
+widely used GEC tools. On top of that popular office applications like Google
+Docs provide writers aids, which seem to mainly focus on spelling errors, but
+may contain grammatical error correction features as well. We have not found
+suitable scientific documentation of these to give a fair comparison.</p>
+</div>
+<section id="S2.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.1 </span>Languages and literacy</h3>
+
+<div id="S2.SS1.p1" class="ltx_para">
+<p class="ltx_p">We are experimenting with North Sámi, an Indigenous and low-resource language of
+Northern Europe. With approx. 20,000 speakers according to
+Ethnologue <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">ethnologue</span>]</cite> it is the biggest of the 9 Sámi languages. It is
+spoken in Norway, Finland and Sweden and competing with the three national
+majority languages Norwegian, Finnish and Swedish as (nearly) all speakers of
+North Sámi are bilingual. While Finnish and Sámi are related (Finno-Ugric)
+languages, Sámi and Norwegian/Swedish are on opposite branches of the language
+tree. Bilingualism and loss of language domains are the cause of a higher
+frequency of grammatical errors among North Sámi writers. On the other hand, the
+widespread use of technologies requires us to express ourselves in writing in
+all domains. If the Sámi languages are to have a digital future, written Sámi
+needs to be strengthened and correction tools need to be available for
+everybody.</p>
+</div>
+</section>
+<section id="S2.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.2 </span>Risks related to quality of GEC</h3>
+
+<div id="S2.SS2.p1" class="ltx_para">
+<p class="ltx_p">When we think of spell- and grammar checkers as tools that somewhat enforce a
+language standard in the same way as a teacher and educational books, we rely on
+a high level of knowledge/accuracy from these language authorities. Proofing
+tools that do not comply with these high standards will eventually have a
+negative effect on their user communities. In the case of Indigenous user
+communitites this effect can be even stronger if proofing tools are used in the
+absence of daily language arenas and language experts. Related research in the
+field of spell-checking and correction for L2 learners in schools
+suggests <cite class="ltx_cite ltx_citemacro_cite">[<span class="ltx_ref ltx_missing_citation ltx_ref_self">hogstrom2024not</span>]</cite> that there are patterns of usage of automatic
+language correcting tools that can be detrimental to the end-users. Some of the
+problems of this sort can be avoided by ensuring the quality of GEC.</p>
+</div>
+<div id="S2.SS2.p2" class="ltx_para">
+<p class="ltx_p">One trend of data-driven language technology products for (minority) languages
+has been providing inferior products to the existing rule-based ones, promising
+that they will be improved eventually. However, for example as it is in the case
+of spellchecking for Finnish, in the past 10 or so years, the so-called
+autocomplete set of spelling checkers have not improved to be able to handle
+rare morphologically complex word-forms at all, which is a clear downgrade from
+earlier rule-based spellcheckers. For example, a recent version of gboard
+Finnish keyboard for android does not think <span class="ltx_text ltx_font_italic">ovikoodit</span> ‘door codes,
+i.e. keycodes for a door’ is a word and marks it as an error, while it is a
+normal and quite lexicalised compound already. On another example, it
+erroneously suggest that the correct <span class="ltx_text ltx_font_italic">suukoistamme</span> ‘about our kisses’ is
+replaced with the more likely <span class="ltx_text ltx_font_italic">puukoistamme</span> ‘about our knives’, which
+apparently exists in the training data. In order for future GEC to be useful
+and not destructive, problems leading to this sort of downgrades ought to be
+fixed before pushing them to end users.</p>
+</div>
+</section>
+</section>
+<section id="S3" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">3 </span>Methods</h2>
+
+<div id="S3.p1" class="ltx_para">
+<p class="ltx_p">We are using two existing systems out of the box for comparison: one rule-based
+and one based on the large language model technology. We use the systems as
+black boxes, without rewriting the existing rules of the rule-based systems and
+without finetuning or re-training the large language model. In the rule-based
+system, we use command-line tooling to get suggestions for the grammatical error
+corrections with explanations and with the LLM we use the available chat
+interface to get corrections and explanations. The LLM is prompted in English
+and advised to do Grammatical Error Correction.</p>
+</div>
+<div id="S3.p2" class="ltx_para">
+<p class="ltx_p">Here are two pictures showing the end-user experience of grammar checking with
+the two systems as it is now, see <span class="ltx_text ltx_font_italic">ChatGPT</span> in Figure <a href="#S3.F1" title="Figure 1 ‣ 3 Methods ‣ Exploring Limitations and Risks of LLM-Based Grammatical Error Correction for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>
+and <span class="ltx_text ltx_font_italic">GramDivvun</span> in Figure <a href="#S3.F2" title="Figure 2 ‣ 3 Methods ‣ Exploring Limitations and Risks of LLM-Based Grammatical Error Correction for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>. <span class="ltx_text ltx_font_italic">ChatGPT</span>
+helpfully provides a translation of the sentence with its error correcting
+explanations. It translates <span class="ltx_text ltx_font_italic">jáhkkán</span> with the gerund <span class="ltx_text ltx_font_italic">waiting</span>
+instead of past participle <span class="ltx_text ltx_font_italic">thought</span> and by that introduces two errors–
+one semantic and one syntactic. The correction <span class="ltx_text ltx_font_italic">jáhkán</span> is not a gerund
+as promised, but a first person singular. The list of flaws for this short
+sentence goes on and on.  <span class="ltx_text ltx_font_italic">Guorosnaga</span> does not mean <span class="ltx_text ltx_font_italic">suddenly</span>,
+but <span class="ltx_text ltx_font_italic">empty-handed</span> and the spelling correction to <span class="ltx_text ltx_font_italic">guorusnaga</span> is
+incorrect. <span class="ltx_text ltx_font_italic">[G]ii livččii</span> does not mean <span class="ltx_text ltx_font_italic">who was</span>, but
+<span class="ltx_text ltx_font_italic">who would have (thought)</span>.  <span class="ltx_text ltx_font_italic">[J]a dál diekkár</span> means <span class="ltx_text ltx_font_italic">and
+now that</span>, which is entirely correct and should not be corrected to <span class="ltx_text ltx_font_italic">ja
+dál diehtá</span>.</p>
+</div>
+<figure id="S3.F1" class="ltx_figure"><img src="chatgpt-gramcheck.png" id="S3.F1.g1" class="ltx_graphics ltx_img_landscape" width="598" height="302" alt="Refer to caption">
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure">Figure 1: </span>ChatGPT correcting a sentence in North Sámi.</figcaption>
+</figure>
+<figure id="S3.F2" class="ltx_figure"><img src="gramdivvun.png" id="S3.F2.g1" class="ltx_graphics ltx_img_landscape" width="598" height="212" alt="Refer to caption">
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure">Figure 2: </span><span class="ltx_text ltx_font_italic">GramDivvun</span> in Google Docs correcting a
+sentence with default red lines for corrections of English
+language</figcaption>
+</figure>
+<div id="S3.p3" class="ltx_para">
+<p class="ltx_p">We have gathered an error corpus by harvesting sentences with several types of
+grammatical errors, where we focused on
+
+<span id="S3.I1" class="ltx_inline-enumerate">
+<span id="S3.I1.i1" class="ltx_inline-item"><span class="ltx_tag ltx_tag_inline-item">1.</span> <span class="ltx_text">frequent errors in the error corpus
+and
+</span></span>
+<span id="S3.I1.i2" class="ltx_inline-item"><span class="ltx_tag ltx_tag_inline-item">2.</span> <span class="ltx_text">errors of different main types and complexity.
+</span></span>
+</span>
+The main grammatical error
+types are categorized in the error corpus are lexical
+errors (misuse and non-idiomatic use of a word), real-word errors (forms that are
+likely caused by a typo, but result in existing words), morpho-syntactic errors
+(errors that have a syntactic impact, where the difference between error and
+correction can be described by means of morphology), syntactic errors (errors
+that have a syntactic impact, where the difference between error and correction
+requires adding/taking away or moving one or several word forms). In addition,
+the error data contains punctuation and style errors. We have not evaluated the
+punctuation and style errors in this article.</p>
+</div>
+<figure id="S3.F3" class="ltx_figure"><svg id="S3.F3.pic1" class="ltx_picture" height="41.4" overflow="visible" version="1.1" width="600"><g fill="#000000" stroke="#000000" stroke-width="0.4pt" transform="translate(0,41.4) matrix(1 0 0 -1 0 0)"><foreignObject height="0" overflow="visible" transform="matrix(1 0 0 -1 0 16.6)" width="0"><span class="ltx_ERROR undefined">\UseTaggingSocket</span><span class="ltx_ERROR undefined">\SuspendTagging</span></foreignObject><g fill="#000000" fill-opacity="1.0"><path d="M 0 5.91 L 0 35.49 C 0 38.75 2.64 41.4 5.91 41.4 L 594.09 41.4 C 597.36 41.4 600 38.75 600 35.49 L 600 5.91 C 600 2.64 597.36 0 594.09 0 L 5.91 0 C 2.64 0 0 2.64 0 5.91 Z" style="stroke:none"></path></g><g fill="#FFFFFF" fill-opacity="1.0"><path d="M 1.97 5.91 L 1.97 35.49 C 1.97 37.66 3.73 39.43 5.91 39.43 L 594.09 39.43 C 596.27 39.43 598.03 37.66 598.03 35.49 L 598.03 5.91 C 598.03 3.73 596.27 1.97 594.09 1.97 L 5.91 1.97 C 3.73 1.97 1.97 3.73 1.97 5.91 Z" style="stroke:none"></path></g><g fill-opacity="1.0" transform="matrix(1.0 0.0 0.0 1.0 21.65 13.78)"><foreignObject class="ltx_minipage" color="#000000" height="13.84" overflow="visible" transform="matrix(1 0 0 -1 0 16.6)" width="402.3pt"><pre class="ltx_verbatim ltx_font_typewriter">
+Mus {eai}£{verb,fin,sg3prs,
+pl3prs,kongr|ii}
+leat dihtor dahje TV.
+    
+</pre></foreignObject></g><foreignObject height="0" overflow="visible" transform="matrix(1 0 0 -1 0 16.6)" width="0"><span class="ltx_ERROR undefined">\ResumeTagging</span><span class="ltx_ERROR undefined">\UseTaggingSocket</span></foreignObject></g></svg>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure">Figure 3: </span>Example of marked up error in the hand-annotated
+corpus.</figcaption>
+</figure>
+<div id="S3.p4" class="ltx_para">
+<p class="ltx_p">The Figure <a href="#S3.F3" title="Figure 3 ‣ 3 Methods ‣ Exploring Limitations and Risks of LLM-Based Grammatical Error Correction for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a> shows the raw corpus data for a morpho-syntactic error.
+The third person plural verb <span class="ltx_text ltx_font_italic">eai</span> does not agree with the singular
+subject <span class="ltx_text ltx_font_italic">dihtor</span> ‘computer’, cf. ex. <a href="#S3" title="3 Methods ‣ Exploring Limitations and Risks of LLM-Based Grammatical Error Correction for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>.</p>
+</div>
+<div id="S3.p5" class="ltx_para ltx_noindent">
+<svg id="S3.p5.pic1" class="ltx_picture" height="73.07" overflow="visible" version="1.1" width="600"><g fill="#000000" stroke="#000000" stroke-width="0.4pt" transform="translate(0,73.07) matrix(1 0 0 -1 0 0)"><foreignObject height="0" overflow="visible" transform="matrix(1 0 0 -1 0 16.6)" width="0"><span class="ltx_ERROR undefined">\UseTaggingSocket</span><span class="ltx_ERROR undefined">\SuspendTagging</span></foreignObject><g fill="#424242" fill-opacity="1.0"><path d="M 0 9.84 L 0 63.22 C 0 68.66 4.41 73.07 9.84 73.07 L 590.16 73.07 C 595.59 73.07 600 68.66 600 63.22 L 600 9.84 C 600 4.41 595.59 0 590.16 0 L 9.84 0 C 4.41 0 0 4.41 0 9.84 Z" style="stroke:none"></path></g><g fill="#DEDEDE" fill-opacity="1.0"><path d="M 1.97 9.84 L 1.97 63.22 C 1.97 67.57 5.49 71.1 9.84 71.1 L 590.16 71.1 C 594.51 71.1 598.03 67.57 598.03 63.22 L 598.03 9.84 C 598.03 5.49 594.51 1.97 590.16 1.97 L 9.84 1.97 C 5.49 1.97 1.97 5.49 1.97 9.84 Z" style="stroke:none"></path></g><g fill-opacity="1.0" transform="matrix(1.0 0.0 0.0 1.0 21.65 13.78)"><foreignObject color="#000000" height="45.51" overflow="visible" transform="matrix(1 0 0 -1 0 16.6)" width="556.69">
+<span class="ltx_inline-block ltx_minipage ltx_align_bottom" style="width:402.3pt;">
+<span class="ltx_p">. Mus <span class="ltx_text ltx_font_bold">*eai</span> leat dihtor dahje TV.</span>
+<span class="ltx_p">I<span class="ltx_text ltx_font_smallcaps">.loc</span> <span class="ltx_text ltx_font_smallcaps">neg.3pl</span> be<span class="ltx_text ltx_font_smallcaps">.conneg</span> computer<span class="ltx_text ltx_font_smallcaps">.nom.sg</span> or
+TV<span class="ltx_text ltx_font_smallcaps">.nom.sg
+<br class="ltx_break"></span>‘I don’t have a computer or a TV’.</span>
+</span></foreignObject></g><foreignObject height="0" overflow="visible" transform="matrix(1 0 0 -1 0 16.6)" width="0"><span class="ltx_ERROR undefined">\ResumeTagging</span><span class="ltx_ERROR undefined">\UseTaggingSocket</span></foreignObject></g></svg>
+</div>
+<div id="S3.p6" class="ltx_para">
+<p class="ltx_p">In this investigation, we focused only on the two categories of morpho-syntactic
+and syntactic errors, specifically the error types represented in
+Table <a href="#S3.T1" title="Table 1 ‣ 3 Methods ‣ Exploring Limitations and Risks of LLM-Based Grammatical Error Correction for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>. Since we are using real-world texts as test data, some
+of the sentences do contain further error types; this is common and unavoidable
+in the realistic use cases for Indigenous corpora and GEC.</p>
+</div>
+<figure id="S3.T1" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text" style="font-size:90%;">Error type</span></th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_tt"><span class="ltx_text" style="font-size:90%;">Instances</span></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t"><span class="ltx_text" style="font-size:90%;">Adjective inflection errors</span></td>
+<td class="ltx_td ltx_align_right ltx_border_t"><span class="ltx_text" style="font-size:90%;">6</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">Global agreement errors (subject-verb)</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">7</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_text" style="font-size:90%;">Nominal case errors</span></td>
+<td class="ltx_td ltx_align_right"><span class="ltx_text" style="font-size:90%;">8</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_bb">
+<span class="ltx_text" style="font-size:90%;">Compound errors (2</span><math id="S3.T1.m1" class="ltx_Math" alttext="&gt;" display="inline"><mo mathsize="90%">&gt;</mo></math><span class="ltx_text" style="font-size:90%;">1)</span>
+</td>
+<td class="ltx_td ltx_align_right ltx_border_bb"><span class="ltx_text" style="font-size:90%;">6</span></td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering" style="font-size:90%;"><span class="ltx_tag ltx_tag_table">Table 1: </span>Morpho-syntactic and syntactic error types</figcaption>
+</figure>
+</section>
+<section id="S4" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">4 </span>Results and discussion</h2>
+
+<div id="S4.p1" class="ltx_para">
+<p class="ltx_p">To evaluate the grammatical error correction systems, we have collected and
+hand-annotated 101 sentences, some of which are error-free and
+some which have one or more errors. We have done both quantitative and
+qualitative analysis of the error corrections performed by both
+<span class="ltx_text ltx_font_italic">GramDivvun</span> and <span class="ltx_text ltx_font_italic">ChatGPT</span>.</p>
+</div>
+<div id="S4.p2" class="ltx_para">
+<p class="ltx_p">To get a rough idea of the quality, we measured the precision and recall using
+the usual formulas, on a per error basis, counting a correction as a true
+positive only when the detected error and the correction are exactly the correct
+substrings, true negative, when no errors were expected and none were marked,
+false positive, when system marked a non-error substring as an error and false
+negative, when system did not flag an error substring, or also when all
+corrections were incorrect. The statistics resulting are shown in the
+figure <a href="#S4.T2" title="Table 2 ‣ 4 Results and discussion ‣ Exploring Limitations and Risks of LLM-Based Grammatical Error Correction for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>. We included an <math id="S4.p2.m1" class="ltx_Math" alttext="F_{0.5}" display="inline"><msub><mi>F</mi><mn>0.5</mn></msub></math> score to underscore our
+preference for high precision over high recall.</p>
+</div>
+<figure id="S4.T2" class="ltx_table">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt">System</th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_tt">Precision</th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_tt">Recall</th>
+<th class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_tt"><math id="S4.T2.m1" class="ltx_Math" alttext="F_{0.5}" display="inline"><msub><mi>F</mi><mn>0.5</mn></msub></math></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t">GramDivvun</td>
+<td class="ltx_td ltx_align_right ltx_border_t">58 %</td>
+<td class="ltx_td ltx_align_right ltx_border_t">60 %</td>
+<td class="ltx_td ltx_align_right ltx_border_t">0.58</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_bb">ChatGPT</td>
+<td class="ltx_td ltx_align_right ltx_border_bb">17 %</td>
+<td class="ltx_td ltx_align_right ltx_border_bb">13 %</td>
+<td class="ltx_td ltx_align_right ltx_border_bb">0.16</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 2: </span>Precision, recall and <math id="S4.T2.m3" class="ltx_Math" alttext="F_{0.5}" display="inline"><msub><mi>F</mi><mn>0.5</mn></msub></math> scores of the systems
+we tested.</figcaption>
+</figure>
+<div id="S4.p3" class="ltx_para">
+<p class="ltx_p">We have performed a linguistic error analysis on both correction sets and
+summarised the results in the following Subsection <a href="#S4.SS1" title="4.1 Error Analysis ‣ 4 Results and discussion ‣ Exploring Limitations and Risks of LLM-Based Grammatical Error Correction for Indigenous Languages" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4.1</span></a>.</p>
+</div>
+<section id="S4.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">4.1 </span>Error Analysis</h3>
+
+<div id="S4.SS1.p1" class="ltx_para">
+<p class="ltx_p">We first analyse common North Sámi grammatical error types linguistically
+keeping in mind the probable cause of the error from the end-user perspective.
+We then show how both GEC tools do the grammatical error analysis
+(successfully/unsuccessfully) and summarise our findings. The source texts are
+presented in examples <span class="ltx_ref ltx_missing_label ltx_ref_self">LABEL:luohkka</span>, <span class="ltx_ref ltx_missing_label ltx_ref_self">LABEL:hijiri</span>, <span class="ltx_ref ltx_missing_label ltx_ref_self">LABEL:livcce</span>, <span class="ltx_ref ltx_missing_label ltx_ref_self">LABEL:ovdalgo</span>,
+and <span class="ltx_ref ltx_missing_label ltx_ref_self">LABEL:arbejuohku</span> followed by <span class="ltx_text ltx_font_italic">ChatGPT</span>’s corrections in
+examples <span class="ltx_ref ltx_missing_label ltx_ref_self">LABEL:luohkka-gpt</span>, <span class="ltx_ref ltx_missing_label ltx_ref_self">LABEL:hijiri-gpt</span>, <span class="ltx_ref ltx_missing_label ltx_ref_self">LABEL:livcce-gpt</span>, <span class="ltx_ref ltx_missing_label ltx_ref_self">LABEL:ovdalgo-gpt</span>,
+and <span class="ltx_ref ltx_missing_label ltx_ref_self">LABEL:arbejuohku-gpt</span>, and
+<span class="ltx_text ltx_font_italic">GramDivvun</span>’s <span class="ltx_ref ltx_missing_label ltx_ref_self">LABEL:luohkka-gd</span>, <span class="ltx_ref ltx_missing_label ltx_ref_self">LABEL:hijiri-gd</span>, <span class="ltx_ref ltx_missing_label ltx_ref_self">LABEL:livcce-gd</span>, <span class="ltx_ref ltx_missing_label ltx_ref_self">LABEL:ovdalgo-gd</span>,
+and <span class="ltx_ref ltx_missing_label ltx_ref_self">LABEL:arbejuohku-gd</span> respectively.</p>
+</div>
+<div id="S4.SS1.p2" class="ltx_para">
+<p class="ltx_p">Example <span class="ltx_ref ltx_missing_label ltx_ref_self">LABEL:luohkka</span> has a compound error in <span class="ltx_text ltx_font_italic">dáinnalágiin</span> ‘in this
+way’. It is perceived as a semantic unit, therefore many people write it as one
+word. However, the official spelling requires it to be two words. In
+example <span class="ltx_ref ltx_missing_label ltx_ref_self">LABEL:hijiri</span> there aren’t any grammatical errors. Example <span class="ltx_ref ltx_missing_label ltx_ref_self">LABEL:livcce</span>
+has a common verb error in <span class="ltx_text ltx_font_italic">livčče</span>, which is due to dialectal forms that
+are not used in the written standard. In order to satisfy subject-verb agreement
+third person plural <span class="ltx_text ltx_font_italic">livčče</span> should be third person singular
+<span class="ltx_text ltx_font_italic">livččii</span>. Example <span class="ltx_ref ltx_missing_label ltx_ref_self">LABEL:ovdalgo</span> has another subject-verb agreement
+error. The first person plural verb <span class="ltx_text ltx_font_italic">guorahallat</span> should be third person
+plural <span class="ltx_text ltx_font_italic">guorahallet</span> in agreement with the nominal subject in plural. For
+uneven-syllable verbs, first and third person plural forms in present tense are
+homonymous. However, for uneven syllable verbs that is not the case. In
+example <span class="ltx_ref ltx_missing_label ltx_ref_self">LABEL:arbejuohku</span>, there is an adjective error. In North Sámi, adjective forms
+differ with regard to their position in the sentence. In this sentence it is
+used before a noun, i.e. attributively. However, the form used here is
+predicative <span class="ltx_text ltx_font_italic">álkis</span>. The correct form is <span class="ltx_text ltx_font_italic">álkes</span>.</p>
+</div>
+<div id="S4.SS1.p3" class="ltx_para">
+<p class="ltx_p">A common type of error with <span class="ltx_text ltx_font_italic">ChatGPT</span> is that it comes up with non-words
+as a corrections, as in example <span class="ltx_ref ltx_missing_label ltx_ref_self">LABEL:luohkka-gpt</span>.</p>
+</div>
+</section>
+</section>
+</article>
+</div>
+<footer class="ltx_page_footer">
+<div class="ltx_page_logo">Generated  on Fri Mar 14 04:53:02 2025 by <a href="http://dlmf.nist.gov/LaTeXML/" class="ltx_LaTeXML_logo"><span style="letter-spacing:-0.2em; margin-right:0.1em;">L<span class="ltx_font_smallcaps" style="position:relative; bottom:2.2pt;">a</span>T<span class="ltx_font_smallcaps" style="font-size:120%;position:relative; bottom:-0.2ex;">e</span></span><span style="font-size:90%; position:relative; bottom:-0.2ex;">XML</span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="Mascot Sammy"></a>
+</div></footer>
+</div>
+</body>
+</html>

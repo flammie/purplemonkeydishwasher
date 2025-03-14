@@ -157,6 +157,10 @@ a suitable bibtex snippet.
 
 Names written as used on the paper, will be uptdated if I get to it.
 
+1. **Flammie A Pirinen**, Linda Wiechetek (2025) [Exploring Limitations and
+   Risks of LLM-Based Grammatical Error Correction for Indigenous
+   Languages](2025-computel/Pirinen-2025-computel.html).
+   In *Computel-8*, Honolulu, Hawai‘i, USA. *ACL Anthology version TBA*.
 1. **Flammie A Pirinen** (2024). [Keeping Up Appearances—or how to get all
    Uralic languages included into bleeding edge research and software:
    generate, convert, and LLM your way into multilingual
