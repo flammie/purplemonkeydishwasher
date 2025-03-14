@@ -11,6 +11,23 @@ converted to HTML.
 
 For details on HTML conversions and such see [my latexml](latexml.html) page.
 
+*Table of Contents:*
+
+* [Academic profiles](#academic-profiles)
+* [Bio and CV](#bio-and-cv)
+* [Academic background](#short-academic-history)
+* [Research interests](#research-interests)
+* [Publications](#publications)
+    * [Books, chapters and
+      proccedings](#edited-volumes-and-conference-proceedings)
+    * [Conference and journal
+      articles](#publications-in-conferences-and-journals)
+    * [Theses](#theses)
+    * [Presentations, etc.](#presentations-tutorials-invited-speeches)
+    * [Software and corpora](#software-projects-and-resources)
+    * [Teaching](#teaching)
+
+
 ## Academic profiles
 
 Most stuff prior to 2021 will be under name *Tommi A Pirinen*.
