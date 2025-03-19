@@ -15,9 +15,6 @@ use strict;
 use warnings;
 use LaTeXML::Package;
 
-# dummy for now, basically we just want to change xml:lang and stuff?
-DefMacro('\a{}', 'a. \vspace{1em}');
-DefMacro('\b{}', 'b. \vspace{1em}');
-DefMacro('\ex{}', '(?) \textit{#1}');
-DefMacro('\exg{}', '(?) #1');
+# dummy for now,
+DefMacro('\tcolorbox{}', '#1');
 1;
