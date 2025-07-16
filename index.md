@@ -82,7 +82,8 @@ The things I've studied and am good at and interested in using my time in:
   tools, computer-aided language learning
 * Digital humanities---computational linguistics interactions
 * Neural models for very underresourced languages
-
+* (Ethics of large language models in Indigenous and minority language contexts)
+    * Not an expert in AI ethics but I write what I have to
 
 The list is not exhaustive.
 
