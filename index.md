@@ -106,6 +106,10 @@ a suitable bibtex snippet.
 
 ### Edited volumes and conference proceedings
 
+1. Trond Trosterud, Linda Wiechetek, Flammie Pirinen (editors)
+   *Proceedings of the 9th Workshop on Constraint Grammar and Finite State NLP*,
+   in Tallinn, Estonia, published in ACL anthology: nodalida workshops.
+  [Publisher's version](https://aclanthology.org/2025.cgmta-1.0/)
 1. Mika Hämäläinen, **Flammie Pirinen**, Melany Macias, Mario Crespo Avila
    (Editors)
    *Proceedings of the 9th International Workshop on Computational Linguistics
@@ -157,6 +161,20 @@ a suitable bibtex snippet.
 
 Names written as used on the paper, will be uptdated if I get to it.
 
+1. Linda Wiechetek, **Flammie A Pirinen**, and Maja Lisa Kappfjell. 2025.
+   [How to Create Treebanks without Human Annotators – An Indigenous Language
+   Grammar Checker for Treebank
+   Construction](2025-syntaxfest/Wiechetek-2025-syntaxfest.html). In
+   *Proceedings of the 23rd
+   International Workshop on Treebanks and Linguistic Theories* (TLT,
+   SyntaxFest 2025), pages 119–128, Ljubljana, Slovenia.
+   Association for Computational Linguistics.
+   [Publisher's versions](https://aclanthology.org/2025.tlt-1.14/).
+1. **Flammie A Pirinen**, Sjur Nørstebø Moshagen
+   [Divvunspell—Finite-State Spell-Checking and Correction on Modern
+   Platforms](2025-cgmta/Pirinen-2025-cgmta.html). In *Nodalida 2025*, Tallinn,
+   Estonia
+   [Publisher's versions](https://aclanthology.org/2025.cgmta-1.9/)
 1. **Flammie A Pirinen**, Linda Wiechetek (2025) [Exploring Limitations and
    Risks of LLM-Based Grammatical Error Correction for Indigenous
    Languages](2025-computel/Pirinen-2025-computel.html).
