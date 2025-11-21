@@ -1,0 +1,1 @@
+find /home/flammie/github/giellalt//corpus-sma-orig /home/flammie/github/giellalt//corpus-sma-orig-x-closed -name '*.correct.txt' | xargs cat | fgrep '{' | python ~/github/giellalt/giella-core/scripts/yaml-error-stats.py > stats
