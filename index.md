@@ -32,6 +32,8 @@ For details on HTML conversions and such see [my latexml](latexml.html) page.
 
 Most stuff prior to 2021 will be under name *Tommi A Pirinen*.
 
+* [Flammie A Pirinen on
+   ACL Anthology](https://aclanthology.org/people/flammie-a-pirinen/)
 * <div itemscope itemtype="https://schema.org/Person"><a itemprop="sameAs"
   content="https://orcid.org/0000-0003-1207-5395"
   href="https://orcid.org/0000-0003-1207-5395" target="orcid.widget"
