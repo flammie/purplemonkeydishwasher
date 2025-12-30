@@ -23,25 +23,25 @@
 # Exploring Limitations and Risks of LLM-Based Grammatical Error Correction for Indigenous Languages
 
 
-Authors: Flammie A Pirinen 
+**Authors:** Flammie A Pirinen 
 
-  Divvun 
+Divvun 
 
-  UiT Norgga árktalaš universitehta 
+UiT Norgga árktalaš universitehta 
 
-  Tromsø, Norway 
+Tromsø, Norway 
 
   `flammie.pirinen@uit.no` 
 
 and
 
-  Linda Wiechetek 
+Linda Wiechetek 
 
-  Divvun 
+Divvun 
 
-  UiT Norgga árktalaš universitehta 
+UiT Norgga árktalaš universitehta 
 
-  Tromsø, Norway 
+Tromsø, Norway 
 
   `linda.wiechetek@uit.no` 
 
@@ -49,16 +49,17 @@ and
 
 <!-- begin document -->
 <!-- make title -->
-*Abstract:*
-    Rule-based grammatical error correction has long been seen as the most
-    effective way to create user-friendly end-user systems for grammatical error
-    correction (GEC). However, in the recent years the large language models and
-    generative AI systems based on that technology have been progressed fast to
-    challenge the traditional GEC approach. In this article we show which
-    possibilities and limitations this approach bears for Indigenous languages
-    that have more limited digital presence in the large language model data and
-    a different literacy background than English. We show experiments in North
-    Sámi, an Indigenous language of Northern Europe.
+
+**Abstract:**
+Rule-based grammatical error correction has long been seen as the most
+effective way to create user-friendly end-user systems for grammatical error
+correction (GEC). However, in the recent years the large language models and
+generative AI systems based on that technology have been progressed fast to
+challenge the traditional GEC approach. In this article we show which
+possibilities and limitations this approach bears for Indigenous languages
+that have more limited digital presence in the large language model data and
+a different literacy background than English. We show experiments in North
+Sámi, an Indigenous language of Northern Europe.
 <!-- end abstract -->
 
 ## Introduction
@@ -219,25 +220,27 @@ now that*, which is entirely correct and should not be corrected to *ja
 dál diehtá*.
 
 
-*Figure:*
-    ![chatgpt-gramcheck.png](chatgpt-gramcheck.png)
-     (Caption: ChatGPT correcting a sentence in North Sámi.<a id="fig:chatgpt">(¶ fig:chatgpt)</a>)
+
+**Figure:**
+![chatgpt-gramcheck.png](chatgpt-gramcheck.png)
+(Caption: ChatGPT correcting a sentence in North Sámi.<a id="fig:chatgpt">(¶ fig:chatgpt)</a>)
 <!-- end figure* -->
 
-*Figure:*
-    ![gramdivvun.png](gramdivvun.png)
-     (Caption: *GramDivvun* in Google Docs correcting a
-    sentence with default red lines for corrections of English
-    language<a id="fig:gramdivvun">(¶ fig:gramdivvun)</a>)
+
+**Figure:**
+![gramdivvun.png](gramdivvun.png)
+(Caption: *GramDivvun* in Google Docs correcting a
+sentence with default red lines for corrections of English
+language<a id="fig:gramdivvun">(¶ fig:gramdivvun)</a>)
 <!-- end figure* -->
 
 
 We have gathered an error corpus by harvesting sentences with several types of
 grammatical errors, where we focused on
 
-     frequent errors in the error corpus
+frequent errors in the error corpus
 and
-     errors of different main types and complexity.
+errors of different main types and complexity.
 
 The main grammatical error
 types are categorized in the error corpus are lexical
@@ -251,7 +254,8 @@ the error data contains punctuation and style errors. We have not evaluated the
 punctuation and style errors in this article.
 
 
-*Figure:*
+
+**Figure:**
     
 ```
 
@@ -261,17 +265,17 @@ leat dihtor dahje TV.
     
 ```
 
-     (Caption: Example of marked up error in the hand-annotated
-    corpus.<a id="markup">(¶ markup)</a>)
+(Caption: Example of marked up error in the hand-annotated
+corpus.<a id="markup">(¶ markup)</a>)
 <!-- end figure -->
 
 The Figure [(see: markup)](#markup) shows the raw corpus data for a morpho-syntactic error.
 The third person plural verb *eai* does not agree with the singular
 subject *dihtor* ‘computer’, cf. ex. [(see: TV)](#TV).
 
-*Linguistic examples g*:
+**Linguistic example group:**
 
- Mus ***eai** leat dihtor dahje TV.<a id="TV">(¶ TV)</a>
+Mus ***eai** leat dihtor dahje TV.<a id="TV">(¶ TV)</a>
 
 I<span style='font-variant: small-caps'>.loc</span> <span style='font-variant: small-caps'>neg.3pl</span> be<span style='font-variant: small-caps'>.conneg</span> computer<span style='font-variant: small-caps'>.nom.sg</span> or
 TV<span style='font-variant: small-caps'>.nom.sg</span>
@@ -286,31 +290,32 @@ of the sentences do contain further error types; this is common and unavoidable
 in the realistic use cases for Indigenous corpora and GEC.
 
 
-*Table:*
-    <!-- small -->
-    <!-- centering -->
-    +----+----+
-        <!-- toprule -->
-|         Error type  |   Instances |
+
+**Table:**
+<!-- small -->
+<!-- centering -->
++----+----+
+<!-- toprule -->
+| Error type  |   Instances |
 +----+----+
 
-        <!-- midrule -->
-|         Adjective inflection errors  |  6 |
+<!-- midrule -->
+| Adjective inflection errors  |  6 |
 +----+----+
 
-|         Global agreement errors (subject-verb)  |  7 |
+| Global agreement errors (subject-verb)  |  7 |
 +----+----+
 
-|         Nominal case errors  |  8 |
+| Nominal case errors  |  8 |
 +----+----+
 
-|         Compound errors (2<span class='math'> | gt;</span>1)  |  6 |
+| Compound errors (2<span class='math'> | gt;</span>1)  |  6 |
 +----+----+
 
-        <!-- bottomrule -->
-    
+<!-- bottomrule -->
 
-     (Caption: Morpho-syntactic and syntactic error types<a id="errortypes">(¶ errortypes)</a>)
+
+(Caption: Morpho-syntactic and syntactic error types<a id="errortypes">(¶ errortypes)</a>)
 <!-- end table -->
 
 
@@ -333,25 +338,26 @@ corrections were incorrect. The statistics resulting are shown in the
 figure [(see: fig:f-scores)](#fig:f-scores). We included an <span class='math'>F_{0.5}</span> score to underscore our
 preference for high precision over high recall.
 
-*Table:*
-    <!-- centering -->
-    +----+----+----+----+
-        <!-- toprule -->
-|         System  |  Precision  |  Recall  |  <span class='math'>F_{0.5}</span> |
+
+**Table:**
+<!-- centering -->
++----+----+----+----+
+<!-- toprule -->
+| System  |  Precision  |  Recall  |  <span class='math'>F_{0.5}</span> |
 +----+----+----+----+
 
-        <!-- midrule -->
-|         GramDivvun  |  58 %  |  60 %  |   0.58 |
+<!-- midrule -->
+| GramDivvun  |  58 %  |  60 %  |   0.58 |
 +----+----+----+----+
 
-|         ChatGPT  |  17 %  |  13 %   |  0.16 |
+| ChatGPT  |  17 %  |  13 %   |  0.16 |
 +----+----+----+----+
 
-        <!-- bottomrule -->
-    
+<!-- bottomrule -->
 
-     (Caption: Precision, recall and <span class='math'>F_{0.5)</span> scores of the systems
-    we tested.<a id="fig:f-scores">(¶ fig:f-scores)</a>}
+
+(Caption: Precision, recall and <span class='math'>F_{0.5)</span> scores of the systems
+we tested.<a id="fig:f-scores">(¶ fig:f-scores)</a>}
 <!-- end table -->
 
 
@@ -393,9 +399,9 @@ predicative *álkis*. The correct form is *álkes*.
 A common type of error with *ChatGPT* is that it comes up with non-words
 as a corrections, as in example [(see: luohkka-gpt)](#luohkka-gpt).
 
-    *Linguistic examples g*:
+**Linguistic example group:**
 
- Luohkká lea soahpan háhkat dietnasa <span style='text-underline: wavy blue'>dáinnalágiin</span><a id="luohkka">(¶ luohkka)</a>
+Luohkká lea soahpan háhkat dietnasa <span style='text-decoration-line: grammar-error'>dáinnalágiin</span><a id="luohkka">(¶ luohkka)</a>
 
 class have<span style='font-variant: small-caps'>.prs.3sg</span> agree<span style='font-variant: small-caps'>.ptcp</span> provide income in.this.way
 
@@ -403,15 +409,15 @@ class have<span style='font-variant: small-caps'>.prs.3sg</span> agree<span styl
 
 
 
-    *Linguistic examples*:
+**Linguistic examples:**
 
- Luohkká lea soahpan háhkat dietnasa <span style='text-underline: wavy blue'>dáidnalaččat</span><a id="luohkka-gpt">(¶ luohkka-gpt)</a>
+Luohkká lea soahpan háhkat dietnasa <span style='text-decoration-line: grammar-error'>dáidnalaččat</span><a id="luohkka-gpt">(¶ luohkka-gpt)</a>
 
 
-    *Linguistic examples*:
+**Linguistic examples:**
 
- Luohkká lea soahpan háhkat dietnasa <span style='text-underline: wavy blue'>dáinna
-    lágiin</span><a id="luohkka-gd">(¶ luohkka-gd)</a>
+Luohkká lea soahpan háhkat dietnasa <span style='text-decoration-line: grammar-error'>dáinna
+lágiin</span><a id="luohkka-gd">(¶ luohkka-gd)</a>
 
 
 In this example *ChatGPT* came up with the nonsense word
@@ -425,28 +431,28 @@ be corrected.  *GramDivvun*, correctly, does not give us this false
 correction. However, it does not recognize the foreign name *Hijiri* and
 corrects it to *Hiiri*.
 
-*Linguistic examples g*:
+**Linguistic example group:**
 
- Sin namat leat Jola ja Hijiri. Jola lea gávcci jagi boaris. Hijiri lea logi jagi boaris.
+Sin namat leat Jola ja Hijiri. Jola lea gávcci jagi boaris. Hijiri lea logi jagi boaris.
 
-    They<span style='font-variant: small-caps'>.gen.pl</span> name<span style='font-variant: small-caps'>.pl.nom</span> be<span style='font-variant: small-caps'>.prs.3pl</span> Jola and
-    Hijiri. Jola be<span style='font-variant: small-caps'>.prs.3sg</span> eight<span style='font-variant: small-caps'>.sgg.gen</span> year<span style='font-variant: small-caps'>.sg.gen</span>
-    old. Hijiri be<span style='font-variant: small-caps'>.prs.3sg</span> ten<span style='font-variant: small-caps'>.sg.gen</span> year<span style='font-variant: small-caps'>.sg.gen</span> old.
+They<span style='font-variant: small-caps'>.gen.pl</span> name<span style='font-variant: small-caps'>.pl.nom</span> be<span style='font-variant: small-caps'>.prs.3pl</span> Jola and
+Hijiri. Jola be<span style='font-variant: small-caps'>.prs.3sg</span> eight<span style='font-variant: small-caps'>.sgg.gen</span> year<span style='font-variant: small-caps'>.sg.gen</span>
+old. Hijiri be<span style='font-variant: small-caps'>.prs.3sg</span> ten<span style='font-variant: small-caps'>.sg.gen</span> year<span style='font-variant: small-caps'>.sg.gen</span> old.
 
 ‘Their names are Jola and Hijiri. Jola is eight years old. Hijiri is ten years
-    old’.<a id="hijiri">(¶ hijiri)</a>
+old’.<a id="hijiri">(¶ hijiri)</a>
 
 
-    *Linguistic examples*:
+**Linguistic examples:**
 
- <span style='text-underline: wavy blue'>Sii</span> namat leat Jola ja Hijiri. Jola lea gávcci jagi
-    <span style='text-underline: wavy blue'>boares</span>. Hijiri lea logi jagi <span style='text-underline: wavy blue'>boares</span>.<a id="hijiri-gpt">(¶ hijiri-gpt)</a>
+ <span style='text-decoration-line: grammar-error'>Sii</span> namat leat Jola ja Hijiri. Jola lea gávcci jagi
+    <span style='text-decoration-line: grammar-error'>boares</span>. Hijiri lea logi jagi <span style='text-decoration-line: grammar-error'>boares</span>.<a id="hijiri-gpt">(¶ hijiri-gpt)</a>
 
 
-    *Linguistic examples*:
+**Linguistic examples:**
 
- Sin namat leat Jola ja <span style='text-underline: wavy blue'>Hiiri</span>. Jola lea gávcci jagi boaris.
-    Hiiri lea logi jagi boaris.<a id="hijiri-gd">(¶ hijiri-gd)</a>
+Sin namat leat Jola ja <span style='text-decoration-line: grammar-error'>Hiiri</span>. Jola lea gávcci jagi boaris.
+Hiiri lea logi jagi boaris.<a id="hijiri-gd">(¶ hijiri-gd)</a>
 
 
 In the following example [(see: livcce)](#livcce) *ChatGPT* corrects the third person
@@ -458,9 +464,9 @@ similar sounding third person singular verb *diehtá*.
 *GramDivvun* corrects the agreement error correctly, and does not
 introduce any false positives.
 
-    *Linguistic examples g*:
+**Linguistic example group:**
 
-  Gii <span style='text-underline: wavy blue'>livčče</span> jáhkkán. Guorosnaga manai ja dál
+Gii <span style='text-decoration-line: grammar-error'>livčče</span> jáhkkán. Guorosnaga manai ja dál
 diekkár.<a id="livcce">(¶ livcce)</a>
 
 Who be<span style='font-variant: small-caps'>.cond.3pl</span> think<span style='font-variant: small-caps'>.ptcp</span>. Empty-handed go<span style='font-variant: small-caps'>.past.3sg</span> and then that.
@@ -468,16 +474,16 @@ Who be<span style='font-variant: small-caps'>.cond.3pl</span> think<span style='
 ‘Who would have thought. S/he went there empty-handed and then that’.
 
 
-    *Linguistic examples*:
+**Linguistic examples:**
 
- Gii <span style='text-underline: wavy blue'>livččii</span> <span style='text-underline: wavy blue'>jáhkán</span>. <span style='text-underline: wavy blue'>Guorusnaga</span> manai ja
-    dál <span style='text-underline: wavy blue'>diehtá</span>.<a id="livcce-gpt">(¶ livcce-gpt)</a>
+Gii <span style='text-decoration-line: grammar-error'>livččii</span> <span style='text-decoration-line: grammar-error'>jáhkán</span>. <span style='text-decoration-line: grammar-error'>Guorusnaga</span> manai ja
+dál <span style='text-decoration-line: grammar-error'>diehtá</span>.<a id="livcce-gpt">(¶ livcce-gpt)</a>
 
 
-    *Linguistic examples*:
+**Linguistic examples:**
 
- Gii <span style='text-underline: wavy blue'>livččii</span> jáhkkán. Guorosnaga manai ja dál
-    diekkár.<a id="livcce-gd">(¶ livcce-gd)</a>
+Gii <span style='text-decoration-line: grammar-error'>livččii</span> jáhkkán. Guorosnaga manai ja dál
+diekkár.<a id="livcce-gd">(¶ livcce-gd)</a>
 
 
 In example [(see: ovdalgo)](#ovdalgo), *ChatGPT* erroneously introduces a new lexeme,
@@ -487,53 +493,53 @@ subject-verb agreement error and change first person plural *guorahallat*
 to third person plural *guorahallet* in agreement with the plural subject
 *konsuleanttat*.
 
-*Linguistic examples g*:
+**Linguistic example group:**
 
- Ovdalgo ášši joavdá dán muddui, de konsuleanttat <span style='text-underline: wavy blue'>*guorahallat</span> mánusiid.
+Ovdalgo ášši joavdá dán muddui, de konsuleanttat <span style='text-decoration-line: grammar-error'>*guorahallat</span> mánusiid.
  Before thing move<span style='font-variant: small-caps'>.prs.3sg</span> this way, then consultants deal.with<span style='font-variant: small-caps'>.prs.1pl</span> manuscript<span style='font-variant: small-caps'>.acc.pl</span>
 
 ‘Before the matter goes this way, the consultants deal with the
-    manuscripts’.<a id="ovdalgo">(¶ ovdalgo)</a>
+manuscripts’.<a id="ovdalgo">(¶ ovdalgo)</a>
 
 
-    *Linguistic examples*:
+**Linguistic examples:**
 
- Ovdalgo ášši <span style='text-underline: wavy blue'>joavddá</span> dán muddui, de konsuleanttat guorahallat
-    <span style='text-underline: wavy blue'>mánáid</span>.<a id="ovdalgo-gpt">(¶ ovdalgo-gpt)</a>
-
-
-*Linguistic examples*:
-
- Ovdalgo ášši joavdá dán muddui, de konsuleanttat guorahallat
-    mánusiid.<a id="ovdalgo-gd">(¶ ovdalgo-gd)</a>
+Ovdalgo ášši <span style='text-decoration-line: grammar-error'>joavddá</span> dán muddui, de konsuleanttat guorahallat
+    <span style='text-decoration-line: grammar-error'>mánáid</span>.<a id="ovdalgo-gpt">(¶ ovdalgo-gpt)</a>
 
 
+**Linguistic examples:**
 
-    *Linguistic examples g*:
+Ovdalgo ášši joavdá dán muddui, de konsuleanttat guorahallat
+mánusiid.<a id="ovdalgo-gd">(¶ ovdalgo-gd)</a>
 
- Árbejuohku lei duššiid dihte  maŋŋ{}onan, ja gárvvisin jurd­dašuvvon
-     <span style='text-underline: wavy blue'>álkis</span> kuohku lei šaddan váddáseabbon. 
+
+
+**Linguistic example group:**
+
+Árbejuohku lei duššiid dihte  maŋŋ{}onan, ja gárvvisin jurd­dašuvvon
+     <span style='text-decoration-line: grammar-error'>álkis</span> kuohku lei šaddan váddáseabbon. 
 
 Árbejuohku lei duššiid dihte  maŋŋonan, ja gárvvisin jurd­dašuvvon
-     álkis kuohku lei šaddan váddáseabbon. 
+álkis kuohku lei šaddan váddáseabbon. 
 
      ‘The inheritance settlement had been delayed due to trivial matters, and
-     the planned simple settlement had become more
-     complicated’.<a id="arbejuohku">(¶ arbejuohku)</a>
+the planned simple settlement had become more
+complicated’.<a id="arbejuohku">(¶ arbejuohku)</a>
 
 
-    *Linguistic examples*:
+**Linguistic examples:**
 
- Árbejuohku lei <span style='text-underline: wavy blue'>dušše</span> dihte
-     maŋŋonan, ja gárvvisin jurd­dašuvvon álkis
-    juohku lei šaddan váddáseappot.<a id="arbejuohku-gpt">(¶ arbejuohku-gpt)</a>
+Árbejuohku lei <span style='text-decoration-line: grammar-error'>dušše</span> dihte
+maŋŋonan, ja gárvvisin jurd­dašuvvon álkis
+juohku lei šaddan váddáseappot.<a id="arbejuohku-gpt">(¶ arbejuohku-gpt)</a>
 
 
-    *Linguistic examples*:
+**Linguistic examples:**
 
- Árbejuohku lei duššiid dihte
-    maŋŋ{}onan, ja gárvvisin jurd­dašuvvon <span style='text-underline: wavy blue'>álkes</span>
-    juohku lei šaddan váddáseabbon.<a id="arbejuohku-gd">(¶ arbejuohku-gd)</a>
+Árbejuohku lei duššiid dihte
+maŋŋ{}onan, ja gárvvisin jurd­dašuvvon <span style='text-decoration-line: grammar-error'>álkes</span>
+juohku lei šaddan váddáseabbon.<a id="arbejuohku-gd">(¶ arbejuohku-gd)</a>
 
 
 *GramDivvun* corrects the adjective error *álkis* to attributive
@@ -624,14 +630,14 @@ confidence is an important factor in revitalization and feeling comfortable to
 use the language even if it is not one’s first language.
 
 
-\section*{Limitations}
+## Limitations
 
 The LLM testing was made with a closed source, commercial LLM and the results
 cannot be easily reproduced. However, this method of impressionistic exploratory
 testing seems to be a de facto standard in contemporary natural language
 engineering.
 
-\section*{Ethical Concerns}
+## Ethical Concerns
 
 The LLM-based experiment has consumed an estimated hundreds of liters of
 drinking
@@ -732,7 +738,8 @@ system has changed drastically between time of our writing the article and
 writing this camera ready. An example prompt is provided in the
 Figure [(see: prompt)](#prompt).
 
-*Figure:*
+
+**Figure:**
 <!-- scriptsize -->
     
 ```
@@ -741,8 +748,8 @@ Please correct the grammar in the following North Sámi texts:
     
 ```
 
-     (Caption: Example of ChatGPT prompt for grammatical error
-    correction.<a id="prompt">(¶ prompt)</a>)
+(Caption: Example of ChatGPT prompt for grammatical error
+correction.<a id="prompt">(¶ prompt)</a>)
 <!-- end figure -->
 
 
