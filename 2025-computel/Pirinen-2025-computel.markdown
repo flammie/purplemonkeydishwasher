@@ -294,26 +294,14 @@ in the realistic use cases for Indigenous corpora and GEC.
 **Table:**
 <!-- small -->
 <!-- centering -->
-+----+----+
-<!-- toprule -->
+
+
 | Error type  |   Instances |
-+----+----+
-
-<!-- midrule -->
+| ---- | ---- |
 | Adjective inflection errors  |  6 |
-+----+----+
-
 | Global agreement errors (subject-verb)  |  7 |
-+----+----+
-
 | Nominal case errors  |  8 |
-+----+----+
-
 | Compound errors (2<span class='math'> | gt;</span>1)  |  6 |
-+----+----+
-
-<!-- bottomrule -->
-
 
 (Caption: Morpho-syntactic and syntactic error types<a id="errortypes">(¶ errortypes)</a>)
 <!-- end table -->
@@ -341,20 +329,12 @@ preference for high precision over high recall.
 
 **Table:**
 <!-- centering -->
-+----+----+----+----+
-<!-- toprule -->
+
+
 | System  |  Precision  |  Recall  |  <span class='math'>F_{0.5}</span> |
-+----+----+----+----+
-
-<!-- midrule -->
+| ---- | ---- | ---- | ---- |
 | GramDivvun  |  58 %  |  60 %  |   0.58 |
-+----+----+----+----+
-
 | ChatGPT  |  17 %  |  13 %   |  0.16 |
-+----+----+----+----+
-
-<!-- bottomrule -->
-
 
 (Caption: Precision, recall and <span class='math'>F_{0.5)</span> scores of the systems
 we tested.<a id="fig:f-scores">(¶ fig:f-scores)</a>}
