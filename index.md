@@ -169,6 +169,10 @@ Names written as used on the paper, will be uptdated if I get to it.
    we fight back? Experiences from the world of automatic spell-checking and
    correction for Finnish](2025-iwclul/Pirinen-2025-iwclul.html).
    In IWCLUL 2025, Joensuu, Finland. [Publisher's version]() tba
+1. **Flammie A Pirinen**, Trond Trosterud, Jack Rueter. 2025
+   [Language technology for the minority Finnic
+   languages](2025-iwclul/Pirinen-2025-iwclul-baltic.html).
+   In IWCLUL 2025, Joensuu, Finland. [Publisher's version]() tba
 1. Linda Wiechetek, **Flammie A Pirinen**, and Maja Lisa Kappfjell. 2025.
    [How to Create Treebanks without Human Annotators – An Indigenous Language
    Grammar Checker for Treebank

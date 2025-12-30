@@ -1,0 +1,703 @@
+\documentclass[free]{flammie}
+
+\hyphenation{ana-lyser}
+\hyphenation{ana-lysers}
+\hyphenation{resul-ting}
+\hyphenation{Morpho-logy}
+\hyphenation{morpho-lo-gical}
+\hyphenation{morpho-phono-lo-gical}
+\hyphenation{gramma-tical}
+\hyphenation{dia-lect}
+\hyphenation{tes-ting}
+
+\usepackage{graphicx}
+\usepackage{enumitem}
+
+\title{Language technology for the minority Finnic languages}
+
+\author{Flammie A Pirinen \\
+  Divvun --- UiT Norgga\\
+   árktala\v{s} universitehta \\
+  Tromsø, Norway \\
+  \texttt{first.last@uit.no} \\\and
+  Trond Trosterud \\
+  Giellatekno --- UiT Norgga\\
+   árktala\v{s} universitehta \\
+  Tromsø, Norway \\
+  \texttt{first.last@uit.no} \\\and
+  Jack Rueter \\
+  Helsingin Yliopisto \\
+  Helsinki, Finland \\
+  Affiliation / Address line 3 \\
+  \texttt{first.last@helsinki.fi} \\}
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+This article gives an overview of the state of the art in language technology
+    tools for Balto-Finnic minority languages, i.e., Balto-Finnic languages
+    other than Estonian and Finnish. For simplicity, we will use the term
+    \textit{Finnic} in this article when referring to all members of this
+    language branch \textit{except} the Estonian and Finnish literary languages.
+    All in all, there are nine standardised languages represented in existing
+    language technology infrastructures with keyboards, grammatical language
+    models, proofing tools, annotated corpora and (for one of the langauges)
+    extensive ICALL programs. This article presents these tools and resources,
+    discusses the relation between language models and proofing tool quality, as
+    well as the (potential) impact of these tools on the respective language
+    communities. The article rounds off with a discussion on prospects for
+    future development.
+\end{abstract}
+
+\section{Introduction}
+
+In contemporary Uralic language technology, the majority languages of the
+countries such as Finnish, Estonian and Hungarian are well researched and
+documented, whereas minority languages lack some of the resources.  For example,
+in terms of mapping the status of language technology of European languages,
+there exist two series of white-papers from the central European research
+infrastructures, one by
+Springer~\cite{koskenniemi2012finnish,liin2012estonian,simon2012hungarian} and
+another by
+ELE~\cite{muischnek2022report,linden2022report,jelencsik-matyus2022report}. For
+minority languages in the Nordic countries, there are also two such reports
+(\cite{moshagen2022report} and~\cite{steingrimsson2024language}).  Two Finnic
+languages were covered by the two last reports (Kven and Meänkieli), but, to our
+knowledge, no such overviews exist for the Finnic minority languages as a whole.
+One of our aims is to fill that gap.
+
+Much of the Finnic language technology has been done within the GiellaLT
+infrastructure\footnote{\url{https://giellalt.github.io}, see also
+\cite{pirinen-etal-2023-giellalt,moshagen2023giellalt}}, where the present authors
+all have been active, but both the Apertium\footnote{\url{https://apertium.org},
+\cite{khanna2021recent}} and Neurotõlge\footnote{\url{https://neurotolge.ee},
+\cite{yankovskaya2023machine}} machine translation systems have been applied to
+Finnic languages as well. In this paper, we give an overview of current and
+ongoing work in the field of Finnic language technology.
+
+\section{Background}
+
+This section gives a brief presentation of the languages and thereafter the
+technological foundation for the language technology used with them.
+
+\subsection{Languages}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{2-Finnic-branch.png}
+    \caption{The Finnic Languages \cite{rantanen2022best}}
+    \label{map}
+\end{figure}
+
+The Finnic language area is shown on the map in Figure~\ref{map}.  The map is
+ordered according to linguistic criteria and does not quite correspond to the
+written Finnic languages. Subsumed under (1) in the map are also Meänkieli and
+Kven (marked as ``Finnish'') on the Swedish and Norwegian side of the border in
+Northern Fennoscandinavia, respectively. Within the South Estonian area (8)
+there is only one written standard, whereas the Karelian area (2) covers North
+Karelian Proper (krl) and Livvi (see~\ref{howmany} below for a discussion).
+Outside the present presentation fall the majority languages (Estonian and
+Finnish). This leaves us with a linguistic map quite close to the 11 Finnish
+language codes, shown in Table~\ref{lgs}.
+
+
+\begin{table}[ht]
+    \begin{tabular}{|l|c|c|c|c|}
+\toprule
+Language & \bf ISO & \it Glottolog & \it Finnish  \\
+\midrule
+\bf Meänkieli& fit & torn1244 & meänkieli \\
+\bf Kven     & fkv & kven1236 & kveeni  \\
+\bf Karelian & krl & kare1335 & karjala  \\
+\bf Livvi & olo & livv1243 & livvi  \\
+\bf Ludic & lud & ludi1246 & lyydi \\
+\bf Veps & vep & veps1250 & vepsä  \\
+\bf Ingrian   & izh & ingr1248 & inkeroinen  \\
+\bf Votic   & vot &  voti1245 & vatja  \\
+\bf Võro   & vro &  sout2679 & vöro  \\
+\bf Livonian   & liv & livv1244 & liivi  \\
+\bottomrule
+\end{tabular}
+    \caption{Names and codes for the Finnic minority languages}
+    \label{lgs}
+\end{table}
+
+All the Finnic minority languages are written in the Latin script, using
+orthographic principles much in line with the ones used for Finnish.
+Typologically, the language branch is quite homogenous, the languages are mainly
+agglutinative with rich case systems for the nominals and tense-mode systems for
+the verbs. The size of the case systems ranges from 8
+(Livonian,~\cite{Viitso-et-al-2012-livokiel},~\cite{laakso2022livonian}) to 18
+(Veps,~\cite{grunthal2022veps}), and most of the languages use possessive suffixes
+for all nouns. Most of the languages have consonant gradation and vowel harmony,
+whereas Livonian and Veps have neither.
+
+All the Finnic languages are presented in two recent handbooks on Uralic
+languages,~\cite{bakro-nagy2022uralic}\footnote{See especially the chapters
+on Ingrian~\cite{markus2022ingrian}, Karelian~\cite{sarhimaa2022karelian},
+Livonian~\cite{laakso2022livonian}, Seto~\cite{pajusalo2022seto},
+Veps~\cite{grunthal2022veps}, Votic~\cite{markus2022votic}.}
+and~\cite{abondolo2023uralic}\footnote{Relevant chapters
+are~\cite{grunthal2023finnic} on
+Finnic and~\cite{pladoetal2022voro} on Võro.}. Kven is presented
+in~\cite{soderholm2017kvensk} and Meänkieli in~\cite{pohjanen2022meankieli}.
+
+
+\subsection{Technologies}
+
+The main technologies used for language modelling in the GiellaLT infrastructure
+are \textit{Finite State Morphology}~\cite[FSM]{beesley2003finite},
+\textit{Constraint Grammar}~\cite[CG]{karlsson1990constraint}, and
+\textit{Two-Level Morphology}~\cite[TWOL]{koskenniemi1983twolevel}.  This means
+that morphology and syntax is implemented based on (hand-written) dictionaries
+of lemma-stem pairs and on rules governing morphology, morphophonology and
+syntax. These dictionaries and rules are then compiled into finite-state
+automata for efficient processing.  Contextually determined disambiguation and
+higher level syntax rules are written in constraint grammar and processed
+programmatically.  The grammatical models are compiled with Helsinki
+Finite-State Technology (HFST)~\cite{linden2009hfst} and the constraint grammars
+with VISL CG 3~\cite{bick2015cg}, both free and open source products.  HFST is
+based on weighted finite-state automata and can contain statistical information
+about words and word-forms.  Throughout this article, we use the term
+\textit{language model} broadly for any system that can analyse or validate
+word-forms and may or may not have statistical information.  The
+\textit{grammatical model} is used to point to the rule-based model consisting
+of the traditional FSM, CG and TWOL.\@
+
+The source code for the grammatical models is stored on Github as open
+source~\footnote{\url{htts://github.com/giellalt/}, see
+\url{https://github.com/divvungiellatekno} for a full overview}.  The
+applications that can be developed with the language models include
+spell-checking and correction, grammatical error correction, computer-assisted
+language learning and speech technology applications.
+
+The GiellaLT infrastructure also holds corpora. They are used both for
+development and testing of the language models and are presented as annotated
+corpora, accessible via dictionaries or for corpus
+linguistics\footnote{\url{https://gtweb.uit.no/korp}}. The tools are also used
+in collaborative infrastructures, such as the Language Bank of Finland Korp
+server \cite{rueter2024testing}.  For minority Uralic languages, the availability of
+texts in general is limited, and certain genres might be totally absent. The
+variance in ``quality'' in relation to standards is more extensive than what is
+available for majority languages that have long established writing systems.
+
+The universal dependencies project~\cite{ud214} contains several Finnic
+language datasets: Karelian and Livvi have been built based on GiellaLT
+analysers and manual annotation~\cite{pirinen2019building}.
+
+The grammatical models generate paradigms and the corpora present usage
+expamples for digital dictionaries for most of the Finnic languages\footnote{The
+dictionaries are available at \url{https://sanat.oahpa.no} (Kven, Livvi,
+Meänkieli, Veps) and \url{https://sonad.oahpa.no} (Ingrian, Liv, Võro and
+Votic), respectively.}. The dictionaries are very useful for language
+communities and language learners\footnote{See e.g.~\cite{raisanen2024kvensk} for
+an analysis of the role of the Kven dictionary in revitalisation.}.
+
+
+The underlying technology for rule-based machine translation of the minority
+Uralic languages is traditionally based on the Apertium
+tools~\cite{khanna2021recent}.  What this means in practice is that we can make
+use of the above-mentioned Finite State Morphology for language modelling, and
+add to that bilingual (translation) dictionaries, and grammatical rules
+concerning about structural re-ordering of words and phrases to implement the
+machine translation.
+
+In recent years we have also started to develop speech technologies, while this
+is not yet production quality for the languages mentioned in this article, we
+are hopeful that the successes shown, for example, for Saami languages
+by~\cite{hiovain2023developing} will be transferable to Finnic minority
+languages as well.
+
+In recent years within natural language processing, the use of large language
+models and neural networks has become more popular and widely replaced
+rule-based technologies.  While this works for larger languages with plenty of
+available language data covering all textual genres and containing largely
+grammatically correct and correctly spelled language, this is more challenging
+and produces still less optimal results for minority Uralic languages.  For this
+reason, the first step for us is usually to get rule-based tools that promote
+language revitalisation and writing normative language, that is, creating more
+language data that these large language models need as a prerequisite.
+
+There exists some work done in the Uralic neural network model space, especially
+within machine translation,~\cite{yankovskaya2023machine} have released systems
+for minority Uralic languages, see Table~\ref{neural} below for a discussion.
+
+\section{Grammar models and standardisation}
+
+When making grammatical language models, one always has to make choices: Some
+grammatical forms are included in the model, others are not.  When the models
+are turned into proofing tools and similar programs, the normative aspects
+become central linguistic questions.  On the other hand, when models are used in
+search engines or speech technology, a completely different set of questions
+over inclusion of words and word-forms arises.
+
+\subsection{How many standard languages?}\label{howmany}
+
+The international standard ISO 639-3, \textit{Codes for the representation of
+names of languages}, lists 9 Finnic languages (c.f Table~\ref{lgs}), in addition
+to standard Finnish and Estonian. This has profound consequences in a language
+technology setting, as the ISO codes are used by the operating systems as
+identification of languages for proofing tools, for example, in text editors,
+localisation of user interfaces, speech technology, etc. A language without an
+ISO 693-9 code is thus invisible to the computer. Any language community in
+search of literacy thus needs an ISO language code.
+
+According to~\cite[93f]{laakso2022graphization}, there are literary languages for
+Veps,  Livonian, Meänkieli and Kven as well as a common literary language for
+Võro and Seto. Laakso and Skribnik do not mention written languages for Ingrian,
+Ludic or Votic but for Karelian they report that there exist ``at least three
+different written forms for the diverse dialects of Karelian''.
+
+As seen in Table~\ref{lgs}, there is no separate tag for Seto, and \textbf{vro}
+is assigned to \textit{Võro}. Glottolog  the ISO standard, aligns the ISO code
+\textbf{vro} with Glottolog code \textbf{sout2679} for South Estonian, this node
+then contains 13 subnodes, two of them are \textbf{seto1244} for Seto (itself
+with 3 subnodes) and \textbf{voro1243} for Võro. If Laakso and Skribnik are
+correct, the ISO code \textbf{vro} may be used for identifying the Seto-Võro
+written language.
+
+The most problematic part is Karelian. ISO offers the code quadruplet
+\textbf{krl, olo, lud, vep}, for Karelian, Livvi, Ludic and Veps, respectively.
+The traditional distribution is shown in Figure~\ref{map:karelian}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{2.2a-Karelian-and-Ludic_traditional.png}
+    \caption{Karelian and Ludic around 1900~\cite{rantanen2022best}}
+    \label{map:karelian}
+\end{figure}
+
+According to the corpus data presented in~\cite{boyko2022open}, Chapter 2.1, the
+ISO codes are actually quite appropriate for the situation at hand. They present
+4 corpora, for the languages ``Veps, Livvi, Ludian and Karelian proper'', i.e.,
+an exact match with the existing language codes. As long as no standard is
+claimed for South Karelian ((1b) in Figure~\ref{map:karelian}, the ISO code
+inventory provides a good tool for making proofing tools for the Finnic
+languages of Russia.
+
+
+\subsection{Meänkieli and Kven: Many norms in one}
+
+Kven and Meänkieli pose a different type of challenge. Here, the ISO codes, are
+unambiguous, the problem is rather that some speakers would like to distinguish
+between three standardised varieties for both Kven
+(c.f.~\cite{soderholm2017kvensk}).
+and perhaps also for Meänkieli (incidentally, Glottolog offers 3 codes for
+Meänkieli dialects but none for Kven). Obtaining different ISO language codes
+for these would probably be problematic, but so is the situation of missing
+support for the (emerging) varieties. So far, the problem has been solved in
+different ways for these two langauges. For Meänkieli, the analyser includes all
+variant forms on an equal footing, thus allowing for (even inconsistent)
+variation in writing. For Kven, there is one grammatical model for all three
+dialects. We here show a snippet of code for nouns with short vowel stems for
+two of the Kven dialects, Porsanki and Varanki. Both share the same genitive
+suffix, but the partitive suffix is set to the archiphoneme \texttt{\^{}A} for
+the Varanki dialect and \texttt{\^{}V} for the Porsanki dialect. Then TWOL
+rules\footnote{for detailed technical description on TWOL refer
+to~\cite{koskenniemi1983twolevel}} will spell out the actual forms of \texttt{\^{}A}
+(as \textit{a} when the stem contains \textit{aou} or  \textit{ä} elsewhere) and
+\texttt{\^{}V} (as a copy of the preceding vowel). During compilation, we build
+one transducer for each dialect, by removing the strings containing the other
+dialect tags for each dialect, and thereafter the dialect tag of the dialect
+desired (but not the string containing it). The genitive case is common to both
+dialects (as is most of the morphology), it receives no dialect tags and is kept
+throughout compilation.
+
+\begin{small}
+\begin{verbatim}
+    LEXICON n_11 ! päivä, syksy, kuva, ...
+    ...
+    +N+Sg+Gen:^WG%>n # ;
+    +N+Sg+Par+Dial/Var:%>^A # ;
+    +N+Sg+Par+Dial/Por:%>^V # ;
+\end{verbatim}
+\end{small}
+
+So far, only the Porsanki dialect has been distributed to language users. Having
+all three co-existing in the same computer would not be possible, as they must
+be referred to by the same ISO code, so if the need should arise we would have
+to ask the users to install only one of them.
+
+\subsection{Data-driven and/or rule-based language technology}
+
+A hot topic in NLP of 2020's is, what all can be done with large language models
+and chatbots.  Our approach to NLP is based on traditional rule-based systems,
+with expert curated dictionaries and hand-written rules.  For languages we talk
+about in this article, it can be easy to point out that for data-driven
+approaches we simply do not have enough data (c.f. Sable~\ref{subsec:corpora}
+for some statistics), while the methods of using little data improve, the
+amounts of data available for Baltic Finnic languages is insufficient for large
+language modelling.  Another aspect that one has to keep in mind is the quality
+of the data: for machine learning to work, the data needs to be representative:
+follow the standards that the chatbot-based AI is supposed to use and contain
+ample examples of correct usage in various genres.  With limited data and plenty
+of non-standard usage, the large language models will not be usable for spell
+and grammar checking and correction, while rule-based approaches can be steered
+to prefer and suggest current norms if available.
+
+
+
+\section{Resources and evaluations}
+
+In this section we list grammatical models in the GiellaLT infrastructure as
+well as corpus resources in GiellaLT and elsewhere.  The statistics shown in
+this chapter are valid for the time of writing, since the language models are
+developed constantly, the figures will be outdated by the time of publication
+already.  For this reason, automated generation of resources and evaluations are
+evaluated in the \textit{continuous integration / continuous deployment} (CI/CD)
+systems and presented as up-to-date online statistics
+\footnote{\url{https://giellalt.github.io/CorpusResources.html}}. The relevant
+scripts are available in the github
+repositories\footnote{\url{https://github.com/giellalt/giella-core} and
+\url{https://github.com/divvun/actions}}.
+
+
+\subsection{Grammatical models}\label{gm}
+
+Within GiellaLT, there are grammatical models for 9 of the Finnic minority
+languages, cf. Table~\ref{models}, which gives an overview of the lexical and
+morpho-syntactic descriptions of the language models in our infrastructure..
+Only two of them are described in publications
+(Meänkieli~\cite{trosterud2020sprakteknologi},
+Kven~\cite{reino2017morphological}).
+
+The size of morphosyntactic models can be measured in terms of how many lexemes
+they contain and the complexity of the morphophonological system can be
+approximated by combining the number of affixes used with the number of
+morphophonological alteration rules, covering suprasegmental and
+non-concatenative morphology as well as sandhi phenomena).
+
+\begin{table}[htb]
+    \centering
+    \begin{tabular}{|l|c|r|r|r|}
+\toprule
+Language & \bf ISO & \bf Stems & \bf Affixes & \bf Rules  \\
+\midrule
+\bf Ingrian	&	izh	&	2,163	&	2,361	&	45			\\
+\bf Karelian	&	krl	&	66,096	&	555	&	1			\\
+\bf Kven	&	fkv	&	46,354	&	5,096	&	56			\\
+\bf Liv	&	liv	&	15,276	&	6,247	&	68			\\
+\bf Livvi	&	olo	&	60,008	&	5,456	&	84			\\
+\bf Ludic & lud & --- & --- & --- \\
+\bf Meänkieli	&	fit	&	65,872	&	3,436	&	63			\\
+\bf Veps	&	vep	&	6,280	&	2,011	&	10			\\
+\bf Võro	&	vro	&	36,591	&	8,672	&	156			\\
+\bf Votic	&	vot	&	1,030	&	190	&	10			\\
+\bottomrule
+\end{tabular}
+    \caption{Grammatical models in the GiellaLT infrastructure
+    (\url{https://giellalt.github.io/LanguageModels.html\#uralic})}
+    \label{models}
+\end{table}
+
+\subsection{Corpora}\label{subsec:corpora}
+
+We have also curated corpora for some of these languages.  The corpora are used
+for the development of the language technology tools: we collect spelling and
+grammar errors to test and develop writers tools, we collect the words and word
+forms to test the morphological implementations and use the sentences to test
+the automatic machine translation, to name a few.  The GiellaLT corpora are
+summarised in Table~\ref{tab:corpora}.
+
+There are also corpora for minority Finnic languages outside the Giellalt
+infrastructure. MetaShare contains a parallel corpus Võro - Estonian containing
+171,252 Võro words as well as a monolingual Võro corpus of 350000 words
+(\textit{https://metashare.ut.ee}). There are Bible texts available for Viena
+Karelian, Livvi and Veps (\textit{https://www.finugorbib.com}), a parallel Bible
+corpus (\cite{pabivus-korp_fi}) and an open corpus containing (in total) 2,66
+million words for the same languages (cf.~\cite{boyko2022open} for a
+presentation).
+
+\subsection{Evaluation}
+
+Using the corpora, it is possible to measure a naïve \textit{coverage} gives an
+impression of how much of real world texts can be successfully processed with
+the resulting analyser; a näive coverage is measured as a proportion of surface
+tokens that gets \textit{any} analysis at all without considering correctness,
+this gives a rough estimate of how well the analyser models the language in the
+form that is used in real world texts.  It may be noteworthy to remember that,
+in the case of minority languages, real world texts can show a variance of
+non-standard forms and orthographies wider than established and standardised
+majority languages.  In order to perform more thorough evaluation, we would need
+to co-operate with a language expert and develop hand-annotated gold standard
+corpora, for this article, that is left for future work.  To get a qualitative
+insight on the quality of the analysers (or the data), for example the commonest
+words that are not analysed for each languages are:\footnote{Both the source
+code for analysers and the corpora can be found at
+{\url{https://github.com/giellalt}}, in the repositories \textit{lang-xxx} and
+\textit{corpus-xxx}, respectively, where \textit{xxx} is the relevant ISO code.
+Compilation is docuented at {\url{https://giellalt.github.io}}. Analysis was run
+at Oct 18th 2025.}:
+
+\begin{itemize}[noitemsep,parsep=0pt,partopsep=0pt]
+    \item Meänkieli: \textit{oova, och, nytten}
+    \item Kven: \textit{kirj., muist, đ}
+    \item Livvi: \textit{grigorianskoin, kargavusvuon, kalenduaruan}
+    \item Veps: \textit{km, Vellest, nell}
+    \item Võro: \textit{q, NOTOC, de}
+\end{itemize}
+
+
+\begin{table}
+    \centering
+    \begin{tabular}{|l|c|r|r||r|}
+\toprule
+Language & \bf ISO & \bf ktkn & \bf MiB & \bf Cov  \\
+\midrule
+\bf Meänkieli	&	fit	& 528 & 12  & 90~\% \\
+\bf Kven	&	fkv	    & 1,115 & 21  & 92~\%\\
+\bf Livvi	&	olo	    & 242 & 4   & 87~\% \\
+\bf Veps	&	vep	    & 859 & 9  & 88~\% \\
+\bf Võro	&	vro	    & 265 & 4  & 90~\% \\
+\midrule
+Finnish & fin & 16,694& 382  & ---\\
+\bottomrule
+\end{tabular}
+    \caption{Corpora in the GiellaLT infrastructure. Finnish is listed for its
+    relevance to machine translation.\@ \textbf{ktkn} = thousand tokens,
+    \textbf{MiB} = million bytes, \textbf{Cov} = coverage, or percentage re
+    cognised by the analyser.}
+    \label{tab:corpora}
+\end{table}
+
+\section{Practical tools}
+
+Several language technology tools and softwares are implemented based on the
+morphological analysers and text collection.  These tools are developed to
+support the language community, language revitalisation, standardisation, etc.
+We provide here experimental results of using these analysers in the context of
+these applications and corpora.
+
+
+\subsection{Keyboards and proofing tools}
+
+Keyboard drivers and tools for checking written language and correcting mistakes
+are crucial for literacy development in the digital era.  Each literary language
+needs its own keyboard layout, for several reasons. The Finnic languages have
+different sets of letters in addition to the basic a-z set, typically around 6
+additional ones, but ranging from 3 (Meänkieli) to 21 (Livonian). The optimal
+keyboard should be a compromise between keyboard tradition and placement of
+letters according to their frequency in running text. Then the keyboard users
+will expect non-letter symbols to be in the same positions as they are on the
+majority language keyboard. Kven and Meänkieli share the same alphabet (except
+for the Kven \texttt{đ}), but in addition, symbols such as \texttt{@, ', §, \$,
+€} are placed (and engraved!) on different positions on Norwegian and Swedish
+keyboards, and the users of each minority language will expect these symbols to
+be in the same positions as they hold on the majority language keyboard.
+Finally, in Windows, the language of third-party proofing tools are identified
+by sharing ISO code with a keyboard driver. The same goes for mobile phones,
+where language support is always linked to the keyboard language.
+
+
+The GiellaLT infrastructure contains a pipeline for easily setting up keyboard
+layouts for all computer and mobile phone operative systems, as well as
+keyboards for 8 of the Finnic minority languages~\footnote{For an overview and
+links to the keyboards, see
+\textit{https://giellalt.github.io/KeyboardLayouts.html\#uralic-languages}}.
+
+Proofing tools include spell-checking and correction as well as grammatical
+error correction. The GiellaLT infrastructure is set up so that even a
+grammatical model can be turned into a spellchecker. The availability of
+proofing tools is thus obviously dependent upon the quality of the language
+model. The language models (see Table~\ref{models}) are classified according to
+a 4-grade evaluation scale\footnote{For a definition of the various grades, see
+\textit{https://giellalt.github.io/MaturityClassification.html}}. In addition,
+the spellchecker is dependent upon a suggestion mechanism as well as a text
+corpus in order to give precedence to more common words when correcting. A
+minimal suggestion mechanism contains approximately 50 rules (one for each
+letter or symbol to be suggested). Even a well-developed spellchecker in the
+GiellaLT does not contain more than appr. 300 suggestion rules.
+Table~\ref{tools} gives an overview of status for the Finnic minority languages.
+
+\begin{table}[htb]
+    \centering
+    \begin{tabular}{|l|c|r|r|r|c|}
+\toprule
+Language & \bf ISO & \bf Keyb & \bf Spell & \bf Sugg & \bf W  \\
+\midrule
+\bf Ingrian	&	izh	&	yes	&	Beta	&	56	& ---		\\
+\bf Karelian	&	krl	&	yes	&	Alpha	&	89	& ---	\\
+\bf Kven	&	fkv	&	yes	&	Prod.	&	301 & yes 			\\
+\bf Liv	&	liv	&	yes	&	Alpha	&	109	& ---		\\
+\bf Livvi	&	olo	&	yes	&	Beta	&	88	& ---		\\
+\bf Ludic & lud & --- & --- & --- & ---\\
+\bf Meänkieli	&	fit	&	yes	&	Beta	&	220	& yes		\\
+\bf Veps	&	vep	&	---	&	Alpha	&	68	& ---		\\
+\bf Võro	&	vro	&	yes	&	Beta	&	62		& ---	\\
+\bf Votic	&	vot	&	yes	&	---	&	---	& ---		\\
+\bottomrule
+\end{tabular}
+    \caption{Proofing tools in the GiellaLT infrastructure.\@ \textbf{Spell} =
+    quality level, \textbf{Sugg} = number of suggestion rules, \textbf{W} =
+    corpus for weighting of suggestions}
+    \label{tools}
+\end{table}
+
+
+\subsection{Rule-based machine translation}
+
+There are 6 Finnic language pairs within the Apertium~\cite{khanna2021recent}
+rule-based machine translation system, cf.  Table~\ref{tab:mt}. Each language
+pair contains bilingual dictionaries, grammatical language models for analysis
+of L1 and generation of L2 as well as grammars for lexical selection and
+grammatical differences. As can be seen from the number of lexical entries, the
+language pairs range from usable machine translators to early stage projects.
+
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{|l|r|}
+    \toprule
+    Pair     & \bf  Entries  \\
+    \midrule
+    \bf Finnish---Livvi & 30,212 \\
+    \bf Karelian---Livvi & 6,419 \\
+    \bf Finnish---Kven & 4,624 \\
+    \bf Karelian---Finnish & 2,297 \\
+    \midrule
+    \bf Vorõ---Estonian & 161 \\
+    \bf Livonian---Finnish & 37 \\
+    \bottomrule
+    \end{tabular}
+    \caption{Machine translation models\label{tab:mt}}
+\end{table}
+
+\subsection{Neural machine translation}\label{neural}
+
+The neural machine translation project \textit{Neurotõlge}
+(\textit{neurotolge.ee}, see~\cite{yankovskaya2023machine}) offers machine
+translation between (among other Uralic languages) the Finnic minority languages
+Livvi Karelian, Viena Karelian, Lude, Veps, Livonian and Võro and the majority
+languages Finnish, Swedish, Norwegian Bokmål and Russian. The monolingual
+corpora presented in~\cite[765]{yankovskaya2023machine} range from 5,000
+(Ludic) to 115,300 and 162,000 (Veps and Võro) sentences. The amount of parallel
+sentences for the languages in Russia with Russian are 10,000 – 27,000, with the
+Bible dominating for all languages except Ludic.
+
+
+Compared to their result for Finnish to Inari Saami and Norwegian to South Saami
+(which boast the quite good BLEU scores of 67.34 and 60.79, respectively), their
+results for the Finnic languages (op.cit. p. 768) are far worse (BLEU 24.17 for
+Estonian to Livonian and 30.63 for Estonian to Võro, the latter even worse than
+their previous result of 34.11). As shown by~\cite{yankovskaya2023machine}, the
+main reason for this is the paucity of text, and the lack of balance for the
+parallel text, for the Finnic languages.
+
+There are some existing critical evaluations of Neurotõlge for Sámi languages,
+c.f.~\cite{wiechetek-etal-2024-ethical,wiechetek2023manual}, but these
+evaluations concentrate upon key semantic and grammatical elements of the
+translated texts rather than the overall closeness between translation and
+reference, as~\cite{yankovskaya2023machine} do.
+
+\section{Possibilities and perspectives}
+
+
+There are grammatical models for most Finnic minority languages, they show a
+coverage for running text on around or slightly 90~\% (cf.
+Table~\ref{tab:corpora}). This is typical result achieved by rewriting formal
+grammars as grammar models. Grammars are seldom comprehensive, they typically
+sketch main patterns and obvious exceptions. In order to go the time-consuming
+work of getting a coverage of, say, 98~\%, one has to include native speakers
+with knowledge of the norm in the team, so that they can add the description not
+included in the grammars. It is thus important that language researchers,
+teachers and learners are included in the process.
+
+One way that the teachers and learners might help, is to simply provide
+paradigmatic information on word inflection. Providing simple information on a
+single word \textit{häkki+N+Sg+Ade: häkil}, for example, provides the coder with
+information on gradation, and an adjacent plural form \textit{häkki+N+Pl+Ade:
+häkkilöil}. These bits of information can be generated in a class environment
+where each student is given nouns, verbs or adjectives to describe in paradigms.
+The teacher checks to see that the forms are correct and the paradigmatic
+information is added to the infrastructure testing.
+
+The GiellaLT infrastructure provides two different kinds of testing: One is
+impressionistic testing: Tools that generate parts of the model for the
+developer to inspect (e.g. generating all forms of a certain case). Another type
+is regression testing. Here, the linguist has set up for example model paradigms
+for parts of the morphology, and the model is tested continuously in order to
+ensure that it does not get worse.
+
+There are test paradigms for the grammatical models of the Finnich minority
+languages to a various degree. Table \ref{paradigm} gives an overview of
+paradigm cells in the testing setup for the different languages. The figures
+might provide us with a picture of the time allocated to developing the
+different models. One could, of course, also add language-form information to
+the paradigmatic information, which could help solve problems in Veps, for
+example, where the Veps magazine
+\textit{Kodima}\footnote{\url{https://omamedia.ru/fi/publication/kodima}} and
+the Veps edition of \textit{Wikipedia}\footnote{\url{https://vep.wikipedia.org}}
+are written in two different orthographies.
+
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{|l|r|}
+    \toprule
+    Language     & \bf  Paradigm info  \\
+    \midrule
+    \bf Kven & 10,557 \\
+    \bf Livonian & 5,693 \\
+    \bf Livvi & 3,538 \\
+    \bf Meänkieli & 1,526 \\
+    \bf Veps & 392 \\
+    \bf Võro & 4,023 \\
+    \bottomrule
+    \end{tabular}
+    \caption{Paradigm info\label{paradigm}}
+\end{table}
+
+
+There is always a continuum of dialects and languages and standards within these
+minority languages, one benefit of rule-based approaches is that they offer good
+control over the variation: It is possible to implement morphophonological rules
+and lexical analyses that concern specific variants.  When this language
+technology is combined with a tool like spell-checking and correction, it is a
+powerful tool for language normativisation and support of writing culture.
+Experience with Kven has shown that the same lexica and morphological tagging
+structures can  be used for describing language variants by river valley.
+Applied to Karelian languages, this might allow us to share mutual word stems,
+on the one hand, but distinguish morphological branches on the other. When it
+comes to sharing mutual lexica, it should be noted that the shared lexica are
+set off as their own groups. In work with Saami languages, proper noun lexica
+are shared. Even here, however, not all proper nouns can be shared. In work with
+the Permyak-Komi and Zyrian-Komi, additional sharing of lexica has been included
+for 100\% matches in Russian loan words. For the Karelian languages using shared
+lexica is dependent on the use of parallel phonematic writing practices.
+
+For future work, there is a lot that can be done in curating more lexical data
+and corpora for these languages.  There is also a potential of developing speech
+technology applications based on the example of existing systems in Sámi
+languages.  All of this requires collaboration, of course, between language
+communities and computational linguists.  An important and ever more relevant
+issue in collaboration of language communities and computational linguists is
+ethical issues related to ownership of the language data and language itself,
+there has been a lot of research on this topic by us and others and we want to
+point towards~\cite{wiechetek-etal-2024-ethical,wiechetek2022unmasking} for
+further references.
+
+\section{Conclusion}
+
+In this article, we have summarised the state of the art in minority Finnic
+language technology.  We have shown that there exist some resources and have
+compared them to related languages to highlight the potential future
+possibilities these languages already have available.
+
+The main part of the language technology work on Finnic so far has been
+concentrated on language models and proofing tools. For 5 of the 9 languages, we
+have developed grammatical models showing a coverage on running text extending
+85 \% (for three of them, 90 \%).
+
+The situation for available corpora is rather limited. Only for Kven and
+Meänkieli are there text collections available other than text from (Incubator)
+Wikipedias. To what extent the content of the corpora follow established
+standards is unclear. The corpora referred to here do not include all published
+text, but it is clear that the basis for data-driven language technology is
+shaky. In this perspective, we note on the positive side that despite this,
+there is neural-based MT for 5 of the languages presented here.
+
+\bibliographystyle{unsrt}
+\bibliography{iwclul2025}
+
+\end{document}
