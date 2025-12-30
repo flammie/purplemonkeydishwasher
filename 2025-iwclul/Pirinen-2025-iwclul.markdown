@@ -212,7 +212,7 @@ problem in spell-checking than false negatives.
 <!-- centering -->
 
 
-| Error \textbackslash{} System  |  <!-- bf --> Google  |  <!-- bf --> ChatGPT<span class='math'>^*</span>  |  <!-- bf --> omorfi   |
+| Error \ System  |  <!-- bf --> Google  |  <!-- bf --> ChatGPT<span class='math'>^*</span>  |  <!-- bf --> omorfi   |
 | ---- | ---- | ---- | ---- |
 | <!-- bf --> False Positive  |  565  |  75  |  59 |
 | <!-- bf --> False Negative  |  22  |  59  |  20 |
@@ -302,7 +302,7 @@ need to be fixed in context of this book.
 <!-- centering -->
 
 
-| Error \textbackslash{} System  |  <!-- bf --> Google  |  <!-- bf --> ChatGPT  |  <!-- bf --> omorfi |
+| Error \ System  |  <!-- bf --> Google  |  <!-- bf --> ChatGPT  |  <!-- bf --> omorfi |
 | ---- | ---- | ---- | ---- |
 | <!-- bf --> Compound  |  169  |  38  |  18 |
 | <!-- bf --> Derivation  |  21  |  9  |  7 |
@@ -339,13 +339,10 @@ discovers, this is the opposite of Google doc’s system which only provides a
 single correction suggestion without any background.  Unfortunately, the
 explanation often ends up being nonsensical, for example:
 
-\begin{tcolorbox}
- [colback=white!100,colframe=purple!75!black,width=.48\textwidth,
-righttitle=0.5cm,subtitle style={boxrule=0.4pt,
-colback=yellow!50!purple!25!white},title=ChatGPT]
+<div style='border: black solid 5px; background-color: gray'>
 “torkuksissa - This word does not exist in Finnish. Likely a typo for
     "torkuksissa" (a colloquial form of "torkuksissa").”
-\end{tcolorbox}
+</div>
 
 it reminds us in form the kind of reasonable advice you would get from a helpful
 grammar corrector, but content is absolutely mind-boggling and in fact
@@ -361,12 +358,9 @@ system could be to harness ChatGPT’s power to create user-friendly description
 in addition to rule-based knowledge of actual dictionary and grammar, in style
 of this actual example from ChatGPT:\@
 
-\begin{tcolorbox}
- [colback=white!100,colframe=purple!75!black,width=.48\textwidth,
-righttitle=0.5cm,subtitle style={boxrule=0.4pt,
-colback=yellow!50!purple!25!white},title=ChatGPT]
+<div style='border: black solid 5px; background-color: gray'>
 “herttuatar - While valid, it is an older term (archaic) for "duchess."”
-\end{tcolorbox}
+</div>
 
 In this case, ChatGPT had flagged a common word as archaic, but it still gives
 the end user information based on which they can more confidently ignore the
@@ -525,47 +519,32 @@ places, we used in 2025. (footnote: <https://docs.google.com/>)
 
 
 **Figure:**
-\begin{tcolorbox}
- [colback=white!100,colframe=green!75!black,width=.48\textwidth,
-righttitle=0.5cm,subtitle style={boxrule=0.4pt,
-colback=yellow!50!green!25!white},title=User]
+<div style='border: black solid 5px; background-color: gray'>
 I’m studying spell-checking in Finnish, can you download Alice’s adventures in
 wonderland in Finnish from project gutenberg and produce a list of misspelt
 words in the text?
-\end{tcolorbox}
-\begin{tcolorbox}
- [colback=white!100,colframe=purple!75!black,width=.48\textwidth,
-righttitle=0.5cm,subtitle style={boxrule=0.4pt,
-colback=yellow!50!purple!25!white},title=ChatGPT]
+</div>
+<div style='border: black solid 5px; background-color: gray'>
 I cannot directly download or process texts from external websites like Project
 Gutenberg. However, you can download the Finnish version of Alice’s
 Adventures in Wonderland (if available) from Project Gutenberg yourself.
 Once you have the text, you can share it with me, and I can help analyze it
 for misspelled words.
-\end{tcolorbox}
-\begin{tcolorbox}
- [colback=white!100,colframe=green!75!black,width=.48\textwidth,
-righttitle=0.5cm,subtitle style={boxrule=0.4pt,
-colback=yellow!50!green!25!white},title=User]
+</div>
+<div style='border: black solid 5px; background-color: gray'>
 Ok, I have attached the file here:
 liisa-ihmemaassa.text
 OTHER file
-\end{tcolorbox}
-\begin{tcolorbox}
- [colback=white!100,colframe=purple!75!black,width=.48\textwidth,
-righttitle=0.5cm,subtitle style={boxrule=0.4pt,
-colback=yellow!50!purple!25!white},title=ChatGPT]
+</div>
+<div style='border: black solid 5px; background-color: gray'>
 Thank you for sharing the text. I can now analyze it for misspelled words.
 However, I need to clarify: do you want me to identify words that are not
 valid Finnish words, or are you looking for words that might be contextually
 incorrect?
-\end{tcolorbox}
-\begin{tcolorbox}
- [colback=white!100,colframe=green!75!black,width=.48\textwidth,
-righttitle=0.5cm,subtitle style={boxrule=0.4pt,
-colback=yellow!50!green!25!white},title=User]
+</div>
+<div style='border: black solid 5px; background-color: gray'>
 Only words that are not valid Finnish at all, regardless of context
-\end{tcolorbox}
+</div>
 
 
 (Caption: ChatGPT prompt for spell-checking and correction<a id="chatgpt-prompt">(¶ chatgpt-prompt)</a>)
