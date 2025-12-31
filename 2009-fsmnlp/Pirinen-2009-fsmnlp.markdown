@@ -1,0 +1,883 @@
+
+
+<!-- usepackage amssymb  -->
+<!-- usepackage latexsym  -->
+
+<!-- begin document -->
+
+
+<!-- if pdf -->
+\pdfinfo{
+  /Title (Weighting Finite-State Morphological Analyzers using HFST Tools)
+  /Author (Krister Linden and Tommi Pirinen)
+  /CreationDate (D:20090301123456)
+  /Subject (Finite-State Morphology)
+  /Keywords (FSM;FST;Morphology)
+}
+<!-- fi -->
+
+# Weighting Finite-State Morphological Analyzers   using <span style='font-variant: small-caps'>HFST</span> Tools   ¹ 
+
+<span style='font-size:8pt'>(¹ Authors' archival version: The official publication was in the Proceedings of   FSMNLP 2009.)</span>
+
+**Authors:** Krister Lindén 
+and
+
+Tommi Pirinen 
+
+University of Helsinki
+
+Helsinki, Finland
+
+  \{krister.linden,tommi.pirinen\@helsinki.fi
+
+}
+
+**Date:** Last modification: (date of conversion: 2025-12-31)
+
+<!-- make title -->
+
+**Abstract:**
+In a language with very productive compounding and a rich
+inflectional system, e.g. Finnish, new words are to a large extent
+formed by compounding. In order to disambiguate between the possible
+compound segmentations, a probabilistic strategy has been found
+effective by Lindén and Pirinen [(cites: linden09nodalida)](#linden09nodalida). In this
+article, we present a method for implementing the probabilistic
+framework as a separate process which can be combined through
+composition with a lexical transducer to create a weighted
+morphological analyzer. To implement the analyzer, we use the
+  <span style='font-variant: small-caps'>HFST-LexC</span> and related command line tools which are part of
+the open source *Helsinki Finite-State Technology* package.
+Using Finnish as a test language, we show how to use the weighted
+finite-state lexicon for building a simple unigram tagger with 97 %
+precision for Finnish words and word segments belonging to the
+vocabulary of the lexicon.
+<!-- end abstract -->
+
+
+## Introduction
+
+In English the received wisdom is that traditional morphological
+analysis is too complex for statistical taggers to deal with; a
+simplified tagging scheme is needed. The disambiguation accuracy will
+otherwise be too low even with an n-gram tagger because there is not
+enough training material. However, currently training material for
+morphological disambiguators is abundantly available. At the same
+time, one could argue that the interest in tagging has disappeared,
+because we can do more complex things such as syntactic dependency
+analysis and get the morphological disambiguation as a side effect. As
+a matter of curiosity, we will still pursue statistical tagging,
+because there is also the initial result often attributed to Ken
+Church that approximately 90 % of the readings in English will be
+correct if one simply gives each word its most frequent
+morphosyntactic tag. We wish to derive a similar baseline for Finnish.
+
+In addition, a morphologically complex language like Finnish is
+different than English. In English there are hardly any inflectional
+endings and applying traditional morphological analysis to English
+necessarily creates massive ambiguity that can only be resolved by
+context, whereas morphologically complex languages like Finnish in
+each word most often carry the morphemes referred to by the
+morphological tags. As the morphological tags have a physical
+correspondence in the strings, it should be possible to use much less
+context, or perhaps none at all, to disambiguate the traditional
+morphological analysis of languages like Finnish. After all, the
+reduced tag sets of English statistical taggers can be viewed as an
+attempt to simplify the tag set to refer only to the visible surface
+morphemes in a locally constrained context.
+
+There are some initial encouraging results by Lindén and Pirinen
+[(cites: linden09nodalida)](#linden09nodalida) for disambiguating Finnish compounds using
+unigram statistics for the parts in a productive compound process.
+Unigram statistics for compounds is essentially the same as taking the
+most likely morpheme segmentation and the most frequent reading of
+each compound word. Similar results for disambiguating compounds using
+a slightly different basis for estimating the probabilities have been
+demonstrated for German by Schiller [(cites: schiller2005)](#schiller2005) and by Marek
+[(cites: marek2006)](#marek2006). These results further encourage us to pursue the
+topic of full morphological tagging for a complex language like
+Finnish using only a lexicon and unigram statistics for the words and
+their compound parts.
+
+
+In [(cites: linden09nodalida)](#linden09nodalida), Lindén and Pirinen suggest a method which
+essentially requires the building of a full form lexicon and an
+estimate for each separate word form. This is not particularly
+convenient, instead we introduce a simplified way to weight the
+different parts of the lexicon with frequency data from a corpus by
+using weighted finite-state transducer calculus. We use the open
+source software tools of
+<span style='font-variant: small-caps'>HFST</span> (footnote: <hfst.sourceforge.net>), which contains
+<span style='font-variant: small-caps'>HFST-LexC</span> similar to the Xerox LexC tool
+[(cites: beesley2004)](#beesley2004). In addition to compiling LexC-style lexicons,
+<span style='font-variant: small-caps'>HFST-LexC</span> has a mechanism for adding weights to compound
+parts and morphological analyses. The <span style='font-variant: small-caps'>HFST</span> tools also contain
+a set of command line tools that are convenient for creating the final
+weighted morphological analyzer using transducer calculus.
+
+We apply the weighted morphological analyzer to the task of
+morphologically tagging Finnish text. As expected, it turns out that a
+highly inflecting and compounding language with a free word order like
+Finnish solves many of its linguistic ambiguities during word
+formation. This pays back in the form of 97 % tagger precision using
+only a very simple unigram tagger in the form of a weighted
+morphological lexicon for the words and word parts that are in the
+lexicon. For words that contain unknown parts, the lexicalized
+strategy is, however, rather toothless. For such words it seems, we
+may, after all, need a traditional guesser and n-gram statistics for
+morphological disambiguation.
+
+The remainder of the article is structured as follows. In
+Sections [(see: Sect1)](#Sect1), we briefly present some aspects of Finnish
+morphology that may be problematic for statistical tagging. In
+Section [(see: Sect3)](#Sect3), we introduce the probabilistic formulation of how
+to weight lexical entries. In Section [(see: Sect4)](#Sect4), we introduce the
+test and training corpora. In Section [(see: Sect5)](#Sect5), we evaluate the
+weighted lexicon on tagging Finnish text. Finally, in
+Sections [(see: Sect7)](#Sect7) and [(see: Sect8)](#Sect8), we discuss the results and draw
+the conclusions.
+
+## Finnish Morphology
+<a id="Sect1">(¶ Sect1)</a>
+
+We present some aspects of Finnish inflectional and compounding
+morphology that may be problematic for statistical tagging in
+Sections [(see: Sect11)](#Sect11) and [(see: Sect12)](#Sect12). For a more thorough
+introduction to Finnish morphology, see Karlsson [(cites: karlsson1999)](#karlsson1999),
+and for an implementation of computational morphology, see Koskenniemi
+[(cites: koskenniemi1983)](#koskenniemi1983). In Section [(see: Sect12)](#Sect12), we present an outline
+of how to implement the morphology in sublexicons which are useful for
+weighting.
+ 
+### Inflection in Finnish
+<a id="Sect11">(¶ Sect11)</a>
+
+In Finnish morphology, the inflection of typical nouns produces
+several thousands of forms for the productive inflection. E.g. a noun
+has more than 12 cases in singular and plural as well as possessive
+suffixes and clitic particles resulting in more than 2000 forms for
+every noun. 
+
+Mostly the traditional linguistically motivated morphological analysis
+of Finn\-ish is based on visible morphemes. However, for illustrational
+purposes we will discuss two prototypical cases where the analysis
+needs context. One such case is where a possessive suffix overrides
+the case ending to create ambiguity: {\em taloni} ’my house/of my
+house/my houses’, i.e. either {\em talo} ’house’ nominative singular,
+{\em talon} ’of the house’ genitive singular or {\em talot} ’houses’
+nominative plural followed by a possessive suffix. This ambiguity is
+systematic, so either the distinctions can be left out or one can
+create a complex underspecified tag {\em +Sg+Nom/\-+Sg+Gen/\-+Pl+Nom} for
+this case.
+
+Another case, which is common in most languages, is the distinction
+between nouns or adjectives and participles of verbs. This often
+affects the choice of baseform for the word, i.e. the baseform of
+’writing’ is either a verb such as ’write’ or a noun such as
+’writing’. In Finnish, we have words like {\em taitava} ’skillful
+Adjective’ or ’know Verb Present Participle’ and {\em kokenut}
+’experienced Adjective’ or ’experience Verb Past Participle’. Since
+the two readings have different baseforms, it is not be possible to
+defer the ambiguity to be resolved later by using underspecification.
+In some cases, one of the forms is rare and can perhaps be ignored
+with a minimal loss of information, but sometimes both occur regularly
+and in overlapping contexts, in which case both forms should be
+postulated and eventually disambiguated. However, sufficient
+information for doing this reliably may not be available before some
+degree of syntactic or semantic analysis.
+
+In Sections [(see: Sect5)](#Sect5) and [(see: Sect7)](#Sect7), we will return to the
+significance of these problems in Finnish and their impact on the
+morphological disambiguation.
+
+### Compounding in Finnish
+<a id="Sect12">(¶ Sect12)</a>
+
+Finnish compounding theoretically allows nominal compounds of
+arbitrary length to be created from initial parts of certain noun
+forms. The final part may be inflected in all possible forms.
+
+Normal inflected Finnish noun compounds correspond to prepositional
+phrases in English, e.g. {\em ostoskeskuksessa} ’in the shopping
+center’. The morphological analysis in Finnish of the previous phrase
+into {\em ostos\#keskus+N+Sg+Ine} corresponds in English to noun
+chunking and case analysis into ’shopping center +N+Sg+Loc:In’.
+
+In extreme cases, such as the compounds describing ancestors, nouns
+are compounded from zero or more of *isän* ‘father
+<span style='font-variant: small-caps'>singular genitive</span>’ and *äidin* ‘mother <span style='font-variant: small-caps'>singular
+genitive</span>’ and then one of the inflected forms of *isä* or
+*äiti* creating forms such as *äidinisälle* ‘to (maternal)
+grandfather’ or *isänisänisänisä* ‘great great grandfather’.  As
+for the potential ambiguity, Finnish also has the noun *nisä*
+‘udder’, which creates ambiguity for any paternal grandfather,
+e.g. *isän\#isän\#isän\#isä*, *isän\#isä\#nisän\#isä*,
+*isä\#nisä\#nisä\#\-nisä*, ...
+
+Finnish compounding also includes forms of compounding where all parts
+of the word are inflected in the same form, but this is limited to a
+small fraction of adjective initial compounds and to the numbers if
+they are spelled out with letters. In addition, some inflected verb
+forms may appear as parts of compounds. These are much more rare than
+nominal compounds [(cites: iskwww)](#iskwww) so they do not interfere with the
+regular compounding.
+
+### Finnish Computational Morphology
+<a id="Sect13">(¶ Sect13)</a>
+
+Pirinen [(cites: pirinen2008)](#pirinen2008) presented an open source implementation of
+a finite state morphological analyzer for Finnish, which has been
+reimplemented with the <span style='font-variant: small-caps'>HFST</span> tools and extended with data
+collected and classified by Listenmaa [(cites: listenmaa2009)](#listenmaa2009). We use the
+reimplemented and extended version as our unweighted lexicon.
+Pirinen’s analyzer has a fully productive noun compounding
+mechanism. Fully productive noun compounding means that it allows
+compounds of arbitrary length with any combination of nominative
+singulars, genitive singulars, or genitive plurals in the initial part
+and any inflected form of a noun as the final part. 
+
+The morphotactic combination of morphemes is achieved by combining
+sublexicons as defined in [(cites: beesley2004)](#beesley2004). We use the open source
+software called <span style='font-variant: small-caps'>HFST-LexC</span> with a similar interface as the
+Xerox LexC tool. The interested reader is referred to
+[(cites: beesley2004)](#beesley2004) for an exposition of the LexC syntax. The
+<span style='font-variant: small-caps'>HFST-LexC</span> tool extends the syntax with support for adding
+weights on the lexical entries. 
+
+We note that the noun compounding can be decomposed into two
+concatenatable lexicons separated by a word boundary marker, i.e. any
+number of noun prefixes *CompoundNonFinalNoun*<span class='math'>^*</span> in
+Figure [(see: fig:unweighted1)](#fig:unweighted1) separated by ’\#’ and from the inflected
+noun forms *CompoundFinalNoun* in
+Figure [(see: fig:unweighted2)](#fig:unweighted2). Similar decompositions can be achieved
+for other parts of speech as needed. For a further discussion of the
+structure of the lexicon, see [(cites: linden09nodalida)](#linden09nodalida).
+
+
+**Figure:**[h!]
+<!-- centering -->
+  <div style='font-size: xx-small'>
+
+```
+
+LEXICON Root
+## CompoundNonFinalNoun ;
+## #;
+
+LEXICON Compound
+#:0 CompoundNonFinalNoun;
+#:0 #;
+
+LEXICON CompoundNonFinalNoun
+isä   Compound  "weight: 0, gloss: father" ;
+isän  Compound  "weight: 0, gloss: father’s" ;
+äiti  Compound  "weight: 0, gloss: mother" ;
+äidin Compound  "weight: 0, gloss: mother’s" ;
+
+```
+
+  </div>
+(Caption: Unweighted fragment for
+    \{*CompoundNonFinalNoun*\)<span class='math'>^*</span> i.e. *noun
+prefixes*.}<a id="fig:unweighted1">(¶ fig:unweighted1)</a>
+<!-- end figure -->
+
+
+**Figure:**[h!]
+<!-- centering -->
+  <div style='font-size: xx-small'>
+
+```
+
+LEXICON Root
+CompoundFinalNoun ;
+
+LEXICON CompoundFinalNoun
+isä:isä+sg+nom     ## "weight: 0, gloss: father" ;
+isän:isä+sg+gen    ## "weight: 0, gloss: father’s" ;
+isälle:isä+sg+all  ## "weight: 0, gloss: to the father" ;
+
+LEXICON ##
+## # ;
+
+```
+
+  </div>
+(Caption: Unweighted fragment for *CompoundFinalNoun*, i.e.
+    *noun forms*.)<a id="fig:unweighted2">(¶ fig:unweighted2)</a>
+<!-- end figure -->
+
+
+## Methodology  
+<a id="Sect3">(¶ Sect3)</a>
+
+Assume that we want to know the probability of a morphological
+analysis with a morpheme segmentation *A* given the token
+*a*, i.e. <span class='math'>\mathrm{P}(A|a)</span>. According to Bayes rule, we get
+Equation [(see: eqn:cprob)](#eqn:cprob).
+
+<div class='math'>
+  <a id="eqn:cprob">(¶ eqn:cprob)</a>
+  \mathrm{P}(A|a) = \mathrm{P}(A,a)/\mathrm{P}(a) = \mathrm{P}(a|A) \mathrm{P}(A)/\mathrm{P}(a)
+</div>
+
+We wish to retain only the most likely analysis and its segmentation
+*A*. As we know that <span class='math'>\mathrm{P}(a|A)</span> is almost always 1, i.e. a
+word form is known when its analysis is given. Additionally,
+*P(a)* is constant during the maximization, so the expression
+simplifies to finding the most likely global analysis *A* as
+shown by Equation [(see: eqn:maxprob)](#eqn:maxprob), i.e. we only need to estimate the
+output language model.
+
+<div class='math'>
+  <a id="eqn:maxprob">(¶ eqn:maxprob)</a>
+  \arg\max_{A} \mathrm{P}(A|a) = \arg\max_{A} \mathrm{P}(a|A) \mathrm{P}(A)/\mathrm{P}(a) = \arg\max_{A} \mathrm{P}(A)
+</div>
+
+In order to find the most likely segmentation of *A*, we can make
+the additional assumption that the probability *P(A)* is
+proportional to the product of the probabilities <span class='math'>\mathrm{P}(s_i)</span> of
+the segments of *A*, where <span class='math'>A=s_1s_2...s_n</span>, defined by
+Equation [(see: eqn:prodprob)](#eqn:prodprob). This assumption based on a unigram
+language model of compounding has been demonstrated by Lindén and
+Pirinen [(cites: linden09nodalida)](#linden09nodalida) to work well in practice.
+
+<div class='math'>
+  <a id="eqn:prodprob">(¶ eqn:prodprob)</a>
+  \mathrm{P}(A) \propto \prod_{s_i} \mathrm{P}(s_i)
+</div>
+
+### Estimating probabilities
+
+The estimated probability of a token, *a*, to occur in the corpus
+is proportional to the count, *c(a)*, divided by the corpus size,
+*cs*. The probability *p(a)* of a token in the corpus is
+defined by Equation [(see: eqn:prob)](#eqn:prob). We also note that the corpus
+estimate for *p(a)* is in fact an estimate of the sum of the
+probabilities of all the possible analyses and segmentations of
+*a* in the corpus.
+
+<div class='math'>
+  <a id="eqn:prob">(¶ eqn:prob)</a>
+  \mathrm{p}(a) = \mathrm{c}(a)/\mathrm{cs}
+</div>
+
+Tokens *x* known to the original lexicon but unseen in the corpus
+need to be assigned a small probability mass different from 0, so they
+get *c(x) = 1*, i.e. we define the count of a token as its corpus
+frequency plus 1 as in Equation [(see: eqn:count)](#eqn:count), also known as Laplace
+smoothing.
+
+<div class='math'>
+  <a id="eqn:count">(¶ eqn:count)</a>
+  \mathrm{c}(a) = 1 + \mathrm{frequency}(a)
+</div>
+
+### Weighting the Lexicon
+
+In order to use the probabilities as weights in the lexicon, we
+implement them in the tropical semiring, which means that we use the
+negative log-probabilities as defined by Equation [(see: eqn:logprob)](#eqn:logprob).
+
+<div class='math'>
+  <a id="eqn:logprob">(¶ eqn:logprob)</a>
+  \mathrm{w}(a) = -\mathrm{log}(p(a))
+</div>
+
+In the tropical semiring, probability multiplication corresponds to
+weight addition and probability addition corresponds to weight
+maximization. In <span style='font-variant: small-caps'>HFST-LexC</span>, we use OpenFST [(cites: openfst)](#openfst) as
+the software library for weighted finite-state transducers.
+
+
+**Figure:**[h!]
+<!-- centering -->
+  <div style='font-size: xx-small'>
+
+```
+
+LEXICON Root
+## CompoundNonFinalNoun ;
+## CompoundFinalNoun ;
+
+LEXICON Compound
+0:# CompoudNonFinalNoun;
+0:# CompoudFinalNoun;
+
+LEXICON CompoundNonFinalNoun
+isä   Compound  "weight: -log(c(isä)/cs)" ;
+isän  Compound  "weight: -log(c(isän)/cs)" ;
+äiti  Compound  "weight: -log(c(äiti)/cs)" ;
+äidin Compound  "weight: -log(c(äidin)/cs)" ;
+
+LEXICON CompoundFinalNoun
+isä+sg+nom  ##  "weight:-log(c(isä+sg+nom)/cs)" ;
+isä+sg+gen  ##  "weight:-log(c(isä+sg+gen)/cs)" ;
+isä+sg+all  ##  "weight:-log(c(isä+sg+all)/cs)" ;
+isä+pl+ins  ##  "weight:-log(c(isä+sg+all)/cs)" ;
+
+LEXICON ##
+## # ;
+
+```
+
+  </div>
+(Caption: Structure weighting scheme using token penalties on the
+output language. Note that the functions in the comment field are
+placeholders for the actual weights.)<a id="fig:weighted1">(¶ fig:weighted1)</a>
+<!-- end figure* -->
+
+For short, we call our unweighted compounding lexicon, *Lex*, and
+the decomposed noun compounding lexicon parts, i.e. the noun prefixes
+*CompoundNonFinalNoun*<span class='math'>^*</span> in Figure [(see: fig:unweighted1)](#fig:unweighted1) and
+the inflected noun forms *CompoundFinalNoun* in
+Figure [(see: fig:unweighted2)](#fig:unweighted2), *Pref* and *Final*,
+respectively.
+
+For an illustration of how the weighting scheme can be implemented in
+the weighted output language model, <span class='math'>WLex</span>, of the noun compounding
+lexicon, see Figure [(see: fig:weighted1)](#fig:weighted1). There is an obvious extension
+of the weighting scheme to the output models of the decomposed
+unweighted lexicons, *Pref* and *Final*. We call these
+weighted output language models *WPref* and *WFinal*,
+respectively.
+
+### Back Off Model
+
+The original lexicon, <span class='math'>Lex</span>, can be weighted by composing it with the
+weighted output language, <span class='math'>WLex</span>, as in
+Equation [(see: eqn:knownweights)](#eqn:knownweights). However, there are a number of word
+forms and compound segments in the lexicon, for which no estimate is
+available in the corpus. We wish to assign a large weight to these
+forms and segments, i.e. a weight *M* which is greater than any
+of the weights estimated from the corpus, e.g. <span class='math'>M =
+log(1+\mathrm{cs})</span>. To calculate the missing words, we first use the
+homomorphism <span class='math'>uw</span> to map the <span class='math'>WPref</span> to an unweighted automata, which we
+subtract from <span class='math'>Σ^*</span> and give the output model the final weight
+<span class='math'>M</span> using the homomorphism <span class='math'>mw</span>.
+
+We create the following new sublexicons using automata difference and
+composition with the original decomposed transducers in
+Equations [(see: eqn:unknownweights1)](#eqn:unknownweights1) and [(see: eqn:unknownweights2)](#eqn:unknownweights2).
+
+\begin{eqnarray}
+  <a id="eqn:knownweights">(¶ eqn:knownweights)</a> KnownAndSeenWords & = & Lex o WLex
+
+  <a id="eqn:unknownweights1">(¶ eqn:unknownweights1)</a> MaxUnseenPref & = & Pref o (mw(Σ^* - uw(WPref)))
+
+  <a id="eqn:unknownweights2">(¶ eqn:unknownweights2)</a> MaxUnseenFinal & = & Final o (mw(Σ^* - uw(WFinal)))
+</div>
+
+These sublexicons can be combined as specified in
+Equation [(see: eqn:unknownweights)](#eqn:unknownweights) to cover the whole of the original
+lexicon.
+
+\begin{eqnarray}
+  <a id="eqn:unknownweights">(¶ eqn:unknownweights)</a>
+WeightedLexicon = KnownAndSeenWords | Pref MaxUnseenFinal \nonumber
+
+  | MaxUnseenPref Final | MaxUnseenPref MaxUnseenFinal  
+</div>
+
+The <span class='math'>WeightedLexicon</span> will assign the lowest corpus weight to the most
+likely reading and the highest corpus weight to the most unlikely
+reading of the original lexical transducer.
+
+## Data Sets
+<a id="Sect4">(¶ Sect4)</a>
+
+As training and test data, we use a compilation of three years,
+1995-1997, of daily issues of Helsingin Sanomat, which is the most
+wide-spread Finnish newspaper. We disambiguated the corpus using
+Machinese for Finnish (footnote: Machinese is available from Connexor
+Ltd., www.connexor.com) which provided one reading in context for
+each word using syntactic parsing. This provided us with a
+mechanically derived standard and not a human controlled gold
+standard.
+
+### Training Data
+
+The training data actually spanned 2.5 years with 1995 and 1996 of
+equal size and 1997 only half of this. This collection contained
+approximately 2.4 million different words, i.e. types, corresponding
+to approximately 70 million words of Finnish, i.e. tokens, divided
+into 29 million tokens for 1995, 29 for 1996 and 11 for 1997. We used
+the training data to count the non-compound tokens and their analyses.
+
+### Test Data
+
+From the three years of training data we extracted running text from
+comparable sections of the news paper data. We chose articles from the
+section reporting on general news with normal running text (as a
+contrast to e.g. the economy or sports section with significant
+amounts of numbers and tables). The extracted test data sets contained
+118 838, 134 837 and 193 733 tokens for 1995, 1996 and 1997,
+respectively. We used the test data to verify the result of the
+disambiguation.
+
+### Baseline
+
+As a baseline method, we use the training data as such to create
+statistical unigram taggers as outlined in Section [(see: Sect3)](#Sect3). In
+Table [(see: tab:taggerdata)](#tab:taggerdata), we show the baseline result for the test
+data samples with a given training data tagger, the number of tokens
+with 1st correct reading, the number of tokens with some other correct
+reading, the number of tokens with some readings but no correct and
+the number of tokens with no reading.
+
+
+**Table:**[htb!]
+<!-- centering -->
+(Caption: Baseline of the tagger test data.
+  )<a id="tab:taggerdata">(¶ tab:taggerdata)</a>
+  <div style='font-size: xx-small'>
+
+
+| ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| Train    |    Test    |    <span class='math'>1^{st}</span>   |    <span class='math'>n^{th}</span>    |    No    |    No    |    Comment  |
+| Year    |    Year    |    Correct (%)    |    Correct (%)    |    Correct (%)    |    Analysis (%)   |
+| 1995  |  1995  |  96.3  |  3.7  |  0.0  |  0.0  |   Max.  |
+| 1995  |  1996  |  92.2  |  3.3  |  0.3  |  4.1  |  |
+| 1995  |  1997  |  91.9  |  3.3  |  0.3  |  4.6  |  |
+| 1996  |  1995  |  91.9  |  3.4  |  0.4  |  4.5  |  |
+| 1996  |  1996  |  96.4  |  3.6  |  0.0  |  0.0  |    Max.  |
+| 1996  |  1997  |  92.4  |  3.2  |  0.3  |  4.1  |  |
+| 1997  |  1995  |  89.6  |  3.3  |  0.5  |  6.6  |  |
+| 1997  |  1996  |  90.1  |  3.2  |  0.4  |  6.2  |  |
+| 1997  |  1997  |  96.7  |  3.3  |  0.0  |  0.0  |    Max.  |
+
+  </div>
+<!-- end table -->
+
+
+## Tests and  Results
+<a id="Sect5">(¶ Sect5)</a>
+
+We created two versions of the weighted lexicon for disambiguating
+running text. One weights the lexicon using the current corpus and
+tests the result using only the weighted lexicon data. The second test
+adds the baseline tagger to the lexicon in order to ensure some
+additional domain specific data for lack of a guesser.
+
+### Lexicon-based Unigram Tagger
+
+We did our first tagging experiment using a full year of news paper
+articles as training data for the lexicon and testing with the test
+data from the other two years. The first correct results are
+consistently at 97 % of the words with some correct
+analysis. However, the coverage is totally dependent on the fairly
+restricted lexicon as shown in Table [(see: tab:taggerresults1)](#tab:taggerresults1). We also
+include the results for testing and training on the same year as an
+upper limit or reference.
+
+
+**Table:**[h!]
+<!-- centering -->
+(Caption: Lexicon-based unigram tagger results for Finnish.
+  )<a id="tab:taggerresults1">(¶ tab:taggerresults1)</a>
+  <div style='font-size: xx-small'>
+
+
+| ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| Train    |    Test    |    <span class='math'>1^{st}</span>   |    <span class='math'>n^{th}</span>    |    No    |    No    |    Comment  |
+| Year    |    Year    |    Correct (%)    |    Correct (%)    |    Correct (%)    |    Analysis (%)   |
+| 1995  |  1995  |  68.2  |  1.2  |  12.0  |  18.5  |    Max.  |
+| 1995  |  1996  |  69.4  |  1.3  |  12.0  |  17.3  |  |
+| 1995  |  1997  |  69.4  |  1.4  |  11.7  |  17.5  |  |
+| 1996  |  1995  |  67.9  |  1.4  |  12.0  |  18.5  |  |
+| 1996  |  1996  |  69.7  |  1.0  |  12.0  |  17.3  |    Max.  |
+| 1996  |  1997  |  69.4  |  1.3  |  11.7  |  17.5  |  |
+| 1997  |  1995  |  67.9  |  1.6  |  12.0  |  18.5  |  |
+| 1997  |  1996  |  69.4  |  1.3  |  12.0  |  17.3  |  |
+| 1997  |  1997  |  69.6  |  1.3  |  11.7  |  17.5  |    Max.  |
+
+  </div>
+<!-- end table -->
+
+
+### Extended Lexicon-based Unigram Tagger
+
+We did our second tagging experiment as the first with the addition of
+using the full year of news paper data for extending the lexicon.
+Again, we tested with the test data from the other two years. The
+first correct results are consistently at 98 % of the words with some
+correct analysis and the coverage is now considerably better as shown
+in Table [(see: tab:taggerresults2)](#tab:taggerresults2). We also include the results for
+testing and training on the same year as an upper limit or reference.
+
+
+**Table:**[h!]
+<!-- centering -->
+(Caption: Extended lexicon-based unigram tagger results for Finnish.
+  )<a id="tab:taggerresults2">(¶ tab:taggerresults2)</a>
+  <div style='font-size: xx-small'>
+
+
+| ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| Train    |    Test    |    <span class='math'>1^{st}</span>   |    <span class='math'>n^{th}</span>    |    No    |    No    |    Comment  |
+| Year    |    Year    |    Correct (%)    |    Correct (%)    |    Correct (%)    |    Analysis (%)   |
+| 1995  |  1995  |  95.9  |  4.1  |  0.0  |  0.0  |    Max.  |
+| 1995  |  1996  |  93.3  |  4.0  |  0.7  |  2.0  |  |
+| 1995  |  1997  |  93.1  |  4.0  |  0.6  |  2.3  |  |
+| 1996  |  1995  |  92.9  |  4.0  |  0.7  |  2.2  |  |
+| 1996  |  1996  |  96.1  |  3.9  |  0.0  |  0.0  |    Max.  |
+| 1996  |  1997  |  93.6  |  3.7  |  0.6  |  1.9  |  |
+| 1997  |  1995  |  91.6  |  4.1  |  1.0  |  3.2  |  |
+| 1997  |  1996  |  92.1  |  3.9  |  0.9  |  3.1  |  |
+| 1997  |  1997  |  96.3  |  3.7  |  0.0  |  0.0  |    Max.  |
+
+  </div>
+<!-- end table -->
+
+## Discussion and Further Research
+<a id="Sect7">(¶ Sect7)</a>
+
+In this section we analyze the errors for which the correct tag
+sequence was not first, for which there was no correct tag sequence
+and for which there was no analysis at all. We present the most common
+by tag sequences or tokens. Finally, we make a few
+additional observations.
+
+### Correct Tag not <span class='math'>1^{st</span> in Analysis}
+
+The cases where correct tag is not the first are dominated by the already
+known ambiguities where a token has multiple readings and both exist in corpus.
+One big class of these are verbs like *olla* or negation verb *ei*,
+since in perfect tense’s passive the auxiliary is still in present tense
+active form (e.g. *on kerrottu* ‘has been told’ is 
+`olla+pass+ind+pres kerrottu+pass+pcp2`
+while most likely reading of *on* ‘is’ is `olla+act+ind+pres+sg3`).
+The majority of variation between adjective readings and participles results
+also in number of wrong choices in tag strings with A or V PCP2. 
+Also for many tokens the variation between adverb and adposition is purely
+syntactical and as such unigram tagger will fail in minority of cases.
+Also for handful of verbs, the A infinitive form falls together with
+3<span class='math'>^{rd}</span> person singular present tense (e.g. *järjestää* ‘to arrange/(he) arranges’) which causes fair amount of unigram tagger misreadings. The amount
+of compounds in analyses where first is not correct ranges from 6 % to 12 %.
+
+
+**Table:**[h!]
+<!-- centering -->
+(Caption: Error analysis for cases where correct reading exists.
+  )<a id="tab:incorrect1">(¶ tab:incorrect1)</a>
+  <div style='font-size: xx-small'>
+
+
+| ---- | ---- | ---- | ---- |
+| Error Type  |  Baseline  |  Dictionary  |  Combined |
+| Tagged ‘ADV’/‘PSP’  |  4112  |  2561  |  4331 |
+| Tagged ‘A SG NOM’/‘V PCP2 SG NOM’  |  3093  |  885  |  3388 |
+| Token ‘on’  |  3855  |  0  |  3855 |
+| Token ‘ei’  |  1170  |  0  |  1170 |
+| Token ‘ollut’  |  735  |  0  |  735 |
+
+  </div>
+<!-- end table -->
+
+### Analyses without Correct Tag
+
+For analyses where correct analysis was not among the readings, 
+In corpus there’s a handful of underspecified analyses, such as (blah A),
+which aren’t produced at all by dictionary based analyzer, but assumably the
+corpus’s syntactic tagging mechanism has had use for those. Also for some
+adverbs and adpositions the dictionary only contains the non-lexicalised
+nominal form. There is also some overlap for cases in previous category here
+if the alternate reading for ambiguous form is not generated or found for some
+year.
+
+
+**Table:**[h!]
+<!-- centering -->
+(Caption: Error analysis for cases where correct reading is missing.
+  )<a id="tab:incorrect1">(¶ tab:incorrect1)</a>
+  <div style='font-size: xx-small'>
+
+
+| ---- | ---- | ---- | ---- |
+| Error Type  |  Baseline  |  Dictionary  |  Combined |
+| Tagged ‘A SG NOM’  |  24  |  771  |  82 |
+| Tagged ‘V PCP2 SG NOM’  |  20  |  4212  |  50 |
+| Tagged ‘A’  |  0  |  3300  |  0 |
+
+  </div>
+<!-- end table -->
+
+### No Analysis
+
+For dictionary based tagger, the tokens which mainly dominate the missing
+analyses are proper nouns, abbreviations and numerals, which are known
+shortcomings for the analyzer. For other analyzers, such as baseline or
+extended, the main problem is proper nouns, many of which may appear only in
+one years issues. Also, since the dictionary based analyzer lacks productive
+numeral formation, many of the complex numeral expressions (e.g.
+*5—15-vuotiaat* ‘5-to-15-year-olds’)  or specific numbers (e.g. 
+*4029354*)
+are missing when using training corpora from one year to test other years
+analyses.
+
+
+**Table:**[h!]
+<!-- centering -->
+(Caption: Error analysis for cases where no results are given.
+  )<a id="tab:incorrect1">(¶ tab:incorrect1)</a>
+  <div style='font-size: xx-small'>
+
+
+| ---- | ---- | ---- | ---- |
+| Error Type  |  Baseline  |  Dictionary  |  Combined |
+| Proper nouns  |  17795  |  106101  |  17379 |
+| Token ‘klo’  |  0  |  13242  |  0 |
+| Token ‘mk’  |  0  |  5432  |  0 |
+| Tag NUM  |  699  |  7830  |  388 |
+
+  </div>
+<!-- end table -->
+
+### Other Observations
+
+The error analysis confirms that the compounds for which the all parts
+were known contributed on the average 0.67 % to the overall error
+rate, i.e. correct not in the first position, for words with at least
+one correct analysis. For further discussions on the similarities and
+differences between Finnish, German and Swedish compounding, see
+[(cites: linden09nodalida)](#linden09nodalida).
+
+If a disambiguated corpus is not available for calculating the word
+analysis probabilities, it is still possible to use only the string
+token probabilities to disambiguate the compound structure without
+saying anything about the most likely morphological reading. This
+segmentation would be similar to the segmentation the Morfessor
+software [(cites: creutz2005)](#creutz2005) tries to discover in an unsupervised way
+from corpora alone.
+
+The good results for statistical morphological disambiguation of
+Finnish with a full morphological tag set using only a unigram model
+is most likely the result of the highly inflectional and compounding
+morphology of Finnish with free word order. In order for a language to
+achieve a free word order, morphological ambiguities have to be
+resolvable locally almost without context. 
+
+As the inflected Finnish compounds correspond to noun phrases or
+prepositional phrases in English. This also sheds some additional
+light on the supposedly free word order in Finnish, which is similar
+to the rather free phrase ordering in many other languages,
+i.e. similar changes in the topic of a clause occurs in Finnish when
+shifting a phrase e.g. to a clause initial position.
+
+## Conclusions
+<a id="Sect8">(¶ Sect8)</a>
+
+We demonstrated how to build a weighted lexicon for a highly
+inflecting and compounding Fenno-Ugric language like Finnish. Similar
+methods apply to a number of Germanic languages with productive
+morphological compounding. From a practical point of view, we
+introduced the open source command line tools of <span style='font-variant: small-caps'>HFST</span> and
+used them successfully for compiling a weighted lexicon. We applied
+the weighted lexicon as a unigram tagger of running Finnish text
+achieving 97 % precision on words in the vocabulary. The unigram
+tagger is a good baseline when tagging morphologically complex
+languages like Finnish and for some purposes it may even be sufficient
+as such. In addition, it is easy to implement if a full-fledged
+morphological analyzer and a training corpus is available. For unknown
+foreign words and names, a guesser and an n-gram tagger may still be
+necessary.
+
+## Acknowledgments
+This research was funded by the Finnish Academy and the Finnish
+Ministry of Education. We are also grateful to the HFST–Helsinki
+Finite State Technology research team and to the anonymous reviewers
+for various improvements of the manuscript.
+
+<!-- bib style: acl -->
+
+\begin{thebibliography}{14}
+
+\bibitem{openfst}
+Cyril Allauzen, Michael Riley, Johan Schalkwyk, Wojciech Skut, and Mehryar
+Mohri.
+\newblock 2007.
+\newblock Open{F}st: A General and Efficient Weighted Finite-State Transducer
+Library.
+\newblock In {\em Proceedings of the Ninth International Conference on
+Implementation and Application of Automata, (CIAA 2007)}, volume 4783 of {\em
+Lecture Notes in Computer Science}, pages 11–23. Springer.
+\newblock <http://www.openfst.org>.
+
+\bibitem{beesley2004}
+Kenneth R. Beesley and Lauri Karttunen.
+\newblock 2003.
+\newblock {\em Finite State Morphology}.
+\newblock CSLI Publications.
+\newblock <http://www.fsmbook.com>.
+
+\bibitem{creutz2005}
+\newblock Mathias Creutz, Krista Lagus, Krister Lindén, Sami Virpioja.
+\newblock 2005.
+\newblock Morfessor and Hutmegs: Unsupervised Morpheme Segmentation for Highly-Inflecting and Compounding Languages.
+\newblock In {\em Proceedings of the Second Baltic Conference on Human Language Technologies}.
+
+\bibitem{iskwww}
+Auli Hakulinen, Maria Vilkuna, Riitta Korhonen, Vesa Koivisto, Tarja Riitta
+Heinonen, and Irja Alho.
+\newblock 2008.
+\newblock {\em Iso suomen kielioppi}.
+\newblock Suomalaisen Kirjallisuuden Seura.
+\newblock referred on 31.12.2008, available from
+  <http://scripta.kotus.fi/visk>.
+
+\bibitem{karlsson1999}
+Fred Karlsson.
+\newblock 1999.
+\newblock Finns - An Essential Grammar.
+\newblock Routledge. London. First published 1983 as Finnish Grammar.
+
+
+\bibitem{koskenniemi1983}
+Kimmo Koskenniemi.
+\newblock 1983.
+\newblock Two-Level Morphology: A General Computational Model for Word Form Generation and Recognition.
+\newblock {\em Publication No. 11. Publications of the Department of General Linguistics}. University of Helsinki.
+
+\bibitem{linden09nodalida}
+Krister Lindén and Tommi Pirinen.
+\newblock 2009.
+\newblock Weighted Finite-State Morphological Analysis of Finnish Compounding
+with <span style='font-variant: small-caps'>HFST-LexC</span>.
+\newblock In {\em Proceedings of NoDaLiDa 2009}.
+
+\bibitem{listenmaa2009}
+Inari Listenmaa.
+\newblock 2009.
+\newblock Combining Word Lists: Nykysuomen sanalista, Joukahainen-sanasto 
+and Käänteissanakirja (in Finnish). 
+\newblock Bachelor’s Thesis. Department of Linguistics. University of Helsinki. 
+
+\bibitem{marek2006}
+Torsten Marek.
+\newblock 2006.
+\newblock Analysis of German Compounds using Weighted Finite State Transducers.
+\newblock Technical report, Eberhard-Karls-Universität Tübingen.
+
+\bibitem{pirinen2008}
+Tommi Pirinen.
+\newblock 2008.
+\newblock Suomen kielen äärellistilainen automaattinen morfologinen
+analyysi avoimen lähdekoodin keinoin.
+\newblock Master’s thesis, Helsingin yliopisto.
+
+\bibitem{schiller2005}
+Anne Schiller.
+\newblock 2005.
+\newblock German Compound Analysis with {\textsc wfsc}.
+\newblock In {\em FSMNLP}, pages 239–246.
+
+
+\end{thebibliography}
+
+<!-- end document -->
+
+* * *
+
+<span style='font-size: 8pt'>Converted with [Flammie’s latex2markdown](https://github.com/flammie/latex2markdown) v.0.1.0</span>
+
