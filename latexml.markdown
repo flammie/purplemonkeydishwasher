@@ -1,9 +1,14 @@
 # Latexml
 
+**I have switched over from latexml to homebrewn method of converting a very
+small subset of latex into markdown for github pages, see
+[latex2markdown](https://github.com/flammie/latex2markdown/). This document is
+here for historical interest.**
+
 [Latexml]() is a system for converting latex to XML to HTML. There have been
 and will be many systems to do this but this is the one I have found most usable
 with current web stuff and my latex, it creates HTML5 and turns some math into
-modern web math stuff. 
+modern web math stuff.
 
 But its support of latex packages is quite dodgy, basically you need to rewrite
 the packages in perl (eww). There's some support for more popular packages and
@@ -33,7 +38,7 @@ make the note and refer to upstream versions and open access policies mainly.
 
 ## Style
 
-I reused stuff from the internet: 
+I reused stuff from the internet:
 * [latex.css](https://github.com/vincentdoerig/latex-css/blob/master/style.css)
 * [LaTeX.now.sh](https://latex.now.sh/)
 * [Licensed under

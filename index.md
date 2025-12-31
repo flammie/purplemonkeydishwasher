@@ -6,10 +6,13 @@ Currently working at/in/on:
   * [Divvun](https://divvun.no),
 
 This site contains a list of publications and other academic works and a CVs for
-Dr Flammie A Pirinen. The publications are author's versions automatically
-converted to HTML.
+Dr Flammie A Pirinen. The publications on this site  are author's archival
+versions automatically converted to HTML.
 
-For details on HTML conversions and such see [my latexml](latexml.html) page.
+For details on HTML conversions and such see [my latex2markdown
+repository](https://github.com/flammie/latex2markdown). Some historical notes on
+[my use of latexml](latexml.html), which is still the converter for few of the
+more complicated documents.
 
 *Table of Contents:*
 
@@ -93,10 +96,10 @@ The list is not exhaustive.
 
 Following is a list of all my accepted publications and links to author's
 post-print versions. I only provide HTML versions produced with
-[latexml](https://dlmf.nist.gov/LaTeXML/), with minimal extra stylings by me. I
-consider PDF a rubbish format and also printing wasteful; if something looks
-really bad on HTML send me a message and I can fix it. If you really must, TeX
-source codes are available on my github and can be used to generate PDFs.
+[latex2markdown](https://github.com/flammie/latex2markdown), followed by a
+standard github pages deployment. PDF as a format is outdated and hard to use,
+if you really wish to see an *original layout* version or god forbid print my
+papers, I have given links to the publishers' versions where available.
 
 It may be noteworthy at the moment, that [google
 scholar](https://scholar.google.com) offers a great way to [browse my
@@ -445,33 +448,22 @@ Names written as used on the paper, will be uptdated if I get to it.
 
 (A rather incomplete list of course...)
 
+1. **Flammie A Pirinen** (2025) *Experiences from Uralic low-resource
+   languages*, a keynote at SPELLL conference 2025
 1. **Tommi A Pirinen**, Antonio Toral (2015) *Why linguistics in SMT?* in Why
    Linguistics? workshop, Tarto, 2015
-2. *Morphological segmentation for machine translation*, in
-   internal project meeting of abumatran, in Elx, 2014
-3. *Weighted finite-state methods as a bridge between strictly
+1. *Weighted finite-state methods as a bridge between strictly
    rule-based and mostly statistical nlp systems* in NCLT seminar
    series, DCU, 2014
-4. *Crowd-Sourcing morphology and lexicography, productising NLP
+1. *Crowd-Sourcing morphology and lexicography, productising NLP
    research*, in FSCONS 2013, Gothenburg.
-5. *Weighted Finite-State Spell-Checking*, in Research Seminar of
+1. *Weighted Finite-State Spell-Checking*, in Research Seminar of
    Uni Helsinki. A ~final report on PhD thesis.
-6. *Building finite-state spell-checkers with HFST tools*, in FSMNLP
+1. *Building finite-state spell-checkers with HFST tools*, a tutorial in FSMNLP
    2012, Donostia-San Sebastian.
-7. *Building and Using Apertium Dictionaries with HFST* in LREC
-   2012, Istanbul.
-8. *Using POS taggers to rerank spell-checking results* in CICLING
-   2012, Delhi.
-9. *Building and using Hunspell and T_E_X hyphenation descriptions
-   with HFST* in CLA 2010, Wisła.
-10. *Using Wikipedia to Weight a Spelling-Checker* in LREC 2010,
+1. *Using Wikipedia to Weight a Spelling-Checker* in LREC 2010,
    Valletta.
-11. *Weighting Finnish Compound Boundaries* in Nodalida 2009, Odense.
-12. *Weighted Finite-State analysis of Finnish Compounds*, in
-   CLARIN/D-SPIN meeting
-13. *(Unigram-)Weighting Language Models with HFST* in FSMNLP 2009,
-   Pretoria.
-14. *Avoimen lähdekoodin menetelmät äärellistilaista morfologiaa varten*,
+1. *Avoimen lähdekoodin menetelmät äärellistilaista morfologiaa varten*,
    in 2008, Helsinki.
 
 ### Software projects and resources
@@ -479,6 +471,7 @@ Names written as used on the paper, will be uptdated if I get to it.
 The following projects I participate are more or less related to my
 work at university and sparetime hobbies related to science:
 
+ * [my github](https://github.com/flammie)
  * [Universal Dependencies](https://lindat.mff.cuni.cz/repository/xmlui/handle/11234/1-2988)
  * [FiWaC 1.0](https://www.clarin.si/repository/xmlui/handle/11356/1074)
  * [Omorfi](https://flammie.github.io/omorfi)
