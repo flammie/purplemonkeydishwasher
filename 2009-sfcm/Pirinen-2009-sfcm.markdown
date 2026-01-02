@@ -32,7 +32,7 @@ firstname.lastname@helsinki.fi
 
             
 
-**Date:** Last modification: (date of conversion: 2025-12-31)
+**Date:** Last modification: (date of conversion: 2026-01-02)
 
 <!-- make title -->
 
@@ -298,9 +298,9 @@ represent subsets of an alphabet.  We define <span class='math'>Σ = \{a, b,
 morphophonology of the language in <span style='font-variant: small-caps'>LexC</span> definitions. <span class='math'>Γ</span>
 is the alphabet of the *auxiliary* symbols used in our rules in
 the morphotax implementation. We assume that <span class='math'>Σ ∪Γ =
-∅</span>.  We use the symbol <span class='math'>J ⊂ Σ</span> for *joiners* to
+∅</span>.  We use the symbol <span class='math'>J ∈ Σ</span> for *joiners* to
 delimit and combine morphemes in our morphotax.  A joiner for an entry
-with a continuation class named <span class='math'>x</span> is denoted as <span class='math'>J_{x}</span> and a joiner
+with a continuation class named <span class='math'>x</span> is denoted as <span class='math'>Jₓ</span> and a joiner
 for a sub-lexicon named <span class='math'>y</span> is denoted as <span class='math'>J_{y}</span>.
 
 We introduce the compilation of lexicons using the example-lexicon in
@@ -308,58 +308,58 @@ Table [(see: fig:finnish-lexc)](#fig:finnish-lexc).
 
 A single entry in a sub-lexicon, i.e., a line of code in a
 <span style='font-variant: small-caps'>LexC</span> file, is referred to as a morpheme denoted by
-<span class='math'>\mathcal{M}</span>. A morpheme can be a subset of the language
+<span class='math'>𝓜</span>. A morpheme can be a subset of the language
 <span class='math'>Σ^{★}</span> appended with the joiner of a continuation class
 ([(see: eqn1)](#eqn1)).
 
 <div class='math'>
   <a id="eqn1">(¶ eqn1)</a>
-  \mathcal{M} = Σ^{★} J
+𝓜 = Σ^{★} J
 </div>
 
-E.g. the <span style='font-variant: small-caps'>LexC</span> string entry *akku\text:ak<span class='math'>\sim</span>Ku+AVA*
+E.g. the <span style='font-variant: small-caps'>LexC</span> string entry *akku\text:ak<span class='math'>~</span>Ku+AVA*
 with a continuation class *N1b* becomes
-*a k k:<span class='math'>\sim</span>K u:+AVA <span class='math'>ε</span>:<span class='math'>J_{N1b*</span>}.
+*a k k:<span class='math'>~</span>K u:+AVA <span class='math'>ε</span>:<span class='math'>J_{N1b*</span>}.
 
-A sub-lexicon <span class='math'>\mathcal{L}</span> defined by ([(see: eqn2)](#eqn2)) is a union of
+A sub-lexicon <span class='math'>𝓛</span> defined by ([(see: eqn2)](#eqn2)) is a union of
 morphemes as specified in Sect. [(see: subsec:lexc-union)](#subsec:lexc-union).
 
 <div class='math'>
   <a id="eqn2">(¶ eqn2)</a>
-  \mathcal{L} = J ⋃_{\mathcal{M}_{x} ⊂ \mathcal{M}} ( \mathcal{M}_{x} )
+𝓛 = J ⋃_{𝓜ₓ ∈ 𝓜} ( 𝓜ₓ )
 </div>
 
 E.g. the lexicon named *Root* consisting of *akku* and
 *alku* with continuation class *N1b* becomes
 <span class='math'>J_{Root} ( a k k u J_{N1b} | a l k u J_{N1b} )</span>.
 
-We create a filter <span class='math'>\mathcal{F}</span> defined by ([(see: eqn3)](#eqn3)) for legal
+We create a filter <span class='math'>𝓕</span> defined by ([(see: eqn3)](#eqn3)) for legal
 morpheme combinations by pairing up adjacent joiners.
 
 <div class='math'>
   <a id="eqn3">(¶ eqn3)</a>
-  \mathcal{F} = ⋃_{J_{x} ⊂ J} ( J_{x} J_{x} )
+𝓕 = ⋃_{Jₓ ∈ J} ( Jₓ Jₓ )
 </div>
 
 To account for the special starting lexicon and the special ending
-lexicon, we define <span class='math'>J_{Root} ⊂ J</span> and <span class='math'>J_{\#} \notin J</span>. The root
+lexicon, we define <span class='math'>J_{Root} ∈ J</span> and <span class='math'>J_{\#} ∉ J</span>. The root
 lexicon can be used in continuation classes as a target, e.g. for the
 compounding mechanism, but the end lexicon is not available as a
 lexicon name, so it is not part of the regular morphotax. To
 accommodate this, we extend the filter definition to
-<span class='math'>\mathcal{F}^{′}</span> as in ([(see: eqn4)](#eqn4)).
+<span class='math'>𝓕^{′}</span> as in ([(see: eqn4)](#eqn4)).
 
 <div class='math'>
   <a id="eqn4">(¶ eqn4)</a>
-  \mathcal{F}^{′} = J_{Root} ( Σ^{★} \mathcal{F} )^{★} Σ^{★} J_{\#}
+𝓕^{′} = J_{Root} ( Σ^{★} 𝓕 )^{★} Σ^{★} J_{\#}
 </div>
 
-This allows us to create the final transducer <span class='math'>\mathcal{R}</span> with only
+This allows us to create the final transducer <span class='math'>𝓡</span> with only
 legal combinations of sub-lexicons by composition ([(see: eqn5)](#eqn5)).
 
 <div class='math'>
   <a id="eqn5">(¶ eqn5)</a>
-  \mathcal{R} = ⋃_{\mathcal{L}_{x} ⊂ \mathcal{L}} ( \mathcal{L}_{x} )^{★} • \mathcal{F}^{′}
+𝓡 = ⋃_{𝓛ₓ ∈ 𝓛} ( 𝓛ₓ )^{★} • 𝓕^{′}
 </div>
 
 E.g., for the sublexicons *Root*, *N1b*, *NounSg*, and
@@ -511,20 +511,20 @@ specified in the <span style='font-variant: small-caps'>HFST-LexC</span> grammar
 possible surface realizations. In the example grammar in
 Table [(see: figure:finnish-morphology-rules)](#figure:finnish-morphology-rules), the alphabet contains all
 letters used in Finnish words together with the vowel-harmony
-archphoneme \verb| A|, the gradation morphophonemes \verb| K| and
-\verb| P|, as well as, the gradation-markers \verb|+AV+|, \verb|+AV-|,
-\verb|+AVA|, \verb|+AVD|, \verb|+AVH|, \verb|+AVM|.
+archphoneme ` A`, the gradation morphophonemes ` K` and
+` P`, as well as, the gradation-markers `+AV+`, `+AV-`,
+`+AVA`, `+AVD`, `+AVH`, `+AVM`.
 
 All symbols in the grammar may be arbitrary strings of UTF-8
-characters, but characters like \verb|+|, \verb| | or white-space,
+characters, but characters like `+`, ` ` or white-space,
 which bear special meanings for the compiler need to be escaped using
-the escape-character \verb| 
+the escape-character ` 
 The letters in the example-grammar of
 Table [(see: figure:finnish-morphology-rules)](#figure:finnish-morphology-rules) always correspond to
 themselves on the surface. The gradation-markers always correspond to
-zero and the archphoneme \verb| A| and the morphophonemes \verb| K|
-and \verb| P| have various surface-realizations. E.g. \verb| A| is
-always realized as either \verb|a| or `\"a`.
+zero and the archphoneme \verb` A| and the morphophonemes ` K`
+and ` P` have various surface-realizations. E.g. ` A` is
+always realized as either `a` or `\"a`.
 
 Each valid pair of a lexical symbol and its surface-correspondence has
 to be listed in the alphabet. This differs from the <span style='font-variant: small-caps'>TwolC</span>
@@ -552,25 +552,25 @@ in the grammar, need to be declared in the Rule-variables section.
 #### The Sets.
 
 It is often convenient to name some classes of symbols, which are used
-in many rules. E.g. the class \verb|BackVowels| in the example-grammar
+in many rules. E.g. the class `BackVowels` in the example-grammar
 in Table [(see: figure:finnish-morphology-rules)](#figure:finnish-morphology-rules), which contains all
 vowel-segments used in the grammar. The sets in <span style='font-variant: small-caps'>HFST-TwolC</span>
 and <span style='font-variant: small-caps'>TwolC</span> are very similar constructs.
 
 In <span style='font-variant: small-caps'>HFST-TwolC</span>, the Cartesian product of sets, or a set and a
 symbol, is always limited to the set of symbol-pairs declared in the
-alphabet. E.g. the equivalent expressions \verb|BackVowel:BackVowel|
-and \verb|BackVowel| will only accept the pairs \verb|a:a|,
-\verb|o:o|, \verb|u:u|, \verb|A:A|, \verb|O:O| and
-\verb|U:U|. Although it is conceivable, that they would accept
-e.g. the pairs \verb|a:U| and \verb|A:O|, they will not, since the
+alphabet. E.g. the equivalent expressions `BackVowel:BackVowel`
+and `BackVowel` will only accept the pairs `a:a`,
+`o:o`, `u:u`, `A:A`, `O:O` and
+`U:U`. Although it is conceivable, that they would accept
+e.g. the pairs `a:U` and `A:O`, they will not, since the
 pairs have not been declared.
 
 All sets have to be declared in the sets section of the grammar. Of
 the five sets we have defined in the example grammar, the first four
 are defined directly using a symbol sequence. The fifth set
-\verb|Vowels| is defined as the union of the sets \verb|SmallVowels|
-and \verb|BigVowels|.
+`Vowels` is defined as the union of the sets `SmallVowels`
+and `BigVowels`.
 
 #### The Definitions.
 
@@ -604,20 +604,20 @@ An example of a rule is the rule governing vowel-harmony in our example grammar
    
 ```
 
-It states that the archphoneme \verb| A| has to be realized as
-\verb|a|, if the surface-vowel immediately preceding it is a
-back-vowel. It also disallows the pair \verb| A:a| in all other
+It states that the archphoneme ` A` has to be realized as
+`a`, if the surface-vowel immediately preceding it is a
+back-vowel. It also disallows the pair ` A:a` in all other
 contexts.
 
 The rule accepts the first correspondence in Table [(see: cor:1)](#cor:1) since
-the vowel preceding \verb| A| is \verb|y|, which is not a
+the vowel preceding ` A` is `y`, which is not a
 back-vowel. It disallows both of the latter correspondences. In the
-second correspondence \verb| A| is realized as \verb|a|, even though
+second correspondence ` A` is realized as `a`, even though
 the preceding surface-vowel is not a back-vowel. This violates the
-\verb|=&gt;| direction of the rule. In the third correspondence,
-\verb| A| is realized as `\"a`, but the preceding
-surface-vowel is \verb|u|, which is a back-vowel. This violates the
-\verb|&lt;=| direction of the rule.
+`=&gt;` direction of the rule. In the third correspondence,
+` A` is realized as `\"a`, but the preceding
+surface-vowel is `u`, which is a back-vowel. This violates the
+`&lt;=` direction of the rule.
 
 
 **Table:**
@@ -625,14 +625,14 @@ surface-vowel is \verb|u|, which is a back-vowel. This violates the
 
 
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
-| \verb|k|  |  \verb|y|  |  \verb| K|  |  \verb|y|  |  \verb| A |  | 
-| \verb| k|  |  \verb|y|  |  \verb| K|  |  \verb|y|  |  \verb| A |  | 
-| \verb| k|  |  \verb|u|  |  \verb|m|  |  \verb| P|  |  \verb|u|  | 
-\verb| A||
-| \verb|k|  |  \verb|y|  |  \verb|k|  |  \verb|y|  |  `\"a`\verb| |
-|  |  \verb| k|  |  \verb|y|  |  \verb|k|  |  \verb|y|  |  \verb|a |  | 
-| \verb| k|  |  \verb|u|  |  \verb|m|  |  \verb|p|  |  \verb|u|  | 
-`\"a`\verb| ||
+| `k`  |  `y`  |  ` K`  |  `y`  |  ` A `  | 
+| ` k`  |  `y`  |  ` K`  |  `y`  |  ` A `  | 
+| ` k`  |  `u`  |  `m`  |  ` P`  |  `u`  | 
+` A`|
+| `k`  |  `y`  |  `k`  |  `y`  |  `\"a`` `
+|  |  ` k`  |  `y`  |  `k`  |  `y`  |  `a `  | 
+| ` k`  |  `u`  |  `m`  |  `p`  |  `u`  | 
+`\"a`` `|
 
   </div>
 (Caption: Symbol-pair correspondences for demonstrating the
@@ -642,7 +642,7 @@ vowel-harmony rules.)<a id="cor:1">(¶ cor:1)</a>
 <span style='font-variant: small-caps'>HFST-TwolC</span> allows a set of rules to be defined using
 variables or by giving a set of rule-centers. E.g. the rule which
 defines the basic constraint of gradation in our example grammar is a
-rule with three variables: \verb|Cs|, \verb|Cv| and \verb|Cm|.
+rule with three variables: `Cs`, `Cv` and `Cm`.
 
 ```
 
@@ -689,10 +689,10 @@ other surface-requirement rules using the GR-operation. This increases
 the expressive power of the two-level grammar as explained below.
 
 A general restriction of the pair-alphabet <span class='math'>Σ</span> is an expression
-<span class='math'>W \overset{n♢}{\Rightarrow}W’</span>, where the precondition <span class='math'>W</span> and
+<span class='math'>W \overset{n♢}{→}W’</span>, where the precondition <span class='math'>W</span> and
 postcondition <span class='math'>W’</span> are unions of expressions of the form <span class='math'>V_1 ♢
-V_2 ♢ \text{ ... }♢ V_n \subset Σ^* (♢\
-Σ^*)^n</span>, where <span class='math'>♢ \notin Σ</span> is a special
+V_2 ♢ \text{ ... }♢ V_n ⊂ Σ^* (♢\
+Σ^*)^n</span>, where <span class='math'>♢ ∉ Σ</span> is a special
 marker-symbol and each <span class='math'>V_i</span> is a regular language of the alphabet
 <span class='math'>Σ</span>. Such an expression is compiled into a regular expression
 using the GR-operation as in ([(see: gr)](#gr)).
@@ -707,11 +707,11 @@ marker-symbol <span class='math'>♢</span> into epsilon and leaves all other sy
 intact.
 
 We do not need the full expressive power of the GR-operation. Instead
-we use a restricted version <span class='math'>W \overset{2♢}{\Rightarrow}W’</span>,
+we use a restricted version <span class='math'>W \overset{2♢}{→}W’</span>,
 which is limited to compiling rules with one center and a number of
 contexts with a right and a left part. Hence we operate on
 preconditions and postconditions with two diamonds,
-i.e. <span class='math'>W,W’\subseteq Σ^* ♢ Σ^* ♢ Σ^*</span>.
+i.e. <span class='math'>W,W’⊆ Σ^* ♢ Σ^* ♢ Σ^*</span>.
 
 We discuss compiling one rule first and then conflict-resolution,
 although logically conflict-resolution is done first and then the
@@ -731,13 +731,13 @@ in a similar manner as surface-requirement rules and double-sided
 rules are compiled, by intersecting the two directions of the rule.
 
 The general restriction corresponding to the context-restriction rule
-<span class='math'>a\text{:}b \Rightarrow ⋃_{i=0}^n L_i \_ R_i</span> is given by
+<span class='math'>a\text{:}b → ⋃_{i=0}^n L_i \_ R_i</span> is given by
 ([(see: right-rule)](#right-rule)).
 
 <div class='math'>
   <a id="right-rule">(¶ right-rule)</a>
 Σ^* ♢ a\text{:}b♢Σ^*
-  \overset{2♢}{\Rightarrow} ⋃_{i=0}^n
+  \overset{2♢}{→} ⋃_{i=0}^n
 L_i♢Σ^*♢ R_i
 </div>
 
@@ -748,39 +748,39 @@ input-symbols of pairs in <span class='math'>Σ</span>, including epsilon.
 
 <div class='math'>
   <a id="inverse-projection">(¶ inverse-projection)</a>
-	[x\text{:}] = \{ x\text{:}y | x\text{:}y ⊂ Σ \}
+	[x\text{:}] = \{ x\text{:}y | x\text{:}y ∈ Σ \}
 </div>
 
 The general restriction corresponding to the surface-requirement rule
-<span class='math'>a\text{:}b \Leftarrow ⋃_{i=0}^n L_i \_ R_i</span> is given by
+<span class='math'>a\text{:}b ← ⋃_{i=0}^n L_i \_ R_i</span> is given by
 ([(see: left-rule)](#left-rule)).
 
 <div class='math'>
   <a id="left-rule">(¶ left-rule)</a>
   \Big( Σ^* ♢ [a\text{:}] - a\text{:}b ♢Σ^*
   ∩⋃_{i=0}^n L_i♢Σ^*♢ R_i \Big)
-  \overset{2♢}{\Rightarrow} ∅
+  \overset{2♢}{→} ∅
 </div>
 
 The general restriction corresponding to the surface-prohibition rule
-<span class='math'>a\text{:}b \/\Leftarrow ⋃_{i=0}^n L_i \_ R_i</span> is similar. It
+<span class='math'>a\text{:}b \/← ⋃_{i=0}^n L_i \_ R_i</span> is similar. It
 is given by ([(see: prohibition-rule)](#prohibition-rule)).
 
 <div class='math'>
   <a id="prohibition-rule">(¶ prohibition-rule)</a>
   \Big( Σ^* ♢ a\text{:}b ♢Σ^* \cap
   ⋃_{i=0}^n L_i♢Σ^*♢ R_i \Big)
-  \overset{2♢}{\Rightarrow} ∅
+  \overset{2♢}{→} ∅
 </div>
 
 Using the GR-operation, epenthesis rules have the same semantics as
-other surface-requirement rules. The rule <span class='math'>0\text{:}a \Leftarrow b\
+other surface-requirement rules. The rule <span class='math'>0\text{:}a ← b\
 \_ b</span> rejects the correspondences <span class='math'>bb</span> and <span class='math'>b0\text{:}cb</span>, but accepts
 <span class='math'>b0\text{:}ab</span>.
 
 The <span style='font-variant: small-caps'>TwolC</span> compiler compiles epenthesis rules in a different
 way than <span style='font-variant: small-caps'>HFST-TwolC</span>. In <span style='font-variant: small-caps'>TwolC</span>, the rule <span class='math'>0\text{:}a
-\Leftarrow b \_ b</span> becomes equivalent to the expression <span class='math'>Σ^* -
+← b \_ b</span> becomes equivalent to the expression <span class='math'>Σ^* -
 ( Σ^* b bΣ^*)</span>, which means that <span class='math'>bb</span> is rejected, but
 <span class='math'>b0\text{:}cb</span> is accepted, provided that the pair <span class='math'>0\text{:}c</span> is
 declared in the alphabet <span class='math'>Σ</span>. This makes it impossible to
@@ -790,8 +790,8 @@ rule.
 E.g. we might want the pair <span class='math'>0\text{:}v</span> between two vowels, but the pair
 <span class='math'>0\text{:}w</span> between two like vowels. This can be expressed by the rules
 
-<span class='math'></span>0\text{:}v \Leftarrow \text{Vowel} \_ \text{Vowel} ;\text{ and
-}0\text{:}w \Leftarrow V_x \_ V_x\text{, }V_x ⊂ \text{Vowel} ;<span class='math'></span>
+<span class='math'></span>0\text{:}v ← \text{Vowel} \_ \text{Vowel} ;\text{ and
+}0\text{:}w ← V_x \_ V_x\text{, }V_x ∈ \text{Vowel} ;<span class='math'></span>
 
 In <span style='font-variant: small-caps'>HFST-TwolC</span> conflict resolution modifies the context of the
 more general rule. A correspondence with <span class='math'>0\text{:}t</span> between like
@@ -820,7 +820,7 @@ with centers having the same lexical symbol, but different
 surface-symbols.
 
 Consider the rules
-<span class='math'></span>a\text{:}b \Rightarrow x  \_ ;\text{ and }a\text{:}b \Rightarrow
+<span class='math'></span>a\text{:}b → x  \_ ;\text{ and }a\text{:}b →
 y \_ ;<span class='math'></span>
 
 These are in right-arrow conflict with each other. Like Xerox
@@ -832,8 +832,8 @@ is easy when the rules are compiled using the GR-operation.
 A left-arrow conflict is resolvable exactly when one of the
 rule-contexts is a sub-context of the other. A trivial example of a
 resolvable left-arrow conflict is given by the rules
-<span class='math'></span>a\text{:}b \Leftarrow \{d\text{, }e\} \_ ;\text{ and }a\text{:}c
-\Leftarrow d \_ ;<span class='math'></span> 
+<span class='math'></span>a\text{:}b ← \{d\text{, }e\} \_ ;\text{ and }a\text{:}c
+← d \_ ;<span class='math'></span> 
 
 Here the alphabet <span class='math'>Σ</span> consists of the pairs <span class='math'>a\text{:}b</span>,
 <span class='math'>a\text{:}c</span>, <span class='math'>d</span> and <span class='math'>e</span>. This is resolved by replacing the more
@@ -1120,9 +1120,9 @@ megabytes (MB).)<a id="fig:memory-consumption">(¶ fig:memory-consumption)</a>
 
 All tests were conducted on an Intel computer with a Xeon E5450 64 bit
 3.00 GHz CPU and 64 GB of memory. For the <span style='font-variant: small-caps'>HFST</span> tools, the
-times were extracted using the C language \verb|clock| function. For
-other tools, the GNU \verb|time| command was used. In order to monitor
-the memory consumption, we used the GNU \verb|top| command.
+times were extracted using the C language `clock` function. For
+other tools, the GNU `time` command was used. In order to monitor
+the memory consumption, we used the GNU `top` command.
 
 <span style='font-variant: small-caps'>HFST</span> has both a weighted and an unweighted implementation,
 but the current tests were performed using only the unweighted
@@ -1299,74 +1299,74 @@ rule approach when developing finite-state morphologies.
 
 <span class='math'>...</span>
 
-\begin{thebibliography}
+# References
 
-\bibitem[1983]{Koskenniemi83}
+* [1983]{Koskenniemi83}
 Koskenniemi, K.:
 Two-Level Morphology: A General Computational Model for Word-Form Recognition and Production.
 University of Helsinki, Department of General Linguistics (1983).
 
-\bibitem[1987]{Karttunen87}
+* [1987]{Karttunen87}
 Karttunen, L., Koskenniemi, K., Kaplan, R.: 
 A Compiler for Two-Level Phonological Rules. 
 CSLI Publications (1987)
 <http://www2.parc.com/istl/members/karttune/publications/archive/twolcomp.pdf>.
 
-\bibitem[1992]{Karttunen92}
+* [1992]{Karttunen92}
 Karttunen, L.:
 Two-Level Rule Compiler, Technical Report ISTL-92-2, Xerox Palo Alto Research Center (1992).
 <http://www.xrce.xerox.com/competencies/content-analysis/fssoft/docs/twolc-92/twolc92.html>.
 
-\bibitem[1993]{Karttunen93}
+* [1993]{Karttunen93}
 Karttunen, L.: 
 Finite-State Lexicon Compiler. 
 Technical Report, ISTL-NLTT2993-04-02, Xerox Palo Alto Research Center (1993)
 Palo Alto, California.
 
-\bibitem[1994]{Karttunen94}
+* [1994]{Karttunen94}
 Karttunen, L.:
 Constructing Lexical Transducers.
 The Proceedings of the 15th International Conference on Computational Linguistics COLING 94, I, 406–411 (1994)
 
-\bibitem[1997]{mohri1997}
+* [1997]{mohri1997}
 Mohri, M.:
 Finite-state transducers in language and speech processing.
 Computational Linguistics 23(2), (1997)
 
-\bibitem[2002]{mohri2002}
+* [2002]{mohri2002}
 Mohri, M., Riley. M.:
 An efficient algorithm for the n-best-strings problem.
 Proceedings of the International Conference on Spoken Language Processing 2002, ICSLP ’02 (2002)
 
-\bibitem[2003]{beesley03}
+* [2003]{beesley03}
 Beesley, K., Karttunen, L.:
 Finite State Morphology.
 CSLI Publications (2003).
 <http://www.fsmbook.com>.
 
-\bibitem[2004]{vaucanson}
+* [2004]{vaucanson}
 Lombardy, S., R\’egis-Gianas, Y., Sakharovitch, J.:
 Introducing Vaucanson. 
 Theoretical Computer Science 328, 77–96 (2004)
 
-\bibitem[2005]{sfst}
+* [2005]{sfst}
 Schmid, H.:
 A programming language for finite state transducers.
 Proceedings of the 5th International Workshop on Finite State Methods in Natural Language Processing, FSMNLP 2005, (2005).
 Helsinki, Finland.
 
-\bibitem[2006]{Yli-Jyra06}
+* [2006]{Yli-Jyra06}
 Yli-Jyr\"a, A., Koskenniemi, K.:
 Compiling Generalized Two-Level Rules and Grammars.
 Advances in Natural Language Processing, LNCS, 174–185 (2006)
 
-\bibitem[2007]{openfst}
+* [2007]{openfst}
 Allauzen, C., Riley, M., Schalkwyk, J., Skut, W., Mohri, M.:
 Open{F}st: A general and efficient weighted finite-state transducer library.
 Proceedings of the Ninth International Conference on Implementation and Application of Automata, CIAA 2007, vol. 4783 LNCS, 11–23 (2007)
 <http://www.openfst.org>.
 
-\bibitem[2008]{pirinen2008}
+* [2008]{pirinen2008}
 Pirinen, T.:
 Suomen kielen äärellistilainen automaattinen morfologia avoimen lähdekoodin menetelmin.
 Master’s thesis, Helsingin yliopisto (2008)
