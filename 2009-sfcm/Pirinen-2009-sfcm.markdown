@@ -6,31 +6,31 @@
 <!-- begin document -->
 
 <!-- if pdf -->
-\pdfinfo{
+<!--\pdfinfo{
   /Author (Krister Linden and Miikka Silfverberg and Tommi Pirinen)
   /Title (HFST Tools for Morphology - An Efficient Open-Source Package for Consttruction of Morphological Analyzers)
   /CreationDate (D:20090501123456)
   /Subject (Finite-State Morphology)
   /Keywords (FSM;FST;Morphology)
-}
+}-->
 <!-- fi -->
-# <span style='font-variant: small-caps'>HFST</span> Tools for Morphology – An Efficient Open-Source Package for Construction of Morphological Analyzers ¹ 
+# <span style='font-variant: small-caps'>HFST</span> Tools for Morphology – An Efficient Open-Source Package for Construction of Morphological Analyzers ¹
 
-<span style='font-size:8pt'>(¹ Authors' archival version: This article was published in Proceedings of SFCM 2009 in Zürich <http://sfcm2009.org>. Publisher’s version available at [Springer via doi: 10.1007/978-3-642-04131-0_3](https://dx.doi.org/10.1007/978-3-642-04131-0_3). For more information, see [Springers self archiving policy](http://www.springer.com/gp/open-access/authors-rights/self-archiving-policy/2124).)</span> 
+<span style='font-size:8pt'>(¹ Authors' archival version: This article was published in Proceedings of SFCM 2009 in Zürich <http://sfcm2009.org>. Publisher’s version available at [Springer via doi: 10.1007/978-3-642-04131-0_3](https://dx.doi.org/10.1007/978-3-642-04131-0_3). For more information, see [Springers self archiving policy](http://www.springer.com/gp/open-access/authors-rights/self-archiving-policy/2124).)</span>
 
-**Authors:**  Krister Lindén 
+**Authors:**  Krister Lindén
 and
 
-Miikka Silfverberg 
+Miikka Silfverberg
 and
 
-Tommi Pirinen 
+Tommi Pirinen
 
 University of Helsinki
 
 firstname.lastname@helsinki.fi
 
-            
+
 
 **Date:** Last modification: (date of conversion: 2026-01-02)
 
@@ -191,7 +191,7 @@ strings (footnote: Entries of regular expression form are not covered
 here to simplify the presentation, but a full definition of an entry
 in this formalism allows an entry to be a regular language.)
 associated with the name of a sub-lexicon called a *continuation
-class*.  
+class*.
 
 Below, we highlight the main design decisions that influenced the
 efficiency of the implementation and some of the we present the main
@@ -207,8 +207,8 @@ example is a highly simplified version of the actual morphology.
 
 Multichar_Symbols
 
-+noun +1 +a +d +h +m +AV+ +AV- +AVA +AVD +AVH +AVM 
-+all +gen +ptv +sg  A  K  P 
++noun +1 +a +d +h +m +AV+ +AV- +AVA +AVD +AVH +AVM
++all +gen +ptv +sg  A  K  P
 
 LEXICON Root
 akku+noun+1+a:ak Ku+AVA   N1b "battery";
@@ -374,11 +374,12 @@ shown in Table [(see: filter-example)](#filter-example).
   <div style='font-size: small'>
 
 
-| <span class='math'>L^{★} =</span>  |  <span class='math'>(  J_{Root} a k k u J_{N1b}  |  J_{N1b} J_{NounSg}  |</span> |
-|  |  <span class='math'>J_{NounSg} \!+\!sg\!:\!l \!+all\!:\!l ε\!:\!e J_{Ennd}  |  J_{Ennd} J_{\#}  )^{★}</span>|
-| <span class='math'>F =</span>          |  <span class='math'>J_{Root} J_{Root} | J_{N1b} J_{N1b} | J_{NounSg} J_{NounSg} | J_{Ennd} J_{Ennd}</span> |
+| <span class='math'>L^{★} =</span>  |  <span class='math'>(  J_{Root} a k k u J_{N1b}  `|`  J_{N1b} J_{NounSg}  |</span> |
+| ---- | ---- |
+|      |  <span class='math'>J_{NounSg} +sg:l +all:l ε:e J_{Ennd}  `|`  J_{Ennd} J_{\#}  )^{★}</span> |
+| <span class='math'>F =</span>          |  <span class='math'>J_{Root} J_{Root} `|` J_{N1b} J_{N1b} `|` J_{NounSg} J_{NounSg} `|` J_{Ennd} J_{Ennd}</span> |
 | <span class='math'>L^{★} • F^{′} =</span>  |  <span class='math'>J_{Root} a k k u J_{N1b}  J_{N1b} J_{NounSg}</span> |
-|  |  <span class='math'>J_{NounSg} \!+\!sg\!:\!l \!+\!all\!:\!l ε\!:\!e J_{Ennd}  J_{Ennd} J_{\#}</span>|
+|  |  <span class='math'>J_{NounSg} +sg:l +all:l ε:e J_{Ennd}  J_{Ennd} J_{\#}</span>|
 
   </div>
 (Caption: Filtering a single path in <span style='font-variant: small-caps'>HFST-LexC</span> with a
@@ -470,7 +471,7 @@ Alphabet
 
 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z Å Ä Ö
 a b c d e f g h i j k l m n o p q r s t u v w x y z å ä ö
-            
+
 Rule-variables
 
 Cm Cs Cw ;
@@ -491,11 +492,11 @@ NonVowelSeq = [ \:Vowels ]* ;
 Rules
 
    " K:0 Gradation"
-   
+
    "   Cs:Cw &lt;=&gt; _ AlphaSeq Cm:0 AlphaSeq       where Cs in (               Cw in (     v     m )
-Cm in ( 
+Cm in (
    "Vowel Harmony"
-   
+
 
 ```
 
@@ -518,7 +519,7 @@ archphoneme ` A`, the gradation morphophonemes ` K` and
 All symbols in the grammar may be arbitrary strings of UTF-8
 characters, but characters like `+`, ` ` or white-space,
 which bear special meanings for the compiler need to be escaped using
-the escape-character ` 
+the escape-character `
 The letters in the example-grammar of
 Table [(see: figure:finnish-morphology-rules)](#figure:finnish-morphology-rules) always correspond to
 themselves on the surface. The gradation-markers always correspond to
@@ -539,7 +540,7 @@ Xerox <span style='font-variant: small-caps'>TwolC</span> [(cites: Karttunen92)]
 interface. Besides the grammar-formalism, this also affects the
 compile-time for rules, which becomes more dependent on the number of
 symbol-pairs in the grammar.
- 
+
 #### The Rule-variables.
 
 Like the <span style='font-variant: small-caps'>Xerox</span> compiler, <span style='font-variant: small-caps'>HFST-TwolC</span> supports
@@ -580,7 +581,7 @@ called definitions and may be used freely in the rules. Sets and
 previous definitions can be used in the definition of a new
 definition. The definitions in <span style='font-variant: small-caps'>HFST-TwolC</span> and <span style='font-variant: small-caps'>TwolC</span>
 are identical.
- 
+
 #### The Rules.
 
 A two-level grammar constrains the surface-realizations of lexical
@@ -601,7 +602,7 @@ An example of a rule is the rule governing vowel-harmony in our example grammar
 ```
 
    "Vowel Harmony"
-   
+
 ```
 
 It states that the archphoneme ` A` has to be realized as
@@ -624,15 +625,12 @@ surface-vowel is `u`, which is a back-vowel. This violates the
   <div style='text-align: center'>
 
 
-| ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
-| `k`  |  `y`  |  ` K`  |  `y`  |  ` A `  | 
-| ` k`  |  `y`  |  ` K`  |  `y`  |  ` A `  | 
-| ` k`  |  `u`  |  `m`  |  ` P`  |  `u`  | 
-` A`|
-| `k`  |  `y`  |  `k`  |  `y`  |  `\"a`` `
-|  |  ` k`  |  `y`  |  `k`  |  `y`  |  `a `  | 
-| ` k`  |  `u`  |  `m`  |  `p`  |  `u`  | 
-`\"a`` `|
+| `k`  |  `y`  |  ` K`  |  `y`  |  ` A `  |
+| ` k`  |  `y`  |  ` K`  |  `y`  |  ` A `  |
+| ` k`  |  `u`  |  `m`  |  ` P`  |  `u`  | ` A`|
+| `k`  |  `y`  |  `k`  |  `y`  |  `\"a` |
+|  ` k`  |  `y`  |  `k`  |  `y`  |  `a `  |
+| ` k`  |  `u`  |  `m`  |  `p`  |  `u`  | `\"a`` `|
 
   </div>
 (Caption: Symbol-pair correspondences for demonstrating the
@@ -647,12 +645,12 @@ rule with three variables: `Cs`, `Cv` and `Cm`.
 ```
 
    "   Cs:Cw &lt;=&gt; _ AlphaSeq Cm:0 AlphaSeq       where Cs in (               Cw in (     v     m )
-Cm in ( 
+Cm in (
 ```
 
 Like ordinary alphabet-symbols, variables may be used both in the
 center of a rule and in its contexts.
- 
+
 When a rule with variables is compiled, it is split into
 sub-rules. These are obtained by substituting real alphabet symbols
 for the variables. The possible values of variables are listed in the
@@ -798,7 +796,7 @@ more general rule. A correspondence with <span class='math'>0\text{:}t</span> be
 vowels becomes disallowed, but a correspondence with <span class='math'>0\text{:}s</span>
 between like vowels is allowed. In the <span style='font-variant: small-caps'>TwolC</span> compiler this is
 not possible.
- 
+
 #### Resolving rule-conflicts.
 <a id="twolc-conflict-resolution">(¶ twolc-conflict-resolution)</a>
 
@@ -833,7 +831,7 @@ A left-arrow conflict is resolvable exactly when one of the
 rule-contexts is a sub-context of the other. A trivial example of a
 resolvable left-arrow conflict is given by the rules
 <span class='math'></span>a\text{:}b ← \{d\text{, }e\} \_ ;\text{ and }a\text{:}c
-← d \_ ;<span class='math'></span> 
+← d \_ ;<span class='math'></span>
 
 Here the alphabet <span class='math'>Σ</span> consists of the pairs <span class='math'>a\text{:}b</span>,
 <span class='math'>a\text{:}c</span>, <span class='math'>d</span> and <span class='math'>e</span>. This is resolved by replacing the more
@@ -888,7 +886,7 @@ composition is still a necessary operation when developing full-scale
 two-level morphological analyzers.
 
 ## Full-Scale Morphological Analyzers using <span style='font-variant: small-caps'>HFST</span> Morphological
-Tools 
+Tools
 
 We test the performance of the <span style='font-variant: small-caps'>HFST</span> tools by building three
 full-scale morphological analyzers of varying complexities for French,
@@ -939,12 +937,12 @@ grammar.
   <div style='text-align: center'>
 
 
-| ---- | ---- | ---- | ---- | ---- | ---- | ---- |
-|  |  | <!-- FIXME: multicolumn 3 |c -->{<span style='font-variant: small-caps'>HFST-LexC</span>}  |  | <!-- FIXME: multicolumn 3 |c -->{<span style='font-variant: small-caps'>HFST-TwolC</span>} |
+|  | <span style='font-variant: small-caps'>HFST-LexC</span>}  |  | {<span style='font-variant: small-caps'>HFST-TwolC</span>} | | | |
 | Language  |    Sublexicons    |    Entries    |    Symbols    |    Pairs    |    Rules    |    Subrules  |
+| ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 | French  |  1    |  553,158    |  87    |  —    |  —    |  —   |
 | Finnish  |  213    |  94,278    |  301    |  169    |  12    |  76   |
-| Northern S\’ami    |  870    |  105,503    |  428    |  313    |  105    |  555   | 
+| Northern S\’ami    |  870    |  105,503    |  428    |  313    |  105    |  555   |
 
     \vskip0.5cm
   </div>
@@ -995,8 +993,8 @@ rules is for Finnish.
   <div style='text-align: center'>
 
 
-| ---- | ---- | ---- | ---- | ---- |
 | Language  |    <span style='font-variant: small-caps'>HFST</span> tools    |    foma <span style='font-variant: small-caps'>LexC</span>    |    <span style='font-variant: small-caps'>SFST</span> compiler    |    Xerox tools   |
+| ---- | ---- | ---- | ---- | ---- |
 | French           |  45.92 s    |    16.87 s    |  —           |  5.46 s  |
 | Finnish          |  25.42 s    |  —         |    1682.04 s    |  1.83 s  |
 | Northern S\’ami    |    287.21 s    |  —         |  —           |    24.61 s  |
@@ -1021,21 +1019,21 @@ explained below the tables.
   <div style='text-align: center'>
 
 
-| ---- | ---- | ---- | ---- | ---- | ---- |
 | Language         |  1          |  2          |  3          |  4          |  Total    |
+| ---- | ---- | ---- | ---- | ---- | ---- |
 | French           |    19.27 s    |    1.18 s    |  0.08 s    |    25.40 s    |    45.92 s   |
 | Finnish          |  3.59  s    |  0.19 s    |  0.29 s    |  17.99 s    |  22.05 s   |
-| Northern S\’ami    |  3.74  s    |  0.23 s    |    2.00 s    |  78.84 s    |  84.81 s   | 
+| Northern S\’ami    |  3.74  s    |  0.23 s    |    2.00 s    |  78.84 s    |  84.81 s   |
 
     \vskip0.5cm
-    
+
     *  The entry parsing and compilation
     (cf. Sect [(see: subsec:lexc-tokenisation)](#subsec:lexc-tokenisation))
     *  Union of entries (cf. Sect [(see: subsec:lexc-union)](#subsec:lexc-union))
     *  Morphotactic filtering
     (cf. Sect [(see: subsec:lexc-morphotax)](#subsec:lexc-morphotax))
     *  Other phases (Alphabet discovery, minimizing results, etc.)
-    
+
 (Caption: <span style='font-variant: small-caps'>HFST-LexC</span> performance broken into the different
 phases of the compilation process. Times are in
 seconds.)<a id="fig:lexicon-compilation-phases">(¶ fig:lexicon-compilation-phases)</a>
@@ -1047,13 +1045,13 @@ seconds.)<a id="fig:lexicon-compilation-phases">(¶ fig:lexicon-compilation-phas
   <div style='text-align: center'>
 
 
-| ---- | ---- | ---- | ---- | ---- |
 | Language  |  1      |  2      |  3      |  Total    |
+| ---- | ---- | ---- | ---- | ---- |
 | Finnish  |    0.10 s    |    0.04 s    |  1.27 s    |  1.41 s   |
 | Northern S\’ami    |  2.11 s    |  1.35 s    |    24.77 s    |    28.23 s   |
 
     \vskip0.5cm
-    
+
     *  Reading the input-file and creating auxiliary
 data-structures. Compiling rule-contexts into transducers.
     *  Identifying and resolving rule-conflicts.
@@ -1062,7 +1060,7 @@ surface-requirements and context-restrictions. Intersecting subrules
 of rules with variables and double-sided rules, in order to form
 the final rule-transducers. Minimizing and storing the
 rule-transducers.
-    
+
 (Caption: <span style='font-variant: small-caps'>HFST-TwolC</span> performance broken into the different
 phases of the compilation process. Times are in
 seconds.)<a id="fig:grammar-compilation-phases">(¶ fig:grammar-compilation-phases)</a>
@@ -1074,18 +1072,18 @@ seconds.)<a id="fig:grammar-compilation-phases">(¶ fig:grammar-compilation-phas
   <div style='text-align: center'>
 
 
-| ---- | ---- | ---- | ---- | ---- | ---- |
 | Language  |  1      |  2      |  3      |  4      |  Total    |
+| ---- | ---- | ---- | ---- | ---- | ---- |
 | Finnish  |  0.10 s    |  1.44 s    |  0.36 s    |  0.07 s    |  1.97 s   |
 | Northern S\’ami    |    0.90 s    |    154.60 s    |    18.26 s    |    0.41 s    |    174.17 s   |
 
     \vskip0.5cm
-    
+
     *  Reading lexicon-transducer and rule-transducers.
     *  Computing intersecting composition.
     *  Determinizing and minimizing the result of the operation.
     *  Storing the minimized result of the operation.
-    
+
 (Caption: <span style='font-variant: small-caps'>HFST-Compose-Intersect</span> performance broken down
 into the different phases of the compilation process. Times are in
 seconds.)<a id="fig:ci-phases">(¶ fig:ci-phases)</a>
@@ -1101,12 +1099,13 @@ maximal memory consumption during the lexicon compilations using the
   <div style='text-align: center'>
 
 
-| ---- | ---- | ---- | ---- |
 | Language  |    <span style='font-variant: small-caps'>HFST-LexC</span>    |    <span style='font-variant: small-caps'>HFST-TwolC</span>    |    <span style='font-variant: small-caps'>HFST-Compose-Intersect</span>   |
+| ---- | ---- | ---- | ---- |
 | French  |  596 MB    |  —    |  —   |
 | Finish  |  181 MB    |  13 MB    |  48 MB   |
 | Northern S\’ami    |    180 MB    |    291 MB    |    1090 MB (1.1 GB)   |
 | Language  |    Xerox <span style='font-variant: small-caps'>LexC</span>    |    Xerox <span style='font-variant: small-caps'>TwolC</span>    |  |
+| ---- | ---- | ---- | ---- |
 | French  |    85 MB    |    —    |    —   |
 | Finnish  |    28 MB    |    3 MB    |    —   |
 | Northern S\’ami    |    13 MB    |    12 MB    |    —   |
@@ -1146,7 +1145,7 @@ the development of full-scale morphological analyzers. Even large
 morphological analyzers like the analyzers for French and Northern
 S\’ami already compile in less than ten minutes.
 
-### HFST-LexC Performance 
+### HFST-LexC Performance
 
 Comparing the <span style='font-variant: small-caps'>HFST-LexC</span> compilation times for French and
 Northern S\’ami given in Table [(see: fig:lexicon-compilation-phases)](#fig:lexicon-compilation-phases),
@@ -1176,7 +1175,7 @@ consumes well over half of the compile-time of the Northern S\’ami
 lexicon (46,85 seconds), which we estimate is caused by a large number
 of lexicons containing epsilon entries giving rise to indeterminism.
 
-### HFST-TwolC Performance 
+### HFST-TwolC Performance
 
 Examining the <span style='font-variant: small-caps'>HFST-TwolC</span> compile-times for Finnish and
 Northern S\’ami shows, that the last phase, i.e. combining contexts
@@ -1195,7 +1194,7 @@ intersecting composition is also affected by the lack of an
 *other-symbol*, since intersecting composition is sensitive to
 the number of transitions in the rule-transducers.
 
-### Parallel Rules vs. Cascaded Rules 
+### Parallel Rules vs. Cascaded Rules
 
 It is interesting to see, that the two-level <span style='font-variant: small-caps'>HFST-LexC</span> and
 <span style='font-variant: small-caps'>HFST-TwolC</span> approach to compiling the <span style='font-variant: small-caps'>OMorFi</span> analyzer
@@ -1230,7 +1229,7 @@ the development process as it allows an increased number of test
 cycles during a fixed time-span.
 
 ### The *Other-symbol*
- 
+
 We have demonstrated, that the morphology tools <span style='font-variant: small-caps'>HFST-LexC</span>,
 <span style='font-variant: small-caps'>HFST-TwolC</span> and <span style='font-variant: small-caps'>HFST-Intersect-Compose</span> provide a
 realistic open-source alternative for constructing morphological
@@ -1251,7 +1250,7 @@ on the performance of both <span style='font-variant: small-caps'>HFST-TwolC</sp
 symbols in the alphabet of the grammar. We believe, that this may help
 us achieve rule compile-times closer to those of Xerox.
 
-### Future Directions 
+### Future Directions
 
 In our future research, we intend to look at various aspects of and
 methods for integrating the creation and use of weighted transducers
@@ -1307,8 +1306,8 @@ Two-Level Morphology: A General Computational Model for Word-Form Recognition an
 University of Helsinki, Department of General Linguistics (1983).
 
 * [1987]{Karttunen87}
-Karttunen, L., Koskenniemi, K., Kaplan, R.: 
-A Compiler for Two-Level Phonological Rules. 
+Karttunen, L., Koskenniemi, K., Kaplan, R.:
+A Compiler for Two-Level Phonological Rules.
 CSLI Publications (1987)
 <http://www2.parc.com/istl/members/karttune/publications/archive/twolcomp.pdf>.
 
@@ -1318,8 +1317,8 @@ Two-Level Rule Compiler, Technical Report ISTL-92-2, Xerox Palo Alto Research Ce
 <http://www.xrce.xerox.com/competencies/content-analysis/fssoft/docs/twolc-92/twolc92.html>.
 
 * [1993]{Karttunen93}
-Karttunen, L.: 
-Finite-State Lexicon Compiler. 
+Karttunen, L.:
+Finite-State Lexicon Compiler.
 Technical Report, ISTL-NLTT2993-04-02, Xerox Palo Alto Research Center (1993)
 Palo Alto, California.
 
@@ -1346,7 +1345,7 @@ CSLI Publications (2003).
 
 * [2004]{vaucanson}
 Lombardy, S., R\’egis-Gianas, Y., Sakharovitch, J.:
-Introducing Vaucanson. 
+Introducing Vaucanson.
 Theoretical Computer Science 328, 77–96 (2004)
 
 * [2005]{sfst}
