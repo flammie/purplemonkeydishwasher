@@ -370,8 +370,6 @@ shown in Table [(see: filter-example)](#filter-example).
 
 
 **Table:**[!h]
-  \center
-  <div style='font-size: small'>
 
 
 | <span class='math'>L^{★} =</span>  |  <span class='math'>(  J_{Root} a k k u J_{N1b}  `|`  J_{N1b} J_{NounSg}  |</span> |
@@ -381,7 +379,6 @@ shown in Table [(see: filter-example)](#filter-example).
 | <span class='math'>L^{★} • F^{′} =</span>  |  <span class='math'>J_{Root} a k k u J_{N1b}  J_{N1b} J_{NounSg}</span> |
 |  |  <span class='math'>J_{NounSg} +sg:l +all:l ε:e J_{Ennd}  J_{Ennd} J_{\#}</span>|
 
-  </div>
 (Caption: Filtering a single path in <span style='font-variant: small-caps'>HFST-LexC</span> with a
 morphotax filter.)  <a id="filter-example">(¶ filter-example)</a>
 <!-- end table -->
