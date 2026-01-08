@@ -372,7 +372,7 @@ shown in Table [(see: filter-example)](#filter-example).
 **Table:**[!h]
 
 
-| <span class='math'>L^{★} =</span>  |  <span class='math'>(  J_{Root} a k k u J_{N1b}  `|`  J_{N1b} J_{NounSg}  |</span> |
+| <span class='math'>L^{★} =</span>  |  <span class='math'>(  J_{Root} a k k u J_{N1b}  `|`  J_{N1b} J_{NounSg}  </span> |
 | ---- | ---- |
 |      |  <span class='math'>J_{NounSg} +sg:l +all:l ε:e J_{Ennd}  `|`  J_{Ennd} J_{\#}  )^{★}</span> |
 | <span class='math'>F =</span>          |  <span class='math'>J_{Root} J_{Root} `|` J_{N1b} J_{N1b} `|` J_{NounSg} J_{NounSg} `|` J_{Ennd} J_{Ennd}</span> |
@@ -619,7 +619,6 @@ surface-vowel is `u`, which is a back-vowel. This violates the
 
 
 **Table:**
-  <div style='text-align: center'>
 
 
 | `k`  |  `y`  |  ` K`  |  `y`  |  ` A `  |
@@ -629,7 +628,6 @@ surface-vowel is `u`, which is a back-vowel. This violates the
 |  ` k`  |  `y`  |  `k`  |  `y`  |  `a `  |
 | ` k`  |  `u`  |  `m`  |  `p`  |  `u`  | `\"a`` `|
 
-  </div>
 (Caption: Symbol-pair correspondences for demonstrating the
 vowel-harmony rules.)<a id="cor:1">(¶ cor:1)</a>
 <!-- end table -->
@@ -931,7 +929,6 @@ grammar.
 
 
 **Table:**[!h]
-  <div style='text-align: center'>
 
 
 |  | <span style='font-variant: small-caps'>HFST-LexC</span>}  |  | {<span style='font-variant: small-caps'>HFST-TwolC</span>} | | | |
@@ -941,8 +938,6 @@ grammar.
 | Finnish  |  213    |  94,278    |  301    |  169    |  12    |  76   |
 | Northern S\’ami    |  870    |  105,503    |  428    |  313    |  105    |  555   |
 
-    \vskip0.5cm
-  </div>
 (Caption: Some numbers characterizing the lexicons and two-level
 grammars we used for testing.)<a id="fig:lexicon-sizes">(¶ fig:lexicon-sizes)</a>
 <!-- end table -->
@@ -987,7 +982,6 @@ rules is for Finnish.
 
 
 **Table:**[!h]
-  <div style='text-align: center'>
 
 
 | Language  |    <span style='font-variant: small-caps'>HFST</span> tools    |    foma <span style='font-variant: small-caps'>LexC</span>    |    <span style='font-variant: small-caps'>SFST</span> compiler    |    Xerox tools   |
@@ -996,12 +990,10 @@ rules is for Finnish.
 | Finnish          |  25.42 s    |  —         |    1682.04 s    |  1.83 s  |
 | Northern S\’ami    |    287.21 s    |  —         |  —           |    24.61 s  |
 
-    \vskip0.5cm
 (Caption: Total compile-times using <span style='font-variant: small-caps'>HFST</span> tools, foma
     <span style='font-variant: small-caps'>LexC</span>, <span style='font-variant: small-caps'>SFST</span> compiler and Xerox tools to compile
 lexical transducers. Times are in
 seconds.)<a id="fig:lexicon-compilation-comparisons">(¶ fig:lexicon-compilation-comparisons)</a>
-  </div>
 <!-- end table -->
 
 The following three Tables [(see: fig:lexicon-compilation-phases)](#fig:lexicon-compilation-phases),
@@ -1013,7 +1005,6 @@ explained below the tables.
 
 
 **Table:**[!h]
-  <div style='text-align: center'>
 
 
 | Language         |  1          |  2          |  3          |  4          |  Total    |
@@ -1022,7 +1013,6 @@ explained below the tables.
 | Finnish          |  3.59  s    |  0.19 s    |  0.29 s    |  17.99 s    |  22.05 s   |
 | Northern S\’ami    |  3.74  s    |  0.23 s    |    2.00 s    |  78.84 s    |  84.81 s   |
 
-    \vskip0.5cm
 
     *  The entry parsing and compilation
     (cf. Sect [(see: subsec:lexc-tokenisation)](#subsec:lexc-tokenisation))
@@ -1034,20 +1024,16 @@ explained below the tables.
 (Caption: <span style='font-variant: small-caps'>HFST-LexC</span> performance broken into the different
 phases of the compilation process. Times are in
 seconds.)<a id="fig:lexicon-compilation-phases">(¶ fig:lexicon-compilation-phases)</a>
-  </div>
 <!-- end table -->
 
 
 **Table:**[!h]
-  <div style='text-align: center'>
 
 
 | Language  |  1      |  2      |  3      |  Total    |
 | ---- | ---- | ---- | ---- | ---- |
 | Finnish  |    0.10 s    |    0.04 s    |  1.27 s    |  1.41 s   |
 | Northern S\’ami    |  2.11 s    |  1.35 s    |    24.77 s    |    28.23 s   |
-
-    \vskip0.5cm
 
     *  Reading the input-file and creating auxiliary
 data-structures. Compiling rule-contexts into transducers.
@@ -1061,20 +1047,16 @@ rule-transducers.
 (Caption: <span style='font-variant: small-caps'>HFST-TwolC</span> performance broken into the different
 phases of the compilation process. Times are in
 seconds.)<a id="fig:grammar-compilation-phases">(¶ fig:grammar-compilation-phases)</a>
-  </div>
 <!-- end table -->
 
 
 **Table:**[!h]
-  <div style='text-align: center'>
 
 
 | Language  |  1      |  2      |  3      |  4      |  Total    |
 | ---- | ---- | ---- | ---- | ---- | ---- |
 | Finnish  |  0.10 s    |  1.44 s    |  0.36 s    |  0.07 s    |  1.97 s   |
 | Northern S\’ami    |    0.90 s    |    154.60 s    |    18.26 s    |    0.41 s    |    174.17 s   |
-
-    \vskip0.5cm
 
     *  Reading lexicon-transducer and rule-transducers.
     *  Computing intersecting composition.
@@ -1084,7 +1066,6 @@ seconds.)<a id="fig:grammar-compilation-phases">(¶ fig:grammar-compilation-phas
 (Caption: <span style='font-variant: small-caps'>HFST-Compose-Intersect</span> performance broken down
 into the different phases of the compilation process. Times are in
 seconds.)<a id="fig:ci-phases">(¶ fig:ci-phases)</a>
-  </div>
 <!-- end table -->
 
 Finally, Table [(see: fig:memory-consumption)](#fig:memory-consumption) gives an indication of the
@@ -1093,7 +1074,6 @@ maximal memory consumption during the lexicon compilations using the
 
 
 **Table:**[!h]
-  <div style='text-align: center'>
 
 
 | Language  |    <span style='font-variant: small-caps'>HFST-LexC</span>    |    <span style='font-variant: small-caps'>HFST-TwolC</span>    |    <span style='font-variant: small-caps'>HFST-Compose-Intersect</span>   |
@@ -1107,11 +1087,9 @@ maximal memory consumption during the lexicon compilations using the
 | Finnish  |    28 MB    |    3 MB    |    —   |
 | Northern S\’ami    |    13 MB    |    12 MB    |    —   |
 
-    \vskip0.5cm
 (Caption: Maximum space required using <span style='font-variant: small-caps'>HFST</span> and Xerox
 utilities to compile the transducers. Space indications are in
 megabytes (MB).)<a id="fig:memory-consumption">(¶ fig:memory-consumption)</a>
-  </div>
 <!-- end table -->
 
 All tests were conducted on an Intel computer with a Xeon E5450 64 bit
