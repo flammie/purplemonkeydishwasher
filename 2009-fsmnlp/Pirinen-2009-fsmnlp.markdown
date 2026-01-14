@@ -16,14 +16,14 @@
 }
 <!-- fi -->
 
-# Weighting Finite-State Morphological Analyzers   using <span style='font-variant: small-caps'>HFST</span> Tools   ¹ 
+# Weighting Finite-State Morphological Analyzers   using <span style='font-variant: small-caps'>HFST</span> Tools   ¹
 
 <span style='font-size:8pt'>(¹ Authors' archival version: The official publication was in the Proceedings of   FSMNLP 2009.)</span>
 
-**Authors:** Krister Lindén 
+**Authors:** Krister Lindén
 and
 
-Tommi Pirinen 
+Tommi Pirinen
 
 University of Helsinki
 
@@ -149,7 +149,7 @@ and for an implementation of computational morphology, see Koskenniemi
 [(cites: koskenniemi1983)](#koskenniemi1983). In Section [(see: Sect12)](#Sect12), we present an outline
 of how to implement the morphology in sublexicons which are useful for
 weighting.
- 
+
 ### Inflection in Finnish
 <a id="Sect11">(¶ Sect11)</a>
 
@@ -157,7 +157,7 @@ In Finnish morphology, the inflection of typical nouns produces
 several thousands of forms for the productive inflection. E.g. a noun
 has more than 12 cases in singular and plural as well as possessive
 suffixes and clitic particles resulting in more than 2000 forms for
-every noun. 
+every noun.
 
 Mostly the traditional linguistically motivated morphological analysis
 of Finn\-ish is based on visible morphemes. However, for illustrational
@@ -235,7 +235,7 @@ Pirinen’s analyzer has a fully productive noun compounding
 mechanism. Fully productive noun compounding means that it allows
 compounds of arbitrary length with any combination of nominative
 singulars, genitive singulars, or genitive plurals in the initial part
-and any inflected form of a noun as the final part. 
+and any inflected form of a noun as the final part.
 
 The morphotactic combination of morphemes is achieved by combining
 sublexicons as defined in [(cites: beesley2004)](#beesley2004). We use the open source
@@ -243,7 +243,7 @@ software called <span style='font-variant: small-caps'>HFST-LexC</span> with a s
 Xerox LexC tool. The interested reader is referred to
 [(cites: beesley2004)](#beesley2004) for an exposition of the LexC syntax. The
 <span style='font-variant: small-caps'>HFST-LexC</span> tool extends the syntax with support for adding
-weights on the lexical entries. 
+weights on the lexical entries.
 
 We note that the noun compounding can be decomposed into two
 concatenatable lexicons separated by a word boundary marker, i.e. any
@@ -257,7 +257,6 @@ structure of the lexicon, see [(cites: linden09nodalida)](#linden09nodalida).
 
 **Figure:**[h!]
 <!-- centering -->
-  <div style='font-size: xx-small'>
 
 ```
 
@@ -277,7 +276,6 @@ isän  Compound  "weight: 0, gloss: father’s" ;
 
 ```
 
-  </div>
 (Caption: Unweighted fragment for
     \{*CompoundNonFinalNoun*\)<span class='math'>^*</span> i.e. *noun
 prefixes*.}<a id="fig:unweighted1">(¶ fig:unweighted1)</a>
@@ -286,7 +284,6 @@ prefixes*.}<a id="fig:unweighted1">(¶ fig:unweighted1)</a>
 
 **Figure:**[h!]
 <!-- centering -->
-  <div style='font-size: xx-small'>
 
 ```
 
@@ -303,13 +300,12 @@ LEXICON ##
 
 ```
 
-  </div>
 (Caption: Unweighted fragment for *CompoundFinalNoun*, i.e.
     *noun forms*.)<a id="fig:unweighted2">(¶ fig:unweighted2)</a>
 <!-- end figure -->
 
 
-## Methodology  
+## Methodology
 <a id="Sect3">(¶ Sect3)</a>
 
 Assume that we want to know the probability of a morphological
@@ -393,7 +389,6 @@ the software library for weighted finite-state transducers.
 
 **Figure:**[h!]
 <!-- centering -->
-  <div style='font-size: xx-small'>
 
 ```
 
@@ -422,7 +417,6 @@ LEXICON ##
 
 ```
 
-  </div>
 (Caption: Structure weighting scheme using token penalties on the
 output language. Note that the functions in the comment field are
 placeholders for the actual weights.)<a id="fig:weighted1">(¶ fig:weighted1)</a>
@@ -531,12 +525,11 @@ the number of tokens with no reading.
 <!-- centering -->
 (Caption: Baseline of the tagger test data.
   )<a id="tab:taggerdata">(¶ tab:taggerdata)</a>
-  <div style='font-size: xx-small'>
 
 
-| ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 | Train    |    Test    |    <span class='math'>1^{st}</span>   |    <span class='math'>n^{th}</span>    |    No    |    No    |    Comment  |
 | Year    |    Year    |    Correct (%)    |    Correct (%)    |    Correct (%)    |    Analysis (%)   |
+| ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 | 1995  |  1995  |  96.3  |  3.7  |  0.0  |  0.0  |   Max.  |
 | 1995  |  1996  |  92.2  |  3.3  |  0.3  |  4.1  |  |
 | 1995  |  1997  |  91.9  |  3.3  |  0.3  |  4.6  |  |
@@ -547,7 +540,6 @@ the number of tokens with no reading.
 | 1997  |  1996  |  90.1  |  3.2  |  0.4  |  6.2  |  |
 | 1997  |  1997  |  96.7  |  3.3  |  0.0  |  0.0  |    Max.  |
 
-  </div>
 <!-- end table -->
 
 
@@ -576,12 +568,11 @@ upper limit or reference.
 <!-- centering -->
 (Caption: Lexicon-based unigram tagger results for Finnish.
   )<a id="tab:taggerresults1">(¶ tab:taggerresults1)</a>
-  <div style='font-size: xx-small'>
 
 
-| ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 | Train    |    Test    |    <span class='math'>1^{st}</span>   |    <span class='math'>n^{th}</span>    |    No    |    No    |    Comment  |
 | Year    |    Year    |    Correct (%)    |    Correct (%)    |    Correct (%)    |    Analysis (%)   |
+| ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 | 1995  |  1995  |  68.2  |  1.2  |  12.0  |  18.5  |    Max.  |
 | 1995  |  1996  |  69.4  |  1.3  |  12.0  |  17.3  |  |
 | 1995  |  1997  |  69.4  |  1.4  |  11.7  |  17.5  |  |
@@ -592,7 +583,6 @@ upper limit or reference.
 | 1997  |  1996  |  69.4  |  1.3  |  12.0  |  17.3  |  |
 | 1997  |  1997  |  69.6  |  1.3  |  11.7  |  17.5  |    Max.  |
 
-  </div>
 <!-- end table -->
 
 
@@ -611,12 +601,11 @@ testing and training on the same year as an upper limit or reference.
 <!-- centering -->
 (Caption: Extended lexicon-based unigram tagger results for Finnish.
   )<a id="tab:taggerresults2">(¶ tab:taggerresults2)</a>
-  <div style='font-size: xx-small'>
 
 
-| ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 | Train    |    Test    |    <span class='math'>1^{st}</span>   |    <span class='math'>n^{th}</span>    |    No    |    No    |    Comment  |
 | Year    |    Year    |    Correct (%)    |    Correct (%)    |    Correct (%)    |    Analysis (%)   |
+| ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 | 1995  |  1995  |  95.9  |  4.1  |  0.0  |  0.0  |    Max.  |
 | 1995  |  1996  |  93.3  |  4.0  |  0.7  |  2.0  |  |
 | 1995  |  1997  |  93.1  |  4.0  |  0.6  |  2.3  |  |
@@ -627,7 +616,6 @@ testing and training on the same year as an upper limit or reference.
 | 1997  |  1996  |  92.1  |  3.9  |  0.9  |  3.1  |  |
 | 1997  |  1997  |  96.3  |  3.7  |  0.0  |  0.0  |    Max.  |
 
-  </div>
 <!-- end table -->
 
 ## Discussion and Further Research
@@ -645,11 +633,11 @@ The cases where correct tag is not the first are dominated by the already
 known ambiguities where a token has multiple readings and both exist in corpus.
 One big class of these are verbs like *olla* or negation verb *ei*,
 since in perfect tense’s passive the auxiliary is still in present tense
-active form (e.g. *on kerrottu* ‘has been told’ is 
+active form (e.g. *on kerrottu* ‘has been told’ is
 `olla+pass+ind+pres kerrottu+pass+pcp2`
 while most likely reading of *on* ‘is’ is `olla+act+ind+pres+sg3`).
 The majority of variation between adjective readings and participles results
-also in number of wrong choices in tag strings with A or V PCP2. 
+also in number of wrong choices in tag strings with A or V PCP2.
 Also for many tokens the variation between adverb and adposition is purely
 syntactical and as such unigram tagger will fail in minority of cases.
 Also for handful of verbs, the A infinitive form falls together with
@@ -661,23 +649,21 @@ of compounds in analyses where first is not correct ranges from 6 % to 12 %.
 <!-- centering -->
 (Caption: Error analysis for cases where correct reading exists.
   )<a id="tab:incorrect1">(¶ tab:incorrect1)</a>
-  <div style='font-size: xx-small'>
 
 
-| ---- | ---- | ---- | ---- |
 | Error Type  |  Baseline  |  Dictionary  |  Combined |
+| ---- | ---- | ---- | ---- |
 | Tagged ‘ADV’/‘PSP’  |  4112  |  2561  |  4331 |
 | Tagged ‘A SG NOM’/‘V PCP2 SG NOM’  |  3093  |  885  |  3388 |
 | Token ‘on’  |  3855  |  0  |  3855 |
 | Token ‘ei’  |  1170  |  0  |  1170 |
 | Token ‘ollut’  |  735  |  0  |  735 |
 
-  </div>
 <!-- end table -->
 
 ### Analyses without Correct Tag
 
-For analyses where correct analysis was not among the readings, 
+For analyses where correct analysis was not among the readings,
 In corpus there’s a handful of underspecified analyses, such as (blah A),
 which aren’t produced at all by dictionary based analyzer, but assumably the
 corpus’s syntactic tagging mechanism has had use for those. Also for some
@@ -691,16 +677,14 @@ year.
 <!-- centering -->
 (Caption: Error analysis for cases where correct reading is missing.
   )<a id="tab:incorrect1">(¶ tab:incorrect1)</a>
-  <div style='font-size: xx-small'>
 
 
-| ---- | ---- | ---- | ---- |
 | Error Type  |  Baseline  |  Dictionary  |  Combined |
+| ---- | ---- | ---- | ---- |
 | Tagged ‘A SG NOM’  |  24  |  771  |  82 |
 | Tagged ‘V PCP2 SG NOM’  |  20  |  4212  |  50 |
 | Tagged ‘A’  |  0  |  3300  |  0 |
 
-  </div>
 <!-- end table -->
 
 ### No Analysis
@@ -711,7 +695,7 @@ shortcomings for the analyzer. For other analyzers, such as baseline or
 extended, the main problem is proper nouns, many of which may appear only in
 one years issues. Also, since the dictionary based analyzer lacks productive
 numeral formation, many of the complex numeral expressions (e.g.
-*5—15-vuotiaat* ‘5-to-15-year-olds’)  or specific numbers (e.g. 
+*5—15-vuotiaat* ‘5-to-15-year-olds’)  or specific numbers (e.g.
 *4029354*)
 are missing when using training corpora from one year to test other years
 analyses.
@@ -721,17 +705,15 @@ analyses.
 <!-- centering -->
 (Caption: Error analysis for cases where no results are given.
   )<a id="tab:incorrect1">(¶ tab:incorrect1)</a>
-  <div style='font-size: xx-small'>
 
 
-| ---- | ---- | ---- | ---- |
 | Error Type  |  Baseline  |  Dictionary  |  Combined |
+| ---- | ---- | ---- | ---- |
 | Proper nouns  |  17795  |  106101  |  17379 |
 | Token ‘klo’  |  0  |  13242  |  0 |
 | Token ‘mk’  |  0  |  5432  |  0 |
 | Tag NUM  |  699  |  7830  |  388 |
 
-  </div>
 <!-- end table -->
 
 ### Other Observations
@@ -756,7 +738,7 @@ Finnish with a full morphological tag set using only a unigram model
 is most likely the result of the highly inflectional and compounding
 morphology of Finnish with free word order. In order for a language to
 achieve a free word order, morphological ambiguities have to be
-resolvable locally almost without context. 
+resolvable locally almost without context.
 
 As the inflected Finnish compounds correspond to noun phrases or
 prepositional phrases in English. This also sheds some additional
@@ -849,9 +831,9 @@ with <span style='font-variant: small-caps'>HFST-LexC</span>.
 \bibitem{listenmaa2009}
 Inari Listenmaa.
 \newblock 2009.
-\newblock Combining Word Lists: Nykysuomen sanalista, Joukahainen-sanasto 
-and Käänteissanakirja (in Finnish). 
-\newblock Bachelor’s Thesis. Department of Linguistics. University of Helsinki. 
+\newblock Combining Word Lists: Nykysuomen sanalista, Joukahainen-sanasto
+and Käänteissanakirja (in Finnish).
+\newblock Bachelor’s Thesis. Department of Linguistics. University of Helsinki.
 
 \bibitem{marek2006}
 Torsten Marek.
